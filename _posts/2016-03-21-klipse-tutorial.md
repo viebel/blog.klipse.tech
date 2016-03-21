@@ -5,16 +5,18 @@ date:   2016-03-21 07:57:46 +0200
 categories: clojure
 ---
 
-In a [precedent post][klipse-presentation-url] we explained what is [KLIPSE][app-url] and what was our motivation to build it.
+
+
+In a [precedent post][klipse-presentation-url] we explained what is [KLIPSE][klipse-presentation-url] and what was our motivation to build it.
 In this post, we propose a basic tutorial to explain step by step how KLIPSE is build.
 
-Tutorial Summary
-----------
+### Tutorial Summary
 
 1. [init project](#init-project)
 2. [figwheel](#figwheel)
 3. [compiler functions](#compiler-functions)
 4. [om.next](#omnext)
+
 
 1- Init Project
 ----------
@@ -214,7 +216,8 @@ In this step you can test the compilation functions using the repl.
 ~~~
 
 
-### 4- om.next
+4- om.next
+----------
 
 [Om.next][om.next-url] is a great client framework based on [React.js][react.js-url]. It wasn't necessary to use it for our small app but it was an opportunity to discover it.
 
@@ -378,7 +381,8 @@ and our 4 textareas
                                     :readOnly true}))))
 ~~~
 
-Go to [http://localhost:3449/][figwheel-url], you have an awesome clojurescript compiler.
+Go to [http://localhost:3449/][figwheel-url], you have an awesome clojurescript compiler !!!
+Now let's go! fork it!
 
 [figwheel-url]: http://localhost:3449/
 [klipse-presentation-url]: http://raphaelboukara.github.io/clojure/2016/03/17/klipse.html
