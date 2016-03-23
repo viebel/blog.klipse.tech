@@ -3,6 +3,8 @@ layout: post
 title:  "KLIPSE: how we built it?"
 date:   2016-03-21 07:57:46 +0200
 categories: clojure
+thumbnail: assets/klipse.png
+description: "In this post, we propose a basic tutorial to explain step by step how KLIPSE is build."
 ---
 
 
