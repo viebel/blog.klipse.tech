@@ -1,0 +1,43 @@
+---
+layout: post
+title:  "Dead code elimination in clojurescript"
+date:   2016-03-24 00:25:46 +0200
+categories: clojure
+thumbnail: assets/klipse.png
+description: "A simple example of dead code elimination in clojurescript, using KLIPSE"
+
+---
+
+Do you see any substantial difference between the two pieces of code below?
+
+**Code #1:**
+
+~~~clojure
+(if 2 3)
+~~~
+
+**Code #2:**
+
+~~~clojure
+(def x (if 2 3))
+~~~
+
+They seem to be quite the same, so you'd expect their js transpiled code to be the same. 
+
+Let's check it with [KLIPSE][app-url-with-input] (Don't forget to press `Ctrl-Enter`):
+
+
+<iframe frameborder="0" width="100%" height="300px"
+    src= 
+    "http://app.gadjett.com/cljs_compiler/index-dev.html?js_only=1&cljs_in=(if%202%203)%0A(def%20x%20(if%202%203))">
+    </iframe>
+
+
+Do you see what's going on here?
+
+**Code #1** is completely dead code no matter what code will come after it. Therefore it has been completly eliminated by the cljs transpiler!
+
+Feel free to continue to play with dead code with [KLIPSE][app-url-with-input].
+
+[app-url]: http://app.gadjett.com/cljs_compiler/index-dev.html
+[app-url-with-input]: http://app.gadjett.com/cljs_compiler/index-dev.html?js_only=1&cljs_in=(if%202%203)%0A(def%20x%20(if%202%203)) 
