@@ -7,10 +7,14 @@ thumbnail: assets/klipse.png
 description: "In this post, we propose a basic tutorial to explain step by step how KLIPSE is build."
 ---
 
+In a [precedent post][klipse-presentation-url] you can read the explanation about what is [KLIPSE][klipse-presentation-url] and what was the motivation to build it.
+In this post, you will find a basic tutorial to explain step by step how KLIPSE is build.
 
+Final render of the tutorial: 
 
-In a [precedent post][klipse-presentation-url] we explained what is [KLIPSE][klipse-presentation-url] and what was our motivation to build it.
-In this post, we propose a basic tutorial to explain step by step how KLIPSE is build.
+![KLIPSE Screenshot Tutorial](/assets/klipse_tutorial_final_render.png)
+
+Of course, the design of the app not the subject of the tutorial.
 
 ### Tutorial Summary
 
@@ -92,7 +96,7 @@ Now open the `index.html` file in a chrome browser, open the console, great! you
 2- figwheel
 ----------
 
-We use [figwheel][figwheel-url] to make our devlopment more funny. Add figwheel plugin to your `project.clj` and `:figwheel true` configuration to your dev compilation configuration:
+It is a good idea to use [figwheel][figwheel-url] to make your devlopment more funny. Add figwheel plugin to your `project.clj` and `:figwheel true` configuration to your dev compilation configuration:
 
 ~~~ clojure
 (defproject cljs-compiler "0.1.0-SNAPSHOT"
@@ -124,7 +128,7 @@ or
 rlwrap lein figwheel
 ~~~
 
-Open `http://localhost:3449/` in chrome, open console, there is our "Hello world!" log. Now, update `core.cljs`:
+Open `http://localhost:3449/` in chrome, open console, there is your "Hello world!" log. Now, update `core.cljs`:
 
 ~~~ clojure
 (ns cljs_compiler.core)
@@ -157,7 +161,7 @@ Learn more about `cljs.js` [here][cljs.js-url].
     [cljs.js :as cljs]))
 ~~~
 
-We need a callback function as util to handle errors compilation.
+You'll need a callback function as util to handle errors compilation.
 
 ~~~ clojure
 (defn callback [{:keys [value error]}]
@@ -221,7 +225,7 @@ In this step you can test the compilation functions using the repl.
 4- om.next
 ----------
 
-[Om.next][om.next-url] is a great client framework based on [React.js][react.js-url]. It wasn't necessary to use it for our small app but it was an opportunity to discover it.
+[Om.next][om.next-url] is a great client framework based on [React.js][react.js-url]. It wasn't necessary to use it for this small app but it was a cute opportunity to discover it.
 
 Add om.next dependencies to `project.clj` 
 
@@ -333,7 +337,7 @@ and of course test all that using the repl:
 
 
 OK! now you need UI components:
-We build an om component that contains 4 textarea, one for input and one for each compile/eval results.
+Build an om component that contains 4 textarea, one for input and one for each compile/eval results.
 
 ~~~ clojure
 (defui CompilerUI
@@ -354,7 +358,7 @@ We build an om component that contains 4 textarea, one for input and one for eac
         (evaluate-js-ui $)))))
 ~~~
 
-and our 4 textareas
+and the 4 textareas
 
 ~~~clojure
 (defn input-ui [reconciler]

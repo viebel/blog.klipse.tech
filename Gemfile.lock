@@ -130,6 +130,3 @@ DEPENDENCIES
   github-pages (= 66)
   jekyll-feed
   json
-
-BUNDLED WITH
-   1.11.2
