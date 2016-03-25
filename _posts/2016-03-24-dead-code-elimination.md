@@ -29,7 +29,7 @@ Let's check it with [KLIPSE][app-url-with-input] (Don't forget to press `Ctrl-En
 
 <iframe frameborder="0" width="100%" height="300px"
     src= 
-    "http://app.gadjett.com/cljs_compiler/index-dev.html?js_only=1&cljs_in=(if%202%203)%0A(def%20x%20(if%202%203))">
+    "http://app.klipse.tech?js_only=1&cljs_in=(if%202%203)%0A(def%20x%20(if%202%203))">
     </iframe>
 
 
@@ -39,5 +39,5 @@ Do you see what's going on here?
 
 Feel free to continue to play with dead code with [KLIPSE][app-url-with-input].
 
-[app-url]: http://app.gadjett.com/cljs_compiler/index-dev.html
-[app-url-with-input]: http://app.gadjett.com/cljs_compiler/index-dev.html?js_only=1&cljs_in=(if%202%203)%0A(def%20x%20(if%202%203)) 
+[app-url]: http://app.klipse.tech
+[app-url-with-input]: http://app.klipse.tech?js_only=1&cljs_in=(if%202%203)%0A(def%20x%20(if%202%203)) 
