@@ -20,7 +20,7 @@ It turns out that with bootstrapped ClojureScript, this is possible. You just ne
 
 First, it is helpful to understand that macros are really just special functions that are called at compile time. (A plug for Colin Jones’s awesome book Mastering Clojure Macros: he covers this topic in a sidebar on page 30.)
 
-Try defining a macro at a ClojureScript REPL:
+Try defining a macro in KLIPSE:
 
 <iframe frameborder="0" width="100%" height="200px"
     src= 
@@ -63,7 +63,7 @@ Let’s define `hello` as a macro in the `foo.core$macros` namespace.
 Notice that:
 
 1. to call `hello` as a macro, you must refer to its symbol in the non-macro `foo.core` namespace.
-2. to call macros, you must use [KLIPSE in dbg mode][klipse-dbg]{:target="_blank"} where it is compiled with `:optimizations :whitespace` - as macros are not yet supported with `:optimizations :whitespace` compilation.
+2. to call macros, you must use [KLIPSE in dbg mode][klipse-dbg]{:target="_blank"} where it is compiled with `:optimizations :none` - as macros are not yet supported with `:optimizations :whitespace` compilation.
 
 
 And it works! We were even able to print out `&form`, just for fun: open the browser console and you'll see the value of `&form`.
