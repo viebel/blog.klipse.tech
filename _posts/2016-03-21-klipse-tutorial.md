@@ -391,4 +391,4 @@ Go to [http://localhost:3449/][figwheel-url], you have an awesome clojurescript 
 Now let's go! fork it!
 
 [figwheel-url]: http://localhost:3449/
-[klipse-presentation-url]: http://raphaelboukara.github.io/clojure/2016/03/17/klipse.html
+[klipse-presentation-url]: http://blog.klipse.tech/clojure/2016/03/17/klipse.html
