@@ -12,7 +12,15 @@ description: > # this means to ignore newlines until "baseurl:"
    A journey into functionnal programming wonders, especially Clojure and Clojurescript
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://raphaelboukara.github.io/" # the base hostname & protocol for your site
-github_username:  raphaelboukara
+
+github_username_rb:  raphaelboukara
+twitter_username_rb: RaphaelBoukara
+email_rb: raphael.boukara@gmail.com
+
+github_username_ys:  viebel
+twitter_username_ys: viebel
+email_ys: viebel@gmail.com
+
 author: Raphael Boukara
 
 # Build settings
