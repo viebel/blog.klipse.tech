@@ -1,26 +1,27 @@
 ---
 layout: post
-title:  "Clojurescript's namespaces"
+title:  "Demistify clojurescript namespaces"
 date:   2016-03-27 17:32:46 +0200
 categories: clojure
 thumbnail: assets/klipse.png
-description: "Demystify clojurescript's namespaces"
+description: "Demystify clojurescript namespaces"
 ---
 
-If you are like me, you use a lot clojurescript namespaces, but without really understanding how it works under the hoods.
-Let's clarify using [KLIPSE][app-url]{:target="_blank"}:
+If you are like us, you use clojurescript namespaces for a while, but without really understanding how it works under the hoods.
+
+Let's clarify it by looking at the transpiled javascript code, with [KLIPSE][app-url]{:target="_blank"}:
 
 <iframe frameborder="0" width="100%" height="300px"
     src="http://app.klipse.tech/?cljs_in=(ns%20my-project.my-ns)%0A%0A(def%20x%201)%0A(def%20y%202)&js_only=1">
 </iframe>
 
-As you know, javascript doesn't support namespaces, clojurescript solves this using goog closure library, where namespaces are objects.
-All variables of your javascript namespace will be nested in this object.
+As you know, javascript doesn't support namespaces; clojurescript implements namespaces using the [google closure library](https://developers.google.com/closure/library/docs/gettingstarted#hello-closure) where namespaces are js objects.
 
-You've probably already understood that clojurescript compiler use simply the same trick! 
-So `goog.provide` function initialize the `my_project.my_ns` object and you can find variables `x` and `y` nested inside it. 
+The clojurescript compiler translates the variables of the clojurescript namespace in keys of the namespace object.
 
-`goog.require` function includes the namespace you need need to use in your code. It receive a string with several dot-separated levels. Each level is a nested part of the javascript object to include. In this case, require will include all the object `cljs.core` which is the ClojureScript standard library.
+If you look at the transpiled code above, you see that `goog.provide` initializes the `my_project.my_ns` object and the `x` and `y` variables are nested into it. 
+
+Now, you probably wonder what's the meaning of the `goog.require('cljs.core')` piece of code; we will discuss `goog.require` in another blog post. 
 
 You can learn more about google closure library [here](https://developers.google.com/closure/library/docs/gettingstarted#hello-closure).
 
