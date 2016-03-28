@@ -8,11 +8,13 @@
     <div class="page-content">
       <div class="wrapper">
         {{ content }}
+    {% include footer.html %}
+        {% include comments.html %}
       </div>
     </div>
 
-    {% include footer.html %}
     {% include google_analytics.html %}
+
 
   </body>
 
