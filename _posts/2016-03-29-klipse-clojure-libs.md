@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "KLIPSE: Clojure libs are now available!"
-date:   2016-03-28 18:57:46 +0200
+date:   2016-03-29 18:57:46 +0200
 categories: clojure
 thumbnail: assets/klipse.png
 description: "Clojure libs are now available inside KLIPSE"
