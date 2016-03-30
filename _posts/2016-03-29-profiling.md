@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Profiling clojurescript with KLIPSE"
-description:  "Profiling clojurescript with KLIPSE"
+title:  "Measuring performance clojurescript with KLIPSE"
+description:  "Measuring performance clojurescript with KLIPSE"
 date:   2016-03-29 10:12:36 +0200
 categories: clojure
 thumbnail: assets/klipse.png
