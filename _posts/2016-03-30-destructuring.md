@@ -9,7 +9,7 @@ guid: "E1D50DFC-9C61-4EC8-AA69-C6203C38CCBC"
 
 ---
 
-##Introduction
+## Introduction
 
 Basically, destructuring allows you to create local bindings in a very succint (and elegant) syntax.
 
