@@ -34,7 +34,7 @@ On each call to `append-cyclic`, the first element of the vector is removed and 
 Now, let's improve our code from a performace perspective, by using a FIFO queue - `PersistentQueue` - instead of lists, as it was suggested by [Jozef Wagner](https://disqus.com/by/jozefwagner/){:target="blank"}.
 
 <iframe frameborder="0" width="100%" height="300px"
-    src="http://app.klipse.tech/?eval_only=1cljs_in=(defn%20queue%0A%20%20%5Bsize%5D%0A%20%20(into%20(PersistentQueue.)%20(repeat%20size%20nil)))%0A%0A(defn%20append-cyclic-queue%0A%20%20%5Bqueue%20x%5D%0A%20%20(pop%20(conj%20queue%20x)))%0A%0A%0A(-%3E%20(queue%203)%0A%20%20%20%20(append-cyclic-queue%20%209)%0A%20%20%20%20(append-cyclic-queue%20%2010)%0A%20%20%20%20(append-cyclic-queue%20%2011)%0A%20%20%20%20(append-cyclic-queue%20%2012))">
+    src="http://app.klipse.tech/?eval_only=1&cljs_in=(defn%20queue%0A%20%20%5Bsize%5D%0A%20%20(into%20(PersistentQueue.)%20(repeat%20size%20nil)))%0A%0A(defn%20append-cyclic-queue%0A%20%20%5Bqueue%20x%5D%0A%20%20(pop%20(conj%20queue%20x)))%0A%0A%0A(-%3E%20(queue%203)%0A%20%20%20%20(append-cyclic-queue%20%209)%0A%20%20%20%20(append-cyclic-queue%20%2010)%0A%20%20%20%20(append-cyclic-queue%20%2011)%0A%20%20%20%20(append-cyclic-queue%20%2012))">
 </iframe>
 
 
