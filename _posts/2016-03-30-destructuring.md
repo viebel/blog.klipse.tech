@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Destructuring in Clojure - Part 1"
-title:  "Destructuring in Clojure - Part 1"
+description:  "Destructuring in Clojure - Part 1"
 date:   2016-03-30 19:21:46 +0200
 categories: clojure
 thumbnail: assets/klipse.png
