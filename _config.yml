@@ -27,3 +27,4 @@ author: Raphael Boukara
 markdown: kramdown
 gems:
   - jekyll-feed
+  - jekyll-sitemap
