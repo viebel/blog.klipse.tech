@@ -43,7 +43,7 @@ Here is a perfomance comparison of the two approaches using [KLIPSE][app-url]{:t
 
 You see that the queue based approach is much must faster.
 
-<iframe frameborder="0" width="100%" height="600px"
+<iframe frameborder="0" width="100%" height="450px"
   src="http://app.klipse.tech/?eval_only=1&cljs_in=(defn%20append-cyclic-concat%20%5Blst%20a%5D%0A%20%20(concat%20(rest%20lst)%20%5Ba%5D))%0A%0A(defn%20queue%0A%20%20%5Bsize%5D%0A%20%20(into%20(PersistentQueue.)%20(repeat%20size%20nil)))%0A%0A(defn%20append-cyclic-queue%0A%20%20%5Bqueue%20x%5D%0A%20%20(pop%20(conj%20queue%20x)))%0A%0A%0A(defn%20run%20%5Bq%20iterations%20func%5D%0A%20%20(loop%20%5Bn%200%20%0A%20%20%20%20%20%20%20%20%20q%20q%5D%0A%20%20%20%20(if%20(%3C%20n%20iterations)%0A%20%20%20%20%20%20(recur%20(inc%20n)%20(func%20q%20n))%0A%20%20%20%20%20%20q)))%0A%0A%0A%5B(with-out-str%0A%20%20(time%20(run%20(queue%20100)%201000%20append-cyclic-queue)))%0A%20(with-out-str%0A%20%20(time%20(run%20(queue%20100)%201000%20append-cyclic-concat)))%5D%0A%0A%0A%20%20%20%20%20%20">
 </iframe>
 
