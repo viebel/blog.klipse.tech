@@ -26,8 +26,13 @@ Boolean("0") // true
 Boolean("") // false
 Boolean([]) // true
 Boolean({}) // true
+Boolean(Math.sqrt(-1)) // false
 ~~~
-`Clojure`'s conception of the truth is completly well defined.
+
+In any "noraml" programming language, `0` and `""` should be truthy.
+You could argue about `Math.sqrt(-1)`...
+
+On the opposite, `Clojure`'s conception of the truth is completly well defined.
 
 It is therefore very interesting to ask:
 
@@ -42,7 +47,7 @@ Let's look at some transpiled `javascript` code with [KLIPSE][app-url]{:target="
     "http://app.klipse.tech/?js_only=1&cljs_in=(defn%20check%20%5Bx%5D%0A%20%20(if%20x%20%22true%22%20%22false%22))">
 </iframe>
 
-You see in the transpiled `javascript` code that the `x` variable has been wrapped into into a call to th `cljs.core.truth_` function.
+You see in the transpiled `javascript` code that the `x` variable has been wrapped into into a call to the `cljs.core.truth_` function.
 
 Here is the code for `cljs.core.truth_`:
 
@@ -53,6 +58,19 @@ function cljs$core$truth_(x) {
 ~~~
 
 > This is how `clojurescript` teaches `javascript` what is true and what is not - in its own language!
+
+And indeed, `javascript` is a good student
+
+~~~javascript
+cljs$core$truth_(true) // true
+cljs$core$truth_(false) // false
+cljs$core$truth_(0) //true
+cljs$core$truth_("") // true
+cljs$core$truth_(null) // false
+cljs$core$truth_(undefined) // false
+cljs$core$truth_(NaN) // true
+cljs$core$truth_(Math.sqrt(-1)) // true
+~~~
 
 ## Performances
 
@@ -97,17 +115,30 @@ What's happened here?
 
 Remember that in `javascript`, `0` is falsy.
 
-`b` is a boolean and `x` is also considered as a boolean because of type propagations.
+1. `b` is declared as a boolean 
+2. `x` is also considered as a boolean because of type propagation: `x` is not wrapped into `cljs.core.truth_`
+3. `f` is called with a boolean value: `false`
+4. So far so good...
+5. But `f` breaks the contract as it assigns a non-boolean value `0` into `x`.
 
-`f` is called with a boolean value: `false`. 
+Therefore, `x` is not wrapped, and we are in a non-safe situation: a non-boolean value is handled by the `javascript` truth system.
 
-But `f` breaks the contract as it assigned a non-boolean value `0` into `x`.
+Let's follow, the flow of the loop for the first two iterations:
 
-And then the `javascript` truth system makes troubles: `0` is falsy, so we get into the loop almost forever.
+1. First iteration: `x=false` and `n=0`; `false` is falsy  ➠ `recur` with `x=0` and `n=1`
+2. Second iteration: `x=0` and `n=1`  ; `0` is falsy ➠ `recur` with `x=0` and `n=2`
+3. ....
+4. ...
+<br/>
+...
+
+<br/>
+
+## How to get the best of the two worlds?
 
 `Clojurescript` provides a way to turn off type inference, using the `^any` type hint.
 
-So let's add `^any` to `x` and see what happens:
+Let's add `^any` to `x` and see how it solves our problem:
 
 <iframe frameborder="0" width="100%" height="300px"
     src= 
