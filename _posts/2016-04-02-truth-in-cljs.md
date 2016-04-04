@@ -29,7 +29,7 @@ Boolean({}) // true
 Boolean(Math.sqrt(-1)) // false
 ~~~
 
-In any "noraml" programming language, `0` and `""` should be truthy.
+In any "normal" programming language, `0` and `""` should be truthy.
 You could argue about `Math.sqrt(-1)`...
 
 On the opposite, `Clojure`'s conception of the truth is completly well defined.
