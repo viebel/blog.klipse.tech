@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Self-Hosted Clojurescript in action"
-description:  "Self-Hosted Clojurescript in action"
+title:  "Self-Hosted Clojurescript in action - Part 1"
+description:  "Self-Hosted Clojurescript in action - Part 1"
 date:   2016-04-04 22:15:43 +0200
 categories: clojurescript
 thumbnail: assets/klipse.png
@@ -17,10 +17,10 @@ Like the whole clojurescript community, we were excited when David Nolen [publis
 
 And actually, it's quite simple: the [cljs.js namespace](https://github.com/clojure/clojurescript/blob/master/src/main/cljs/cljs/js.cljs){:target="_blank"} provides two functions for evaluation and compilation of `clojurescript` expressions:
 
-1. `eval-str` for compilaiton of `clojurescript` expressions
+1. `eval-str` for compilation of `clojurescript` expressions
 2. `compile-str` for evaluation of `clojurescript` expressions
 
-In this article, we are going to let you play with `cljs.js` inside [KLIPSE][app-url]{:target="_blank"}.
+In this article, we are going to let you experiment `cljs.js` inside [KLIPSE][app-url]{:target="_blank"}.
 
 
 ## Evaluation
@@ -37,7 +37,7 @@ Here is [eval-str documentation](https://github.com/cljsinfo/cljs-api-docs/blob/
 
 ## Compilation
 
-Youc can also play with `compile-str`:
+You can also play with `compile-str`:
 <iframe frameborder="0" width="100%" height="300px"
     src= 
     "http://app.klipse.tech/?cljs_in=(ns%20my.main%0A%20%20(%3Arequire%20%5Bcljs.js%20%3Aas%20cljs%5D))%0A%0A(cljs%2Fcompile-str%20(cljs%2Fempty-state)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22(ns%20my.user)%20(map%20inc%20%5B1%202%203%5D)%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%3Aeval%20cljs%2Fjs-eval%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20identity)&eval_only=1">
