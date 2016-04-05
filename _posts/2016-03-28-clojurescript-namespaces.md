@@ -5,6 +5,7 @@ date:   2016-03-27 17:32:46 +0200
 categories: clojure
 thumbnail: assets/klipse.png
 description: "Demystify clojurescript namespaces"
+author: "@RaphaelBoukara"
 ---
 
 If you are like us, you use clojurescript namespaces for a while, but without really understanding how it works under the hoods.

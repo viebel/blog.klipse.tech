@@ -5,6 +5,7 @@ date:   2016-03-26 22:57:46 +0200
 categories: clojure
 thumbnail: assets/klipse.png
 description: "KLIPSE shows you how to play with macros"
+author: "@viebel"
 ---
 
 > This article is a rewrite of [fikesfarm blog post][mfikes-article], using KLIPSE to see the magic happening inside the article.

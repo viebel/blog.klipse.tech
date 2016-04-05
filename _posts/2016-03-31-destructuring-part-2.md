@@ -6,6 +6,7 @@ date:   2016-03-31 14:19:46 +0200
 categories: clojure
 thumbnail: assets/klipse.png
 guid: "152A4315-3237-4C87-9569-74CC15878CE2"
+author: "@viebel"
 
 ---
 

@@ -5,6 +5,7 @@ date:   2016-03-27 12:57:46 +0200
 categories: clojure
 thumbnail: assets/klipse.png
 description: "KLIPSE manual - hotkeys and url parameters"
+author: "@viebel"
 ---
 
 [KLIPSE][klipse-url]{:target="_blank"} layout is intentionnaly kept simple.

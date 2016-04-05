@@ -5,6 +5,7 @@ date:   2016-03-21 07:57:46 +0200
 categories: clojure
 thumbnail: assets/klipse.png
 description: "In this post, we propose a basic tutorial to explain step by step how KLIPSE is build."
+author: "@RaphaelBoukara"
 ---
 
 In a [precedent post][klipse-presentation-url] you can read the explanation about what is [KLIPSE][klipse-presentation-url] and what was the motivation to build it.
