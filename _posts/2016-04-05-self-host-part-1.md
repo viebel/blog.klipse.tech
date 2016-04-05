@@ -18,8 +18,8 @@ Like the whole clojurescript community, we were excited when David Nolen [publis
 
 And actually, it's quite simple: the [cljs.js namespace](https://github.com/clojure/clojurescript/blob/master/src/main/cljs/cljs/js.cljs){:target="_blank"} provides two functions for evaluation and compilation of `clojurescript` expressions:
 
-1. `eval-str` for compilation of `clojurescript` expressions
-2. `compile-str` for evaluation of `clojurescript` expressions
+1. `eval-str` for evaluation of `clojurescript` expressions
+2. `compile-str` for compilation of `clojurescript` expressions
 
 In this article, we are going to let you experiment `cljs.js` inside [KLIPSE][app-url]{:target="_blank"}.
 
