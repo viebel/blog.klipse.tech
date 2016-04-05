@@ -23,7 +23,7 @@ First, it is helpful to understand that macros are really just special functions
 
 Try defining a macro in KLIPSE:
 
-<iframe frameborder="0" width="100%" height="200px"
+<iframe frameborder="0" width="100%" height="240px"
     src= 
     "http://app.klipse.tech/?js_only=1&cljs_in=(defmacro%20hello%0A%20%20%5Bx%5D%0A%20%20%60(inc%20~x))">
 </iframe>

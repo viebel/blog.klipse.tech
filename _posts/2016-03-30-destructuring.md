@@ -70,7 +70,7 @@ Here is how to combine `:keys` and `:as`.
 </iframe>
 
 
-In the next article, we will show more advanced usages og destructuring in clojure.
+In the [next article]({% post_url 2016-03-31-destructuring-part-2 %}){:target="_blank"}, we will show more advanced usages og destructuring in clojure.
 
 [app-url]: http://app.klipse.tech
 

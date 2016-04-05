@@ -10,7 +10,7 @@ author: "@viebel"
 
 ---
 
-In a [precedent post](({% post_url 2016-03-30-destructuring %})){:target="_blank"}, we have presented the basics of destructuring in Clojure.
+In a [precedent post]({% post_url 2016-03-30-destructuring %}){:target="_blank"}, we have presented the basics of destructuring in Clojure.
 
 Here, we present a trully amazing way of defining default options for a function, leveraging Clojure destructuring.
 
