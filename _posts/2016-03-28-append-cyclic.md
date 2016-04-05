@@ -5,6 +5,7 @@ date:   2016-03-28 12:31:46 +0200
 categories: clojure
 thumbnail: assets/klipse.png
 description: "Clojure Append Cyclic"
+author: "@viebel"
 ---
 
 ## Introduction
