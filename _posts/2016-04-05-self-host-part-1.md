@@ -48,9 +48,11 @@ Youc can also play with `compile-str`:
 The funny thing about this article is that [KLIPSE][app-url]{:target="_blank"} itself evaluates the code through `cljs.js`. 
 Every time I am trying to think about it, I feel dizzy !?!?!
 
-> Who evaluates who?
+> A piece of code that evaluates a piece of code that evaluates a piece of code!
 
 Please share your thoughts (and your feelings) in the comments below.
+
+In an upcoming article, we will demonstrate advanced features of `cljs.js` like: expression vs. statement, macros, advanced compilation and more...
 
 Clojurescript rocks!
 
