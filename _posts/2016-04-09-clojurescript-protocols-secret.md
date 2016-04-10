@@ -8,7 +8,14 @@ description: "In this post, we explain how clojurescript implement defprotocol i
 author: "@RaphaelBoukara"
 ---
 
-In [this precedent](http://blog.klipse.tech/clojurescript/2016/04/01/clojure-oop-part1.html) post we present the skeleton of the javascript transpiled code of `defrecord` + `deftype` when they work together. In this post we review it by cover the entire javascript transpiled code of `defprotocol` in clojurescript. 
+In [this precedent](http://blog.klipse.tech/clojurescript/2016/04/01/clojure-oop-part1.html) post we have presented the skeleton of the `javascript` transpiled code of `defrecord` + `deftype` when they work together. 
+
+<br>
+In this post we will review it by exploring the entire `javascript` transpiled code of `defprotocol` in clojurescript. 
+We will reveal the secret of protocols in clojurescript.
+
+<br>
+![Secret](/assets/secret.jpg)
 
 ## Protocols
 
@@ -23,16 +30,16 @@ As defined in the [documentation](http://clojure.org/reference/protocols),
 ~~~
 
 After creating your protocol, you can use `deftype`, `defrecord` or `reify` for defining its methods implementation.
-In our case, we will use `deftype` because the major difference between `deftype` and `defrecord` is that `deftype` provides just the functionalities implemented by the user, contrary to `defrecord` that implements a lot of things that will not here to help us to understand the generated javascript code.
+In our case, we will use `deftype` because the major difference between `deftype` and `defrecord` is that `deftype` provides just the functionalities implemented by the user, contrary to `defrecord` that implements a lot of things that will not help us to understand the generated `javascript` code.
 
-Let's see the classical example of the animals' cry:
+Let’s see the classical object oriented example of the animals’ cry:
 
 <iframe frameborder="0" width="100%" height="350px"
     src= 
     "http://app.klipse.tech/?cljs_in=(defprotocol%20Animal%0A%20%20(cry%20%5Bthis%5D))%0A%0A(deftype%20Bird%20%5B%5D%0A%20%20Animal%0A%20%20(cry%20%5Bthis%5D%20%22Tweet%20tweet!%22))%0A%0A(deftype%20Dog%20%5B%5D%0A%20%20Animal%0A%20%20(cry%20%5Bthis%5D%20%22Woof%20woof!%22))%0A%0A(def%20Pluto%20(Dog.))%0A(def%20Tweety%20(Bird.))%0A%0A(map%20cry%20%5BPluto%20Tweety%5D)&eval_only=1">
 </iframe>
 
-Now, step by step, we will try to understand how the clojurescript compiler generates the protocol part in javascript. Let's go with our basic protocol. Use [KLIPSE][app-url]{:target="_blank"} to see the generated javascript code:
+Now, step by step, we will try to understand how the clojurescript compiler generates the protocol part in `javascript`. Let's go with our basic protocol. Use [KLIPSE][app-url]{:target="_blank"} to see the generated `javascript` code:
 
 <iframe frameborder="0" width="100%" height="350px"
     src= 
@@ -43,10 +50,10 @@ YES! this code seems very hard and incomprehensible! But don't worry, it is simp
 
 __What do we got here?__ Two properties are added to the current user namespace: 
 
-* One named `Animal`, return an empty function! We will explain in another post its utility. 
-* A second property, named `cry`, return a function named like `namespace$user$cry` that receives an object. This part is the core of your protocol definition. 
+1. One named `Animal`, return an empty function! We will explain in another post its utility. 
+2. A second property, named `cry`, return a function named like `namespace$user$cry` that receives an object. This part is the core of your protocol definition. 
 
-## The first part we will focus on is the following:
+## We will first focus on the first part of the transpiled code:
 
 ~~~ javascript
 cljs.user.cry = (function cljs$user$cry(this$) {
@@ -61,14 +68,16 @@ cljs.user.cry = (function cljs$user$cry(this$) {
 
 The `cljs$user$cry` function checks that the received object (`this$` will have to be a `deftype` or a `defrecord`) isn't `null` and if it implements the `cljs$user$Animal$cry$arity$1` function. If these conditions are respected, launch the `cljs$user$Animal$cry$arity$1` function.
 
-__Whence comes this `cljs$user$Animal$cry$arity$1` function?__ Let's compile a `deftype` form to answer:
+__Whence comes this `cljs$user$Animal$cry$arity$1` function?__ 
+
+Let's compile a `deftype` form to answer:
 
 <iframe frameborder="0" width="100%" height="350px"
     src= 
     "http://app.klipse.tech/?cljs_in=(deftype%20Bird%20%5B%5D%0A%20%20Animal%0A%20%20(cry%20%5Bthis%5D%20%22Tweet%20tweet!%22))&js_only=true">
 </iframe>
 
-In the Bird prototype, the `cljs$user$Animal$cry$arity$1` match the implementation of the `cry` function from the `Animal` protocol. The `arity$1` part puts forward the number of arguments received by the `cry` function. Like this, your program knows which `cry` function to call. [This](http://app.klipse.tech/?cljs_in=(defprotocol%20Fly%0A%20%20(fly%20%5Bthis%5D)%0A%20%20(fly%20%5Bthis%20x%5D)%0A%20%20(fly%20%5Bthis%20x%20y%5D))&js_only=true) example speaks for itself.
+In the `Bird` prototype, the `cljs$user$Animal$cry$arity$1` match the implementation of the `cry` function from the `Animal` protocol. The `arity$1` part puts forward the number of arguments received by the `cry` function. Like this, your program knows which `cry` function to call. [This](http://app.klipse.tech/?cljs_in=(defprotocol%20Fly%0A%20%20(fly%20%5Bthis%5D)%0A%20%20(fly%20%5Bthis%20x%5D)%0A%20%20(fly%20%5Bthis%20x%20y%5D))&js_only=true) example speaks for itself.
 
 ## Now let's focus on the second part:
 
@@ -100,7 +109,11 @@ In this step there is 2 possible cases, the first when `this$` is `null` and the
 
 __What is going on here?__ `x__25043__auto__` is `null`, so `m__25044__auto__` is `null`, the code is looking for `cljs.user.cry["_"]` which is, of course, `null` so the browser throw an exception!
 
-__But in which case is possible that `cljs.user.cry["_"]` won't be `null`?__ [tom@tomjack.co](https://clojurians.slack.com/team/tomjack) gave me the answer on the famous [slack clojurians](https://clojurians.slack.com/messages/clojurescript/)! You will find the answer using the `extend-type` macro on type `default`! Let's see this macro in action:
+__But in which case is possible that `cljs.user.cry["_"]` won't be `null`?__ [tom@tomjack.co](https://clojurians.slack.com/team/tomjack) gave me the answer on the famous [slack clojurians](https://clojurians.slack.com/messages/clojurescript/)! 
+
+> "... it is for (extend-type default ..." @tomjack
+
+You will find the answer using the `extend-type` macro on type `default`! Let's see this macro in action:
 
 <iframe frameborder="0" width="100%" height="300px"
     src= 
@@ -149,7 +162,7 @@ In which case `m__25044__auto__` is not `null`? The response is very simple. Acc
     "http://app.klipse.tech/?cljs_in=(defprotocol%20Animal%0A%20%20(cry%20%5Bthis%5D))%0A%0A(extend-type%20string%0A%20%20Animal%0A%20%20(cry%20%5Bthis%5D%20%22A%20string%20can%27t%20be%20an%20animal!!!%22))%0A%0A(cry%20%22hello%22)&js_only=1">
 </iframe>
 
-Because you use `extend-type` not with `default` but with `string` type (or any another type), the compiler will add, to the protocol `Animal`, a property named `string` equals `true`. Additionally, the compiler will also add, to the `cry` object, a property named 'string' contains the implementation of the `cry` function from the `Animal` protocol for `string` objects as you can see in the transpiled javascript code:
+Because you use `extend-type` not with `default` but with `string` type (or any another type), the compiler will add, to the protocol `Animal`, a property named `string` equals `true`. Additionally, the compiler will also add, to the `cry` object, a property named 'string' contains the implementation of the `cry` function from the `Animal` protocol for `string` objects as you can see in the transpiled `javascript` code:
 
 ~~~ javascript
 ...
@@ -162,6 +175,8 @@ cljs.user.cry.call(null,"hello");
 ~~~
 
 So you obtain that `goog.typeOf(x__25043__auto__)` returns `"string"` which is a property of the `cry` object. 
+
+Great! You belongs to those who know the secret! ;)
 
 [app-url]: http://app.klipse.tech/
 
