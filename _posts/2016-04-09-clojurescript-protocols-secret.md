@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "clojurescript defprotocol's secret"
+title:  "Clojurescript defprotocol's secret"
 date:   2016-04-09 23:57:46 +0200
 categories: clojurescript
 thumbnail: assets/klipse.png
