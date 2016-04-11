@@ -162,7 +162,7 @@ Learn more about `cljs.js` [here][cljs.js-url].
     [cljs.js :as cljs]))
 ~~~
 
-You'll need a callback function as util to handle errors compilation.
+You'll need a callback function as util to handle compilation errors.
 
 ~~~ clojure
 (defn callback [{:keys [value error]}]
@@ -226,7 +226,7 @@ In this step you can test the compilation functions using the repl.
 4- om.next
 ----------
 
-[Om.next][om.next-url] is a great client framework based on [React.js][react.js-url]. It wasn't necessary to use it for this small app but it was a cute opportunity to discover it.
+[Om.next][om.next-url] is a great client framework based on [React][react.js-url]. It wasn't necessary to use it for this small app but it was a cute opportunity to discover it.
 
 Add om.next dependencies to `project.clj` 
 
@@ -393,3 +393,6 @@ Now let's go! fork it!
 
 [figwheel-url]: http://localhost:3449/
 [klipse-presentation-url]: http://blog.klipse.tech/clojure/2016/03/17/klipse.html
+[cljs.js-url]: https://github.com/clojure/clojurescript/blob/master/src/main/cljs/cljs/js.cljs
+[om.next-url]: https://github.com/omcljs/om/wiki/Quick-Start-(om.next)
+[react.js-url]: https://facebook.github.io/react/
