@@ -89,11 +89,8 @@ Therefore, in order to make a type behaves like a function in `clojurescript`, w
 
 Let's see how to implement `call` and `apply` for `RegExp` type in `javascript`:
 
-
-<iframe frameborder="0" width="100%" height="400px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(js*%0A%20%20%22RegExp.prototype.call%20%3D%0A%20%20%20%20%20function(self%2C%20x)%7B%0A%20%20%20%20%20%20%20%20return%20%5C%22this%3A%20%5C%22%20%2B%20this%20%2B%20%5C%22%2C%20arg%3A%20%5C%22%20%2B%20x%3B%0A%20%20%20%20%7D%22)%0A%0A%0A(js*%0A%20%20%22RegExp.prototype.apply%20%3D%0A%20%20%20%20%20function(self%2C%20args)%7B%0A%20%20%20%20%20%20%20%20return%20%5C%22this%3A%20%5C%22%20%2B%20this%20%2B%20%5C%22%2C%20args%3A%20%5C%22%20%2B%20args%3B%0A%20%20%20%20%7D%22)%0A%0A%23js%20%5B%0A(js*%20%22%2Fclojurescript%2F.call(null%2C%20%5C%22rocks%5C%22)%22)%0A%0A(js*%20%22%2Fclojurescript%2F.apply(null%2C%20%5B%5C%22rocks%5C%22%2C%20%5C%22and%5C%22%2C%20%5C%22rolls%5C%22%5D)%22)%0A%5D">
-</iframe>
+<p data-height="407" data-theme-id="23367" data-slug-hash="XdZPZm" data-default-tab="js" data-user="raphaelboukara" class="codepen">See the Pen <a href="http://codepen.io/raphaelboukara/pen/XdZPZm/">XdZPZm</a> by Raphael Boukara (<a href="http://codepen.io/raphaelboukara">@raphaelboukara</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
 
 Now, let's observe the transpiled `javascript` code for `extend-type` and `IFn`:
 
