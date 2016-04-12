@@ -115,75 +115,17 @@ Now that you have seen the Magic, you probably wonder how it works.
 
 It's time to uncover the Secret of `IFn`:
 
-> There is a special treatment for `IFn` in the [code](https://github.com/clojure/clojurescript/blob/master/src/main/clojure/cljs/core.cljc#L1501){:target="_blank"} of the `extend-type` macro:
+> There is a special treatment for `IFn` in the [code](https://github.com/clojure/clojurescript/blob/master/src/main/clojure/cljs/core.cljc#L1422){:target="_blank"} of the `extend-type` macro:
 
-Don't be afraid by this code; we will only take a look at a limited part of it.
-
-~~~clojure
-(core/defmacro extend-type
-  [type-sym & impls]
-  (core/let [env &env
-             _ (validate-impls env impls)
-             resolve (partial resolve-var env)
-             impl-map (->impl-map impls)
-             impl-map (if ('#{boolean number} type-sym)
-                        (type-hint-impl-map type-sym impl-map)
-                        impl-map)
-             [type assign-impls] (core/if-let [type (base-type type-sym)]
-                                   [type base-assign-impls]
-                                   [(resolve type-sym) proto-assign-impls])]
-    (core/when (core/and (:extending-base-js-type cljs.analyzer/*cljs-warnings*)
-            (js-base-type type-sym))
-      (cljs.analyzer/warning :extending-base-js-type env
-        {:current-symbol type-sym :suggested-symbol (js-base-type type-sym)}))
-    `(do ~@(mapcat #(assign-impls env resolve type-sym type %) impl-map))))
-~~~
-
-Now let's focus on `proto-assign-impls`:
+Here is the [piece of code](https://github.com/clojure/clojurescript/blob/master/src/main/clojure/cljs/core.cljc#L1422){:target="_blank"}  used by `extend-type` to behaves differently when the implemented protocol is `IFn`:of the `extend-type` macro:
 
 ~~~clojure
-(core/defn- proto-assign-impls [env resolve type-sym type [p sigs]]
-  (warn-and-update-protocol p type env)
-  (core/let [psym      (resolve p)
-             pprefix   (protocol-prefix psym)
-             skip-flag (set (core/-> type-sym meta :skip-protocol-flag))]
-    (if (= p 'Object)
-      (add-obj-methods type type-sym sigs)
-      (concat
-        (core/when-not (skip-flag psym)
-          [`(set! ~(extend-prefix type-sym pprefix) true)])
-        (mapcat
-          (core/fn [sig]
-            (if (= psym 'cljs.core/IFn)
-              (add-ifn-methods type type-sym sig)
-              (add-proto-methods* pprefix type type-sym sig)))
-          sigs)))))
+(if (= psym 'cljs.core/IFn)
+  (add-ifn-methods type type-sym sig)
+  (add-proto-methods* pprefix type type-sym sig))
 ~~~
 
-Observe the expression with `'cljs.core/IFn`: it behaves differently when the implemented protocol is `IFn`:
-
-The last piece of the secret resides in [the code](https://github.com/clojure/clojurescript/blob/master/src/main/clojure/cljs/core.cljc#L1382){:target="_blank"} of `add-ifn-methods`:
-
-~~~clojure
-(core/defn- add-ifn-methods [type type-sym [f & meths :as form]]
-  (core/let [meths    (map #(adapt-ifn-params type %) meths)
-             this-sym (with-meta 'self__ {:tag type})
-             argsym   (gensym "args")]
-    (concat
-      [`(set! ~(extend-prefix type-sym 'call) ~(with-meta `(fn ~@meths) (meta form)))
-       `(set! ~(extend-prefix type-sym 'apply)
-          ~(with-meta
-             `(fn ~[this-sym argsym]
-                (this-as ~this-sym
-                  (.apply (.-call ~this-sym) ~this-sym
-                    (.concat (array ~this-sym) (aclone ~argsym)))))
-             (meta form)))]
-      (ifn-invoke-methods type type-sym form))))
-~~~
-
-You see clearly that `'call` and `'apply` appear in the implementation of `extend-type`.
-
-We might be tempted - in another article - to deep dive into the code of `extend-type`, `proto-assign-impls` and `add-ifn-methods`.
+Feel free to deep dive into the code of `extend-type`, `proto-assign-impls` and `add-ifn-methods` and to share your insights in the comments below.
 
 Clojurescript rocks!
 
