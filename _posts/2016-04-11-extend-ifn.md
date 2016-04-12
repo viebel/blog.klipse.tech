@@ -74,9 +74,9 @@ The purpose of this article is to show you what happens behind the scenes with `
 In `clojure[script]`, there are two kinds of function calls:
 
 1. regular function call e.g. `(fn x y z)`
-2. with `apply` e.g. `(apply [x y z])`
+2. with `apply` e.g. `(apply fn [x y z])`
 
-Let's see how the `clojurescript` compiler translates the two kinds of function calls in `javascript`.
+Let's see how the `clojurescript` compiler translates for the function `=` the two kinds of function calls:
 
 <iframe frameborder="0" width="100%" height="200px"
     src= 
@@ -100,7 +100,7 @@ Now, let's observe the transpiled `javascript` code for `extend-type` and `IFn`:
     "http://app.klipse.tech/?cljs_in=(ns%20my.regexp)%0A%0A(extend-type%20js%2FRegExp%0A%20%20IFn%0A%20%20(-invoke%20%0A%20%20%20%20(%5Bmatch%20s%5D%20(re-find%20match%20s))))%0A%0A(%23%22clojure%22%20%22clojurescript%22)%0A&js_only=1">
 </iframe>
 
-The compiler - not like for [regular protocols]({% post_url 2016-04-09-clojurescript-protocols-secret %}){:target="_blank"}, - created code for `call` and `apply` into `RegExp` prototype.
+The compiler - not like for [regular protocols]({% post_url 2016-04-09-clojurescript-protocols-secret %}){:target="_blank"} - created code for `call` and `apply` into `RegExp` prototype.
 
 This is the magic that allows types to behave like functions in `clojurescript`.
 
