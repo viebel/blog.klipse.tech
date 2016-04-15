@@ -23,6 +23,6 @@ In this article, we describe how to tweek [KLIPSE][klipse-url]{:target="_blank"}
 * `cljs_in=<cljs_code>` - initial content of the `clojurescript` box ( `code` must be encoded properly)
 * `js_only=1` - display only `cljs` and `js` boxes
 * `eval_only=1` - display only `cljs` and `eval` boxes
-* `static-fns=true` - transpile js code with [static dispatch](https://github.com/clojure/clojurescript/wiki/Compiler-Options#static-fns).
+* `static-fns=true` - transpile js code with [static dispatch](https://github.com/clojure/clojurescript/wiki/Compiler-Options#static-fns); it has no impact on the evaluation boxes.
 
 [klipse-url]: http://app.klipse.tech/
