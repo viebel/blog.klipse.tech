@@ -46,7 +46,7 @@ Here is the description of `:static-fns` as it appear in [clojurescript wiki pag
 
 Since Apr 8 2016, KLIPSE is compiled with `:static-fns true` and our Safari readers are happy.
 
-![Secret](/assets/cheetah-speed.png)
+![Secret](/assets/cheetah-speed.jpg)
 
 If you are curious about what could break the static dispatch mechanism, read [this article by Mike Fikes](http://blog.fikesfarm.com/posts/2016-04-14-static-free-clojurescript-repl.html){:target="_blank"} 
 
