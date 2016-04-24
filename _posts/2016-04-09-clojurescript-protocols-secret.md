@@ -8,7 +8,7 @@ description: "In this post, we explain how clojurescript implement defprotocol i
 author: "@RaphaelBoukara"
 ---
 
-In [this precedent](http://blog.klipse.tech/clojurescript/2016/04/01/clojure-oop-part1.html) post we have presented the skeleton of the `javascript` transpiled code of `defrecord` + `deftype` when they work together. 
+In [this precedent]({% post_url 2016-03-30-clojure-oop-part1 %}) post we have presented the skeleton of the `javascript` transpiled code of `defrecord` + `deftype` when they work together. 
 
 <br>
 In this post we will review it by exploring the entire `javascript` transpiled code of `defprotocol` in clojurescript. 
@@ -30,7 +30,7 @@ As defined in the [documentation](http://clojure.org/reference/protocols),
 ~~~
 
 After creating your protocol, you can use `deftype`, `defrecord` or `reify` for defining its methods implementation.
-In our case, we will use `deftype` because the major difference between `deftype` and `defrecord` is that `deftype` provides just the functionalities implemented by the user, contrary to `defrecord` that implements a lot of things that will not help us to understand the generated `javascript` code.
+In our case, we will use `deftype` because the major difference between `deftype` and `defrecord` is that `deftype` provides just the functionalities implemented by the user, contrary to `defrecord` that implements a lot of things that will not help us to understand the generated `javascript` code. You can read more about `defrecord` [here]({% post_url 2016-04-24-records-wacky-maps %}){:target="_blank"}.
 
 Let’s see the classical object oriented example of the animals’ cry:
 
