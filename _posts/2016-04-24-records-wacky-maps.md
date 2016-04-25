@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "Records are wacky maps by Michał Marczyk and KLIPSE @viebel"
+title:  "In Clojure, records are wacky maps #cljklipse @viebel"
 description:  "records, defrecord, clojure, clojurescript,  Michał Marczyk"
-date:   2016-04-19 01:28:14 +0200
+date:   2016-04-25 17:17:14 +0200
 categories: clojurescript
 thumbnail: assets/klipse.png
 guid: "4F96220D-2B51-41AE-A092-BD7192257900"
@@ -14,9 +14,10 @@ In `clojure`, records, types and protocols are parts of the fundamental building
 
 We have unveiled `defprotocol`'s secret in [a previous post]({% post_url 2016-04-09-clojurescript-protocols-secret  %}){:target="_blank"}. Now it's time to explore `defrecord`.
 
-This article has been inspired by this great talk by Michał Marczyk: [Defrecord Deftype in Clojure and ClojureScript](https://youtu.be/vZtkqDIicqI){:target="_blank"}.
+This article has been inspired by this great talk by Michał Marczyk: [defrecord/deftype in Clojure and ClojureScript](https://youtu.be/vZtkqDIicqI){:target="_blank"}.
 
-Michał knows this topic very deeply as he's the one that implemented records, types and protocols in `clojurescript` in 2012.
+Michał knows this topic very deeply as he contributed to the implementation of types, records and
+protocols in `clojurescript` in 2012.
 
 He's also the #4 contributor on `clojurescript`.
 
@@ -39,7 +40,10 @@ In `clojurescript` the persistent data structures (maps, vectors ...) are based 
 
 There are 3 ways to create a record: a constructor and two factory functions: `(A.)`, `(->A)` and `(map->A)`.
 
+You can retrieve the basis keys of the record with `getBasis` that returns a vector of basis keys as symbols.
+
 Records of the same type and same values are equal and have the same hash code.
+
 Records of different types are never equal (even if they have the same values).
 
 
@@ -51,7 +55,6 @@ Let's see it in action with [KLIPSE](http://app.klipse.tech/?cljs_in=(ns%20my.re
 </iframe>
 
 
-In `clojure`, there is a function `getBasis` that returns a vector of basis keys as symbols.
 In `clojurescript`, the `hash` function doesn't take the record type into account.
 
 ### Maps
@@ -71,8 +74,8 @@ Here are the differences between records and maps:
 
 - Unlike a regular map, a record is not callable as a function.
 - When you `assoc` a record you get another record.
-- When you `dissoc` a record you get a map instead of a record.
-- In `clojure` boxing happens on records when you use type hints; but not in `clojurescript`.
+- When you `dissoc` basis keys in a record you get a map instead of a record.
+- In `clojure` boxing happens on records when you use type hints; but not in `clojurescript`. (Boxing can be avoided with type hints, if you use field access syntax and you're in a primitive-friendly context e.g. an arithmetic expression.)
 
 <iframe frameborder="0" width="100%" height="300px"
     src= 
