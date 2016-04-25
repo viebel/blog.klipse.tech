@@ -47,11 +47,11 @@ Records of the same type and same values are equal and have the same hash code.
 Records of different types are never equal (even if they have the same values).
 
 
-Let's see it in action with [KLIPSE](http://app.klipse.tech/?cljs_in=(ns%20my.records%24macros)%20%0A(defmacro%20disp%20%5B%26%20forms%5D%20(cons%20%60str%20(for%20%5Bform%20forms%5D%20%60(str%20(pr-str%20'~form)%20%22%20%3D%3E%20%22%20(pr-str%20~form)%20%22%5Cn%22))))%0A%0A(defrecord%20A%20%5Bx%5D)%0A(defrecord%20B%20%5Bx%5D)%0A(def%20a%20(A.%201))%0A(def%20aa%20(map-%3EA%20%7B%3Ax%201%7D))%0A(def%20aaa%20(-%3EA%201))%0A(def%20b%20(B.%201))%0A%0A(my.records%2Fdisp%0A%20%20%5Ba%20b%5D%0A%20%20(record%3F%20a)%0A%20%20(map%20hash%20%5Ba%20aa%20aaa%20b%5D)%0A%20%20(%3D%20a%20aaa%20aa)%0A%20%20(%3D%20a%20b))&eval_only=1){:target="_blank"}:
+Let's see it in action with [KLIPSE](http://app.klipse.tech/?cljs_in=(ns%20my.records%24macros)%20%0A(defmacro%20disp%20%5B%26%20forms%5D%20(cons%20%60str%20(for%20%5Bform%20forms%5D%20%60(str%20(pr-str%20'~form)%20%22%20%3D%3E%20%22%20(pr-str%20~form)%20%22%5Cn%22))))%0A%0A(defrecord%20A%20%5Bx%5D)%0A(defrecord%20B%20%5Bx%5D)%0A(def%20a%20(A.%201))%0A(def%20aa%20(map-%3EA%20%7B%3Ax%201%7D))%0A(def%20aaa%20(-%3EA%201))%0A(def%20b%20(B.%201))%0A%0A(my.records%2Fdisp%0A%20%20%5Ba%20b%5D%0A%20%20(record%3F%20a)%0A%20%20(.getBasis%20A)%0A%20%20(map%20hash%20%5Ba%20aa%20aaa%20b%5D)%0A%20%20(%3D%20a%20aaa%20aa)%0A%20%20(%3D%20a%20b))&eval_only=1){:target="_blank"}:
 
-<iframe frameborder="0" width="100%" height="450px"
+<iframe frameborder="0" width="100%" height="500px"
     src= 
-    "http://app.klipse.tech/?cljs_in=(ns%20my.records%24macros)%20%0A(defmacro%20disp%20%5B%26%20forms%5D%20(cons%20%60str%20(for%20%5Bform%20forms%5D%20%60(str%20(pr-str%20'~form)%20%22%20%3D%3E%20%22%20(pr-str%20~form)%20%22%5Cn%22))))%0A%0A(defrecord%20A%20%5Bx%5D)%0A(defrecord%20B%20%5Bx%5D)%0A(def%20a%20(A.%201))%0A(def%20aa%20(map-%3EA%20%7B%3Ax%201%7D))%0A(def%20aaa%20(-%3EA%201))%0A(def%20b%20(B.%201))%0A%0A(my.records%2Fdisp%0A%20%20%5Ba%20b%5D%0A%20%20(record%3F%20a)%0A%20%20(map%20hash%20%5Ba%20aa%20aaa%20b%5D)%0A%20%20(%3D%20a%20aaa%20aa)%0A%20%20(%3D%20a%20b))&eval_only=1">
+    "http://app.klipse.tech/?cljs_in=(ns%20my.records%24macros)%20%0A(defmacro%20disp%20%5B%26%20forms%5D%20(cons%20%60str%20(for%20%5Bform%20forms%5D%20%60(str%20(pr-str%20'~form)%20%22%20%3D%3E%20%22%20(pr-str%20~form)%20%22%5Cn%22))))%0A%0A(defrecord%20A%20%5Bx%5D)%0A(defrecord%20B%20%5Bx%5D)%0A(def%20a%20(A.%201))%0A(def%20aa%20(map-%3EA%20%7B%3Ax%201%7D))%0A(def%20aaa%20(-%3EA%201))%0A(def%20b%20(B.%201))%0A%0A(my.records%2Fdisp%0A%20%20%5Ba%20b%5D%0A%20%20(record%3F%20a)%0A%20%20(.getBasis%20A)%0A%20%20(map%20hash%20%5Ba%20aa%20aaa%20b%5D)%0A%20%20(%3D%20a%20aaa%20aa)%0A%20%20(%3D%20a%20b))&eval_only=1">
 </iframe>
 
 
