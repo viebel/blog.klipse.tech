@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "In Clojure, records are wacky maps #cljklipse @viebel"
+title:  "In Clojure, records are wacky maps"
 description:  "records, defrecord, clojure, clojurescript,  Michał Marczyk"
 date:   2016-04-25 17:17:14 +0200
 categories: clojurescript
@@ -14,7 +14,7 @@ In `clojure`, records, types and protocols are parts of the fundamental building
 
 We have unveiled `defprotocol`'s secret in [a previous post]({% post_url 2016-04-09-clojurescript-protocols-secret  %}){:target="_blank"}. Now it's time to explore `defrecord`.
 
-This article has been inspired by this great talk by Michał Marczyk: [defrecord/deftype in Clojure and ClojureScript](https://youtu.be/vZtkqDIicqI){:target="_blank"}.
+This article has been - inspired by this great talk by Michał Marczyk: [defrecord/deftype in Clojure and ClojureScript](https://youtu.be/vZtkqDIicqI){:target="_blank"}.
 
 Michał knows this topic very deeply as he contributed to the implementation of types, records and
 protocols in `clojurescript` in 2012.
@@ -94,7 +94,7 @@ If you are curious to see how the magic occurs in `clojurescript`, you will find
 
 You might find it more convenient to open [defrecord's transpiled code]( http://app.klipse.tech/?cljs_in=(defrecord%20A%20%5Bx%5D)&js_only=1){:target="_blank"} in a separate tab.
 
-In a subsequent article, we will explore `deftype`...
+If you want to discover stuff you didn't know about `deftype`, go to [The power and danger of deftype]({% post_url 2016-04-26-deftype-explained %})...
 
 Clojure & Clojurescript rock!
 
