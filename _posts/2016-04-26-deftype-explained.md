@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "The power and danger of deftype in clojure and clojurescript #cljklipse @viebel"
+title:  "The power and danger of deftype in clojure and clojurescript"
 description:  "records, defrecord, clojure, clojurescript,  deftype Michał Marczyk"
 date:   2016-04-26 08:07:23 +0200
 categories: clojurescript
