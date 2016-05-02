@@ -108,7 +108,7 @@ Now we will try to see how functions and macros are interchangeable.
 
 Let's say we have a function `foo-f` and a macro `foo-m` with exactly the same code. Then, the following two assertions hold:
 
-####Assertion #1: the macro expansion is equivalent to the function execution with arguments quoted
+#### Assertion #1: the macro expansion is equivalent to the function execution with arguments quoted
 
 ~~~clojure 
 (= (macroexpand-1 '(foo-m arg1 arg2 ...))
@@ -116,7 +116,7 @@ Let's say we have a function `foo-f` and a macro `foo-m` with exactly the same c
 ~~~
 
 
-####Assertion #2: the macro execution is equivalent to the evaluation of the function execution with arguments quoted
+#### Assertion #2: the macro execution is equivalent to the evaluation of the function execution with arguments quoted
 
 
 ~~~clojure
