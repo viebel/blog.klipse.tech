@@ -176,7 +176,7 @@ cljs.user.cry.call(null,"hello");
 
 So you obtain that `goog.typeOf(x__25043__auto__)` returns `"string"` which is a property of the `cry` object. 
 
-Great! You belongs to those who know the secret! ;)
+Great! Now, You belong to those who know the secret! ;)
 
 [app-url]: http://app.klipse.tech/
 

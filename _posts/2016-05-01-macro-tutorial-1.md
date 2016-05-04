@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Clojure Macros Tutorial - part 1: functions vs. macros #cljklipse @viebel"
+title:  "Clojure Macros Tutorial - part 1: functions vs. macros"
 description:  "clojure macros clojurescript tutorial klipse"
 date:   2016-05-01 18:32:53 +0200
 categories: clojure
