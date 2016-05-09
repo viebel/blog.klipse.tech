@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Clojure Macros Tutorial - part 2: how not to write macros in Clojure #cljklipse @viebel"
+title:  "Clojure Macros Tutorial - part 2: how not to write macros"
 description:  "clojure macros clojurescript tutorial klipse naive dummies macros for dummies"
 date:   2016-05-05 01:14:22 +0200
 categories: clojure

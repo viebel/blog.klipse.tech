@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Clojure Macros Tutorial - part 3: Syntax Quote (aka Backtick) in Clojure #cljklipse @viebel"
+title:  "Clojure Macros Tutorial - part 3: Syntax Quote (aka Backtick) in Clojure"
 description:  "macros tutorial splicing Syntax Quote, Backquote, Backtick in Clojure"
 date:   2016-05-05 03:24:53 +0200
 categories: clojure
