@@ -78,9 +78,6 @@ In order to share your klipse, you press `Ctrl-S` (`S` is for share or save) and
 
 Go ahead! Give it a try in the Klipse box above that contains the `lazy-seq` implementation of the Fibonacci sequence.
 
-Actually, this is exactly the trick that allows us to embed klipses in our blog. Inspect the DOM elements if you don't believe me.
-
-
 ### Fibonacci with `lazy-cat`
 
 Here is the doc for `lazy-cat`:
