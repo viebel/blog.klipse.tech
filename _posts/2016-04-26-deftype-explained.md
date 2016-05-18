@@ -61,12 +61,25 @@ You can retrieve the basis keys of the type with `getBasis` that returns a vecto
 Types are plain `java` or `javascript` objects (it's called a host type). Unlike `defrecord`, `deftype` adds almost nothing to the plain object. See the "Behind the scenes" paragraph below.
 
 
-Let's see it in action with [KLIPSE](http://app.klipse.tech/?cljs_in=(ns%20my.types%24macros)%0A(defmacro%20disp%20%5B%26%20forms%5D%20(cons%20%60str%20(for%20%5Bform%20forms%5D%20%60(str%20(pr-str%20'~form)%20%22%20%3D%3E%20%22%20(pr-str%20~form)%20%22%5Cn%22))))%0A%0A(deftype%20A%20%5Bx%20y%20z%5D)%0A%0A(def%20a%20(A.%201%202%203))%0A(def%20aa%20(-%3EA%201%202%203))%0A%0A(my.types%2Fdisp%0A%20%20%5Ba%20aa%5D%0A%20%20(type%20a)%0A%20%20(.getBasis%20A)%0A%20%20%5B(.-x%20a)%20(.-y%20aa)%5D)&eval_only=1){:target="_blank"}:
+Let's see it in action:
 
-<iframe frameborder="0" width="100%" height="380px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(ns%20my.types%24macros)%0A(defmacro%20disp%20%5B%26%20forms%5D%20(cons%20%60str%20(for%20%5Bform%20forms%5D%20%60(str%20(pr-str%20'~form)%20%22%20%3D%3E%20%22%20(pr-str%20~form)%20%22%5Cn%22))))%0A%0A(deftype%20A%20%5Bx%20y%20z%5D)%0A%0A(def%20a%20(A.%201%202%203))%0A(def%20aa%20(-%3EA%201%202%203))%0A%0A(my.types%2Fdisp%0A%20%20%5Ba%20aa%5D%0A%20%20(type%20a)%0A%20%20(.getBasis%20A)%0A%20%20%5B(.-x%20a)%20(.-y%20aa)%5D)&eval_only=1">
-</iframe>
+~~~klipse
+(deftype A [x y z])
+
+(def a (A. 1 2 3))
+(def aa (->A 1 2 3))
+
+[a aa]
+~~~
+~~~klipse
+    (type a)
+~~~
+~~~klipse
+      (.getBasis A)
+~~~
+~~~klipse
+        [(.-x a) (.-y aa)]
+~~~
 
 
 ### Types are mutable
@@ -77,10 +90,10 @@ No, you are not dreaming: `clojure` types are indeed mutable.
 
 See it by yourself if you don't believe it:
 
-<iframe frameborder="0" width="100%" height="300px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(ns%20my.types%24macros)%0A(defmacro%20disp%20%5B%26%20forms%5D%20(cons%20%60str%20(for%20%5Bform%20forms%5D%20%60(str%20(pr-str%20'~form)%20%22%20%3D%3E%20%22%20(pr-str%20~form)%20%22%5Cn%22))))%0A%0A(deftype%20A%20%5Bx%5D)%0A(def%20a%20(A.%201))%0A%0A(my.types%2Fdisp%0A%20%20(.-x%20a)%0A%20%20(set!%20(.-x%20a)%2019)%0A%20%20(.-x%20a))&eval_only=1">
-</iframe>
+~~~klipse
+(set! (.-x a) 19)
+(.-x a)
+~~~
 
 In `clojure`, you have to add `:volatile-mutable` or `:unsynchronized-mutable` type hint (also mutable fields mutable become private).
 
@@ -93,29 +106,42 @@ Like Michał said in [his talk at 28m34s](https://youtu.be/vZtkqDIicqI?t=28m34s)
 
 ### Types have no identity
 
-Like we wrote above, value-based identity is not provided by `deftype`.
+Like we wrote above, value-based identity is not provided by `deftype`. It means that that `(A. 1)` and `(A. 1)` are not equal.
 
-In the [klipse](http://app.klipse.tech/?cljs_in=(ns%20my.types%24macros)%0A(defmacro%20disp%20%5B%26%20forms%5D%20(cons%20%60str%20(for%20%5Bform%20forms%5D%20%60(str%20(pr-str%20'~form)%20%22%20%3D%3E%20%22%20(pr-str%20~form)%20%22%5Cn%22))))%0A%0A(deftype%20A%20%5Bx%5D)%0A%0A(deftype%20AWithIdentity%20%5Bx%5D%0A%20%20IEquiv%0A%20%20(-equiv%20%5Bthis%20other%5D%20(and%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20(%3D%20(type%20this)%20(type%20other))%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20(%3D%20(.-x%20this)%20(.-x%20other)))))%0A%0A(def%20a%20(A.%201))%0A(def%20aa%20(AWithIdentity.%201))%0A%0A(my.types%2Fdisp%0A%20%20(%3D%20(A.%201)%20(A.%201))%0A%20%20(%3D%20(AWithIdentity.%201)%20(AWithIdentity.%201))%0A%20%20(%3D%20(AWithIdentity.%201)%20(A.%201)))&eval_only=1){:target="_blank"} below, we show that `(A. 1)` and `(A. 1)` are not equal.
+~~~klipse
+(= (A. 1) (A. 1))
+~~~
 
-We also show how to add value and type based identity to `deftype` (like it is provided by `defrecord`).
+But it's simple to add value and type based identity to `deftype` (like it is provided by `defrecord`).
 
 
-<iframe frameborder="0" width="100%" height="300px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(ns%20my.types%24macros)%0A(defmacro%20disp%20%5B%26%20forms%5D%20(cons%20%60str%20(for%20%5Bform%20forms%5D%20%60(str%20(pr-str%20'~form)%20%22%20%3D%3E%20%22%20(pr-str%20~form)%20%22%5Cn%22))))%0A%0A(deftype%20A%20%5Bx%5D)%0A%0A(deftype%20AWithIdentity%20%5Bx%5D%0A%20%20IEquiv%0A%20%20(-equiv%20%5Bthis%20other%5D%20(and%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20(%3D%20(type%20this)%20(type%20other))%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20(%3D%20(.-x%20this)%20(.-x%20other)))))%0A%0A(def%20a%20(A.%201))%0A(def%20aa%20(AWithIdentity.%201))%0A%0A(my.types%2Fdisp%0A%20%20(%3D%20(A.%201)%20(A.%201))%0A%20%20(%3D%20(AWithIdentity.%201)%20(AWithIdentity.%201))%0A%20%20(%3D%20(AWithIdentity.%201)%20(A.%201)))&eval_only=1">
-</iframe>
+~~~klipse
+(deftype AWithIdentity [x]
+  IEquiv
+    (-equiv [this other] (and
+                             (= (type this) (type other))
+                                                      (= (.-x this) (.-x other)))))
+
+    (= (AWithIdentity. 1) (AWithIdentity. 1))
+~~~
+
+
+It's type based so `A` and `AWithIdentity` instances are never equal:
+
+~~~klipse
+      (= (AWithIdentity. 1) (A. 1))
+~~~
+
 
 ### Behind the scenes : deftype's transpiled javascript code
 
 If you are curious to see how the magic occurs in `clojurescript`, you will find it very interesting to observe and meditate around the transpiled `javascript` code of `deftype`:
 
-<iframe frameborder="0" width="100%" height="300px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(deftype%20A%20%5Bx%5D)&js_only=1">
-</iframe>
 
-You might find it more convenient to open [deftype's transpiled code](http://app.klipse.tech/?cljs_in=(deftype%20A%20%5Bx%5D)&js_only=1){:target="_blank"} in a separate tab.
 
+~~~klipse-js
+(deftype A [x])
+~~~
 
 Clojure & Clojurescript rock!
 

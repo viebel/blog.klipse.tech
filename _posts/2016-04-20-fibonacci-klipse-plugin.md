@@ -58,7 +58,7 @@ seq calls. See also - realized?
 
 Let's do Fibonacci with `lazy-seq`:
 
-~~~clojure
+~~~klipse
 (def fib-seq-seq
   ((fn fib [a b] 
        (lazy-seq (cons a (fib b (+ a b)))))
@@ -66,7 +66,6 @@ Let's do Fibonacci with `lazy-seq`:
 
 (take 30 fib-seq-seq)
 ~~~
-{: .klipse-snippet}
 
 Now, imagine you are very proud of your code and you'd like to share it by email, on twitter or on Clojurians Slack. How would you do that? 
 
@@ -94,13 +93,12 @@ needed.
 
 Now, we'll do Fibonacci with `lazy-cat`:
 
-~~~clojure
+~~~klipse
 (def fib-seq-cat
   (lazy-cat [0 1] (map + (rest fib-seq-cat) fib-seq-cat)))
 
 (take 30 fib-seq-cat)
 ~~~
-{: .klipse-snippet}
 
 If you prefer this version, don't hesitate share it! `Ctrl-S` is your friend...
 
@@ -117,15 +115,13 @@ f must be free of side-effects
 Now, Fibonacci with `iterate`:
 
 
-~~~clojure
+~~~klipse
 (def fib-seq-iterate
   (map first (iterate 
                  (fn [[a b]] [b (+ a b)]) [0 1])))
 
 (take 30 fib-seq-iterate)
 ~~~
-{: .klipse-snippet}
-
 
 
 Do you have another interesting Fibonacci sequence implementation? Feel free to share your klipse in the comments below...
