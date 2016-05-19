@@ -27,10 +27,16 @@ In this article, we are going to let you experiment `cljs.js` inside [KLIPSE][ap
 ## Evaluation
 Let's start by evaluating `(map inc [1 2 3])`:
 
-<iframe frameborder="0" width="100%" height="300px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(ns%20my.main%0A%20%20(%3Arequire%20%5Bcljs.js%20%3Aas%20cljs%5D))%0A%0A(cljs%2Feval-str%20(cljs%2Fempty-state)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22(ns%20my.user)%20(map%20inc%20%5B1%202%203%5D)%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%3Aeval%20cljs%2Fjs-eval%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20identity)&eval_only=1">
-</iframe>
+~~~klipse
+(ns my.main
+  (:require [cljs.js :as cljs]))
+
+(cljs/eval-str (cljs/empty-state)
+              "(ns my.user) (map inc [1 2 3])"
+              ""
+              {:eval cljs/js-eval}
+              identity)
+~~~
 
 Feel free to play with the second argument to `eval-str` and see the result of the evaluation.
 
@@ -39,10 +45,14 @@ Here is [eval-str documentation](https://github.com/cljsinfo/cljs-api-docs/blob/
 ## Compilation
 
 You can also play with `compile-str`:
-<iframe frameborder="0" width="100%" height="300px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(ns%20my.main%0A%20%20(%3Arequire%20%5Bcljs.js%20%3Aas%20cljs%5D))%0A%0A(cljs%2Fcompile-str%20(cljs%2Fempty-state)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22(ns%20my.user)%20(map%20inc%20%5B1%202%203%5D)%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7B%3Aeval%20cljs%2Fjs-eval%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20identity)&eval_only=1">
-</iframe>
+
+~~~klipse
+(cljs/compile-str (cljs/empty-state)
+              "(ns my.user) (map inc [1 2 3])"
+              ""
+              {:eval cljs/js-eval}
+              identity)
+~~~
 
 ## Vertigo
 
