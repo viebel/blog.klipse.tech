@@ -2,7 +2,7 @@
 layout: post
 title:  "3 ways to generate Lazy Fibonacci sequences in Clojure"
 description:  "How to write Lazy Fibonacci in Clojure. share code clojure with KLIPSE. macros with klipse. lazy sequences fibonacci."
-date:   2016-04-19 01:28:14 +0200
+date:   2016-04-20 01:28:14 +0200
 categories: clojurescript
 thumbnail: assets/klipse.png
 guid: "F34D7A10-69DB-493D-909D-374E5D4580A6"
@@ -58,10 +58,14 @@ seq calls. See also - realized?
 
 Let's do Fibonacci with `lazy-seq`:
 
-<iframe frameborder="0" width="100%" height="300px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(def%20fib-seq-seq%0A%20%20((fn%20fib%20%5Ba%20b%5D%20%0A%20%20%20%20%20(lazy-seq%20(cons%20a%20(fib%20b%20(%2B%20a%20b)))))%0A%20%20%200%201))%0A%0A(take%2030%20fib-seq-seq)&eval_only=1">
-</iframe>
+~~~klipse
+(def fib-seq-seq
+  ((fn fib [a b] 
+       (lazy-seq (cons a (fib b (+ a b)))))
+     0 1))
+
+(take 30 fib-seq-seq)
+~~~
 
 Now, imagine you are very proud of your code and you'd like to share it by email, on twitter or on Clojurians Slack. How would you do that? 
 
@@ -72,9 +76,6 @@ Now, imagine you are very proud of your code and you'd like to share it by email
 In order to share your klipse, you press `Ctrl-S` (`S` is for share or save) and the url of a klipse with your code (something like http://app.klipse.tech?cljs_in=....) will be displayed in an alert box and in the browser console.
 
 Go ahead! Give it a try in the Klipse box above that contains the `lazy-seq` implementation of the Fibonacci sequence.
-
-Actually, this is exactly the trick that allows us to embed klipses in our blog. Inspect the DOM elements if you don't believe me.
-
 
 ### Fibonacci with `lazy-cat`
 
@@ -92,10 +93,12 @@ needed.
 
 Now, we'll do Fibonacci with `lazy-cat`:
 
-<iframe frameborder="0" width="100%" height="300px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(def%20fib-seq-cat%0A%20%20(lazy-cat%20%5B0%201%5D%20(map%20%2B%20(rest%20fib-seq-cat)%20fib-seq-cat)))%0A%0A%0A(take%2030%20fib-seq-cat)&eval_only=1">
-</iframe>
+~~~klipse
+(def fib-seq-cat
+  (lazy-cat [0 1] (map + (rest fib-seq-cat) fib-seq-cat)))
+
+(take 30 fib-seq-cat)
+~~~
 
 If you prefer this version, don't hesitate share it! `Ctrl-S` is your friend...
 
@@ -112,22 +115,13 @@ f must be free of side-effects
 Now, Fibonacci with `iterate`:
 
 
-<iframe frameborder="0" width="100%" height="300px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(def%20fib-seq-iterate%0A%20%20(map%20first%20(iterate%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20(fn%20%5B%5Ba%20b%5D%5D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5Bb%20(%2B%20a%20b)%5D)%20%5B0%201%5D)))%0A%0A%0A(take%2030%20fib-seq-iterate)&eval_only=1">
-</iframe>
+~~~klipse
+(def fib-seq-iterate
+  (map first (iterate 
+                 (fn [[a b]] [b (+ a b)]) [0 1])))
 
-
-### Summary with a macro
-
-Now, we are going to consolidate all the Fibonacci implementations into a single klipse using a macro named `disp`. This macro display expressions and their evaluations. 
-
-Using macros in KLIPSE, like any other self-hosted `clojurescript` app is not straightfoward: see [Messing with Macros at the REPL]({% post_url 2016-03-17-messing-with-macros %}){:target="_blank"} for details.
-
-<iframe frameborder="0" width="100%" height="300px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(ns%20my.play%24macros)%0A%0A%0A(defmacro%20disp%20%5B%26%20forms%5D%0A%20%20(cons%20%60str%20(for%20%5Bform%20forms%5D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%60(str%20(pr-str%20'~form)%20%22%20%3D%3E%20%22%20(pr-str%20~form)%20%22%5Cn%22))))%0A%0A(def%20fib-seq-seq%0A%20%20((fn%20rfib%20%5Ba%20b%5D%20%0A%20%20%20%20%20(lazy-seq%20(cons%20a%20(rfib%20b%20(%2B%20a%20b)))))%0A%20%20%200%201))%0A%0A(def%20fib-seq-cat%0A%20%20%20%20%20(lazy-cat%20%5B0%201%5D%20(map%20%2B%20(rest%20fib-seq-cat)%20fib-seq-cat)))%0A%0A(def%20fib-seq-iterate%0A%20%20(map%20first%20(iterate%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20(fn%20%5B%5Ba%20b%5D%5D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5Bb%20(%2B%20a%20b)%5D)%20%5B0%201%5D)))%0A%0A(my.play%2Fdisp%0A%20%20(take%2015%20fib-seq-cat)%0A%20%20(take%2015%20fib-seq-seq)%0A%20%20(take%2015%20fib-seq-iterate)%0A%20%20)&eval_only=1">
-</iframe>
+(take 30 fib-seq-iterate)
+~~~
 
 
 Do you have another interesting Fibonacci sequence implementation? Feel free to share your klipse in the comments below...
