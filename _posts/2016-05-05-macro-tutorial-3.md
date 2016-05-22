@@ -40,10 +40,17 @@ It works recursively with any kind of forms and types: strings, maps, lists, vec
 
 Let's have a look at some examples:
 
-<iframe frameborder="0" width="100%" height="300px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(ns%20my.quote%24macros)%0A%0A(defmacro%20disp%20%5B%26%20forms%5D%0A%20%20(cons%20%60str%20(for%20%5Bform%20forms%5D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%60(str%20(pr-str%20'~form)%20%22%20%3D%3E%20%22%20(pr-str%20~form)%20%22%5Cn%22))))%0A%0A(my.quote%2Fdisp%0A%20%20(quote%20a%20%3Aa%201)%0A%20%20'(a%20%3Aa%201)%0A%20%20'(a%20(b%20(c%20d%20(e%20f%20(g%20h)%20i)%20j)))%0A%20%20'%7B%3Aa%20(1%202%203)%20b%20(c%20d%20%22x%22)%7D)&eval_only=1">
-</iframe>
+~~~klipse
+'(a :a 1)
+~~~
+
+~~~klipse
+'(a (b (c d (e f (g h) i) j)))
+~~~
+
+~~~klipse
+'{:a (1 2 3) b (c d "x")}
+~~~
 
 
 
@@ -51,21 +58,54 @@ Let's have a look at some examples:
 
 Syntax quote is done with a backtick `` ` ``. It quotes a form and resolves symbols in the current context yielding a fully-qualified symbol. If the symbol doesn't exist in the current namespace, it is resolved to the current namespace.
 
-<iframe frameborder="0" width="100%" height="300px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(ns%20my.quote)%0A%0A(def%20a%20123)%0A%5B%0A%20%20'map%3B%20with%20quote%2C%20no%20namespace%20resolution%0A%20%20%60map%3B%20map%20is%20resolved%20into%20cljs.core%20namespace%0A%20%20%60a%3B%20a%20is%20resolved%20into%20current%20namespace%3A%20my.quote%0A%20%20%60b%3B%20b%20is%20also%20resolved%20into%20current%20namespace%3A%20my.quote%0A%5D&eval_only=1">
-</iframe>
+When we use the regular quote, there is no namespace resolution:
+
+~~~klipse
+'(map)
+~~~
+
+While with syntax quote, the symbol is resolved:
+
+~~~klipse
+`(map)
+~~~
+
+If a symbol exists in the current namespace, it is resolved there:
+
+~~~klipse
+(ns my.quote)
+(def a 123)
+`(a)
+~~~
+
+If a symbol cannot be resolved, it is also resolved in the current namespace:
+
+~~~klipse
+`(b)
+~~~
 
 
 ### Syntax Quote - unquote
 
 With syntax quote, it's possible to unquote part of the form that is quoted with `~`. It allows you to evaluate part of the expression.
 
+Without evaluation:
 
-<iframe frameborder="0" width="100%" height="300px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(ns%20my.quote)%0A%0A%5B%0A%20%20%60(16%2017%20(inc%2017))%0A%20%20%60(16%2017%20~(inc%2017))%0A%20%20%60(16%2017%20~(map%20inc%20%5B16%2017%5D))%0A%5D&eval_only=1">
-</iframe>
+~~~klipse
+`(16 17 (inc 17))
+~~~
+
+With evaluation:
+
+~~~klipse
+`(16 17 ~(inc 17))
+~~~
+
+Another one:
+
+~~~klipse
+`(16 17 ~(map inc [16 17]))
+~~~
 
 
 ### Syntax Quote - unquote splicing
@@ -74,24 +114,55 @@ But what if you want to unquote a list and insert its elements (not the list) in
 
 No problem, `~@` is your friend (his official name is unquote splicing). And `~@` is really a good friend as he knows to handle any kind of collection.
 
-<iframe frameborder="0" width="100%" height="300px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(ns%20my.quote)%0A%0A%5B%0A%20%20%60(16%2017%20~(map%20inc%20%5B16%2017%5D))%0A%20%20%60(16%2017%20~%40(map%20inc%20%5B16%2017%5D))%0A%20%20%60(1%202%20~%40%5B1%20%5B2%203%5D%5D)%0A%20%20%60(1%202%20~%40%23%7B1%202%203%7D)%0A%20%20%60(1%202%20~%40%7B%3Aa%201%20%3Ab%202%20%3Ac%203%7D)%0A%5D&eval_only=1">
-</iframe>
+Without splicing:
 
+~~~klipse
+ `(16 17 ~(map inc [16 17]))
+~~~
 
+With splicing:
+
+~~~klipse
+`(16 17 ~@(map inc [16 17]))
+~~~
+
+Other examples:
+
+~~~klipse
+`(1 2 ~@[1 [2 3]])
+~~~
+
+~~~klipse
+`(1 2 ~@#{1 2 3})
+~~~
+
+~~~klipse
+`(1 2 ~@{:a 1 :b 2 :c 3})
+~~~
 
 ### Syntax Quote - symbol generation
 
 
 Inside syntax quote, you can generate unique symbol names by appending `#` to the symbol.
 
+
+~~~klipse
+`(A#)
+~~~
+
 The cool thing is that all the references to that symbol within a syntax-quoted expression resolve to the same generated symbol.
 
-<iframe frameborder="0" width="100%" height="300px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(ns%20my.quote)%0A%0A%5B%0A%20%20%60A%23%09%0A%20%20%60(a%20b%20a%23%20b%23)%0A%20%20%60(a%20b%20a%23%20b%23%20a%23%20b%23)%0A%20%20%60%7B%3Aa%20a%23%20%3Ab%20b%23%20%3Ac%20b%23%7D%0A%5D&eval_only=1">
-</iframe>
+~~~klipse
+`(a b a# b#)
+~~~
+
+~~~klipse
+`(a b a# b# a# b#)
+~~~
+
+~~~klipse
+`{:a a# :b b# :c b#}
+~~~
 
 There are other advanced features available inside syntax quote like `~'`, `~~`and `'~@`.
 
