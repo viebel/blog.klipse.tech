@@ -25,13 +25,37 @@ But as a [KLIPSE][app-url-js]{:target="_blank"} user, you want the time to be di
 
 It's simple to achieve that using [with-out-str](https://clojuredocs.org/clojure.core/with-out-str){:target="_blank}.
 
-Let's see it in action by comparing the running time of two naive implementations for prime number generation:
+Let's see it in action by comparing the running time of two naive implementations for prime number generation.
 
 
-<iframe frameborder="0" width="100%" height="600px"
-    src= 
-    "http://app.klipse.tech/?eval_only=1&cljs_in=(defn%20is-prime%3F%20%5Bn%5D%0A%20%20(empty%3F%20(filter%20%23(%3D%200%20(mod%20n%20%20%25))%20(range%202%20n))))%0A%0A(defn%20nth-prime%20%5Bn%5D%0A%20%20(last%20(take%20n%20(filter%20%23(is-prime%3F%20%25)%20(iterate%20inc%202)))))%0A%0A%0A%0A(defn%20is-prime-opt%3F%20%5Bn%5D%0A%20%20(or%20(%3D%202%20n)%0A%20%20%20(not-any%3F%20%23(%3D%200%20(mod%20n%20%25))%20(range%203%20(inc%20(Math%2Fsqrt%20n))%202))))%0A%0A(defn%20nth-prime-opt%20%5Bn%5D%0A%20%20(last%20(take%20n%20(filter%20%23(is-prime%3F%20%25)%20(cons%202%20(iterate%20(partial%20%2B%202)%203))))))%0A%0A%0A%5B(with-out-str%20(time%20(nth-prime%2050)))%0A%20(with-out-str%20(time%20(nth-prime-opt%2050)))%5D%0A">
-    </iframe>
+Here is a very naive implementation:
+
+~~~klipse
+(defn is-prime? [n]
+  (empty? (filter #(= 0 (mod n  %)) (range 2 n))))
+
+(defn nth-prime [n]
+  (last (take n (filter #(is-prime? %) (iterate inc 2)))))
+
+
+(with-out-str (time (nth-prime 50)))
+
+~~~
+
+And now a less naive implementation:
+
+~~~klipse
+(defn is-prime-opt? [n]
+  (or (= 2 n)
+     (not-any? #(= 0 (mod n %)) (range 3 (inc (Math/sqrt n)) 2))))
+
+(defn nth-prime-opt [n]
+  (last (take n (filter #(is-prime-opt? %) (cons 2 (iterate (partial + 2) 3))))))
+
+
+(with-out-str (time (nth-prime-opt 50)))
+
+~~~
 
 
 [app-url-js]: http://app.klipse.tech?js_only=1

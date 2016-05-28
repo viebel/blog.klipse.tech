@@ -12,9 +12,12 @@ If you are like us, you use clojurescript namespaces for a while, but without re
 
 Let's clarify it by looking at the transpiled javascript code, with [KLIPSE][app-url]{:target="_blank"}:
 
-<iframe frameborder="0" width="100%" height="300px"
-    src="http://app.klipse.tech/?cljs_in=(ns%20my-project.my-ns)%0A%0A(def%20x%201)%0A(def%20y%202)&js_only=1">
-</iframe>
+~~~klipse-js
+(ns my-project.my-ns)
+
+(def x 1)
+(def y 2)
+~~~
 
 As you know, javascript doesn't support namespaces; clojurescript implements namespaces using the [google closure library](https://developers.google.com/closure/library/docs/gettingstarted#hello-closure) where namespaces are js objects.
 
