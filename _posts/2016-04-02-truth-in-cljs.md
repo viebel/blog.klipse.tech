@@ -42,10 +42,10 @@ It is therefore very interesting to ask:
 
 Let's look at some transpiled `javascript` code with [KLIPSE][app-url]{:target="_blank"} in order to understand how `clojurescript` checks if something is true:
 
-<iframe frameborder="0" width="100%" height="300px"
-    src= 
-    "http://app.klipse.tech/?js_only=1&cljs_in=(defn%20check%20%5Bx%5D%0A%20%20(if%20x%20%22true%22%20%22false%22))">
-</iframe>
+~~~klipse-js
+(defn check [x]
+  (if x "true" "false"))
+~~~
 
 You see in the transpiled `javascript` code that the `x` variable has been wrapped into into a call to the `cljs.core.truth_` function.
 
@@ -79,10 +79,11 @@ It's nice to have a truth wrapper. But what if you are in a performance sensitiv
 Well, `clojurescript` provides a way to let the compiler know that you trust `javascript`: the `^boolean` type hint.
 
 Let's see it in action with [KLIPSE][app-url]{:target="_blank"}:
-<iframe frameborder="0" width="100%" height="300px"
-    src= 
-    "http://app.klipse.tech/?js_only=1&cljs_in=(defn%20check%20%5B%5Eboolean%20x%5D%0A%20%20(if%20x%20%22true%22%20%22false%22))&js_only=1">
-</iframe>
+
+~~~klipse-js
+(defn check [^boolean x]
+  (if x "true" "false"))
+~~~
 
 By using the `^boolean` type hint, you let the compiler know that `x` must be a boolean i.e. either `true` or `false`. In that case, it's safe to trust `javascript` about the truth. There is no need to wrap the hinted variable into `cljs.core.truth_`.
 
@@ -91,10 +92,11 @@ And the `clojurescript` compiler is smart: it knows how to propagate type hints 
 Let's check it with a simple piece of code in [KLIPSE][app-url]{:target="_blank"}:
 
 
-<iframe frameborder="0" width="100%" height="300px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(defn%20check%20%5B%5Eboolean%20x%5D%0A%20%20(let%20%5By%20x%5D%0A%20%20%09(if%20y%20%22true%22%20%22false%22)))&js_only=1">
-</iframe>
+~~~klipse-js
+(defn check [^boolean x]
+  (let [y x]
+    let(if y "true" "false")))
+~~~
 
 You see that `y` has not been wrapped.
 
@@ -106,10 +108,18 @@ Cool, isn't it?
 
 Let's have a look at some interesting edge cases exposed by [Mike Fikes](http://blog.fikesfarm.com/posts/2016-03-31-unhinted-clojurescript.html){:target="_blank"} involving the `^boolean` type hint:
 
-<iframe frameborder="0" width="100%" height="300px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(defn%20f%20%5B%5Eboolean%20b%5D%0A%20%20(loop%20%5Bx%20b%0A%20%20%20%20%20%20%20%20%20n%200%5D%0A%20%20%20%20(cond%0A%20%20%20%20%20%20(%3D%20n%20100000)%20%22almost%20infinite%20loop%22%0A%20%20%20%20%20%20(not%20x)%20(recur%200%20(inc%20n))%0A%20%20%20%20%20%20%3Aelse%20%3Adone)))%0A%0A%0A(f%20false)&eval_only=1">
-</iframe>
+~~~klipse
+(defn f [^boolean b]
+  (loop [x b
+           n 0]
+               (cond
+                     (= n 100000) "almost infinite loop"
+                           (not x) (recur 0 (inc n))
+                                 :else :done)))
+
+
+(f false)
+~~~
 
 What's happened here?
 
@@ -140,12 +150,35 @@ Let's follow, the flow of the loop for the first two iterations:
 
 Let's add `^any` to `x` and see how it solves our problem:
 
-<iframe frameborder="0" width="100%" height="300px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(defn%20f%20%5B%5Eboolean%20b%5D%0A%20%20(loop%20%5B%5Eany%20x%20b%0A%20%20%20%20%20%20%20%20%20n%200%5D%0A%20%20%20%20(cond%0A%20%20%20%20%20%20(%3D%20n%20100000)%20%22almost%20infinite%20loop%22%0A%20%20%20%20%20%20(not%20x)%20(recur%200%20(inc%20n))%0A%20%20%20%20%20%20%3Aelse%20%3Adone)))%0A%0A%0A(f%20false)">
-</iframe>
+~~~klipse-js
+(defn f [^boolean b]
+  (loop [^any x b
+           n 0]
+               (cond
+                     (= n 100000) "almost infinite loop"
+                           (not x) (recur 0 (inc n))
+                                 :else :done)))
+
+
+(f false)
+~~~
 
 Hourra! `x` has been wrapped again and we are safe.
+
+And obviously, it solves the infinite loop issue:
+
+~~~klipse
+(defn f [^boolean b]
+  (loop [^any x b
+           n 0]
+               (cond
+                     (= n 100000) "almost infinite loop"
+                           (not x) (recur 0 (inc n))
+                                 :else :done)))
+
+
+(f false)
+~~~
 
 
 Clojurescript rocks!
