@@ -25,14 +25,13 @@ Do you see any substantial difference between the two pieces of code below?
 
 They seem to be quite the same, so you'd expect their js transpiled code to be the same. 
 
-Let's check it with [KLIPSE][app-url-with-input] (Don't forget to press `Ctrl-Enter`):
+Let's check it with [KLIPSE][app-url-with-input]: 
 
 
-<iframe frameborder="0" width="100%" height="300px"
-    src= 
-    "http://app.klipse.tech?js_only=1&cljs_in=(if%202%203)%0A(def%20x%20(if%202%203))">
-    </iframe>
-
+~~~klipse-js
+(if 2 3)
+(def x (if 2 3))
+~~~
 
 Do you see what's going on here?
 
