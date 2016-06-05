@@ -10,31 +10,24 @@ author: "@RaphaelBoukara"
 
 Let's talk about a new pretty feature in [KLIPSE][app-url]{:target="_blank"}!
 
-Now KLIPSE use [replumb][replumb-url] to eval the clojurescript code. 
 All your favorite clojure libraries you are using everyday in your development are now available inside KLIPSE.
 
-Check that in KLIPSE:
-
 ~~~klipse
-(ns my-ns
+(ns my.ns
   (:require 
       [clojure.string :as string]))
 
 (string/blank? "HELLO!!")
 ~~~
 
-For the moment `:require-macros`, `use-macros` and `:refer` are not supported but we actively working on that.
-
-Another cool feature is that you can use all the KLIPSE's project dependencies. For example you can use replumb functions in KLIPSE!
+And `:refer` also works:
 
 ~~~klipse
 (ns my.ns
   (:require 
-      [replumb.core :as replumb]))
+      [clojure.string :refer [join]]))
 
-(replumb/read-eval-call {} identity "(+ 2 3)")
+(join "," ["hello" "world"])
 ~~~
 
-
 [app-url]: http://app.klipse.tech
-[replumb-url]: https://github.com/Lambda-X/replumb
