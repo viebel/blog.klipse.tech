@@ -57,22 +57,41 @@ The good news for us - the KLIPSE fans - is that the `static-fns` option is avai
 Now, let's explore the effects of `static-fns` by playing with live code. 
 You might find it more convenient to open [KLIPSE with static-fns=false](http://app.klipse.tech/?cljs_in=(defn%20foo%20%0A%20%20(%5B%5D%20%22foo%22)%0A%20%20(%5Bx%5D%20x)%0A%20%20(%5Bx%20y%5D%20y))%0A%0A(foo)%0A(foo%201)%0A(foo%201%202)%0A(foo%201%202%203)%0A%20%20&js_only=1&blog=klipse&static-fns=false){:target="_blank"} or [KLIPSE with static-fns=true](http://app.klipse.tech/?cljs_in=(defn%20foo%20%0A%20%20(%5B%5D%20%22foo%22)%0A%20%20(%5Bx%5D%20x)%0A%20%20(%5Bx%20y%5D%20y))%0A%0A(foo)%0A(foo%201)%0A(foo%201%202)%0A(foo%201%202%203)%0A%20%20&js_only=1&blog=klipse&static-fns=true){:target="_blank"} in another window.
 
-Here is a kind of hello world program compiled without static dispatch:
+Here is a kind of hello world program compiled without static dispatch.
 
-<iframe frameborder="0" width="100%" height="970px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(defn%20foo%20%0A%20%20(%5B%5D%20%22foo%22)%0A%20%20(%5Bx%5D%20x)%0A%20%20(%5Bx%20y%5D%20y))%0A%0A(foo)%0A(foo%201)%0A(foo%201%202)%0A(foo%201%202%203)%0A%20%20&js_only=1&static-fns=false">
-</iframe>
+First let's look how a multi-arity function is transpiled:
+
+~~~klipse-js
+(defn foo 
+  ([] "foo")
+    ([x] x)
+      ([x y] y))
+~~~
+
+And now, for the function calls:
+
+~~~klipse-js
+(foo)
+(foo 1)
+(foo 1 2)
+(foo 1 2 3)
+~~~
+  
 
 Without static dispatch, the compiler emits the same code for all the calls to `foo` no matter what is the arity: `cljs.user.foo.call(null,...)`. The proper function is calculated at run time. Actually, this is exactly what `cljs.user.foo` does: it dispatches to the proper arity function!
 
 
 Now, let's see what happens with static dispatch:
 
-<iframe frameborder="0" width="100%" height="970px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(defn%20foo%20%0A%20%20(%5B%5D%20%22foo%22)%0A%20%20(%5Bx%5D%20x)%0A%20%20(%5Bx%20y%5D%20y))%0A%0A(foo)%0A(foo%201)%0A(foo%201%202)%0A(foo%201%202%203)%0A%20%20&js_only=1&static-fns=true">
-</iframe>
+
+<pre>
+<div class="language-klipse-js" data-static-fns="true">
+(foo)
+(foo 1)
+(foo 1 2)
+(foo 1 2 3)
+</div>
+</pre>
 
 With static dispatch, the compiler emits code that calls the proper arity for `foo`: 
 
