@@ -12,7 +12,7 @@ author: "@viebel"
 
 Computer Programming is to let the computer know what we want it to execute.
 
-Computer undesrtans only a special language. When you want to communicate with your friends, you use human languages like english, french or spanish. When you want to communicate with a computer you use computer languages like ruby, python or clojure. All of them are examples of computer programming languages.
+Computer understands only a special language. When you want to communicate with your friends, you use human languages like english, french or spanish. When you want to communicate with a computer you use computer languages like ruby, python or clojure. All of them are examples of computer programming languages.
 
 
 ![Calculator](/assets/calc.jpg)
@@ -20,7 +20,7 @@ Computer undesrtans only a special language. When you want to communicate with y
 
 Enough introduction, let's start to do some real programming.
 
-#Your first program
+# Your first program
 
 Let's imagine you don't remember your table of multiplications and you want the computer to calculate `2*3` for you. How are you going to do that?
 
@@ -50,7 +50,7 @@ Try to add more white spaces between the operands, or between an operand and a p
 
 What results do you get?
 
-#Exercices
+# Exercices
 
 1. Write a program that calculates `2*3*4*5`
 
