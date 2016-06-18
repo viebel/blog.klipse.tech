@@ -4,6 +4,7 @@ title:  "immutable.js live tutorial"
 description:  "spec tutorial clojure klipse live coding examples clojurescript cljs"
 date:   2016-03-30 18:17:52 +0200
 categories: javascript
+hidden: true
 thumbnail: assets/klipse.png
 guid: "4BEFF6B0-8E1C-482F-98B0-BCA39A0F84B1"
 author: "@viebel"
