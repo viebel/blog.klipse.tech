@@ -7,5 +7,9 @@
         selector_js: '.language-klipse-js'
     };
 </script>
+{% if page.minified_plugin  %}
+<script src="http://app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?v=1.0.0"></script>
+{% else %}
 <script src="http://app.klipse.tech/plugin/js/klipse_plugin.js?v=0.8.0"></script>
+{% endif %}
 <!--script src="http://localhost:5014/plugin/js/klipse_plugin.js?"></script-->
