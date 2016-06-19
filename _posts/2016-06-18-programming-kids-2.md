@@ -12,9 +12,9 @@ author: "@viebel"
 ---
 
 
-In the [previous chapter]({% post_url 2016-01-01-programming-kids-1%}), you have learned to compose simple expressions in computer programming language.
+In the [previous chapter]({% post_url 2016-01-01-programming-kids-1%}), you have learned to compose **simple** expressions in computer programming language.
 
-In this chapter, you are going to learn how to compose nested expressions.
+In this chapter, you are going to learn how to compose **nested** expressions.
 
 ![Russian Dolls](/assets/russian_dolls.jpg)
 
@@ -22,19 +22,17 @@ In this chapter, you are going to learn how to compose nested expressions.
 
 Nested expressions are like russian dolls: one expression contains an expression that contains an expression that contains an expression that contains...
 
-You are probably asking yourself how could we have an expression containing an expression?
+You are probably asking yourself how could we have an expression that contains an expression?
 
-Let's try to write an expression that add `3` and `4` and multiply the result by `5`.
+Well, as an example, Let's compose a **nested** expression that adds `3` and `4` and multiply the result by `5`.
 
-For that, we are going to use the **3 steps of an expression** that we introduced in [previous chapter]({% post_url 2016-01-01-programming-kids-1%}):
+For that, we are going to use again the **3 steps of an expression** that we introduced in [previous chapter]({% post_url 2016-01-01-programming-kids-1%}):
 
 1. First, you need to tell the computer that you want him to execute something. For that you use the parenthesis: `()`. The computer will execute for you the content of the parenthesis.
 
-2. Then, you need to tell him what `operation` you want him to execute: in our case, the operation is the multiplication. The symbol for multiplication is: `*`.
+2. Then, you need to tell him what `operation` you want him to execute: in our case, the operation is the multiplication.
 
-3. Finally, you need to tell him what are the details of the `operation`: the `operands`. In our case, the `operands` are: 
-a. `(+ 3 4)`
-b. 5
+3. Finally, you need to tell him what are the details of the `operation`: the `operands`. In our case, the `operands` are: `(+ 3 4)` and `5`.
 
 Combining all of that, we get:
 
@@ -42,9 +40,9 @@ Combining all of that, we get:
 (* (+ 3 4) 5)
 ~~~
 
-This is your first **nested expression**.
+Congratulations! This is your first **nested expression**.
 
-Now, try to add more `operands`: for instance, you could type `(* (+ 3 4) 5 6 8)`.
+Now, try to use more `operands`: for instance, you could type `(* (+ 3 4) 5 6 8)`.
 
 # Exercises
 
@@ -85,7 +83,20 @@ F. add 7 to 9 and multiply the result by `(+ 3 8 9)`
 ()
 ~~~
 
-Here are the solutions in video.
+
+Here are the solutions:
+
+A. 66
+
+B. 80
+
+C. 69
+
+D. 78
+
+E. 240
+
+F. 320
 
 
 Send us a screenshot with your programs to [viebel@gmail.com](mailto:viebel@gmail.com?Subject=Chapter%202).
