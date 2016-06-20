@@ -39,7 +39,7 @@ Here is the [full interview of Alan Kay](http://www.drdobbs.com/architecture-and
 
 The klipse plugin is a small step toward this dream: it is a `javascript` tag that transforms static `clojure` code snippets of an html page to live and interactive snippets.
 
-[Klipse](https://github.com/viebel/klipse) is written in `clojurescript` and uses [replumb](https://github.com/Lambda-X/replumb) for code evaluation (self-hosted cljs).
+[Klipse](https://github.com/viebel/klipse) is written in `clojurescript`, it uses [replumb](https://github.com/Lambda-X/replumb) for code evaluation (self-hosted cljs) and [CodeMirror](http://codemirror.net/) for text editing. 
 
 For instance, let's have on this page a static code snippet with `(map inc [1 2 3])`:
 
@@ -63,12 +63,8 @@ All I had to do in order to **klipsify** my code snippet, was to set the `langua
 See it by yourself: here is the source of this page:
 
 ~~~html
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">(</span><span class="nb">map</span><span class="w"> </span><span class="nb">inc</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="p">])</span><span class="w">
-</span><span class="c1">; (2 3 4)
-</span></code></pre>
-</div>
+<p>And now, we are going to <strong>klipsify</strong> this code snippet:</p>
 
-<p>And now, we are going to <code class="highlighter-rouge">klipsify</code> this code snippet:</p>
 
 <pre><code class="language-klipse">(map inc [1 2 3])
 </code></pre>
@@ -76,7 +72,7 @@ See it by yourself: here is the source of this page:
 
 Ah! I forgot to mention that I had to remove `;(2 3 4)` from the code snippet.
 
-Before dealing about integration of the klipse plugin on a web page, let's enjoy another lipse snippet for generating a lazy Fibonacci sequence:
+Before dealing about integration of the klipse plugin on a web page, let's enjoy another klipse snippet for generating a lazy Fibonacci sequence:
 
 ~~~klipse
 (def fib-seq-seq
