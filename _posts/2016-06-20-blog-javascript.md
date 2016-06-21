@@ -119,7 +119,7 @@ Again, enjoy the interactivity and modify the code...
 
 If you look at the page source, you'll see that I don't need to load `underscore.js` again because it was already loaded by a previous klipse snippet.
 
-# Integration
+# Klipse plugin integration
 
 All you need to do in order to integrate the klipse plugin to your blog (or any other web page), is to add this `javascript` tag to your web page:
 
@@ -135,6 +135,13 @@ All you need to do in order to integrate the klipse plugin to your blog (or any 
 ~~~
 
 By the way, this is exactly what we did on the page that you are currently reading.
+
+# Blog posts examples
+
+Here are a couple of blog posts with  `javascript` klipse snippets:
+
+- [immutable.js live tutorial](http://blog.klipse.tech/javascript/2016/03/30/immutable.html)
+- [A secret about javascript eval](http://blog.klipse.tech/javascript/2016/06/20/js-eval-secrets.html)
 
 
 ---
