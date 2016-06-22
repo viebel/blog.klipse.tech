@@ -101,5 +101,7 @@ F. 320
 
 Send us a screenshot with your programs to [viebel@gmail.com](mailto:viebel@gmail.com?Subject=Chapter%202).
 
+Now, you are ready for [chapter 3]({% post_url 2016-06-19-programming-kids-3 %}).
+
 ---
 [app-url]: http://app.klipse.tech?blog=klipse
