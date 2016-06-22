@@ -105,6 +105,14 @@ Feel free to contact us for further explanations:
 - @raphael (clojurians), [@RaphaelBoukara](https://github.com/raphaelboukara) (twitter) , 
 [raphael.boukara@gmail.com](mailto:raphael.boukara@gmail.com?Subject=Klipse){:target="_blank"}
 
+# Other languages
+
+The klipse plugin is designed as a platform that could support any language that has a client-side evaluator, by writing modules to the klipse plugin. Currently, there are modules available for the following languages: 
+
+
+- javascript: [A new way of blogging about javascript](http://blog.klipse.tech/javascript/2016/06/20/blog-javascript.html)
+- ruby: [A new way of blogging about ruby](http://blog.klipse.tech/ruby/2016/06/20/blog-ruby.html)
+
 # Limitations and issues
 
 There are a couple of limitations and issues with the klipse plugin:

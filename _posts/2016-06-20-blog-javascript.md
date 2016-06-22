@@ -136,6 +136,13 @@ All you need to do in order to integrate the klipse plugin to your blog (or any 
 
 By the way, this is exactly what we did on the page that you are currently reading.
 
+# Other languages
+
+The klipse plugin is designed as a platform that could support any language that has a client-side evaluator, by writing modules to the klipse plugin. Currently, there are modules available for the following languages: 
+
+- ruby: [A new way of blogging about ruby](http://blog.klipse.tech/ruby/2016/06/20/blog-ruby.html)
+- clojure[script]: [How to klipsify a clojure[script] blog post](http://blog.klipse.tech/clojure/2016/06/07/klipse-plugin-tuto.html)
+
 # Blog posts examples
 
 Here are a couple of blog posts with  `javascript` klipse snippets:
