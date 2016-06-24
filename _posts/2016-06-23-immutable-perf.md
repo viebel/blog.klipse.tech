@@ -20,7 +20,10 @@ As they explain on their website:
 > Persistent data presents a mutative API which does not update the data in-place, but instead always yields new updated data.
 
 
-In this article, we are going to go over a basic use case where `immutable.js` is much much faster than `javascript`.
+In this article, we are going to go over a basic use case where `immutable.js` is much much faster than `javascript`: pushing an element to an array without modifying the original array.
+
+In `javascript` the only way of doing that is by first copying the array then pushing the element to it. With `immutable.js`, `push` returns a new list with the element appended to it; and this is super fast.
+
 
 ![Fast](/assets/velo.jpg)
 
@@ -59,7 +62,9 @@ Now, let's compare the performance of:
 
 1. creating a `javascript` array vs. creating an immutable list
 
-2. pushing an element to a `javascript` array vs. pushing an element to an `immutable.js` list
+2. copying and pushing an element to a `javascript` array vs. pushing an element to an `immutable.js` list
+
+
 
 ## Collection creation
 
@@ -82,10 +87,9 @@ benchmark(1, function() {
 ~~~
 
 
-## Collection manipulation: push
+## Javascript array slice is slow
 
 Manipulation a `javascript` array with `slice` and `push` is quit expensive:
-
 
 ~~~klipse-eval-js
 var jsArr = [];
@@ -101,9 +105,16 @@ A few remarks:
 
 2. `push` modifies the array it is called on
 
+~~~klipse-eval-js
+myArr = [];
+myArr.push(42);
+myArr.push(43);
+myArr
+~~~
 
+# Immutable push is super fast
 
-While pushing an element to an `immutable` list is super fast:
+Pushing an element to an `immutable` list is super fast:
 
 ~~~klipse-eval-js
 immutableList = Immutable.Range(0, 100000).toList();
@@ -117,6 +128,13 @@ If you see that the elapsed time is `0 msec`, it's not a bug: it is indeed very 
 
 > On my computer `push` of `immutable.js` is about `100x` faster than `push` of native `javascript`.
 
+Note that when pushing an element to an `immutable.js` list, the list is not modified. A new list is returned with the element appended to it: this is how immutable collections work. 
+
+~~~klipse-eval-js
+myList = Immutable.Range(0, 10).toList(); 
+myList.push(42);
+myList.size
+~~~
 
 # Go deeper
 
@@ -124,6 +142,8 @@ Here are a couple of interesting articles that describe in details what are pers
 
 - [Understanding Clojure's Persistent Vectors](http://hypirion.com/musings/understanding-persistent-vector-pt-1)
 - [Persistent data structure - Wikipedia](https://en.wikipedia.org/wiki/Persistent_data_structure)
+- [immutable.js documentation](https://facebook.github.io/immutable-js/)
+ 
 
 
 ---
