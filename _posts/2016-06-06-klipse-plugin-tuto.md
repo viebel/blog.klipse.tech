@@ -56,7 +56,7 @@ And now, we are going to **klipsify** this code snippet:
 (map inc [1 2 3])
 ~~~
 
-Feel free to edit the code above: it's interactive => it evaluates when you press `Ctrl-Enter` or after 2 seconds of inactivity (useful for mobile).
+Feel free to edit the code above: it's interactive => it evaluates again as you type.
 
 All I had to do in order to **klipsify** my code snippet, was to set the `language-klipse` class (configurable) to the appropriate html element.
 

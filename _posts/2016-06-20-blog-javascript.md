@@ -40,7 +40,7 @@ Here is the [full interview of Alan Kay](http://www.drdobbs.com/architecture-and
 The klipse plugin is a small step toward Alan Kay's vision: it is a `javascript` tag that transforms static `javascript` code snippets of an html page to live and interactive snippets:
 
 1. **Live**: The code is executed in your browser
-2. **Interactive**: You can modify the code and it is evaluated after 2 seconds of inactivity
+2. **Interactive**: You can modify the code and it is evaluated as you type
 
 [Klipse](https://github.com/viebel/klipse) is written in `clojurescript`, and uses [CodeMirror](http://codemirror.net/) for text editing. 
 
@@ -62,7 +62,7 @@ And now, we are going to **klipsify** this code snippet:
 [1,2,3].map(function(x){ return x + 1;})
 ~~~
 
-Feel free to edit the code above: it's interactive => it evaluates when you press `Ctrl-Enter` or after 2 seconds of inactivity (useful for mobile).
+Feel free to edit the code above: it's interactive => it evaluates as you type.
 
 All I had to do in order to **klipsify** my code snippet, was to set the `language-klipse-eval-js` class (configurable) to the appropriate html element.
 
@@ -85,7 +85,7 @@ var hi = name => "hello " + name;
 hi("klipse")
 ~~~
 
-Go ahead! modify the klipse snippet above, and after 2 seconds of inactivity, it will evaluate...
+Go ahead! modify the klipse snippet above, and it will evaluate as you type...
 
 # Loading external libraries
 

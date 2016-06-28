@@ -56,7 +56,7 @@ By the way, you see that `javascript` function call mechanism is super fast.
 All the code snippets of this page are **live** and **interactive** powered by the [klipse plugin](https://github.com/viebel/klipse):
 
 1. **Live**: The code is executed in your browser
-2. **Interactive**: You can modify the code and it is evaluated after 2 seconds of inactivity or if you press `Ctrl-Enter`
+2. **Interactive**: You can modify the code and it is evaluated as you type
 
 Now, let's compare the performance of:
 

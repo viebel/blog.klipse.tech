@@ -36,7 +36,7 @@ var context = 'outside';
 All the examples of this page are live and interactive examples:
 
 1. The code is executed in your browser
-2. You can modify the code and it is evaluated after 2 seconds of inactivity
+2. You can modify the code and it is evaluated as you type
 
 But sometimes, `eval` runs outside the scope of the caller function:
 
