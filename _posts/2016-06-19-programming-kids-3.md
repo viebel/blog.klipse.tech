@@ -7,7 +7,7 @@ categories: clojure
 programming_course: true
 hidden: true
 thumbnail: assets/klipse.png
-guid: "C6CCCB84-BD23-4A61-B5E2-3A209A9EE2AF"
+guid: "AB0B0C04-1C84-4597-AB73-1B382D2578C4"
 author: "@viebel"
 ---
 
@@ -87,14 +87,34 @@ You can also replace `(+ 3 4)` by another expression: `(* 6 7)` or `(+ (* 7 2) (
 Once you give a name to an expression, you can use it everywhere.
 
 Here, we define `my-favourite-number` to be `18`:
+
 ~~~klipse
 (def my-favourite-number 18)
 ~~~
 
 And now, we add `10` to `my-favourite-number`:
+
 ~~~klipse
 (+ my-favourite-number 10)
 ~~~
+
+# Back to the complicated expression
+
+Now, we can re-write the complicated expression we started with: `(+ (* (+ 3 4) 7) (* (+ 3 4) 9) (* (+ 3 4) 5))`:
+
+~~~klipse
+(def my-number (+ 3 4))
+(+ (* my-number 7) (* my-number 9) (* my-number 5))
+~~~
+
+Do you agree that it looks much simpler?
+
+Of course, it gives exactly the same result as the original expression:
+
+~~~klipse
+(+ (* (+ 3 4) 7) (* (+ 3 4) 9) (* (+ 3 4) 5))
+~~~
+
 
 # Exercises
 
