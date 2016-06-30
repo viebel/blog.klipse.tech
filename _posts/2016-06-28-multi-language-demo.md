@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Multi language live snippets with the klipse plugin"
+title:  "Multi language live snippets with the klipse plugin by @viebel"
 description:  "Multi language live and interactive code snippets with the klipse plugin: javascript, ruby, PHP, clojure."
 date:   2016-06-28 02:07:23 +0200
 categories: all
