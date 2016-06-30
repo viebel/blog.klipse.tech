@@ -32,7 +32,7 @@ For that purpose, you will have to master the  **3 steps of an expression**:
 
 2. Then, you need to tell him what `operation` you want him to execute: in our case, the operation is the multiplication. The symbol for multiplication is: `*`.
 
-3. Finally, you need to tell him what are the details of the `operation`. We call them the `operands`. In our case, the `operands` are `7` and `8`. The operands must be separated by one or more white spaces one from the other and one from the `operand`.
+3. Finally, you need to tell him what are the details of the `operation`. We call them the `operands`. In our case, the `operands` are `7` and `8`. The operands must be separated by one or more white spaces one from the other and one from the `operation`.
 
 Combining all of that, we get:
 
@@ -54,6 +54,8 @@ Try to add more white spaces between the operands, or between an operand and a p
 
 What results do you get?
 
+When you talk to a friend you use sentences. When you talk to a computer, you use `expressions`.
+
 # Exercises
 
 If you are having difficulties with one exercise, read again the details of the **3 steps of an expression**.
@@ -64,11 +66,15 @@ A. Write a program that calculates `7*8`
 ()
 ~~~
 
+Did you get `56`?
+
 B. Write a program that calculates `2*3*4*5`
 
 ~~~klipse
 ()
 ~~~
+
+Did you get `120`?
 
 C. Write a program that calculates `2+3+4+5`
 
@@ -76,18 +82,7 @@ C. Write a program that calculates `2+3+4+5`
 ()
 ~~~
 
-3. [HARD] Write a program that calculates `2*3+4`
-
-~~~klipse
-()
-~~~
-
-4. [HARD] Write a program that calculates `7*(6+5)`
-
-~~~klipse
-()
-~~~
-
+Did you get `14`?
 
 Here are the solutions in video.
 
