@@ -18,7 +18,9 @@ In this chapter, you are going to learn how to name expressions.
 
 But before that, you need to understand why it is important to have the ability to name expressions. One reason is that without naming expressions, computer programming can rapidly become a mess.
 
-![Russian Dolls](/assets/russian_dolls.jpg)
+When you name expressions, computer programming is more organized.
+
+![Organized](/assets/organized.jpg)
 
 # The problem: Without naming expressions, it's sometimes a mess
 
@@ -56,18 +58,18 @@ And using `a` instead of `(+ 3 4)` our expression becomes simpler:
 
 `def` is the `operation` that tells the computer to give a `name` to an `expression`. (The word `def` is a shorthand for `define`).
 
-`def` is used inside an expression the same way that `+` and `*` are used, with the **3 steps of an expression** that we introduced in [chapter 1]({% post_url 2016-01-01-programming-kids-1%}):
+In order to use `def`, you need to compose an expression in the same way that you did with `+` and `*` in the previous chapters: with the **3 steps of an expression** that we introduced in [chapter 1]({% post_url 2016-01-01-programming-kids-1%}):
 
 1. First, you need to tell the computer that you want him to execute something. For that you use the parenthesis: `()`. 
 
 2. Then, you need to tell him what `operation` you want him to execute: in our case, the operation is `def`.
 
-3. Finally, you need to tell him what are the details of the `operands` for `def` operation: the first operand is the name and the second operand is the expression.
+3. Finally, you need to tell him what are the details of the `operands` for `def` operation: the first operand is the `name` you want to give to the expression and the second operand is the `expression` you want to name.
 
 Combining all of that, we get:
 
 ~~~klipse
-(def a (+ 3 4)
+(def a (+ 3 4))
 ~~~
 
 Can you see the 3 parts of the expression?
@@ -120,58 +122,39 @@ Of course, it gives exactly the same result as the original expression:
 
 If you are having difficulties with one exercise, read again the details of the **3 steps of an expression**.
 
-A. add 10 to 12 and multiply the result by 3
+A. Calculate `(4 + 7 + 8)*3 + (4 + 7 + 8)*7 + (4 + 7 + 8)*9`
 
 ~~~klipse
 ()
 ~~~
 
-B. add 7 to 9 and multiply the result by 5
+You should get `361`.
 
-~~~klipse
-()
-~~~
-C. multiply 7 and 9 and add 6 to the result
-
-~~~klipse
-()
-~~~
-
-D. multiply 7 and 9 and add 6 and 9 to the result
+B. Calculate `(2*3 + 4)*3 + (2*3 + 4)*7 + (2*3 + 4)*9`
 
 ~~~klipse
 ()
 ~~~
 
-E. add 7 to 9 and multiply the result by 5 and 3
+You should get `190`.
+
+
+C. Calculate `2*3 + 4*5`. Then multiply the result by `4 + 5`.
 
 ~~~klipse
 ()
 ~~~
 
-F. add 7 to 9 and multiply the result by `(+ 3 8 9)`
+You should get: `234`.
+
+C. Calculate `2*3 + 4*5`. Then multiply the result by `4 + 5`. Then multiply the result by `19`.
 
 ~~~klipse
 ()
 ~~~
 
 
-Here are the solutions:
+You should get: `4446`.
 
-A. 66
+Send us a screenshot with your programs to [viebel@gmail.com](mailto:viebel@gmail.com?Subject=Chapter%203).
 
-B. 80
-
-C. 69
-
-D. 78
-
-E. 240
-
-F. 320
-
-
-Send us a screenshot with your programs to [viebel@gmail.com](mailto:viebel@gmail.com?Subject=Chapter%202).
-
----
-[app-url]: http://app.klipse.tech?blog=klipse
