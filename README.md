@@ -2,7 +2,7 @@
 
 Create a fork.
 
-Checkout the `gh-pages` branch
+Do your work on  the `master` branch
 
 # How to add a blog post?
 
@@ -13,7 +13,7 @@ Open a terminal and run
 jekyll serve --port 4000
 ```
 
-Open your browser at [localhost:4000](localhost:4000)
+Open your browser at [http://localhost:4000](http://localhost:4000)
 
 ## Create a new post
 
