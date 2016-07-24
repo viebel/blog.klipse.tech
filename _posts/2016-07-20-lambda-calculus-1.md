@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Numbers and Arithmetics with functions only: live lambda calculus tutorial."
+title:  "Numbers and Arithmetics with functions only: lambda calculus live tutorial."
 description:  "Numbers and Arithmetics with functions only. Lamnda-Calculus introduction in Clojure. Live tutorial."
 date:   2016-07-24 10:22:34 +0200
 categories: lambda
