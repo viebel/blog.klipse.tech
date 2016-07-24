@@ -194,7 +194,7 @@ Let's define a type named `Lambda`:
 
 And a function that converts a regular number to a typed lambda number:
 
-~~~
+~~~klipse
 (defn lambda-typed-num [n]
   (Lambda. (lambda-num n)))
 ~~~
