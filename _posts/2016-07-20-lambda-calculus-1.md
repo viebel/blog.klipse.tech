@@ -90,7 +90,7 @@ Let's see what happens when we pass it to a lambda number:
 
 Nice! Now, we see visually the definition of the number `two`: Application of a function twice.
 
-In oder to make things more convenient, let's define a helper function `view`:
+In order to make things more convenient, let's define a helper function `view`:
 
 ~~~klipse
 (defn view [f]
@@ -292,7 +292,7 @@ Here is how one implements the `multiplication` function in `λ-calculus`. Multi
             (m (n f)))))
 ~~~
 
-The code basically means: compose the function `f` `n` times and then `n` times.
+The code basically means: compose the function `f` `n` times and then `m` times.
 
 Let's check it works fine:
 
