@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Numbers and Arithmetics with functions only: lambda calculus live tutorial."
+title:  "Numbers and Arithmetics with functions only: lambda calculus live tutorial"
 description:  "Numbers and Arithmetics with functions only. Lambda-Calculus introduction in Clojure. Live tutorial."
 date:   2016-07-24 10:22:34 +0200
 categories: lambda
@@ -55,6 +55,8 @@ In order to see the numbers in action, we need to execute them on a function and
 
 
 All the code snippets on this article are live and interactive: feel free to modify the code and it will evaluate instantaneously!
+
+The code snippets are powered by the [Klipse plugin](https://github.com/viebel/klipse).
 
 We could take the increment function `inc`, and execute the result on `42`:
 
@@ -312,4 +314,7 @@ Make sure that `3*2` equals 6:
 It is really amazing to see concretely how powerful is the `λ-calculus`. With a very limited set of characters and concepts we can build the arithmetics.
 
 
+In the [next article]({% post_url 2016-07-24-lambda-calculus-2%}), we are going to show how to define the booleans and their basic operations.
 
+
+Let us know what you think about this lambda-calculus tutorial in the comments below....
