@@ -22,15 +22,22 @@ Now we are going to show you how `clojure` ninjas write macros.
 
 ### The `disp` macro - by 2 anonymous ninjas
 
-The `disp` macro receives expressions and returns a string with the expressions and their respective evaluations.
+The `disp` macro receives expressions and returns a symbol with the expressions and their respective evaluations. (A symbol is much more pretty than a string.)
 
 ~~~klipse
 
 (ns my.best$macros)
 
+(defn symbol-several
+  "returns a symbol with the concatenation of the str values of the args"
+  [& x]
+  (symbol (apply str x)))
+
 (defmacro disp [& forms]
-  (cons `str (for [form forms]
-                 `(str (pr-str '~form) " => " (pr-str ~form) "\n"))))
+  (cons
+    `symbol-several
+    (for [form forms]
+      `(str '~form " => " ~form "\n"))))
 
 (my.best/disp 
   (map inc [1 2 3])
