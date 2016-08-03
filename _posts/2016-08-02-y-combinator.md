@@ -161,5 +161,5 @@ The claim is that any function that is a fixed point of `factorial-gen` is equal
      (m (fn [arg]
           ((future future) arg)))))) ;; f(x x)
 
-((YY factorial-gen) 10)
-~~~klipse
+((YYY factorial-gen) 10)
+~~~
