@@ -9,7 +9,7 @@
 title: A journey into functional programming
 email: raphael.boukara@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
-   A journey into functional programming wonders, especially Clojure and Clojurescript. Clojure and clojurescript repl. live coding. gist. dynamic code.
+   A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
 baseurl: "" # the subpath of your site, e.g. /blog
 
 github_username_rb:  raphaelboukara
