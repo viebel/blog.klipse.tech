@@ -6,7 +6,7 @@
 # 'jekyll serve'. If you change this file, please restart the server process.
 
 # Site settings
-title: A journey into functional programming wonders, especially Clojure and Clojurescript
+title: A journey into functional programming
 email: raphael.boukara@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
    A journey into functional programming wonders, especially Clojure and Clojurescript. Clojure and clojurescript repl. live coding. gist. dynamic code.
