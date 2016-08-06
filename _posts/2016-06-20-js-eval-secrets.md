@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "javascript eval secrets"
+title:  "javascript eval: direct vs indirect call "
 description:  "javscript eval live example ecmascript 5 6"
 date:   2016-06-20 08:11:42 +0200
 categories: javascript
@@ -21,6 +21,13 @@ In this article, we are going to show a couple of examples that relates to this 
 
 ![Power](/assets/power.jpg)
 
+All the examples of this page are live and interactive code snippets:
+
+1. The code is executed in your browser
+2. You can modify the code and it is evaluated as you type
+
+The interactive code snippets are powered by [klipse](https://github.com/viebel/klipse).
+
 # Outside Scope or Inside Scope?
 
 Usually, `eval` runs inside the scope of the caller function:
@@ -32,11 +39,6 @@ var context = 'outside';
     return eval('context');
 })();
 ~~~
-
-All the examples of this page are live and interactive examples:
-
-1. The code is executed in your browser
-2. You can modify the code and it is evaluated as you type
 
 But sometimes, `eval` runs outside the scope of the caller function:
 
