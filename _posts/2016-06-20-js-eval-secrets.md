@@ -11,7 +11,7 @@ minified_plugin: true
 
 ---
 
-Every `javscript` developer know that `eval` is evil.
+Every `javsacript` developer knows that `eval` is evil.
 
 But `eval` is really powerful and from a theoretical perspective `eval` is very interesting.
 
