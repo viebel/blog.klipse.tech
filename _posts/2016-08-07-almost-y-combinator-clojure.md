@@ -32,6 +32,8 @@ All the code snippets of this page are **live** and **interactive** powered by t
 
 The end result of this article is the recursive implementation of the `factorial` function without using neither names nor loops.
 
+Here is the code:
+
 ~~~klipse
 (((fn [f]
    (f f))
@@ -43,10 +45,14 @@ The end result of this article is the recursive implementation of the `factorial
  19)
 ~~~
 
+As you can check, no mention of any names.
+
 At first, it feels like magic.
 
-Now, we are going to show in 4 steps how we could derive this piece of code.
+Now, we are going to show the 4 step process that leads to this wonderful piece of code.
 
+
+(We were inspired by this [long but awesome article](http://mvanier.livejournal.com/2897.html) by [Mike Vanier](http://users.cms.caltech.edu/~mvanier/).)
 
 ## The process
 
@@ -82,7 +88,7 @@ One one hand, `factorial-gen` is not recursive.
 
 On the other hand, `factorial-gen` is not the `factorial` function. 
 
-But the interesting thing is that if we pass `factorial` to `factorial-gen` it return the `factorial` function:
+But the interesting thing is that if we pass `factorial` to `factorial-gen` it returns the `factorial` function:
 
 ~~~klipse
 ((factorial-gen factorial)
@@ -97,7 +103,7 @@ Before going on reading make sure you understand why it is true that:
 # Step 2: weird generator
 
 
-Now, we are going to do something very weird: instead of using `func`, we are going to use `(func func)`.
+Now, we are going to do something very weird: instead of using `func`, we are going to use `(func func)`. Like this:
 
 ~~~klipse
 (defn factorial-weird [func]
