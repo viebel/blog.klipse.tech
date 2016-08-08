@@ -44,6 +44,8 @@ Feel free to play with the value passed to the function in your preferred langua
  19)
 ~~~
 
+Here is [a detailed explanation of this code]({% post_url 2016-08-07-almost-y-combinator-clojure %}).
+
 # Javascript
 
 ~~~klipse-eval-js

@@ -16,6 +16,8 @@ This is an introductory article to the [Y combinator](https://en.wikipedia.org/w
 
 In this article, we are going to show how to write recursive functions in `clojure` without giving names to any function.
 
+(If you are curious to see it in other languages, there is [a version of the code]({% post_url 2016-08-07-almost-y-combinator %}) in `javascript`, `EcmaScript6` and `ruby`.)
+
 At first glance it seems impossible: how could we refer to something that we are currently defining without using its name?
 
 
