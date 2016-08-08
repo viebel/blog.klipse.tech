@@ -1,145 +1,100 @@
 ---
 layout: post
-title:  "The real Y combinator in clojure"
-description:  "Recursions without names"
+title:  "Lambda Calculus: The Y combinator in clojure"
+description:  "Recursions without names. The y combinator in clojure. Lambda Calculus."
 date:   2016-08-07 03:21:33 +0200
 categories: lambda
 thumbnail: assets/klipse.png
 guid: "AB748BEB-B77F-460F-AD66-8FBC10CE8743"
-hidden: true
 author: "@viebel"
 
 ---
 
+In a [previous article]({% post_url 2016-08-07-almost-y-combinator-clojure %}), we have shown how one can write recursive functions without using names.
+
+Now, we are going to present the [Y combinator](https://en.wikipedia.org/wiki/Fixed-point_combinator).
 
 
-# Generalisation until n
+The Y combinator is one of the most aesthetic idea of computer science. It might not be so practical, but it is really beautiful.
+
+The Y combinator is a function that allows to generate recursive functions without using names.
+
+![Recursive](/assets/drawing-recursive.jpg)
+
+Many articles have been written about the Y combinator. The particularity of the current article is that you - the reader - are going to feel the magic of the Y combinator with your hand.
+
+
+All the code snippets of this page are **live** and **interactive** powered by the [klipse plugin](https://github.com/viebel/klipse):
+
+1. **Live**: The code is executed in your browser
+2. **Interactive**: You can modify the code and it is evaluated as you type
+
+
+# The Y combinator in action
+
+
+The Y-combinator takes the idea presented in [our previous article]({% post_url 2016-08-07-almost-y-combinator-clojure %}) one step further and make it applicable to any function.
+
+
+Here is the code of the Y-combinator in `clojure`:
 
 ~~~klipse
-(defn factorial-gen-until [n]
-  ((apply comp (repeat (inc n) factorial-gen)) nil))
+(def Y (fn [f]
+  ((fn [x]
+     (x x))
+   (fn [x]
+     (f (fn [y]
+          ((x x) y)))))))
 ~~~
 
-~~~klipse
-((factorial-gen-until 10) 10)
-~~~
+So much power in just 83 characters, with no other concepts than function definition and function execution!
+
+
+Let's see the Y combinator in action with the `factorial` function. For that purpose, we need to write the `factorial` function with a tweak: the recursive call is going to be parameterised. Like this:
 
 ~~~klipse
-(defn fn-gen-until [f n]
-  ((apply comp (repeat (inc n) f)) nil))
-~~~
-
-
-~~~klipse
-((fn-gen-until factorial-gen 10) 9)
-~~~
-
-
-# Generalisation until ∞: No Limit
-
-~~~klipse
-(defn fn-gen-no-limit [f]
+(def factorial-gen (fn [func]
   (fn [n]
-    (((apply comp (repeat (inc n) f)) nil) n)))
+    (if (zero? n)
+      1
+      (* n (func (dec n)))))))
 ~~~
 
+
+And not it's time for magic:
+
 ~~~klipse
-((fn-gen-no-limit factorial-gen) 14)
+((Y factorial-gen) 19)
 ~~~
 
-
-This is cheating because `comp` implementation uses recursion...
-
-
-# No limit
+Obviously, we can write exactly the same code without names, by replacing `Y` and `factorial-gen` with their bodies:
 
 ~~~klipse
-(defn factorial-self [func]
-  (fn [n]
+(((fn [f]
+    ((fn [x]
+       (x x))
+     (fn [x]
+       (f (fn [y]
+            ((x x) y))))))
+  (fn [func]
+    (fn [n]
       (if (zero? n)
-            1
-                  (* n ((func func) (dec n))))))
+        1
+        (* n (func (dec n))))))) 19)
 ~~~
 
+Please take the time to play with the code above: modify the values, rename the arguments....
 
-~~~klipse
-((factorial-self factorial-self)
- 10)
-~~~
+Then, please take a pause for a few minutes to contemplate this amazing piece of code.
 
-# The Z combinator
+After that, you have two options:
 
-~~~klipse
-;; Y combinator
-(defn Z [f]
-  (f (fn [x]
-         ((Z f) x))))
-~~~
+1. Read more about the Y combinator: [Long but awesome article](http://mvanier.livejournal.com/2897.html), [Practical applications of the Y combinator](http://www.viksit.com/tags/clojure/practical-applications-y-combinator-clojure/), [wikipedia](https://en.wikipedia.org/wiki/Fixed-point_combinator).
+
+2. Write your own recursive function without names using the Y combinator, for instance: fibonacci, quicksort, max, min...
 
 
-~~~klipse
-((Z factorial-gen) 10)
-~~~
-
-# The Y Combinator
-
-`Y ≡ λf.(λx.f(xx))(λx.f(xx))`
-
-`YG = G(YG)`
-
-`YG` is a fixed point of `G`.
-
-`(Y factorial-gen)` is a fixed point of `factorial-gen`.
-
-`(factorial-gen (Y factorial-gen)) = (Y factorial-gen)`.
-
-Let's assume that `(Y factorial-gen)` works up to `n` then `(factorial-gen (Y factorial-gen)` works up to `n + 1`. Thus `(Y factorial-gen)` works up to `n+1`. CQFD
-
-`(factorial-gen factorial)` is exactly `factorial`!
-`factorial` is a fixed point of `factorial-gen`.
-
-The claim is that any function that is a fixed point of `factorial-gen` is equal to `factorial`.
+If you go for option #2, please be kind and share your code in the comments below. You might find it useful to use the [KLIPSE web repl](http://app.klipse.tech/?eval_only=1).
 
 
-~~~klipse
-;; Y combinator
-(defn Y [f] ;;  λf
-  ((fn [future] ;; λx
-     (future future)) ;; f(x x)
-   (fn [future] ;; λx
-     (f (fn [arg]
-          ((future future) arg)))))) ;; f(x x)
-~~~
 
-
-~~~klipse
-((Y factorial-gen) 10)
-~~~
-
-
-~~~klipse
-;; Y combinator
-(defn YY [m] ;;  λf
-  ((fn [future] ;; λx
-     (m (fn [arg]
-          ((future future) arg)))) ;; f(x x)
-   (fn [future] ;; λx
-     (m (fn [arg]
-          ((future future) arg)))))) ;; f(x x)
-
-((YY factorial-gen) 10)
-
-~~~
-
-
-~~~klipse
-;; Y combinator
-(defn YYY [m] ;;  λf
-  ((fn [future] ;; λx
-     (m (future future))) ;; f(x x)
-   (fn [future] ;; λx
-     (m (fn [arg]
-          ((future future) arg)))))) ;; f(x x)
-
-((YYY factorial-gen) 10)
-~~~

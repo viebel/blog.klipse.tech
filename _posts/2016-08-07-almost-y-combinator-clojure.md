@@ -183,3 +183,5 @@ Share in the comments your implementation for:
 - ...
 
 
+In our [next article]({% post_url 2016-08-07-pure-y-combinator-clojure %}), we are going to show the Y combinator in action in `clojure`.
+
