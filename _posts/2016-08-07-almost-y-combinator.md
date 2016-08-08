@@ -62,6 +62,8 @@ Feel free to play with the value passed to the function in your preferred langua
 
 # EcmaScript 6
 
+It will work only if your browser supports `EcmaScript6` [arrow functions](https://kangax.github.io/compat-table/es6/).
+
 ~~~klipse-eval-js
 ((f => f(f)))
 (func => n => (n === 0)? 1 : (n * func(func)(n - 1)))
