@@ -15,7 +15,7 @@ In a [previous article]({% post_url 2016-08-07-almost-y-combinator-clojure %}), 
 Now, we are going to present the [Y combinator](https://en.wikipedia.org/wiki/Fixed-point_combinator).
 
 
-The Y combinator is one of the most aesthetic idea of computer science. It might not be so practical, but it is really beautiful.
+The Y combinator is one of the most aesthetic idea of computer science. It might not be so practical, but it is really beautiful. (It has some practical usages like [recursive memoization]({% post_url 2016-08-10-y-combinator-app %}).)
 
 The Y combinator is a function that allows to generate recursive functions without using names.
 
@@ -92,6 +92,8 @@ After that, you have two options:
 1. Read more about the Y combinator: [Long but awesome article](http://mvanier.livejournal.com/2897.html), [Practical applications of the Y combinator](http://www.viksit.com/tags/clojure/practical-applications-y-combinator-clojure/), [wikipedia](https://en.wikipedia.org/wiki/Fixed-point_combinator).
 
 2. Write your own recursive function without names using the Y combinator, for instance: fibonacci, quicksort, max, min...
+
+3. Take a look at a real life application of the [Y Combinator]({% post_url 2016-08-10-y-combinator-app %}).
 
 
 If you go for option #2, please be kind and share your code in the comments below. You might find it useful to use the [KLIPSE web repl](http://app.klipse.tech/?eval_only=1).
