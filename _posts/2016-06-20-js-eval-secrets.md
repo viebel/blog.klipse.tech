@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "javascript eval: direct vs indirect call "
-description:  "javscript eval live example ecmascript 5 6"
+description:  "javsacript eval live example ecmascript 5 6"
 date:   2016-06-20 08:11:42 +0200
 categories: javascript
 thumbnail: assets/klipse.png

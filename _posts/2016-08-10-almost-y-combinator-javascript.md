@@ -155,5 +155,5 @@ Share in the comments your implementation for:
 - ...
 
 
-In our [next article]({% post_url 2016-08-10-pure-y-combinator-javascript %}), we are going to show the Y combinator in action in `javscript`.
+In our [next article]({% post_url 2016-08-10-pure-y-combinator-javascript %}), we are going to show the Y combinator in action in `javascript`.
 
