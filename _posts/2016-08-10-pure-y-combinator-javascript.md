@@ -43,7 +43,7 @@ Here is the code of the Y-combinator in `javascript`:
 Y = f => (x => x(x))(x => f(y => x(x)(y)))
 ~~~
 
-So much power in just 83 characters, with no other concepts than function definition and function execution!
+So much power in just 38 characters, with no other concepts than function definition and function execution!
 
 
 Let's see the Y combinator in action with the `factorial` function. For that purpose, we need to write the `factorial` function with a tweak: the recursive call is going to be parameterised. Like this:
