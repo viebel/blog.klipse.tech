@@ -69,7 +69,7 @@ Here is the proof:
 
 The reason is that the code of `factorial-memo` uses `factorial` and not `factorial-memo`.
 
-In `clojure`, we could modify the code of `factorial` so that it calls `factorial-demo`, but it is very very ugly: the code of the recursive function has to be aware of its memoizer!!!
+In `clojure`, we could modify the code of `factorial` so that it calls `factorial-memo`, but it is very very ugly: the code of the recursive function has to be aware of its memoizer!!!
 
 ~~~klipse
 (defn factorial-ugly [n]
