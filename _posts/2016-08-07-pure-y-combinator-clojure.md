@@ -61,7 +61,7 @@ Let's see the Y combinator in action with the `factorial` function. For that pur
 ~~~
 
 
-And not it's time for magic:
+And now, it's time for magic:
 
 ~~~klipse
 ((Y factorial-gen) 19)
