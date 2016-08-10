@@ -47,6 +47,11 @@ And indeed subsequent calls to `factorial-memo` are cached:
 
 The numbers are only printed once.
 
+By the way, all the code snippets of this page are **live** and **interactive** powered by the [klipse plugin](https://github.com/viebel/klipse):
+
+1. **Live**: The code is executed in your browser
+2. **Interactive**: You can modify the code and it is evaluated as you type
+
 
 But what happens to subsequent calls with smaller numbers?
 We'd like them to be cached also. But they are not.
