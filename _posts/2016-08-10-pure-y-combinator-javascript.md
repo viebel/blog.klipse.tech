@@ -16,7 +16,7 @@ In a [previous article]({% post_url 2016-08-10-almost-y-combinator-javascript %}
 Now, we are going to present the [Y combinator](https://en.wikipedia.org/wiki/Fixed-point_combinator).
 
 
-The Y combinator is one of the most aesthetic idea of computer science. It might not be so practical, but it is really beautiful.
+The Y combinator is one of the most aesthetic idea of computer science. It might not be so practical, but it is really beautiful.  (It has some practical usages like [recursive memoization]({% post_url 2016-8-10-y-combinator-app-javascript %}).)
 
 The Y combinator is a function that allows to generate recursive functions without using names.
 
@@ -75,6 +75,7 @@ After that, you have two options:
 
 2. Write your own recursive function without names using the Y combinator, for instance: fibonacci, quicksort, max, min...
 
+3. Take a look at a real life application of the [Y Combinator]({% post_url 2016-8-10-y-combinator-app-javascript %}).
 
 If you go for option #2, please be kind and share your code in the comments below.
 
