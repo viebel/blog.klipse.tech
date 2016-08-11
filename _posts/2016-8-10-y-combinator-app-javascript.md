@@ -193,17 +193,34 @@ fib_memo = Ymemo(fib_gen)
 
 Let's compare the performances of the naive recursive version and the memoized recursive:
 
-(We have to redefine `fib-recursive-memo`, in order to reset the cache each time we re-run the code snippet.)
+First, let's load a timing function named `JST.time` code from [github Javascript Toolbet](https://github.com/viebel/javascript-toolbelt): it works like `console.time` but with two differences:
+
+1. It returns the elapsed time instead of printing it
+2. The elapsed time resolution is fraction of milliseconds
+
+
+<pre><code class="language-klipse-eval-js" data-external-libs="https://raw.githubusercontent.com/viebel/javascript-toolbelt/master/lib/core.js">
+  JST.time
+</code></pre>
+
+
+And now, let's compare:
+
+
+(We have to redefine `fib_memo`, in order to reset the cache each time we re-run the code snippet.)
 
 ~~~klipse-eval-js
-(def fib-recursive-memo (Ymemo fib-gen))
-(def n 35)
-(with-out-str
-  (time (fib n))
-  (time (fib-recursive-memo n)))
+var n = 35;
+fib_memo = Ymemo(fib_gen);
+
+[
+    JST.time(() => fib(n)),
+    JST.time(() => fib_memo(n))
+]
+
 ~~~
 
-On my computer, the memoized one is around *300* times faster!
+On my computer, the memoized one is around **300** times faster!
 
 Please share your thoughts about this really exciting topic...
 
