@@ -14,6 +14,13 @@ author: "@viebel"
 
 This is an introductory article to the [Y combinator](https://en.wikipedia.org/wiki/Fixed-point_combinator) from `lambda-calculus`. But we won't mention the `Y combinator` in this article.
 
+This article is the first one of a serie about the Y combinator:
+
+1.  [Recursions without names: Introduction to the Y combinator in javascript]({% post_url 2016-08-07-almost-y-combinator-clojure %})
+1.  [The Y combinator in javascript]({% post_url 2016-08-10-pure-y-combinator-javascript %})
+2. [Y combinator real life application: recursive memoization in javascript]({% post_url 2016-08-10-y-combinator-app %})
+
+
 In this article, we are going to show how to write recursive functions in `javascript` (`EcmaScript6`) without giving names to any function.
 
 
