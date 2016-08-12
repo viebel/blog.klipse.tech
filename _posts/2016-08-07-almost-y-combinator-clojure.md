@@ -14,6 +14,13 @@ author: "@viebel"
 
 This is an introductory article to the [Y combinator](https://en.wikipedia.org/wiki/Fixed-point_combinator) from `lambda-calculus`. But we won't mention the `Y combinator` in this article.
 
+This article is the first one of a serie about the Y combinator in `clojure`:
+
+1.  [Recursions without names: Introduction to the Y combinator in clojure]({% post_url 2016-08-07-almost-y-combinator-clojure %})
+1.  [The Y combinator in clojure]({% post_url 2016-08-07-pure-y-combinator-clojure %})
+2. [Y combinator real life application: recursive memoization in clojure]({% post_url 2016-08-10-y-combinator-app %})
+
+
 In this article, we are going to show how to write recursive functions in `clojure` without giving names to any function.
 
 (If you are curious to see it in other languages, there is [a version of the code]({% post_url 2016-08-07-almost-y-combinator %}) in `javascript`, `EcmaScript6` and `ruby`.)
