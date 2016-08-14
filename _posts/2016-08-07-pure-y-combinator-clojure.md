@@ -33,7 +33,7 @@ All the code snippets of this page are **live** and **interactive** powered by t
 # The Y combinator in action
 
 
-The Y-combinator takes the idea presented in [our previous article]({% post_url 2016-08-07-almost-y-combinator-clojure %}) one step further and make it applicable to any function.
+The Y-combinator takes the idea presented in [our previous article]({% post_url 2016-08-07-almost-y-combinator-clojure %}) one step further and makes it applicable to any function.
 
 
 Here is the code of the Y-combinator in `clojure`:
