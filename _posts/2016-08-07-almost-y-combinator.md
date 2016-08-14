@@ -62,6 +62,8 @@ Here is [a detailed explanation of this code]({% post_url 2016-08-07-almost-y-co
   })})(19)
 ~~~
 
+Here is [a detailed explanation of this code]({% post_url 2016-08-10-almost-y-combinator-javascript %}).
+
 # EcmaScript 6
 
 It will work only if your browser supports `EcmaScript6` [arrow functions](https://kangax.github.io/compat-table/es6/).
@@ -72,16 +74,16 @@ It will work only if your browser supports `EcmaScript6` [arrow functions](https
 (19)
 ~~~
 
+Here is [a detailed explanation of this code]({% post_url 2016-08-10-almost-y-combinator-javascript %}).
 
 # Ruby
 
 ~~~klipse-eval-ruby
 ->(f){
-  f.(f)
-  }.
-  (->(func){
-    ->(n) { n == 0 ? 1 : n * func.(func).(n-1)}
-    }).(19)
+  f[f]
+  }[->(func){
+    ->(n) { n == 0 ? 1 : n * func[func][n-1]}
+    }][19]
 ~~~
 
 
