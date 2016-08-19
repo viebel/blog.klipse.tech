@@ -101,7 +101,7 @@ $factorial_gen[$factorial][19]
 
 Before going on reading make sure you understand why it is true that:
 
-> `$factorial-gen[factorial]` is equivalent to `$factorial`
+> `$factorial_gen[factorial]` is equivalent to `$factorial`
 
 # Step 2: weird generator
 
