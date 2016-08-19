@@ -8,9 +8,10 @@ Do your work on  the `master` branch
 
 ## Launch jekyll
 
-Open a terminal and run
+Open a terminal and run with local configuration:
+
 ```bash
-jekyll serve --port 4000
+jekyll serve --port 4000 --config=_config.yml,_local_config.yml
 ```
 
 Open your browser at [http://localhost:4000](http://localhost:4000)
