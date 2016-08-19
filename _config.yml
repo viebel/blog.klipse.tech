@@ -15,6 +15,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 github_username_rb:  raphaelboukara
 twitter_username_rb: RaphaelBoukara
 email_rb: raphael.boukara@gmail.com
+enable_disqus: true
 
 github_username_ys:  viebel
 twitter_username_ys: viebel
