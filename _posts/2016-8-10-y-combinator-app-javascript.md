@@ -22,21 +22,12 @@ Today, we are going to show a real life application of the [Y combinator](https:
 
 Did you ever try to [memoize](https://en.wikipedia.org/wiki/Memoization) a recursive function?
 
-At first glance, it seems easy, using standard memoization technique: 
+At first glance, it seems easy, using standard memoization technique e.g the `memoize` function from [github Javascript Toolbet](https://github.com/viebel/javascript-toolbelt):
 
-~~~klipse-eval-js
-var memoize = function (f) {
-  var memo = {};
-  return function (n) {
-    if (memo.hasOwnProperty(n)) {
-      return memo[n];
-    }
-     var result = f(n);
-     memo[n] = result;
-    return result;
-  };
-};
-~~~
+<pre><code class="language-klipse-eval-js" data-external-libs="https://raw.githubusercontent.com/viebel/javascript-toolbelt/master/lib/core.js">
+  JST.memoize
+</code></pre>
+
 
 Now, let's create a memoized version of factorial, including a counter of the number of function calls to `factorial`:
 
@@ -46,14 +37,14 @@ factorial = n => {
     return (n === 0) ? 1: n * factorial(n - 1)
 }
 
-factorial_memo = memoize(factorial);
+factorial_memo = JST.memoize(factorial);
 factorial_memo(5)
 ~~~
 
 And indeed subsequent calls to `factorial-memo` are cached:
 
 ~~~klipse-eval-js
-factorial_memo = memoize(factorial);
+factorial_memo = JST.memoize(factorial);
 window.function_calls = 0
 factorial_memo(6)
 factorial_memo(6)
@@ -77,7 +68,7 @@ Here is the proof:
 
 
 ~~~klipse-eval-js
-factorial_memo = memoize(factorial);
+factorial_memo = JST.memoize(factorial);
 window.function_calls = 0
 factorial_memo(6)
 factorial_memo(5)
@@ -93,7 +84,7 @@ factorial_ugly = n => {
     window.function_calls++;
     return (n === 0) ? 1 : n * factorial_memo_ugly(n - 1)
 }
-factorial_memo_ugly = memoize(factorial_ugly);
+factorial_memo_ugly = JST.memoize(factorial_ugly);
 window.function_calls = 0
 factorial_memo_ugly(6)
 factorial_memo_ugly(5)
@@ -120,23 +111,21 @@ Ywrap = (wrapper_func, f) => (x => x(x))(x => f(wrapper_func(y => x(x)(y))))
 And here is the code for a memo wrapper generator:
 
 ~~~klipse-eval-js
-memo_wrapper_generator = function() {
-  var memo = {};
-  return function(f){
-    return function(n) {
-      if (memo.hasOwnProperty(n)) {
-        return memo[n];
-      }
-      var result = f(n);
-      memo[n] = result;
-      return result;
+memo_wrapper_generator = () => {
+    const memo = {};
+    return f => n => {
+        if (memo.hasOwnProperty(n)) {
+            return memo[n];
+        }
+        const result = f(n);
+        memo[n] = result;
+        return result;
     };
-  };
-};
+}
 null
 ~~~
 
-It is almost the same code as the `memoize` function we wrote in the beginning of this article.
+It is almost the same code as `JST.memoize` we presented in the beginning of this article.
 
 And now, we are going to build a Y combinator for memoization:
 
@@ -148,7 +137,11 @@ Ymemo = f => Ywrap(memo_wrapper_generator(), f)
 And here is how we get a memoized recursive factorial function:
 
 ~~~klipse-eval-js
-factorial_gen = f => (n => ((n === 0) ? 1 : n * f(n - 1)))
+factorial_gen = f => {
+  window.function_calls++; 
+  return (n => ((n === 0) ? 1 : n * f(n - 1)))
+};
+factorial_memo = Ymemo(factorial_gen)
 factorial_memo = Ymemo(factorial_gen)
 ~~~
 
