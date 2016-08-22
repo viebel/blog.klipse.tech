@@ -142,7 +142,6 @@ factorial_gen = f => {
   return (n => ((n === 0) ? 1 : n * f(n - 1)))
 };
 factorial_memo = Ymemo(factorial_gen)
-factorial_memo = Ymemo(factorial_gen)
 ~~~
 
 
