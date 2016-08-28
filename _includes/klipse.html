@@ -15,6 +15,13 @@
         selector_eval_ruby: '.language-klipse-eval-ruby',
         selector_js: '.language-klipse-js'
     };
+
+{% if page.klipse_eval_idle_msec %}
+
+   window.klipse_settings.eval_idle_msec = 
+{{ page.klipse_eval_idle_msec }}
+
+{% endif %}
 </script>
 {% if page.ruby  %}
 <script src="http://cdn.opalrb.org/opal/current/opal.min.js"></script>
