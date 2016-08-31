@@ -27,7 +27,7 @@ This article is not easy, but if you make the effor and go through it until the 
 
 ![Mountain](/assets/mountain_top.jpg)
 
-Our hope is that the the interactive snippet of this blog post will help you to climb the mountain.
+Our hope is that the the interactive code snippets of this blog post will help you to climb the mountain.
 
 All the code snippets of this page are **live** and **interactive** powered by the [KLIPSE plugin](https://github.com/viebel/klipse):
 
