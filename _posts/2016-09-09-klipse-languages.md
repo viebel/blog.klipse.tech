@@ -67,6 +67,11 @@ It will work only if your browser supports `EcmaScript6` [arrow functions](https
 print([x + 1 for x in range(10)])
 ~~~
 
+## PHP
+
+~~~klipse-eval-php
+print "Hello". " World!";
+~~~
 
 ## HTML
 
