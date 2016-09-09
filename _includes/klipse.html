@@ -12,10 +12,23 @@
         selector: '.language-klipse',
         selector_eval_js: '.language-klipse-eval-js',
         selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python',
+        selector_eval_html: '.language-klipse-html',
         selector_eval_ruby: '.language-klipse-eval-ruby',
         selector_js: '.language-klipse-js'
     };
 </script>
+{% if page.all_languages %}
+<script src="https://viebel.github.io/klipse/examples/lambdaway_eval.js"></script>
+<script src="http://cdn.opalrb.org/opal/current/opal.min.js"></script>
+<script src="http://cdn.opalrb.org/opal/current/opal-parser.min.js"></script>
+<script src="https://asmblah.github.io/uniter/dist/uniter.js"></script>
+<script src="http://www.skulpt.org/static/skulpt.min.js" type="text/javascript"></script>
+<script src="http://www.skulpt.org/static/skulpt-stdlib.js" type="text/javascript"></script>
+{% endif %}
+
 {% if page.ruby  %}
 <script src="http://cdn.opalrb.org/opal/current/opal.min.js"></script>
 <script src="http://cdn.opalrb.org/opal/current/opal-parser.min.js"></script>
