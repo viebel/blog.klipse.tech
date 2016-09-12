@@ -85,7 +85,7 @@ Strings are finite sequences of characters with fixed length and thus represent 
 "Hello, Scheme"
 ~~~
 
-###Symbols
+### Symbols
 
 A symbol is an object representing a string, the symbol's name. Unlike strings, two symbols whose names are spelled the same way are never distinguishable. Symbols are useful for many applications; for instance, they may be used the way enumerated values are used in other languages.
 
