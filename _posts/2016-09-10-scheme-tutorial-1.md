@@ -148,6 +148,29 @@ As these examples indicate, compound expressions in Scheme are always written us
 
 As in many other languages, whitespace (including line endings) is not significant when it separates subexpressions of an expression, and can be used to indicate structure.
 
+### Infinity
+
+It is possible to deal a bit with the infinity in Scheme:
+
+
+~~~klipse-scheme
+(/ 1 0)
+~~~
+
+
+Every number is less than `infinity`:
+
+~~~klipse-scheme
+(< 999999999 (/ 1 0))
+~~~
+
+And when we add a number to `infinity`, nothing happens:
+
+~~~klipse-scheme
+(= (/ 1 0) (+ 999 (/ 1 0)))
+~~~
+
+
 # Variables and binding
 
 Scheme allows identifiers to stand for locations containing values. These identifiers are called variables. In many cases, specifically when the location's value is never modified after its creation, it is useful to think of the variable as standing for the value directly.
