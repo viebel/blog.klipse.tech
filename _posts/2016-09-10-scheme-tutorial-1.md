@@ -150,24 +150,24 @@ As in many other languages, whitespace (including line endings) is not significa
 
 ### Infinity
 
-It is possible to deal a bit with the infinity in Scheme:
+It is possible to deal a bit with the infinity in Scheme. Here is how we represent the infinity:
 
 
 ~~~klipse-scheme
-(/ 1 0)
++inf.0
 ~~~
 
 
 Every number is less than `infinity`:
 
 ~~~klipse-scheme
-(< 999999999 (/ 1 0))
+(< 999999999 +inf.0)
 ~~~
 
 And when we add a number to `infinity`, nothing happens:
 
 ~~~klipse-scheme
-(= (/ 1 0) (+ 999 (/ 1 0)))
+(= +inf.0 (+ 999 +inf.0))
 ~~~
 
 
