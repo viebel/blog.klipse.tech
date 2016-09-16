@@ -10,6 +10,10 @@ author: "@viebel"
 ---
 
 
+A friend of mine (Hillel Kahana) shared with me a riddle that his 10-year old son brought from a math workshop. At first, the riddle sounded easy...
+
+
+
 # The riddle
 
 You've got the first 6 digits 1,2,3,4,5 and 6.
