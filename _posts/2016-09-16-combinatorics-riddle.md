@@ -94,6 +94,8 @@ With `permutations`, it's really easy to find the solution to the riddle:
 `max-key` returns the value for which the function is greatest.
 
 
+If you want to play with more digits, you'd find it more convenient to open the [KLIPSE repl](http://app.klipse.tech/?cljs_in.gist=viebel/e52e5fecb6dae2372640c02e1ce97427&external-libs=[https://raw.githubusercontent.com/viebel/math.combinatorics/master/src/main/clojure/]), because in this article the code is evaluated as you type...
+
 Clojure rocks!
 
 PS: Do you have a more elegant solution to this riddle? Let us know in the comments below...
