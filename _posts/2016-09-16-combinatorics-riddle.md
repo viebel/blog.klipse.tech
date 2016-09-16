@@ -10,7 +10,7 @@ author: "@viebel"
 ---
 
 
-A friend of mine (Hillel Kahana) shared with me a riddle that his 10-year old son brought from a math workshop. At first, the riddle sounded easy...
+A friend of mine (Hillel Cahana) shared with me a riddle that his 10-year old son brought from a math workshop. At first, the riddle sounded easy...
 
 
 
@@ -64,7 +64,7 @@ Hmm....
 
 # Clojure.math.combinatorics to the rescue
 
-There is a `clojure` library named `clojure.math.combinatorics` that has a `permutations` function (and a lot of other useful functions: check it [here](https://github.com/clojure/math.combinatorics)).
+There is a `clojure` library named `clojure.math.combinatorics` (by [Mark Engelberg](https://github.com/Engelberg)) that has a `permutations` function (and a lot of other useful functions: check it [here](https://github.com/clojure/math.combinatorics)).
 
 
 For instance, let's generate all the `3!` permutations of `[1 2 3]`:
