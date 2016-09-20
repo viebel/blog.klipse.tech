@@ -108,10 +108,10 @@ Our algorithm is going to be very straightforward:
 
 1. Generate all the permutations of `[1,2,3,4,5,6]`
 
-2. Takes the permutations `[a,b,c,d,e,f]` such that `abc*de*f` is maximal
+2. Take the permutation `[a,b,c,d,e,f]` such that `abc*de*f` is maximal
 
 
-Let's write it in a single line of javascript code, using `maxBy` and `permutations`:
+Let's write it in a single line of javascript code, using `maxBy`, `permutations` and [EcmaScript 6 destructuring](http://untangled.io/in-depth-es6-destructuring-with-assembled-avengers/):
 
 ~~~klipse-eval-js
 maxBy(([a,b,c,d,e,f]) => (100*a+10*b+c) * (10*d+e) * f, permutations([1,2,3,4,5,6]))
