@@ -10,7 +10,7 @@ author: "@viebel"
 ---
 
 
-A friend of mine (Hillel Cahana) shared with me a riddle that his 10-year old son brought from a math workshop. At first, the riddle sounded easy...
+A friend of mine (Hillel Kahana) shared with me a riddle that his 10-year old son brought from a math workshop. At first, the riddle sounded easy...
 
 
 
@@ -31,7 +31,7 @@ Each digit must be used only once.
 For instance, `123*45*6`:
 
 ~~~klipse
-(* 123 4 5 6)
+(* 123 45 6)
 ~~~
 
 But, obviously we can do better.
@@ -49,7 +49,7 @@ Have fun with the digits!
 
 # Elegant or brute force
 
-Maybe, you were a math genius and you are able to find the elegant solution to this riddle and to prove mathematically that your solution is correct.
+Maybe, you are a math genius and you are able to find the elegant solution to this riddle and to prove mathematically that your solution is correct.
 
 It's not my case, so we are going to go with a brute force algorithm with a couple of lines of  `clojure` code.
 
