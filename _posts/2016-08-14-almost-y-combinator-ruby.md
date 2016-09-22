@@ -38,8 +38,6 @@ All the code snippets of this page are **live** and **interactive** powered by t
 2. **Interactive**: You can modify the code and it is evaluated as you type
 
 
-It will work only if your browser supports `EcmaScript6` [arrow functions](https://kangax.github.io/compat-table/es6/).
-
 ## Begin with the end in mind
 
 The end result of this article is the recursive implementation of the `factorial` function without using neither names nor loops.
