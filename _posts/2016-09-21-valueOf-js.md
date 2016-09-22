@@ -64,6 +64,24 @@ And once again, for the fun:
 sum(arr)
 ~~~
 
+Someone wrote in [Reddit](https://www.reddit.com/r/learnjavascript/comments/53rrhb/a_couple_of_weird_examples_with_valueof_in/d7vvsd5) that we can also hack the `sum` function using `Object.defineProperty`. Like this:
+
+~~~klipse-eval-js
+arr_with_get = [0,0,0];
+arr_with_get.forEach(function(o, i, a) {
+      Object.defineProperty(a, i, {get:Math.random});
+});
+~~~
+
+And indeed, `sum` returns different results with the same input:
+
+~~~klipse-eval-js
+sum(arr_with_get)
+~~~
+
+~~~klipse-eval-js
+sum(arr_with_get)
+~~~
 
 # An impossible assertion that is true
 
