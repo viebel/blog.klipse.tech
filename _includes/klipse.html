@@ -20,6 +20,13 @@
         selector_eval_scheme: '.language-klipse-scheme',
         selector_js: '.language-klipse-js'
     };
+
+{% if page.klipse_eval_idle_msec %}
+
+   window.klipse_settings.eval_idle_msec = 
+{{ page.klipse_eval_idle_msec }}
+
+{% endif %}
 </script>
 {% if page.all_languages %}
 <script src="https://viebel.github.io/klipse/examples/lambdaway_eval.js"></script>
