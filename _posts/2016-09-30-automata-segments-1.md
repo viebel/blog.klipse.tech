@@ -205,3 +205,5 @@ In our next article, we will show how to make our algorithm much more efficient 
 
 
 If you like this article, you will enjoy a lot [Mark Engelberg's talk on youtube about automatas](https://www.youtube.com/watch?v=AEhULv4ruL4).
+
+You might also enjoy this [much simpler combinatorics riddle]({% post_url 2016-09-16-combinatorics-riddle %}).
