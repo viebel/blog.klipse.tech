@@ -11,7 +11,7 @@ author: "@viebel"
 
 # Acknowledgements
 
-This article is a rewrite of the work of [Mark Engelberg](https://github.com/Engelberg)) in his [automata repository](https://github.com/Engelberg/automata) - with a tweak:
+This article is a rewrite of the work of [Mark Engelberg](https://github.com/Engelberg) in his [automata repository](https://github.com/Engelberg/automata) - with a tweak:
 
 >All the code snippets of this page are **live** and **interactive** powered by the [klipse plugin](https://github.com/viebel/klipse):
 
@@ -28,7 +28,7 @@ In his repo, Mark shows how to use regular expressions and automatas to solve pr
 
  For the purposes of this code, it is useful to replace Clojure's `max` / `max-key` 
  with versions that return `nil` when passed no inputs to maximize.
- Also, we are going to use [clojure.combinatorics](https://github.com/clojure/math.combinatorics) by [Mark Engelberg](https://github.com/Engelberg)) for generating cartesian products of sequences:
+ Also, we are going to use [clojure.combinatorics](https://github.com/clojure/math.combinatorics) by [Mark Engelberg](https://github.com/Engelberg) for generating cartesian products of sequences:
 
 
 <pre><code class="language-klipse" data-external-libs="https://raw.githubusercontent.com/viebel/math.combinatorics/master/src/main/clojure">
