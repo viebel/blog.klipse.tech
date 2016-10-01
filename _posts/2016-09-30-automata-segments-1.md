@@ -201,7 +201,7 @@ Please don't try to run it with too long sequences!
 (On my browser it starts to take too much time with 15 elements).
 
 
-In our next article, we will show how to make our algorithm much more efficient using automatas.
+In our [next article]({% post_url 2016-10-01-automata-segment-2 %}), we will show how to make our algorithm much more efficient using automatas.
 
 
 If you like this article, you will enjoy a lot [Mark Engelberg's talk on youtube about automatas](https://www.youtube.com/watch?v=AEhULv4ruL4).
