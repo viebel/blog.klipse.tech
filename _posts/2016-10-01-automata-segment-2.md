@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Automatas to solve programming interview riddles"
-description:  "Automatas to solve programming interview riddles"
+title:  "Automata to solve programming interview riddles"
+description:  "Automata to solve programming interview riddles"
 date:   2016-10-01 18:22:45 +0200
 categories: clojure
 thumbnail: assets/klipse.png
