@@ -19,7 +19,7 @@ This article is a rewrite of the work of [Mark Engelberg](https://github.com/Eng
 2. **Interactive**: You can modify the code and it is evaluated as you type
 
 
-In his repo, Mark shows how to use regular expressions and automatas to solve programming riddles. In this article, we will focus on automatas.
+In his repo, Mark shows how to use regular expressions and automata to solve programming riddles. In this article, we will focus on automata.
 
 
 ![Regexp](/assets/automata.jpg)
@@ -42,7 +42,7 @@ We showed in [the article]({% post_url 2016-09-30-automata-segments-1 %}) how to
 
 # Equivalence between Regular expressions and Finite State Machines
 
-Now, we are going to show an effective solution to this problem, using automatas (aka Finite State Machines or FSM).
+Now, we are going to show an effective solution to this problem, using automata (aka Finite State Machines or FSM).
 
 The basic theorem of automata theory is [Kleene's theorem](http://planetmath.org/kleenestheorem) that states:
 
@@ -134,5 +134,5 @@ You can increase the length of the sequence with no fear: the complexity of this
 (maximum-non-segment-sum (repeatedly n #(- (rand-int 11) 5)))
 ~~~
 
-If you like this article, you will enjoy a lot [Mark Engelberg's talk on youtube about automatas](https://www.youtube.com/watch?v=AEhULv4ruL4).
+If you like this article, you will enjoy a lot [Mark Engelberg's talk on youtube about automata](https://www.youtube.com/watch?v=AEhULv4ruL4).
 
