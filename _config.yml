@@ -24,7 +24,7 @@ url: "http://blog.klipse.tech/" # the base hostname & protocol for your site
 author: Raphael Boukara
 
 # Build settings
-markdown: kramdown
+markdown: redcarpet
 gems:
   - jekyll-feed
   - jekyll-sitemap

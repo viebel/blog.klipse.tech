@@ -28,6 +28,12 @@
 {{ page.klipse_eval_idle_msec }}
 
 {% endif %}
+{% if page.klipse_line_numbers %}
+
+   window.klipse_settings.codemirror_options_in.lineNumbers = true;
+
+{% endif %}
+
 </script>
 {% if page.all_languages %}
 <script src="https://viebel.github.io/klipse/examples/lambdaway_eval.js"></script>
