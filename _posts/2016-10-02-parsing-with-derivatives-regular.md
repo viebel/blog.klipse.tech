@@ -120,7 +120,7 @@ The repetition of a language:
 (rep? (rep (char \a)))
 ~~~
 
-For instance the regexp `/a*b[ce]/` is encoded like this:
+For instance the regexp `a*b[ce]` is encoded like this:
 
 ~~~klipse
 (cat (rep (char \a))
