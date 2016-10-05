@@ -19,7 +19,7 @@ As David Nolen explains it in [his talk about this paper at Papers We Love](http
 
 In this article, we are going to implement a regular expression matcher in `clojure` using Brzozowski's derivative.
 
-The theoritical part is a bit abstract but it worths making the effort as the implementation is really elegant.
+The theoretical part is a bit abstract but it worths making the effort as the implementation is really elegant.
 
 
 ![Zen](/assets/zen.jpg)
