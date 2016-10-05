@@ -13,7 +13,7 @@ author: "@viebel"
 
 # Introduction
 
-This article is an interactive version of the first part of this paper: [Parsive with derivatives - a Functional Pearl](http://matt.might.net/papers/might2011derivatives.pdf) - the part that shows how to implement a regular expression matcher in a few lines of code using a concept from 1964 named Brzozowski's derivative.
+This article is an interactive version of the first part of this paper: [Parsing with derivatives - a Functional Pearl](http://matt.might.net/papers/might2011derivatives.pdf) - the part that shows how to implement a regular expression matcher in a few lines of code using a concept from 1964 named Brzozowski's derivative.
 
 As David Nolen explains it in [his talk about this paper at Papers We Love](https://youtu.be/FKiEsJiTMtI), `clojure.spec` implementation is based on this paper.
 
