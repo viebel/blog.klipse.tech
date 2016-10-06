@@ -204,7 +204,7 @@ In 1964, Brzozowski (don't try to pronounce his name) introduced a simple yet po
 
 In  mathematical notation:
 
-\\[ D_c(L) = \\{w : wc \in L \\}.\\]
+\\[ D_c(L) = \\{w : cw \in L \\}.\\]
 
 
 Examples:
