@@ -68,6 +68,7 @@ There are 6 kinds of namespaces that might be loaded by the compiler:
 
 Each of this kind of namespaces receives a special treatment in [KLIPSE code](https://github.com/viebel/klipse/blob/f6a4ffa029de170b749fe3483b82853511a6e9a0/src/klipse/io.cljs):
 
+Many thanks to **António Monteiro**, **Mike Fikes** and **David Nolen** who helped me refining this namespace loading strategy and are always willing to help solving tough issues on the #cljs-dev slack channel. I'm so proud to be part of this wonderful community!
 
 # core namespaces
 
