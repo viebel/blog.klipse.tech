@@ -44,12 +44,10 @@ As usual, the code snippets are interactive - powered by [the KLIPSE plugin](htt
 
 First, let's require `transit`:
 
-<pre>
-<code class="language-klipse" data-external-libs="https://raw.githubusercontent.com/cognitect/transit-js/master/src/,https://raw.githubusercontent.com/cognitect/transit-cljs/master/src/">
+~~~klipse
 (ns my.transit
   (:require [cognitect.transit :as t]))
-</code>
-</pre>
+~~~
 
 Now, we can play with `transit`...
 

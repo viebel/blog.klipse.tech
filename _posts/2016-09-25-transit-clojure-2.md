@@ -40,12 +40,10 @@ In this article, we are going to use [transit-cljs](https://github.com/cognitect
 
 First, let's require `transit`:
 
-<pre>
-<code class="language-klipse" data-external-libs="https://raw.githubusercontent.com/cognitect/transit-js/master/src/,https://raw.githubusercontent.com/cognitect/transit-cljs/master/src/">
+~~~klipse
 (ns my.transit
   (:require [cognitect.transit :as t]))
-</code>
-</pre>
+~~~
 
 
 One of the biggest drawbacks of `JSON` as a data format is the lack of extensibility. `Transit` allows users to customize both reading and writing.
