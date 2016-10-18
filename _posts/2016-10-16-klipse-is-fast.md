@@ -19,7 +19,7 @@ The reason is that KLIPSE used to load and evaluate all the pieces of code requi
 But it was not necessary - as most of the code required is already bundled into KLIPSE.
 
 
-From today, KLIPSE loads only the necessary code from external urls and our articles about `clojure.spec` and `clojure.math.combinatorics` load in a descent time (under 10 seconds on my machine).
+From today, KLIPSE loads only the necessary code from external urls and our articles about `clojure.spec` and `clojure.math.combinatorics` load in a decent time (under 10 seconds on my machine).
 
 - [Custom defn macros with clojure.spec]({% post_url 2016-10-07-defn-args %}) 
 - [Solving a not-so-easy riddle with clojure.math.combinatorics]({* post_url 2016-09-16-combinatorics-riddle %})
