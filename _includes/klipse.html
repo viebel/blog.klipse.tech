@@ -33,6 +33,12 @@
    window.klipse_settings.codemirror_options_in.lineNumbers = true;
 
 {% endif %}
+{% if page.single_expressions %}
+
+   window.klipse_settings.eval_context = 'expr';
+
+{% endif %}
+
 
 </script>
 {% if page.all_languages %}
@@ -61,6 +67,9 @@
 {% if page.minified_plugin  %}
 <script src="http://app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?v=3.0.0"></script>
 {% else %}
-<script src="http://app.klipse.tech/plugin/js/klipse_plugin.js?v=3.2.0"></script>
-<!-- <script src="http://localhost:5014/plugin/js/klipse_plugin.js?"></script> -->
+{% if page.local_klipse %}
+<script src="http://localhost:5014/plugin/js/klipse_plugin.js?"></script>
+{% else %}
+<script src="http://app.klipse.tech/plugin/js/klipse_plugin.js?v=3.3.1"></script>
+{% endif %}
 {% endif %}
