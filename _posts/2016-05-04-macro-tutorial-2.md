@@ -5,6 +5,7 @@ description:  "clojure macros clojurescript tutorial klipse naive dummies macros
 date:   2016-05-05 01:14:22 +0200
 categories: clojure
 thumbnail: assets/klipse.png
+single_expressions: true
 guid: "DC4BEB2C-768D-4AF2-BE3B-70A5A1267DFA"
 author: "@viebel"
 
@@ -43,18 +44,41 @@ There are three parts in the `disp` macro:
 2. expression evaluation (evaluating it)
 3. concatenation of the quoting and the evaluation
 
+
+# Playground
+
+This namespace is going to be our playground for dealing with macros:
+
+~~~klipse
+(ns my.repl$macros)
+~~~
+
+(If you wonder why we have to append `$macros` to the namespace and to reference the fully-qualified macro with self-hosted `clojurescript`, read [Messing with Macros at the REPL]({% post_url 2016-03-17-messing-with-macros %}){:target="_blank"}.)
+
+
 ### How to quote inside a macro
+
 First, we need to understand how to quote an expression inside a macro.
 Let's try to write a macro that receives an expression and return it, quoted.
 
-<iframe frameborder="0" width="100%" height="250px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(ns%20my.repl%24macros)%0A%0A(defmacro%20my-quote%20%5Bform%5D%0A%20%20(quote%20form))%0A%0A%5B%0A%20%20(macroexpand-1%20'(my.repl%2Fmy-quote%20(map%20inc%20%5B1%202%203%5D)))%0A%20%20(my.repl%2Fmy-quote%20(map%20inc%20%5B1%202%203%5D))%0A%5D%0A&eval_only=1">
-</iframe>
+~~~klipse
+(defmacro my-quote [form]
+  (quote form))
+~~~
 
-It doesn't work. The reason is that - as you can see with `macroexpand-1` - `(quote form)` is `form`.
+It doesn't work.
 
-(If you wonder why we have to append `$macros` to the namespace and to reference the fully-qualified macro with self-hosted `clojurescript`, read [Messing with Macros at the REPL]({% post_url 2016-03-17-messing-with-macros %}){:target="_blank"}.)
+~~~klipse
+  (my.repl/my-quote (map inc [1 2 3]))
+~~~
+
+
+ The reason is that - as you can see with `macroexpand-1` - `(quote form)` is `form`.
+
+~~~klipse
+  (macroexpand-1 '(my.repl/my-quote (map inc [1 2 3])))
+~~~
+
 
 Let's try to state explicitly what is the requirement for the `my-quote` macro: We need to return an expression that when it is evaluated, it becomes `(map inc [1 2 3])`. The expression that fits this definition is `(quote (map inc [1 2 3]))`. In other words, it is a list whose first element is the symbol `quote` and its second element is `(map inc [1 2 3])`.
 
@@ -84,12 +108,18 @@ Give it another try, before surrending...
 
 Here is my solution:
 
-~~~clojure
-(defmacro my-quote [form]
+~~~klipse
+(defmacro my-quote-fixed [form]
   (list 'quote form))
 ~~~
 
-Please copy/paste this code snippet in the klipse above and check by yourself.
+Now, it works:
+
+~~~klipse
+  (my.repl/my-quote-fixed (map inc [1 2 3]))
+~~~
+
+
 
 
 #### How to concatenate evaluations inside a macro
@@ -103,10 +133,22 @@ Now, we have to figure out how to concatenate evaluations inside a macro. I hope
 
 Let's give it a try:
 
-<iframe frameborder="0" width="100%" height="250px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(ns%20my.repl%24macros)%0A%0A(defmacro%20concat-evaluations%20%5Ba%20b%5D%0A%20%20(str%20a%20%22%20%22%20b))%0A%0A%5B%0A%20%20(my.repl%2Fconcat-evaluations%20%22hello%22%20%22world%22)%0A%20%20(my.repl%2Fconcat-evaluations%20%22hello%22%20(%2B%201%202))%0A%5D%0A%0A&eval_only=1">
-</iframe>
+~~~klipse
+(defmacro concat-evaluations [a b]
+  (str a " " b))
+~~~
+
+It seems to work:
+
+~~~klipse
+  (my.repl/concat-evaluations "hello" "world")
+~~~
+
+But in reality, it fails:
+
+~~~klipse
+  (my.repl/concat-evaluations "hello" (+ 1 2))
+~~~
 
 It fails because inside the macro, the value of `b` is `(+ 1 2)`, so the `str` function appends `(+ 1 2)` to "hello".
 Like for `my-quote`, the idea is to return an expression that when evaluated it becomes `(str "hello" " " 3)`.
@@ -115,19 +157,40 @@ Try to find a solution of your own.
 
 My solution is:
 
-<iframe frameborder="0" width="100%" height="250px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(ns%20my.repl%24macros)%0A%0A(defmacro%20concat-evaluations%20%5Ba%20b%5D%0A%20%20(list%20'str%20a%20%22%20%22%20b))%0A%0A%5B%0A%20%20(macroexpand-1%20'(my.repl%2Fconcat-evaluations%20%22hello%22%20(%2B%201%202)))%0A%20%20(my.repl%2Fconcat-evaluations%20%22hello%22%20(%2B%201%202))%0A%5D%0A%0A&eval_only=1">
-</iframe>
 
+~~~klipse
+(defmacro concat-evaluations-fixed [a b]
+  (list 'str a " " b))
+~~~
+
+And it works:
+
+~~~klipse
+  (my.repl/concat-evaluations-fixed "hello" (+ 1 2))
+~~~
+
+If you are curious, you can take a look at the expansion of the macro:
+
+~~~klipse
+  (macroexpand-1 '(my.repl/concat-evaluations-fixed "hello" (+ 1 2)))
+~~~
 
 ### Implementation of the `disp` macro
+
 Now we are ready to implement the `disp` macro, by assembling our building blocks:
 
-<iframe frameborder="0" width="100%" height="250px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(ns%20my.repl%24macros)%0A%0A(defmacro%20disp%20%5Bform%5D%0A%20%20(list%20'str%20(list%20'quote%20form)%20%22%20%3D%3E%20%22%20form))%0A%0A%5B%0A%20%20(macroexpand-1%20'(my.repl%2Fdisp%20(map%20inc%20%5B1%202%203%5D)))%0A%20%20(my.repl%2Fdisp%20(map%20inc%20%5B1%202%203%5D))%0A%5D%0A&eval_only=1">
-</iframe>
+~~~klipse
+(defmacro disp [form]
+  (list 'str (list 'quote form) " => " form))
+~~~
+
+~~~klipse
+  (my.repl/disp (map inc [1 2 3]))
+~~~
+
+~~~klipse
+  (macroexpand-1 '(my.repl/disp (map inc [1 2 3])))
+~~~
 
 
 Really simple right?
@@ -141,10 +204,27 @@ B. The code generated by the macro doesn't look like the code of the macro: in t
 
 C. What happens if you  define local variables inside a macro? They might conflict with the variables defined in the scope of the macro caller. Here is an illustration of this issue:
 
-<iframe frameborder="0" width="100%" height="300px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(ns%20my.repl%24macros)%0A%0A(defmacro%20concat-evaluations%20%5Ba%20b%5D%0A%20%20(list%20'let%20%5B'sep%20%22%3A%20%22%5D%0A%20%20%20%20%20%20%20%20(list%20'str%20a%20'sep%20b)))%0A%0A(def%20sep%20100)%0A%5B%0A%20%20(my.repl%2Fconcat-evaluations%20%22hello%22%20(map%20inc%20%5B100%202%203%5D))%3B%20so%20far%20so%20good%0A%20%20(macroexpand-1%20'(my.repl%2Fconcat-evaluations%20%22hello%22%20sep))%0A%20%20(my.repl%2Fconcat-evaluations%20%22hello%22%20(map%20inc%20%5Bsep%202%203%5D))%3B%20oops%20-%3E%20the%20'sep%20defined%20inside%20the%20macro%20has%20been%20incremented%0A%5D&eval_only=1">
-</iframe>
+~~~klipse
+(defmacro concat-evaluations-sep [a b]
+  (list 'let ['sep ": "]
+          (list 'str a 'sep b)))
+~~~
+
+~~~klipse
+  (my.repl/concat-evaluations-sep "hello" (map inc [100 2 3]))
+~~~
+
+~~~klipse
+(def sep 100)
+~~~
+
+~~~klipse
+(my.repl/concat-evaluations-sep "hello" (map inc [sep 2 3]))
+~~~
+
+~~~klipse
+  (macroexpand-1 '(my.repl/concat-evaluations-sep "hello" sep))
+~~~
 
 
 D. Your macro will behave completely crazy when it is called inside a namespace where one of the functions that you use in the code of the macro is overriden.
