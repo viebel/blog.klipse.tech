@@ -28,11 +28,11 @@ With this patch, we can make this interactive tutorial of `core.match` - that wi
 
 Let's require `core.match` from [my fork of core.match](https://github.com/viebel/core.match/) (until it gets merged into the official repo). 
 
-This is done in KLIPE by setting `data-external-libs="https://raw.githubusercontent.com/viebel/core.match/master/src/main/clojure"` to the attributes of the DOM element that contains the `require-macros` statement.
+This is done in KLIPSE by setting `data-external-libs="https://raw.githubusercontent.com/viebel/core.match/master/src/main/clojure"` to the attributes of the DOM element that contains the `require-macros` statement.
 
 <pre><code class="language-klipse" data-external-libs="https://raw.githubusercontent.com/viebel/core.match/master/src/main/clojure">
-(ns my.match 
-  (:require-macros [cljs.core.match :refer [match]]))
+(ns my.match
+  (:require [cljs.core.match :refer-macros [match]]))
 </code></pre>
 
 Now, we can play with `core.match`.
