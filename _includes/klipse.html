@@ -35,18 +35,13 @@
 
 {% if page.klipse_eval_idle_msec %}
 
-   window.klipse_settings.eval_idle_msec = 
+   window.klipse_settings.eval_idle_msec =
 {{ page.klipse_eval_idle_msec }};
 
 {% endif %}
 {% if page.klipse_line_numbers %}
 
    window.klipse_settings.codemirror_options_in.lineNumbers = true;
-
-{% endif %}
-{% if page.single_expressions %}
-
-   window.klipse_settings.eval_context = 'expr';
 
 {% endif %}
 

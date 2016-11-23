@@ -5,7 +5,6 @@ description:  "clojure macros clojurescript tutorial klipse naive dummies macros
 date:   2016-05-05 01:14:22 +0200
 categories: clojure
 thumbnail: assets/klipse.png
-single_expressions: true
 guid: "DC4BEB2C-768D-4AF2-BE3B-70A5A1267DFA"
 author: "@viebel"
 

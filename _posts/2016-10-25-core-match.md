@@ -3,7 +3,6 @@ layout: post
 title:  "Core.match interactive tutorial"
 description:  "Core.match interactive tutorial. Pattern matching clojure"
 date:   2016-10-25 12:21:32 +0200
-single_expressions: true
 categories: clojure
 thumbnail: assets/klipse.png
 guid: "A880C155-1B72-4801-BD98-F7BAAFE95BF0"

@@ -25,7 +25,6 @@ In this article, we describe how to tweek [KLIPSE][klipse-url]{:target="_blank"}
 * `js_only=1` - display only `cljs` and `js` boxes
 * `eval_only=1` - display only `cljs` and `eval` boxes
 * `static-fns=true` - eval and transpile js code with [static dispatch](https://github.com/clojure/clojurescript/wiki/Compiler-Options#static-fns)
-* `eval-context` - (default `statement`) indicates the evaluation context that will be passed to cljs/eval-str. One in `expr`, `statement`, `return`.
 * `external-libs` - array of external libs to resolve the namespace dependencies. Here is an [example with the gadjett library](http://app.klipse.tech/?cljs_in.gist=viebel/56695ae0360b8692255cc84115d37c6b&external-libs=[https://raw.githubusercontent.com/viebel/gadjett/master/src/]).
 
 
