@@ -27,22 +27,22 @@
         selector_eval_scheme: '.language-klipse-scheme',
         selector_js: '.language-klipse-js'
     };
+
+{% if page.klipse_no_beautify_strings %}
+   window.klipse_settings.beautify_strings = false;
+{% endif %}
+
 {% if page.klipse_editor_type %}
-
    window.klipse_settings.editor_type = "{{ page.klipse_editor_type }}";
-
 {% endif %}
 
 {% if page.klipse_eval_idle_msec %}
-
    window.klipse_settings.eval_idle_msec =
 {{ page.klipse_eval_idle_msec }};
-
 {% endif %}
+
 {% if page.klipse_line_numbers %}
-
    window.klipse_settings.codemirror_options_in.lineNumbers = true;
-
 {% endif %}
 
 
