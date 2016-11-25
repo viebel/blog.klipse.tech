@@ -140,7 +140,7 @@ Newlines are printed as `\n`:
 Tabs are printed as `\t`:
 
 ~~~klipse
-(pr-str "Hello\nWorld!")
+(pr-str "Hello\tWorld!")
 ~~~
 
 # Clojure types
