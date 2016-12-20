@@ -39,4 +39,20 @@ margin: 10px auto 0px auto;
     color: #339;
 }
 
+.react-container:before {
+    content: "**** Rendered Component ****";
+    font-weight: bold;
+    font-family: monospace;
+}
 
+.react-container {
+    background-color: #f7ebc6;
+    border-left: 5px solid #f7d87c;
+    display: block;
+    margin-left: -14px;
+    margin-right: -14px;
+    padding-left: 9px;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+
+}
