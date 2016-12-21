@@ -8,7 +8,6 @@ thumbnail: assets/klipse.png
 guid: "E2BD9738-220D-433C-A860-69E4552A391F"
 author: "@viebel"
 minified_plugin: true
-local_klipse: true
 ---
 
 # BrainFuck is like the DNA of any programming language
@@ -88,4 +87,5 @@ Let's calculate 2 to the 10:
 ~~~
 
 If you liked the code interactivity of this article, please give a star on [KLIPSE github repository](https://github.com/viebel/klipse) and use it on your blog. Take a look at [KLIPSE documentation](https://github.com/viebel/klipse): it's super simple to use.
-
+1G
+The content of this article has been inspired by [Large Numbers in BF](http://www.iwriteiam.nl/Ha_bf_numb.html).
