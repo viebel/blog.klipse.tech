@@ -87,5 +87,6 @@ Let's calculate 2 to the 10:
 ~~~
 
 If you liked the code interactivity of this article, please give a star on [KLIPSE github repository](https://github.com/viebel/klipse) and use it on your blog. Take a look at [KLIPSE documentation](https://github.com/viebel/klipse): it's super simple to use.
-1G
+
+
 The content of this article has been inspired by [Large Numbers in BF](http://www.iwriteiam.nl/Ha_bf_numb.html).
