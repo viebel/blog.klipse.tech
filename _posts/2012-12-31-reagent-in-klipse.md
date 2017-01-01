@@ -12,13 +12,13 @@ author: "@viebel"
 
 [Reagent](https://github.com/reagent-project/reagent) provides a minimalistic interface between ClojureScript and React. It allows you to define efficient React components using nothing but plain ClojureScript functions and data, that describe your UI using a [Hiccup](https://github.com/weavejester/hiccup)-like syntax.
 
-In this article, we are going to show you how you can write a blog post with interactive reagent component inside a blog post using the [klipse plugin](github.com/viebel/klipse). 
+In this article, we are going to show you how you can write a blog post with interactive reagent component inside a blog post using the [klipse plugin](https://github.com/viebel/klipse). 
 
 In this context, **interactive** means that the reader of the blog post can edit the code of the component.
 
 It's super simple:
 
-0. You add the klipse javascript tag to your blog posts as explained [here](github.com/viebel/klipse).
+0. You add the klipse javascript tag to your blog posts as explained [here](https://github.com/viebel/klipse).
 1. You require `reagent.core` in a `clojure` snippet.
 2. You define your component in a `clojure` snippet.
 3. You render your component in a `reagent` snippet.
@@ -124,7 +124,7 @@ Here is a nice example from [Reagent Website](http://reagent-project.github.io/)
 
 Now, I'm expecting all the cool guys of the clojurecript community to write incredible blog posts with interactive reagent code snippets...
 
-If you haven't done it already, please give a github star to [reagent](https://github.com/reagent-project/reagent) and [klipse](github.com/viebel/klipse).
+If you haven't done it already, please give a github star to [reagent](https://github.com/reagent-project/reagent) and [klipse](https://github.com/viebel/klipse).
 
 
 # A final note
