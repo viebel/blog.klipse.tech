@@ -139,4 +139,10 @@ It is also possible to evaluate `reagent` code snippets in the browser with the 
     font-family: monospace;
 }
 
+.klipse-container:before {
+    content: "**** Rendered Component ****";
+    font-weight: bold;
+    font-family: monospace;
+}
+
 </style>
