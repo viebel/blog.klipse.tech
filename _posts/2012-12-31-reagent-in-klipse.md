@@ -20,10 +20,9 @@ It's super simple:
 
 0. You add the klipse javascript tag to your blog posts as explained [here](https://github.com/viebel/klipse).
 1. You require `reagent.core` in a `clojure` snippet.
-2. You define your component in a `clojure` snippet.
-3. You render your component in a `reagent` snippet.
+2. You define and render your component in a `clojure` snippet.
 
-
+ 
 ![minority](/assets/minority.jpg)
 
 # Hello World!
@@ -38,17 +37,13 @@ First, we require `reagent.core` - in a `clojure` snippet:
 (require '[reagent.core :as r])
 ~~~
 
-Then, we define our component - in a `clojure` snippet:
-
-~~~klipse
-(defn hello [name]
-[:p (str "Hello " name "!")])
-~~~
-
-Finally, we render our component - in a `reagent` snippet:
+Then, we define and render our component - in a `reagent` snippet:
 
 ~~~reagent
-[hello "World"]
+(defn hello [name]
+[:p (str "Hello " name "!")])
+
+[hello "Klipse"]
 ~~~
 
 
@@ -60,16 +55,26 @@ Now, let's see how it works...
 
 # Under the hood
 
-The code snippet with `[hello "World"]` is not a regular `clojure` snippet: it's a `reagent` snippet. Klipse wraps the content of the snippet in a call to `reagent.core/render-component` and passes to it the dom element that is right after the code snippet (a.k.a the result snippet).
+The code snippet with `[hello "World"]` is not a regular `clojure` snippet: it's a `reagent` snippet. Klipse wraps the last expression of the snippet in a call to `reagent.core/render-component` and passes to it the dom element that is right after the code snippet (a.k.a the klipsecontainer).
 
 Nothing magic, we can do it manually using a regular `clojure` snippet like this:
 
 ~~~klipse
-(reagent.core/render-component [hello "World!"] (js/document.getElementById "container-1"))
+(reagent.core/render-component [hello "World!"] js/klipse-container)
 ~~~
-<div class="klipse-result" id="container-1"></div>
 
-If you look at the source of the page, you'll see that right after the `clojure` snippet there is a div with `id="container-1"`.
+Each klipse snippets has a dom sibling associated to it and it is accessible by `js/klipse-container`.
+
+
+And if your component doesn't require any argument, you even don't need to wrap into into a vector - klipse will wrap it into a vector for you - this nice idea was emitted and implemented by [Timothy Pratley](https://twitter.com/timothypratley):
+
+~~~reagent
+(defn tim []
+  [:span "Timothy"])
+
+(defn hello-there []
+    [:p "Thanks " [tim]])
+~~~
 
 Now, for the fun, let's take a look at a more interesting `reagent` component...
 
@@ -77,7 +82,7 @@ Now, for the fun, let's take a look at a more interesting `reagent` component...
 
 Here is a nice example from [Reagent Website](http://reagent-project.github.io/) that shows how to implement a BMI calculator with `reagent`:
 
-~~~klipse
+~~~reagent
 (def bmi-data (r/atom {:height 180 :weight 80}))
 
 (defn calc-bmi []
@@ -116,9 +121,6 @@ Here is a nice example from [Reagent Website](http://reagent-project.github.io/)
       [slider :bmi bmi 10 50]]]))
 ~~~
 
-~~~reagent
-[bmi-component]
-~~~
 
 # What else now?
 
