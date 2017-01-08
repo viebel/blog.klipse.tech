@@ -133,12 +133,6 @@ It is also possible to evaluate `reagent` code snippets in the browser with the 
 
 
 <style>
-.klipse-result:before {
-    content: "**** Rendered Component ****";
-    font-weight: bold;
-    font-family: monospace;
-}
-
 .klipse-container:before {
     content: "**** Rendered Component ****";
     font-weight: bold;
