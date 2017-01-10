@@ -49,7 +49,7 @@ Then, we define and render our component - in a `reagent` snippet:
 
 So easy. Right?
 
-Go ahead, enjoy the interactivity: modify the code of the component and add a `space` in the `reagent` snippet to re-render the component.
+Go ahead, enjoy the interactivity: modify the code of the component and see how it is rendered as you type.
 
 Now, let's see how it works...
 
