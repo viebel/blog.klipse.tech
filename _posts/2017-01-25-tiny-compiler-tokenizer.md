@@ -14,22 +14,32 @@ draft: true
 
 ## The tokenizer
 
- We're gonna start off with our first phase of parsing, lexical analysis, with
- the tokenizer.
+We're gonna start off with our first phase of parsing, lexical analysis, with the **tokenizer**.
 
- We're just going to take our string of code and break it down into an array
- of tokens.
+We're just going to take our string of code and break it down into an array of tokens.
 
-  `(add 2 (subtract 4 2))` should become  `[{ type: 'paren', value: '(' }, ...]`
+There a three kinds of tokens:
+
+1. single-character token: `(` and `)`
+2. multiple character token: `123` or `abcd`
+3. a string: something that starts with a `"` and end with a `"` (no escaping!)
 
 
-We start by accepting an input string of code, and we're gonna set up two things...
+First, we are going to write a couple of tokenizer for a single token. Each tokenizer receives the code as a string and the current position and returns:
 
+1. the length of the token
+2. the token as an object with two keys: `type` and `value`
+
+### Single-character token
+
+Let's write a generic function that tokenize a single character:
 
 ~~~eval-js
-tokenizeCharacter = (type, value, charInput) =>
-(value === charInput) ? [1, {type, value}] : [0, null]
+tokenizeCharacter = (type, value, input, current) =>
+(value === input[current]) ? [1, {type, value}] : [0, null]
 ~~~
+
+Here is the tokenizer for `(`:
 
 ~~~eval-js
 tokenizeParenOpen = (input, current) => tokenizeCharacter('paren', '(', input, current)
@@ -39,6 +49,8 @@ tokenizeParenOpen = (input, current) => tokenizeCharacter('paren', '(', input, c
 tokenizeParenOpen('(', 0)
 ~~~
 
+And here is the tokenizer for `)`:
+
 ~~~eval-js
 tokenizeParenClose = (input, current) => tokenizeCharacter('paren', ')', input, current)
 ~~~
@@ -46,6 +58,12 @@ tokenizeParenClose = (input, current) => tokenizeCharacter('paren', ')', input, 
 ~~~eval-js
 tokenizeParenClose(')', 0)
 ~~~
+
+## Multiple character tokens:
+
+We will describe our multi-character token by means or regular expressions:
+
+Here is a generic regexp tokenizer:
 
 ~~~eval-js
 tokenizePattern = (type, pattern, input, current) => {
@@ -64,6 +82,8 @@ tokenizePattern = (type, pattern, input, current) => {
 					    }
 ~~~
 
+And here is the `number` tokenizer:
+
 ~~~eval-js
 tokenizeNumber = (input, current) => tokenizePattern("number", /[0-9]/, input, current)
 ~~~
@@ -71,6 +91,8 @@ tokenizeNumber = (input, current) => tokenizePattern("number", /[0-9]/, input, c
 ~~~eval-js
 tokenizeNumber("123aad", 0)
 ~~~
+
+And the `name` tokenizer (in our language names are chains of letters):
 
 ~~~eval-js
 tokenizeName = (input, current) => tokenizePattern("name", /[a-z]/i, input, current)
@@ -80,9 +102,10 @@ tokenizeName = (input, current) => tokenizePattern("name", /[a-z]/i, input, curr
 tokenizeName('hello world', 0)
 ~~~
 
-~~~eval-js
-skipWhiteSpace = (charInput) =>   (/\s/.test(charInput)) ? [1, null] : [0, null]
-~~~
+
+### String tokenizer
+
+A string is something that starts with a `"` and ends with a `"` (no escaping in our language!):
 
 ~~~eval-js
 tokenizeString = (input, current) => {
@@ -109,78 +132,67 @@ tokenizeString = (input, current) => {
 tokenizeString('"Hello World"', 0)
 ~~~
 
+Last thing,  we want to skip whitespaces:
+
 ~~~eval-js
-function tokenizer(input) {
+skipWhiteSpace = (input, current) =>   (/\s/.test(input[current])) ? [1, null] : [0, null]
+~~~
+
+
+### The tokenizer
+
+Let's put all our tokenizers into an array:
+
+~~~eval-js
+const tokenizers = [skipWhiteSpace, tokenizeParenOpen, tokenizeParenClose, tokenizeString, tokenizeNumber, tokenizeName];
+~~~
+
+The code tokenizer is going go over its input and try all the tokenizers and when it finds a match it will:
+
+1. push the token object
+2. update the current position
+
+Here is the code:
+
+~~~eval-js
+tokenize_code = (input) => {
   let current = 0;
     let tokens = [];
-      while (current < input.length) {
-          let char = input[current];
-	      let token = null;
-	          let consumedChars = 0;
-
-    [consumedChars, token] = tokenizeParenOpen(input[current]);
-        if (token) {
-	      tokens.push(token);
-	          }
-		      if(consumedChars !== 0) {
-		            current += consumedChars;
-			          continue;
-				      }
-
-    [consumedChars, token] = tokenizeParenClose(input[current]);
-        if (token) {
-	      tokens.push(token);
-	          }
-		      if(consumedChars !== 0) {
-		            current += consumedChars;
-			          continue;
-				      }
-
-    [consumedChars, token] = skipWhiteSpace(input[current]);
-        if (token) {
-	      tokens.push(token);
-	          }
-		      if(consumedChars !== 0) {
-		            current += consumedChars;
-			          continue;
-				      }
-				          [consumedChars, token] = tokenizeString(input, current);
-					      if (token) {
-					            tokens.push(token);
-						        }
-							    if(consumedChars !== 0) {
-							          current += consumedChars;
-								        continue;
-									    }
-
-    [consumedChars, token] = tokenizeNumber(input, current);
-        if (token) {
-	      tokens.push(token);
-	          }
-		      if(consumedChars !== 0) {
-		            current += consumedChars;
-			          continue;
-				      }
-
-    [consumedChars, token] = tokenizeName(input, current);
-        if (token) {
-	      tokens.push(token);
-	          }
-
-    if(consumedChars !== 0) {
-          current += consumedChars;
-	        continue;
-		    }
-
-    // Finally if we have not matched a character by now, we're going to throw     // an error and completely exit.
-        throw new TypeError('I dont know what this character is: ' + char);
-	  }
-	      return tokens;
-	      }
+	  while (current < input.length) {
+	      let tokenized = false;
+		      tokenizers.forEach(tokenizer_fn => {
+			        if (tokenized) {return;}
+					      let [consumedChars, token] = tokenizer_fn(input, current);
+						        if(consumedChars !== 0) {
+								        tokenized = true;
+										        tokens.push(token);
+												        current += consumedChars;
+														      }
+															      });
+																      if (!tokenized) {
+																	        throw new TypeError('I dont know what this character is: ' + char);
+																			    }
+																				  }
+																				    return tokens;
+																					}
 ~~~
 
 Let's see our tokenizer in action:
 
 ~~~eval-js
-tokenizer('(add 2 (subtract "314" 2))')
+tokenize_code('(add 2 3)')
 ~~~
+
+Our tokenizer doesn't do any semantic validation. As an example, it can read unbalanced parenthesis:
+
+~~~eval-js
+tokenize_code('(add 2')
+~~~
+
+Let's make sure we can handle nested expressions properly:
+
+~~~eval-js
+tokenize_code('(add 2 (subtract "314" 2))')
+~~~
+
+Hourra!!!

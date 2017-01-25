@@ -33,7 +33,9 @@
         selector_js: '.language-klipse-js',
         selector_reagent: '.language-reagent',
     };
-
+{% if page.local_klipse %}
+      klipse_settings.no_dynamic_script = true;
+{% endif %}
 {% if page.klipse_no_beautify_strings %}
    window.klipse_settings.beautify_strings = false;
 {% endif %}
