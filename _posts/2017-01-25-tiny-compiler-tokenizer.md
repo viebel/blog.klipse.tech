@@ -12,6 +12,8 @@ hidden: true
 draft: true
 ---
 
+Inspired by https://github.com/thejameskyle/the-super-tiny-compiler
+https://babeljs.io/docs/plugins/
 ## The tokenizer
 
 We're gonna start off with our first phase of parsing, lexical analysis, with the **tokenizer**.
