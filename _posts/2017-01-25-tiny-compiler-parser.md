@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Write your own compiler - Component #2: the parser"
+title:  "Write your own compiler - Station #2: the parser"
 description:  "Write your own compiler: the parser. Code genetation. AST. Abstract syntax tree. lisp. javascript."
 date:   2017-02-08 08:12:21 +0200
 categories: javascript

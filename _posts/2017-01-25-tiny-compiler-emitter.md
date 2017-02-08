@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Write your own compiler - Component #3: the emitter"
+title:  "Write your own compiler - Stsation #3: the emitter"
 description:  "Writing your own compiler: the emitter. Code genetation. AST. Abstract syntax tree. lisp. javascript."
 date:   2017-02-08 08:13:21 +0200
 categories: javascript

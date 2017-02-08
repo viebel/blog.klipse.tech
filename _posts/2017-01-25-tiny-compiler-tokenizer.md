@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Write your own compiler - Component #1: the tokenizer"
+title:  "Write your own compiler - Station #1: the tokenizer"
 description:  "Write your own compiler: the tokenizer. Code genetation. AST. Abstract syntax tree. lisp. javascript."
 date:   2017-02-08 08:11:21 +0200
 categories: javascript

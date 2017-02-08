@@ -55,7 +55,7 @@ my_compiler("(add 1 2 (mult 3 4))")
 Enjoy the moment, play with your compiler... 
 
 
-Congratulations - I mean you did it. Give yourself a huge hug, buy yourself a gift. I don't know... Find the most appropriate way to celebrate your success... You definitely deserve it!
+Congratulations - I mean you did it. Give yourself a huge hug, buy yourself a gift. I don't know... Find the most appropriate way to celebrate your success... You truly deserve it!
 
 
 ![ast](/assets/hourra.png)
