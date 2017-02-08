@@ -1,24 +1,33 @@
 ---
 layout: post
-title:  "A tiny compiler: the tokenizer"
-description:  "A tiny compiler: the tokenizer"
-date:   2017-01-25 05:12:21 +0200
+title:  "Write your own compiler - Component #1: the tokenizer"
+description:  "Write your own compiler: the tokenizer. Code genetation. AST. Abstract syntax tree. lisp. javascript."
+date:   2017-02-08 08:11:21 +0200
 categories: javascript
 thumbnail: assets/klipse.png
-guid: "2316A801-116B-4604-9E63-A326783A2C1A"
+guid: "DAD172A0-B2A9-4418-B175-453557BE5174"
 author: "@viebel"
 minified_plugin: true
-hidden: true
-draft: true
 ---
 
-Inspired by https://github.com/thejameskyle/the-super-tiny-compiler
-https://babeljs.io/docs/plugins/
+## The plan
+
+Our [journey]({% post_url 2017-01-25-tiny-compiler-intro %}) is made of 4 stations - each of them depending on the previous ones:
+
+1. [The tokenizer]({% post_url 2017-01-25-tiny-compiler-tokenizer %}) (aka "Lexical Analysis"): converting an input code - in `LISP` syntax - into an array of tokens.
+2. [The parser]({% post_url 2017-01-25-tiny-compiler-parser %}) (aka "Syntactic Analysis"): transforming an array of tokens into an Abstract Syntax Tree (AST).
+3. [The emitter]({% post_url 2017-01-25-tiny-compiler-emitter %}) (aka "Code Generation"): string-ifying an AST into `C`-like code.
+4. [The compiler]({% post_url 2017-01-25-tiny-compiler-compiler %}) (aka "You made it"): combining all the pieces together.
+
+(The interactive code snippets are powered by a tool of mine named [KLIPSE](https://github.com/viebel/klipse).)
+
 ## The tokenizer
 
-We're gonna start off with our first phase of parsing, lexical analysis, with the **tokenizer**.
 
-We're just going to take our string of code and break it down into an array of tokens.
+The `tokenizer` receives a string of code and break it down into an array of tokens.
+
+![tokens](/assets/tokens.jpg)
+
 
 There a three kinds of tokens:
 
@@ -146,7 +155,7 @@ skipWhiteSpace = (input, current) =>   (/\s/.test(input[current])) ? [1, null] :
 Let's put all our tokenizers into an array:
 
 ~~~eval-js
-const tokenizers = [skipWhiteSpace, tokenizeParenOpen, tokenizeParenClose, tokenizeString, tokenizeNumber, tokenizeName];
+tokenizers = [skipWhiteSpace, tokenizeParenOpen, tokenizeParenClose, tokenizeString, tokenizeNumber, tokenizeName];
 ~~~
 
 The code tokenizer is going go over its input and try all the tokenizers and when it finds a match it will:
@@ -157,44 +166,46 @@ The code tokenizer is going go over its input and try all the tokenizers and whe
 Here is the code:
 
 ~~~eval-js
-tokenize_code = (input) => {
+tokenizer = (input) => {
   let current = 0;
-    let tokens = [];
-	  while (current < input.length) {
-	      let tokenized = false;
-		      tokenizers.forEach(tokenizer_fn => {
-			        if (tokenized) {return;}
-					      let [consumedChars, token] = tokenizer_fn(input, current);
-						        if(consumedChars !== 0) {
-								        tokenized = true;
-										        tokens.push(token);
-												        current += consumedChars;
-														      }
-															      });
-																      if (!tokenized) {
-																	        throw new TypeError('I dont know what this character is: ' + char);
-																			    }
-																				  }
-																				    return tokens;
-																					}
+  let tokens = [];
+  while (current < input.length) {
+    let tokenized = false;
+    tokenizers.forEach(tokenizer_fn => {
+      if (tokenized) {return;}
+      let [consumedChars, token] = tokenizer_fn(input, current);
+      if(consumedChars !== 0) {
+        tokenized = true;
+        current += consumedChars;
+      }
+      if(token) {
+        tokens.push(token);
+      }
+    });
+    if (!tokenized) {
+      throw new TypeError('I dont know what this character is: ' + char);
+    }
+  }
+  return tokens;
+}
 ~~~
 
 Let's see our tokenizer in action:
 
 ~~~eval-js
-tokenize_code('(add 2 3)')
+tokenizer('(add 2 3)')
 ~~~
 
 Our tokenizer doesn't do any semantic validation. As an example, it can read unbalanced parenthesis:
 
 ~~~eval-js
-tokenize_code('(add 2')
+tokenizer('(add 2')
 ~~~
 
 Let's make sure we can handle nested expressions properly:
 
 ~~~eval-js
-tokenize_code('(add 2 (subtract "314" 2))')
+tokenizer('(add 2 (subtract "314" 2))')
 ~~~
 
 Hourra!!!

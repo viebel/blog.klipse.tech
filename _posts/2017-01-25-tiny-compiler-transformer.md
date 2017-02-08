@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "A tiny compiler: the traverser"
-description:  "A tiny compiler: the traverser"
+title:  "A tiny compiler: the transformer"
+description:  "A tiny compiler: the transformer"
 date:   2017-01-25 08:12:21 +0200
 categories: javascript
 thumbnail: assets/klipse.png
@@ -12,12 +12,11 @@ hidden: true
 draft: true
 ---
 
-## The visitor
+## The transformer
 
-Next up, the transformer. Our transformer is going to take the AST that we have built and pass it to our traverser function with a visitor and will create a new ast.
+Our transformer is going to take the AST that we have built and pass it to a traverser function with a visitor in order to create a new ast.
  
- 
-If the orignial AST is:
+An AST like this:
 
 ~~~javascript
 {                             
@@ -43,7 +42,7 @@ If the orignial AST is:
 }                             
 ~~~
 
-Then the transformed AST will be:
+will be transformed in a AST like that:
 
 ~~~javascript
 {									  
@@ -79,15 +78,19 @@ Then the transformed AST will be:
 ~~~
  
 
-Let's build our transformer function which will accept the lisp ast:
+First, let's build our visitor...
 
 ### A visitor
+
+A visitor receives a node and its parent.
+
+We are going to have a different visitor for each kind of node.
+
+For `NumberLiteral` nodes:
 
 ~~~eval-js
 visitorNumberLiteral =  {
       enter(node, parent) {
-        // We'll create a new node also named `NumberLiteral` that we will push to
-        // the parent context.
         parent._context.push({
           type: 'NumberLiteral',
           value: node.value,
@@ -95,6 +98,8 @@ visitorNumberLiteral =  {
       },
 }
 ~~~
+
+For `StringLiteral` nodes:
 
 ~~~eval-js
 visitorStringLiteral = {
@@ -106,6 +111,8 @@ visitorStringLiteral = {
       },
     }
 ~~~
+
+For `CallExpression` nodes:
 
 ~~~eval-js
 visitorCallExpression = {
@@ -145,8 +152,9 @@ visitorCallExpression = {
         parent._context.push(expression);
       },
     }
-
 ~~~
+
+Aggregating the 3 visitors together:
 
 ~~~eval-js
 visitor = {
@@ -156,35 +164,7 @@ visitor = {
 }
 ~~~
 
-
-~~~eval-js
-function transformer(ast) {
-
-  // We'll create a `newAst` which like our previous AST will have a program
-  // node.
-  let newAst = {
-    type: 'Program',
-    body: [],
-  };
-
-  // Next I'm going to cheat a little and create a bit of a hack. We're going to
-  // use a property named `context` on our parent nodes that we're going to push
-  // nodes to their parent's `context`. Normally you would have a better
-  // abstraction than this, but for our purposes this keeps things simple.
-  //
-  // Just take note that the context is a reference *from* the old ast *to* the
-  // new ast.
-  ast._context = newAst.body;
-
-  // We'll start by calling the traverser function with our ast and a visitor.
-  traverser(ast, visitor);
-
-  // At the end of our transformer function we'll return the new ast that we
-  // just created.
-  return newAst;
-}    
-~~~
-
+ 
 ## The traverser
 
 
@@ -249,12 +229,6 @@ function traverser(ast, visitor) {
       default:
         throw new TypeError(node.type);
     }
-
-    // If there is an `exit` method for this node type we'll call it with the
-    // `node` and its `parent`.
-    if (methods && methods.exit) {
-      methods.exit(node, parent);
-    }
   }
 
   // Finally we kickstart the traverser by calling `traverseNode` with our ast
@@ -263,6 +237,36 @@ function traverser(ast, visitor) {
 }
 ~~~
 
+
+## The transformer
+
+~~~eval-js
+function transformer(ast) {
+
+  // We'll create a `newAst` which like our previous AST will have a program
+  // node.
+  let newAst = {
+    type: 'Program',
+    body: [],
+  };
+
+  // Next I'm going to cheat a little and create a bit of a hack. We're going to
+  // use a property named `context` on our parent nodes that we're going to push
+  // nodes to their parent's `context`. Normally you would have a better
+  // abstraction than this, but for our purposes this keeps things simple.
+  //
+  // Just take note that the context is a reference *from* the old ast *to* the
+  // new ast.
+  ast._context = newAst.body;
+
+  // We'll start by calling the traverser function with our ast and a visitor.
+  traverser(ast, visitor);
+
+  // At the end of our transformer function we'll return the new ast that we
+  // just created.
+  return newAst;
+}    
+~~~
 
 ~~~eval-js
 ~~~
