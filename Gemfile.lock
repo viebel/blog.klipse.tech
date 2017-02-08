@@ -130,7 +130,6 @@ DEPENDENCIES
   github-pages (= 71)
   jekyll-feed
   jekyll-sitemap
-  json
 
 BUNDLED WITH
-   1.11.2
+   1.14.3

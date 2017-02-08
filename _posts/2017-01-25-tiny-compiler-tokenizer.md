@@ -5,7 +5,7 @@ description:  "A tiny compiler: the tokenizer"
 date:   2017-01-25 05:12:21 +0200
 categories: javascript
 thumbnail: assets/klipse.png
-guid: "0324A2D5-5A29-445C-A043-D12D76EDE699"
+guid: "2316A801-116B-4604-9E63-A326783A2C1A"
 author: "@viebel"
 minified_plugin: true
 hidden: true
