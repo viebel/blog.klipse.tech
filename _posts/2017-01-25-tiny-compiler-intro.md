@@ -40,7 +40,15 @@ Our journey is made of 4 stations - each of them depending on the previous ones:
 3. [The emitter]({% post_url 2017-01-25-tiny-compiler-emitter %}) (aka "Code Generation"): string-ifying an AST into `C`-like code.
 4. [The compiler]({% post_url 2017-01-25-tiny-compiler-compiler %}) (aka "You made it"): combining all the pieces together.
 
-Are you ready?
+At the end of the journey, you will have code that does that does the following:
+
+<pre><code class="language-eval-js" data-external-libs="https://raw.githubusercontent.com/viebel/javascript-toolbelt/master/lib/compiler.js">
+compiler("(add 1 2 (mult 3 4))")
+</code></pre>
+
+This code snippet is interactive - feel free to play with it...
+
+Are you ready for the journey?
 
 
 Take a deep breath...
