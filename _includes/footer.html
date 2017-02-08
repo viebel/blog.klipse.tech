@@ -1,62 +1,13 @@
 <footer class="site-footer">
-
-  <div class="wrapper">
-
-
-    <div class="footer-col-wrapper">
-
-      <div class="footer-col footer-col-1">
-        <a href="https://twitter.com/share" class="twitter-share-button" data-via="viebel" data-size="large" data-hashtags="cljklipse">Tweet</a>
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-      </div>
-      
-
-      <div class="footer-col footer-col-2">
-        <ul class="social-media-list">
-          {% if site.github_username_rb %}
-          <li>
-            {% include icon-github.html username=site.github_username_rb %}
-          </li>
-          {% endif %}
-
-          {% if site.email_rb %}
-          <li>
-            {% include icon-email.html email=site.email_rb %}
-          </li>
-          {% endif %}
-
-          {% if site.twitter_username_rb %}
-          <li>
-            {% include icon-twitter.html username=site.twitter_username_rb %}
-          </li>
-          {% endif %}
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-3">
-        <ul class="social-media-list">
-          {% if site.github_username_ys %}
-          <li>
-            {% include icon-github.html username=site.github_username_ys %}
-          </li>
-          {% endif %}
-
-          {% if site.email_ys %}
-          <li>
-            {% include icon-email.html email=site.email_ys %}
-          </li>
-          {% endif %}
-
-          {% if site.twitter_username_ys %}
-          <li>
-            {% include icon-twitter.html username=site.twitter_username_ys %}
-          </li>
-          {% endif %}
-        </ul>
-
-      </div>
-    </div>
-
+  <div class="wrapper" style="
+    font-size: larger;
+    color: #5f7fbf;
+    font-family: fantasy;
+    font-weight: bold;">
+    <p> <span> {% include icon-twitter.html username=site.twitter_username_ys %} </span> to stay up-to-date with the coolest interactive articles around the world.</p>
+    <p> Give KLIPSE a <span>
+    <a class="github-button" href="https://github.com/viebel/klipse" data-count-href="/viebel/klipse/stargazers" data-count-api="/repos/viebel/klipse#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star viebel/klipse on GitHub">Star</a> </span>
+<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script> to show your love for <em>Code Interactivity</em>. </p>
+    <p> Feel free to email me {% include icon-email.html email=site.email_ys %} for getting practical tips and tricks in writing your first interactive blog post.</p>
   </div>
-
 </footer>
