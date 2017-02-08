@@ -165,3 +165,5 @@ ast = {
 }
 emitter(ast)
 ~~~
+
+Now, everything is set up for the [last station:The compiler]({% post_url 2017-01-25-tiny-compiler-compiler %}). No need to rest, you immediatly run towards it.

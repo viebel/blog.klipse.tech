@@ -223,5 +223,7 @@ const tokens =  [
 							 parseProgram(tokens, 0)
 ~~~
 
-We did it! 
-We have written a parser for our Lisp-like language...
+You did it! 
+You have written a parser for our Lisp-like language...
+
+Please take a short rest before moving towards [Station #3: The emitter]({% post_url 2017-01-25-tiny-compiler-emitter %}).

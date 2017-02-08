@@ -209,3 +209,5 @@ tokenizer('(add 2 (subtract "314" 2))')
 ~~~
 
 Hourra!!!
+
+Please take a short rest before moving towards [Station #2: The parser]({% post_url 2017-01-25-tiny-compiler-parser %}).
