@@ -24,26 +24,26 @@ Our [journey]({% post_url 2017-01-25-tiny-compiler-intro %}) is made of 4 statio
 ## The tokenizer
 
 
-The `tokenizer` receives a string of code and break it down into an array of tokens.
+The `tokenizer` receives a string of code and breaks it down into an array of tokens.
 
 ![tokens](/assets/tokens.jpg)
 
 
-There a three kinds of tokens:
+There are three kinds of tokens:
 
 1. single-character token: `(` and `)`
 2. multiple character token: `123` or `abcd`
-3. a string: something that starts with a `"` and end with a `"` (no escaping!)
+3. a string: something that starts with a `"` and ends with a `"` (no escaping!)
 
 
-First, we are going to write a couple of tokenizer for a single token. Each tokenizer receives the code as a string and the current position and returns:
+First, we are going to write a couple of tokenizers for a single token. Each tokenizer receives the code as a string and the current position and returns:
 
 1. the length of the token
 2. the token as an object with two keys: `type` and `value`
 
 ### Single-character token
 
-Let's write a generic function that tokenize a single character:
+Let's write a generic function that tokenizes a single character:
 
 ~~~eval-js
 tokenizeCharacter = (type, value, input, current) =>
@@ -72,7 +72,7 @@ tokenizeParenClose(')', 0)
 
 ## Multiple character tokens:
 
-We will describe our multi-character token by means or regular expressions:
+We will describe our multi-character token by means of regular expressions:
 
 Here is a generic regexp tokenizer:
 
