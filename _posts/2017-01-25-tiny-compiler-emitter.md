@@ -40,6 +40,7 @@ emitNumber = node => node.value
 ~~~
 
 Let's see how it works:
+
 ~~~eval-js
 emitNumber({
   "type": "number",
