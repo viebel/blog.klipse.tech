@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Secured KLIPSE"
+title:  "KLIPSE secured mode" 
 description:  "Interactive code snippets running in a secured sandbox"
 date:   2017-03-14 10:22:44 +0200
 categories: klipse
@@ -17,7 +17,7 @@ Code interactivity comes at a price: it gives unlimited power to the author of t
 
 But in the case of a blogging platform like [dev.to](https://dev.to/) or other collaborative web sites like [clojuredocs.org](https://clojuredocs.org/), you cannot trust the authors of the KLIPSE interactive snippets.
 
-For that use cases, Klipse features a secured mode.
+For that use cases, Klipse features a **secured mode**.
 
 When a page is in secured mode - like it is the case in this page -  the Klipse snippets cannot access:
 
@@ -115,5 +115,5 @@ $
 
 # Final remark
 
-If you find a way to run dangerous code in Klipse secured more, please be kind and send me a private email to: viebel@gmail.com
+If you find a way to run dangerous code while in Klipse secured more, please be kind and send me a private email to: viebel@gmail.com
 
