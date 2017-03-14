@@ -53,6 +53,13 @@
    window.klipse_settings.codemirror_options_in.lineNumbers = true;
 {% endif %}
 
+{% if page.secured_eval %}
+   window.klipse_settings.secured_eval = true;
+{% endif %}
+    
+
+    
+
 
 </script>
 
@@ -60,10 +67,10 @@
 <script src="http://localhost:5014/plugin/js/klipse_plugin.js?"></script>
 {% else %}
 {% if page.minified_plugin  %}
-<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?v=4.6.0"></script>
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?v=6.7.6"></script>
 <!-- <script src="http://localhost:5014/plugin_prod/js/klipse_plugin.min.js?"></script> -->
 {% else %}
-<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=5.0.0"></script>
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=6.7.6"></script>
 <!-- <script src="http://localhost:5014/plugin/js/klipse_plugin.js?"></script> -->
 {% endif %}
 {% endif %}
