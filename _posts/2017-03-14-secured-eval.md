@@ -24,6 +24,7 @@ When a page is in secured mode - like it is the case in this page -  the Klipse 
 - the `document` 
 - the cookies
 - `eval` function
+- the `Function` constructor (big thanks to [Vesa Karvonen](https://twitter.com/VesaKarvonen)!)
 - ajax function: `XMLHttpRequest`
 - the klipse container that is associated to each klipse snippets
 
@@ -75,6 +76,13 @@ No `eval`:
 
 ~~~eval-js
 eval("1+2")
+~~~
+
+
+No `Function` constructor:
+
+~~~eval-js
+new Function("1+98")()
 ~~~
 
 No access to the Klipse container:
