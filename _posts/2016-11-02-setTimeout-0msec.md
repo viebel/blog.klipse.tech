@@ -37,18 +37,6 @@ All the code snippets of this page are **live** and **interactive** powered by t
 2. **Interactive**: You can modify the code and it is evaluated after 3 seconds of inactivity of if you press `Ctrl-Enter` inside the code snippet.
 
 
-We're going to need those printing helper functions in order to print the elapsed time - just below the code snippets:
-
-
-~~~klipse-eval-js
-function printTimeout (txt) {
-  document.getElementById("timeout").innerText = txt;
-}
-function printZeroTimeout (txt) {
-  document.getElementById("zero-timeout").innerText = txt;
-}
-~~~
-
 # The 4 msec delay in action
 
 Here is the  code that demonstrates the 4-msec delay - calling `setTimeout` recursively 100 times with a `0` delay.
@@ -60,11 +48,10 @@ You might need to reevaluate the snippet - for some reason the first evaluation 
 Press `Ctrl-Enter` inside the code snippet or modify the code and wait for 3 seconds...
 
 
-<pre><div class="language-klipse-eval-js">
-
+<pre><code class="language-klipse-eval-js" data-async-code="true">
 function bar(iterations) {
   if(iterations === 0) {
-    printTimeout("done in: " + (new Date() - startTimeout)+ " msec")
+    console.log("done in: " + (new Date() - startTimeout)+ " msec")
   }
   else {
   setTimeout(bar, 0, iterations - 1);
@@ -72,11 +59,9 @@ function bar(iterations) {
   }
 
 startTimeout = new Date();
-printTimeout("Start");
+console.log("Start");
 bar(100);
-
-</div><div id="timeout">Empty</div></pre>
-
+</code></pre>
 
 Amazing. No?
 
@@ -118,11 +103,11 @@ Again, you might need to reevaluate the snippet - as the first evaluation takes 
 
 Press `Ctrl-Enter` inside the code snippet or modify the code and wait for 3 seconds...
 
-<pre><div class="language-klipse-eval-js">
+<pre><code class="language-klipse-eval-js" data-async-code="true">
 function runBaz(iterations) {
   function baz() {
     if(--iterations === 0) {
-      printZeroTimeout("done in: " + (new Date() - startZeroTimeout) + " msec")
+      console.log("done in: " + (new Date() - startZeroTimeout) + " msec")
     }
     else {
       setZeroTimeout(baz);
@@ -132,11 +117,9 @@ function runBaz(iterations) {
 }
 
 startZeroTimeout = new Date();
-printZeroTimeout("OK");
+console.log("OK");
 runBaz(100);
-</div><div id="zero-timeout">Empty</div></pre>
-
-
+</code></pre>
 
 By the way, what do you think about the interactive code snippets powered by [KLIPSE](https://github.com/viebel/klipse)?
 
