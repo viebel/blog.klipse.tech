@@ -1,7 +1,7 @@
 
 {% if page.local_klipse %}
 
-<link rel="stylesheet" type="text/css" href="http://localhost:5014/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="http://localhost:3449/css/codemirror.css">
 {% else %}
 <link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
 {% endif %}
@@ -29,7 +29,8 @@
         selector_sql: '.language-klipse-sql',
         selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
         selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
-        selector_eval_cpp: '.language-klipse-cpp',
+    selector_eval_cpp: '.language-klipse-cpp',
+    selector_google_charts: '.language-google-chart',
         selector_js: '.language-klipse-js',
         selector_reagent: '.language-reagent',
     };
@@ -64,13 +65,11 @@
 </script>
 
 {% if page.local_klipse %}
-<script src="http://localhost:5014/plugin/js/klipse_plugin.js?"></script>
+<script src="http://localhost:3449/plugin/js/klipse_plugin.js?"></script>
 {% else %}
 {% if page.minified_plugin  %}
 <script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?v=6.7.6"></script>
-<!-- <script src="http://localhost:5014/plugin_prod/js/klipse_plugin.min.js?"></script> -->
 {% else %}
 <script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=6.7.8"></script>
-<!-- <script src="http://localhost:5014/plugin/js/klipse_plugin.js?"></script> -->
 {% endif %}
 {% endif %}
