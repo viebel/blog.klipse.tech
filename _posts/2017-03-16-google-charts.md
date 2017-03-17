@@ -20,7 +20,7 @@ Usually, there are two types of data-driven reports:
 - Live reports written by Business Analysts hosted on data platforms like Jupyter
 
 
-(https://github.com/viebel/klipse) allows the author of a business report to get the full power of the javascript visualization libraries without requiring any help from a Software developer.
+[Klipse](https://github.com/viebel/klipse) allows the author of a business report to get the full power of the javascript visualization libraries without requiring any help from a Software developer.
 
 For instance, in this article we will show how a Business Analyst can create interactive google charts widgets - simply by providing the specifications of the chart as a JSON object with threes keys:
 
