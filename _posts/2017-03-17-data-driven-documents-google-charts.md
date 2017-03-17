@@ -7,6 +7,7 @@ categories: data
 thumbnail: assets/klipse.png
 guid: "1810818B-BCB5-4B58-AB6F-3A81CAF19318"
 author: "@viebel"
+minified_plugin: true
 ---
 
 ## Introduction
