@@ -11,9 +11,33 @@ minified_plugin: true
 hidden: true
 draft: true
 ---
+
+
+# Vigiglobe 
+
+[Vigiglobe](http://vigiglobe.com/) is a data platform that leverages the power of social media content in real-time.
+
+In this article, we are going to visualize the top 10 countries with the highest numbers of tweets of earthquakes over the last 10 minutes.
+
+We are using [WIZR API](http://api.wizr.io/index.html) to fetch the data, this is the JSON endpoint that we use: [http://api.wizr.io/api/statistics/v1/geoloc?level=country&project_id=vigiglobe-Earthquake](http://api.wizr.io/api/statistics/v1/geoloc?level=country&project_id=vigiglobe-Earthquake){:target="_blank"}.
+
+The globe fetches new data from WIZR every 60 seconds.
+
+There is also a refresh button.
+
 <style>
 
+pre {
+visibility: hidden;
+height: 0px;
+}
+
 #map-container {
+height: 1000px;
+widht: 1000px;
+}
+
+.map-contained-dev {
 position: fixed;
 top: 200px;
 height: 500px;
@@ -23,20 +47,24 @@ background-color: white;
 }
 
 
+
+
 #country-name {
   position: absolute;
-  top: 250px;
+  top: 500px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 18px;
   text-align: center;
-  width: 480px;
+  width: 960px;
+  font-size: larger;
+  font-weight: bold;
 }
 
 </style>
 
 ~~~eval-js
-var width = 480,
-    height = 480;
+var width = 960
+    height = 960;
 
 var projection = d3.geo.orthographic()
     .translate([width / 2, height / 2])
@@ -60,17 +88,22 @@ var title = d3.select("#country-name");
 
 <div id="map-container">
 <div style="position: relative;">
-<h1 id="country-name"></h1>
+<div id="country-name"></div>
 <div id="map"></div>
+<button id="refresh">Refresh</button>
 </div>
 </div>
 
 
 
 ~~~eval-js
-function ready(error, world, names) {
+function ready(error, world, names, earthquakes) {
   if (error) throw error;
-
+  window.eartquakes = earthquakes;
+  window.selectedCountries = Object.values(window.eartquakes.data).reduce((res, x) => {
+	  res[x.country_name] = x
+	  return res
+	}, {})
   window.globe = {type: "Sphere"};
   window.land = topojson.feature(world, world.objects.land);
   var countries = topojson.feature(world, world.objects.countries).features;
@@ -83,13 +116,20 @@ function ready(error, world, names) {
   }).sort(function(a, b) {
     return a.name.localeCompare(b.name);
   });
-  window.countries = window.allCountries;
+
+  window.countries = window.allCountries.filter(function(d) {
+    return selectedCountries.hasOwnProperty(d.name);
+  }).sort(function(a,b) {
+      return selectedCountries[b.name].messages[0][1] -   selectedCountries[a.name].messages[0][1];
+  });
+  
+  window.displayedCountryIdx = -1;
   transition();
 }
 ~~~
 
+
 ~~~eval-js
-var i = -1;
 
 function transition() {
   d3.transition()
@@ -104,19 +144,21 @@ function transition() {
 ~~~eval-js
 function nameCountry() {
     var n = countries.length;
-    title.text(countries[i = (i + 1) % n].name);
+	displayedCountryIdx = (displayedCountryIdx + 1) % n;
+	var name = countries[displayedCountryIdx].name;
+    title.text('#' + (displayedCountryIdx + 1) + ' '+ name + ': ' + selectedCountries[name].messages[0][1] + ' events');
   }
 ~~~
 
 ~~~eval-js
 function markCountry() {
-    var p = d3.geo.centroid(countries[i]),
+    var p = d3.geo.centroid(countries[displayedCountryIdx]),
         r = d3.interpolate(projection.rotate(), [-p[0], -p[1]]);
     return function(t) {
       projection.rotate(r(t));
       c.clearRect(0, 0, width, height);
       c.fillStyle = "#ccc", c.beginPath(), path(land), c.fill();
-      c.fillStyle = "#f00", c.beginPath(), path(countries[i]), c.fill();
+      c.fillStyle = "#f00", c.beginPath(), path(countries[displayedCountryIdx]), c.fill();
       c.strokeStyle = "#fff", c.lineWidth = .5, c.beginPath(), path(borders), c.stroke();
       c.strokeStyle = "#000", c.lineWidth = 2, c.beginPath(), path(globe), c.stroke();
     };
@@ -127,15 +169,25 @@ function markCountry() {
 d3.select(self.frameElement).style("height", height + "px");
 ~~~
 
-
 ~~~eval-js
-
+function loadData() {
 queue()
     .defer(d3.json, "/assets/world-110m.json")
     .defer(d3.tsv, "/assets/world-country-names.tsv")
+	.defer(d3.json, "http://api.wizr.io/api/statistics/v1/geoloc?level=country&project_id=vigiglobe-Earthquake")
     .await(ready);
-	
+}
 ~~~
+
+~~~eval-js
+document.getElementById("refresh").onclick = loadData;
+~~~
+
+<pre><code class="language-eval-js" data-loop-msec="60000">
+loadData()
+</code></pre>
+
+
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script src="//d3js.org/queue.v1.min.js"></script>
 <script src="//d3js.org/topojson.v1.min.js"></script>
