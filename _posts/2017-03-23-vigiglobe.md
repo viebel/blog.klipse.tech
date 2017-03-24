@@ -11,6 +11,18 @@ minified_plugin: true
 hidden: true
 draft: true
 ---
+<style>
+
+#country-name {
+  position: absolute;
+  top: 500px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  text-align: center;
+  width: 960px;
+}
+
+</style>
 
 ~~~eval-js
 var width = 960,
@@ -33,10 +45,13 @@ var path = d3.geo.path()
     .projection(projection)
     .context(c);
 
-var title = d3.select("h1");
+var title = d3.select("#country-name");
 ~~~
 
+<div style="position: relative;">
+<h1 id="country-name"></h1>
 <div id="map"></div>
+</div>
 
 
 
