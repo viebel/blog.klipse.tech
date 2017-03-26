@@ -63,17 +63,36 @@ About functions, we stated that:
 
 Let's check it by writing a function with different side effects in the input and the output. We'll see what side effect is executed.
 
-We will modify the background color of `KLIPSE` as side effects (with a simple function `set-body-bg-color`): red for the input and green for the output.
+We will modify the color and the border of the klispe container as side effects, with a few helpers:
 
-As you can see below, the background is red: it means the input is evaluated and the output is not evaluated; the output is returned, but it's not evaluated.
+~~~klipse
+(ns my.m$macros)
+(defn set-color! [elem c]
+  (set! (.. elem -style -color) c))
+
+(defn set-border [elem border]
+  (set! (.. elem -style -border) border))
+
+(defn reset-elem! [elem]
+  (set! (.-innerHTML elem) "This is a sentence")
+  (set! (.-style elem) nil))
+~~~
+
+(If you wonder why we have to append `$macros` to the namespace and to reference the fully-qualified macro with self-hosted `clojurescript`, read [Messing with Macros at the REPL]({% post_url 2016-03-17-messing-with-macros %}){:target="_blank"}.)
+
+
+Now, let's check what happens when we call a function:
+
+~~~klipse
+(defn color-me-fn [arg]
+  (list 'set-border 'js/klipse-container "solid 3px red"))
+
+(reset-elem! js/klipse-container)
+(color-me-fn (set-color! js/klipse-container "red"))
+~~~
+As you can see above, the color of the text is red but the border is un-mondified: it means that the input is evaluated and the output is not evaluated; the output is returned, but it's not evaluated.
 
 Q.E.D.∎
-
-<iframe frameborder="0" width="100%" height="250px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(ns%20my.tuto)%0A%0A(defn%20set-body-bg-color%20%5Bc%5D%0A%20%20(set!%20(..%20js%2Fdocument%20-body%20-style%20-backgroundColor)%20c))%0A%0A(defn%20color-me%20%5Bx%5D%0A%20%20%20'(set-body-bg-color%20%22green%22))%0A%0A(color-me%20(set-body-bg-color%20%22red%22))%0A%0A&eval_only=1">
-</iframe>
-
 
 ### The proof for macros
 
@@ -82,25 +101,21 @@ About macros, we stated that:
 1. macros arguments (the input) are not evaluated before the macro code evaluates them explicitly
 2. macros return value (the output) is evaluated
 
-Let's check it by writing a macros with different side effects in the input and the output. The macro will not evaluate the input and we'll see what side effect is executed.
+Let's check it by writing a macro with different side effects in the input and the output. The macro will not evaluate the input and we'll see what side effect is executed.
 
-As before, we will modify the background color of `KLIPSE` as side effects: red for the input and green for the output.
+~~~klipse
+(defmacro color-me-macro [arg]
+  (list 'set-border 'js/klipse-container "solid 3px red"))
 
-We are adding a tweak to the `color-me` function such that it cannot be run more than once.
+(reset-elem! js/klipse-container)
+(my.m/color-me-macro (set-color! js/klipse-container "red"))
+~~~
 
-As you can see below, the background is green: it means that the input is not evaluated and the output is evaluated; the output is returned, and evaluated.
-If the input had been evaluated, the `locked?` variable had been set to true and the color wouldn't be green, but red.
+As you can see above, the color of the text is un-modified but the border is red: it means that the input is not evaluated and the output is evaluated.
 
 Q.E.D.∎
 
-<iframe frameborder="0" width="100%" height="300px"
-    src= 
-    "http://app.klipse.tech/?cljs_in=(ns%20my.tuto%24macros)%0A%0A(defn%20set-body-bg-color%20%5Bc%5D%0A%20%20(set!%20(..%20js%2Fdocument%20-body%20-style%20-backgroundColor)%20c))%0A%0A(def%20locked%3F%20false)%0A(defmacro%20color-me-once%20%5Bx%5D%0A%20%20(when-not%20locked%3F%0A%20%20%20%20(set!%20locked%3F%20true)%0A%20%20%20%20'(set-body-bg-color%20%22green%22)))%0A%0A(my.tuto%2Fcolor-me-once%20(set-body-bg-color%20%22red%22))%0A%0A&eval_only=1">
-</iframe>
 
-
-
-If you wonder why we have to append `$macros` to the namespace and to reference the fully-qualified macro with self-hosted `clojurescript`, read [Messing with Macros at the REPL]({% post_url 2016-03-17-messing-with-macros %}){:target="_blank"}.
 
 ### Two assertions about functions and macros
 
