@@ -213,16 +213,18 @@ C. What happens if you  define local variables inside a macro? They might confli
   (my.repl/concat-evaluations-sep "hello" (map inc [100 2 3]))
 ~~~
 
-~~~klipse
-(def sep 100)
-~~~
+So far so good...
+
+
+But now??!?
 
 ~~~klipse
+(def sep 100)
 (my.repl/concat-evaluations-sep "hello" (map inc [sep 2 3]))
 ~~~
 
 ~~~klipse
-  (macroexpand-1 '(my.repl/concat-evaluations-sep "hello" sep))
+  (macroexpand-1 '(my.repl/concat-evaluations-sep "hello" (map inc [sep 2 3])))
 ~~~
 
 
