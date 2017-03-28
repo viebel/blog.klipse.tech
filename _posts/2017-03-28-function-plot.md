@@ -6,7 +6,7 @@ date:   2017-03-28 04:42:44 +0200
 categories: data
 thumbnail: assets/klipse.png
 guid: "2FAB7E07-E473-499D-9A0D-3AA277546FC7"
-author: "@viebel"
+author: "Yehonathan Sharvit"
 hidden: true
 draft: true
 ---
