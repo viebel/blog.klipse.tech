@@ -11,6 +11,9 @@ hidden: true
 draft: true
 ---
 
+
+<script src="https://txtpen.com/embed.js?site=klipse-blog"></script>
+
 ## Introduction
 
 This article demonstrates how to create an interactive business report with data visualization widgets using [Klipse](https://github.com/viebel/klipse).
