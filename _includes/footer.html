@@ -1,13 +1,23 @@
 <footer class="site-footer">
+  
   <div class="wrapper" style="
-    font-size: larger;
-    color: #5f7fbf;
-    font-weight: bold;">
+			      font-size: larger;
+			      color: #5f7fbf;
+			      font-weight: bold;">
     <p> <span> {% include icon-twitter.html username=site.twitter_username_ys %} </span> to stay up-to-date with the coolest interactive articles around the world.</p>
     <p> Discover <a href="/"> more cool interactive articles</a> about javascript, clojure[script], python, ruby, scheme, c++ and even brainfuck!</p>
     <p> Give KLIPSE a <span>
-    <a class="github-button" href="https://github.com/viebel/klipse" data-count-href="/viebel/klipse/stargazers" data-count-api="/repos/viebel/klipse#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star viebel/klipse on GitHub">Star</a> </span>
-<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script> to show your love for <em>Code Interactivity</em>. </p>
+	<a class="github-button" href="https://github.com/viebel/klipse" data-count-href="/viebel/klipse/stargazers" data-count-api="/repos/viebel/klipse#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star viebel/klipse on GitHub">Star</a> </span>
+      <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script> to express how much you appreciate <em>Code Interactivity</em>. </p>
+    <p>
+      <form style="text-align: left;" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	<label for="tlemail">Subscribe to the Klipse newsletter:</label>
+	<input type="email" style="width:180px" name="email" id="tlemail" placeholder="Enter your email address"/>
+	<input type="hidden" value="1" name="embed"/>
+	<input style="padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;" type="submit" value="Subscribe" />
+      </form>
+    </p>
+
     <p> Feel free to email me {% include icon-email.html email=site.email_ys %} for getting practical tips and tricks in writing your first interactive blog post.</p>
   </div>
 </footer>
