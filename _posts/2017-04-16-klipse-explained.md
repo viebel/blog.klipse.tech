@@ -10,7 +10,7 @@ author: "Yehonathan Sharvit"
 ---
 
 
-Look at a technical blog post that unveils practical tips about a computer language.
+Look at a typical blog post that unveils practical tips about a computer language.
 
 It contains several code snippets in order to help the reader to understand the ideas conveyed by the author.
 
