@@ -80,7 +80,7 @@ In order to **klipsify** his blog post, Dave made two simple steps as explained 
    2. `.language-render-jsx` for react snippets to render
    3. `.language-transpile-jsx` for jsx snippets to transpile
    
-2. He include the klipse javascript tag at the end of the page's `<body>` with the `klipse_settings` set according to the class names that Dave chose:
+2. He included the klipse javascript tag at the end of the page's `<body>` with the `klipse_settings` set according to the class names that Dave chose:
 
 ~~~html
 <link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
