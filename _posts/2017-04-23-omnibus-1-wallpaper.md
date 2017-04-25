@@ -108,7 +108,7 @@ We can generate a 3-color wallpaper by calculating the remainder of `c` modulo 4
                        1 "green"
                        2 "blue"
                        "white")]
-         (draw-pixel! canvas x y color))))))
+         (draw-pixel! canvas i j color))))))
 
 (draw-color-wallpaper! canvas 5 7 101)
 </code></pre>
@@ -118,7 +118,7 @@ We can generate a 3-color wallpaper by calculating the remainder of `c` modulo 4
 Again, when we modify the side of the square, we get a completly different pattern:
 
 <pre class="language-klipse" data-preamble='(def canvas (js/document.getElementById "canvas-4")) (reset-canvas! canvas)' data-eval-idle-msec="500"><code>
-(draw-color-wallpaper! canvas 5 7 100)
+(draw-color-wallpaper! canvas 5 7 57)
 </code></pre>
 
 <canvas class="canvas" id="canvas-4"></canvas>
