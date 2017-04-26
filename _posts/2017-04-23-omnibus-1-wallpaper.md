@@ -28,7 +28,7 @@ Here is the recipe:
 
 ![algo](/assets/algo-wallpaper.jpg)
 
-Now, we are going to code this algorithm in `Clojurescript` and you will be able to play with it in your browser thanks the [interactive Klipse snippets](https://github.com/viebel/klipse).
+Now, we are going to code this algorithm in `Clojurescript` and you will be able to play with it in your browser thanks to the [interactive Klipse snippets](https://github.com/viebel/klipse).
 
 ## Preliminaries
 
