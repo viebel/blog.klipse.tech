@@ -124,6 +124,29 @@ Again, when we modify the side of the square, we get a completly different patte
 <canvas class="canvas" id="canvas-4"></canvas>
 
 
+## Grand Finale
+
+Someone in [reddit](https://www.reddit.com/r/Clojure/comments/67amvu/turing_omnibus_1_algorithm_for_generating/dgqn8t0/) suggested to loop over the value of `side` in order to watch all the generated wallpapers like a movie.
+
+Here is the result:
+
+<pre class="language-klipse" data-preamble='(def canvas (js/document.getElementById "canvas-5")) (reset-canvas! canvas)'><code>
+(defonce interval (atom nil))
+(defonce side (atom 0))
+
+(def delta 0.5)
+(defn step [canvas container]
+  (set! (.-innerHTML container) (str "side: " @side) )
+  (reset-canvas! canvas)
+  (draw-color-wallpaper! canvas 5 5 (swap! side + delta)))
+
+(.clearInterval js/window @interval)
+(reset! side 0)
+(reset! interval (.setInterval js/window step  500 canvas js/klipse-container)) 
+</code></pre>
+
+<canvas class="canvas" id="canvas-5"></canvas>
+
 Are you able to provide a simple explanation about this algorithm?
 
 How is it able to generate so many different beautiful patterns?

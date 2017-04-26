@@ -124,10 +124,35 @@ drawColorWallpaper(canvas, 5, 7, 100)
 Again, when we modify the side of the square, we get a completly different pattern:
 
 <pre class="language-eval-js" data-preamble='let canvas=document.getElementById("canvas-4"); resetCanvas(canvas);' data-eval-idle-msec="500"><code>
-drawColorWallpaper(canvas, 5, 7, 57)
+	drawColorWallpaper(canvas, 5, 7, 57)
 </code></pre>
 
 <canvas class="canvas" id="canvas-4"></canvas>
+
+## Grand Finale
+
+Someone in [reddit](https://www.reddit.com/r/Clojure/comments/67amvu/turing_omnibus_1_algorithm_for_generating/dgqn8t0/) suggested to loop over the value of `side` in order to watch all the generated wallpapers like a movie.
+
+Here is the result:
+
+<pre class="language-eval-js" data-preamble='let canvas=document.getElementById("canvas-5"); resetCanvas(canvas);' data-eval-idle-msec="500"><code>
+if(! window.interval) {
+  window.interval = null;
+}
+let side = 0;
+const delta = 0.5;
+function step(canvas, container) {
+  container.innerHTML = `side: ${side}`;
+  resetCanvas(canvas);
+  drawColorWallpaper(canvas, 5, 7, side);
+  side += delta;
+}
+
+clearInterval(window.interval); 
+window.interval = setInterval(step, 500, canvas, klipse_container);
+</code></pre>
+
+<canvas class="canvas" id="canvas-5"></canvas>
 
 
 Are you able to provide a simple explanation about this algorithm?
