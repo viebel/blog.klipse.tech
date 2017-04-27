@@ -22,7 +22,7 @@ We will visualize simulated data for a website conversion funnel.
 
 The data of the funnel is in this [Google drive spreadsheet](https://docs.google.com/spreadsheets/d/1kB4B4c0x11SNagYKmjI1ZpHYP-pQn1Hq_N6tlWaWg10/edit#gid=0).
 
-## Column Chart
+## Raw data grouped by month
 
 ~~~google-chart
 {
