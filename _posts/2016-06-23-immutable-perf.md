@@ -33,7 +33,7 @@ First, let's load `immutable.js` in the browser:
 
 <pre>
 <div class="language-klipse-eval-js" data-external-libs="immutable">
-     Immutable
+Object.keys(Immutable)
 </div>
 </pre>
 
@@ -138,14 +138,9 @@ myList.size
 
 # Go deeper
 
-Here are a couple of interesting articles that describe in details what are persistent data structures and why they are so fast:
+Here are a couple of interesting articles that describe in details the use cases and the implementation details of immutable data structures:
 
+- [Immutability in JavaScript using Redux](https://www.toptal.com/javascript/immutability-in-javascript-using-redux)
 - [Understanding Clojure's Persistent Vectors](http://hypirion.com/musings/understanding-persistent-vector-pt-1)
 - [Persistent data structure - Wikipedia](https://en.wikipedia.org/wiki/Persistent_data_structure)
 - [immutable.js documentation](https://facebook.github.io/immutable-js/)
- 
-
-
----
-[app-url]: http://app.klipse.tech?blog=klipse
-
