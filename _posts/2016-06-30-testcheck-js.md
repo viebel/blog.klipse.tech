@@ -80,13 +80,17 @@ import testcheck = require('testcheck');
 ~~~
 
 
-Here is how you write a test:
-
+Let's load `tescheck-js` from https://wzrd.in/
 <pre>
 <code class="language-klipse-eval-js" 
-data-external-libs="https://raw.githubusercontent.com/leebyron/testcheck-js/master/dist/testcheck.js">
+data-external-libs="https://wzrd.in/standalone/testcheck@1.0.0-rc.0">
+gen = testcheck.gen
+Object.keys(gen).length
+</code></pre>
 
-gen = testcheck.gen;
+Here is how you write a test:
+
+~~~klipse-eval-js
 
 testcheck.check(
   testcheck.property(
@@ -94,9 +98,8 @@ testcheck.check(
           x => x - x === 0
             )
   );
+~~~
 
-</code>
-</pre>
 
 
 API
