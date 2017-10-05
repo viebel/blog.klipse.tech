@@ -1,7 +1,7 @@
 ---
 layout: post
 title: A new way of blogging about Ocaml
-description:  blogging klipse Lua live examples code snippets
+description:  blogging klipse Ocaml live examples code snippets
 date:   2017-10-05 15:12:28 +0200
 categories: ocaml
 thumbnail: assets/klipse.png
