@@ -1,6 +1,6 @@
 ---
 layout: post
-title: A new way of blogging about Reason
+title: A new way of writing about Reason
 description:  blogging klipse reason reasonml live examples code snippets
 date:   2017-10-06 09:12:28 +0200
 categories: reason
