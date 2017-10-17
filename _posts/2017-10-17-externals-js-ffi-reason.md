@@ -38,9 +38,9 @@ let a = sqrt 2.0;
 
 When the assigned name is exactly the same as the original name, we can leave the name empty:
 
-~~~transpile-reason
-external sqrt : float => float = "" [@@bs.val];
-let a = sqrt 2.0;
+~~~klipse-reason
+external encodeURIComponent : string => string = "" [@@bs.val];
+let a = encodeURIComponent "Hello World\n";
 ~~~
 
 # Binding to JavaScript constructor: bs.new
@@ -120,10 +120,38 @@ let a = get i32arr 0;
 
 This attribute helps get and set the property of a JavaScript object.
 
+Let's define a javascript object inside a javascript klipse snippet:
+
+~~~eval-js
+var bob = {"name": "Bob", "age": 32};
+~~~
+
+Now, here is how we can create setters and getters to this javascript object (Thank you @yawaramin from Reason Discord!):
+
 ~~~klipse-reason
-type textarea;
-external set_name : textarea => string => unit = "name" [@@bs.set];
-external get_name : textarea => string = "name" [@@bs.get];
+type person;
+external bob: person = "" [@@bs.val];
+external get_age: person => int = "age" [@@bs.get];
+external set_age: person => int => unit = "age" [@@bs.set];
+
+let () = {
+  let bobAge = get_age bob;
+  set_age bob (bobAge + 1)
+};
+~~~
+
+Just for the fun, take a look at how simple and clean the transpiled js code:
+
+~~~transpile-reason
+type person;
+external bob: person = "" [@@bs.val];
+external get_age: person => int = "age" [@@bs.get];
+external set_age: person => int => unit = "age" [@@bs.set];
+
+let () = {
+  let bobAge = get_age bob;
+  set_age bob (bobAge + 1)
+};
 ~~~
 
 # Splice calling convention: bs.splice
