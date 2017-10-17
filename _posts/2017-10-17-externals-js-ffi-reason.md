@@ -95,8 +95,6 @@ let test arr =>
 	arr
     |> map ((fun x => x + 1) [@bs])
     |> map ((fun x => x * 10) [@bs]);
-
-let a = test [|1,2,3|
 ~~~
 
 > If you are curious about the `[@bs]` attribute in the callback, see [Binding to callbacks (high-order function)](https://bucklescript.github.io/bucklescript/Manual.html#_binding_to_callbacks_high_order_function).
