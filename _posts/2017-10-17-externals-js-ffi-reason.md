@@ -66,7 +66,7 @@ For instance, this is how we can bind `dom.getElementById`
 type dom;
 external dom : dom = "document" [@@bs.val];
 type element;
-external get_by_id : dom => string => id =
+external get_by_id : dom => string => element =
   "getElementById" [@@bs.send];
 
 let a = get_by_id dom "klipse"
