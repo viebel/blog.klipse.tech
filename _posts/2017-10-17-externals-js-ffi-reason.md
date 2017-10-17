@@ -56,7 +56,7 @@ let date = create_date ();
 
 # Binding to method: bs.send and bs.send.pipe
 
-`bs.send` helps us send a message to a JS object.
+`bs.send` allows us to call a method of a JS object.
 For instance, this is how we can bind `dom.getElementById`
 
 `dom` is an abstract type for the DOM
@@ -84,6 +84,19 @@ let test arr =>
     |> map ((fun x => x * 10) [@bs]);
 
 let a = test [|1,2,3|]
+~~~
+
+In case, you are not familiar yet with Ocaml/Reason pipe operator, here is the transpiled js code:
+
+~~~transpile-reason
+external map : ('a => 'b) [@bs] => array 'b = "" [@@bs.send.pipe : array 'a];
+
+let test arr => 
+	arr
+    |> map ((fun x => x + 1) [@bs])
+    |> map ((fun x => x * 10) [@bs]);
+
+let a = test [|1,2,3|
 ~~~
 
 > If you are curious about the `[@bs]` attribute in the callback, see [Binding to callbacks (high-order function)](https://bucklescript.github.io/bucklescript/Manual.html#_binding_to_callbacks_high_order_function).
