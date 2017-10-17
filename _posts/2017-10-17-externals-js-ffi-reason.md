@@ -11,7 +11,7 @@ minified_plugin: true
 ---
 
 Sometimes, we need to be able to access JS code from our `reason` code.
-This is part of what is called the `Javasript interop`.
+This is part of what is called the `Javascript interop`.
 
 More specifically, this is called FFI (foreign function interface).
 A [FFI](https://en.wikipedia.org/wiki/Foreign_function_interface) is a mechanism by which a program written in one programming language can call routines or make use of services written in another.
