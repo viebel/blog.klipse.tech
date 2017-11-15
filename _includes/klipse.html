@@ -38,9 +38,10 @@
         selector_js: '.language-klipse-js',
         selector_eval_ocaml: '.language-klipse-ocaml',
         selector_transpile_ocaml: '.language-transpile-ocaml',
-        selector_transpile_reason: '.language-transpile-reason',
-        selector_transpile_reason_to_ocaml: '.language-transpile-reason-to-ocaml',
-        selector_eval_reason: '.language-klipse-reason',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
         selector_reagent: '.language-reagent',
     };
 {% if page.local_klipse %}
@@ -77,8 +78,8 @@
 <script src="http://localhost:3449/plugin/js/klipse_plugin.js?"></script>
 {% else %}
 {% if page.minified_plugin  %}
-<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?v=7.2.2"></script>
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?v=7.2.4"></script>
 {% else %}
-<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=7.2.2"></script>
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=7.2.4"></script>
 {% endif %}
 {% endif %}

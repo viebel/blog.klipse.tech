@@ -32,15 +32,15 @@ Let's take a look at some examples:
 Here is how we make the `Math.sqrt` function accessible to our `reason code`:
 
 ~~~klipse-reason
-external sqrt : float => float = "Math.sqrt" [@@bs.val];
-let a = sqrt 2.0;
+[@bs.val] external sqrt : float => float = "Math.sqrt" ;
+let a = sqrt (2.0);
 ~~~
 
 When the assigned name is exactly the same as the original name, we can leave the name empty:
 
 ~~~klipse-reason
-external encodeURIComponent : string => string = "" [@@bs.val];
-let a = encodeURIComponent "Hello World\n";
+[@bs.val] external encodeURIComponent : string => string = "" ;
+let a = encodeURIComponent("Hello World\n");
 ~~~
 
 # Binding to JavaScript constructor: bs.new
@@ -49,7 +49,7 @@ let a = encodeURIComponent "Hello World\n";
 
 ~~~klipse-reason
 type date;
-external create_date : unit => date = "Date" [@@bs.new];
+[@bs.new] external create_date : unit => date = "Date";
 let date = create_date (); 
 ~~~
 
@@ -64,37 +64,36 @@ For instance, this is how we can bind `dom.getElementById`
 
 ~~~transpile-reason
 type dom;
-external dom : dom = "document" [@@bs.val];
+[@bs.val] external dom : dom = "document";
 type element;
-external get_by_id : dom => string => element =
-  "getElementById" [@@bs.send];
+[@bs.send] external get_by_id : dom => string => element = "getElementById";
 
-let a = get_by_id dom "klipse"
+let a = get_by_id(dom, "klipse");
 ~~~
 
 
 `bs.send.pipe` is similar to `bs.send` except that the first argument, i.e, the object, is put in the position of last argument to help user write in a *chaining style*:
 
 ~~~klipse-reason
-external map : ('a => 'b) [@bs] => array 'b = "" [@@bs.send.pipe : array 'a];
+[@bs.send.pipe : array('a)] external map : ([@bs] ('a => 'b)) => array('b) = "";
 
-let test arr => 
+let test (arr) = 
 	arr
-    |> map ((fun x => x + 1) [@bs])
-    |> map ((fun x => x * 4) [@bs]);
+    |> map ([@bs] (fun (x) => x + 1))
+    |> map ([@bs] (fun (x) => x * 4) );
 
-let a = test [|1,2,3|]
+let a = test([|1,2,3|])
 ~~~
 
 In case, you are not familiar yet with Ocaml/Reason pipe operator, here is the transpiled js code:
 
 ~~~transpile-reason
-external map : ('a => 'b) [@bs] => array 'b = "" [@@bs.send.pipe : array 'a];
+[@bs.send.pipe : array('a)] external map : ([@bs] ('a => 'b)) => array('b) = "";
 
-let test arr => 
+let test (arr) = 
 	arr
-    |> map ((fun x => x + 1) [@bs])
-    |> map ((fun x => x * 4) [@bs]);
+    |> map ([@bs] (fun (x) => x + 1))
+    |> map ([@bs] (fun (x) => x * 4) );
 ~~~
 
 > If you are curious about the `[@bs]` attribute in the callback, see [Binding to callbacks (high-order function)](https://bucklescript.github.io/bucklescript/Manual.html#_binding_to_callbacks_high_order_function).
@@ -107,13 +106,13 @@ Here is how we can have a dynamic access to a JavaScript property:
 
 ~~~klipse-reason
 type js_array;
-external create : int => js_array = "Int32Array" [@@bs.new];
-external get : js_array => int => int = "" [@@bs.get_index];
-external set : js_array => int => int => unit = "" [@@bs.set_index];
+[@bs.new] external create : int => js_array = "Int32Array";
+[@bs.get_index] external get : js_array => int => int = "";
+[@bs.set_index] external set : js_array => int => int => unit = "";
 
-let i32arr = create 3;
-set i32arr 0 42;
-let a = get i32arr 0;
+let i32arr = create(3);
+set(i32arr, 0, 42);
+let a = get(i32arr, 0);
 ~~~
 
 # Binding to Getter/Setter: bs.get, bs.set
@@ -130,13 +129,13 @@ Now, here is how we can create setters and getters to this javascript object (Th
 
 ~~~klipse-reason
 type person;
-external bob: person = "" [@@bs.val];
-external get_age: person => int = "age" [@@bs.get];
-external set_age: person => int => unit = "age" [@@bs.set];
+[@bs.val] external bob : person = "";
+[@bs.get] external get_age : person => int = "age";
+[@bs.set] external set_age : (person, int) => unit = "age";
 
 let () = {
-  let bobAge = get_age bob;
-  set_age bob (bobAge + 1)
+  let bobAge = get_age(bob);
+  set_age(bob, bobAge + 1)
 };
 ~~~
 
@@ -144,13 +143,13 @@ Just for the fun, take a look at how simple and clean the transpiled js code:
 
 ~~~transpile-reason
 type person;
-external bob: person = "" [@@bs.val];
-external get_age: person => int = "age" [@@bs.get];
-external set_age: person => int => unit = "age" [@@bs.set];
+[@bs.val] external bob : person = "";
+[@bs.get] external get_age : person => int = "age";
+[@bs.set] external set_age : (person, int) => unit = "age";
 
 let () = {
-  let bobAge = get_age bob;
-  set_age bob (bobAge + 1)
+  let bobAge = get_age(bob);
+  set_age(bob, bobAge + 1)
 };
 ~~~
 
@@ -159,8 +158,9 @@ let () = {
 In JS, it is quite common to have a function take variadic arguments. BuckleScript supports typing homogeneous variadic arguments. Instead of passing a variable number of arguments, we pass an array:
 
 ~~~klipse-reason
-external max : array int => int = "Math.max" [@@bs.val] [@@bs.splice];
-let _ = max [|10, 12, 99|];
+[@bs.val] [@bs.splice] external max : array(int) => int = "Math.max";
+
+max([|10, 12, 99|]);
 ~~~
 
 # Binding to a value from a module: bs.module
@@ -168,15 +168,17 @@ let _ = max [|10, 12, 99|];
 We can bind to values from a js module:
 
 ~~~transpile-reason
-external add : int => int => int = "add" [@@bs.module "x"];
-let f = add 3 4;
+[@bs.module "x"] external add : (int, int) => int = "add";
+
+let f = add(3, 4);
 ~~~
 
 We can even hint the compiler to generate a better name for the module:
 
 ~~~transpile-reason
-external add : int => int => int = "add" [@@bs.module ("x", "cool-x")];
-let f = add 3 4;
+[@bs.module ("x", "cool-x")] external add : (int, int) => int = "add";
+
+let f = add(3, 4);
 ~~~
 
 There are many other advanced features of Bucklescript FFI. You can read about the in the excellent official [BuckleScript manual](https://bucklescript.github.io/bucklescript/Manual.html#_ffi).

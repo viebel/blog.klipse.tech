@@ -52,8 +52,8 @@ The evaluation of Reason code snippets inside your browser is done in 3 steps:
 Let's have on this page a small static code snippet:
 
 ~~~ocaml
-let hello name => "Hello " ^ name ^ "!";
-let a = hello "World";
+let hello (name) = "Hello " ++ name ++ "!";
+let a = hello("World");
 ~~~
 
 (This blog is written with `jekyll`: the `kramdown` plugin helps a lot in beautifying the code snippets.)
@@ -61,8 +61,8 @@ let a = hello "World";
 And now, we are going to **klipsify** this code snippet:
 
 ~~~klipse-reason
-let hello name => "Hello " ^ name ^ "!";
-let a = hello "World";
+let hello (name) = "Hello " ++ name ++ "!";
+let a = hello("World");
 ~~~
 
 Feel free to edit the code above: it's interactive => it evaluates as you type.
@@ -75,8 +75,8 @@ See it by yourself: here is the source of this page:
 <p>And now, we are going to <strong>klipsify</strong> this code snippet:</p>
 
 <pre><code class="language-klipse-reason">
-let hello name = "Hello " ^ name ^ "!";;
-let a = hello "World";;
+let hello (name) = "Hello " ++ name ++ "!";
+let a = hello("World");
 </code></pre>
 ~~~
 
@@ -86,13 +86,13 @@ let a = hello "World";;
 Before dealing about integration of the klipse plugin on a web page, let's enjoy another klipse snippet implementing `factorial` in `Reason`:
 
 ~~~klipse-reason
-let rec fact n =>
-switch n {
+let rec fact (n) =
+switch (n) {
 | 1 => 1
 | _ => n * fact(n-1)
 };
 
-let x = fact 9;
+let x = fact(9);
 ~~~
 
 Go ahead! modify the code snippet above, and it will evaluate as you type...
@@ -105,13 +105,13 @@ Klipse can also display the transpiled javascript code.
 Here you go:
 
 ~~~transpile-reason
-let rec fact n =>
-switch n {
+let rec fact (n) =
+switch (n) {
 | 1 => 1
 | _ => n * fact(n-1)
 };
 
-let x = fact 9;
+let x = fact(9);
 ~~~
 
 # Conversion into Ocaml
@@ -119,23 +119,36 @@ let x = fact 9;
 And if you are really curious, you can see the converted `Ocaml` code:
 
 ~~~transpile-reason-to-ocaml
-let rec fact n =>
-switch n {
+let rec fact (n) =
+switch (n) {
 | 1 => 1
 | _ => n * fact(n-1)
 };
 
-let x = fact 9;
+let x = fact(9);
+~~~
+
+
+# From Ocaml to reason
+
+You can also convert from `Ocaml` to `Reason`:
+
+~~~ocaml-to-reason
+let rec fact n = match n with 
+| 1 -> 1 
+| _ -> n * (fact (n - 1))
+
+let x = fact 9
 ~~~
 
 # Evaluating a gist
 
-We can also evaluate code from a `gist`.
+Sometimes, instead of having the code of the snippets directly into your web page, you want to store it in another place e.g. in a github gist.
 
 For instance, we could evaluate [this gist](https://gist.github.com/viebel/de19a9c8827f887d1f9ae4568decb0de) that defines a high-order function `sigma` that returns the sum of the results of applying a given function `f` to each element of a list:
 
 <pre>
-<div class="language-klipse-reason" data-gist-id="viebel/de19a9c8827f887d1f9ae4568decb0de"></div>
+<div class="language-klipse-reason" data-gist-id="viebel/c91ebea3f81bc41d3f7ab0d95e7c8ba1"></div>
 </pre>
 
 Again, feel free to modify the code...
@@ -149,9 +162,10 @@ All you need to do in order to integrate the klipse plugin to your blog (or any 
 
 <script>
     window.klipse_settings = {
-        selector_eval_reason: '.language-klipse-reason', // selector for reason evaluation snippets
-		selector_transpile_reason: '.language-transpile-reason', // selector for reason transpilation snippets
-        selector_transpile_reason_to_ocaml: '.language-transpile-reason-to-ocaml' // selector for reason transpilation into ocaml snippets
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason'
      };
 </script>
 <script src="http://app.klipse.tech/plugin_prod/js/klipse_plugin.min.js"></script>
