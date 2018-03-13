@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Polymorphic variants in reason
-description:  polymorphic variants. reason. reasonml. ocaml.
+title: Polymorphic vs. ordinary variants in reason 
+description:  polymorphic and ordinary variants. reason. reasonml. ocaml.
 date:   2018-03-12 13:22:18 +0200
 categories: reason
 thumbnail: assets/klipse.png
