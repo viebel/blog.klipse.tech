@@ -26,7 +26,7 @@ The purpose of this article is to expose the limitations of the ordinary variant
 
 # Ordinary Variants - brief recap
 
-Let's say you have an animal variant
+Let's say you have an `animal` variant
 
 ~~~klipse-reason-types
 type animal = 
@@ -85,7 +85,7 @@ switch (x)  {
 
 The constructor `Dog` doesn't belong to type `flower` and in that case `ocaml` doesn't create a `flower_or_animal` type on the fly!
 
-Another limitation of ordinary variants is that you cannot mix elements of types `animal` and `flowe` in a list or in an array:
+Another limitation of ordinary variants is that you cannot mix elements of types `animal` and `flower` in a list or in an array:
 
 ~~~klipse-reason-types
 let a = [Dog, Cat, Rose, Tulip]
