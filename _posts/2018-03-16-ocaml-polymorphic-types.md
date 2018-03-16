@@ -50,6 +50,11 @@ Now, a `Dog` is a "dog" and a `Cat` is a "cat":
 "The " ^ ((string_of_animal Dog) ^ (" bites the " ^ (string_of_animal Cat)));;
 ~~~
 
+
+> All the code snippets of this page are **live** and **interactive** powered by the [klipse plugin](https://github.com/viebel/klipse). Feel free to play with the code.
+
+
+
 So far so good.
 
 Now let's do the same with flowers:
