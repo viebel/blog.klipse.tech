@@ -1,24 +1,24 @@
 ---
 layout: post
-title: Polymorphic vs. ordinary variants in reason 
-description:  polymorphic and ordinary variants. reason. reasonml. ocaml.
-date:   2018-03-12 13:22:18 +0200
-categories: reason
+title: Polymorphic vs. ordinary variants in ocaml
+description:  polymorphic and ordinary variants. ocaml.
+date:   2018-03-16 06:22:18 +0200
+categories: ocaml
 thumbnail: assets/klipse.png
-guid: 294191D2-B3B8-4F4A-B1E3-F98F63861F6B
+guid: 0B40DE2A-E308-483A-A443-A6728A5BB315
 author: "@viebel"
 minified_plugin: true
 ---
 
 # Introduction
 
-Variants are one of the coolest features of `reasonml`. 
+Variants are one of the coolest features of `ocaml`. 
 
-In the [official documentation](https://reasonml.github.io/docs/en/variant.html), they mention a limitation of the variants (also called ordinary variants):
+Ordinary variants come with a limitation:
 
 > A function can't accept an arbitrary constructor shared by two different variants.
 
-They also mention that this is possible to overcome this limitation using polymorphic variants.
+Hopefully, polymorphic variants alllow us to overcome this limitation.
 
 The purpose of this article is to expose the limitations of the ordinary variants and to see how polymorphic variants overcome this limitation. We hope that the examples we bring with dogs and tulips will make the reading of this article somewhat enjoyable.
 
@@ -28,44 +28,44 @@ The purpose of this article is to expose the limitations of the ordinary variant
 
 Let's say you have an `animal` variant
 
-~~~klipse-reason-types
+~~~klipse-ocaml-types
 type animal = 
 | Dog
-| Cat 
+| Cat
+;;
 ~~~
 
 And you want to write a function that stringifies an `animal`.
 
-~~~klipse-reason-types
-let string_of_animal = x => 
-switch (x)  {
-|Dog => "dog"
-|Cat => "cat"
-}
+~~~klipse-ocaml-types
+let string_of_animal x = match x with
+| Dog  -> "dog"
+| Cat  -> "cat"
+;;
 ~~~
 
 Now, a `Dog` is a "dog" and a `Cat` is a "cat":
 
-~~~klipse-reason-types
-"The " ++ string_of_animal(Dog) ++ " bites the " ++  string_of_animal(Cat)
+~~~klipse-ocaml-types
+"The " ^ ((string_of_animal Dog) ^ (" bites the " ^ (string_of_animal Cat)));;
 ~~~
 
 So far so good.
 
 Now let's do the same with flowers:
 
-~~~klipse-reason-types
+~~~klipse-ocaml-types
 type flower =
-| Rose
-| Tulip;
+  | Rose
+  | Tulip
+;;
 
-let string_of_flower = x => 
-switch (x)  {
-|Rose => "rose"
-|Tulip => "tulip"
-};
+let string_of_flower x = match x with | Rose  -> "rose" | Tulip  -> "tulip";;
 
-let a = "The " ++ string_of_flower(Rose) ++ " is more beautiful than the " ++  string_of_flower(Tulip);
+"The " ^
+    ((string_of_flower Rose) ^
+       (" is more beautiful than the " ^ (string_of_flower Tulip)))
+;;
 ~~~
 
 # The limitation of Variants
@@ -73,22 +73,22 @@ let a = "The " ++ string_of_flower(Rose) ++ " is more beautiful than the " ++  s
 
 Now what happens if you try to write a function that stringifies both flowers and animals?
 
-~~~klipse-reason-types
-let string_of_flower_or_animal = x =>
-switch (x)  {
-|Rose => "rose"
-|Tulip => "tulip"
-|Dog => "dog"
-|Cat => "cat"
-};
+~~~klipse-ocaml-types
+let string_of_flower_or_animal x =
+  match x with
+  | Rose  -> "rose"
+  | Tulip  -> "tulip"
+  | Dog  -> "dog"
+  | Cat  -> "cat"
+;;
 ~~~
 
 The constructor `Dog` doesn't belong to type `flower` and in that case `ocaml` doesn't create a `flower_or_animal` type on the fly!
 
 Another limitation of ordinary variants is that you cannot mix elements of types `animal` and `flower` in a list or in an array:
 
-~~~klipse-reason-types
-let a = [Dog, Cat, Rose, Tulip]
+~~~klipse-ocaml-types
+let a = [Dog; Cat; Rose; Tulip];;
 ~~~
 
 
@@ -98,8 +98,8 @@ Welcome to the world of polymorphic variants!
 
 Syntactically, polymorphic variants are distinguished from ordinary variants by the leading backtick:
 
-~~~klipse-reason-types
-let myDog = `Dog;
+~~~klipse-ocaml-types
+let myDog = `Dog;;
 ~~~
 
 Note that unlike ordinary variants, polymorphic variants can be used without an explicit type declaration. 
@@ -107,28 +107,28 @@ Their type is inferred automatically.
 
 Of course, it works also with variants that are parametrized:
 
-~~~klipse-reason-types
-let myNumber = `Int(4)
+~~~klipse-ocaml-types
+let myNumber = `Int(4);;
 ~~~
 
 Now, let's see how to write our `string_of_animal_or_flower` function with polymorphic types:
 
-~~~klipse-reason-types
-let string_of_flower_or_animal = x =>
-switch (x)  {
-|`Rose => "rose"
-|`Tulip => "tulip"
-|`Dog => "dog"
-|`Cat => "cat"
-};
+~~~klipse-ocaml-types
+let string_of_flower_or_animal x =
+  match x with
+  | `Rose -> "rose"
+  | `Tulip -> "tulip"
+  | `Dog -> "dog"
+  | `Cat -> "cat"
+;;
 ~~~
 
 Note that the system has automatically inferred the type of the function argument: it's ``[< `Cat | `Dog | `Rose | `Tulip ]``. You probably wonder what is the meaning of the `<` sign. 
 
 Before answering that question, let's see how polymorphic variants allow us to mix elements of different types in a list:
 
-~~~klipse-reason-types
-let myNature = [`Dog, `Cat, `Rose, `Tulip]
+~~~klipse-ocaml-types
+let myNature = [`Dog; `Cat; `Rose; `Tulip];;
 ~~~
 
 Now, the type of the list is: ``[> `Cat | `Dog | `Rose | `Tulip ] list``.
@@ -144,10 +144,11 @@ In other words, you can roughly translate `>` to mean: "these tags or more".
 
 Indeed, we are allowed concatenate list of animals and list of flowers:
 
-~~~klipse-reason-types
-let myAnimals = [`Dog, `Cat];
-let myFlowers = [`Rose, `Tulip];
-let myThings = List.concat([myAnimals, myFlowers]);
+~~~klipse-ocaml-types
+let myNature = [`Dog; `Cat; `Rose; `Tulip]
+let myAnimals = [`Dog; `Cat]
+let myFlowers = [`Rose; `Tulip]
+let myThings = List.concat [myAnimals; myFlowers];;
 ~~~
 
 
