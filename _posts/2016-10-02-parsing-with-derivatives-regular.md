@@ -272,7 +272,7 @@ And now the code:
 # The importance of the derivative
 
 
-> To determine membership of a string, derive the language with respect to each character of the string and check if the final language conatains the `null` string: if yes, `s` belongs to the the language; otherwise it doesn't
+> To determine membership of a string, derive the language with respect to each character of the string and check if the final language contains the `null` string: if yes, `s` belongs to the language; otherwise it doesn't
 
 For instance, let's derivate the string `abc` with respect to `a` then `b` then `c` - and computes the nullability function of the result:
 
