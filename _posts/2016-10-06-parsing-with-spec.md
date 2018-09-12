@@ -22,7 +22,7 @@ We can parse with `clojure.spec`!
 <pre>
 <code class="language-klipse" data-external-libs="https://raw.githubusercontent.com/clojure/test.check/master/src/main/clojure">
     (ns my.spec
-        (:require [clojure.spec :as s]
+        (:require [clojure.spec.alpha :as s]
                   clojure.test.check.generators))
 </code></pre>
 
@@ -212,7 +212,7 @@ Thanks Alex Miller!
 
 ~~~klipse
 (ns my.m$macros
-  (:require [clojure.spec :as s]))
+  (:require [clojure.spec.alpha :as s]))
 ~~~
 
 ~~~klipse
