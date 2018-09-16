@@ -1,7 +1,7 @@
 
 {% if page.local_klipse %}
 
-<link rel="stylesheet" type="text/css" href="http://localhost:3449/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="http://localhost:5014/css/codemirror.css">
 {% else %}
 <link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
 {% endif %}
@@ -78,11 +78,11 @@
 </script>
 
 {% if page.local_klipse %}
-<script src="http://localhost:3449/plugin/js/klipse_plugin.js?"></script>
+<script src="http://localhost:5014/plugin/js/klipse_plugin.js"></script>
 {% else %}
 {% if page.minified_plugin  %}
-<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?v=7.4.0"></script>
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?v=7.5.1"></script>
 {% else %}
-<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=7.4.0"></script>
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=7.5.1"></script>
 {% endif %}
 {% endif %}
