@@ -15,18 +15,20 @@ author: "@viebel"
 
 For many years, Clojure was known as a language that is not beginner friendly. For sure, the unusual order of the parenthesis contributed to this reputation, but also the complexity of the required tools in order to achieve a simple task like running a "Hello World" program. 
 
-Rich Hickey (the inventor of Clojure) often says that good Programming Languages are like Musical instruments: they are designed for professionals. You need to learn in order to become a professional. This might hurt at the beginning.
+Rich Hickey (the inventor of Clojure) often says that good Programming Languages are like Musical instruments: they are designed for professionals. You need to learn (and sometimes suffer during the learning period) in order to become a professional. This might hurt at the beginning. And even for professionals, it require some effort to perform at their best. Look at the fact of John Coltrane when he plays the saxophone!
+
+![Coltrane](/assets/coltrane.png)
 
 Anyway, the order of the parenthesis is not going to change: Clojure is and will always be a LISP dialect. 
 
 But since the release of Clojure 1.9.0 in December 2017, Clojure features command-line tools that make it very easy (and not only simple) to run Clojure programs.
 
 
-![Coltrane](/assets/coltrane.png)
+
 
 # CLI tool installation 
 
-On Mac and Linux, it is very straightforward to install the CLI tools; on Windows, you need to first install WSL on Windows and then follow the same instructions as for Linux.
+On Mac and Linux, it is very straightforward to install the Clojure CLI (Command Line Interface) tools; on Windows, you need to first install WSL on Windows and then follow the same instructions as for Linux.
 
 On Mac
 
@@ -46,7 +48,7 @@ See [Getting Started](https://clojure.org/guides/getting_started) for more detai
 
 If you are not familiar at all with the Clojure syntax, you will not be able to enjoy this article before having being told that in Clojure, the function symbol appears inside the parenthesis and the function arguments are separated by whitespaces.
 
-# Evaluate Clojure expressions
+# Evaluating Clojure expressions
 
 Once the CLI tool is installed, a program named `clj` is available for you. And now, it is a real pleasure to evaluate small Clojure code snippets with the `-e` flag. 
 
@@ -71,7 +73,7 @@ When your code snippet contains several expressions, the CLI prints the value of
 5
 ~~~
 
-# Run a Clojure script
+# Running a Clojure file
 
 Sometimes, you don't want to evaluate a series of expressions but you want to run a program for its side effects like printing a cool message in the console. What message? "Hello world" for instance!
 
@@ -90,6 +92,8 @@ clj /tmp/hello.clj
 
 A note that Clojure beginners should skip:
 
+--- start of the note ---
+
 If you run the exact same code with the `-e` flag as exposed in the previous section, the CLI will display the evaluation of both expressions:
 
 1. `(def my-name "world")` evaluates to `#'user/my-name` - this is the fully qualified name of the variable created by `def`
@@ -103,19 +107,24 @@ Try it by yourself:
 hello world
 ~~~
 
+--- end of the note ---
 
 # The REPL
 
-But the best of all is obviously the REPL, the famous Read Eval Print Loop, one of the heroes of the LISP tradition. The REPL is an interactive development environment that allows you to interact with the code.
+But the best of all is obviously the REPL, the famous Read Eval Print Loop, one of the heroes of the LISP tradition. The REPL is an interactive development environment that allows you to evaluate successive Clojure expressions interactively.
 
 You launch a Clojure REPL, simply by typing `clj` with no arguments:
 
 ~~~bash
 > clj
 Clojure 1.9.0
+user=> (+ 1 2)
+3
+user=> (+ 4 5)
+9
 user=>
 ~~~
 
-Now it is your turn to improvise and create the Clojure code of your dreams!
+Now it is your turn to perform and create the Clojure code of your dreams!
 
 This is only the tip of the iceberg, you can do much more powerful tricks with Clojure CLI like running a full Clojure Program with many namespaces or manipulating aliases to setup the perfect Java Classpath. Unfortunately, it is far beyond the scope of this article. If you want to learn more about it, feel free to read the [Clojure CLI official guide](https://clojure.org/guides/deps_and_cli).
