@@ -77,18 +77,27 @@ When your code snippet contains several expressions, the CLI prints the value of
 
 Sometimes, you don't want to evaluate a series of expressions but you want to run a program for its side effects like printing a cool message in the console. What message? "Hello world" for instance!
 
-For that noble purpose, you write your Clojure code in a Clojure file and you pass to the CLI the path of the Clojure file.
+For that noble purpose, you write your Clojure code in a file (usually with a `.clj suffix) and you pass to the CLI the path of the Clojure file. You can create the file with any text editor or even directly from the shell with `echo`
 
 ~~~bash
 > echo '(def my-name "world") (println "hello" my-name)' > /tmp/hello.clj
 ~~~
 
-And then, you execute your file like this:
+Let's inspect the content of the file with the `cat` command:
 
 ~~~bash
-clj /tmp/hello.clj
+> cat /tmp/hello.clj
+(def my-name "world") (println "hello" my-name)
 ~~~
 
+And then, you can execute the content of your Clojure by passing the filename as an argument to `clj`:
+
+~~~bash
+> clj /tmp/hello.clj
+hello world
+~~~
+
+That is fantastic: We were able to print "hello world" by executing a Clojure file directly from the command line!
 
 A note that Clojure beginners should skip:
 
