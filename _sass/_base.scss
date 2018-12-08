@@ -217,3 +217,22 @@ th{
 td{
     border:1px solid #000000;
 }
+
+.book-below {
+    background: #eef;
+    padding: 15px;
+}
+
+@media (max-width: 1365px) {
+    .book-right {
+	display: none;
+    }
+}
+
+.book-right {
+    background: #eef;
+    padding: 15px;
+    padding-right: 20px;
+    width: 20%;
+    float: right;
+}
