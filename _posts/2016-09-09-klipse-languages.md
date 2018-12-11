@@ -6,7 +6,7 @@ date:   2016-09-09 05:12:23 +0200
 categories: klipse
 thumbnail: assets/klipse.png
 guid: "DD28E4A1-7652-41A5-9819-B8E4A97EBC51"
-author: "@viebel"
+author: Yehonathan Sharvit
 all_languages: true
 ---
 

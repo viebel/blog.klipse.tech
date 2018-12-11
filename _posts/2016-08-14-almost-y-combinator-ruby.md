@@ -8,7 +8,7 @@ thumbnail: assets/klipse.png
 guid: "d8faa4da-61f9-11e6-82e6-600308a46268"
 minified_plugin: true
 ruby: true
-author: "@viebel"
+author: Yehonathan Sharvit
 
 ---
 

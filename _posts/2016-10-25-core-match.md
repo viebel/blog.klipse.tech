@@ -6,7 +6,7 @@ date:   2016-10-25 12:21:32 +0200
 categories: clojure
 thumbnail: assets/klipse.png
 guid: "A880C155-1B72-4801-BD98-F7BAAFE95BF0"
-author: "@viebel"
+author: Yehonathan Sharvit
 ---
 
 

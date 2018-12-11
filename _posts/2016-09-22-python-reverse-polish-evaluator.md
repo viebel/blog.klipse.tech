@@ -5,7 +5,7 @@ description:  "Reverse Polish Evaluator in Python"
 date:   2016-09-22 06:22:46 +0200
 categories: python
 thumbnail: assets/klipse.png
-author: "@viebel"
+author: Yehonathan Sharvit
 guid: "c016a1c2-8098-11e6-912d-600308a46268"
 python: true
 minified_plugin: true

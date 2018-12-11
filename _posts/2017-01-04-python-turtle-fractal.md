@@ -5,7 +5,7 @@ description:  "Fractals with python turtle. Hilbert filling curve. interactive p
 date:   2017-01-04 15:12:26 +0200
 categories: python
 thumbnail: assets/klipse.png
-author: "@viebel"
+author: Yehonathan Sharvit
 guid: "4EEC3CC1-F7B5-4FE7-BF1C-265533EBFFCC"
 minified_plugin: true
 ---

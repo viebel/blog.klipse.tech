@@ -6,7 +6,7 @@ date:   2017-10-05 15:12:28 +0200
 categories: ocaml
 thumbnail: assets/klipse.png
 guid: 7DB6EA6C-B7E5-4398-81BD-B9A4F501DF8A
-author: "@viebel"
+author: Yehonathan Sharvit
 minified_plugin: true
 ---
 

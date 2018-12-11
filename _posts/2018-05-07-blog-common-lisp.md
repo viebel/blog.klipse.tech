@@ -6,7 +6,7 @@ date:   2018-05-07 03:08:12 +0200
 categories: lisp
 thumbnail: assets/klipse.png
 guid: "26614336-2454-4C74-BCB2-0C70705702C5"
-author: "@viebel"
+author: Yehonathan Sharvit
 minified_plugin: true
 ---
 

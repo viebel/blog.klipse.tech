@@ -6,7 +6,7 @@ date:   2016-10-16 10:04:15 +0200
 categories: klipse
 thumbnail: assets/klipse.png
 guid: "54959EFB-5C67-427F-A14A-C883A109CCB2"
-author: "@viebel"
+author: Yehonathan Sharvit
 ---
 
 # The problem

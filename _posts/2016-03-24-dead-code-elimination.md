@@ -5,7 +5,7 @@ date:   2016-03-24 00:25:46 +0200
 categories: clojure
 thumbnail: assets/klipse.png
 description: "A simple example of dead code elimination in clojurescript, using KLIPSE"
-author: "@viebel"
+author: Yehonathan Sharvit
 
 ---
 

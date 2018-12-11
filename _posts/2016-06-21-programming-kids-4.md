@@ -8,7 +8,7 @@ programming_course: true
 hidden: true
 thumbnail: assets/klipse.png
 guid: "35E2D040-CA44-4C9E-8C96-180298922658"
-author: "@viebel"
+author: Yehonathan Sharvit
 ---
 
 

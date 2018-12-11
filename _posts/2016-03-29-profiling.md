@@ -6,7 +6,7 @@ date:   2016-03-29 10:12:36 +0200
 categories: clojure
 thumbnail: assets/klipse.png
 guid: "F043D871-9E0C-4CD6-B80E-067D97B0E85A"
-author: "@viebel"
+author: Yehonathan Sharvit
 ---
 
 Let's say that you want to profile a piece of code in clojurescript. 

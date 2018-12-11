@@ -6,7 +6,7 @@ date:   2016-11-24 05:34:18 +0200
 categories: clojure
 thumbnail: assets/klipse.png
 guid: "A511D476-D801-46B4-BDAA-F96D3E19E08C"
-author: "@viebel"
+author: Yehonathan Sharvit
 ---
 
 This post is an interactive adaptation of a detailed [explanation of Alex Miller](https://groups.google.com/forum/#!topic/clojure/_qzaqqkMHHw) in the Clojure Google group about Clojure print system.

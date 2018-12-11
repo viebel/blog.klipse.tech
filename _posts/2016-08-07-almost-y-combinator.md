@@ -7,7 +7,7 @@ categories: lambda
 thumbnail: assets/klipse.png
 guid: "1C2DE54F-6C88-419D-8447-7E57D23ED032"
 ruby: true
-author: "@viebel"
+author: Yehonathan Sharvit
 
 ---
 

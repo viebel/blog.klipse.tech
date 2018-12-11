@@ -6,7 +6,7 @@ date:   2017-03-23 18:22:44 +0200
 categories: data
 thumbnail: assets/klipse.png
 guid: "3CDBB636-ADDE-4EEA-9A83-E20B94676FA7"
-author: "@viebel"
+author: Yehonathan Sharvit
 minified_plugin: true
 hidden: true
 draft: true

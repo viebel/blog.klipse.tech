@@ -6,7 +6,7 @@ date:   2016-09-11 06:21:29 +0200
 categories: scheme
 thumbnail: assets/klipse.png
 guid: "44ad3264-77ea-11e6-9313-600308a46268"
-author: "@viebel"
+author: Yehonathan Sharvit
 scheme: true
 minified_plugin: true
 ---

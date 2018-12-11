@@ -6,7 +6,7 @@ date:   2016-04-02 19:15:43 +0200
 categories: clojure
 thumbnail: assets/klipse.png
 guid: "C64D8095-C512-49A5-9184-15608D909CE0"
-author: "@viebel"
+author: Yehonathan Sharvit
 ---
 
 ## Truth and languages

@@ -6,7 +6,7 @@ date:   2016-12-21 08:12:42 +0200
 categories: brainfuck
 thumbnail: assets/klipse.png
 guid: "E2BD9738-220D-433C-A860-69E4552A391F"
-author: "@viebel"
+author: Yehonathan Sharvit
 minified_plugin: true
 ---
 

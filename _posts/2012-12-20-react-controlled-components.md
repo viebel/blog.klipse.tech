@@ -6,7 +6,7 @@ date:   2016-12-20 16:45:32 +0200
 categories: react
 thumbnail: assets/klipse.png
 guid: "BE44FF26-5087-4176-B720-6E1308C8A2FF"
-author: "@viebel"
+author: Yehonathan Sharvit
 minified_plugin: true
 ---
 

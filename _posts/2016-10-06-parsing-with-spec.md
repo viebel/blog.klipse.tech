@@ -8,7 +8,7 @@ thumbnail: assets/klipse.png
 guid: "497798B9-A498-46BE-A5DC-AB8C04C8F2B0"
 draft: true
 hidden: true
-author: "@viebel"
+author: Yehonathan Sharvit
 ---
 
 # Introduction

@@ -6,7 +6,7 @@ date:   2016-11-01 01:12:54 +0200
 categories: javascript
 thumbnail: assets/klipse.png
 guid: "07407DA4-151B-4AE0-AC13-779965B1E3B5"
-author: "@viebel"
+author: Yehonathan Sharvit
 minified_plugin: true
 klipse_eval_idle_msec: 3000
 ---

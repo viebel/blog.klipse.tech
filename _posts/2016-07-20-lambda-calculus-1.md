@@ -6,7 +6,7 @@ date:   2016-07-24 10:22:34 +0200
 categories: lambda
 thumbnail: assets/klipse.png
 guid: "E4F49774-308C-49F7-928E-5A22EB25F66A"
-author: "@viebel"
+author: Yehonathan Sharvit
 
 ---
 

@@ -6,7 +6,7 @@ date:   2016-06-07 03:27:22 +0200
 categories: clojure
 thumbnail: assets/klipse.png
 guid: "A46AC86E-0840-4A97-A976-93F421CE8FA4"
-author: "@viebel"
+author: Yehonathan Sharvit
 ---
 
 # The pain

@@ -7,7 +7,7 @@ categories: klipse
 thumbnail: assets/klipse.png
 guid: "E4147F55-7562-4C2D-A25B-15104845BCBF"
 secured_eval: true
-author: "@viebel"
+author: Yehonathan Sharvit
 ---
 
 
