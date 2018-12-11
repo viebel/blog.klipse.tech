@@ -20,8 +20,8 @@ github_username_ys:  viebel
 twitter_username_ys: viebel
 email_ys: viebel@gmail.com
 
-url: "http://blog.klipse.tech/" # the base hostname & protocol for your site
-author: Raphael Boukara
+url: "https://blog.klipse.tech/" # the base hostname & protocol for your site
+author: Yehonathan Sharvit
 
 # Build settings
 gems:
