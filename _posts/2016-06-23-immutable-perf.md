@@ -73,8 +73,7 @@ Creating a `javascipt` array of size `100000` takes almost no time:
 
 ~~~klipse-eval-js
 benchmark(1, function() {
-var jsArr = [];
-jsArr[100000] = 42;
+new Array(100000).fill(88);
 });
 ~~~
 
@@ -92,8 +91,7 @@ benchmark(1, function() {
 Manipulation a `javascript` array with `slice` and `push` is quit expensive:
 
 ~~~klipse-eval-js
-var jsArr = [];
-jsArr[100000] = 42;
+var jsArr = new Array(100000).fill(88);
 benchmark(100,  function() {
     jsArr.slice(0).push(43);
 })
@@ -133,7 +131,7 @@ Note that when pushing an element to an `immutable.js` list, the list is not mod
 ~~~klipse-eval-js
 myList = Immutable.Range(0, 10).toList(); 
 myList.push(42);
-myList.size
+myList
 ~~~
 
 # Go deeper
