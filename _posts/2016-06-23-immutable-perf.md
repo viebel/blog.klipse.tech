@@ -11,7 +11,7 @@ minified_plugin: true
 
 ---
 
-`Immutable.js` is a library that provides immutable collections for JavaScript, inspired by clojure[script] immutable data structures. It has been [developed by Facebook](https://facebook.github.io/immutable-js/).
+`Immutable.js` is a library that provides immutable collections for JavaScript, inspired by Clojure collections. It has been [developed by Facebook](https://facebook.github.io/immutable-js/).
 
 As they explain on their website:
 
