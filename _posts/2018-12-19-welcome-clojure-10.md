@@ -78,6 +78,8 @@ Better error messages is really a great human contribution by the Clojure team.
 
 Clojure's narrative has always been around data. Data immutability, Code as data etc... Some people say that Clojure is a Data-drive languages. Clojure 10 takes the data story one step further. Now, every piece of Clojure can be seen as data: it can be *datified* and *navigated*. Out of the box, Clojure provides datification of atoms, vars, namespaces and more...
 
+Remark: `Datafiable` and `Navigable` have their most natural application in the context of building tools for data exploration. You will probably not need it in your web service. But it's part of Clojure now, so I think it's interesting to discover their "mechanics".
+
 To datafy a value, we call the `datafy` function from the `clojure.datafy` namespace:
 
 ~~~klipse
@@ -126,7 +128,7 @@ For instance, we can datafy lazy sequences as truncated lists with the first 10 
 ~~~
 
 
-The rest of the data should be accessible via `nav` function of the `Navigable` protocol, but it is beyond the scope of this article. 
+The examples shown in this section are for illustrative purpose only. It is not advised to modify the behaviour of a Clojure core component like `LazySeq`. 
 
 You can check [this talk about the REBL](https://www.youtube.com/watch?v=c52QhiXsmyI) to discover a really cool application of `Datafiable` `Navigable`.
 
