@@ -2,7 +2,7 @@
 local_klipse: false
 layout: post
 title:  Welcome Clojure 10
-description:  Demo of Clojure 10 features. Tutorial. Data and People.
+description:  Demo of Clojure 1.10 features. Tutorial. Data and People.
 date:   2018-12-18 21:11:24 +0200
 categories: clojure
 thumbnail: assets/klipse.png
@@ -11,9 +11,9 @@ author: Yehonathan Sharvit
 ---
 
 
-# Clojure 10 features
+# Clojure 1.10 features
 
-Clojure 10 is out. If you look at the [official change log in github](https://github.com/clojure/clojure/blob/master/changes.md#changes-to-clojure-in-version-110), you will see the main features of Clojure 10:
+Clojure 1.10 is out. If you look at the [official change log in github](https://github.com/clojure/clojure/blob/master/changes.md#changes-to-clojure-in-version-110), you will see the main features of Clojure 1.10:
 
 1. Java compatibility improvement
 2. A new stream based REPL named `prepl`
@@ -24,14 +24,14 @@ Clojure 10 is out. If you look at the [official change log in github](https://gi
 7. Read string - capture mode
 
 
-To me, the main theme of Clojure 10 is: **Data and People**.
+To me, the main theme of Clojure 1.10 is: **Data and People**.
 
 ![Data and People](/assets/data-and-people.jpg)
 
 
 In this blog post, we are going to explore features 3 to 7 and illustrate each feature with live code snippets that run directly in your browser. The code snippets are in Clojurescript. The corresponding Clojure code might be slighlty different. 
 
-Having a live demo of Clojure 10 features in the browser, the same week that Clojure 10 is released has made possible by the great work of [David Nolen](https://twitter.com/swannodette) and [Mike Fikes](https://twitter.com/mfikes) who ported Clojure 10 features to Clojurescript so quickly. 
+Having a live demo of Clojure 1.10 features in the browser, the same week that Clojure 1.10 is released has made possible by the great work of [David Nolen](https://twitter.com/swannodette) and [Mike Fikes](https://twitter.com/mfikes) who ported Clojure 1.10 features to Clojurescript so quickly. 
 
 I am personally thankful for Mike that helped me integrating those features into [Klipse](https://github.com/viebel/klipse). Klipse is a tool that leverages self-hosted Clojurescript to integrate interactive code snippets in a web page.
 
@@ -76,7 +76,7 @@ Better error messages is really a great human contribution by the Clojure team.
 
 # Two new protocols: `Datafiable` and `Navigable`
 
-Clojure's narrative has always been around data. Data immutability, Code as data etc... Some people say that Clojure is a Data-drive languages. Clojure 10 takes the data story one step further. Now, every piece of Clojure can be seen as data: it can be *datified* and *navigated*. Out of the box, Clojure provides datification of atoms, vars, namespaces and more...
+Clojure's narrative has always been around data. Data immutability, Code as data etc... Some people say that Clojure is a Data-drive languages. Clojure 1.10 takes the data story one step further. Now, every piece of Clojure can be seen as data: it can be *datified* and *navigated*. Out of the box, Clojure provides datification of atoms, vars, namespaces and more...
 
 Remark: `Datafiable` and `Navigable` have their most natural application in the context of building tools for data exploration. You will probably not need it in your web service. But it's part of Clojure now, so I think it's interesting to discover their "mechanics".
 
@@ -137,7 +137,7 @@ You can check [this talk about the REBL](https://www.youtube.com/watch?v=c52QhiX
 
 What about datification of a specific map? 
 
-No problem, Clojure 10 supports protocol extension by metadata. When a protocol is marked with `:extend-via-metadata true`, we can extend it via metadata. 
+No problem, Clojure 1.10 supports protocol extension by metadata. When a protocol is marked with `:extend-via-metadata true`, we can extend it via metadata. 
 
 ~~~klipse
 (defprotocol Component
@@ -199,7 +199,7 @@ Our handlers have been called, therefore both `my-atom` and `your-atom` contains
 
 # Read String - capture mode
 
-As a LISP dialect, Clojure allows us to convert a string that contains an expression to the corresponding data, with `read-string` function. Clojure 10 introduces `read+string` (with a `+` instead of `-`) that returns both the data and the original string.
+As a LISP dialect, Clojure allows us to convert a string that contains an expression to the corresponding data, with `read-string` function. Clojure 1.10 introduces `read+string` (with a `+` instead of `-`) that returns both the data and the original string.
 
 ~~~klipse
 (require '[clojure.tools.reader :refer [read+string]])
@@ -216,7 +216,7 @@ There are two differences in Clojure vs Clojurescript regarding `read+string`:
 
 # Play on your own REPL
 
-I hope that you enjoyed the discovery of Clojure 10 features in your browser. Now, it's time to try on your own machine. Thanks to the awesome [Clojure CLI]({% post_url 2018-09-16-hello-clojure %}), that's super easy with this single command line:
+I hope that you enjoyed the discovery of Clojure 1.10 features in your browser. Now, it's time to try on your own machine. Thanks to the awesome [Clojure CLI]({% post_url 2018-09-16-hello-clojure %}), that's super easy with this single command line:
 
 ~~~bash
 >clj -Sdeps "{:deps {org.clojure/clojure {:mvn/version \"1.10.0\"}}}"
