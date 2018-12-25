@@ -38,7 +38,7 @@ In this scenario, `map` behaves in a simple way: it takes `my-value` from the le
 (def my-value 42)
 (def my-lexical-scope-map
   (let [my-value 1]
-    (mapv (fn [] my-value) [1 2 3])))
+    (mapv (fn [_] my-value) [1 2 3])))
 
 (first my-lexical-scope-map)
 ~~~
@@ -52,7 +52,7 @@ Let's map again over the `[1 2 3]` array, this time with a dynamic variable `*my
 ~~~klipse
 (def ^:dynamic *my-value* 42)
 (def my-dynamic-scope-map (binding [*my-value* 1]
-              (map (fn [] *my-value*) [1 2 3])))
+              (map (fn [_] *my-value*) [1 2 3])))
 
 (first my-dynamic-scope-map)
 ~~~
@@ -64,7 +64,7 @@ In this situation, the value of the first element of the map is: `42`. It seems 
 (def my-value 42)
 (def my-dynamic-scope-vector
   (let [my-value 1]
-    (mapv (fn [] my-value) [1 2 3])))
+    (mapv (fn [_] my-value) [1 2 3])))
 (first my-dynamic-scope-vector)
 ~~~
 
