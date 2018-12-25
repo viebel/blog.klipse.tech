@@ -63,8 +63,8 @@ In this situation, the value of the first element of the map is: `42`. It seems 
 ~~~klipse
 (def my-value 42)
 (def my-dynamic-scope-vector
-  (let [my-value 1]
-    (mapv (fn [_] my-value) [1 2 3])))
+  (binding [*my-value* 1]
+    (mapv (fn [] *my-value*) [1 2 3])))
 (first my-dynamic-scope-vector)
 ~~~
 
