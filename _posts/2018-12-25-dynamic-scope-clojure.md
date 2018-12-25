@@ -3,7 +3,7 @@ local_klipse: false
 layout: post
 title:  Lazy sequences are not compatible with dynamic scope
 description:  In functional pogramming, Lazy sequences are not compatible with dynamic scope
-date:   2018-12-25 11:12:24 +0200
+date:   2018-12-25 10:12:24 +0200
 categories: clojure
 thumbnail: assets/klipse.png
 guid: "E080D107-A451-4190-9F1C-2EDE2F24C52A"
