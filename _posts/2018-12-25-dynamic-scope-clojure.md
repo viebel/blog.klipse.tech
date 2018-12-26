@@ -77,6 +77,24 @@ Clojure supports dynamic scope for convenience reason. For instance, in the case
 
 Beware of the inherent complexity of dynamic scope, each time, you rely on dynamic scope.
 
+If you are in Clojure and not in Clojurescript, you can use [bound-fn](https://clojuredocs.org/clojure.core/bound-fn) instead of the regular `fn` to capture the dynamic bindings, as suggested by "Stealing Fat" in the comments below.
+
+The code snippet will be:
+
+~~~clojure
+(def ^:dynamic *my-value* 42)
+(def my-dynamic-scope-map-bound 
+  (binding [*my-value* 1]
+     (map (bound-fn [_] *my-value*) [1 2 3])))
+
+(first my-dynamic-scope-map-bound)
+~~~
+
+And indeed, it returns 1.
+
+Thank you "Stealing Fat".
+
+
 
 
 
