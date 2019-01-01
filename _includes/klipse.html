@@ -4,6 +4,7 @@
 <link rel="stylesheet" type="text/css" href="http://localhost:5014/css/codemirror.css">
 {% else %}
 <link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
 {% endif %}
 <script>
     window.klipse_settings = {
@@ -18,6 +19,8 @@
         selector: '.language-klipse',
         selector_eval_js: '.language-klipse-eval-js, .language-eval-js',
         selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
         selector_render_jsx: '.language-render-jsx',
         selector_es2017: '.language-es2017',
         selector_brainfuck: '.language-brainfuck',
