@@ -55,14 +55,14 @@ In this article, we are going to demonstrate interactive `Prolog` code snippets 
 Let's have on this page a small static set of rules:
 
 ~~~
-woman(Emily).
-man(John).
+woman(emily).
+man(john).
 ~~~
 
 And now, let's query our knowledge base:
 
 ~~~
-?- man(John).
+?- man(john).
 ~~~
 
 The Prolog system will answer either "yes" or "true" depending on the implementation.
@@ -73,12 +73,12 @@ But all of this is static and the developers learn much better through interacti
 So let's **klipsify** the rules and the query:
 
 ~~~prolog-rules
-woman(Emily).
-man(John).
+woman(emily).
+man(john).
 ~~~
 
 ~~~prolog-query
-man(John).
+man(john).
 ~~~
 
 Have you noticed the small icon to the left of the code snippet to differentiate between rules and queries, instead of the usual `?-` to introduce a query?
@@ -92,11 +92,11 @@ See it by yourself, here is the html portion of this page that klipsifies the co
 ~~~html
 <p>So let’s <strong>klipsify</strong> the rules and the query:</p>
 
-<pre><code class="language-prolog-rules">woman(Emily).
-man(John).
+<pre><code class="language-prolog-rules">woman(emily).
+man(john).
 </code></pre>
 
-<pre><code class="language-prolog-query">man(John).
+<pre><code class="language-prolog-query">man(john).
 </code></pre>
 ~~~
 
