@@ -62,7 +62,7 @@ But now, the problem is that our anonynous function returns `'(fn [] '(fn [])`.
 
 This strategy is not going to work: we will always be missing a `(fn [])` wrapping level.
 
-# Quine: self referentiality
+## Quine: self referentiality
 
 You might already have guessed that a real quine is going to involve self-referentiality. 
 
