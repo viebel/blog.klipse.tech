@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Interactive Quines in Clojure
+title:  An interactive Quine in Clojure
 description:  Interactive Quines in Clojure. A quine is a program that evaluates to itself.
 date:   2019-01-08 16:14:14 +0200
 categories: clojure
