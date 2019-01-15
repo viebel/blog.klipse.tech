@@ -10,6 +10,10 @@ author: Yehonathan Sharvit
 
 ---
 
+ <pre class="hidden"><code class="language-klipse">
+ ;; this is a workaround: currently a page with only transpiled snippets dont work
+ (+ 1 2)
+</code></pre>
 
 Function call is really the most fundamental piece of functional programming. This is the reason why we are writing so many articles on this topic: 
 
@@ -17,7 +21,7 @@ Function call is really the most fundamental piece of functional programming. Th
 - [Clojurescript defprotocol's secret]({% post_url 2016-04-09-clojurescript-protocols-secret  %})
 - [IFn's magic beyond defprotocol secret]({% post_url 2016-04-11-extend-ifn %})
 
-In this article, we present the differences between static and dynamic dispath in `clojurescript`.
+In this article, we present the differences between static and dynamic dispatch in `clojurescript`.
 
 ### The Power of `call` in Javascript
 
