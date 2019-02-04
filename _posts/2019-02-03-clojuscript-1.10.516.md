@@ -79,7 +79,7 @@ For example, in
   10)
 ~~~
   
-because `x satisfies `string?`, it will be inferred to be of string type in the then branch (and thus cause a warning to be emitted because inc is being applied to it).
+because `x` satisfies `string?`, it will be inferred to be of string type in the then branch (and thus cause a warning to be emitted because inc is being applied to it).
 
 ~~~klipse
 (defn my-inc-if [x]
