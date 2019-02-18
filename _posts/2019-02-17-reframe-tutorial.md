@@ -11,6 +11,8 @@ author: Yehonathan Sharvit
 hidden: true
 ---
 
+** THIS IS A DRAFT **
+
 ## What is re-frame?
 
 re-frame is a functional framework for writing SPAs in ClojureScript, using Reagent.
