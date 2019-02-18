@@ -8,10 +8,11 @@ categories: clojure
 thumbnail: assets/klipse.png
 guid: _posts/2019-02-17-reframe-tutorial.md
 author: Yehonathan Sharvit
+draft: true
 hidden: true
 ---
 
-** THIS IS A DRAFT **
+**THIS IS A DRAFT**
 
 ## What is re-frame?
 
