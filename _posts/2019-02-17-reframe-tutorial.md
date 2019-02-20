@@ -41,7 +41,7 @@ The purpose of this tutorial is to explain how to write the code of a re-frame a
 
 ## Credits
 
-This article is an interactive rewrite of the [code walkthrough from re-frame repo](https://github.com/Day8/re-frame/blob/master/docs/CodeWalkthrough.md). Some of the details have been omitted in order to keep the article as eay to read as possible. Be sure to read also the original article to fill out all the details.
+This article is an interactive rewrite of the [code walkthrough from re-frame repo](https://github.com/Day8/re-frame/blob/master/docs/CodeWalkthrough.md). It is published with the blessing of [Mike Thompson](https://twitter.com/wazound). Some of the details have been omitted in order to keep the article as easy to read as possible. Be sure to read also the original article to fill out all the details.
 
 The interactive snippets are powered by [Klipse](https://github.com/viebel/klipse).
 
