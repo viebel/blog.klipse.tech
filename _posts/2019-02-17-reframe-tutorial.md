@@ -45,7 +45,7 @@ This article is an interactive rewrite of the [code walkthrough from re-frame re
 
 The interactive snippets are powered by [Klipse](https://github.com/viebel/klipse).
 
-They are two kinds of Klipse snippets in this article:
+There are two kinds of Klipse snippets in this article:
 
 1. regular Clojure snippets for which Klipse displays below the snippet the evaluation of the last expression of the snippet.
 2. reagent snippets for which Klipse renders the reagent component just below the snippet as explained [here](http://blog.klipse.tech/reagent/2016/12/31/reagent-in-klipse.html).
