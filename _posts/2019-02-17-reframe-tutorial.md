@@ -6,10 +6,8 @@ description:  re-frame interactive demo with Klipse. A pattern for writing SPAs 
 date:   2019-02-17 14:33:24 +0200
 categories: clojure
 thumbnail: assets/klipse.png
-guid: _posts/2019-02-17-reframe-tutorial.md
+guid: F09CE47F-0789-480C-8E2E-2E6FAC632FF6
 author: Yehonathan Sharvit
-draft: true
-hidden: true
 ---
 
 ## What is re-frame?
