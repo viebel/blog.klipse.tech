@@ -133,6 +133,9 @@ If you haven't done it already, please give a github star to [reagent](https://g
 
 It is also possible to evaluate `reagent` code snippets in the browser with the great [CljsFiddle](http://escherize.com/cljsfiddle/) by [@escherize](https://twitter.com/escherize).
 
+# A last final note
+
+If you want to become a reagent master, take this video course: [Learn Reagent Pro](https://www.jacekschae.com/learn-reagent-pro/pjksj){:target="_blank"}.
 
 <style>
 
