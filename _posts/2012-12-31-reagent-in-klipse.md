@@ -135,7 +135,8 @@ It is also possible to evaluate `reagent` code snippets in the browser with the 
 
 # A last final note
 
-If you want to become a reagent master, take this video course: [Learn Reagent Pro](https://www.jacekschae.com/learn-reagent-pro/pjksj){:target="_blank"}.
+If you really want to become a reagent master, take a [video course on reagent](https://www.learnreframe.com/?ref=pjksj){:target="_blank"}.
+
 
 <style>
 

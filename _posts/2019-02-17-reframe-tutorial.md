@@ -50,7 +50,7 @@ There are two kinds of Klipse snippets in this article:
 1. regular Clojure snippets for which Klipse displays below the snippet the evaluation of the last expression of the snippet.
 2. reagent snippets for which Klipse renders the reagent component just below the snippet as explained [here](http://blog.klipse.tech/reagent/2016/12/31/reagent-in-klipse.html).
 
-If you really want to become a re-frame master, take one of those video courses: [Learn re-frame](https://www.jacekschae.com/learn-re-frame-pro/pjksj){:target="_blank"} or [reagent + re-frame](https://www.jacekschae.com/reagent-re-frame/pjksj){:target="_blank"}.
+If you really want to become a re-frame master, take a [video course on re-frame](https://www.learnreframe.com/?ref=pjksj){:target="_blank"}.
 
 ## Usage
 
@@ -462,7 +462,7 @@ When it comes to establishing initial application state, you'll notice the use o
 
 I hope you enjoyed this interactive tutorial and got a better understanding about how to write a re-frame application.
 
-But if you really want to become a re-frame master, take one of those video courses: [Learn re-frame](https://www.jacekschae.com/learn-re-frame-pro/pjksj){:target="_blank"} or [reagent + re-frame](https://www.jacekschae.com/reagent-re-frame/pjksj){:target="_blank"}.
+But if you really want to become a re-frame master, take a [video course on re-frame](https://www.learnreframe.com/?ref=pjksj){:target="_blank"}.
 
 If you liked this article, you might also like my book...
 
