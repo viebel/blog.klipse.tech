@@ -120,7 +120,7 @@ One way to fix that is to use `spec/conformer`, like this:
                              :second number?)))
 ~~~
 
-Now, `[:a 1]` is informed as a vector:
+Now, `[:a 1]` is unformed as a vector:
 
 ~~~klipse
 (->> (s/conform ::my-spec-vec [:a 1])
