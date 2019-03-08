@@ -22,7 +22,13 @@ In this article, we are going to show how one can write his custom `defn`-like m
 A [previous version of this article]({% post_url 2016-10-07-defn-args %}) has been written back in 2016. The current version of the article has been updated and made more digestable.
 
 
-First, we are going to show to parse the arguments of the `defn` macro, modifies the parse tree and converts it back to the format `defn` expects.
+In this article, we are going to show how one can write his custom `defn`-like macro, using the specs for `defn`.
+
+First, we are going to show how to:
+
+1. parse the arguments of the `defn` macro into a AST
+2. modifies the AST tree 
+3. converts it back to the format `defn` expects.
 
 Then, we will leverage this idea in order to write three of custom `defn` like macros:
 
@@ -320,8 +326,9 @@ Note that in both cases, the arity type is located at `[:fn-tail 0]`.
 
 Let's write `update-conf`: 
 
-- In single-arity, we update the body
-- In multi-arity, we updtate all the bodies 
+- In the case of single arity, we update the body
+- In the case of multi arities, we update all the bodies
+
 
 Notice how we destructure the `conf` in order to get the arity.
 
