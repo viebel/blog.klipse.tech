@@ -24,7 +24,7 @@ The concept of sequence becomes a bit clearer when one explains the intent of th
 
 Now that we are set with some definitions, we can move on to the fun part in which we are going to tell how Clojure makes this `seq` concept so seqsy.
 
-![Seqs and the City(/assets/seqs-city.jpg)
+![Seqs and the City](/assets/seqs-city.jpg)
 
 # Ghost Protocol 
 
