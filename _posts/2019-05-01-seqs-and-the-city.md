@@ -89,10 +89,10 @@ You might be confused by our revelation that vectors and maps are not sequences 
 
 The explanation is subtle: vectors and maps are not sequences but they are seqable, meaning that they can be converted to sequences. If you look at the [source code for map](https://github.com/clojure/clojurescript/blob/95b13de8300123c3c984b80410475d5acd92af6f/src/main/cljs/cljs/core.cljs#L4709-4719), you'll see that the first thing the code does is to convert the collection into a sequence by calling `seq`. 
 
-For sure, the return value of `seq` implements the `Seq` protocol:
+For sure, the return value of `seq` implements the `ISeq` protocol:
 
 ~~~klipse
-(implements? Seq (seq [1 2 3]))
+(implements? ISeq (seq [1 2 3]))
 ~~~
 
 How do you make a collection seqable? 
