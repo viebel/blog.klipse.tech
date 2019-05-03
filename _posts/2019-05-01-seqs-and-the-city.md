@@ -22,17 +22,17 @@ The concept of sequence becomes a bit clearer when one explains the intent of th
 - `-first` retrieves the first element of the sequence 
 - `-rest`  returns the sequence without the first element
 
+> Remark: In this article, we refer to the ways sequences and collections are designed and coded in Clojurescript, where protocols are at the core of the language. In Clojure, it works a bit differently, but the guiding principles are the same.
+
 Now that we are set with some definitions, we can move on to the fun part in which we are going to tell how Clojure makes this `seq` concept so seqsy.
 
 ![Seqs and the City](/assets/seqs-city.jpg)
 
 # Ghost Protocol 
 
-> Remark: In this article, we refer to the ways sequences and collections are designed and coded in Clojurescript, where protocols are at the core of the language. In Clojure, it works a bit differently, but the guiding principles are the same.
-
 First of all, you need to know that when you call a Clojure function that operates on a collection, this function is never a method of the data collection: It is usually a wrapper around the appropriate method. 
 
-For exemple, in a simple piece of code like:
+For example, in a simple piece of code like:
 
 ~~~klipse
 (first '(1 2 3))
