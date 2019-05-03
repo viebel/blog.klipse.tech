@@ -118,8 +118,9 @@ Now, we can `map` on a seqable number:
 
 # Conclusion
 
-Let's conclude this article by this quote from Alex Miller:
-> Sequences are the key abstraction that connects two of the most important parts of Clojure - immutable persistent collections and the sequence library. [Clojure sequences](http://insideclojure.org/2015/01/02/sequences/)
+Let's conclude this article by this [quote](http://insideclojure.org/2015/01/02/sequences/) from Alex Miller:
+
+> Sequences are the key abstraction that connects two of the most important parts of Clojure - immutable persistent collections and the sequence library. 
 
 
 
