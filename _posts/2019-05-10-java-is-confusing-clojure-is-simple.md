@@ -89,7 +89,7 @@ The reason is that numbers are values and therefore they never change.
 
 ## The simplicity of Clojure
 
-[Clojure](https://en.wikipedia.org/wiki/Clojure) is a dynamic functional programming language that runs on the Java platform (like [Scala](https://en.wikipedia.org/wiki/Scala_(programming_language))). Clojure advocates immutability and immutable data structures. 
+[Clojure](https://en.wikipedia.org/wiki/Clojure) is a dynamic functional LISP dialect that runs on the Java platform (like [Scala](https://en.wikipedia.org/wiki/Scala_(programming_language))). Clojure advocates immutability and immutable data structures. 
 
 > The common agreement among experienced Clojure teachers is that in order to properly explain how Collections work in Clojure, the only thing they have to teach is that Data Collections are values.
 
