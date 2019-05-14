@@ -107,6 +107,7 @@ Let's take a look at a similar Clojure code snippet:
 (def yourNumbers myNumbers)
 (conj yourNumbers 4)
 (def theirNumbers [1 2 3])
+(add5 theirNumbers)
 
 (println "myNumbers: " myNumbers)
 (println "yourNumbers: " yourNumbers)
