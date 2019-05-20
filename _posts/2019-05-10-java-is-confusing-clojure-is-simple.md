@@ -11,7 +11,7 @@ author: Yehonathan Sharvit
 
 ## The inherent complexity of Collections in Java
 
-During a brainstorm related to the writing of my [Get Programming with Clojure book](https://www.manning.com/books/get-programming-with-clojure?a_aid=viebel&a_bid=399d9d64), I was discussing with an experienced Java teacher about Data Collections and he told me that the world's best Java instructors consistenlty agree that Java learners are confused by the behaviour of Collections in Java:
+During a brainstorm related to the writing of my [Get Programming with Clojure book](https://www.manning.com/books/get-programming-with-clojure?a_aid=viebel&a_bid=399d9d64), I was discussing with an experienced Java teacher about Data Collections and he told me that the world's best Java instructors consistentky agree that Java learners are confused by the behaviour of Collections in Java:
 
 - What kind of Objects are the Collections?
 - Are the Collections changed by the methods or not?
@@ -51,7 +51,7 @@ public class Main
 
 `ArrayList` are mutable, therefore `yourNumbers.add(4)` changes the content of `yourNumbers`. But what about the content of `myNumbers`? Is it modified or not? Does it behave the same when we call the `add` method in another method (like `add5` in our example)?
 
-When a Java learner asks herself those questions, she is confused and as I mentionned before, the agreed strategy among Java teachers to explain the behaviour of Data collections is to talk about stack, heaps and the garbage collector.
+When a Java learner asks herself those questions, she is confused and as I mentioned before, the agreed strategy among Java teachers to explain the behaviour of Data Collections is to talk about stack, heaps and the garbage collector.
 
 (I am not going to tell you what is the output of the above code snippet. The point of my article is to illustrate the confusion that occurs in the mind of Java learners and this confusion is avoided in the Clojure.)
 
@@ -82,7 +82,7 @@ public class Main
 }
 ~~~
 
-When we deal with numbers, the code is really easy to grasp: it is clear to every Java learner that `yourNumber += 10` modifies `yourNumber` but not `myNumber`. And similary, the `add5` methods doesn't modify `theirNumber`.
+When we deal with numbers, the code is really easy to grasp: it is clear to every Java learner that `yourNumber += 10` modifies `yourNumber` but not `myNumber`. And similarly, the `add5` method doesn't modify `theirNumber`.
 
 The reason is that numbers are values and therefore they never change.
 
