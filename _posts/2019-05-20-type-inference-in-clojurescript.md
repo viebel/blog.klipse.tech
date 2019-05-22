@@ -11,6 +11,8 @@ author: Yehonathan Sharvit
 ---
 
 
+After watching this [excellent talk by Mike Fikes](https://www.youtube.com/watch?v=tPnCtXrwvIw) about Type Inference in Clojurescript, I couldn't resist the urge to share with the community what I have learned about this fascinating topic.
+
 The Clojurescript compiler has been granted the capability to infer types since [version 1.10.516](% post_url 2019-02-03-clojuscript-1.10.516 %). The benefits for us, the cljs devs, are both at compile time and at run time:
 
 1. At compile time, our Clojurescript code is type checked automatically
