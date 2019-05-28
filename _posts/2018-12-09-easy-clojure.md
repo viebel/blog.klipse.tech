@@ -50,7 +50,7 @@ And it probably got worse when you tried to explain her that this was something 
 
 The point of this imaginary story is to illustrate the fact that the default Clojure REPL is not beginners friendly.
 
-When I started to write my [Get Programming with Clojure](https://www.manning.com/books/get-programming-with-clojure?a_aid=viebel&a_bid=399d9d64) book, I had to find a way to let my readers enjoy the power of the REPL without being confused by some weird dash quote symbols too early in their Clojure journey.
+When I started to write my [Get Programming with Clojure](https://www.getprogrammingwithclojure.com/) book, I had to find a way to let my readers enjoy the power of the REPL without being confused by some weird dash quote symbols too early in their Clojure journey.
 
 The solution I came with was to create my own REPL with a single objective in mind: to be beginners friendly. I named it the Klipse REPL and it is available on [github](https://github.com/viebel/klipse-repl).
 
@@ -94,7 +94,7 @@ The [Klipse REPL](https://github.com/viebel/klipse-repl) also includes all of th
 2. indentation of multi-line expressions
 3. coloring of forms
 
-Now that my book is [available for early access](https://www.manning.com/books/get-programming-with-clojure?a_aid=viebel&a_bid=399d9d64), you can use it as another solid argument to convince your friend and your boss about the value of Clojure.
+Now that my book is [available for early access](https://www.getprogrammingwithclojure.com/), you can use it as another solid argument to convince your friend and your boss about the value of Clojure.
 
 
 

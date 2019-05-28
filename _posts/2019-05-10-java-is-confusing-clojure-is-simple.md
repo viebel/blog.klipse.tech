@@ -11,7 +11,7 @@ author: Yehonathan Sharvit
 
 ## The inherent complexity of Collections in Java
 
-During a brainstorm related to the writing of my [Get Programming with Clojure book](https://www.manning.com/books/get-programming-with-clojure?a_aid=viebel&a_bid=399d9d64), I was discussing with an experienced Java teacher about Data Collections and he told me that the world's best Java instructors consistentky agree that Java learners are confused by the behaviour of Collections in Java:
+During a brainstorm related to the writing of my [Get Programming with Clojure book](https://www.getprogrammingwithclojure.com/), I was discussing with an experienced Java teacher about Data Collections and he told me that the world's best Java instructors consistentky agree that Java learners are confused by the behaviour of Collections in Java:
 
 - What kind of Objects are the Collections?
 - Are the Collections changed by the methods or not?
@@ -95,7 +95,7 @@ The reason is that numbers are values and therefore they never change.
 
 It might be hard to believe but that's the only thing that a Clojure learner has to understand: Data Collections are values. The big difference between objects and values is that values never change. They are immutable. In Clojure, Data Collections never change.
 
-The immutability of Collections in Clojure make the code easy to grasp. The difficulty that has to be overcome for Clojure learners is the unusual syntax and the weird usage of parenthesis à la LISP.  (Helping Java developers to get into Clojure syntax is one of the main goals of my [Get Programming with Clojure book](https://www.manning.com/books/get-programming-with-clojure?a_aid=viebel&a_bid=399d9d64).)
+The immutability of Collections in Clojure make the code easy to grasp. The difficulty that has to be overcome for Clojure learners is the unusual syntax and the weird usage of parenthesis à la LISP.  (Helping Java developers to get into Clojure syntax is one of the main goals of my [Get Programming with Clojure book](https://www.getprogrammingwithclojure.com/).)
 
 Let's take a look at a similar Clojure code snippet:
 
