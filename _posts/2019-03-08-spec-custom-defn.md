@@ -15,7 +15,7 @@ author: Yehonathan Sharvit
 
 If you are not familiar with `clojure.spec`, be sure to read the [spec Rationale](https://clojure.org/about/spec) and the [spec Guide](https://clojure.org/guides/spec).
 
-One of the cool features of `clojure.spec` is that we can parse functions and macros arguments into kind of an Abstract Syntax Tree (AST) back on forth, using `conform` and `unform`.
+One of the cool features of `clojure.spec` is that we can parse functions and macros arguments into kind of an Abstract Syntax Tree (AST) back and forth, using `conform` and `unform`.
 
 In this article, we are going to show how one can write his custom `defn`-like macro, using the specs for `defn`.
 
@@ -57,7 +57,7 @@ With `clojure.spec` we can parse functions and macros arguments into kind of an 
 2. `unform` takes an AST and it returns data
 
 
-The basic idea of this article is that in `clojure.spec`, `conform` and `unform` are reciprocical, in the sense that `(unform spec (conform spec x))` is equal to `x`.
+The basic idea of this article is that in `clojure.spec`, `conform` and `unform` are reciprocical, in the sense that `(unform spec (conform spec x))` is equal to `x` (like an inverse function in math).
 
 Let's see know some examples of `conform` and `unform`.
 
@@ -142,7 +142,7 @@ In prose,  the `::specs/defn-args` specifies a list made of:
 
 1. the function name (`:fn-name`) that must be symbol
 2. optionallly: the doc string (`:docstring`) that must be a string
-3. optionally: the meta data (`:meta) tha must be a map
+3. optionally: the meta data (`:meta`) that must be a map
 4. the function tail (`:fn-tail`) that must be either of arity 1 or multiple arity
 
 
