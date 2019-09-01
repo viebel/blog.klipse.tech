@@ -38,7 +38,7 @@ First, let's create a namespace for our journey, and `refer` the `disp` macro, f
 
 More about the `disp` macro in [this article]({% post_url 2016-05-09-macro-tutorial-4 %})...
 
-More about loading code from github inside a klipse snippet in [this article]({% post_url 2016-05-29-spec %}) 
+In order to load code from a github repository, we use `data-external-libs` attribute on the code snippet as explained [here](https://github.com/viebel/klipse#clojure-only-1).
 
 
 # Definition of true and false 
