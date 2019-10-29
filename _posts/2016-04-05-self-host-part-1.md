@@ -68,4 +68,4 @@ In an upcoming article, we will demonstrate advanced features of `cljs.js` like:
 Clojurescript rocks!
 
 [app-url]: http://app.klipse.tech
-[cljs-next-url]: http://swannodette.github.io/2015/07/29/clojurescript-17/
+[cljs-next-url]: http://swannodette.github.io/2015/07/29/clojurescript-17
