@@ -55,12 +55,12 @@ Now, let's see how it works...
 
 # Under the hood
 
-The code snippet with `[hello "World"]` is not a regular `clojure` snippet: it's a `reagent` snippet. Klipse wraps the last expression of the snippet in a call to `reagent.core/render-component` and passes to it the dom element that is right after the code snippet (a.k.a the klipsecontainer).
+The code snippet with `[hello "World"]` is not a regular `clojure` snippet: it's a `reagent` snippet. Klipse wraps the last expression of the snippet in a call to `reagent.dom/render` and passes to it the dom element that is right after the code snippet (a.k.a the klipsecontainer).
 
 Nothing magic, we can do it manually using a regular `clojure` snippet like this:
 
 ~~~klipse
-(reagent.core/render-component [hello "World!"] js/klipse-container)
+(reagent.dom/render [hello "World!"] js/klipse-container)
 ~~~
 
 Each klipse snippets has a dom sibling associated to it and it is accessible by `js/klipse-container`.
