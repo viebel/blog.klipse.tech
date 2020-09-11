@@ -47,7 +47,7 @@ Let's start with a simple `fillRect` manipulation:
 
 <canvas id="canvas-2" width="500" height="300"></canvas>
 
-Each time you press `Ctrl-Enter` inside the snippet, the color changes.
+Each time you press `Ctrl-Enter` inside the snippet, the color is randomly picked.
 
 Wouldn't it be cool to evaluate the snippet automatically every second or so?
 
@@ -71,14 +71,13 @@ Let's run the same Klipse snippet in a loop - by setting `data-loop-msec="1000"`
 
 ## Core.async
 
-With  `core.async` you can do really cool stuff - like having a progress bar:
+With `core.async` you can do really cool stuff - like having a progress bar:
 
 First, let's require `core.async` (It takes a bit of time...):
 
 ~~~klipse
 (ns my.canvas
-  (:require-macros [cljs.core.async.macros :refer [go go-loop]])
-  (:require [cljs.core.async :refer [put! chan <! >! timeout close!]]))
+  (:require [cljs.core.async :refer [go go-loop <! timeout]]))
 ~~~
 
 <canvas id="canvas-4" width="500" height="50"></canvas>
@@ -99,7 +98,7 @@ First, let's require `core.async` (It takes a bit of time...):
 
 It's a bit tricky to use `core.async` inside Klipse because once a snippet is evaluated it runs forever. That might cause a lot of confusion if several versions of the snippet run in parallel.
 
-In our `core.async` snippet, we have set `data-eval-idle-msec="10000000"` which means that the snippets will run automatically only after 10000 seconds of idleness.
+In our `core.async` snippet, we have set `data-eval-idle-msec="10000000"` which means that the snippets will run automatically only after 10000 seconds of idleness or when you press `Ctrl-Enter`.
 
 That's it!
 Enjoy your interactive drawings...
