@@ -24,6 +24,6 @@ url: "https://blog.klipse.tech/" # the base hostname & protocol for your site
 author: Yehonathan Sharvit
 
 # Build settings
-gems:
+plugins:
   - jekyll-feed
   - jekyll-sitemap
