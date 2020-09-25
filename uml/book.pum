@@ -1,0 +1,32 @@
+@startuml
+
+Book         *-- "*" BookItem
+Book         "*" o--o "*" Author
+
+BookItem     *-- BookLending
+
+class Book {
+  - id : String
+  - title : String
+}
+
+class Author {
+  - id : String
+  - fullName: String
+}
+
+class BookItem {
+  - id : String
+  - rackId: String
+  + BookLending checkout(member: Member)
+}
+
+class BookLending {
+  - id : String
+  - lendingDate : date
+  - dueDate : date
+  + Bool isLate()
+  + Bool returnBook()
+}
+
+@enduml

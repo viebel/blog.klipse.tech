@@ -1,0 +1,7 @@
+@startuml
+class Author {
+  firstName: String
+  lastName: String
+  String fullName()
+}
+@enduml

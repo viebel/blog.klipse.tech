@@ -1,0 +1,36 @@
+@startuml
+
+Member       --> User
+
+UserWithBookItemRight --> User
+Librarian    --> UserWithBookItemRight
+Librarian    ..> Member
+
+VIPMember --> UserWithBookItemRight
+VIPMember --> Member
+
+class User {
+  - id : String
+  - email : String
+  - password : String
+  + Bool login()
+}
+
+class Member {
+  + Bool isBlocked()
+  + Bool returnBook(bookLending: BookLending)
+  + BookLending checkout(bookItem: BookItem)
+}
+
+class Librarian {
+  + Bool blockMember(member: Member)
+  + Bool UnblockMember(member: Member)
+  + List<BookLending> getBookLendingsOfMember(member: Member)
+}
+
+class UserWithBookItemRight {
+  + BookItem addBookItem(bookItem: BookItem)
+}
+
+
+@enduml

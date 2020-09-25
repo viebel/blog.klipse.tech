@@ -1,0 +1,141 @@
+= What is Data Oriented Programming?
+:page-layout: post
+:page-description: What is Data Oriented programming?
+:page-categories: databook
+:page-guid: 81362E9F-45CF-46A1-BD8B-971FCD540DDE
+:page-thumbnail: assets/klipse.png
+:page-booktitle: Introduction
+:page-bookorder: 00_01
+:page-liquid:
+:page-author: Yehonathan Sharvit
+:page-date:   2020-09-25 07:45:32 +0200
+
+
+++++
+{% include databook-intro.html %}
+++++
+
+== The essence of DO
+
+This part serves as an introduction and motivation for learning Data Oriented programming.
+
+On one hand, Data Oriented (DO) programming is simple and natural. On the other hand, it is not usually taught in books and schools and most software developers are not well acquainted with it.
+In order to learn DO properly, you'll need first to _unlearn_ the programming paradigms you are already used to.
+Unlearning requires quite an effort. Before doing this effort, you need to be strongly motivated.
+
+DO is a profound concept whose essence is not easy to define in words.  It reminds me the first sentence from the ancient Chinese wisdom book "Tao Te Ching":
+
+[quote]
+Tao that can be spoken of is not the Tao
+
+The Tao is a Chinese word usually translated as the path. It refers to the main principle of wisdom taught in the book.
+What this sentence says is that when you try to explain what the Tao is, using words, you miss the point. The purpose of the "Tao Te Ching" is to illustrate what the Tao is using examples.
+
+Similarly, the purpose of our book is to illustrate what is DO. After reading the book, you will know what is DO without the need for an abstract definition of it.
+
+As a starting point for our journey in the world of DO, we are going to compare DO with a programming paradigm that differs a lot from it: Object Oriented (OO) programming.
+At the end of this chapter, we will refine what DO is about by comparing it with a programming paradigm that is much closer to it: Functional programming (FP).
+
+== OO vs DO
+
+In Object Oriented (OO) programming, we model our domain using _objects_, that consist of some state together with methods for accessing and manipulating that state. The blueprint of the objects is defined in _classes_. We create a class per domain entity type. A method of a class can be used only on objects instantiated from this class. We say that the methods are _specific_.
+
+
+In Data Oriented programming, we model our domain using __data collections__, that consist of immutable data. We manipulate the data via functions that could work with any data collection. We say that the functions are _generic_: they work for any data, no matter what the data represent.
+
+There are two main things that DO considers a program should avoid:
+
+* Mutation of data
+* The coupling of code and data
+
+Most OO developers take those two things for granted.
+
+I will try to explain these two things tend to make our programs more complex than they should be.
+
+When a programming paradigm allows data to be mutated, developers have to add mechanisms to protect their data. For instance, when we pass a piece of data (encapsulated in an object or in a hash map) to a function, we can never be 100% sure that the function won't modify our data. In multi-threaded systems, we need all kind of mutexes to prevent other threads to change data at an unexpected time. Mutexes make our code more complicated and cause performance hit.
+
+Object oriented programming has educated us over the years to model the world with objects. Every piece of information should be encapsulated in objects instantiated from classes: we have classes for business entities like customers and products and also for universal programming concepts like dates. In OO, there is no way to aggregate pieces of information without creating a class.  When data is encapsulated in an object it looses its transparency: we can no longer easily inspect the data or serialize it in a generic way (without writing custom code or using reflection).
+
+
+The basic entities of the DO are immutable collections.
+
+By collection, we mean something like a dictionary where keys are mainly strings and values are either primitive types or collections. By immutable, we mean that the collections cannot be mutated in place unlike hash maps (or dictionaries) in most programming languages.
+
+[[Listing-Customer]]
+.A simple representation of a customer
+[source,javascript]
+----
+{
+ name: "John Smith",
+ email: "john@smith.com",
+ numberOfPurchases: 10
+}
+----
+
+[[Listing-Product]]
+.A simple representation of a product
+[source,javascript]
+----
+{
+ name: "iPhone 10",
+ id: "product-234",
+ category: "Electronics",
+ price: 1000
+}
+----
+
+[[Listing-Order]]
+.A simple representation of an order
+[source,javascript]
+----
+{
+ products: ["product-001", "product-234"],
+ totalAmount: 200,
+ customer: "customer-id-345"
+}
+----
+
+
+Immutable collections have 3 important properties:
+* They are immutable
+* They don't require a blueprint to instantiated from
+* They can be manipulated with generic functions
+
+
+The DO approach guides us to think about data as value. Values never changes. Think about the number 42.  The value of the number 42 will forever stay 42, even when we add to it 10! In the Data Oriented world, the same is true for collections. A collection never changes and that's good news for our programs. Inside programs that follow the DO immutability paradigm , collections are manipulated with the same simplicity as we manipulate numbers in any programming language.
+
+Instead of creating classes to model the world, we use universal data collections. Customers, products, orders etc... are all represented as dictionaries with keys and values. The difference between them is that the keys have different names and the values are not of the same type.
+
+Collections are universal. Therefore, we can write functions that manipulate collections without concrete knowledge of the entity that is represented by the collection. For instance, we can write a function that validates the email address field of a collection and pass to this function a customer collection and the name of the field that contains the email address.
+
+We could also change the name of a field in a collection (e.g. renaming `email` to `emailAddress`) in a generic way.
+
+Compare this flexibility with the rigidity of Object Oriented programming where in order to manipulate an object, you have to be aware of the class of the object (unless you use reflection).
+
+
+== DO vs FP
+
+If you have heard about Functional Programming (FP), this might sound familiar to your. Indeed DO and FP share common aspects but they are not the same.
+
+Simplifying a bit, we could say that the two sacred paradigms of OO are:
+
+* Write code as methods inside classes
+* Encapsulate data as members inside classes
+
+In a sense, functional programming (FP) is a rebellion against OO first sacred paradigm. FP encourages us to write code inside functions that are not locked in objects. In addition to that, FP treats functions as first class citizens: we are allowed to pass functions as arguments to other functions and to write functions that return functions.
+
+Similarly, we could say that Data oriented (DO) is a rebellion against OO second sacred paradigm. DO encourages us to represent data without the need to specify its shape in advance. In addition to that, DO treats data as an immutable value and as a first class citizen (e.g. we are allowed to inspect the fields of a collection programmatically).
+
+There are programming languages that embrace FP without embracing DO (e.g. Haskell, Ocaml). In those languages, the shape of the data is rigid and needs to be specified at compile time.
+
+Most programming languages that embrace DO also embrace FP (e.g. Clojure, JavaScript). However, considering functions as first class citizens is not required by OO. In fact, it is possible to apply DO main principles to OO programming languages, by adhering to the following guidelines:
+
+* Model business entities with immutable data structures (there exists implementation in most languages)
+* Write code mainly in static methods that manipulate those immutable data structures
+
+Are you now motivated to discover the DO world?
+
+Move to link:{% post_url 2020-09-21-data-book-chap1-part1 %}[Chapter 1].
+++++
+{% include databook-intro.html %}
+++++

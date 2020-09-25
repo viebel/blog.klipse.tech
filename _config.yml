@@ -27,3 +27,11 @@ author: Yehonathan Sharvit
 plugins:
   - jekyll-feed
   - jekyll-sitemap
+  - jekyll-asciidoc
+
+asciidoctor:
+  attributes:
+    imagesdir:  /assets
+    source-highlighter: rouge
+    rouge-css: style
+    rouge-theme: github

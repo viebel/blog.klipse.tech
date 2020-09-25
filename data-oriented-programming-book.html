@@ -1,0 +1,33 @@
+---
+layout: default
+---
+<div class="home">
+  <div>
+    <p>
+      Here are a few excerpts from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+    </p>
+    <p>
+      Enter your email address below to get notified when the book is published.
+    </p>
+
+    <form style="text-align: left;" action="https://tinyletter.com/data-oriented-programming" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	    <input type="email" style="width:180px" name="email" id="tlemail" placeholder="Your email address"/>
+	    <input type="hidden" value="1" name="embed"/>
+	    <input style="padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;" type="submit" value="Subscribe" />
+    </form>
+  </div>
+  <br>
+  <ul class="post-list">
+    {% assign posts = site.posts | sort: 'bookorder' %}
+    {% for post in posts  %}
+    {% if post.booktitle %}
+    <li>
+      <span class="post-meta">{{ post.booktitle }}</span>
+      <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+    </li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+
+</div>
+

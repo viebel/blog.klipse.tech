@@ -1,0 +1,57 @@
+= The complexity of Object Oriented Programming: Imagine
+:page-layout: post
+:page-description: The complexity of Object Oriented Programming
+:page-draft: true
+:page-hidden: true
+:page-categories: databook
+:page-guid: 274C6E10-FABE-4AE3-BCAC-2B8350A3E659
+:page-booktitle: Chapter 1, Part 5
+:page-bookorder: 01_05
+:page-thumbnail: assets/klipse.png
+:page-liquid:
+:page-author: Yehonathan Sharvit
+:page-date:   2020-09-25 06:45:32 +0200
+
+
+++++
+{% include databook-intro.html %}
+++++
+
+
+A couple of years ago, a famous composer had an illumination and he wrote a song about a world without OO.
+
+
+image::../assets/imagine.jpeg[]
+
+Imagine there's no objects +
+It's easy if you try +
+No classes below us +
+Above us only information +
+Imagine all the entities being only data +
+
+Imagine there's no mutations +
+It isn't hard to do +
+Nothing to protect with a mutex +
+And no deadlock too +
+Imagine all the entities being only data +
+
+You may say I'm a dreamer +
+But I'm not the only one +
+I hope some day OO will join us +
+And the world will be as one +
+
+Imagine no code is locked +
+I wonder if you can +
+No need for methods and inheritance +
+A brotherhood of input and output +
+Imagine all the code being pure functions +
+
+You may say I'm a dreamer +
+But I'm not the only one +
+I hope some day OO will join us +
+And the world will be as one +
+
+
+++++
+{% include databook-intro.html %}
+++++
