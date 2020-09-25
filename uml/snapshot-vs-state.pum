@@ -1,0 +1,49 @@
+@startuml
+Catalog_V1 ||-- Book1_Two_Copies
+Catalog_V2 ||-- Book1_Two_Copies
+Catalog_V1 ||-- Book2_One_Copy
+Catalog_V2 ||-- Book2_Two_Copies
+Book1_Two_Copies ||-- BookItem1a
+Book1_Two_Copies ||-- BookItem1b
+Book2_One_Copy ||-- BookItem2a
+Book2_Two_Copies ||-- BookItem2a
+Book2_Two_Copies ||-- BookItem2b
+
+object Catalog_V1 {
+  timestamp = August 1, 2020
+}
+
+object Book1_Two_Copies {
+  timestamp = August 1, 2020
+}
+
+object BookItem1a {
+  timestamp = August 1, 2020
+}
+
+object BookItem1b {
+  timestamp = August 1, 2020
+}
+
+object Book2_One_Copy {
+  timestamp = August 1, 2020
+}
+
+object BookItem2a {
+  timestamp = August 1, 2020
+}
+
+object Catalog_V2 {
+  timestamp = August 2, 2020
+}
+
+object Book2_Two_Copies {
+  timestamp = August 2, 2020
+}
+
+object BookItem2b {
+  timestamp = August 2, 2020
+}
+
+
+@enduml

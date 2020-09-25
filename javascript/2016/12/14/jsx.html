@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="shortcut icon" href="/assets/favicon2.png">
+
+  <title>JSX (react) in depth - an interactive tutorial</title>
+  <meta name="description" content="JSX react in depth - an interactive tutorial">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://blog.klipse.tech//javascript/2016/12/14/jsx.html">
+  <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- start: facebook -->
+  <meta property="og:title" content="JSX (react) in depth - an interactive tutorial">
+  <meta property="og:image" content="https://blog.klipse.tech/assets/klipse.png">
+  <meta property="og:description" content="JSX react in depth - an interactive tutorial">
+  <meta property="og:site_name" content="An interactive journey into functional programming with Yehonathan Sharvit">
+  <meta property="article:author" content="Yehonathan Sharvit">
+  <!-- end: facebook -->
+
+
+</head>
+
+  <body>
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">An interactive journey into functional programming with Yehonathan Sharvit</a>
+
+    <div class="site-title" style="float:right;margin-top:14px;">
+<a class="github-button" href="https://github.com/viebel/klipse" data-size="large" data-show-count="true" aria-label="Star viebel/klipse on GitHub">Klipse</a>
+</div>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav> -->
+
+  </div>
+
+</header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <div class="left-post-header">
+      <img src="https://blog.klipse.tech/assets/klipse.png">
+    </div>
+    <div>
+      <h1 class="post-title" itemprop="name headline">JSX (react) in depth - an interactive tutorial</h1>
+      <p class="post-meta"><time datetime="2016-12-14T04:21:19+02:00" itemprop="datePublished">Dec 14, 2016</time>
+	 •
+	<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Yehonathan Sharvit</span></span>
+	
+	</p>
+    </div>
+
+  </header>
+  <div class="post-content" itemprop="articleBody">
+    <pre class="hidden"><code class="language-klipse-eval-js" data-external-libs="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-with-addons.js, https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.js">
+!!React
+</code></pre>
+
+<h1 id="prelude">Prelude</h1>
+
+<p>This article is an interactive version of Facebook official tutorial <a href="https://facebook.github.io/react/docs/jsx-in-depth.html">JSX in depth</a> using the <a href="https://github.com/viebel/klipse">KLIPSE plugin</a> to make the code snippets interactive: the JSX code will be transpiled in your browser while you read this article and a couple of react components will be rendered.</p>
+
+<p>I hope that you will enjoy the code interactivity…</p>
+
+<h1 id="jsx">JSX</h1>
+
+<p>Fundamentally, JSX just provides syntactic sugar for the <code class="language-plaintext highlighter-rouge">React.createElement(component, props, ...children)</code> function.</p>
+
+<p>Let’s see how a simple piece of JSX code is compiled:</p>
+
+<pre><code class="language-transpile-jsx">&lt;MyButton color="blue" shadowSize={2}&gt;
+  Click Me
+&lt;/MyButton&gt;
+</code></pre>
+
+<p>You can also use the self-closing form of the tag if there are no children:</p>
+
+<pre><code class="language-transpile-jsx">&lt;div className="sidebar" /&gt;
+</code></pre>
+
+<p>If you want to test out how some specific JSX is converted into JavaScript, you can try out <a href="https://babeljs.io/repl/#?babili=false&amp;evaluate=true&amp;lineWrap=false&amp;presets=es2015%2Creact%2Cstage-0&amp;code=function%20hello()%20%7B%0A%20%20return%20%3Cdiv%3EHello%20world!%3C%2Fdiv%3E%3B%0A%7D">the online Babel compiler</a> or simply edit the code snippets of this page: a babel transpiler has been embedded into this page using the <a href="https://github.com/viebel/klipse">KLIPSE plugin</a>.</p>
+
+<p>(By the way, I’m the author of the <a href="https://github.com/viebel/klipse">KLIPSE plugin</a>. If you like the interactive code snippets, please give <a href="https://github.com/viebel/klipse">KLIPSE</a>  a star on github and integrate the plugin into your blog or your slides; it’s just a <code class="language-plaintext highlighter-rouge">javascript</code> tag that provides interactive code snippets in a couple of languages. The full instructions are on <a href="https://github.com/viebel/klipse">KLIPSE github repo</a>.)</p>
+
+<p>A small thing that is quite cool with KLIPSE is that you can interactively edit React JSX components and see how they are rendered - as you type…</p>
+
+<pre><code class="language-klipse-jsx" data-preamble="container=document.getElementById('container0');">
+function MyButton(props) {
+  return (
+    &lt;div&gt;
+     &lt;button style=&#123;&#123;color: props.color&#125;&#125; &gt;Click Me&lt;/button&gt;
+    &lt;/div&gt;);
+}
+
+ReactDOM.render(React.createElement(MyButton, {color: "green"}), container);
+</code></pre>
+
+<div class="react-container" id="container0"></div>
+
+<p>Go ahead, modify the above code snippet and see how it is rendered as you type.</p>
+
+<p>And if you are really proud of your work, share a screenshot with the code and the rendered component on twitter to <a href="https://twitter.com/viebel">@viebel</a> mentionning <code class="language-plaintext highlighter-rouge">#klipse</code>.</p>
+
+<h2 id="specifying-the-react-element-type">Specifying The React Element Type</h2>
+
+<p>The first part of a JSX tag determines the type of the React element.</p>
+
+<p>Capitalized types indicate that the JSX tag is referring to a React component. These tags get compiled into a direct reference to the named variable, so if you use the JSX <code class="language-plaintext highlighter-rouge">&lt;Foo /&gt;</code> expression, <code class="language-plaintext highlighter-rouge">Foo</code> must be in scope.</p>
+
+<h3 id="react-must-be-in-scope">React Must Be in Scope</h3>
+
+<p>Since JSX compiles into calls to <code class="language-plaintext highlighter-rouge">React.createElement</code>, the <code class="language-plaintext highlighter-rouge">React</code> library must also always be in scope from your JSX code.</p>
+
+<p>For example, both of the imports are necessary in this code, even though <code class="language-plaintext highlighter-rouge">React</code> and <code class="language-plaintext highlighter-rouge">CustomButton</code> are not directly referenced from JavaScript:</p>
+
+<pre><code class="language-transpile-jsx">import React from 'react';
+import CustomButton from './CustomButton';
+
+function WarningButton() {
+  return &lt;CustomButton color="red" /&gt;;
+}
+</code></pre>
+
+<p>If you don’t use a JavaScript bundler and added React as a script tag (like in this blog post) , it is already in scope as a <code class="language-plaintext highlighter-rouge">React</code> global.</p>
+
+<pre><code class="language-transpile-jsx">
+function WarningButton() {
+  return &lt;CustomButton color="red" /&gt;;
+}
+</code></pre>
+
+<h3 id="using-dot-notation-for-jsx-type">Using Dot Notation for JSX Type</h3>
+
+<p>You can also refer to a React component using dot-notation from within JSX. This is convenient if you have a single module that exports many React components. For example, if <code class="language-plaintext highlighter-rouge">MyComponents.DatePicker</code> is a component, you can use it directly from JSX with:</p>
+
+<pre><code class="language-transpile-jsx">const MyComponents = {
+  DatePicker: function DatePicker(props) {
+    return &lt;div&gt;Imagine a {props.color} datepicker here.&lt;/div&gt;;
+  }
+}
+
+function BlueDatePicker() {
+  return &lt;MyComponents.DatePicker color="blue" /&gt;;
+}
+</code></pre>
+
+<h3 id="user-defined-components-must-be-capitalized">User-Defined Components Must Be Capitalized</h3>
+
+<p>When an element type starts with a lowercase letter, it refers to a built-in component like <code class="language-plaintext highlighter-rouge">&lt;div&gt;</code> or <code class="language-plaintext highlighter-rouge">&lt;span&gt;</code> and results in a string <code class="language-plaintext highlighter-rouge">'div'</code> or <code class="language-plaintext highlighter-rouge">'span'</code> passed to <code class="language-plaintext highlighter-rouge">React.createElement</code>. Types that start with a capital letter like <code class="language-plaintext highlighter-rouge">&lt;Foo /&gt;</code> compile to <code class="language-plaintext highlighter-rouge">React.createElement(Foo)</code> and correspond to a component defined or imported in your JavaScript file.</p>
+
+<p>We recommend naming components with a capital letter. If you do have a component that starts with a lowercase letter, assign it to a capitalized variable before using it in JSX.</p>
+
+<p>For example, this code will not run as expected as <code class="language-plaintext highlighter-rouge">hello</code> is a component and should have been capitalized. React thinks <hello></hello> is an HTML tag because it’s not capitalized:</p>
+
+<pre><code class="language-transpile-jsx">function hello(props) {
+  return &lt;div&gt;Hello {props.toWhat}&lt;/div&gt;;
+}
+
+function HelloWorld() {
+  return &lt;hello toWhat="World" /&gt;;
+}
+</code></pre>
+
+<p>If we try to render <code class="language-plaintext highlighter-rouge">HelloWorld</code>, nothing is rendered and if you open your browser console you’ll see an error message:</p>
+
+<pre><code class="language-klipse-jsx" data-preamble="container=document.getElementById('container1');">
+ReactDOM.render(React.createElement(HelloWorld, null), container);
+</code></pre>
+
+<div class="react-container" id="container1"></div>
+
+<p>To fix this, we will rename <code class="language-plaintext highlighter-rouge">hello</code> to <code class="language-plaintext highlighter-rouge">Hello</code> and use <code class="language-plaintext highlighter-rouge">&lt;Hello /&gt;</code> when referring to it:</p>
+
+<p>(The use of <code class="language-plaintext highlighter-rouge">&lt;div&gt;</code> is legitimate because <code class="language-plaintext highlighter-rouge">'div'</code> is a valid HTML tag.)</p>
+
+<pre><code class="language-transpile-jsx">function Hello(props) {
+  return &lt;div&gt;Hello {props.toWhat}&lt;/div&gt;;
+}
+
+function HelloWorld() {
+  return &lt;Hello toWhat="World" /&gt;;
+}
+</code></pre>
+
+<p>Now, we can render <code class="language-plaintext highlighter-rouge">HelloWorld</code> properly:</p>
+
+<pre><code class="language-klipse-jsx" data-preamble="container=document.getElementById('container2');">
+function Hello(props) {
+  return &lt;div&gt;Hello {props.toWhat}&lt;/div&gt;;
+}
+
+function HelloWorld() {
+  return &lt;Hello toWhat="World" /&gt;;
+}
+
+ReactDOM.render(React.createElement(HelloWorld, null), container);
+</code></pre>
+
+<div class="react-container" id="container2"></div>
+
+<h3 id="choosing-the-type-at-runtime">Choosing the Type at Runtime</h3>
+
+<p>You cannot use a general expression as the React element type. If you do want to use a general expression to indicate the type of the element, just assign it to a capitalized variable first. This often comes up when you want to render a different component based on a prop.</p>
+
+<p>This won’t work:</p>
+
+<pre><code class="language-transpile-jsx">const components = {
+  photo: PhotoStory,
+  video: VideoStory
+};
+
+function Story(props) {
+  return &lt;components[props.storyType] story={props.story} /&gt;;
+}
+</code></pre>
+
+<p>To fix this, we will assign the type to a capitalized variable first:</p>
+
+<pre><code class="language-transpile-jsx">
+const components = {
+  photo: PhotoStory,
+  video: VideoStory
+};
+
+function Story(props) {
+  const SpecificStory = components[props.storyType];
+  return &lt;SpecificStory story={props.story} /&gt;;
+}
+</code></pre>
+
+<h2 id="props-in-jsx">Props in JSX</h2>
+
+<p>There are several different ways to specify props in JSX.</p>
+
+<h3 id="javascript-expressions">JavaScript Expressions</h3>
+
+<p>You can pass any JavaScript expression as a prop, by surrounding it with <code class="language-plaintext highlighter-rouge">{}</code>. For example, in this JSX:</p>
+
+<pre><code class="language-transpile-jsx">&lt;MyComponent foo={1 + 2 + 3 + 4} /&gt;
+</code></pre>
+
+<p>For <code class="language-plaintext highlighter-rouge">MyComponent</code>, the value of <code class="language-plaintext highlighter-rouge">props.foo</code> will be <code class="language-plaintext highlighter-rouge">10</code> because the expression <code class="language-plaintext highlighter-rouge">1 + 2 + 3 + 4</code> gets evaluated.</p>
+
+<p><code class="language-plaintext highlighter-rouge">if</code> statements and <code class="language-plaintext highlighter-rouge">for</code> loops are not expressions in JavaScript, so they can’t be used in JSX directly.</p>
+
+<pre><code class="language-transpile-jsx">&lt;MyComponent foo={if(true) {1}} /&gt;
+</code></pre>
+
+<p>Instead, you can put these in the surrounding code. For example:</p>
+
+<pre><code class="language-transpile-jsx">function NumberDescriber(props) {
+  let description;
+  if (props.number % 2 == 0) {
+    description = &lt;strong&gt;even&lt;/strong&gt;;
+  } else {
+    description = &lt;i&gt;odd&lt;/i&gt;;
+  }
+  return &lt;div&gt;{props.number} is an {description} number&lt;/div&gt;;
+}
+</code></pre>
+
+<h3 id="string-literals">String Literals</h3>
+
+<p>You can pass a string literal as a prop. These two JSX expressions are equivalent:</p>
+
+<pre><code class="language-transpile-jsx">&lt;MyComponent message="hello world" /&gt;
+</code></pre>
+
+<pre><code class="language-transpile-jsx">&lt;MyComponent message={'hello world'} /&gt;
+</code></pre>
+
+<p>When you pass a string literal, its value is HTML-unescaped. So these two JSX expressions are equivalent:</p>
+
+<pre><code class="language-transpile-jsx">&lt;MyComponent message="&amp;lt;3" /&gt;
+</code></pre>
+
+<pre><code class="language-transpile-jsx">&lt;MyComponent message={'&lt;3'} /&gt;
+</code></pre>
+
+<p>This behavior is usually not relevant. It’s only mentioned here for completeness.</p>
+
+<h3 id="props-default-to-true">Props Default to “True”</h3>
+
+<p>If you pass no value for a prop, it defaults to <code class="language-plaintext highlighter-rouge">true</code>. These two JSX expressions are equivalent:</p>
+
+<pre><code class="language-transpile-jsx">&lt;MyTextBox autocomplete /&gt;
+</code></pre>
+
+<pre><code class="language-transpile-jsx">&lt;MyTextBox autocomplete={true} /&gt;
+</code></pre>
+
+<p>In general, we don’t recommend using this because it can be confused with the <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Object_initializer#New_notations_in_ECMAScript_2015">ES6 object shorthand</a> <code class="language-plaintext highlighter-rouge">{foo}</code> which is short for <code class="language-plaintext highlighter-rouge">{foo: foo}</code> rather than <code class="language-plaintext highlighter-rouge">{foo: true}</code>. This behavior is just there so that it matches the behavior of HTML.</p>
+
+<h3 id="spread-attributes">Spread Attributes</h3>
+
+<p>If you already have <code class="language-plaintext highlighter-rouge">props</code> as an object, and you want to pass it in JSX, you can use <code class="language-plaintext highlighter-rouge">...</code> as a “spread” operator to pass the whole props object. These two components are equivalent:</p>
+
+<pre><code class="language-transpile-jsx">function App1() {
+  return &lt;Greeting firstName="Ben" lastName="Hector" /&gt;;
+}
+
+function App2() {
+  const props = {firstName: 'Ben', lastName: 'Hector'};
+  return &lt;Greeting {...props} /&gt;;
+}
+</code></pre>
+
+<p>Spread attributes can be useful when you are building generic containers. However, they can also make your code messy by making it easy to pass a lot of irrelevant props to components that don’t care about them. We recommend that you use this syntax sparingly.</p>
+
+<h2 id="children-in-jsx">Children in JSX</h2>
+
+<p>In JSX, expressions that contain both an opening tag and a closing tag, the content between those tags is passed as a special prop: <code class="language-plaintext highlighter-rouge">props.children</code>. There are several different ways to pass children:</p>
+
+<h3 id="string-literals-1">String Literals</h3>
+
+<p>You can put a string between the opening and closing tags and <code class="language-plaintext highlighter-rouge">props.children</code> will just be that string. This is useful for many of the built-in HTML elements. For example:</p>
+
+<pre><code class="language-transpile-jsx">&lt;MyComponent&gt;Hello world!&lt;/MyComponent&gt;
+</code></pre>
+
+<p>This is valid JSX, and <code class="language-plaintext highlighter-rouge">props.children</code> in <code class="language-plaintext highlighter-rouge">MyComponent</code> will simply be the string <code class="language-plaintext highlighter-rouge">"Hello world!"</code>. HTML is unescaped, so you can generally write JSX just like you would write HTML in this way:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div&gt;</span>This is valid HTML <span class="ni">&amp;amp;</span> JSX at the same time.<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>JSX removes whitespace at the beginning and ending of a line. It also removes blank lines. New lines adjacent to tags are removed; new lines that occur in the middle of string literals are condensed into a single space. So these all render to the same thing:</p>
+
+<pre><code class="language-transpile-jsx">&lt;div&gt;Hello World&lt;/div&gt;
+</code></pre>
+
+<pre><code class="language-transpile-jsx">&lt;div&gt;
+  Hello World
+&lt;/div&gt;
+</code></pre>
+
+<pre><code class="language-transpile-jsx">&lt;div&gt;
+  Hello
+  World
+&lt;/div&gt;
+</code></pre>
+
+<pre><code class="language-transpile-jsx">&lt;div&gt;
+
+  Hello World
+&lt;/div&gt;
+</code></pre>
+
+<h3 id="jsx-children">JSX Children</h3>
+
+<p>You can provide more JSX elements as the children. This is useful for displaying nested components:</p>
+
+<pre><code class="language-transpile-jsx">&lt;MyContainer&gt;
+  &lt;MyFirstComponent /&gt;
+  &lt;MySecondComponent /&gt;
+&lt;/MyContainer&gt;
+</code></pre>
+
+<p>You can mix together different types of children, so you can use string literals together with JSX children. This is another way in which JSX is like HTML, so that this is both valid JSX and valid HTML:</p>
+
+<pre><code class="language-transpile-jsx">&lt;div&gt;
+  Here is a list:
+  &lt;ul&gt;
+    &lt;li&gt;Item 1&lt;/li&gt;
+    &lt;li&gt;Item 2&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>A React component can’t return multiple React elements, but a single JSX expression can have multiple children, so if you want a component to render multiple things you can wrap it in a <code class="language-plaintext highlighter-rouge">div</code> like this.</p>
+
+<h3 id="javascript-expressions-1">JavaScript Expressions</h3>
+
+<p>You can pass any JavaScript expression as children, by enclosing it within <code class="language-plaintext highlighter-rouge">{}</code>. For example, these expressions are equivalent:</p>
+
+<pre><code class="language-transpile-jsx">&lt;MyComponent&gt;foo&lt;/MyComponent&gt;
+</code></pre>
+
+<pre><code class="language-transpile-jsx">&lt;MyComponent&gt;{'foo'}&lt;/MyComponent&gt;
+</code></pre>
+
+<p>This is often useful for rendering a list of JSX expressions of arbitrary length. For example, this renders an HTML list:</p>
+
+<pre><code class="language-transpile-jsx">function Item(props) {
+  return &lt;li&gt;{props.message}&lt;/li&gt;;
+}
+
+function TodoList() {
+  const todos = ['finish doc', 'submit pr', 'nag dan to review'];
+  return (
+    &lt;ul&gt;
+      {todos.map((message) =&gt; &lt;Item key={message} message={message} /&gt;)}
+    &lt;/ul&gt;
+  );
+}
+</code></pre>
+
+<p>Let’s render it:</p>
+
+<pre><code class="language-klipse-jsx" data-preamble="container=document.getElementById('container3');">
+function Item(props) {
+  return &lt;li&gt;{props.message}&lt;/li&gt;;
+}
+
+function TodoList() {
+  const todos = ['finish doc', 'submit pr', 'nag dan to review'];
+  return (
+    &lt;ul&gt;
+      {todos.map((message) =&gt; &lt;Item key={message} message={message} /&gt;)}
+    &lt;/ul&gt;
+  );
+}
+
+ReactDOM.render(React.createElement(TodoList, null), container);
+</code></pre>
+
+<div class="react-container" id="container3"></div>
+
+<p>JavaScript expressions can be mixed with other types of children. This is often useful in lieu of string templates:</p>
+
+<pre><code class="language-transpile-jsx">function Hello(props) {
+  return &lt;div&gt;Hello {props.addressee}!&lt;/div&gt;;
+}
+</code></pre>
+
+<h3 id="functions-as-children">Functions as Children</h3>
+
+<p>Normally, JavaScript expressions inserted in JSX will evaluate to a string, a React element, or a list of those things. However, <code class="language-plaintext highlighter-rouge">props.children</code> works just like any other prop in that it can pass any sort of data, not just the sorts that React knows how to render. For example, if you have a custom component, you could have it take a callback as <code class="language-plaintext highlighter-rouge">props.children</code>:</p>
+
+<pre><code class="language-transpile-jsx">function ListOfTenThings() {
+  return (
+    &lt;Repeat numTimes={10}&gt;
+      {(index) =&gt; &lt;div key={index}&gt;This is item {index} in the list&lt;/div&gt;}
+    &lt;/Repeat&gt;
+  );
+}
+
+// Calls the children callback numTimes to produce a repeated component
+function Repeat(props) {
+  let items = [];
+  for (let i = 0; i &lt; props.numTimes; i++) {
+    items.push(props.children(i));
+  }
+  return &lt;div&gt;{items}&lt;/div&gt;;
+}
+</code></pre>
+
+<p>Children passed to a custom component can be anything, as long as that component transforms them into something React can understand before rendering. This usage is not common, but it works if you want to stretch what JSX is capable of.</p>
+
+<h3 id="booleans-null-and-undefined-are-ignored">Booleans, Null, and Undefined Are Ignored</h3>
+
+<p><code class="language-plaintext highlighter-rouge">false</code>, <code class="language-plaintext highlighter-rouge">null</code>, <code class="language-plaintext highlighter-rouge">undefined</code>, and <code class="language-plaintext highlighter-rouge">true</code> are valid children. They simply don’t render. These JSX expressions will all render to the same thing:</p>
+
+<pre><code class="language-transpile-jsx">&lt;div /&gt;
+</code></pre>
+
+<pre><code class="language-transpile-jsx">&lt;div&gt;&lt;/div&gt;
+</code></pre>
+
+<pre><code class="language-transpile-jsx">&lt;div&gt;{false}&lt;/div&gt;
+</code></pre>
+
+<pre><code class="language-transpile-jsx">&lt;div&gt;{null}&lt;/div&gt;
+</code></pre>
+
+<pre><code class="language-transpile-jsx">&lt;div&gt;{true}&lt;/div&gt;
+</code></pre>
+
+<p>This can be useful to conditionally render React elements. This JSX only renders a <code class="language-plaintext highlighter-rouge">&lt;Header /&gt;</code> if <code class="language-plaintext highlighter-rouge">showHeader</code> is <code class="language-plaintext highlighter-rouge">true</code>:</p>
+
+<pre><code class="language-transpile-jsx">&lt;div&gt;
+  {showHeader &amp;&amp; &lt;Header /&gt;}
+  &lt;Content /&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>One caveat is that some <a href="https://developer.mozilla.org/en-US/docs/Glossary/Falsy">“falsy” values</a>, such as the <code class="language-plaintext highlighter-rouge">0</code> number, are still rendered by React. For example, this code will not behave as you might expect because <code class="language-plaintext highlighter-rouge">0</code> will be printed when <code class="language-plaintext highlighter-rouge">props.messages</code> is an empty array:</p>
+
+<pre><code class="language-transpile-jsx">&lt;div&gt;
+  {props.messages.length &amp;&amp;
+    &lt;MessageList messages={props.messages} /&gt;
+  }
+&lt;/div&gt;
+</code></pre>
+
+<p>To fix this, make sure that the expression before <code class="language-plaintext highlighter-rouge">&amp;&amp;</code> is always boolean:</p>
+
+<pre><code class="language-transpile-jsx">&lt;div&gt;
+  {props.messages.length &gt; 0 &amp;&amp;
+    &lt;MessageList messages={props.messages} /&gt;
+  }
+&lt;/div&gt;
+</code></pre>
+
+<p>Conversely, if you want a value like <code class="language-plaintext highlighter-rouge">false</code>, <code class="language-plaintext highlighter-rouge">true</code>, <code class="language-plaintext highlighter-rouge">null</code>, or <code class="language-plaintext highlighter-rouge">undefined</code> to appear in the output, you have to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String#String_conversion">convert it to a string</a> first:</p>
+
+<pre><code class="language-transpile-jsx">&lt;div&gt;
+  My JavaScript variable is {String(myVariable)}.
+&lt;/div&gt;
+</code></pre>
+
+<p>As I wrote earlier, I’m the author of the <a href="https://github.com/viebel/klipse">KLIPSE plugin</a>. If you like the interactive code snippets, please give <a href="https://github.com/viebel/klipse">KLIPSE</a>  a star on github and integrate the plugin into your blog or your slides; it’s just a <code class="language-plaintext highlighter-rouge">javascript</code> tag that provides interactive code snippets in a couple of languages. The full instructions are on <a href="https://github.com/viebel/klipse">KLIPSE github repo</a>.</p>
+
+  </div>
+
+</article>
+<div class="patreon">
+  If you enjoy this kind of interactive articles would you consider a (small) donation💸  on <a href="https://www.patreon.com/bePatron?u=18227864">Patreon</a> or at least giving a star⭐ for the Klispe repo on <a href="https://github.com/viebel/klipse/stargazers"> Github</a>?
+</div>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?v=8.0.1"></script>
+
+
+
+<footer class="site-footer">
+  
+  <div class="wrapper" style="
+			      font-size: larger;
+			      color: #5f7fbf;
+			      font-weight: bold;">
+    <p> <span> <!-- <a href="https://twitter.com/viebel">
+  <span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span>
+  <span class="username">viebel</span>
+</a> -->
+
+
+<a href="https://twitter.com/viebel"
+   class="twitter-follow-button" 
+   data-show-count="false" 
+   data-size="large">Follow viebel</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+ </span> to stay up-to-date with the coolest interactive articles around the world.</p>
+    <p> Discover <a href="/"> more cool interactive articles</a> about javascript, clojure[script], python, ruby, scheme, c++ and even brainfuck!</p>
+    <p> Give Klipse a Github star
+      <span>
+  <a class="github-button" href="https://github.com/viebel/klipse" data-size="large" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+      </span>
+      to express how much you appreciate <em>Code Interactivity</em>. </p>
+    <p>
+      <form style="text-align: left;" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	<label for="tlemail">Subscribe to the Klipse newsletter:</label>
+	<input type="email" style="width:180px" name="email" id="tlemail" placeholder="Enter your email address"/>
+	<input type="hidden" value="1" name="embed"/>
+	<input style="padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;" type="submit" value="Subscribe" />
+      </form>
+    </p>
+    <p> Feel free to email me <a href="mailto:viebel@gmail.com?Subject=I%20want%20to%20write%20an%20interactive%20blog%20post%20with%20KLIPSE"><span class="icon icon--github"><?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 382.117 382.117" style="enable-background:new 0 0 382.117 382.117;" xml:space="preserve" width="512px" height="512px">
+<path d="M336.764,45.945H45.354C20.346,45.945,0,65.484,0,89.5v203.117c0,24.016,20.346,43.555,45.354,43.555h291.41  c25.008,0,45.353-19.539,45.353-43.555V89.5C382.117,65.484,361.772,45.945,336.764,45.945z M336.764,297.72H45.354  c-3.676,0-6.9-2.384-6.9-5.103V116.359l131.797,111.27c2.702,2.282,6.138,3.538,9.676,3.538l22.259,0.001  c3.536,0,6.974-1.257,9.677-3.539l131.803-111.274v176.264C343.664,295.336,340.439,297.72,336.764,297.72z M191.059,192.987  L62.87,84.397h256.378L191.059,192.987z" fill="#fc8ba0"/>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+</span><span class="username">viebel@gmail.com</span></a>
+ for getting practical tips and tricks in writing your first interactive blog post.</p>
+  </div>
+</footer>
+
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+    */
+    var disqus_config = function () {
+        this.page.url = "https://blog.klipse.tech/" + "/javascript/2016/12/14/jsx.html";
+        this.page.identifier = "2F7AB371-02E1-4478-A68F-285FA44D8A89 ";
+        this.page.title = "JSX (react) in depth - an interactive tutorial";
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//klipse.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+      </div>
+    </div>
+    
+
+
+  </body>
+</html>

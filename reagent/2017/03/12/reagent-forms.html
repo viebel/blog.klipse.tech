@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="shortcut icon" href="/assets/favicon2.png">
+
+  <title>Reagent Forms Tutorial</title>
+  <meta name="description" content="Gallery of reagent forms">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://blog.klipse.tech//reagent/2017/03/12/reagent-forms.html">
+  <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- start: facebook -->
+  <meta property="og:title" content="Reagent Forms Tutorial">
+  <meta property="og:image" content="https://blog.klipse.tech/assets/klipse.png">
+  <meta property="og:description" content="Gallery of reagent forms">
+  <meta property="og:site_name" content="An interactive journey into functional programming with Yehonathan Sharvit">
+  <meta property="article:author" content="Yehonathan Sharvit">
+  <!-- end: facebook -->
+
+
+</head>
+
+  <body>
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">An interactive journey into functional programming with Yehonathan Sharvit</a>
+
+    <div class="site-title" style="float:right;margin-top:14px;">
+<a class="github-button" href="https://github.com/viebel/klipse" data-size="large" data-show-count="true" aria-label="Star viebel/klipse on GitHub">Klipse</a>
+</div>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav> -->
+
+  </div>
+
+</header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <div class="left-post-header">
+      <img src="https://blog.klipse.tech/assets/klipse.png">
+    </div>
+    <div>
+      <h1 class="post-title" itemprop="name headline">Reagent Forms Tutorial</h1>
+      <p class="post-meta"><time datetime="2017-03-12T00:42:44+02:00" itemprop="datePublished">Mar 12, 2017</time>
+	 •
+	<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Yehonathan Sharvit</span></span>
+	
+	</p>
+    </div>
+
+  </header>
+  <div class="post-content" itemprop="articleBody">
+    <h1 id="hello-world">Hello World!</h1>
+
+<pre><code class="language-klipse">(ns my.playground
+  (:require [reagent.core :as r]
+            [reagent-forms.core :refer [bind-fields]]))
+</code></pre>
+
+<pre><code class="language-klipse">
+(defn row [label input]
+  [:div.row
+   [:div.col-md-2 [:label label]]
+   [:div.col-md-5 input]])
+
+(defn radio [label name value]
+  [:div.radio
+   [:label
+    [:input {:field :radio :name name :value value}]
+    label]])
+
+(defn input [label type id]
+  (row label [:input.form-control {:field type :id id}]))
+
+(def form-template
+  [:div
+   (input "first name" :text :person.first-name)
+   [:div.row
+    [:div.col-md-2]
+    [:div.col-md-5
+     [:div.alert.alert-danger
+      {:field :alert :id :errors.first-name}]]]
+
+   (input "last name" :text :person.last-name)
+   [:div.row
+    [:div.col-md-2]
+    [:div.col-md-5
+     [:div.alert.alert-success
+      {:field :alert :id :person.last-name :event empty?}
+      "last name is empty!"]]]
+
+   (input "email" :email :person.email)
+   (row
+     "comments"
+     [:textarea.form-control
+      {:field :textarea :id :comments}])
+
+   [:hr]
+
+
+   (input "kg" :numeric :weight-kg)
+   (input "lb" :numeric :weight-lb)
+
+   [:hr]
+   [:div.row
+    [:div.col-md-5 [:label "date of birth"]]]
+
+   [:div.row
+    [:div.col-md-7
+     [:div {:field :datepicker
+            :auto-close? true
+            :id :dob
+            :date-format "yyyy/mm/dd"
+            :inline true}]]]
+   [:hr]
+
+   [:h3 "BMI Calculator"]
+   (input "height" :numeric :height)
+   (input "weight" :numeric :weight)
+   (row "BMI"
+        [:input.form-control
+         {:field :numeric :fmt "%.2f" :id :bmi :disabled true}])
+   [:hr]
+
+   (row "isn't data binding lovely?"
+        [:input {:field :checkbox :id :databinding.lovely}])
+   [:label
+    {:field :label
+     :preamble "The level of awesome: "
+     :placeholder "N/A"
+     :id :awesomeness}]
+
+   [:input {:field :range :min 1 :max 10 :id :awesomeness}]
+
+   [:h3 "option list"]
+   [:div.form-group
+    [:label "pick an option"]
+    [:select.form-control {:field :list :id :many.options}
+     [:option {:key :foo} "foo"]
+     [:option {:key :bar} "bar"]
+     [:option {:key :baz} "baz"]]]
+
+   (radio
+     "Option one is this and that—be sure to include why it's great"
+     :foo :a)
+   (radio
+     "Option is something else, selecting it will deselect option one"
+     :foo :b)
+
+   [:h3 "multi-select buttons"]
+   [:div.btn-group {:field :multi-select :id :every.position}
+    [:button.btn.btn-default {:key :left} "Left"]
+    [:button.btn.btn-default {:key :middle} "Middle"]
+    [:button.btn.btn-default {:key :right} "Right"]]
+
+   [:h3 "single-select buttons"]
+   [:div.btn-group {:field :single-select :id :unique.position}
+    [:button.btn.btn-default {:key :left} "Left"]
+    [:button.btn.btn-default {:key :middle} "Middle"]
+    [:button.btn.btn-default {:key :right} "Right"]]
+
+   [:h3 "single-select list"]
+   [:div.list-group {:field :single-select :id :pick-one}
+    [:div.list-group-item {:key :foo} "foo"]
+    [:div.list-group-item {:key :bar} "bar"]
+    [:div.list-group-item {:key :baz} "baz"]]
+
+   [:h3 "multi-select list"]
+   [:ul.list-group {:field :multi-select :id :pick-a-few}
+    [:li.list-group-item {:key :foo} "foo"]
+    [:li.list-group-item {:key :bar} "bar"]
+    [:li.list-group-item {:key :baz} "baz"]]])
+
+
+
+
+(defn weight-translation
+  [[id] value {:keys [weight-lb weight-kg] :as document}]
+  (cond
+    (= id :weight-lb)
+    (assoc document :weight-kg (/ value 2.2046))
+    (= id :weight-kg)
+    (assoc document :weight-lb (* value 2.2046))
+    :else nil))
+
+(defn bmi-calculation
+  [[id] value {:keys [height weight] :as document}]
+  (when (and (some #{id} [:height :weight]) weight height)
+    (assoc document :bmi (/ weight (* height height)))))
+
+(defn page []
+  (let [doc
+        (atom {:person {:first-name "Johnat"
+                        :age 35
+                        :email "foo@bar.baz"}
+               :weight 100
+               :height 200
+               :comments "some interesting comments
+               on this subject"
+               :radioselection :b
+               :position [:left :right]
+               :pick-one :bar
+               :unique {:position :middle}
+               :pick-a-few [:bar :baz]
+               :many {:options :bar}})]
+    (fn []
+      [:div
+       [:div.padding]
+
+       [:div.page-header [:h1 "Sample Form"]]
+
+       [:div
+        [bind-fields
+         form-template
+         doc
+         bmi-calculation
+         weight-translation]
+
+        [:button.btn.btn-default
+         {:on-click
+          #(if (empty? (get-in @doc [:person :first-name]))
+             (swap! doc assoc-in [:errors :first-name]
+                    "first name is empty"))}
+         "save"]]])))
+</code></pre>
+
+<pre><code class="language-reagent">[:div 
+   (input "name" :numeric :name)
+   (input "number of kids" :numeric :kids)]
+</code></pre>
+
+<pre><code class="language-reagent">[page]
+</code></pre>
+
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+
+
+  </div>
+
+</article>
+<div class="patreon">
+  If you enjoy this kind of interactive articles would you consider a (small) donation💸  on <a href="https://www.patreon.com/bePatron?u=18227864">Patreon</a> or at least giving a star⭐ for the Klispe repo on <a href="https://github.com/viebel/klipse/stargazers"> Github</a>?
+</div>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+
+
+
+<footer class="site-footer">
+  
+  <div class="wrapper" style="
+			      font-size: larger;
+			      color: #5f7fbf;
+			      font-weight: bold;">
+    <p> <span> <!-- <a href="https://twitter.com/viebel">
+  <span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span>
+  <span class="username">viebel</span>
+</a> -->
+
+
+<a href="https://twitter.com/viebel"
+   class="twitter-follow-button" 
+   data-show-count="false" 
+   data-size="large">Follow viebel</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+ </span> to stay up-to-date with the coolest interactive articles around the world.</p>
+    <p> Discover <a href="/"> more cool interactive articles</a> about javascript, clojure[script], python, ruby, scheme, c++ and even brainfuck!</p>
+    <p> Give Klipse a Github star
+      <span>
+  <a class="github-button" href="https://github.com/viebel/klipse" data-size="large" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+      </span>
+      to express how much you appreciate <em>Code Interactivity</em>. </p>
+    <p>
+      <form style="text-align: left;" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	<label for="tlemail">Subscribe to the Klipse newsletter:</label>
+	<input type="email" style="width:180px" name="email" id="tlemail" placeholder="Enter your email address"/>
+	<input type="hidden" value="1" name="embed"/>
+	<input style="padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;" type="submit" value="Subscribe" />
+      </form>
+    </p>
+    <p> Feel free to email me <a href="mailto:viebel@gmail.com?Subject=I%20want%20to%20write%20an%20interactive%20blog%20post%20with%20KLIPSE"><span class="icon icon--github"><?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 382.117 382.117" style="enable-background:new 0 0 382.117 382.117;" xml:space="preserve" width="512px" height="512px">
+<path d="M336.764,45.945H45.354C20.346,45.945,0,65.484,0,89.5v203.117c0,24.016,20.346,43.555,45.354,43.555h291.41  c25.008,0,45.353-19.539,45.353-43.555V89.5C382.117,65.484,361.772,45.945,336.764,45.945z M336.764,297.72H45.354  c-3.676,0-6.9-2.384-6.9-5.103V116.359l131.797,111.27c2.702,2.282,6.138,3.538,9.676,3.538l22.259,0.001  c3.536,0,6.974-1.257,9.677-3.539l131.803-111.274v176.264C343.664,295.336,340.439,297.72,336.764,297.72z M191.059,192.987  L62.87,84.397h256.378L191.059,192.987z" fill="#fc8ba0"/>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+</span><span class="username">viebel@gmail.com</span></a>
+ for getting practical tips and tricks in writing your first interactive blog post.</p>
+  </div>
+</footer>
+
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+    */
+    var disqus_config = function () {
+        this.page.url = "https://blog.klipse.tech/" + "/reagent/2017/03/12/reagent-forms.html";
+        this.page.identifier = "DCB1C486-06AB-4E52-A1CF-5E481884EB80";
+        this.page.title = "Reagent Forms Tutorial";
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//klipse.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+      </div>
+    </div>
+    
+
+
+  </body>
+</html>

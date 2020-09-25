@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="shortcut icon" href="/assets/favicon2.png">
+
+  <title>KLIPSE: how we built it?</title>
+  <meta name="description" content="In this post, we propose a basic tutorial to explain step by step how KLIPSE is build.">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://blog.klipse.tech//clojure/2016/03/21/klipse-tutorial.html">
+  <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- start: facebook -->
+  <meta property="og:title" content="KLIPSE: how we built it?">
+  <meta property="og:image" content="https://blog.klipse.tech/assets/klipse.png">
+  <meta property="og:description" content="In this post, we propose a basic tutorial to explain step by step how KLIPSE is build.">
+  <meta property="og:site_name" content="An interactive journey into functional programming with Yehonathan Sharvit">
+  <meta property="article:author" content="Yehonathan Sharvit">
+  <!-- end: facebook -->
+
+
+</head>
+
+  <body>
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">An interactive journey into functional programming with Yehonathan Sharvit</a>
+
+    <div class="site-title" style="float:right;margin-top:14px;">
+<a class="github-button" href="https://github.com/viebel/klipse" data-size="large" data-show-count="true" aria-label="Star viebel/klipse on GitHub">Klipse</a>
+</div>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav> -->
+
+  </div>
+
+</header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <div class="left-post-header">
+      <img src="https://blog.klipse.tech/assets/klipse.png">
+    </div>
+    <div>
+      <h1 class="post-title" itemprop="name headline">KLIPSE: how we built it?</h1>
+      <p class="post-meta"><time datetime="2016-03-21T07:57:46+02:00" itemprop="datePublished">Mar 21, 2016</time>
+	 •
+	<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">@RaphaelBoukara</span></span>
+	
+	</p>
+    </div>
+
+  </header>
+  <div class="post-content" itemprop="articleBody">
+    <p>In a <a href="http://blog.klipse.tech/clojure/2016/03/17/klipse.html">precedent post</a> you can read the explanation about what is <a href="http://blog.klipse.tech/clojure/2016/03/17/klipse.html">KLIPSE</a> and what was the motivation to build it.
+In this post, you will find a basic tutorial to explain step by step how KLIPSE is build.</p>
+
+<p>Final render of the tutorial:</p>
+
+<p><img src="/assets/klipse_tutorial_final_render.png" alt="KLIPSE Screenshot Tutorial" /></p>
+
+<p>Of course, the design of the app not the subject of the tutorial.</p>
+
+<h3 id="tutorial-summary">Tutorial Summary</h3>
+
+<ol>
+  <li><a href="#init-project">init project</a></li>
+  <li><a href="#figwheel">figwheel</a></li>
+  <li><a href="#compiler-functions">compiler functions</a></li>
+  <li><a href="#omnext">om.next</a></li>
+</ol>
+
+<h2 id="1--init-project">1- Init Project</h2>
+
+<p>Create a new project directory, switch into it, add a <code class="language-plaintext highlighter-rouge">project.clj</code> configuration file to it.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir cljs-compiler
+cd cljs-compiler
+touch project.clj
+</code></pre></div></div>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nf">defproject</span><span class="w"> </span><span class="n">cljs-compiler</span><span class="w"> </span><span class="s">"0.1.0-SNAPSHOT"</span><span class="w">
+  </span><span class="no">:description</span><span class="w"> </span><span class="s">"Eval clojurescript to javascript!"</span><span class="w">
+  </span><span class="no">:dependencies</span><span class="w"> </span><span class="p">[[</span><span class="n">org.clojure/clojure</span><span class="w"> </span><span class="s">"1.7.0"</span><span class="p">]</span><span class="w">
+                 </span><span class="p">[</span><span class="n">org.clojure/clojurescript</span><span class="w"> </span><span class="s">"1.7.170"</span><span class="p">]]</span><span class="w">
+  </span><span class="no">:plugins</span><span class="w"> </span><span class="p">[[</span><span class="n">lein-cljsbuild</span><span class="w"> </span><span class="s">"1.1.2"</span><span class="w"> </span><span class="no">:exclusions</span><span class="w"> </span><span class="p">[[</span><span class="n">org.clojure/clojure</span><span class="p">]]]]</span><span class="w">
+  </span><span class="no">:cljsbuild</span><span class="w"> </span><span class="p">{</span><span class="no">:builds</span><span class="w">
+              </span><span class="p">[{</span><span class="no">:id</span><span class="w"> </span><span class="s">"dev"</span><span class="w">
+                </span><span class="no">:source-paths</span><span class="w"> </span><span class="p">[</span><span class="s">"src"</span><span class="p">]</span><span class="w">
+                </span><span class="no">:compiler</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="no">:main</span><span class="w"> </span><span class="n">cljs-compiler.core</span><span class="w">
+                  </span><span class="no">:asset-path</span><span class="w"> </span><span class="s">"js"</span><span class="w">
+                  </span><span class="no">:output-to</span><span class="w"> </span><span class="s">"resources/public/js/main.js"</span><span class="w">
+                  </span><span class="no">:output-dir</span><span class="w"> </span><span class="s">"resources/public/js"</span><span class="p">}}]})</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Create a <code class="language-plaintext highlighter-rouge">resources/public/index.html</code> file with the following contents:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir -p resources/public
+touch resources/public/index.html
+</code></pre></div></div>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Eval clojurescript to javascript!<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/main.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>Create a file <code class="language-plaintext highlighter-rouge">src/cljs_compiler/core.cljs</code> with the following contents:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir -p src/cljs_compiler
+touch src/cljs_compiler/core.cljs
+</code></pre></div></div>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nf">ns</span><span class="w"> </span><span class="n">cljs_compiler.core</span><span class="p">)</span><span class="w">
+
+</span><span class="p">(</span><span class="nf">enable-console-print!</span><span class="p">)</span><span class="w">
+
+</span><span class="p">(</span><span class="nb">println</span><span class="w"> </span><span class="s">"Hello world!"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lein cljsbuild once dev
+</code></pre></div></div>
+
+<p>Now open the <code class="language-plaintext highlighter-rouge">index.html</code> file in a chrome browser, open the console, great! you can see our “Hello world!” log.</p>
+
+<h2 id="2--figwheel">2- figwheel</h2>
+
+<p>It is a good idea to use <a href="http://localhost:3449/">figwheel</a> to make your devlopment more funny. Add figwheel plugin to your <code class="language-plaintext highlighter-rouge">project.clj</code> and <code class="language-plaintext highlighter-rouge">:figwheel true</code> configuration to your dev compilation configuration:</p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nf">defproject</span><span class="w"> </span><span class="n">cljs-compiler</span><span class="w"> </span><span class="s">"0.1.0-SNAPSHOT"</span><span class="w">
+  </span><span class="no">:description</span><span class="w"> </span><span class="s">"Eval clojurescript to javascript!"</span><span class="w">
+  </span><span class="no">:dependencies</span><span class="w"> </span><span class="p">[[</span><span class="n">org.clojure/clojure</span><span class="w"> </span><span class="s">"1.7.0"</span><span class="p">]</span><span class="w">
+                 </span><span class="p">[</span><span class="n">org.clojure/clojurescript</span><span class="w"> </span><span class="s">"1.7.170"</span><span class="p">]]</span><span class="w">
+  </span><span class="no">:plugins</span><span class="w"> </span><span class="p">[[</span><span class="n">lein-figwheel</span><span class="w"> </span><span class="s">"0.5.0-6"</span><span class="p">]</span><span class="w">
+            </span><span class="p">[</span><span class="n">lein-cljsbuild</span><span class="w"> </span><span class="s">"1.1.2"</span><span class="w"> </span><span class="no">:exclusions</span><span class="w"> </span><span class="p">[[</span><span class="n">org.clojure/clojure</span><span class="p">]]]]</span><span class="w">
+  </span><span class="no">:cljsbuild</span><span class="w"> </span><span class="p">{</span><span class="no">:builds</span><span class="w">
+              </span><span class="p">[{</span><span class="no">:id</span><span class="w"> </span><span class="s">"dev"</span><span class="w">
+                </span><span class="no">:source-paths</span><span class="w"> </span><span class="p">[</span><span class="s">"src"</span><span class="p">]</span><span class="w">
+                </span><span class="no">:figwheel</span><span class="w"> </span><span class="n">true</span><span class="w">
+                </span><span class="no">:compiler</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="no">:main</span><span class="w"> </span><span class="n">cljs-compiler.core</span><span class="w">
+                  </span><span class="no">:asset-path</span><span class="w"> </span><span class="s">"js"</span><span class="w">
+                  </span><span class="no">:output-to</span><span class="w"> </span><span class="s">"resources/public/js/main.js"</span><span class="w">
+                  </span><span class="no">:output-dir</span><span class="w"> </span><span class="s">"resources/public/js"</span><span class="p">}}]})</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Launch figwheel from the terminal:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lein figwheel
+</code></pre></div></div>
+
+<p>or</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rlwrap lein figwheel
+</code></pre></div></div>
+
+<p>Open <code class="language-plaintext highlighter-rouge">http://localhost:3449/</code> in chrome, open console, there is your “Hello world!” log. Now, update <code class="language-plaintext highlighter-rouge">core.cljs</code>:</p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nf">ns</span><span class="w"> </span><span class="n">cljs_compiler.core</span><span class="p">)</span><span class="w">
+
+</span><span class="p">(</span><span class="nf">enable-console-print!</span><span class="p">)</span><span class="w">
+
+</span><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">hello</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="p">(</span><span class="nb">println</span><span class="w"> </span><span class="s">"Hello world!"</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<p>And in the terminal, in the figwheel session:</p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">in-ns</span><span class="w"> </span><span class="ss">'cljs_compiler.core</span><span class="p">)</span><span class="w">
+</span><span class="p">(</span><span class="nf">hello</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">;; repl =&gt; nil</span><span class="w">
+</span><span class="c1">;; chrome console =&gt; "Hello world!"</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="3--compiler-functions">3- compiler functions</h2>
+
+<p>Add to dependencies the <code class="language-plaintext highlighter-rouge">cljs.js</code> namespace.
+Learn more about <code class="language-plaintext highlighter-rouge">cljs.js</code> <a href="https://github.com/clojure/clojurescript/blob/master/src/main/cljs/cljs/js.cljs">here</a>.</p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nf">ns</span><span class="w"> </span><span class="n">cljs_compiler.core</span><span class="w">
+  </span><span class="p">(</span><span class="no">:require</span><span class="w">
+    </span><span class="p">[</span><span class="n">cljs.js</span><span class="w"> </span><span class="no">:as</span><span class="w"> </span><span class="n">cljs</span><span class="p">]))</span><span class="w">
+</span></code></pre></div></div>
+
+<p>You’ll need a callback function as util to handle compilation errors.</p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">callback</span><span class="w"> </span><span class="p">[{</span><span class="no">:keys</span><span class="w"> </span><span class="p">[</span><span class="n">value</span><span class="w"> </span><span class="n">error</span><span class="p">]}]</span><span class="w">
+  </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">[</span><span class="n">status</span><span class="w"> </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="no">:error</span><span class="w"> </span><span class="no">:ok</span><span class="p">)</span><span class="w">
+        </span><span class="n">res</span><span class="w"> </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="n">error</span><span class="w">
+              </span><span class="p">(</span><span class="nb">..</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="n">-cause</span><span class="w"> </span><span class="n">-message</span><span class="p">)</span><span class="w">
+              </span><span class="n">value</span><span class="p">)]</span><span class="w">
+    </span><span class="p">[</span><span class="n">status</span><span class="w"> </span><span class="n">res</span><span class="p">]))</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The function <code class="language-plaintext highlighter-rouge">_compilation</code> will receive a clojurescript source as a string.
+Return [:error “reason”] in case of error and [:ok “js-code”] in case of success.</p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">_compilation</span><span class="w"> </span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="w">
+  </span><span class="p">(</span><span class="nf">cljs/compile-str</span><span class="w"> 
+    </span><span class="p">(</span><span class="nf">cljs/empty-state</span><span class="p">)</span><span class="w"> 
+    </span><span class="n">s</span><span class="w">
+    </span><span class="n">callback</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The function <code class="language-plaintext highlighter-rouge">_eval</code> will receive a clojurescript source as a string and evaluate it.
+Return [:error “reason”] in case of error and [:ok “js-code”] in case of success.</p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">_eval</span><span class="w"> </span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="w">
+  </span><span class="p">(</span><span class="nf">cljs/eval-str</span><span class="w"> 
+    </span><span class="p">(</span><span class="nf">cljs/empty-state</span><span class="p">)</span><span class="w"> 
+    </span><span class="n">s</span><span class="w"> 
+    </span><span class="ss">'test</span><span class="w"> 
+    </span><span class="p">{</span><span class="no">:eval</span><span class="w"> </span><span class="n">cljs/js-eval</span><span class="p">}</span><span class="w"> 
+    </span><span class="n">callback</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The function <code class="language-plaintext highlighter-rouge">_evaluation-js</code> return the jsonify <code class="language-plaintext highlighter-rouge">_eval</code> result.</p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">_evaluation-js</span><span class="w"> </span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="w">
+  </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">[[</span><span class="n">status</span><span class="w"> </span><span class="n">res</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="nf">_eval</span><span class="w"> </span><span class="n">s</span><span class="p">)]</span><span class="w">
+    </span><span class="p">[</span><span class="n">status</span><span class="w"> </span><span class="p">(</span><span class="nf">.stringify</span><span class="w"> </span><span class="n">js/JSON</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="n">nil</span><span class="w"> </span><span class="mi">4</span><span class="p">)]))</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The function <code class="language-plaintext highlighter-rouge">_evaluation-clj</code> return the stringify <code class="language-plaintext highlighter-rouge">_eval</code> result.</p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">_evaluation-clj</span><span class="w"> </span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="w">
+  </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">[[</span><span class="n">status</span><span class="w"> </span><span class="n">res</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="nf">_eval</span><span class="w"> </span><span class="n">s</span><span class="p">)]</span><span class="w">
+    </span><span class="p">[</span><span class="n">status</span><span class="w"> </span><span class="p">(</span><span class="nb">str</span><span class="w"> </span><span class="n">res</span><span class="p">)]))</span><span class="w">
+</span></code></pre></div></div>
+
+<p>In this step you can test the compilation functions using the repl.</p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">in-ns</span><span class="w"> </span><span class="ss">'cljs_compiler.core</span><span class="p">)</span><span class="w">
+</span><span class="p">(</span><span class="nf">_compilation</span><span class="w"> </span><span class="s">"(+ 1 2"</span><span class="p">))</span><span class="w">
+
+</span><span class="c1">;; =&gt; [:ok "(2 + 2);\n"]</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="4--omnext">4- om.next</h2>
+
+<p><a href="https://github.com/omcljs/om/wiki/Quick-Start-(om.next)">Om.next</a> is a great client framework based on <a href="https://facebook.github.io/react/">React</a>. It wasn’t necessary to use it for this small app but it was a cute opportunity to discover it.</p>
+
+<p>Add om.next dependencies to <code class="language-plaintext highlighter-rouge">project.clj</code></p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="c1">;; ...</span><span class="w">
+  </span><span class="no">:dependencies</span><span class="w"> </span><span class="p">[[</span><span class="n">org.clojure/clojure</span><span class="w"> </span><span class="s">"1.7.0"</span><span class="p">]</span><span class="w">
+                 </span><span class="p">[</span><span class="n">org.clojure/clojurescript</span><span class="w"> </span><span class="s">"1.7.170"</span><span class="p">]</span><span class="w">
+                 </span><span class="p">[</span><span class="n">org.omcljs/om</span><span class="w"> </span><span class="s">"1.0.0-alpha22"</span><span class="p">]]</span><span class="w">
+  </span><span class="c1">;; ...</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>and to <code class="language-plaintext highlighter-rouge">core.cljs</code></p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nf">ns</span><span class="w"> </span><span class="n">cljs_compiler.core</span><span class="w">
+  </span><span class="p">(</span><span class="no">:require</span><span class="w">
+    </span><span class="p">[</span><span class="n">cljs.js</span><span class="w"> </span><span class="no">:as</span><span class="w"> </span><span class="n">cljs</span><span class="p">]</span><span class="w">
+    </span><span class="p">[</span><span class="n">goog.dom</span><span class="w"> </span><span class="no">:as</span><span class="w"> </span><span class="n">gdom</span><span class="p">]</span><span class="w">
+    </span><span class="p">[</span><span class="n">om.next</span><span class="w"> </span><span class="no">:as</span><span class="w"> </span><span class="n">om</span><span class="w"> </span><span class="no">:refer-macros</span><span class="w"> </span><span class="p">[</span><span class="n">defui</span><span class="p">]]</span><span class="w">
+    </span><span class="p">[</span><span class="n">om.dom</span><span class="w"> </span><span class="no">:as</span><span class="w"> </span><span class="n">dom</span><span class="p">]))</span><span class="w">
+</span></code></pre></div></div>
+
+<p>You can use an atom to store your local data</p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nf">defonce</span><span class="w"> </span><span class="n">app-state</span><span class="w"> </span><span class="p">(</span><span class="nf">atom</span><span class="w">
+  </span><span class="p">{</span><span class="no">:input</span><span class="w"> </span><span class="s">""</span><span class="w">
+   </span><span class="no">:compilation</span><span class="w"> </span><span class="s">""</span><span class="w"> 
+   </span><span class="no">:evaluation-js</span><span class="w"> </span><span class="s">""</span><span class="w"> 
+   </span><span class="no">:evaluation-clj</span><span class="w"> </span><span class="s">""</span><span class="p">}))</span><span class="w">
+</span></code></pre></div></div>
+
+<p>a read function to read your local data</p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="p">[{</span><span class="no">:keys</span><span class="w"> </span><span class="p">[</span><span class="n">state</span><span class="p">]}</span><span class="w"> </span><span class="nb">key</span><span class="w"> </span><span class="n">params</span><span class="p">]</span><span class="w">
+  </span><span class="p">{</span><span class="no">:value</span><span class="w"> </span><span class="p">(</span><span class="nb">get</span><span class="w"> </span><span class="o">@</span><span class="n">state</span><span class="w"> </span><span class="nb">key</span><span class="w"> </span><span class="s">""</span><span class="p">)})</span><span class="w">
+</span></code></pre></div></div>
+
+<p>a mutation multimethod to mutate your local data</p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">defmulti</span><span class="w"> </span><span class="n">mutate</span><span class="w"> </span><span class="n">om/dispatch</span><span class="p">)</span><span class="w">
+
+</span><span class="p">(</span><span class="k">defmethod</span><span class="w"> </span><span class="n">mutate</span><span class="w"> </span><span class="ss">'input/save</span><span class="w"> </span><span class="p">[{</span><span class="no">:keys</span><span class="w"> </span><span class="p">[</span><span class="n">state</span><span class="p">]}</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="p">{</span><span class="no">:keys</span><span class="w"> </span><span class="p">[</span><span class="n">value</span><span class="p">]}]</span><span class="w">
+  </span><span class="p">{</span><span class="no">:action</span><span class="w"> </span><span class="p">(</span><span class="k">fn</span><span class="w"> </span><span class="p">[]</span><span class="w"> 
+            </span><span class="p">(</span><span class="nf">swap!</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="nb">assoc</span><span class="w"> </span><span class="no">:input</span><span class="w"> </span><span class="n">value</span><span class="p">))})</span><span class="w">
+
+</span><span class="p">(</span><span class="k">defmethod</span><span class="w"> </span><span class="n">mutate</span><span class="w"> </span><span class="ss">'cljs/compile</span><span class="w"> </span><span class="p">[{</span><span class="no">:keys</span><span class="w"> </span><span class="p">[</span><span class="n">state</span><span class="p">]}</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="p">{</span><span class="no">:keys</span><span class="w"> </span><span class="p">[</span><span class="n">value</span><span class="p">]}]</span><span class="w">
+  </span><span class="p">{</span><span class="no">:action</span><span class="w"> </span><span class="p">(</span><span class="k">fn</span><span class="w"> </span><span class="p">[]</span><span class="w"> 
+            </span><span class="p">(</span><span class="nf">swap!</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="n">update</span><span class="w"> </span><span class="no">:compilation</span><span class="w"> 
+              </span><span class="p">(</span><span class="nb">partial</span><span class="w"> </span><span class="n">_compilation</span><span class="w"> </span><span class="n">value</span><span class="p">)))})</span><span class="w">
+
+</span><span class="p">(</span><span class="k">defmethod</span><span class="w"> </span><span class="n">mutate</span><span class="w"> </span><span class="ss">'js/eval</span><span class="w"> </span><span class="p">[{</span><span class="no">:keys</span><span class="w"> </span><span class="p">[</span><span class="n">state</span><span class="p">]}</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="p">{</span><span class="no">:keys</span><span class="w"> </span><span class="p">[</span><span class="n">value</span><span class="p">]}]</span><span class="w">
+  </span><span class="p">{</span><span class="no">:action</span><span class="w"> </span><span class="p">(</span><span class="k">fn</span><span class="w"> </span><span class="p">[]</span><span class="w"> 
+            </span><span class="p">(</span><span class="nf">swap!</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="n">update</span><span class="w"> </span><span class="no">:evaluation-js</span><span class="w"> 
+              </span><span class="p">(</span><span class="nb">partial</span><span class="w"> </span><span class="n">_evaluation-js</span><span class="w"> </span><span class="n">value</span><span class="p">)))})</span><span class="w">
+
+</span><span class="p">(</span><span class="k">defmethod</span><span class="w"> </span><span class="n">mutate</span><span class="w"> </span><span class="ss">'clj/eval</span><span class="w"> </span><span class="p">[{</span><span class="no">:keys</span><span class="w"> </span><span class="p">[</span><span class="n">state</span><span class="p">]}</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="p">{</span><span class="no">:keys</span><span class="w"> </span><span class="p">[</span><span class="n">value</span><span class="p">]}]</span><span class="w">
+  </span><span class="p">{</span><span class="no">:action</span><span class="w"> </span><span class="p">(</span><span class="k">fn</span><span class="w"> </span><span class="p">[]</span><span class="w"> 
+            </span><span class="p">(</span><span class="nf">swap!</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="n">update</span><span class="w"> </span><span class="no">:evaluation-clj</span><span class="w"> 
+              </span><span class="p">(</span><span class="nb">partial</span><span class="w"> </span><span class="n">_evaluation-clj</span><span class="w"> </span><span class="n">value</span><span class="p">)))})</span><span class="w">
+</span></code></pre></div></div>
+
+<p>a parser to say om.next what is your read/mutate functions</p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">def</span><span class="w"> </span><span class="n">parser</span><span class="w"> </span><span class="p">(</span><span class="nf">om/parser</span><span class="w"> </span><span class="p">{</span><span class="no">:read</span><span class="w"> </span><span class="nb">read</span><span class="w"> 
+                        </span><span class="no">:mutate</span><span class="w"> </span><span class="n">mutate</span><span class="p">}))</span><span class="w">
+</span></code></pre></div></div>
+
+<p>a reconciler to merge the result of your mutations to your local data.</p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">def</span><span class="w"> </span><span class="n">reconciler</span><span class="w"> 
+  </span><span class="p">(</span><span class="nf">om/reconciler</span><span class="w"> 
+    </span><span class="p">{</span><span class="no">:state</span><span class="w"> </span><span class="n">app-state</span><span class="w"> 
+     </span><span class="no">:parser</span><span class="w"> </span><span class="n">parser</span><span class="p">}))</span><span class="w">
+</span></code></pre></div></div>
+
+<p>an om transact function, adding for convenience</p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">process-input</span><span class="w"> </span><span class="p">[</span><span class="n">compiler</span><span class="w"> </span><span class="n">s</span><span class="p">]</span><span class="w">
+  </span><span class="p">(</span><span class="nf">om/transact!</span><span class="w"> </span><span class="n">compiler</span><span class="w"> 
+       </span><span class="p">[(</span><span class="nb">list</span><span class="w"> </span><span class="ss">'input/save</span><span class="w">     </span><span class="p">{</span><span class="no">:value</span><span class="w"> </span><span class="n">s</span><span class="p">})</span><span class="w">
+        </span><span class="p">(</span><span class="nb">list</span><span class="w"> </span><span class="ss">'cljs/compile</span><span class="w">   </span><span class="p">{</span><span class="no">:value</span><span class="w"> </span><span class="n">s</span><span class="p">})</span><span class="w">
+        </span><span class="p">(</span><span class="nb">list</span><span class="w"> </span><span class="ss">'js/eval</span><span class="w">        </span><span class="p">{</span><span class="no">:value</span><span class="w"> </span><span class="n">s</span><span class="p">})</span><span class="w">
+        </span><span class="p">(</span><span class="nb">list</span><span class="w"> </span><span class="ss">'clj/eval</span><span class="w">       </span><span class="p">{</span><span class="no">:value</span><span class="w"> </span><span class="n">s</span><span class="p">})]))</span><span class="w">
+</span></code></pre></div></div>
+
+<p>and of course test all that using the repl:</p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">in-ns</span><span class="w"> </span><span class="ss">'cljs_compiler.core</span><span class="p">)</span><span class="w">
+</span><span class="p">(</span><span class="nf">process-input</span><span class="w"> </span><span class="n">reconciler</span><span class="w"> </span><span class="s">"(+ 2 2)"</span><span class="p">)</span><span class="w">
+</span><span class="p">(</span><span class="nf">parser</span><span class="w"> </span><span class="p">{</span><span class="no">:state</span><span class="w"> </span><span class="n">app-state</span><span class="p">}</span><span class="w"> </span><span class="o">'</span><span class="p">[</span><span class="no">:input</span><span class="w"> 
+                             </span><span class="no">:compilation</span><span class="w"> 
+                             </span><span class="no">:evaluation-js</span><span class="w"> 
+                             </span><span class="no">:evaluation-clj</span><span class="p">])</span><span class="w">
+
+</span><span class="c1">;; =&gt; {:input "(+ 2 2)", </span><span class="w">
+</span><span class="c1">;;     :compilation [:ok "(2 + 2);\n"], </span><span class="w">
+</span><span class="c1">;;     :evaluation-js [:ok "4"], </span><span class="w">
+</span><span class="c1">;;     :evaluation-clj [:ok "4"]}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>OK! now you need UI components:
+Build an om component that contains 4 textarea, one for input and one for each compile/eval results.</p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nf">defui</span><span class="w"> </span><span class="n">CompilerUI</span><span class="w">
+  
+  </span><span class="n">static</span><span class="w"> </span><span class="n">om/IQuery</span><span class="w">
+  </span><span class="p">(</span><span class="nf">query</span><span class="w"> </span><span class="p">[</span><span class="n">this</span><span class="p">]</span><span class="w"> 
+    </span><span class="o">'</span><span class="p">[</span><span class="no">:compilation</span><span class="w"> </span><span class="no">:evaluation-js</span><span class="w"> </span><span class="no">:evaluation-clj</span><span class="p">])</span><span class="w">
+  
+  </span><span class="n">Object</span><span class="w">
+  
+  </span><span class="p">(</span><span class="nf">render</span><span class="w"> </span><span class="p">[</span><span class="n">this</span><span class="p">]</span><span class="w">
+    </span><span class="p">(</span><span class="nf">as-&gt;</span><span class="w">
+      </span><span class="p">(</span><span class="nf">om/props</span><span class="w"> </span><span class="n">this</span><span class="p">)</span><span class="w"> </span><span class="n">$</span><span class="w">
+      </span><span class="p">(</span><span class="nf">dom/div</span><span class="w"> </span><span class="n">nil</span><span class="w">
+        </span><span class="p">(</span><span class="nf">input-ui</span><span class="w"> </span><span class="n">this</span><span class="p">)</span><span class="w">
+        </span><span class="p">(</span><span class="nf">compile-cljs-ui</span><span class="w"> </span><span class="n">$</span><span class="p">)</span><span class="w">
+        </span><span class="p">(</span><span class="nf">evaluate-clj-ui</span><span class="w"> </span><span class="n">$</span><span class="p">)</span><span class="w">
+        </span><span class="p">(</span><span class="nf">evaluate-js-ui</span><span class="w"> </span><span class="n">$</span><span class="p">)))))</span><span class="w">
+</span></code></pre></div></div>
+
+<p>and the 4 textareas</p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">input-ui</span><span class="w"> </span><span class="p">[</span><span class="n">reconciler</span><span class="p">]</span><span class="w">
+  </span><span class="p">(</span><span class="nf">dom/section</span><span class="w"> </span><span class="n">nil</span><span class="w">
+    </span><span class="p">(</span><span class="nf">dom/textarea</span><span class="w"> </span><span class="o">#</span><span class="n">js</span><span class="w"> </span><span class="p">{</span><span class="no">:autoFocus</span><span class="w"> </span><span class="n">true</span><span class="w">
+                       </span><span class="no">:onChange</span><span class="w"> </span><span class="o">#</span><span class="p">(</span><span class="nf">process-input</span><span class="w"> 
+                                    </span><span class="n">reconciler</span><span class="w">
+                                    </span><span class="p">(</span><span class="nb">..</span><span class="w"> </span><span class="n">%</span><span class="w"> </span><span class="n">-target</span><span class="w"> </span><span class="n">-value</span><span class="p">))})))</span><span class="w">
+
+</span><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">compile-cljs-ui</span><span class="w"> </span><span class="p">[{</span><span class="no">:keys</span><span class="w"> </span><span class="p">[</span><span class="n">compilation</span><span class="p">]}]</span><span class="w">
+  </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">[[</span><span class="n">status</span><span class="w"> </span><span class="n">result</span><span class="p">]</span><span class="w"> </span><span class="n">compilation</span><span class="p">]</span><span class="w">
+    </span><span class="p">(</span><span class="nf">dom/section</span><span class="w"> </span><span class="n">nil</span><span class="w">
+                 </span><span class="p">(</span><span class="nf">dom/textarea</span><span class="w"> </span><span class="o">#</span><span class="n">js</span><span class="w"> </span><span class="p">{</span><span class="no">:value</span><span class="w"> </span><span class="n">result</span><span class="w">
+                                    </span><span class="no">:readOnly</span><span class="w"> </span><span class="n">true</span><span class="p">}))))</span><span class="w">
+
+</span><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">evaluate-clj-ui</span><span class="w"> </span><span class="p">[{</span><span class="no">:keys</span><span class="w"> </span><span class="p">[</span><span class="n">evaluation-clj</span><span class="p">]}]</span><span class="w">
+  </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">[[</span><span class="n">status</span><span class="w"> </span><span class="n">result</span><span class="p">]</span><span class="w"> </span><span class="n">evaluation-clj</span><span class="p">]</span><span class="w">
+    </span><span class="p">(</span><span class="nf">dom/section</span><span class="w"> </span><span class="n">nil</span><span class="w">
+                 </span><span class="p">(</span><span class="nf">dom/textarea</span><span class="w"> </span><span class="o">#</span><span class="n">js</span><span class="w"> </span><span class="p">{</span><span class="no">:value</span><span class="w"> </span><span class="n">result</span><span class="w">
+                                    </span><span class="no">:readOnly</span><span class="w"> </span><span class="n">true</span><span class="p">}))))</span><span class="w">
+
+</span><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">evaluate-js-ui</span><span class="w"> </span><span class="p">[{</span><span class="no">:keys</span><span class="w"> </span><span class="p">[</span><span class="n">evaluation-js</span><span class="p">]}]</span><span class="w">
+  </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">[[</span><span class="n">status</span><span class="w"> </span><span class="n">result</span><span class="p">]</span><span class="w"> </span><span class="n">evaluation-js</span><span class="p">]</span><span class="w">
+    </span><span class="p">(</span><span class="nf">dom/section</span><span class="w"> </span><span class="n">nil</span><span class="w">
+                 </span><span class="p">(</span><span class="nf">dom/textarea</span><span class="w"> </span><span class="o">#</span><span class="n">js</span><span class="w"> </span><span class="p">{</span><span class="no">:value</span><span class="w"> </span><span class="n">result</span><span class="w">
+                                    </span><span class="no">:readOnly</span><span class="w"> </span><span class="n">true</span><span class="p">}))))</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Go to <a href="http://localhost:3449/">http://localhost:3449/</a>, you have an awesome clojurescript compiler !!!
+Now let’s go! fork it!</p>
+
+
+  </div>
+
+</article>
+<div class="patreon">
+  If you enjoy this kind of interactive articles would you consider a (small) donation💸  on <a href="https://www.patreon.com/bePatron?u=18227864">Patreon</a> or at least giving a star⭐ for the Klispe repo on <a href="https://github.com/viebel/klipse/stargazers"> Github</a>?
+</div>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+
+
+
+<footer class="site-footer">
+  
+  <div class="wrapper" style="
+			      font-size: larger;
+			      color: #5f7fbf;
+			      font-weight: bold;">
+    <p> <span> <!-- <a href="https://twitter.com/viebel">
+  <span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span>
+  <span class="username">viebel</span>
+</a> -->
+
+
+<a href="https://twitter.com/viebel"
+   class="twitter-follow-button" 
+   data-show-count="false" 
+   data-size="large">Follow viebel</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+ </span> to stay up-to-date with the coolest interactive articles around the world.</p>
+    <p> Discover <a href="/"> more cool interactive articles</a> about javascript, clojure[script], python, ruby, scheme, c++ and even brainfuck!</p>
+    <p> Give Klipse a Github star
+      <span>
+  <a class="github-button" href="https://github.com/viebel/klipse" data-size="large" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+      </span>
+      to express how much you appreciate <em>Code Interactivity</em>. </p>
+    <p>
+      <form style="text-align: left;" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	<label for="tlemail">Subscribe to the Klipse newsletter:</label>
+	<input type="email" style="width:180px" name="email" id="tlemail" placeholder="Enter your email address"/>
+	<input type="hidden" value="1" name="embed"/>
+	<input style="padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;" type="submit" value="Subscribe" />
+      </form>
+    </p>
+    <p> Feel free to email me <a href="mailto:viebel@gmail.com?Subject=I%20want%20to%20write%20an%20interactive%20blog%20post%20with%20KLIPSE"><span class="icon icon--github"><?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 382.117 382.117" style="enable-background:new 0 0 382.117 382.117;" xml:space="preserve" width="512px" height="512px">
+<path d="M336.764,45.945H45.354C20.346,45.945,0,65.484,0,89.5v203.117c0,24.016,20.346,43.555,45.354,43.555h291.41  c25.008,0,45.353-19.539,45.353-43.555V89.5C382.117,65.484,361.772,45.945,336.764,45.945z M336.764,297.72H45.354  c-3.676,0-6.9-2.384-6.9-5.103V116.359l131.797,111.27c2.702,2.282,6.138,3.538,9.676,3.538l22.259,0.001  c3.536,0,6.974-1.257,9.677-3.539l131.803-111.274v176.264C343.664,295.336,340.439,297.72,336.764,297.72z M191.059,192.987  L62.87,84.397h256.378L191.059,192.987z" fill="#fc8ba0"/>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+</span><span class="username">viebel@gmail.com</span></a>
+ for getting practical tips and tricks in writing your first interactive blog post.</p>
+  </div>
+</footer>
+
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+    */
+    var disqus_config = function () {
+        this.page.url = "https://blog.klipse.tech/" + "/clojure/2016/03/21/klipse-tutorial.html";
+        this.page.identifier = "";
+        this.page.title = "KLIPSE: how we built it?";
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//klipse.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+      </div>
+    </div>
+    
+
+
+  </body>
+</html>

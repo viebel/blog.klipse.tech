@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="shortcut icon" href="/assets/favicon2.png">
+
+  <title>A tiny compiler: the transformer</title>
+  <meta name="description" content="A tiny compiler: the transformer">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://blog.klipse.tech//javascript/2017/01/25/tiny-compiler-transformer.html">
+  <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- start: facebook -->
+  <meta property="og:title" content="A tiny compiler: the transformer">
+  <meta property="og:image" content="https://blog.klipse.tech/assets/klipse.png">
+  <meta property="og:description" content="A tiny compiler: the transformer">
+  <meta property="og:site_name" content="An interactive journey into functional programming with Yehonathan Sharvit">
+  <meta property="article:author" content="Yehonathan Sharvit">
+  <!-- end: facebook -->
+
+
+</head>
+
+  <body>
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">An interactive journey into functional programming with Yehonathan Sharvit</a>
+
+    <div class="site-title" style="float:right;margin-top:14px;">
+<a class="github-button" href="https://github.com/viebel/klipse" data-size="large" data-show-count="true" aria-label="Star viebel/klipse on GitHub">Klipse</a>
+</div>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav> -->
+
+  </div>
+
+</header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <div class="left-post-header">
+      <img src="https://blog.klipse.tech/assets/klipse.png">
+    </div>
+    <div>
+      <h1 class="post-title" itemprop="name headline">A tiny compiler: the transformer</h1>
+      <p class="post-meta"><time datetime="2017-01-25T08:12:21+02:00" itemprop="datePublished">Jan 25, 2017</time>
+	 •
+	<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Yehonathan Sharvit</span></span>
+	
+	</p>
+    </div>
+
+  </header>
+  <div class="post-content" itemprop="articleBody">
+    <h2 id="the-transformer">The transformer</h2>
+
+<p>Our transformer is going to take the AST that we have built and pass it to a traverser function with a visitor in order to create a new ast.</p>
+
+<p>An AST like this:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>                             
+  <span class="nl">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Program</span><span class="dl">'</span><span class="p">,</span>               
+  <span class="nx">body</span><span class="p">:</span> <span class="p">[{</span>                    
+        <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">CallExpression</span><span class="dl">'</span><span class="p">,</span>   
+        <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">add</span><span class="dl">'</span><span class="p">,</span>              
+        <span class="na">params</span><span class="p">:</span> <span class="p">[{</span>                
+          <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">NumberLiteral</span><span class="dl">'</span><span class="p">,</span>  
+          <span class="na">value</span><span class="p">:</span> <span class="dl">'</span><span class="s1">2</span><span class="dl">'</span>              
+        <span class="p">},</span> <span class="p">{</span>                      
+          <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">CallExpression</span><span class="dl">'</span><span class="p">,</span> 
+          <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">subtract</span><span class="dl">'</span><span class="p">,</span>       
+          <span class="na">params</span><span class="p">:</span> <span class="p">[{</span>              
+            <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">NumberLiteral</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">value</span><span class="p">:</span> <span class="dl">'</span><span class="s1">4</span><span class="dl">'</span>            
+          <span class="p">},</span> <span class="p">{</span>                    
+            <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">NumberLiteral</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">value</span><span class="p">:</span> <span class="dl">'</span><span class="s1">2</span><span class="dl">'</span>            
+          <span class="p">}]</span>                      
+        <span class="p">}]</span>                        
+      <span class="p">}]</span>                          
+<span class="p">}</span>                             
+</code></pre></div></div>
+
+<p>will be transformed in a AST like that:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>									  
+  <span class="nl">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Program</span><span class="dl">'</span><span class="p">,</span>					  
+  <span class="nx">body</span><span class="p">:</span> <span class="p">[{</span>							  
+    <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">ExpressionStatement</span><span class="dl">'</span><span class="p">,</span>	  
+    <span class="na">expression</span><span class="p">:</span> <span class="p">{</span>					  
+      <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">CallExpression</span><span class="dl">'</span><span class="p">,</span>		  
+      <span class="na">callee</span><span class="p">:</span> <span class="p">{</span>					  
+        <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Identifier</span><span class="dl">'</span><span class="p">,</span>		  
+        <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">add</span><span class="dl">'</span>				  
+      <span class="p">},</span>							  
+      <span class="na">arguments</span><span class="p">:</span> <span class="p">[{</span>				  
+        <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">NumberLiteral</span><span class="dl">'</span><span class="p">,</span>		  
+        <span class="na">value</span><span class="p">:</span> <span class="dl">'</span><span class="s1">2</span><span class="dl">'</span>					  
+      <span class="p">},</span> <span class="p">{</span>							  
+        <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">CallExpression</span><span class="dl">'</span><span class="p">,</span>	  
+        <span class="na">callee</span><span class="p">:</span> <span class="p">{</span>					  
+          <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Identifier</span><span class="dl">'</span><span class="p">,</span>		  
+          <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">subtract</span><span class="dl">'</span>			  
+        <span class="p">},</span>							  
+        <span class="na">arguments</span><span class="p">:</span> <span class="p">[{</span>				  
+          <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">NumberLiteral</span><span class="dl">'</span><span class="p">,</span>	  
+          <span class="na">value</span><span class="p">:</span> <span class="dl">'</span><span class="s1">4</span><span class="dl">'</span>				  
+        <span class="p">},</span> <span class="p">{</span>						  
+          <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">NumberLiteral</span><span class="dl">'</span><span class="p">,</span>	  
+          <span class="na">value</span><span class="p">:</span> <span class="dl">'</span><span class="s1">2</span><span class="dl">'</span>				  
+        <span class="p">}]</span>							  
+      <span class="p">}</span>							  
+    <span class="p">}</span>								  
+  <span class="p">}]</span>								  
+<span class="p">}</span> 									  
+</code></pre></div></div>
+
+<p>First, let’s build our visitor…</p>
+
+<h3 id="a-visitor">A visitor</h3>
+
+<p>A visitor receives a node and its parent.</p>
+
+<p>We are going to have a different visitor for each kind of node.</p>
+
+<p>For <code class="language-plaintext highlighter-rouge">NumberLiteral</code> nodes:</p>
+
+<pre><code class="language-eval-js">visitorNumberLiteral =  {
+      enter(node, parent) {
+        parent._context.push({
+          type: 'NumberLiteral',
+          value: node.value,
+        });
+      },
+}
+</code></pre>
+
+<p>For <code class="language-plaintext highlighter-rouge">StringLiteral</code> nodes:</p>
+
+<pre><code class="language-eval-js">visitorStringLiteral = {
+      enter(node, parent) {
+        parent._context.push({
+          type: 'StringLiteral',
+          value: node.value,
+        });
+      },
+    }
+</code></pre>
+
+<p>For <code class="language-plaintext highlighter-rouge">CallExpression</code> nodes:</p>
+
+<pre><code class="language-eval-js">visitorCallExpression = {
+      enter(node, parent) {
+
+        // We start creating a new node `CallExpression` with a nested
+        // `Identifier`.
+        let expression = {
+          type: 'CallExpression',
+          callee: {
+            type: 'Identifier',
+            name: node.name,
+          },
+          arguments: [],
+        };
+
+        // Next we're going to define a new context on the original
+        // `CallExpression` node that will reference the `expression`'s arguments
+        // so that we can push arguments.
+        node._context = expression.arguments;
+
+        // Then we're going to check if the parent node is a `CallExpression`.
+        // If it is not...
+        if (parent.type !== 'CallExpression') {
+
+          // We're going to wrap our `CallExpression` node with an
+          // `ExpressionStatement`. We do this because the top level
+          // `CallExpression` in JavaScript are actually statements.
+          expression = {
+            type: 'ExpressionStatement',
+            expression: expression,
+          };
+        }
+
+        // Last, we push our (possibly wrapped) `CallExpression` to the `parent`'s
+        // `context`.
+        parent._context.push(expression);
+      },
+    }
+</code></pre>
+
+<p>Aggregating the 3 visitors together:</p>
+
+<pre><code class="language-eval-js">visitor = {
+  NumberLiteral: visitorNumberLiteral,
+  StringLiteral: visitorStringLiteral,
+  CallExpression: visitorCallExpression,
+}
+</code></pre>
+
+<h2 id="the-traverser">The traverser</h2>
+
+<p>So now we have our AST, and we want to be able to visit different nodes with a visitor. We need to be able to call the methods on the visitor whenever we encounter a node with a matching type.</p>
+
+<p>So we define a traverser function which accepts an AST and a visitor.</p>
+
+<p>Inside we’re going to define two functions…</p>
+
+<pre><code class="language-eval-js">function traverser(ast, visitor) {
+
+  // A `traverseArray` function that will allow us to iterate over an array and
+  // call the next function that we will define: `traverseNode`.
+  function traverseArray(array, parent) {
+    array.forEach(child =&gt; {
+      traverseNode(child, parent);
+    });
+  }
+
+  // `traverseNode` will accept a `node` and its `parent` node. So that it can
+  // pass both to our visitor methods.
+  function traverseNode(node, parent) {
+
+    // We start by testing for the existence of a method on the visitor with a
+    // matching `type`.
+    let methods = visitor[node.type];
+
+    // If there is an `enter` method for this node type we'll call it with the
+    // `node` and its `parent`.
+    if (methods &amp;&amp; methods.enter) {
+      methods.enter(node, parent);
+    }
+
+    // Next we are going to split things up by the current node type.
+    switch (node.type) {
+
+      // We'll start with our top level `Program`. Since Program nodes have a
+      // property named body that has an array of nodes, we will call
+      // `traverseArray` to traverse down into them.
+      //
+      // (Remember that `traverseArray` will in turn call `traverseNode` so  we
+      // are causing the tree to be traversed recursively)
+      case 'Program':
+        traverseArray(node.body, node);
+        break;
+
+      // Next we do the same with `CallExpression` and traverse their `params`.
+      case 'CallExpression':
+        traverseArray(node.params, node);
+        break;
+
+      // In the cases of `NumberLiteral` and `StringLiteral` we don't have any
+      // child nodes to visit, so we'll just break.
+      case 'NumberLiteral':
+      case 'StringLiteral':
+        break;
+
+      // And again, if we haven't recognized the node type then we'll throw an
+      // error.
+      default:
+        throw new TypeError(node.type);
+    }
+  }
+
+  // Finally we kickstart the traverser by calling `traverseNode` with our ast
+  // with no `parent` because the top level of the AST doesn't have a parent.
+  traverseNode(ast, null);
+}
+</code></pre>
+
+<h2 id="the-transformer-1">The transformer</h2>
+
+<pre><code class="language-eval-js">function transformer(ast) {
+
+  // We'll create a `newAst` which like our previous AST will have a program
+  // node.
+  let newAst = {
+    type: 'Program',
+    body: [],
+  };
+
+  // Next I'm going to cheat a little and create a bit of a hack. We're going to
+  // use a property named `context` on our parent nodes that we're going to push
+  // nodes to their parent's `context`. Normally you would have a better
+  // abstraction than this, but for our purposes this keeps things simple.
+  //
+  // Just take note that the context is a reference *from* the old ast *to* the
+  // new ast.
+  ast._context = newAst.body;
+
+  // We'll start by calling the traverser function with our ast and a visitor.
+  traverser(ast, visitor);
+
+  // At the end of our transformer function we'll return the new ast that we
+  // just created.
+  return newAst;
+}    
+</code></pre>
+
+<pre><code class="language-eval-js">
+</code></pre>
+
+<p>We did it! 
+We have written a full compiler for our Lisp-like language…</p>
+
+  </div>
+
+</article>
+<div class="patreon">
+  If you enjoy this kind of interactive articles would you consider a (small) donation💸  on <a href="https://www.patreon.com/bePatron?u=18227864">Patreon</a> or at least giving a star⭐ for the Klispe repo on <a href="https://github.com/viebel/klipse/stargazers"> Github</a>?
+</div>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?v=8.0.1"></script>
+
+
+
+<footer class="site-footer">
+  
+  <div class="wrapper" style="
+			      font-size: larger;
+			      color: #5f7fbf;
+			      font-weight: bold;">
+    <p> <span> <!-- <a href="https://twitter.com/viebel">
+  <span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span>
+  <span class="username">viebel</span>
+</a> -->
+
+
+<a href="https://twitter.com/viebel"
+   class="twitter-follow-button" 
+   data-show-count="false" 
+   data-size="large">Follow viebel</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+ </span> to stay up-to-date with the coolest interactive articles around the world.</p>
+    <p> Discover <a href="/"> more cool interactive articles</a> about javascript, clojure[script], python, ruby, scheme, c++ and even brainfuck!</p>
+    <p> Give Klipse a Github star
+      <span>
+  <a class="github-button" href="https://github.com/viebel/klipse" data-size="large" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+      </span>
+      to express how much you appreciate <em>Code Interactivity</em>. </p>
+    <p>
+      <form style="text-align: left;" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	<label for="tlemail">Subscribe to the Klipse newsletter:</label>
+	<input type="email" style="width:180px" name="email" id="tlemail" placeholder="Enter your email address"/>
+	<input type="hidden" value="1" name="embed"/>
+	<input style="padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;" type="submit" value="Subscribe" />
+      </form>
+    </p>
+    <p> Feel free to email me <a href="mailto:viebel@gmail.com?Subject=I%20want%20to%20write%20an%20interactive%20blog%20post%20with%20KLIPSE"><span class="icon icon--github"><?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 382.117 382.117" style="enable-background:new 0 0 382.117 382.117;" xml:space="preserve" width="512px" height="512px">
+<path d="M336.764,45.945H45.354C20.346,45.945,0,65.484,0,89.5v203.117c0,24.016,20.346,43.555,45.354,43.555h291.41  c25.008,0,45.353-19.539,45.353-43.555V89.5C382.117,65.484,361.772,45.945,336.764,45.945z M336.764,297.72H45.354  c-3.676,0-6.9-2.384-6.9-5.103V116.359l131.797,111.27c2.702,2.282,6.138,3.538,9.676,3.538l22.259,0.001  c3.536,0,6.974-1.257,9.677-3.539l131.803-111.274v176.264C343.664,295.336,340.439,297.72,336.764,297.72z M191.059,192.987  L62.87,84.397h256.378L191.059,192.987z" fill="#fc8ba0"/>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+</span><span class="username">viebel@gmail.com</span></a>
+ for getting practical tips and tricks in writing your first interactive blog post.</p>
+  </div>
+</footer>
+
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+    */
+    var disqus_config = function () {
+        this.page.url = "https://blog.klipse.tech/" + "/javascript/2017/01/25/tiny-compiler-transformer.html";
+        this.page.identifier = "3304C964-528B-4BBE-8E20-E5A673AB2AC3";
+        this.page.title = "A tiny compiler: the transformer";
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//klipse.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+      </div>
+    </div>
+    
+
+
+  </body>
+</html>

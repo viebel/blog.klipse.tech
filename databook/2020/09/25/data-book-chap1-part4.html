@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="shortcut icon" href="/assets/favicon2.png">
+
+  <title>The complexity of Object Oriented Programming: DO magic sauce</title>
+  <meta name="description" content="The complexity of Object Oriented Programming">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part4.html">
+  <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- start: facebook -->
+  <meta property="og:title" content="The complexity of Object Oriented Programming: DO magic sauce">
+  <meta property="og:image" content="https://blog.klipse.tech/assets/klipse.png">
+  <meta property="og:description" content="The complexity of Object Oriented Programming">
+  <meta property="og:site_name" content="An interactive journey into functional programming with Yehonathan Sharvit">
+  <meta property="article:author" content="Yehonathan Sharvit">
+  <!-- end: facebook -->
+
+
+</head>
+
+  <body>
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">An interactive journey into functional programming with Yehonathan Sharvit</a>
+
+    <div class="site-title" style="float:right;margin-top:14px;">
+<a class="github-button" href="https://github.com/viebel/klipse" data-size="large" data-show-count="true" aria-label="Star viebel/klipse on GitHub">Klipse</a>
+</div>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav> -->
+
+  </div>
+
+</header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <div class="left-post-header">
+      <img src="https://blog.klipse.tech/assets/klipse.png">
+    </div>
+    <div>
+      <h1 class="post-title" itemprop="name headline">The complexity of Object Oriented Programming: DO magic sauce</h1>
+      <p class="post-meta"><time datetime="2020-09-25T07:45:32+03:00" itemprop="datePublished">Sep 25, 2020</time>
+	 •
+	<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Yehonathan Sharvit</span></span>
+	
+	</p>
+    </div>
+
+  </header>
+  <div class="post-content" itemprop="articleBody">
+    <div id="preamble">
+<div class="sectionbody">
+<div>
+  <p>
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  </p>
+
+  <p>
+    More excerpts are available on my <a href="/data-oriented-programming-book.html">blog</a>.
+  </p>
+
+  <p>
+    Enter your email address below to get notified when the book is published.
+  </p>
+
+  <form style="text-align: left;" action="https://tinyletter.com/data-oriented-programming" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	  <input type="email" style="width:180px" name="email" id="tlemail" placeholder="Your email address"/>
+	  <input type="hidden" value="1" name="embed"/>
+	  <input style="padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;" type="submit" value="Subscribe" />
+  </form>
+  <br>
+</div>
+<div class="paragraph">
+<p>According to DO, the main sources of complexity of any OO system - are:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Code and data are mixed</p>
+</li>
+<li>
+<p>Objects are mutable</p>
+</li>
+<li>
+<p>Data is locked in objects as members</p>
+</li>
+<li>
+<p>Code is locked into classes as methods</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>In the <a href="/databook/2020/09/25/data-book-chap1-part3.html">previous part</a>, we explored item #1 and #2.</p>
+</div>
+<div class="paragraph">
+<p>In this part, we are going to explore item #3 and #4.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="whats-wrong-with-you-oo">What's wrong with you OO?</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="data-is-locked-in-objects-as-members">Data is locked in objects as members</h3>
+<div class="paragraph">
+<p>Now, you are really tired and you fall asleep at your desk&#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>You have a dream about Nancy, your customer.</p>
+</div>
+<div class="paragraph">
+<p>In this dream, Nancy would want to make the library management system accessible via a REST API
+using JSON as a transport layer.</p>
+</div>
+<div class="paragraph">
+<p>You would need to implement a <code>/search</code> endpoint that receives
+a query in JSON format and return results in JSON format.</p>
+</div>
+<div class="paragraph">
+<p>An input example of the <code>/search</code> endpoint is shown in <a href="#Listing-search-input-json">A JSON input of the <code>/search</code> endpoint</a>.</p>
+</div>
+<div id="Listing-search-input-json" class="listingblock">
+<div class="title">A JSON input of the <code>/search</code> endpoint</div>
+<div class="content">
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="json"><span style="background-color: #f8f8f8">{</span><span style="color: #bbbbbb">
+  </span><span style="color: #990000;font-weight: bold">"searchCriteria"</span><span style="background-color: #f8f8f8">:</span><span style="color: #bbbbbb"> </span><span style="color: #d14">"author"</span><span style="background-color: #f8f8f8">,</span><span style="color: #bbbbbb">
+  </span><span style="color: #990000;font-weight: bold">"query"</span><span style="background-color: #f8f8f8">:</span><span style="color: #bbbbbb"> </span><span style="color: #d14">"albert"</span><span style="color: #bbbbbb">
+</span><span style="background-color: #f8f8f8">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>An output example of the <code>/search</code> endpoint is shown in <a href="#Listing-search-output-json">A JSON output of the <code>/search</code> endpoint</a>.</p>
+</div>
+<div id="Listing-search-output-json" class="listingblock">
+<div class="title">A JSON output of the <code>/search</code> endpoint</div>
+<div class="content">
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="json"><span style="background-color: #f8f8f8">[</span><span style="color: #bbbbbb">
+    </span><span style="background-color: #f8f8f8">{</span><span style="color: #bbbbbb">
+        </span><span style="color: #990000;font-weight: bold">"title"</span><span style="background-color: #f8f8f8">:</span><span style="color: #bbbbbb"> </span><span style="color: #d14">"The world as I see it"</span><span style="background-color: #f8f8f8">,</span><span style="color: #bbbbbb">
+        </span><span style="color: #990000;font-weight: bold">"authors"</span><span style="background-color: #f8f8f8">:</span><span style="color: #bbbbbb"> </span><span style="background-color: #f8f8f8">[</span><span style="color: #bbbbbb">
+            </span><span style="background-color: #f8f8f8">{</span><span style="color: #bbbbbb">
+                </span><span style="color: #990000;font-weight: bold">"fullName"</span><span style="background-color: #f8f8f8">:</span><span style="color: #bbbbbb"> </span><span style="color: #d14">"Albert Einstein"</span><span style="color: #bbbbbb">
+            </span><span style="background-color: #f8f8f8">}</span><span style="color: #bbbbbb">
+        </span><span style="background-color: #f8f8f8">]</span><span style="color: #bbbbbb">
+    </span><span style="background-color: #f8f8f8">},</span><span style="color: #bbbbbb">
+    </span><span style="background-color: #f8f8f8">{</span><span style="color: #bbbbbb">
+        </span><span style="color: #990000;font-weight: bold">"title"</span><span style="background-color: #f8f8f8">:</span><span style="color: #bbbbbb"> </span><span style="color: #d14">"The Stranger"</span><span style="background-color: #f8f8f8">,</span><span style="color: #bbbbbb">
+        </span><span style="color: #990000;font-weight: bold">"authors"</span><span style="background-color: #f8f8f8">:</span><span style="color: #bbbbbb"> </span><span style="background-color: #f8f8f8">[</span><span style="color: #bbbbbb">
+            </span><span style="background-color: #f8f8f8">{</span><span style="color: #bbbbbb">
+                </span><span style="color: #990000;font-weight: bold">"fullName"</span><span style="background-color: #f8f8f8">:</span><span style="color: #bbbbbb"> </span><span style="color: #d14">"Albert Camus"</span><span style="color: #bbbbbb">
+            </span><span style="background-color: #f8f8f8">}</span><span style="color: #bbbbbb">
+        </span><span style="background-color: #f8f8f8">]</span><span style="color: #bbbbbb">
+    </span><span style="background-color: #f8f8f8">}</span><span style="color: #bbbbbb">
+</span><span style="background-color: #f8f8f8">]</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You would probably implement the <code>/search</code> endpoint by creating three classes similarly to what is
+shown in <a href="#json-search-controller">A class diagram where every class is split into code and data entities</a> (Not surprising: everything in OO has to be wrapped in a class. Right?):</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>SearchController</code> that is responsible for handling the query</p>
+</li>
+<li>
+<p><code>SearchQuery</code> that converts the JSON query string into data</p>
+</li>
+<li>
+<p><code>SearchResult</code> that converts the search result data into a JSON string</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The <code>SearchController</code> would have a single <code>handle</code> method with the following flow:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a <code>SearchQuery</code> object from the JSON query string</p>
+</li>
+<li>
+<p>Retrieve <code>searchCriteria</code> and <code>queryStr</code> from the <code>SearchQuery</code> object</p>
+</li>
+<li>
+<p>Call the <code>search</code> method of the <code>catalog:Catalog</code> with  <code>searchCriteria</code> and <code>queryStr</code> and receives <code>books:List&lt;Book&gt;</code></p>
+</li>
+<li>
+<p>Create a <code>SearchResult</code> object with <code>books</code></p>
+</li>
+<li>
+<p>Convert the <code>SearchResult</code> object to a <code>JSON</code> string</p>
+</li>
+</ol>
+</div>
+<div id="json-search-controller" class="imageblock">
+<div class="content">
+<img src="/uml/json-search-controller.png" alt="json search controller">
+</div>
+<div class="title">Figure 1. A class diagram where every class is split into code and data entities</div>
+</div>
+<div class="paragraph">
+<p>What about other endpoints, for instance allowing librarians to add book items through <code>/add-book-item</code>?</p>
+</div>
+<div class="paragraph">
+<p>Well, you would have to repeat the exact same process and create 3 classes:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>AddBookItemController</code> that is responsible for handling the query</p>
+</li>
+<li>
+<p><code>BookItemQuery</code> that converts the JSON query string into data</p>
+</li>
+<li>
+<p><code>BookItemResult</code> that converts the search result into a JSON string</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The code that deals with JSON deserialization that you wrote previously in <code>SearchQuery</code> would have to
+be rewritten in <code>BookItemQuery</code>.
+Same thing for the code that deals with JSON serialization that you wrote previously in <code>SearchResult</code>:
+it would have to be rewritten in <code>BookItemResult</code>.</p>
+</div>
+<div class="paragraph">
+<p>The bad news is that you would have to repeat the same process for every endpoint of the system.
+Each time you encounter a new kind of JSON input or input, you have to create a new class and write code.</p>
+</div>
+<div class="paragraph">
+<p>Suddenly, you wake up and realize that Nancy never asked for JSON.
+All of the above was a dream, a really bad dream&#8230;&#8203;</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+In OO, data serialization is a nightmare
+</blockquote>
+</div>
+<div class="paragraph">
+<p>It&#8217;s quite frustrating that handling JSON serialization and deserialization in OO requires
+to add so many classes and to write so much code again and again!</p>
+</div>
+<div class="paragraph">
+<p>The frustration gets bigger when you consider that serializing a search query, a book item query or any query is quite similar.
+It comes down to:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Go over data fields</p>
+</li>
+<li>
+<p>Concatenate the name of the data fields and the value of the data field (separated by a comma)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Why such a simple thing is so hard to achieve in OO?</p>
+</div>
+<div class="paragraph">
+<p>The thing is that in OO, data has to follow a rigid shape (defined in classes),
+which means that data is locked in members.
+There is no way to access data generically.</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+In OO, data is locked in classes as members
+</blockquote>
+</div>
+<div class="paragraph">
+<p>We will refine later what we mean by a generic access to the data and
+we will see how DO provides a generic way to handle JSON serialization and deserialization.
+Until then, you will have to continue suffering.
+But at least you know that this suffer is avoidable. (Not sure if it makes your suffer more pleasant or more painful&#8230;&#8203;)</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Most OO programming languages provide ways to ease a bit the conversion from and to JSON. It either involves reflection (which is definitely a complex thing) or code verbosity.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="code-is-locked-into-classes-as-methods">Code is locked into classes as methods</h3>
+<div class="paragraph">
+<p>It is a common belief that OO promotes code reuse through class inheritance.
+Indeed, when every requirement of the system is known up front, you design your class hierarchy is such a way that
+classes with common behavior derive from a base class.
+An example of this pattern is shown in <a href="#class-diagram-librarian-member">The part of the class diagram that deals with members and librarians</a> , that zooms in the part of our
+class diagram that deals with members and librarians.
+Both librarians and members need the ability to login and they inherit this ability form the <code>User</code> class.
+So far so good.</p>
+</div>
+<div id="class-diagram-librarian-member" class="imageblock">
+<div class="content">
+<img src="/uml/class-diagram-librarian-member.png" alt="class diagram librarian member">
+</div>
+<div class="title">Figure 2. The part of the class diagram that deals with members and librarians</div>
+</div>
+<div class="paragraph">
+<p>But when requirements to the system are added after the system is implemented that&#8217;s a completely different story.</p>
+</div>
+<div class="paragraph">
+<p>It&#8217;s Monday 11:00 AM, two days are left before the deadline (which is on Wednesday midnight) and Nancy put your on an urgent phone call.</p>
+</div>
+<div class="paragraph">
+<p>You are not sure if it&#8217;s dream or reality.
+You pinch yourself and you feel the jolt.
+It&#8217;s definitely reality!</p>
+</div>
+- How is the project doing?
+- Fine, Nancy. We are on schedule for the deadline. Running our last round of regression tests.
+- Fantastic! It means we have time for adding a tiny feature to the system. Right?
+- Depends what you mean by "tiny".
+- We need to add VIP members to the system.
+- What do you mean by VIP members?
+- VIP members are members that are allowed to add by themselves book items to the library.
+- Hmm...
+- What?
+- That's not a tiny change!
+- Why?
+<div class="paragraph">
+<p>I am asking you the same question Nancy asked: Why adding VIP members to your system is not a tiny task?</p>
+</div>
+<div class="paragraph">
+<p>After all, you already have written the code that allows librarians to add book items to the library:
+it&#8217;s in <code>Librarian::addBookItem()</code>.
+What prevents you from reusing this code for VIP members?</p>
+</div>
+<div class="paragraph">
+<p>The reason is that in OO, the code is locked into classes as methods.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s see how you would probably handle this last minute request from your customer.</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+VIP members are members that are allowed to add by themselves book items to the library.
+</blockquote>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s decompose the customer requirements into two pieces:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>VIP members are members</p>
+</li>
+<li>
+<p>VIP members are allowed to add by themselves book items to the library</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For sure, you need a new class <code>VIPMember</code>.</p>
+</div>
+<div class="paragraph">
+<p>For requirement #1, it sounds reasonable to make <code>VIPMember</code> derive from <code>Member</code>.</p>
+</div>
+<div class="paragraph">
+<p>However, handling requirement #2 is more complex. We cannot make <code>VIPMember</code> derive from <code>Librarian</code> because the relationship between <code>VIPMember</code> and <code>Librarian</code> is not linear:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>On one hand, VIP members are like librarians as they are allowed to add book items</p>
+</li>
+<li>
+<p>On the other hand, VIP members are not like librarians as they are not allowed to block members or to list the book lendings of a member</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The problem is that the code that adds book items is locked in the <code>Librarian</code> class.
+There is no way for <code>VIPMember</code> class to use this code.</p>
+</div>
+<div class="paragraph">
+<p>One possible solution that makes the code of <code>Librarian::addBookItem()</code> available to both <code>Librarian</code> and <code>VIPMember</code>,
+is shown in <a href="#class-diagram-vip-member">A class diagram for a system with VIP members</a>. Here are the changes to the previous class diagram:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A base class <code>UserWithBookItemRight</code> that extends <code>User</code></p>
+</li>
+<li>
+<p>Move <code>addBookItem()</code> from <code>Librarian</code> to <code>UserWithBookItemRight</code></p>
+</li>
+<li>
+<p>Both <code>VIPMember</code> and <code>Librarian</code> extend <code>UserWithBookItemRight</code></p>
+</li>
+</ol>
+</div>
+<div id="class-diagram-vip-member" class="imageblock">
+<div class="content">
+<img src="/uml/class-diagram-vip-member.png" alt="class diagram vip member">
+</div>
+<div class="title">Figure 3. A class diagram for a system with VIP members</div>
+</div>
+<div class="paragraph">
+<p>That was tough but you were able to handle it on time (thanks to a white night in front of your laptop).
+You were even able to include new tests to the system and running again the regression tests.
+You were so excited that you didn&#8217;t pay attention to the diamond <code>VIPMember</code> introduced in your class diagram,
+(<code>VIPMember</code> extends both <code>Member</code> and <code>UserWithBookItemRight</code> who both extend <code>User</code>)</p>
+</div>
+<div class="paragraph">
+<p>We are Wednesday morning 10:00 AM, 14 hours before the deadline and you call Nancy to tell her the good news:</p>
+</div>
+- We were able to add VIP members to the system on time, Nancy.
+- Fantastic! I told you it was a tiny feature.
+- Hmm...
+- Look, I was to call you anyway. I just finished a meeting with my business partner and we realized that we need another tiny feature before the launch. Will you be able to handle it before the deadline?
+- Again, it depends what you mean by "tiny".
+- We need to add Super members to the system.
+- What do you mean by Super members?
+- Super members are members that are allowed to block and unblock members
+- Hmm...
+- What?
+- That's not a tiny change!
+- Why?
+<div class="paragraph">
+<p>Like with VIP members, adding Super members to the system requires changes to your class hierarchy.
+A possible solution is shown in <a href="#class-diagram-super-member">A class diagram for a system with Super members and VIP members</a>.</p>
+</div>
+<div id="class-diagram-super-member" class="imageblock">
+<div class="content">
+<img src="/uml/class-diagram-super-member.png" alt="class diagram super member">
+</div>
+<div class="title">Figure 4. A class diagram for a system with Super members and VIP members</div>
+</div>
+<div class="paragraph">
+<p>The addition of Super members made the system too complex. You suddenly noticed that you had 3 diamonds in your class diagram:
+not gemstones but 3 Deadly Diamonds of Death!</p>
+</div>
+<div class="paragraph">
+<p>You tried to avoid the diamonds by transforming the <code>User</code> class into an interface and using Composition over Inheritance Design Pattern.
+But with the stress of the deadline coming, you were not able to use all the cells of your brain. (Indeed all the cells of a human brain are required to handle this OO complexity!)</p>
+</div>
+<div class="paragraph">
+<p>In fact, this complexity prevented you from delivering the system before the deadline.</p>
+</div>
+<div class="paragraph">
+<p>You call the customer in order to explain her the situation at 10:00 PM, two hours before the deadline:</p>
+</div>
+- Look Nancy, we really did our best, but we will not be able to add Super members to the system before the deadline
+- No worries, my business partner and I decided to postpone the launch by a week
+- Phew!
+- Do you think that if we add other tiny features next week, you'd be able to handle them on time?
+- Yes
+- How could it be?
+- We are going to refactor the system from Object Oriented to Data Oriented over the weekend.
+- What is Data Oriented?
+- It is a magic sauce that allows developers to write code faster!
+<div class="paragraph">
+<p>By the end of this book, you will belong to the community of happy developers who know the recipe
+of DO magic sauce.</p>
+</div>
+<div class="paragraph">
+<p>You must be tired with all this OO complexity.</p>
+</div>
+<div class="paragraph">
+<p>I invite you to imagine a world with no objects and sing a song. Here are the <a href="/databook/2020/09/25/data-book-chap1-part5.html">lyrics</a>.</p>
+</div>
+<div>
+  <p>
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  </p>
+
+  <p>
+    More excerpts are available on my <a href="/data-oriented-programming-book.html">blog</a>.
+  </p>
+
+  <p>
+    Enter your email address below to get notified when the book is published.
+  </p>
+
+  <form style="text-align: left;" action="https://tinyletter.com/data-oriented-programming" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	  <input type="email" style="width:180px" name="email" id="tlemail" placeholder="Your email address"/>
+	  <input type="hidden" value="1" name="embed"/>
+	  <input style="padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;" type="submit" value="Subscribe" />
+  </form>
+  <br>
+</div>
+</div>
+</div>
+</div>
+  </div>
+
+</article>
+<div class="patreon">
+  If you enjoy this kind of interactive articles would you consider a (small) donation💸  on <a href="https://www.patreon.com/bePatron?u=18227864">Patreon</a> or at least giving a star⭐ for the Klispe repo on <a href="https://github.com/viebel/klipse/stargazers"> Github</a>?
+</div>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+
+
+
+<footer class="site-footer">
+  
+  <div class="wrapper" style="
+			      font-size: larger;
+			      color: #5f7fbf;
+			      font-weight: bold;">
+    <p> <span> <!-- <a href="https://twitter.com/viebel">
+  <span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span>
+  <span class="username">viebel</span>
+</a> -->
+
+
+<a href="https://twitter.com/viebel"
+   class="twitter-follow-button" 
+   data-show-count="false" 
+   data-size="large">Follow viebel</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+ </span> to stay up-to-date with the coolest interactive articles around the world.</p>
+    <p> Discover <a href="/"> more cool interactive articles</a> about javascript, clojure[script], python, ruby, scheme, c++ and even brainfuck!</p>
+    <p> Give Klipse a Github star
+      <span>
+  <a class="github-button" href="https://github.com/viebel/klipse" data-size="large" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+      </span>
+      to express how much you appreciate <em>Code Interactivity</em>. </p>
+    <p>
+      <form style="text-align: left;" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	<label for="tlemail">Subscribe to the Klipse newsletter:</label>
+	<input type="email" style="width:180px" name="email" id="tlemail" placeholder="Enter your email address"/>
+	<input type="hidden" value="1" name="embed"/>
+	<input style="padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;" type="submit" value="Subscribe" />
+      </form>
+    </p>
+    <p> Feel free to email me <a href="mailto:viebel@gmail.com?Subject=I%20want%20to%20write%20an%20interactive%20blog%20post%20with%20KLIPSE"><span class="icon icon--github"><?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 382.117 382.117" style="enable-background:new 0 0 382.117 382.117;" xml:space="preserve" width="512px" height="512px">
+<path d="M336.764,45.945H45.354C20.346,45.945,0,65.484,0,89.5v203.117c0,24.016,20.346,43.555,45.354,43.555h291.41  c25.008,0,45.353-19.539,45.353-43.555V89.5C382.117,65.484,361.772,45.945,336.764,45.945z M336.764,297.72H45.354  c-3.676,0-6.9-2.384-6.9-5.103V116.359l131.797,111.27c2.702,2.282,6.138,3.538,9.676,3.538l22.259,0.001  c3.536,0,6.974-1.257,9.677-3.539l131.803-111.274v176.264C343.664,295.336,340.439,297.72,336.764,297.72z M191.059,192.987  L62.87,84.397h256.378L191.059,192.987z" fill="#fc8ba0"/>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+</span><span class="username">viebel@gmail.com</span></a>
+ for getting practical tips and tricks in writing your first interactive blog post.</p>
+  </div>
+</footer>
+
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+    */
+    var disqus_config = function () {
+        this.page.url = "https://blog.klipse.tech/" + "/databook/2020/09/25/data-book-chap1-part4.html";
+        this.page.identifier = "475A3C20-D7A4-4710-BB7B-544FA6BE1B83";
+        this.page.title = "The complexity of Object Oriented Programming: DO magic sauce";
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//klipse.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+      </div>
+    </div>
+    
+
+
+  </body>
+</html>

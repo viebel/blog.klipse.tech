@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="shortcut icon" href="/assets/favicon2.png">
+
+  <title>Clojure 1.9 introduces clojure.spec: tutorial with live coding examples #cljklipse @viebel</title>
+  <meta name="description" content="spec tutorial clojure klipse live coding examples clojurescript cljs">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://blog.klipse.tech//clojure/2016/05/30/spec.html">
+  <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- start: facebook -->
+  <meta property="og:title" content="Clojure 1.9 introduces clojure.spec: tutorial with live coding examples #cljklipse @viebel">
+  <meta property="og:image" content="https://blog.klipse.tech/assets/klipse.png">
+  <meta property="og:description" content="spec tutorial clojure klipse live coding examples clojurescript cljs">
+  <meta property="og:site_name" content="An interactive journey into functional programming with Yehonathan Sharvit">
+  <meta property="article:author" content="Yehonathan Sharvit">
+  <!-- end: facebook -->
+
+
+</head>
+
+  <body>
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">An interactive journey into functional programming with Yehonathan Sharvit</a>
+
+    <div class="site-title" style="float:right;margin-top:14px;">
+<a class="github-button" href="https://github.com/viebel/klipse" data-size="large" data-show-count="true" aria-label="Star viebel/klipse on GitHub">Klipse</a>
+</div>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav> -->
+
+  </div>
+
+</header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <div class="left-post-header">
+      <img src="https://blog.klipse.tech/assets/klipse.png">
+    </div>
+    <div>
+      <h1 class="post-title" itemprop="name headline">Clojure 1.9 introduces clojure.spec: tutorial with live coding examples #cljklipse @viebel</h1>
+      <p class="post-meta"><time datetime="2016-05-30T19:17:52+03:00" itemprop="datePublished">May 30, 2016</time>
+	 •
+	<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Yehonathan Sharvit</span></span>
+	
+	</p>
+    </div>
+
+  </header>
+  <div class="post-content" itemprop="articleBody">
+    <h1 id="what-is-spec">What is Spec?</h1>
+
+<p>The <code class="language-plaintext highlighter-rouge">spec</code> library specifies the structure of data, validates or destructures it, and can generate data based on the spec. The <code class="language-plaintext highlighter-rouge">clojure.spec</code> (or <code class="language-plaintext highlighter-rouge">cljs.spec</code>) namespace is included in the Clojure core distribution, so no extra library is required to use it. <code class="language-plaintext highlighter-rouge">spec</code> is part of Clojure <code class="language-plaintext highlighter-rouge">1.9</code>.</p>
+
+<p>In this article, we present <code class="language-plaintext highlighter-rouge">spec</code> live coding examples provided by <a href="http://app.klipse.tech?blog=klipse">KLIPSE</a>. (This article is a rewrite of <a href="http://clojure.org/guides/spec">http://clojure.org/guides/spec</a> with live examples instead of static code snippets.)</p>
+
+<p>All the coding examples below are <strong>live</strong> and <strong>editable</strong>:</p>
+
+<ul>
+  <li>the code is executed in your browser while you are reading</li>
+  <li>you can edit the code it is evaluated as you type</li>
+</ul>
+
+<h1 id="setup">Setup</h1>
+
+<p>Let’s start by requiring the <code class="language-plaintext highlighter-rouge">clojure.spec</code> namespace:</p>
+
+<pre><code class="language-klipse">(ns my.spec
+  (:require [clojure.spec.alpha :as s]))
+</code></pre>
+
+<h1 id="predicates">Predicates</h1>
+
+<p>Each spec describes a set of allowed values. There are several ways to build specs and all of them can be composed to build more sophisticated specs.</p>
+
+<p>Any existing Clojure function that takes a single argument and returns a truthy value is a valid predicate spec. We can check whether a particular data value conforms to a spec using conform:</p>
+
+<pre><code class="language-klipse">(s/conform even? 1000)
+</code></pre>
+
+<p>The <code class="language-plaintext highlighter-rouge">conform</code> function takes something that can be a spec and a data value. Here we are passing a predicate which is implicitly converted into a spec. The return value is “conformed”. Here, the conformed value is the same as the original value - we’ll see later where that starts to deviate. If the value does not conform to the spec, the special value <code class="language-plaintext highlighter-rouge">:clojure.spec.alpha/invalid</code> is returned.</p>
+
+<pre><code class="language-klipse">(s/conform even? 999)
+</code></pre>
+
+<p>If you don’t want to use the conformed value or check for <code class="language-plaintext highlighter-rouge">:clojure.spec.alpha/invalid</code>, the helper <code class="language-plaintext highlighter-rouge">valid?</code> can be used instead to return a boolean.</p>
+
+<pre><code class="language-klipse">(s/valid? even? 10)
+</code></pre>
+
+<p>Note that again <code class="language-plaintext highlighter-rouge">valid?</code> implicitly converts the predicate function into a spec. The spec library allows you to leverage all of the functions you already have - there is no special dictionary of predicates. Some more examples:</p>
+
+<pre><code class="language-klipse">(s/valid? nil? nil)
+</code></pre>
+
+<pre><code class="language-klipse">(s/valid? string? "abc")
+</code></pre>
+
+<pre><code class="language-klipse">(s/valid? #(&gt; % 5) 10)
+</code></pre>
+
+<pre><code class="language-klipse">(s/valid? #(&gt; % 5) 0)
+</code></pre>
+
+<p>Sets can also be used as predicates that match one or more literal values:</p>
+
+<pre><code class="language-klipse">(s/valid? #{:club :diamond :heart :spade} :club) 
+</code></pre>
+
+<h1 id="registry">Registry</h1>
+
+<p>Until now, we’ve been using specs directly. However, spec provides a central registry for globally declaring reusable specs. The registry associates a namespaced keyword with a specification. The use of namespaces ensures that we can define reusable non-conflicting specs across libraries or applications.</p>
+
+<p>Specs are registered using def. It’s up to you to register the specification in a namespace that makes sense (typically a namespace you control).</p>
+
+<pre><code class="language-klipse">(s/def ::date #(instance? js/Date %))
+(s/def ::suit #{:club :diamond :heart :spade})
+</code></pre>
+
+<p>A registered spec identifier can be used in place of a spec definition in the operations we’ve seen so far - conform and valid?.</p>
+
+<pre><code class="language-klipse">(s/valid? ::date (js/Date.))
+</code></pre>
+
+<pre><code class="language-klipse">(s/conform ::suit :club)
+</code></pre>
+
+<p>You will see later that registered specs can (and should) be used anywhere we compose specs.</p>
+
+<h1 id="composing-predicates">Composing predicates</h1>
+
+<p>The simplest way to compose specs is with <a href="http://clojure.github.io/clojure/branch-master/clojure.spec-api.html#clojure.spec/and">and</a> and <a href="http://clojure.github.io/clojure/branch-master/clojure.spec-api.html#clojure.spec/or">or</a>. Let’s create a spec that combines several predicates into a composite spec with <code class="language-plaintext highlighter-rouge">s/and</code>:</p>
+
+<pre><code class="language-klipse">(s/def ::big-even (s/and integer? even? #(&gt; % 1000)))
+(s/valid? ::big-even :foo)
+</code></pre>
+
+<pre><code class="language-klipse">(s/valid? ::big-even 10)
+</code></pre>
+
+<pre><code class="language-klipse">(s/valid? ::big-even 100000)
+</code></pre>
+
+<p>We can also use <code class="language-plaintext highlighter-rouge">s/or</code> to specify two alternatives:</p>
+
+<pre><code class="language-klipse">(s/def ::name-or-id (s/or :name string?
+                          :id   integer?))
+(s/valid? ::name-or-id "abc") 
+</code></pre>
+
+<pre><code class="language-klipse">(s/valid? ::name-or-id 100)
+</code></pre>
+
+<pre><code class="language-klipse">(s/valid? ::name-or-id :foo) 
+</code></pre>
+
+<p>This <code class="language-plaintext highlighter-rouge">or</code> spec is the first case we’ve seen that involves a choice during validity checking. Each choice is annotated with a tag (here, <code class="language-plaintext highlighter-rouge">:name</code> and <code class="language-plaintext highlighter-rouge">:id</code>) and those tags give the branches names that can be used to understand or enrich the data returned from conform and other spec functions.</p>
+
+<p>When an <code class="language-plaintext highlighter-rouge">or</code> is conformed, it returns a vector with the tag name and conformed value:</p>
+
+<pre><code class="language-klipse">(s/conform ::name-or-id "abc")
+</code></pre>
+
+<pre><code class="language-klipse">(s/conform ::name-or-id 100)
+</code></pre>
+
+<p>Many predicates that check an instance’s type do not allow <code class="language-plaintext highlighter-rouge">nil</code> as a valid value (<code class="language-plaintext highlighter-rouge">string?</code>, <code class="language-plaintext highlighter-rouge">number?</code>, <code class="language-plaintext highlighter-rouge">keyword?</code>, etc…). To include <code class="language-plaintext highlighter-rouge">nil</code> as a valid value, use the provided function <a href="http://clojure.github.io/clojure/branch-master/clojure.spec-api.html#clojure.spec/nilable">nilable</a> to make a spec:</p>
+
+<pre><code class="language-klipse">(s/valid? string? nil)
+</code></pre>
+
+<pre><code class="language-klipse">(s/valid? (s/nilable string?) nil)
+</code></pre>
+
+<h1 id="explain">Explain</h1>
+
+<p><a href="http://clojure.github.io/clojure/branch-master/clojure.spec-api.html#clojure.spec/explain">explain</a>, <a href="http://clojure.github.io/clojure/branch-master/clojure.spec-api.html#clojure.spec/explain-str">explain-str</a> and <a href="http://clojure.github.io/clojure/branch-master/clojure.spec-api.html#clojure.spec/explain-data">explain-data</a> are another high-level operations in <code class="language-plaintext highlighter-rouge">spec</code> that can be used to report why a value does not conform to a spec. Let’s see it in action with some non-conforming examples we’ve seen so far:</p>
+
+<pre><code class="language-klipse">(with-out-str
+(s/explain ::suit 42))
+</code></pre>
+
+<pre><code class="language-klipse">(s/explain-data ::big-even 5)
+</code></pre>
+
+<pre><code class="language-klipse">(s/explain-str ::name-or-id :foo)
+</code></pre>
+
+<p>The <code class="language-plaintext highlighter-rouge">explain</code> output identifies the problematic value and the predicate it was evaluating. In the last example we see that when there are alternatives, errors across all of the alternatives will be printed.</p>
+
+<p>This is just the beginning of what is possible with <code class="language-plaintext highlighter-rouge">spec</code>. In an upcoming article, we will present more cool features of <code class="language-plaintext highlighter-rouge">spec</code>:</p>
+
+<ul>
+  <li>Sequences</li>
+  <li>Entity maps</li>
+  <li>Multi-spec</li>
+  <li>Collections</li>
+  <li>Validations</li>
+  <li>Functions</li>
+  <li>Macros</li>
+  <li>Conformers</li>
+</ul>
+
+<p>Clojurescript rocks!</p>
+
+
+  </div>
+
+</article>
+<div class="patreon">
+  If you enjoy this kind of interactive articles would you consider a (small) donation💸  on <a href="https://www.patreon.com/bePatron?u=18227864">Patreon</a> or at least giving a star⭐ for the Klispe repo on <a href="https://github.com/viebel/klipse/stargazers"> Github</a>?
+</div>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+
+
+
+<footer class="site-footer">
+  
+  <div class="wrapper" style="
+			      font-size: larger;
+			      color: #5f7fbf;
+			      font-weight: bold;">
+    <p> <span> <!-- <a href="https://twitter.com/viebel">
+  <span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span>
+  <span class="username">viebel</span>
+</a> -->
+
+
+<a href="https://twitter.com/viebel"
+   class="twitter-follow-button" 
+   data-show-count="false" 
+   data-size="large">Follow viebel</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+ </span> to stay up-to-date with the coolest interactive articles around the world.</p>
+    <p> Discover <a href="/"> more cool interactive articles</a> about javascript, clojure[script], python, ruby, scheme, c++ and even brainfuck!</p>
+    <p> Give Klipse a Github star
+      <span>
+  <a class="github-button" href="https://github.com/viebel/klipse" data-size="large" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+      </span>
+      to express how much you appreciate <em>Code Interactivity</em>. </p>
+    <p>
+      <form style="text-align: left;" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	<label for="tlemail">Subscribe to the Klipse newsletter:</label>
+	<input type="email" style="width:180px" name="email" id="tlemail" placeholder="Enter your email address"/>
+	<input type="hidden" value="1" name="embed"/>
+	<input style="padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;" type="submit" value="Subscribe" />
+      </form>
+    </p>
+    <p> Feel free to email me <a href="mailto:viebel@gmail.com?Subject=I%20want%20to%20write%20an%20interactive%20blog%20post%20with%20KLIPSE"><span class="icon icon--github"><?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 382.117 382.117" style="enable-background:new 0 0 382.117 382.117;" xml:space="preserve" width="512px" height="512px">
+<path d="M336.764,45.945H45.354C20.346,45.945,0,65.484,0,89.5v203.117c0,24.016,20.346,43.555,45.354,43.555h291.41  c25.008,0,45.353-19.539,45.353-43.555V89.5C382.117,65.484,361.772,45.945,336.764,45.945z M336.764,297.72H45.354  c-3.676,0-6.9-2.384-6.9-5.103V116.359l131.797,111.27c2.702,2.282,6.138,3.538,9.676,3.538l22.259,0.001  c3.536,0,6.974-1.257,9.677-3.539l131.803-111.274v176.264C343.664,295.336,340.439,297.72,336.764,297.72z M191.059,192.987  L62.87,84.397h256.378L191.059,192.987z" fill="#fc8ba0"/>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+</span><span class="username">viebel@gmail.com</span></a>
+ for getting practical tips and tricks in writing your first interactive blog post.</p>
+  </div>
+</footer>
+
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+    */
+    var disqus_config = function () {
+        this.page.url = "https://blog.klipse.tech/" + "/clojure/2016/05/30/spec.html";
+        this.page.identifier = "EB8AA161-9E33-41DE-B35D-4F2FF2B973D4";
+        this.page.title = "Clojure 1.9 introduces clojure.spec: tutorial with live coding examples #cljklipse @viebel";
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//klipse.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+      </div>
+    </div>
+    
+
+
+  </body>
+</html>

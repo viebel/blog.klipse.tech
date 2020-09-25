@@ -1,0 +1,1052 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2020-09-26T20:27:07+03:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
+</subtitle><author><name>Yehonathan Sharvit</name></author><entry><title type="html">What is Data Oriented Programming?</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap0.html" rel="alternate" type="text/html" title="What is Data Oriented Programming?" /><published>2020-09-25T08:45:32+03:00</published><updated>2020-09-25T08:45:32+03:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap0</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap0.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;the-essence-of-do&quot;&gt;The essence of DO&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This part serves as an introduction and motivation for learning Data Oriented programming.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;On one hand, Data Oriented (DO) programming is simple and natural. On the other hand, it is not usually taught in books and schools and most software developers are not well acquainted with it.
+In order to learn DO properly, you&amp;#8217;ll need first to &lt;em&gt;unlearn&lt;/em&gt; the programming paradigms you are already used to.
+Unlearning requires quite an effort. Before doing this effort, you need to be strongly motivated.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;DO is a profound concept whose essence is not easy to define in words.  It reminds me the first sentence from the ancient Chinese wisdom book &quot;Tao Te Ching&quot;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+Tao that can be spoken of is not the Tao
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The Tao is a Chinese word usually translated as the path. It refers to the main principle of wisdom taught in the book.
+What this sentence says is that when you try to explain what the Tao is, using words, you miss the point. The purpose of the &quot;Tao Te Ching&quot; is to illustrate what the Tao is using examples.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Similarly, the purpose of our book is to illustrate what is DO. After reading the book, you will know what is DO without the need for an abstract definition of it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;As a starting point for our journey in the world of DO, we are going to compare DO with a programming paradigm that differs a lot from it: Object Oriented (OO) programming.
+At the end of this chapter, we will refine what DO is about by comparing it with a programming paradigm that is much closer to it: Functional programming (FP).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;oo-vs-do&quot;&gt;OO vs DO&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In Object Oriented (OO) programming, we model our domain using &lt;em&gt;objects&lt;/em&gt;, that consist of some state together with methods for accessing and manipulating that state. The blueprint of the objects is defined in &lt;em&gt;classes&lt;/em&gt;. We create a class per domain entity type. A method of a class can be used only on objects instantiated from this class. We say that the methods are &lt;em&gt;specific&lt;/em&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In Data Oriented programming, we model our domain using &lt;em&gt;data collections&lt;/em&gt;, that consist of immutable data. We manipulate the data via functions that could work with any data collection. We say that the functions are &lt;em&gt;generic&lt;/em&gt;: they work for any data, no matter what the data represent.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;There are two main things that DO considers a program should avoid:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Mutation of data&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The coupling of code and data&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Most OO developers take those two things for granted.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I will try to explain these two things tend to make our programs more complex than they should be.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When a programming paradigm allows data to be mutated, developers have to add mechanisms to protect their data. For instance, when we pass a piece of data (encapsulated in an object or in a hash map) to a function, we can never be 100% sure that the function won&amp;#8217;t modify our data. In multi-threaded systems, we need all kind of mutexes to prevent other threads to change data at an unexpected time. Mutexes make our code more complicated and cause performance hit.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Object oriented programming has educated us over the years to model the world with objects. Every piece of information should be encapsulated in objects instantiated from classes: we have classes for business entities like customers and products and also for universal programming concepts like dates. In OO, there is no way to aggregate pieces of information without creating a class.  When data is encapsulated in an object it looses its transparency: we can no longer easily inspect the data or serialize it in a generic way (without writing custom code or using reflection).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The basic entities of the DO are immutable collections.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;By collection, we mean something like a dictionary where keys are mainly strings and values are either primitive types or collections. By immutable, we mean that the collections cannot be mutated in place unlike hash maps (or dictionaries) in most programming languages.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;Listing-Customer&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;A simple representation of a customer&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;javascript&quot;&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;{&lt;/span&gt;
+ &lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;name&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #d14&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;John Smith&lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;,&lt;/span&gt;
+ &lt;span style=&quot;background-color: #f8f8f8&quot;&gt;email&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #d14&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;john@smith.com&lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;,&lt;/span&gt;
+ &lt;span style=&quot;background-color: #f8f8f8&quot;&gt;numberOfPurchases&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #009999&quot;&gt;10&lt;/span&gt;
+&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;Listing-Product&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;A simple representation of a product&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;javascript&quot;&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;{&lt;/span&gt;
+ &lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;name&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #d14&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;iPhone 10&lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;,&lt;/span&gt;
+ &lt;span style=&quot;background-color: #f8f8f8&quot;&gt;id&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #d14&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;product-234&lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;,&lt;/span&gt;
+ &lt;span style=&quot;background-color: #f8f8f8&quot;&gt;category&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #d14&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;Electronics&lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;,&lt;/span&gt;
+ &lt;span style=&quot;background-color: #f8f8f8&quot;&gt;price&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #009999&quot;&gt;1000&lt;/span&gt;
+&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;Listing-Order&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;A simple representation of an order&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;javascript&quot;&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;{&lt;/span&gt;
+ &lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;products&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;background-color: #f8f8f8&quot;&gt;[&lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;product-001&lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color: #d14&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;product-234&lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;],&lt;/span&gt;
+ &lt;span style=&quot;background-color: #f8f8f8&quot;&gt;totalAmount&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #009999&quot;&gt;200&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;,&lt;/span&gt;
+ &lt;span style=&quot;background-color: #f8f8f8&quot;&gt;customer&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;:&lt;/span&gt; &lt;span style=&quot;color: #d14&quot;&gt;&quot;&lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;customer-id-345&lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;&quot;&lt;/span&gt;
+&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Immutable collections have 3 important properties:
+* They are immutable
+* They don&amp;#8217;t require a blueprint to instantiated from
+* They can be manipulated with generic functions&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The DO approach guides us to think about data as value. Values never changes. Think about the number 42.  The value of the number 42 will forever stay 42, even when we add to it 10! In the Data Oriented world, the same is true for collections. A collection never changes and that&amp;#8217;s good news for our programs. Inside programs that follow the DO immutability paradigm , collections are manipulated with the same simplicity as we manipulate numbers in any programming language.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Instead of creating classes to model the world, we use universal data collections. Customers, products, orders etc&amp;#8230;&amp;#8203; are all represented as dictionaries with keys and values. The difference between them is that the keys have different names and the values are not of the same type.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Collections are universal. Therefore, we can write functions that manipulate collections without concrete knowledge of the entity that is represented by the collection. For instance, we can write a function that validates the email address field of a collection and pass to this function a customer collection and the name of the field that contains the email address.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We could also change the name of a field in a collection (e.g. renaming &lt;code&gt;email&lt;/code&gt; to &lt;code&gt;emailAddress&lt;/code&gt;) in a generic way.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Compare this flexibility with the rigidity of Object Oriented programming where in order to manipulate an object, you have to be aware of the class of the object (unless you use reflection).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;do-vs-fp&quot;&gt;DO vs FP&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If you have heard about Functional Programming (FP), this might sound familiar to your. Indeed DO and FP share common aspects but they are not the same.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Simplifying a bit, we could say that the two sacred paradigms of OO are:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Write code as methods inside classes&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Encapsulate data as members inside classes&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In a sense, functional programming (FP) is a rebellion against OO first sacred paradigm. FP encourages us to write code inside functions that are not locked in objects. In addition to that, FP treats functions as first class citizens: we are allowed to pass functions as arguments to other functions and to write functions that return functions.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Similarly, we could say that Data oriented (DO) is a rebellion against OO second sacred paradigm. DO encourages us to represent data without the need to specify its shape in advance. In addition to that, DO treats data as an immutable value and as a first class citizen (e.g. we are allowed to inspect the fields of a collection programmatically).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;There are programming languages that embrace FP without embracing DO (e.g. Haskell, Ocaml). In those languages, the shape of the data is rigid and needs to be specified at compile time.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Most programming languages that embrace DO also embrace FP (e.g. Clojure, JavaScript). However, considering functions as first class citizens is not required by OO. In fact, it is possible to apply DO main principles to OO programming languages, by adhering to the following guidelines:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Model business entities with immutable data structures (there exists implementation in most languages)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Write code mainly in static methods that manipulate those immutable data structures&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Are you now motivated to discover the DO world?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Move to &lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part1.html&quot;&gt;Chapter 1&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">Core.match available for self hosted ClojureScript (Planck and Klipse)</title><link href="https://blog.klipse.tech//clojure/2020/09/16/core-match-abbinare.html" rel="alternate" type="text/html" title="Core.match available for self hosted ClojureScript (Planck and Klipse)" /><published>2020-09-16T16:21:32+03:00</published><updated>2020-09-16T16:21:32+03:00</updated><id>https://blog.klipse.tech//clojure/2020/09/16/core-match-abbinare</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/09/16/core-match-abbinare.html">&lt;p&gt;&lt;a href=&quot;https://github.com/clojure/core.match&quot;&gt;core.match&lt;/a&gt; - A pattern matching library for Clojure[script] - is  available for self-hosted &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ClojureScript&lt;/code&gt;. It means that it can run in &lt;a href=&quot;https://github.com/mfikes/planck&quot;&gt;Planck&lt;/a&gt; and &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The code is available as a &lt;a href=&quot;https://github.com/viebel/abbinare&quot;&gt;fork&lt;/a&gt; of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;core.match&lt;/code&gt; called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;abbinare&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The approach is similar to what Mike Fikes did for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;core.async&lt;/code&gt; with &lt;a href=&quot;https://github.com/mfikes/andare&quot;&gt;andare&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Both names comes from italian: “andare” means “go” and “abbinare” means match (in the sense of combine).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/match.jpg&quot; alt=&quot;match&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In order to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;core.match&lt;/code&gt; in Klipse, simply require it and Klipse will fetch &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;abbinare&lt;/code&gt; code from its &lt;a href=&quot;https://viebel.github.io/cljs-analysis-cache/cache/&quot;&gt;analysis cache repository&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;
+(require '[cljs.core.match :refer-macros [match]])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In order to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;core.match&lt;/code&gt; in Planck, add &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;abbinare&lt;/code&gt; as a dependency with:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; [viebel/abbinare &quot;1.10.597&quot;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Here is a quick demo - running in your browser - of a solution to the famous &lt;a href=&quot;https://en.wikipedia.org/wiki/Fizz_buzz&quot;&gt;Fizz buzz&lt;/a&gt; interview question with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;core.match&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(with-out-str (doseq [n (range 1 11)]
+  (println
+    (match [(mod n 3) (mod n 5)]
+           [0 0] &quot;FizzBuzz&quot;
+           [0 _] &quot;Fizz&quot;
+           [_ 0] &quot;Buzz&quot;
+           :else n))))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Want more &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;core.match&lt;/code&gt; cool stuff in your browser? Read this &lt;a href=&quot;/clojure/2016/10/25/core-match.html&quot;&gt;core.match interactive tutorial&lt;/a&gt;.&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">core.match - A pattern matching library for Clojure[script] - is available for self-hosted ClojureScript. It means that it can run in Planck and Klipse.</summary></entry><entry><title type="html">The most elegant implementation of FizzBuzz</title><link href="https://blog.klipse.tech//clojure/2020/09/11/fizbuzz-clj.html" rel="alternate" type="text/html" title="The most elegant implementation of FizzBuzz" /><published>2020-09-11T07:28:22+03:00</published><updated>2020-09-11T07:28:22+03:00</updated><id>https://blog.klipse.tech//clojure/2020/09/11/fizbuzz-clj</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/09/11/fizbuzz-clj.html">&lt;h3 id=&quot;what-is-fizzbuzz&quot;&gt;What is FizzBuzz?&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FizzBuzz&lt;/code&gt; test is an interview question designed to help filter out the 99.5% of programming job candidates who can’t seem to program their way out of a wet paper bag. 
+The text of the programming assignment is as follows:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Write a program that prints the numbers from 1 to 100. But for multiples of three print “Fizz” instead of the number and for the multiples of five print “Buzz”. For numbers which are multiples of both three and five print “FizzBuzz”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;There are a lot of ways to write the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FizzBuzz&lt;/code&gt; program. See for instance &lt;a href=&quot;http://blog.klipse.tech/clojure/2016/10/25/core-match.html#fizzbuzz&quot;&gt;the one using Clojure pattern matching&lt;/a&gt;. 
+Today, I’d like to share with you the most elegant implementation of FizzBuzz I’ve ever seen. It’s elegant because it doesn’t make use of any imperative constructs (like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;if&lt;/code&gt; statements), but only functional programming constructs (like infinite lazy sequences and function composition).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/blog_purity.jpg&quot; alt=&quot;Pure&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This implementation was developed by &lt;a href=&quot;https://dierk.gitbooks.io/fregegoodness/content/src/docs/asciidoc/fizzbuzz.html&quot;&gt;Dierk Konig&lt;/a&gt; and Kevlin Henney presented a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Haskell&lt;/code&gt; version of it - in his amazing talk &lt;a href=&quot;https://youtu.be/nrVIlhtoE3Y&quot;&gt;Declarative Thinking, Declarative Practice&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In this article, we are going to present an interactive version of Kevlin’s code in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Clojure&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-elegant-code&quot;&gt;The elegant code&lt;/h3&gt;
+
+&lt;p&gt;Take a look at this marvel: no &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;if&lt;/code&gt; statements - only 3 infinite lazy sequences and function composition.&lt;/p&gt;
+
+&lt;p&gt;This is exactly what we call -  &lt;strong&gt;Purely Functional&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot; data-gist-id=&quot;viebel/b133efde8669d6c0630ee6895c1797c6&quot;&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And it works like a charm:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(fizzbuzz 19)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Feel free to modify &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;19&lt;/code&gt; - the code snippets are &lt;strong&gt;live&lt;/strong&gt; and &lt;strong&gt;interactive&lt;/strong&gt; powered by the &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse plugin&lt;/a&gt;:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Live&lt;/strong&gt;: The code is executed in your browser&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Interactive&lt;/strong&gt;: You can modify the code and it is evaluated as you type&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If you are a bit skeptic (yet) about the elegance of this implementation, you might want to read &lt;a href=&quot;https://dierk.gitbooks.io/fregegoodness/content/src/docs/asciidoc/fizzbuzz.html&quot;&gt;Dierk Konig’s article&lt;/a&gt;: he explains in details the pragmatic advantages of his code.&lt;/p&gt;
+
+&lt;h3 id=&quot;further-details&quot;&gt;Further details&lt;/h3&gt;
+
+&lt;p&gt;You probably wonder what is this &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;choice&lt;/code&gt; function and why does &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;max&lt;/code&gt; do when it receives 2 strings?&lt;/p&gt;
+
+&lt;p&gt;Well, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ClojureScript&lt;/code&gt; runs on top of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt; - and in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt;, strings are comparable:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(&amp;gt; &quot;Fizz&quot; &quot;&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(max &quot;Fizz&quot; &quot;&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;But that is an ugly trick - that doesn’t work in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Clojure&lt;/code&gt;. So it’s much better to use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;choice&lt;/code&gt; function - that returns the first non-empty string of the two it receives:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(choice &quot;abc&quot; &quot;&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot; data-gist-id=&quot;viebel/564b99b1365d1966342ad0a0977b94b3&quot;&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And it works also:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(fizzbuzz-clean 15)
+&lt;/code&gt;&lt;/pre&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">What is FizzBuzz?</summary></entry><entry><title type="html">Generative testing in Clojure with test.check</title><link href="https://blog.klipse.tech//clojure/2020/09/11/test-check-clj.html" rel="alternate" type="text/html" title="Generative testing in Clojure with test.check" /><published>2020-09-11T05:11:22+03:00</published><updated>2020-09-11T05:11:22+03:00</updated><id>https://blog.klipse.tech//clojure/2020/09/11/test-check-clj</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/09/11/test-check-clj.html">&lt;h3 id=&quot;the-idea&quot;&gt;The idea&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/clojure/test.check&quot;&gt;test.check&lt;/a&gt; is a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Clojure&lt;/code&gt; property-based testing tool inspired by &lt;a href=&quot;https://en.wikipedia.org/wiki/QuickCheck&quot;&gt;QuickCheck&lt;/a&gt; from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Haskell&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The core idea of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;test.check&lt;/code&gt; is that instead of enumerating expected input and output for unit tests, you write properties about your function that should
+hold true for all inputs.&lt;/p&gt;
+
+&lt;p&gt;This lets you write concise, powerful tests.&lt;/p&gt;
+
+&lt;p&gt;In a sense it gives you the illusion that you deal with the infinity.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/infinity.jpg&quot; alt=&quot;Infinity&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;code-examples&quot;&gt;Code examples&lt;/h4&gt;
+
+&lt;p&gt;First, let’s require &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;test.check&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot; data-external-libs=&quot;https://raw.githubusercontent.com/clojure/test.check/master/src/main/clojure&quot;&gt;
+(ns my.test
+  (:require [clojure.test.check :as tc]
+            [clojure.test.check.generators :as gen]
+            [clojure.test.check.properties :as prop :include-macros true]))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let’s say we’re testing a sort function. We want to check that that our sort function is &lt;strong&gt;idempotent&lt;/strong&gt; - that is, applying sort twice should be equivalent to
+applying it once: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(= (sort a) (sort (sort a)))&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let’s write a quick test to make sure this is the case:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(def sort-idempotent-prop
+  (prop/for-all [v (gen/vector gen/int)]
+    (= (sort v) (sort (sort v)))))
+
+(tc/quick-check 100 sort-idempotent-prop)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In prose, this test reads: for all vectors of integers, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;v&lt;/code&gt;, sorting &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;v&lt;/code&gt; is equal to sorting &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;v&lt;/code&gt; twice.&lt;/p&gt;
+
+&lt;p&gt;What happens if our test fails? &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;test.check&lt;/code&gt; will try and find ‘smaller’ inputs that still fail. This process is called &lt;strong&gt;shrinking&lt;/strong&gt;. Let’s see it in action:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(def prop-sorted-first-less-than-last
+  (prop/for-all [v (gen/not-empty (gen/vector gen/int))]
+    (let [s (sort v)]
+      (&amp;lt; (first s) (last s)))))
+
+(tc/quick-check 100 prop-sorted-first-less-than-last)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This test claims that the first element of a sorted vector should be less-than the last. Of course, this isn’t true: the test fails with input &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[3]&lt;/code&gt;, which gets shrunk down to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[0]&lt;/code&gt;, as seen in the output above.&lt;/p&gt;
+
+&lt;h3 id=&quot;deterministic-randomness&quot;&gt;Deterministic Randomness&lt;/h3&gt;
+
+&lt;p&gt;Each time you call &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tc/quick-check&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;test.check&lt;/code&gt; generates different test cases - as you can see in this two examples where the failing test cases are always different:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(:fail (tc/quick-check 100 prop-sorted-first-less-than-last))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(:fail (tc/quick-check 100 prop-sorted-first-less-than-last))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But what if you want to re-run exactly the same values?&lt;/p&gt;
+
+&lt;p&gt;No problem: pass &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:seed&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tc/quick-check&lt;/code&gt; and you’ll run always the same values:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(:fail (tc/quick-check 100 prop-sorted-first-less-than-last :seed 1477508406394))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(:fail (tc/quick-check 100 prop-sorted-first-less-than-last :seed 1477508406394))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;shrinking&quot;&gt;Shrinking&lt;/h3&gt;
+&lt;p&gt;As your test functions require more  sophisticated input, shrinking becomes critical to being able to understand exactly why a random test failed.
+To see how powerful shrinking is, let’s come up with a contrived example: a function that fails if it’s passed a sequence that contains the number &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;12&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(def prop-no-12
+  (prop/for-all [v (gen/vector gen/int)]
+    (not (some #{12} v))))
+
+(tc/quick-check 100 prop-no-12)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We see that the test failed on a rather large vector, as seen in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:fail&lt;/code&gt; key. But then &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;test.check&lt;/code&gt; was able to shrink the input down to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[12]&lt;/code&gt;, as seen in the keys &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[:shrunk :smallest]&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;zipmap&quot;&gt;zipmap&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(zipmap keys vals)&lt;/code&gt; allows you to creates a map with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;keys&lt;/code&gt; mapped to the corresponding &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vals&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(keys map)&lt;/code&gt; retrieves the keys of a map.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(vals map)&lt;/code&gt; retrieves the values of a map.&lt;/p&gt;
+
+&lt;p&gt;But how well do they combine together?&lt;/p&gt;
+
+&lt;p&gt;According to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;keys&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vals&lt;/code&gt; docstrings, the keys and the values are returned in the same order - the order of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(seq map)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;And indeed, for map with 100 pairs of random integers, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zipmap&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;keys&lt;/code&gt; and  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vals&lt;/code&gt; are consistent:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(def n 100)
+(def mm (zipmap (shuffle (range n)) (shuffle (range n))))
+[(count mm) (= mm (zipmap (keys mm) (vals mm)))]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can try to increase the value of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; - and it will remain true. But is it a proof? What about keys and values from other types?&lt;/p&gt;
+
+&lt;p&gt;Let’s check it for sure - using a more advanced random genertor, provided by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;test.check&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(def random-map (gen/map (gen/one-of [gen/keyword gen/string gen/boolean gen/int gen/symbol]) gen/int))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(gen/one-of generators)&lt;/code&gt; creates a generator that randomly chooses a value from the list of
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;generators&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(gen/map map key-gen val-gen)&lt;/code&gt; creates a generator that generates maps, with keys chosen from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;key-gen&lt;/code&gt; and values chosen from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;val-gen&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let’s look at some samples - with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gen/sample&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(gen/sample random-map)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, we can test the consistency of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zipmap&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;keys&lt;/code&gt; and  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vals&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(def zipmap-keys-vals-consistency
+  (prop/for-all [m (gen/map (gen/one-of [gen/keyword gen/string gen/boolean gen/int gen/symbol]) gen/int)]
+                  (= m (zipmap (keys m) (vals m)))))
+
+(tc/quick-check 15 zipmap-keys-vals-consistency)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It seems that the docstrings were right: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zipmap&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;keys&lt;/code&gt; and  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vals&lt;/code&gt; are consistent.&lt;/p&gt;
+
+&lt;p&gt;Check &lt;a href=&quot;http://clojure.github.io/test.check/index.html&quot;&gt;test.check documentation&lt;/a&gt; for additional functions and explanations.&lt;/p&gt;
+
+&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h3&gt;
+
+&lt;p&gt;I hope that you enjoyed this interactive tutorial about generative testing in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;clojure&lt;/code&gt;. This is really a powerful paradigm that might change forever the way you write and think about testing. And who know? Maybe it will catch a bug or two…&lt;/p&gt;
+
+&lt;p&gt;Please forward it to your friends if you liked it and share your critics on &lt;a href=&quot;https://twitter.com/viebel&quot;&gt;twitter @viebel&lt;/a&gt; or on slack &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;#klipse&lt;/code&gt; channel.&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">The idea test.check is a Clojure property-based testing tool inspired by QuickCheck from Haskell.</summary></entry><entry><title type="html">Symbolic Computation in JavaScript with Math.js</title><link href="https://blog.klipse.tech//javascript/2020/09/10/symbolic-computation-math-js.html" rel="alternate" type="text/html" title="Symbolic Computation in JavaScript with Math.js" /><published>2020-09-10T17:08:22+03:00</published><updated>2020-09-10T17:08:22+03:00</updated><id>https://blog.klipse.tech//javascript/2020/09/10/symbolic-computation-math-js</id><content type="html" xml:base="https://blog.klipse.tech//javascript/2020/09/10/symbolic-computation-math-js.html">&lt;p&gt;&lt;a href=&quot;http://mathjs.org/index.html&quot;&gt;Math.js&lt;/a&gt; is an extensive math library for JavaScript and Node.js.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Math.js&lt;/code&gt; comes with a function &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;math.evaluate&lt;/code&gt; to evaluate expressions.&lt;/p&gt;
+
+&lt;p&gt;In this blog post, we are going to see the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Math.js&lt;/code&gt; evaluator in action with interactive code snippets powered by the &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse plugin&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pi.tedcdn.com/r/pf.tedcdn.com/images/playlists/hated_math_1200x627.jpg?c=1050%2C550&amp;amp;w=1050&quot; alt=&quot;Math&quot; /&gt;&lt;/p&gt;
+
+&lt;pre class=&quot;hidden&quot;&gt;&lt;code class=&quot;language-js&quot; data-external-libs=&quot;https://raw.githubusercontent.com/josdejong/mathjs/master/dist/math.min.js&quot;&gt;
+  Object.keys(math)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;simple-expressions&quot;&gt;Simple expressions&lt;/h1&gt;
+
+&lt;p&gt;Easy power:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;math.evaluate('sqrt(3^2 + 4^2)'); 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Implicit multiplication:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;math.evaluate('(2+3)(4+5)');  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Complex numbers:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;math.evaluate('sqrt(-1)').toString();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;math.evaluate('sqrt(1+i)').toString();  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Easy trigonometry:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;math.evaluate('cos(pi)')
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;But the real power of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Math.js&lt;/code&gt; comes with the ability to define symbolic expressions…&lt;/p&gt;
+
+&lt;h1 id=&quot;defining-symbolic-functions&quot;&gt;Defining symbolic functions&lt;/h1&gt;
+
+&lt;p&gt;First, we need to create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scope&lt;/code&gt; for our evaluation environment: The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scope&lt;/code&gt; is a regular JavaScript Object that is used to resolve symbols, and to write assigned variables or function.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;scope = {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then, we can create functions:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;math.evaluate('bar(x,y) = (x+y)(x-y)', scope)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And call them:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;math.evaluate('bar(10,5)', scope)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, let’s check that for any angle, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sinus squared + cosinus squared&lt;/code&gt; equals 1:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;math.evaluate('amp(x,y) = sqrt(x^2 + y^2)', scope)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;math.evaluate('foo(x)=amp(sin(x), cos(x))', scope)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;math.evaluate('foo(pi/2)',scope)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I hope that I have been able to trigger your curiousity about &lt;a href=&quot;http://mathjs.org/index.html&quot;&gt;Math.js&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;And that you cannot wait to use the &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse plugin&lt;/a&gt; on your next blog post.&lt;/p&gt;
+
+&lt;p&gt;Happy interactive coding!&lt;/p&gt;
+
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjs/7.2.0/math.min.js&quot; integrity=&quot;sha512-4VdpCxbABk7wjJb/9z/d3EyibeHwUY0FgHbFO4EiIPVtyyV6llhENCvzRk8SH5D86+Jwm6QLagqRRnEJCd3gJg==&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">Math.js is an extensive math library for JavaScript and Node.js.</summary></entry><entry><title type="html">Procedural Texture Generator in JavaScript</title><link href="https://blog.klipse.tech//javascript/2020/09/10/procedural-texture-generator-javascript.html" rel="alternate" type="text/html" title="Procedural Texture Generator in JavaScript" /><published>2020-09-10T07:23:22+03:00</published><updated>2020-09-10T07:23:22+03:00</updated><id>https://blog.klipse.tech//javascript/2020/09/10/procedural-texture-generator-javascript</id><content type="html" xml:base="https://blog.klipse.tech//javascript/2020/09/10/procedural-texture-generator-javascript.html">&lt;p&gt;The code snippets are powered by the &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse plugin&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;First, let’s load &lt;a href=&quot;https://github.com/mrdoob/texgen.js&quot;&gt;texgen.js&lt;/a&gt; - a Procedural Texture Generator javascript library - from github:&lt;/p&gt;
+
+&lt;pre&gt;
+&lt;code class=&quot;language-eval-js&quot; data-external-libs=&quot;https://raw.githubusercontent.com/mrdoob/texgen.js/master/src/TexGen.js&quot;&gt;
+Object.keys(TG).length;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre class=&quot;hidden&quot;&gt;
+&lt;code class=&quot;language-eval-js&quot;&gt;
+function render(texture) {
+  container.innerHTML = &quot;&quot;;  
+  container.appendChild(texture.toCanvas());
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, let’s create a nice texture:&lt;/p&gt;
+
+&lt;pre&gt;
+&lt;code class=&quot;language-eval-js&quot; data-preamble=&quot;container =document.getElementById('c0');&quot;&gt;
+var texture = new TG.Texture( 256, 256 )
+    .add( new TG.XOR().tint( 1, 0.5, 0.7 ) )
+    .add( new TG.SinX().frequency( 0.004 ).tint( 0.5, 0, 0 ) )
+    .mul( new TG.SinY().frequency( 0.004 ).tint( 0.5, 0, 0 ) )
+    .add( new TG.SinX().frequency( 0.0065 ).tint( 0.1, 0.5, 0.2 ) )
+    .add( new TG.SinY().frequency( 0.0065 ).tint( 0.5, 0.5, 0.5 ) )
+    .add( new TG.Noise().tint( 0.1, 0.1, 0.2 ) );
+
+render(texture);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div id=&quot;c0&quot;&gt;&lt;/div&gt;
+
+&lt;p&gt;Go ahead! Feel free to play with the code above and see how the texture is rendered as you modify the code.&lt;/p&gt;
+
+&lt;p&gt;The library is not well documented, but the function names are quite expressive…&lt;/p&gt;
+
+&lt;p&gt;And here is another texture:&lt;/p&gt;
+
+&lt;pre&gt;
+&lt;code class=&quot;language-eval-js&quot; data-preamble=&quot;container =document.getElementById('c1');&quot;&gt;
+
+var texture = new TG.Texture( 256, 256 )
+					.add( new TG.SinX().offset( - 16 ).frequency( 0.03 ).tint( 0.1, 0.25, 0.5 ) )
+					.add( new TG.SinY().offset( - 16 ).frequency( 0.03 ).tint( 0.1, 0.25, 0.5 ) )
+					.add( new TG.Number().tint( 0.75, 0.5, 0.5 ) )
+					.add( new TG.SinX().frequency( 0.03 ).tint( 0.2, 0.2, 0.2 ) )
+					.add( new TG.SinY().frequency( 0.03 ).tint( 0.2, 0.2, 0.2 ) )
+					.add( new TG.Noise().tint( 0.1, 0, 0 ) )
+					.add( new TG.Noise().tint( 0, 0.1, 0 ) )
+					.add( new TG.Noise().tint( 0, 0, 0.1 ) );
+
+render(texture);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div id=&quot;c1&quot;&gt;&lt;/div&gt;
+
+&lt;p&gt;Enjoy the code interactivity!&lt;/p&gt;
+
+&lt;p&gt;The code snippets are powered by the &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse plugin&lt;/a&gt;.&lt;/p&gt;
+
+&lt;style&gt;
+canvas {
+  border: rgb(35, 41, 45) 1px solid;
+  margin: 10px 20px;
+}
+			
+&lt;/style&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">The code snippets are powered by the Klipse plugin.</summary></entry><entry><title type="html">A new way of blogging about HTML and CSS</title><link href="https://blog.klipse.tech//clojure/2020/09/10/new-way-html-css.html" rel="alternate" type="text/html" title="A new way of blogging about HTML and CSS" /><published>2020-09-10T07:13:14+03:00</published><updated>2020-09-10T07:13:14+03:00</updated><id>https://blog.klipse.tech//clojure/2020/09/10/new-way-html-css</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/09/10/new-way-html-css.html">&lt;p&gt;Imagine you want to write a blog post that shows something really cool about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;html&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;css&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;How would you do that? You will probably embed a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jsfiddle&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jsbin&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;codepen&lt;/code&gt; in your page. The problem is that for each snippet you have to create a page on their server and embed an iframe in your page.&lt;/p&gt;
+
+&lt;p&gt;Today, we are going to show a new way of blogging about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;html&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;css&lt;/code&gt; in a much more lighweight way: we are going to have our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;html&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;css&lt;/code&gt; code in our page and use &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;the Klipse plugin&lt;/a&gt; to transform the code into an interactive code snippet.&lt;/p&gt;
+
+&lt;h2 id=&quot;hello-world&quot;&gt;Hello World&lt;/h2&gt;
+
+&lt;p&gt;First, let’s have an interactive &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;html&lt;/code&gt; “Hello World”:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-html&quot;&gt;&amp;lt;div&amp;gt; Hello &amp;lt;b&amp;gt; World&amp;lt;/b&amp;gt; &amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;An image:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-html&quot;&gt;&amp;lt;p&amp;gt; I have invented HTML &amp;lt;/p&amp;gt;
+&amp;lt;img src=&quot;/assets/tim.jpg&quot; width=&quot;300&quot;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Go ahead, play with the code: it is re-rendered as you type…&lt;/p&gt;
+
+&lt;p&gt;And you can even add &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;css&lt;/code&gt; using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;style&amp;gt;&lt;/code&gt; tag:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-html&quot;&gt;&amp;lt;style&amp;gt;  
+#lea {
+    display: inline-block;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 0 5px 5px black;
+    padding: 5px;
+    transition: 0.3s;
+}
+#lea:hover {
+    box-shadow: 0 0 5px 5px green;
+}
+&amp;lt;/style&amp;gt;  
+&amp;lt;div&amp;gt; I am a CSS Guru. &amp;lt;/div&amp;gt;  
+&amp;lt;div&amp;gt; If you hover on my picture, the shadow will change...&amp;lt;/div&amp;gt;  
+&amp;lt;img id=&quot;lea&quot; src=&quot;/assets/lea.jpg&quot; width=&quot;300&quot;&amp;gt; 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;svg&quot;&gt;SVG&lt;/h2&gt;
+
+&lt;p&gt;It becomes really cool when you start to play with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SVG&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-html&quot;&gt;&amp;lt;svg width=&quot;100%&quot; height=&quot;400&quot; viewBox=&quot;0 0 300 200&quot;&amp;gt;
+  &amp;lt;path d=&quot;M3.9,74.8c0,0,0-106.4,75.5-42.6S271.8,184,252.9,106.9s-47.4-130.9-58.2-92s59.8,111.2-32.9,126.1 S5.9,138.6,3.9,90z&quot;
+      fill=&quot;none&quot; id=&quot;theMotionPath&quot; stroke=&quot;brown&quot;/&amp;gt;
+  &amp;lt;g stroke-width=&quot;2&quot; stroke=&quot;black&quot; fill=&quot;white&quot;&amp;gt;
+    &amp;lt;circle r=&quot;20&quot;/&amp;gt;
+    &amp;lt;circle r=&quot;2&quot; cx=&quot;-7&quot; cy=&quot;-5&quot;/&amp;gt;
+    &amp;lt;circle r=&quot;2&quot; cx=&quot;7&quot; cy=&quot;-5&quot;/&amp;gt;
+    &amp;lt;path d=&quot;M -10 5 Q 0 15 10 5&quot;/&amp;gt;
+    &amp;lt;animateMotion dur=&quot;4s&quot; repeatCount=&quot;indefinite&quot;  rotate=&quot;auto&quot;&amp;gt;
+      &amp;lt;mpath xlink:href=&quot;#theMotionPath&quot;/&amp;gt;
+    &amp;lt;/animateMotion&amp;gt;
+  &amp;lt;/g&amp;gt;
+&amp;lt;/svg&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or like that:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-html&quot;&gt;&amp;lt;svg width=&quot;100%&quot; height=&quot;300&quot;&amp;gt;
+   &amp;lt;g stroke-width=&quot;5&quot; stroke=&quot;lightgreen&quot; fill=&quot;none&quot;
+      transform=&quot;translate(150,100) scale(3)&quot;
+      style=&quot;stroke-dasharray: 3; animation: dash-spin 5s linear infinite;&quot;&amp;gt;
+    &amp;lt;circle r=&quot;20&quot;/&amp;gt;
+    &amp;lt;circle r=&quot;2&quot; cx=&quot;-7&quot; cy=&quot;-5&quot;/&amp;gt;
+    &amp;lt;circle r=&quot;2&quot; cx=&quot;7&quot; cy=&quot;-5&quot;/&amp;gt;
+    &amp;lt;path d=&quot;M -10 5 Q 0 15 10 5&quot;/&amp;gt;
+    &amp;lt;text x=&quot;0&quot; y=&quot;35&quot; font-family=&quot;Verdana&quot; font-size=&quot;30&quot; text-anchor=&quot;middle&quot;
+          fill=&quot;red&quot; stroke=&quot;blue&quot; stroke-width=&quot;2&quot;&amp;gt;
+      Klipse
+    &amp;lt;/text&amp;gt;
+  &amp;lt;/g&amp;gt;
+&amp;lt;/svg&amp;gt;
+&amp;lt;style&amp;gt;@keyframes dash-spin { to { stroke-dashoffset: 100; } }&amp;lt;/style&amp;gt;
+&amp;lt;/svg&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;the-grand-finale&quot;&gt;The Grand Finale&lt;/h2&gt;
+
+&lt;p&gt;And now for the Grand Finale, a &lt;strong&gt;universal Klipse machine&lt;/strong&gt;: an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Html&lt;/code&gt; Klipse snippet of an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iframe&lt;/code&gt; of a document that includes Klipse &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt; tag and a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Javascript&lt;/code&gt; and an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HTML&lt;/code&gt; Klipse snippet:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-html&quot;&gt;&amp;lt;iframe style=&quot;overflow: scroll;&quot; height=&quot;450&quot; width=&quot;500&quot;  
+        srcdoc=&quot;  
+                &amp;lt;!DOCTYPE html&amp;gt;  
+                &amp;lt;head&amp;gt;  
+                &amp;lt;meta charset='utf-8'&amp;gt;
+                &amp;lt;link rel='stylesheet' type='text/css' href='https://storage.googleapis.com/app.klipse.tech/css/codemirror.css'&amp;gt;
+                &amp;lt;/head&amp;gt;  
+                &amp;lt;h2&amp;gt; A JavaScript interactive snippet:&amp;lt;/h2&amp;gt;
+                &amp;lt;div class='js'&amp;gt;[1, 2, 3].map((x) =&amp;gt; x + 1)&amp;lt;/div&amp;gt;
+                &amp;lt;h2&amp;gt; An html interactive snippet (this one is completly crazy - don't look at the source):&amp;lt;/h2&amp;gt;
+                &amp;lt;div class='html'&amp;gt;&amp;amp;amp;lt;div&amp;amp;amp;gt; Hello &amp;amp;amp;lt;b&amp;amp;amp;gt; World&amp;amp;amp;lt;/b&amp;amp;amp;gt; &amp;amp;amp;lt;/div&amp;amp;amp;gt;&amp;lt;/div&amp;gt;
+                &amp;lt;script&amp;gt;  
+                window.klipse_settings = {  
+                selector: '.klipse',
+                selector_eval_js: '.js',
+                selector_eval_html: '.html'
+                };
+                &amp;lt;/script&amp;gt;  
+                &amp;lt;script src='https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js'&amp;gt;&amp;lt;/script&amp;gt;  
+                &quot;&amp;gt;&amp;lt;/iframe&amp;gt;   
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;One last thing: &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;the Klipse plugin&lt;/a&gt; supports a couple of languages: &lt;a href=&quot;http://blog.klipse.tech/javascript/2016/06/20/blog-javascript.html&quot;&gt;javascript&lt;/a&gt;, &lt;a href=&quot;http://blog.klipse.tech/javascript/2016/12/14/jsx.html&quot;&gt;jsx&lt;/a&gt;, &lt;a href=&quot;http://blog.klipse.tech/javascript/2016/12/21/es2017-await.html&quot;&gt;es2017&lt;/a&gt;, &lt;a href=&quot;http://blog.klipse.tech/python/2017/01/04/python-turtle-fractal.html&quot;&gt;python&lt;/a&gt;, &lt;a href=&quot;http://blog.klipse.tech/ruby/2016/06/20/blog-ruby.html&quot;&gt;ruby&lt;/a&gt;, &lt;a href=&quot;http://exupero.org/hazard/post/fractals/&quot;&gt;clojure&lt;/a&gt; and even &lt;a href=&quot;http://blog.klipse.tech/brainfuck/2016/12/17/brainfuck.html&quot;&gt;brainfuck&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Give us a star on &lt;a href=&quot;https://github.com/viebel/klipse/stargazers&quot;&gt;github&lt;/a&gt; if you like this stuff and leave us a comment below to tell you what you think about this new way of blogging….&lt;/p&gt;
+
+&lt;p&gt;Big thanks to &lt;a href=&quot;https://twitter.com/timothypratley&quot;&gt;Timothy Pratley&lt;/a&gt; for the cool &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;svg&lt;/code&gt; examples and the incredible &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Klipse inside Klipse&lt;/code&gt; snippet.&lt;/p&gt;
+
+&lt;script&gt;
+window.klipse_settings.eval_idle_msec = 1000;
+&lt;/script&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">Imagine you want to write a blog post that shows something really cool about html and css.</summary></entry><entry><title type="html">Manipulating the DOM with Clojure using Klipse</title><link href="https://blog.klipse.tech//clojure/2020/09/10/dom-clj-klipse.html" rel="alternate" type="text/html" title="Manipulating the DOM with Clojure using Klipse" /><published>2020-09-10T07:11:22+03:00</published><updated>2020-09-10T07:11:22+03:00</updated><id>https://blog.klipse.tech//clojure/2020/09/10/dom-clj-klipse</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/09/10/dom-clj-klipse.html">&lt;p&gt;The &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse plugin&lt;/a&gt; is a &lt;strong&gt;client-side&lt;/strong&gt; code evaluator.&lt;/p&gt;
+
+&lt;p&gt;This means that inside a web page, you are not limited to manipulate data, but you can also manipulate the DOM.&lt;/p&gt;
+
+&lt;p&gt;In this article we will show 4 approaches for manipulating the DOM with Clojure using &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse&lt;/a&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;reagent&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;the Klipse container&lt;/li&gt;
+  &lt;li&gt;the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;html&lt;/code&gt; editor type&lt;/li&gt;
+  &lt;li&gt;a custom DOM element&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;1-reagent&quot;&gt;1. Reagent&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(require '[reagent.core :as r])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-reagent&quot;&gt;[:div
+  &quot;Hello &quot;
+  [:strong &quot;World!&quot;]]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For a full explanation about using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;reagent&lt;/code&gt; inside Klipse, have a look at &lt;a href=&quot;http://blog.klipse.tech/reagent/2016/12/31/reagent-in-klipse.html&quot;&gt;Interactive reagent snippets&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;And if you want very cool material about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;reagent&lt;/code&gt;, read this &lt;a href=&quot;http://timothypratley.blogspot.co.il/2017/01/reagent-deep-dive-part-1.html&quot;&gt;series of reagegent deep dive&lt;/a&gt; and &lt;a href=&quot;http://ingesolvoll.github.io/2017/01/01/how-to-use-a-charting-library-in-reagent.html&quot;&gt;How to use a charting library in Reagent&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;2-the-klipse-container&quot;&gt;2. The Klipse container&lt;/h2&gt;
+
+&lt;p&gt;Each Klipse snippet is associated with a container -  a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DOM&lt;/code&gt; element that is just below the Klipse snippet and accessible with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;js/klipse-container&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;js/klipse-container-id&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(set!
+ (.-innerHTML js/klipse-container)
+ &quot;&amp;lt;div style='color: blue;'&amp;gt; Hello &amp;lt;b&amp;gt;Container&amp;lt;/b&amp;gt;!&amp;lt;/div&amp;gt;&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(set!
+  (.-innerHTML (js/document.getElementById js/klipse-container-id))
+  &quot;&amp;lt;div style='color: red;'&amp;gt; Hello &amp;lt;b&amp;gt;Container Id&amp;lt;/b&amp;gt;!&amp;lt;/div&amp;gt;&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;3-html-editor-type&quot;&gt;3. Html editor type&lt;/h2&gt;
+
+&lt;p&gt;You can also have a Klipse snippet with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data-editor-type=&quot;html&quot;&lt;/code&gt;: the evaluation of the snippet will be the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;innerHTML&lt;/code&gt; of the result box.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot; data-editor-type=&quot;html&quot;&gt;
+&quot;Hello &amp;lt;strong&amp;gt;HTML editor&amp;lt;/strong&amp;gt;&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;4-a-custom-dom-element&quot;&gt;4. A custom DOM element&lt;/h2&gt;
+
+&lt;p&gt;Another thing you can do is to add a DOM element to you page (a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;div&lt;/code&gt; a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;canvas&lt;/code&gt; or anything you want) and to manipulate it with your klipse snippet.&lt;/p&gt;
+
+&lt;p&gt;In this page we have inserted a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;div id=&quot;my-custom-container&quot;&amp;gt;&lt;/code&gt;  just above the Klipse snippet.&lt;/p&gt;
+
+&lt;div id=&quot;my-custom-container&quot;&gt;&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(set!
+  (.-innerHTML (js/document.getElementById &quot;my-custom-container&quot;))
+  &quot;&amp;lt;div style='color: green;'&amp;gt; Hello &amp;lt;b&amp;gt;Custom Container&amp;lt;/b&amp;gt;!&amp;lt;/div&amp;gt;&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There are a couple of blog posts with lots of creative stuff using this approach:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://exupero.org/hazard/post/islands/&quot;&gt;An Island Generator&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://blog.jrheard.com/procedural-dungeon-generation-drunkards-walk-in-clojurescript&quot;&gt;Procedural Dungeon Generation: A Drunkard’s Walk in ClojureScript&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://exupero.org/hazard/post/fractals/&quot;&gt;Lindenmayer Fractals&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">The Klipse plugin is a client-side code evaluator.</summary></entry><entry><title type="html">How to draw on a canvas with Klipse and core.async</title><link href="https://blog.klipse.tech//clojure/2020/09/09/core-async-canvas.html" rel="alternate" type="text/html" title="How to draw on a canvas with Klipse and core.async" /><published>2020-09-09T10:12:22+03:00</published><updated>2020-09-09T10:12:22+03:00</updated><id>https://blog.klipse.tech//clojure/2020/09/09/core-async-canvas</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/09/09/core-async-canvas.html">&lt;p&gt;The cool thing with Klipse is that it is 100% client-side.
+It means that you can interact freely with the page where the Klipse snippets are hosted. As an example, you can draw on a canvas. All you need to do is to add in your html a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; element and refer it from your Klipse snippet.&lt;/p&gt;
+
+&lt;h2 id=&quot;boring-fillrect&quot;&gt;Boring fillRect&lt;/h2&gt;
+
+&lt;p&gt;Let’s start with a simple &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fillRect&lt;/code&gt; manipulation:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(let [canvas (js/document.getElementById &quot;canvas-1&quot;)
+      ctx (.getContext canvas &quot;2d&quot;)
+      width (.-width canvas)
+      height (.-height canvas)]
+  (set! (.-fillStyle  ctx) &quot;red&quot;)
+  (.clearRect ctx 0 0 width height)
+  (.fillRect ctx 0 0 width height))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;canvas id=&quot;canvas-1&quot; width=&quot;500&quot; height=&quot;300&quot;&gt;&lt;/canvas&gt;
+
+&lt;h2 id=&quot;random-color&quot;&gt;Random color&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(let [canvas (js/document.getElementById &quot;canvas-2&quot;)
+      ctx (.getContext canvas &quot;2d&quot;)
+      width (.-width canvas)
+      height (.-height canvas)
+      colors [&quot;red&quot; &quot;blue&quot; &quot;green&quot; &quot;yellow&quot; &quot;magenta&quot; &quot;purple&quot; &quot;pink&quot;]]
+  (set! (.-fillStyle  ctx) (rand-nth colors))
+  (.clearRect ctx 0 0 width height)
+  (.fillRect ctx 0 0 width height))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;canvas id=&quot;canvas-2&quot; width=&quot;500&quot; height=&quot;300&quot;&gt;&lt;/canvas&gt;
+
+&lt;p&gt;Each time you press &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl-Enter&lt;/code&gt; inside the snippet, the color is randomly picked.&lt;/p&gt;
+
+&lt;p&gt;Wouldn’t it be cool to evaluate the snippet automatically every second or so?&lt;/p&gt;
+
+&lt;h2 id=&quot;random-color-in-a-loop&quot;&gt;Random color in a loop&lt;/h2&gt;
+
+&lt;p&gt;Let’s run the same Klipse snippet in a loop - by setting &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data-loop-msec=&quot;1000&quot;&lt;/code&gt; attribute of the DOM element that contains the snippet (look at the page source!):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot; data-loop-msec=&quot;1000&quot;&gt;
+(let [canvas (js/document.getElementById &quot;canvas-3&quot;)
+      ctx (.getContext canvas &quot;2d&quot;)
+      width (.-width canvas)
+      height (.-height canvas)
+      colors [&quot;red&quot; &quot;blue&quot; &quot;green&quot; &quot;yellow&quot; &quot;magenta&quot; &quot;purple&quot; &quot;pink&quot;]]
+  (set! (.-fillStyle  ctx) (rand-nth colors))
+  (.clearRect ctx 0 0 width height)
+  (.fillRect ctx 0 0 width height))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;canvas id=&quot;canvas-3&quot; width=&quot;500&quot; height=&quot;300&quot;&gt;&lt;/canvas&gt;
+
+&lt;h2 id=&quot;coreasync&quot;&gt;Core.async&lt;/h2&gt;
+
+&lt;p&gt;With &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;core.async&lt;/code&gt; you can do really cool stuff - like having a progress bar:&lt;/p&gt;
+
+&lt;p&gt;First, let’s require &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;core.async&lt;/code&gt; (It takes a bit of time…):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(ns my.canvas
+  (:require [cljs.core.async :refer [go go-loop &amp;lt;! timeout]]))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;canvas id=&quot;canvas-4&quot; width=&quot;500&quot; height=&quot;50&quot;&gt;&lt;/canvas&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot; data-eval-idle-msec=&quot;10000000&quot;&gt;
+(let [canvas (js/document.getElementById &quot;canvas-4&quot;)
+      ctx (.getContext canvas &quot;2d&quot;)
+      width (.-width canvas)
+      height (.-height canvas)]
+  (.clearRect ctx 0 0 width height)
+  (set! (.-fillStyle  ctx) &quot;green&quot;)
+  (go-loop [percentage 0]
+           (when (&amp;lt;= percentage 100)
+             (&amp;lt;! (timeout 200))
+             (.fillRect ctx 0 (/ height 2) (/ (* width percentage) 100) 10)
+             (recur (+ percentage 10)))))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It’s a bit tricky to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;core.async&lt;/code&gt; inside Klipse because once a snippet is evaluated it runs forever. That might cause a lot of confusion if several versions of the snippet run in parallel.&lt;/p&gt;
+
+&lt;p&gt;In our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;core.async&lt;/code&gt; snippet, we have set &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data-eval-idle-msec=&quot;10000000&quot;&lt;/code&gt; which means that the snippets will run automatically only after 10000 seconds of idleness or when you press &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl-Enter&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;That’s it!
+Enjoy your interactive drawings…&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">The cool thing with Klipse is that it is 100% client-side. It means that you can interact freely with the page where the Klipse snippets are hosted. As an example, you can draw on a canvas. All you need to do is to add in your html a &amp;lt;canvas&amp;gt; element and refer it from your Klipse snippet.</summary></entry><entry><title type="html">Apollo and GraphQL</title><link href="https://blog.klipse.tech//react/2020/02/19/graphql-apollo.html" rel="alternate" type="text/html" title="Apollo and GraphQL" /><published>2020-02-19T12:43:32+02:00</published><updated>2020-02-19T12:43:32+02:00</updated><id>https://blog.klipse.tech//react/2020/02/19/graphql-apollo</id><content type="html" xml:base="https://blog.klipse.tech//react/2020/02/19/graphql-apollo.html">&lt;h1 id=&quot;prelude&quot;&gt;Prelude&lt;/h1&gt;
+
+&lt;p&gt;This article is an interactive version of Facebook official tutorial about &lt;a href=&quot;https://facebook.github.io/react/docs/forms.html&quot;&gt;React.js controlled components&lt;/a&gt; using the &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;KLIPSE plugin&lt;/a&gt; to make the code snippets interactive: the JSX code will be transpiled in your browser while you read this article and a couple of react components will be rendered.&lt;/p&gt;
+
+&lt;p&gt;In the original tutorial, you have to launch the CodePen editor in another tab in order to test the code snippets.&lt;/p&gt;
+
+&lt;p&gt;In the present version of the tutorial, you can play with the code snippets inside the article itself!&lt;/p&gt;
+
+&lt;p&gt;I hope that you will enjoy the code interactivity…&lt;/p&gt;
+
+&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;
+myDiv = {
+  $$typeof: Symbol.for('react.element'),
+  type: 'div',
+  ref: null,
+  props: {
+    children: ['hello', ' ', 'react']
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&quot;react-container&quot; id=&quot;container1&quot;&gt;&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot; data-preamble=&quot;let container=document.getElementById('container2');&quot;&gt;
+(let [my-div #js {&quot;$$typeof&quot; 2}])
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&quot;react-container&quot; id=&quot;container2&quot;&gt;&lt;/div&gt;
+
+&lt;p&gt;Since the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;value&lt;/code&gt; attribute is set on our form element, the displayed value will always be &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;this.state.value&lt;/code&gt;, making the React state the source of truth. Since &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;handleChange&lt;/code&gt; runs on every keystroke to update the React state, the displayed value will update as the user types.&lt;/p&gt;
+
+&lt;p&gt;With a controlled component, every state mutation will have an associated handler function. This makes it straightforward to modify or validate user input. For example, if we wanted to enforce that names are written with all uppercase letters, we could write &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;handleChange&lt;/code&gt; as:&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;handleChange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setState&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toUpperCase&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()});&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Here is the full code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-jsx&quot; data-preamble=&quot;let container=document.getElementById('container2');&quot;&gt;
+class NameForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: ''};
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+      this.setState({value: event.target.value.toUpperCase()});
+  }
+
+  handleSubmit(event) {
+    alert('A name was submitted: ' + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      &amp;lt;form onSubmit={this.handleSubmit}&amp;gt;
+        &amp;lt;label&amp;gt;
+          Name:
+          &amp;lt;input type=&quot;text&quot; value={this.state.value} onChange={this.handleChange} /&amp;gt;
+        &amp;lt;/label&amp;gt;
+        &amp;lt;input type=&quot;submit&quot; value=&quot;Submit&quot; /&amp;gt;
+      &amp;lt;/form&amp;gt;
+    );
+  }
+}
+
+ReactDOM.render(React.createElement(NameForm, null), container);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Give it a try in the component below:&lt;/p&gt;
+
+&lt;div class=&quot;react-container&quot; id=&quot;container2&quot;&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;the-textarea-tag&quot;&gt;The textarea Tag&lt;/h2&gt;
+
+&lt;p&gt;In HTML, a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;textarea&amp;gt;&lt;/code&gt; element defines its text by its children:&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;textarea&amp;gt;&lt;/span&gt;
+  Hello there, this is some text in a text area
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/textarea&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In React, a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;textarea&amp;gt;&lt;/code&gt; uses a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;value&lt;/code&gt; attribute instead. This way, a form using a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;textarea&amp;gt;&lt;/code&gt; can be written very similarly to a form that uses a single-line input:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-jsx&quot; data-preamble=&quot;let container=document.getElementById('container3');&quot;&gt;
+class EssayForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 'Please write an essay about your favorite DOM element.'
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert('An essay was submitted: ' + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      &amp;lt;form onSubmit={this.handleSubmit}&amp;gt;
+        &amp;lt;label&amp;gt;
+          Name:
+          &amp;lt;textarea value={this.state.value} cols=&quot;40&quot; onChange={this.handleChange} /&amp;gt;
+        &amp;lt;/label&amp;gt;
+        &amp;lt;input type=&quot;submit&quot; value=&quot;Submit&quot; /&amp;gt;
+      &amp;lt;/form&amp;gt;
+    );
+  }
+}
+ReactDOM.render(React.createElement(EssayForm, null), container);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&quot;react-container&quot; id=&quot;container3&quot;&gt;&lt;/div&gt;
+
+&lt;p&gt;Notice that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;this.state.value&lt;/code&gt; is initialized in the constructor, so that the text area starts off with some text in it.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-select-tag&quot;&gt;The select Tag&lt;/h2&gt;
+
+&lt;p&gt;In HTML, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;select&amp;gt;&lt;/code&gt; creates a drop-down list.&lt;/p&gt;
+
+&lt;p&gt;For example, this HTML creates a drop-down list of flavors:&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;select&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;option&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;grapefruit&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Grapefruit&lt;span class=&quot;nt&quot;&gt;&amp;lt;/option&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;option&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;lime&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Lime&lt;span class=&quot;nt&quot;&gt;&amp;lt;/option&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;option&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;selected&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;coconut&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Coconut&lt;span class=&quot;nt&quot;&gt;&amp;lt;/option&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;option&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;mango&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Mango&lt;span class=&quot;nt&quot;&gt;&amp;lt;/option&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/select&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Note that the Coconut option is initially selected, because of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;selected&lt;/code&gt; attribute. React, instead of using this &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;selected&lt;/code&gt; attribute, uses a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;value&lt;/code&gt; attribute on the root &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;select&lt;/code&gt; tag. This is more convenient in a controlled component because you only need to update it in one place.&lt;/p&gt;
+
+&lt;p&gt;For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-jsx&quot; data-preamble=&quot;let container=document.getElementById('container4');&quot;&gt;
+class FlavorForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: 'coconut'};
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert('Your favorite flavor is: ' + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      &amp;lt;form onSubmit={this.handleSubmit}&amp;gt;
+        &amp;lt;label&amp;gt;
+          Pick your favorite La Croix flavor:
+          &amp;lt;select value={this.state.value} onChange={this.handleChange}&amp;gt;
+            &amp;lt;option value=&quot;grapefruit&quot;&amp;gt;Grapefruit&amp;lt;/option&amp;gt;
+            &amp;lt;option value=&quot;lime&quot;&amp;gt;Lime&amp;lt;/option&amp;gt;
+            &amp;lt;option value=&quot;coconut&quot;&amp;gt;Coconut&amp;lt;/option&amp;gt;
+            &amp;lt;option value=&quot;mango&quot;&amp;gt;Mango&amp;lt;/option&amp;gt;
+          &amp;lt;/select&amp;gt;
+        &amp;lt;/label&amp;gt;
+        &amp;lt;input type=&quot;submit&quot; value=&quot;Submit&quot; /&amp;gt;
+      &amp;lt;/form&amp;gt;
+    );
+  }
+}
+ReactDOM.render(React.createElement(FlavorForm, null), container);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&quot;react-container&quot; id=&quot;container4&quot;&gt;&lt;/div&gt;
+
+&lt;p&gt;Overall, this makes it so that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;input type=&quot;text&quot;&amp;gt;&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;textarea&amp;gt;&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;select&amp;gt;&lt;/code&gt; all work very similarly - they all accept a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;value&lt;/code&gt; attribute that you can use to implement a controlled component.&lt;/p&gt;
+
+&lt;h2 id=&quot;alternatives-to-controlled-components&quot;&gt;Alternatives to Controlled Components&lt;/h2&gt;
+
+&lt;p&gt;It can sometimes be tedious to use controlled components, because you need to write an event handler for every way your data can change and pipe all of the input state through a React component. This can become particularly annoying when you are converting a preexisting codebase to React, or integrating a React application with a non-React library. In these situations, you might want to check out &lt;a href=&quot;https://facebook.github.io/react/docs/uncontrolled-components.html&quot;&gt;uncontrolled components&lt;/a&gt;, an alternative technique for implementing input forms.&lt;/p&gt;
+
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/relay-runtime@9.0.0/relay-runtime.js&quot;&gt;&lt;/script&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">Prelude</summary></entry></feed>

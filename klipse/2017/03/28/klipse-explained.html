@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="shortcut icon" href="/assets/favicon2.png">
+
+  <title>Klipse: A javascript plugin for interactive code snippets in blog posts</title>
+  <meta name="description" content="A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
+">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://blog.klipse.tech//klipse/2017/03/28/klipse-explained.html">
+  <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- start: facebook -->
+  <meta property="og:title" content="Klipse: A javascript plugin for interactive code snippets in blog posts">
+  <meta property="og:image" content="https://blog.klipse.tech/assets/klipse.png">
+  <meta property="og:description" content="">
+  <meta property="og:site_name" content="An interactive journey into functional programming with Yehonathan Sharvit">
+  <meta property="article:author" content="Yehonathan Sharvit">
+  <!-- end: facebook -->
+
+
+</head>
+
+  <body>
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">An interactive journey into functional programming with Yehonathan Sharvit</a>
+
+    <div class="site-title" style="float:right;margin-top:14px;">
+<a class="github-button" href="https://github.com/viebel/klipse" data-size="large" data-show-count="true" aria-label="Star viebel/klipse on GitHub">Klipse</a>
+</div>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav> -->
+
+  </div>
+
+</header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <div class="left-post-header">
+      <img src="https://blog.klipse.tech/assets/klipse.png">
+    </div>
+    <div>
+      <h1 class="post-title" itemprop="name headline">Klipse: A javascript plugin for interactive code snippets in blog posts</h1>
+      <p class="post-meta"><time datetime="2017-03-28T05:42:44+03:00" itemprop="datePublished">Mar 28, 2017</time>
+	 •
+	<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Yehonathan Sharvit</span></span>
+	
+	</p>
+    </div>
+
+  </header>
+  <div class="post-content" itemprop="articleBody">
+    <p>Look at a typical blog post that unveils practical tips about a computer language.</p>
+
+<p>It contains several code snippets in order to help the reader to understand the ideas conveyed by the author.</p>
+
+<p>But the clarity of the content is limited because the code snippets are usually static. The reader cannot interact with the code. And interactivity is key for an effective learning experience.</p>
+
+<p>Meet Dave. He is a javascript expert. He has a blog where he frequently shares his tips about <code class="language-plaintext highlighter-rouge">javascript</code> and <code class="language-plaintext highlighter-rouge">react.js</code>. He has good explanatory skills and his articles always contain code examples to illustrate his ideas.</p>
+
+<p><img src="/assets/daveblog.png" alt="daveblog" /></p>
+
+<p>He has tried to embed <code class="language-plaintext highlighter-rouge">jsfiddle</code> and <code class="language-plaintext highlighter-rouge">codepen</code> iframes in a couple of articles but it feels not natural to him to edit his code snippets on a website and embed them as iframes. More important, Dave was really frustrated by the fact that he couldn’t share data and code between the different code snippets of the same article.</p>
+
+<p><img src="/assets/emoji-frustrated.jpg" alt="happy" /></p>
+
+<p>A couple of weeks ago, Dave discovered <a href="https://github.com/viebel/klipse">Klipse</a>, a javascript plugin for interactive code snippets in blog posts: with <code class="language-plaintext highlighter-rouge">Klipse</code>, it is super easy to include interactive code snippets in his blog posts and share data and code between the code snippets.</p>
+
+<p>Dave decided to use <code class="language-plaintext highlighter-rouge">Klipse</code> in order to rewrite 3 of his top articles where instead of static code snippets he would have interactive code snippets.</p>
+
+<p>It was really a fun experience for Dave and it took him less than 20 minutes per article. Dave called it the <strong>klipsification</strong> of his blog.</p>
+
+<p>Dave republished his <strong>klipsified</strong> articles and shared the 3 of them on <a href="https://www.reddit.com/r/javascript/">reddit</a> and <a href="https://news.ycombinator.com/">Hacker News</a>. The readers were excited by this new way of blogging about <code class="language-plaintext highlighter-rouge">javascript</code>: it was super fun for them to interact with Dave’s code snippets and the interactivity helped them to have a clear understanding of Dave’s ideas.</p>
+
+<p><img src="/assets/reddit.jpg" alt="reddit" /></p>
+
+<p>Here is the Klipse snippets that Dave created in order to explain <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions">EcmaScript 6 arrow functions</a>:</p>
+
+<pre><code class="language-klipse-eval-js">var hello = name =&gt; "hello " + name;
+hello("klipse")
+</code></pre>
+
+<p>Dave used his <code class="language-plaintext highlighter-rouge">hello</code> function inside a <code class="language-plaintext highlighter-rouge">react</code> snippet with a jsx component:</p>
+
+<pre><code class="language-render-jsx">&lt;div style={ {color:'red'} }&gt;
+  {hello("dave")}
+&lt;/div&gt;
+</code></pre>
+
+<p>Dave’s readers were delighted by the fact that when they changed the color in the snippet from <code class="language-plaintext highlighter-rouge">'red'</code> to <code class="language-plaintext highlighter-rouge">'purple'</code>, the component re-rendered itself instantaneously!</p>
+
+<p>Dave was even able to show to his readers exactly how his <code class="language-plaintext highlighter-rouge">jsx</code> component is transpiled into <code class="language-plaintext highlighter-rouge">javascript</code>:</p>
+
+<pre><code class="language-transpile-jsx">&lt;div style={ {color:'red'} }&gt;
+  {hello("dave")}
+&lt;/div&gt;
+</code></pre>
+
+<p>The excitation of his readers made Dave feel happy.</p>
+
+<p><img src="/assets/emoji-happy.jpg" alt="happy" /></p>
+
+<p>If like Dave, you own a technical blog and you want to delight your readers, you should give it a try today and <strong>klipsify</strong> your 3 top articles.</p>
+
+<p><a href="https://github.com/viebel/klipse">Klipse</a> supports the following languages: clojure, ruby, javascript, python, scheme, es2017, jsx, brainfuck, c++, reagent.</p>
+
+<p>In order to <strong>klipsify</strong> his blog post, Dave made two simple steps as explained in <a href="https://github.com/viebel/klipse">Klipse’s README</a>:</p>
+
+<ol>
+  <li>He created DOM elements for the klipse snippets with class names of his choice, corresponding to the snippet type:
+    <ol>
+      <li><code class="language-plaintext highlighter-rouge">.language-eval-js</code> for javascript snippets</li>
+      <li><code class="language-plaintext highlighter-rouge">.language-render-jsx</code> for react snippets to render</li>
+      <li><code class="language-plaintext highlighter-rouge">.language-transpile-jsx</code> for jsx snippets to transpile</li>
+    </ol>
+  </li>
+  <li>He included the klipse javascript tag at the end of the page’s <code class="language-plaintext highlighter-rouge">&lt;body&gt;</code> with the <code class="language-plaintext highlighter-rouge">klipse_settings</code> set according to the class names that Dave chose:</li>
+</ol>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">href=</span><span class="s">"https://storage.googleapis.com/app.klipse.tech/css/codemirror.css"</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;script&gt;</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">klipse_settings</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">selector_eval_js</span><span class="p">:</span> <span class="dl">'</span><span class="s1">.language-eval-js</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">selector_render_jsx</span><span class="p">:</span> <span class="dl">'</span><span class="s1">.language-render-jsx</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">selector_transpile_jsx</span><span class="p">:</span> <span class="dl">'</span><span class="s1">.language-transpile-jsx</span><span class="dl">'</span><span class="p">,</span>
+  <span class="p">};</span>
+<span class="nt">&lt;/script&gt;</span>
+
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>Dave chose those class names because he loved but you could chose any class names and set the <code class="language-plaintext highlighter-rouge">klipse_settings</code> accordingly.</p>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-with-addons.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react-dom.js"></script>
+
+
+  </div>
+
+</article>
+<div class="patreon">
+  If you enjoy this kind of interactive articles would you consider a (small) donation💸  on <a href="https://www.patreon.com/bePatron?u=18227864">Patreon</a> or at least giving a star⭐ for the Klispe repo on <a href="https://github.com/viebel/klipse/stargazers"> Github</a>?
+</div>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+
+
+
+<footer class="site-footer">
+  
+  <div class="wrapper" style="
+			      font-size: larger;
+			      color: #5f7fbf;
+			      font-weight: bold;">
+    <p> <span> <!-- <a href="https://twitter.com/viebel">
+  <span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span>
+  <span class="username">viebel</span>
+</a> -->
+
+
+<a href="https://twitter.com/viebel"
+   class="twitter-follow-button" 
+   data-show-count="false" 
+   data-size="large">Follow viebel</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+ </span> to stay up-to-date with the coolest interactive articles around the world.</p>
+    <p> Discover <a href="/"> more cool interactive articles</a> about javascript, clojure[script], python, ruby, scheme, c++ and even brainfuck!</p>
+    <p> Give Klipse a Github star
+      <span>
+  <a class="github-button" href="https://github.com/viebel/klipse" data-size="large" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+      </span>
+      to express how much you appreciate <em>Code Interactivity</em>. </p>
+    <p>
+      <form style="text-align: left;" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	<label for="tlemail">Subscribe to the Klipse newsletter:</label>
+	<input type="email" style="width:180px" name="email" id="tlemail" placeholder="Enter your email address"/>
+	<input type="hidden" value="1" name="embed"/>
+	<input style="padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;" type="submit" value="Subscribe" />
+      </form>
+    </p>
+    <p> Feel free to email me <a href="mailto:viebel@gmail.com?Subject=I%20want%20to%20write%20an%20interactive%20blog%20post%20with%20KLIPSE"><span class="icon icon--github"><?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 382.117 382.117" style="enable-background:new 0 0 382.117 382.117;" xml:space="preserve" width="512px" height="512px">
+<path d="M336.764,45.945H45.354C20.346,45.945,0,65.484,0,89.5v203.117c0,24.016,20.346,43.555,45.354,43.555h291.41  c25.008,0,45.353-19.539,45.353-43.555V89.5C382.117,65.484,361.772,45.945,336.764,45.945z M336.764,297.72H45.354  c-3.676,0-6.9-2.384-6.9-5.103V116.359l131.797,111.27c2.702,2.282,6.138,3.538,9.676,3.538l22.259,0.001  c3.536,0,6.974-1.257,9.677-3.539l131.803-111.274v176.264C343.664,295.336,340.439,297.72,336.764,297.72z M191.059,192.987  L62.87,84.397h256.378L191.059,192.987z" fill="#fc8ba0"/>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+</span><span class="username">viebel@gmail.com</span></a>
+ for getting practical tips and tricks in writing your first interactive blog post.</p>
+  </div>
+</footer>
+
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+    */
+    var disqus_config = function () {
+        this.page.url = "https://blog.klipse.tech/" + "/klipse/2017/03/28/klipse-explained.html";
+        this.page.identifier = "5627BF95-4EE1-4C6E-98C2-1B2A720A0CD0";
+        this.page.title = "Klipse: A javascript plugin for interactive code snippets in blog posts";
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//klipse.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+      </div>
+    </div>
+    
+
+
+  </body>
+</html>
