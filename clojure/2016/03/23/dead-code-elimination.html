@@ -7,18 +7,18 @@
 
   <link rel="shortcut icon" href="/assets/favicon2.png">
 
-  <title>Reagent and react hooks</title>
-  <meta name="description" content="Interactive reagent snippets in klipse. react clojurescript. minimal. fast">
+  <title>Dead code elimination in clojurescript</title>
+  <meta name="description" content="A simple example of dead code elimination in clojurescript, using KLIPSE">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="https://blog.klipse.tech//reagent/2020/02/19/reagent-and-react-hooks.html">
+  <link rel="canonical" href="https://blog.klipse.tech//clojure/2016/03/23/dead-code-elimination.html">
   <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
 
   <!-- start: facebook -->
-  <meta property="og:title" content="Reagent and react hooks">
+  <meta property="og:title" content="Dead code elimination in clojurescript">
   <meta property="og:image" content="https://blog.klipse.tech/assets/klipse.png">
-  <meta property="og:description" content="Interactive reagent snippets in klipse. react clojurescript. minimal. fast">
+  <meta property="og:description" content="A simple example of dead code elimination in clojurescript, using KLIPSE">
   <meta property="og:site_name" content="An interactive journey into functional programming with Yehonathan Sharvit">
   <meta property="article:author" content="Yehonathan Sharvit">
   <!-- end: facebook -->
@@ -83,8 +83,8 @@
       <img src="https://blog.klipse.tech/assets/klipse.png">
     </div>
     <div>
-      <h1 class="post-title" itemprop="name headline">Reagent and react hooks</h1>
-      <p class="post-meta"><time datetime="2020-02-19T10:11:44+02:00" itemprop="datePublished">Feb 19, 2020</time>
+      <h1 class="post-title" itemprop="name headline">Dead code elimination in clojurescript</h1>
+      <p class="post-meta"><time datetime="2016-03-23T22:25:46+00:00" itemprop="datePublished">Mar 23, 2016</time>
 	 •
 	<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Yehonathan Sharvit</span></span>
 	
@@ -93,138 +93,31 @@
 
   </header>
   <div class="post-content" itemprop="articleBody">
-    <p><a href="https://github.com/reagent-project/reagent">Reagent</a> provides a minimalistic interface between ClojureScript and React. It allows you to define efficient React components using nothing but plain ClojureScript functions and data, that describe your UI using a <a href="https://github.com/weavejester/hiccup">Hiccup</a>-like syntax.</p>
+    <p>Do you see any substantial difference between the two pieces of code below?</p>
 
-<p>In this article, we are going to show you how you can write a blog post with interactive reagent component inside a blog post using the <a href="https://github.com/viebel/klipse">klipse plugin</a>.</p>
+<p><strong>Code #1:</strong></p>
 
-<p>In this context, <strong>interactive</strong> means that the reader of the blog post can edit the code of the component.</p>
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
 
-<p>It’s super simple:</p>
+<p><strong>Code #2:</strong></p>
 
-<ol>
-  <li>You add the klipse javascript tag to your blog posts as explained <a href="https://github.com/viebel/klipse">here</a>.</li>
-  <li>You require <code class="language-plaintext highlighter-rouge">reagent.core</code> in a <code class="language-plaintext highlighter-rouge">clojure</code> snippet.</li>
-  <li>You define and render your component in a <code class="language-plaintext highlighter-rouge">clojure</code> snippet.</li>
-</ol>
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">def</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
 
-<p><img src="/assets/minority.jpg" alt="minority" /></p>
+<p>They seem to be quite the same, so you’d expect their js transpiled code to be the same.</p>
 
-<h1 id="hello-world">Hello World!</h1>
+<p>Let’s check it with <a href="http://app.klipse.tech?js_only=1&amp;cljs_in=(if%202%203)%0A(def%20x%20(if%202%203))">KLIPSE</a>:</p>
 
-<p>Let’s start with a <strong>Hello World!</strong> reagent component:</p>
-
-<p>First, we require <code class="language-plaintext highlighter-rouge">reagent.core</code> - in a <code class="language-plaintext highlighter-rouge">clojure</code> snippet:</p>
-
-<p>(Please be a bit patient, it takes some time to load both <code class="language-plaintext highlighter-rouge">react.js</code> and <code class="language-plaintext highlighter-rouge">reagent</code> code into this web page…)</p>
-
-<pre><code class="language-klipse">(require '[reagent.core :as r])
+<pre><code class="language-klipse-js">(if 2 3)
+(def x (if 2 3))
 </code></pre>
 
-<p>Then, we define and render our component - in a <code class="language-plaintext highlighter-rouge">reagent</code> snippet:</p>
+<p>Do you see what’s going on here?</p>
 
-<pre><code class="language-reagent">(defn hello [name]
-[:p (str "Hello " name "!")])
+<p><strong>Code #1</strong> is completely dead code no matter what code will come after it. Therefore it has been completly eliminated by the cljs transpiler!</p>
 
-[hello "Klipse"]
-</code></pre>
-
-<p>So easy. Right?</p>
-
-<p>Go ahead, enjoy the interactivity: modify the code of the component and see how it is rendered as you type.</p>
-
-<p>Now, let’s see how it works…</p>
-
-<h1 id="under-the-hood">Under the hood</h1>
-
-<p>The code snippet with <code class="language-plaintext highlighter-rouge">[hello "World"]</code> is not a regular <code class="language-plaintext highlighter-rouge">clojure</code> snippet: it’s a <code class="language-plaintext highlighter-rouge">reagent</code> snippet. Klipse wraps the last expression of the snippet in a call to <code class="language-plaintext highlighter-rouge">reagent.core/render-component</code> and passes to it the dom element that is right after the code snippet (a.k.a the klipsecontainer).</p>
-
-<p>Nothing magic, we can do it manually using a regular <code class="language-plaintext highlighter-rouge">clojure</code> snippet like this:</p>
-
-<pre><code class="language-klipse">(reagent.core/render-component [hello "World!"] js/klipse-container)
-</code></pre>
-
-<p>Each klipse snippets has a dom sibling associated to it and it is accessible by <code class="language-plaintext highlighter-rouge">js/klipse-container</code>.</p>
-
-<p>And if your component doesn’t require any argument, you even don’t need to wrap into into a vector - klipse will wrap it into a vector for you - this nice idea was emitted and implemented by <a href="https://twitter.com/timothypratley">Timothy Pratley</a>:</p>
-
-<pre><code class="language-reagent">(defn tim []
-  [:span "Timothy"])
-
-(defn hello-there []
-    [:p "Thanks " [tim]])
-</code></pre>
-
-<p>Now, for the fun, let’s take a look at a more interesting <code class="language-plaintext highlighter-rouge">reagent</code> component…</p>
-
-<h1 id="a-more-interesting-example-a-bmi-calculator">A more interesting example: A BMI calculator</h1>
-
-<p>Here is a nice example from <a href="http://reagent-project.github.io/">Reagent Website</a> that shows how to implement a BMI calculator with <code class="language-plaintext highlighter-rouge">reagent</code>:</p>
-
-<pre><code class="language-reagent">(def bmi-data (r/atom {:height 180 :weight 80}))
-
-(defn calc-bmi []
-  (let [{:keys [height weight bmi] :as data} @bmi-data
-        h (/ height 100)]
-    (if (nil? bmi)
-      (assoc data :bmi (/ weight (* h h)))
-      (assoc data :weight (* bmi h h)))))
-
-(defn slider [param value min max]
-  [:input {:type "range" :value value :min min :max max
-           :style {:width "100%"}
-           :on-change (fn [e]
-                        (swap! bmi-data assoc param (.-target.value e))
-                        (when (not= param :bmi)
-                          (swap! bmi-data assoc :bmi nil)))}])
-
-(defn bmi-component []
-  (let [{:keys [weight height bmi]} (calc-bmi)
-        [color diagnose] (cond
-                          (&lt; bmi 18.5) ["orange" "underweight"]
-                          (&lt; bmi 25) ["inherit" "normal"]
-                          (&lt; bmi 30) ["orange" "overweight"]
-                          :else ["red" "obese"])]
-    [:div
-     [:h3 "BMI calculator"]
-     [:div
-      "Height: " (int height) "cm"
-      [slider :height height 100 220]]
-     [:div
-      "Weight: " (int weight) "kg"
-      [slider :weight weight 30 150]]
-     [:div
-      "BMI: " (int bmi) " "
-      [:span {:style {:color color}} diagnose]
-      [slider :bmi bmi 10 50]]]))
-</code></pre>
-
-<h1 id="what-else-now">What else now?</h1>
-
-<p>Now, I’m expecting all the cool guys of the clojurecript community to write incredible blog posts with interactive reagent code snippets…</p>
-
-<p>If you haven’t done it already, please give a github star to <a href="https://github.com/reagent-project/reagent">reagent</a> and <a href="https://github.com/viebel/klipse">klipse</a>.</p>
-
-<h1 id="a-final-note">A final note</h1>
-
-<p>It is also possible to evaluate <code class="language-plaintext highlighter-rouge">reagent</code> code snippets in the browser with the great <a href="http://escherize.com/cljsfiddle/">CljsFiddle</a> by <a href="https://twitter.com/escherize">@escherize</a>.</p>
-
-<h1 id="a-last-final-note">A last final note</h1>
-
-<p>If you really want to become a reagent master, take a <a href="https://www.learnreframe.com/?ref=pjksj" target="_blank">video course on reagent</a>.</p>
-
-<style>
-
-.klipse-container:not(:empty):before {
-    content: "**** Rendered Component ****";
-    font-weight: bold;
-    font-family: monospace;
-}
-
-</style>
-
-<script crossorigin="" src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
-
-<script crossorigin="" src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+<p>Feel free to continue to play with dead code with <a href="http://app.klipse.tech?js_only=1&amp;cljs_in=(if%202%203)%0A(def%20x%20(if%202%203))">KLIPSE</a>.</p>
 
 
   </div>
@@ -389,9 +282,9 @@
     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
     */
     var disqus_config = function () {
-        this.page.url = "https://blog.klipse.tech/" + "/reagent/2020/02/19/reagent-and-react-hooks.html";
-        this.page.identifier = "997E7297-EA98-4CF6-B225-F310264C6886";
-        this.page.title = "Reagent and react hooks";
+        this.page.url = "https://blog.klipse.tech/" + "/clojure/2016/03/23/dead-code-elimination.html";
+        this.page.identifier = "";
+        this.page.title = "Dead code elimination in clojurescript";
     };
     (function() { // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');

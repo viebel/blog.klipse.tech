@@ -7,18 +7,18 @@
 
   <link rel="shortcut icon" href="/assets/favicon2.png">
 
-  <title>In javascript, setTimeout is forced to be &gt;= 4 msec</title>
-  <meta name="description" content="In javascript, setTimeout is forced to be >= 4 msec. 0 delay timer. postMessage. asynchronous.">
+  <title>Reagent Forms Tutorial</title>
+  <meta name="description" content="Gallery of reagent forms">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="https://blog.klipse.tech//javascript/2016/11/01/setTimeout-0msec.html">
+  <link rel="canonical" href="https://blog.klipse.tech//reagent/2017/03/11/reagent-forms.html">
   <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
 
   <!-- start: facebook -->
-  <meta property="og:title" content="In javascript, setTimeout is forced to be >= 4 msec">
+  <meta property="og:title" content="Reagent Forms Tutorial">
   <meta property="og:image" content="https://blog.klipse.tech/assets/klipse.png">
-  <meta property="og:description" content="In javascript, setTimeout is forced to be >= 4 msec. 0 delay timer. postMessage. asynchronous.">
+  <meta property="og:description" content="Gallery of reagent forms">
   <meta property="og:site_name" content="An interactive journey into functional programming with Yehonathan Sharvit">
   <meta property="article:author" content="Yehonathan Sharvit">
   <!-- end: facebook -->
@@ -83,8 +83,8 @@
       <img src="https://blog.klipse.tech/assets/klipse.png">
     </div>
     <div>
-      <h1 class="post-title" itemprop="name headline">In javascript, setTimeout is forced to be >= 4 msec</h1>
-      <p class="post-meta"><time datetime="2016-11-01T01:12:54+02:00" itemprop="datePublished">Nov 1, 2016</time>
+      <h1 class="post-title" itemprop="name headline">Reagent Forms Tutorial</h1>
+      <p class="post-meta"><time datetime="2017-03-11T22:42:44+00:00" itemprop="datePublished">Mar 11, 2017</time>
 	 •
 	<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Yehonathan Sharvit</span></span>
 	
@@ -93,119 +93,190 @@
 
   </header>
   <div class="post-content" itemprop="articleBody">
-    <p>Javascript is a language full of surprises: there are the <code class="language-plaintext highlighter-rouge">good parts</code> and the <code class="language-plaintext highlighter-rouge">bad parts</code>. Today, I discovered that <code class="language-plaintext highlighter-rouge">setTimeout</code> featured a minimal delay of 4 msec.</p>
+    <h1 id="hello-world">Hello World!</h1>
 
-<p>This is well documented in <a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setTimeout#Reasons_for_delays_longer_than_specified">Reasons for delays longer than specified</a>.</p>
-
-<p>But I wonder, how many experienced javascript developers are aware of this weird behaviour.</p>
-
-<p>What about you?</p>
-
-<p>Did you know that the minimal delay of <code class="language-plaintext highlighter-rouge">setTimeout</code> was 4 msec?</p>
-
-<p>In this article, we are going to:</p>
-
-<ol>
-  <li>demonstrate the 4 sec delay added by the browser when one uses a <code class="language-plaintext highlighter-rouge">setTimeout</code> with 0 delay.</li>
-  <li>demonstrate how to write 0-delay timers using <code class="language-plaintext highlighter-rouge">postMessage</code>.</li>
-</ol>
-
-<p><img src="/assets/stopwatch.jpg" alt="Stop" /></p>
-
-<h1 id="code-example">Code example</h1>
-
-<p>All the code snippets of this page are <strong>live</strong> and <strong>interactive</strong> powered by the <a href="https://github.com/viebel/klipse">klipse plugin</a>:</p>
-
-<ol>
-  <li><strong>Live</strong>: The code is executed in your browser</li>
-  <li><strong>Interactive</strong>: You can modify the code and it is evaluated after 3 seconds of inactivity of if you press <code class="language-plaintext highlighter-rouge">Ctrl-Enter</code> inside the code snippet.</li>
-</ol>
-
-<h1 id="the-4-msec-delay-in-action">The 4 msec delay in action</h1>
-
-<p>Here is the  code that demonstrates the 4-msec delay - calling <code class="language-plaintext highlighter-rouge">setTimeout</code> recursively 100 times with a <code class="language-plaintext highlighter-rouge">0</code> delay.</p>
-
-<p>As you can see by yourslef, the execution time for 100 iterations is around 400 msec.</p>
-
-<p>You might need to reevaluate the snippet - for some reason the first evaluation takes much more time.</p>
-
-<p>Press <code class="language-plaintext highlighter-rouge">Ctrl-Enter</code> inside the code snippet or modify the code and wait for 3 seconds…</p>
-
-<pre><code class="language-klipse-eval-js" data-async-code="true">
-function bar(iterations) {
-  if(iterations === 0) {
-    console.log("done in: " + (new Date() - startTimeout)+ " msec")
-  }
-  else {
-  setTimeout(bar, 0, iterations - 1);
-  }
-  }
-
-startTimeout = new Date();
-console.log("Start");
-bar(100);
+<pre><code class="language-klipse">(ns my.playground
+  (:require [reagent.core :as r]
+            [reagent-forms.core :refer [bind-fields]]))
 </code></pre>
 
-<p>Amazing. No?</p>
+<pre><code class="language-klipse">
+(defn row [label input]
+  [:div.row
+   [:div.col-md-2 [:label label]]
+   [:div.col-md-5 input]])
 
-<h1 id="the-solution-for-fast-timeouts">The solution for fast timeouts</h1>
+(defn radio [label name value]
+  [:div.radio
+   [:label
+    [:input {:field :radio :name name :value value}]
+    label]])
 
-<p>If we want to have a <code class="language-plaintext highlighter-rouge">0 msec</code> timer, we have to use <code class="language-plaintext highlighter-rouge">postMessage</code>.</p>
+(defn input [label type id]
+  (row label [:input.form-control {:field type :id id}]))
 
-<p>So, let’s do it and take the following code from <a href="https://dbaron.org/log/20100309-faster-timeouts">setTimeout with a shorter delay</a>.</p>
+(def form-template
+  [:div
+   (input "first name" :text :person.first-name)
+   [:div.row
+    [:div.col-md-2]
+    [:div.col-md-5
+     [:div.alert.alert-danger
+      {:field :alert :id :errors.first-name}]]]
 
-<p><code class="language-plaintext highlighter-rouge">setZeroTimeout</code> takes a single argument: the callback function that is going to be called with 0 delay - but asynchronously.</p>
+   (input "last name" :text :person.last-name)
+   [:div.row
+    [:div.col-md-2]
+    [:div.col-md-5
+     [:div.alert.alert-success
+      {:field :alert :id :person.last-name :event empty?}
+      "last name is empty!"]]]
 
-<pre><code class="language-klipse-eval-js">(function() {
-    var timeouts = [];
-    var messageName = "zero-timeout-message";
+   (input "email" :email :person.email)
+   (row
+     "comments"
+     [:textarea.form-control
+      {:field :textarea :id :comments}])
 
-    function setZeroTimeout(fn) {
-        timeouts.push(fn);
-        window.postMessage(messageName, "*");
-    }
+   [:hr]
 
-    function handleMessage(event) {
-        if (event.source == window &amp;&amp; event.data == messageName) {
-            event.stopPropagation();
-            if (timeouts.length &gt; 0) {
-                var fn = timeouts.shift();
-                fn();
-            }
-        }
-    }
-    window.addEventListener("message", handleMessage, true);
-    window.setZeroTimeout = setZeroTimeout;
-})();
+
+   (input "kg" :numeric :weight-kg)
+   (input "lb" :numeric :weight-lb)
+
+   [:hr]
+   [:div.row
+    [:div.col-md-5 [:label "date of birth"]]]
+
+   [:div.row
+    [:div.col-md-7
+     [:div {:field :datepicker
+            :auto-close? true
+            :id :dob
+            :date-format "yyyy/mm/dd"
+            :inline true}]]]
+   [:hr]
+
+   [:h3 "BMI Calculator"]
+   (input "height" :numeric :height)
+   (input "weight" :numeric :weight)
+   (row "BMI"
+        [:input.form-control
+         {:field :numeric :fmt "%.2f" :id :bmi :disabled true}])
+   [:hr]
+
+   (row "isn't data binding lovely?"
+        [:input {:field :checkbox :id :databinding.lovely}])
+   [:label
+    {:field :label
+     :preamble "The level of awesome: "
+     :placeholder "N/A"
+     :id :awesomeness}]
+
+   [:input {:field :range :min 1 :max 10 :id :awesomeness}]
+
+   [:h3 "option list"]
+   [:div.form-group
+    [:label "pick an option"]
+    [:select.form-control {:field :list :id :many.options}
+     [:option {:key :foo} "foo"]
+     [:option {:key :bar} "bar"]
+     [:option {:key :baz} "baz"]]]
+
+   (radio
+     "Option one is this and that—be sure to include why it's great"
+     :foo :a)
+   (radio
+     "Option is something else, selecting it will deselect option one"
+     :foo :b)
+
+   [:h3 "multi-select buttons"]
+   [:div.btn-group {:field :multi-select :id :every.position}
+    [:button.btn.btn-default {:key :left} "Left"]
+    [:button.btn.btn-default {:key :middle} "Middle"]
+    [:button.btn.btn-default {:key :right} "Right"]]
+
+   [:h3 "single-select buttons"]
+   [:div.btn-group {:field :single-select :id :unique.position}
+    [:button.btn.btn-default {:key :left} "Left"]
+    [:button.btn.btn-default {:key :middle} "Middle"]
+    [:button.btn.btn-default {:key :right} "Right"]]
+
+   [:h3 "single-select list"]
+   [:div.list-group {:field :single-select :id :pick-one}
+    [:div.list-group-item {:key :foo} "foo"]
+    [:div.list-group-item {:key :bar} "bar"]
+    [:div.list-group-item {:key :baz} "baz"]]
+
+   [:h3 "multi-select list"]
+   [:ul.list-group {:field :multi-select :id :pick-a-few}
+    [:li.list-group-item {:key :foo} "foo"]
+    [:li.list-group-item {:key :bar} "bar"]
+    [:li.list-group-item {:key :baz} "baz"]]])
+
+
+
+
+(defn weight-translation
+  [[id] value {:keys [weight-lb weight-kg] :as document}]
+  (cond
+    (= id :weight-lb)
+    (assoc document :weight-kg (/ value 2.2046))
+    (= id :weight-kg)
+    (assoc document :weight-lb (* value 2.2046))
+    :else nil))
+
+(defn bmi-calculation
+  [[id] value {:keys [height weight] :as document}]
+  (when (and (some #{id} [:height :weight]) weight height)
+    (assoc document :bmi (/ weight (* height height)))))
+
+(defn page []
+  (let [doc
+        (atom {:person {:first-name "Johnat"
+                        :age 35
+                        :email "foo@bar.baz"}
+               :weight 100
+               :height 200
+               :comments "some interesting comments
+               on this subject"
+               :radioselection :b
+               :position [:left :right]
+               :pick-one :bar
+               :unique {:position :middle}
+               :pick-a-few [:bar :baz]
+               :many {:options :bar}})]
+    (fn []
+      [:div
+       [:div.padding]
+
+       [:div.page-header [:h1 "Sample Form"]]
+
+       [:div
+        [bind-fields
+         form-template
+         doc
+         bmi-calculation
+         weight-translation]
+
+        [:button.btn.btn-default
+         {:on-click
+          #(if (empty? (get-in @doc [:person :first-name]))
+             (swap! doc assoc-in [:errors :first-name]
+                    "first name is empty"))}
+         "save"]]])))
 </code></pre>
 
-<p>And now, let’s see it in action - in my browser, it takes around 17 msec for 100 iterations.</p>
-
-<p>Again, you might need to reevaluate the snippet - as the first evaluation takes much more time.</p>
-
-<p>Press <code class="language-plaintext highlighter-rouge">Ctrl-Enter</code> inside the code snippet or modify the code and wait for 3 seconds…</p>
-
-<pre><code class="language-klipse-eval-js" data-async-code="true">
-function runBaz(iterations) {
-  function baz() {
-    if(--iterations === 0) {
-      console.log("done in: " + (new Date() - startZeroTimeout) + " msec")
-    }
-    else {
-      setZeroTimeout(baz);
-    }
-  }
-  baz();
-}
-
-startZeroTimeout = new Date();
-console.log("OK");
-runBaz(100);
+<pre><code class="language-reagent">[:div 
+   (input "name" :numeric :name)
+   (input "number of kids" :numeric :kids)]
 </code></pre>
 
-<p>By the way, what do you think about the interactive code snippets powered by <a href="https://github.com/viebel/klipse">KLIPSE</a>?</p>
+<pre><code class="language-reagent">[page]
+</code></pre>
 
-<p>You might what to give a star on <a href="https://github.com/viebel/klipse">Github</a>…</p>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+
 
   </div>
 
@@ -270,9 +341,6 @@ runBaz(100);
 
 
 
-   window.klipse_settings.eval_idle_msec =
-3000;
-
 
 
 
@@ -286,7 +354,7 @@ runBaz(100);
 
 
 
-<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?v=8.0.1"></script>
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
 
 
 
@@ -372,9 +440,9 @@ runBaz(100);
     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
     */
     var disqus_config = function () {
-        this.page.url = "https://blog.klipse.tech/" + "/javascript/2016/11/01/setTimeout-0msec.html";
-        this.page.identifier = "07407DA4-151B-4AE0-AC13-779965B1E3B5";
-        this.page.title = "In javascript, setTimeout is forced to be >= 4 msec";
+        this.page.url = "https://blog.klipse.tech/" + "/reagent/2017/03/11/reagent-forms.html";
+        this.page.identifier = "DCB1C486-06AB-4E52-A1CF-5E481884EB80";
+        this.page.title = "Reagent Forms Tutorial";
     };
     (function() { // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');

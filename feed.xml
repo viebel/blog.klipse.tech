@@ -1,5 +1,218 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2020-09-26T20:46:29+03:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
-</subtitle><author><name>Yehonathan Sharvit</name></author><entry><title type="html">What is Data Oriented Programming?</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap0.html" rel="alternate" type="text/html" title="What is Data Oriented Programming?" /><published>2020-09-25T08:45:32+03:00</published><updated>2020-09-25T08:45:32+03:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap0</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap0.html">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2020-09-26T18:04:41+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
+</subtitle><author><name>Yehonathan Sharvit</name></author><entry><title type="html">The complexity of Object Oriented Programming: Classic OO design</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part1.html" rel="alternate" type="text/html" title="The complexity of Object Oriented Programming: Classic OO design" /><published>2020-09-25T05:45:32+00:00</published><updated>2020-09-25T05:45:32+00:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part1</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part1.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In the &lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part1.html&quot;&gt;introduction&lt;/a&gt;, we discussed how Data Oriented Programming differs from Object Oriented (OO) Programming and from Functional Programming (FP).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In this chapter, we explore the tendency of OO systems to be complex.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This complexity is not related to the syntax or the semantics of a specific OO language. It is something that is inherent to OO fundamental insight that programs should be composed from objects that consist of some state together with methods for accessing and manipulating that state.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In this chapter, we illustrate how some core aspects of OO tend to increase the complexity of OO systems.&lt;/p&gt;
+&lt;/div&gt;
+&lt;table id=&quot;oo-increases-compplexity&quot; class=&quot;tableblock frame-all grid-all stretch&quot;&gt;
+&lt;caption class=&quot;title&quot;&gt;Table 1. Aspects of Object Oriented programming and their impact on complexity&lt;/caption&gt;
+&lt;colgroup&gt;
+&lt;col style=&quot;width: 50%;&quot;&gt;
+&lt;col style=&quot;width: 50%;&quot;&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Aspect&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Impact on complexity&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Code and data are mixed&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Classes tend to be involved in many relations&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Objects are mutable&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Extra thinking when reading code that involves state mutation&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Objects are mutable&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Explicit synchronization on multi-threaded environments&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Data is locked in objects&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Data serialization is a nightmare&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Code is locked in classes&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Class hierarchies are complex&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Over the years, OO ecosystems have alleviated this complexity increase by adding new features to the language (e.g. anonymous classes and anonymous functions) and by developing frameworks that hide part of this complexity by providing a simpler interface to the developers (e.g. Spring and Jackson in Java). Internally, they rely on advanced features of the language (like reflection and custom annotations).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This chapter is not meant to be read as a critics of OO programming. Its purpose is to increase your awareness about the complexity of OO as a programming paradigm.
+I hope that after reading this chapter, you will be motivated to discover a different programming paradigm where this complexity tend to be less present, namely Data Oriented programming.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;oo-design-classic-or-classical&quot;&gt;OO design: classic or classical?&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It&amp;#8217;s Monday morning 9:00 AM, you seat at a coffee shop with a potential customer, Nancy, that needs you to build a new library management system.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;What&amp;#8217;s a library management system in your mind?&quot; you ask.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;It&amp;#8217;s a system that handles housekeeping functions of a library, mainly around the book collection
+and the library members&quot; Nancy replies&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;Could you be a little bit more precise?&quot; you ask politely.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;Sure&quot; Nancy answers.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;She grabs the napkin under her coffee mug and she writes down a couple of bullet points on the napkin:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;. Two kinds of users: library members and librarians
+. Users log in to the system via email and password.
+. Members can borrow books
+. Members and librarians can search books by title or by author
+. Librarians can block and unblock members (e.g. when they are late in returning a book)
+. Librarians can list the books currently lent by a member
+. There could be several copies of a book&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;Well, that&amp;#8217;s pretty clear.&quot;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;When will you be able to deliver it?&quot;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;If you give me a down payment today, I should be able to deliver it by next Wednesday.&quot;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;Fantastic! I&amp;#8217;ll make you a bitcoin transfer later today.&quot;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You get back to your office with Nancy&amp;#8217;s napkin in your pocket.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Before rushing to your laptop to code the system,
+you grab a sheet of paper - slightly bigger than the napkin - and you prepare yourself to draw the UML class diagram of the system.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Everything is life is an object and every object is made from a class. Right?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Here are the main classes that you identify for the library management system:&lt;/p&gt;
+&lt;/div&gt;
+* `Library`: The central part for which the system is designed
+* `Book`: A book
+* `BookItem`: A book can have multiple copies, each copy is considered as a book item
+* `BookLending`: When a book is lent, a book lending object is created
+* `Member`: A member of the library
+* `Librarian`: A librarian
+* `User`: A base class for `Librarian` and `Member`
+* `Catalog`: Contains list of books
+* `Author`: A book author
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;That was the easy part. Now comes the difficult part: the relationships between the classes.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;After two hours or so, you come up with a first draft of a design for the
+library management system. It looks like the diagram shown on &lt;a href=&quot;#lib-mgmt-class-diagram&quot;&gt;A class diagram for a Library management system&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;lib-mgmt-class-diagram&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/class-diagram-lms.png&quot; alt=&quot;class diagram lms&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 1. A class diagram for a Library management system&lt;/div&gt;
+&lt;/div&gt;
+This design is meant to be very simple and by no means it pretends to cover all the features of the system.
+This design serves two purposes:
+
+. For you - the developer - it is rich enough to start coding
+. For me - the author of the book - it is rich enough to illustrate the complexity of a typical OO system
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You feel proud of yourself and of the design you produced. You definitely deserve a cup of coffee.
+Near the coffee machine, you meet Dave, a junior software developer that you appreciate.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Hey Dave! How are you doing?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Trying to fix a bug in my code: I cannot understand why the state of my objects always change! You?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;I have just finished the design of a system for a new customer.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Cool! Can you show me your design?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Sure.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Are you curious to discover Dave&amp;#8217;s reaction to your design?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Read the &lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part2.html&quot;&gt;next part&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">What is Data Oriented Programming?</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap0.html" rel="alternate" type="text/html" title="What is Data Oriented Programming?" /><published>2020-09-25T05:45:32+00:00</published><updated>2020-09-25T05:45:32+00:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap0</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap0.html">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div&gt;
   &lt;p&gt;
@@ -217,635 +430,7 @@ At the end of this chapter, we will refine what DO is about by comparing it with
   &lt;br&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">The complexity of Object Oriented Programming: Classic OO design</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part1.html" rel="alternate" type="text/html" title="The complexity of Object Oriented Programming: Classic OO design" /><published>2020-09-25T08:45:32+03:00</published><updated>2020-09-25T08:45:32+03:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part1</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part1.html">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    Enter your email address below to get notified when the book is published.
-  &lt;/p&gt;
-
-  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
-	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
-	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
-	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
-  &lt;/form&gt;
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In the &lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part1.html&quot;&gt;introduction&lt;/a&gt;, we discussed how Data Oriented Programming differs from Object Oriented (OO) Programming and from Functional Programming (FP).&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In this chapter, we explore the tendency of OO systems to be complex.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This complexity is not related to the syntax or the semantics of a specific OO language. It is something that is inherent to OO fundamental insight that programs should be composed from objects that consist of some state together with methods for accessing and manipulating that state.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In this chapter, we illustrate how some core aspects of OO tend to increase the complexity of OO systems.&lt;/p&gt;
-&lt;/div&gt;
-&lt;table id=&quot;oo-increases-compplexity&quot; class=&quot;tableblock frame-all grid-all stretch&quot;&gt;
-&lt;caption class=&quot;title&quot;&gt;Table 1. Aspects of Object Oriented programming and their impact on complexity&lt;/caption&gt;
-&lt;colgroup&gt;
-&lt;col style=&quot;width: 50%;&quot;&gt;
-&lt;col style=&quot;width: 50%;&quot;&gt;
-&lt;/colgroup&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Aspect&lt;/th&gt;
-&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Impact on complexity&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Code and data are mixed&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Classes tend to be involved in many relations&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Objects are mutable&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Extra thinking when reading code that involves state mutation&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Objects are mutable&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Explicit synchronization on multi-threaded environments&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Data is locked in objects&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Data serialization is a nightmare&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Code is locked in classes&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Class hierarchies are complex&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Over the years, OO ecosystems have alleviated this complexity increase by adding new features to the language (e.g. anonymous classes and anonymous functions) and by developing frameworks that hide part of this complexity by providing a simpler interface to the developers (e.g. Spring and Jackson in Java). Internally, they rely on advanced features of the language (like reflection and custom annotations).&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This chapter is not meant to be read as a critics of OO programming. Its purpose is to increase your awareness about the complexity of OO as a programming paradigm.
-I hope that after reading this chapter, you will be motivated to discover a different programming paradigm where this complexity tend to be less present, namely Data Oriented programming.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;oo-design-classic-or-classical&quot;&gt;OO design: classic or classical?&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;It&amp;#8217;s Monday morning 9:00 AM, you seat at a coffee shop with a potential customer, Nancy, that needs you to build a new library management system.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;What&amp;#8217;s a library management system in your mind?&quot; you ask.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;It&amp;#8217;s a system that handles housekeeping functions of a library, mainly around the book collection
-and the library members&quot; Nancy replies&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;Could you be a little bit more precise?&quot; you ask politely.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;Sure&quot; Nancy answers.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;She grabs the napkin under her coffee mug and she writes down a couple of bullet points on the napkin:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre&gt;. Two kinds of users: library members and librarians
-. Users log in to the system via email and password.
-. Members can borrow books
-. Members and librarians can search books by title or by author
-. Librarians can block and unblock members (e.g. when they are late in returning a book)
-. Librarians can list the books currently lent by a member
-. There could be several copies of a book&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;Well, that&amp;#8217;s pretty clear.&quot;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;When will you be able to deliver it?&quot;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;If you give me a down payment today, I should be able to deliver it by next Wednesday.&quot;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;Fantastic! I&amp;#8217;ll make you a bitcoin transfer later today.&quot;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You get back to your office with Nancy&amp;#8217;s napkin in your pocket.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Before rushing to your laptop to code the system,
-you grab a sheet of paper - slightly bigger than the napkin - and you prepare yourself to draw the UML class diagram of the system.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Everything is life is an object and every object is made from a class. Right?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Here are the main classes that you identify for the library management system:&lt;/p&gt;
-&lt;/div&gt;
-* `Library`: The central part for which the system is designed
-* `Book`: A book
-* `BookItem`: A book can have multiple copies, each copy is considered as a book item
-* `BookLending`: When a book is lent, a book lending object is created
-* `Member`: A member of the library
-* `Librarian`: A librarian
-* `User`: A base class for `Librarian` and `Member`
-* `Catalog`: Contains list of books
-* `Author`: A book author
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;That was the easy part. Now comes the difficult part: the relationships between the classes.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;After two hours or so, you come up with a first draft of a design for the
-library management system. It looks like the diagram shown on &lt;a href=&quot;#lib-mgmt-class-diagram&quot;&gt;A class diagram for a Library management system&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;lib-mgmt-class-diagram&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/class-diagram-lms.png&quot; alt=&quot;class diagram lms&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 1. A class diagram for a Library management system&lt;/div&gt;
-&lt;/div&gt;
-This design is meant to be very simple and by no means it pretends to cover all the features of the system.
-This design serves two purposes:
-
-. For you - the developer - it is rich enough to start coding
-. For me - the author of the book - it is rich enough to illustrate the complexity of a typical OO system
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You feel proud of yourself and of the design you produced. You definitely deserve a cup of coffee.
-Near the coffee machine, you meet Dave, a junior software developer that you appreciate.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Hey Dave! How are you doing?&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Trying to fix a bug in my code: I cannot understand why the state of my objects always change! You?&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;I have just finished the design of a system for a new customer.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Cool! Can you show me your design?&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Sure.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Are you curious to discover Dave&amp;#8217;s reaction to your design?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Read the &lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part2.html&quot;&gt;next part&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    Enter your email address below to get notified when the book is published.
-  &lt;/p&gt;
-
-  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
-	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
-	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
-	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
-  &lt;/form&gt;
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">The complexity of Object Oriented Programming: Imagine</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part5.html" rel="alternate" type="text/html" title="The complexity of Object Oriented Programming: Imagine" /><published>2020-09-25T07:45:32+03:00</published><updated>2020-09-25T07:45:32+03:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part5</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part5.html">&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    Enter your email address below to get notified when the book is published.
-  &lt;/p&gt;
-
-  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
-	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
-	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
-	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
-  &lt;/form&gt;
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;A couple of years ago, a famous composer had an illumination and he wrote a song about a world without OO.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/assets/imagine.jpeg&quot; alt=&quot;imagine&quot;&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Imagine there&amp;#8217;s no objects&lt;br&gt;
-It&amp;#8217;s easy if you try&lt;br&gt;
-No classes below us&lt;br&gt;
-Above us only information&lt;br&gt;
-Imagine all the entities being only data&lt;br&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Imagine there&amp;#8217;s no mutations&lt;br&gt;
-It isn&amp;#8217;t hard to do&lt;br&gt;
-Nothing to protect with a mutex&lt;br&gt;
-And no deadlock too&lt;br&gt;
-Imagine all the entities being only data&lt;br&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You may say I&amp;#8217;m a dreamer&lt;br&gt;
-But I&amp;#8217;m not the only one&lt;br&gt;
-I hope some day OO will join us&lt;br&gt;
-And the world will be as one&lt;br&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Imagine no code is locked&lt;br&gt;
-I wonder if you can&lt;br&gt;
-No need for methods and inheritance&lt;br&gt;
-A brotherhood of input and output&lt;br&gt;
-Imagine all the code being pure functions&lt;br&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You may say I&amp;#8217;m a dreamer&lt;br&gt;
-But I&amp;#8217;m not the only one&lt;br&gt;
-I hope some day OO will join us&lt;br&gt;
-And the world will be as one&lt;br&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    Enter your email address below to get notified when the book is published.
-  &lt;/p&gt;
-
-  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
-	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
-	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
-	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
-  &lt;/form&gt;
-  &lt;br&gt;
-&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">The complexity of Object Oriented Programming: What’s wrong with you OO?</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part3.html" rel="alternate" type="text/html" title="The complexity of Object Oriented Programming: What's wrong with you OO?" /><published>2020-09-25T07:45:32+03:00</published><updated>2020-09-25T07:45:32+03:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part3</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part3.html">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    Enter your email address below to get notified when the book is published.
-  &lt;/p&gt;
-
-  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
-	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
-	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
-	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
-  &lt;/form&gt;
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In the &lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part2.html&quot;&gt;previous part&lt;/a&gt;, you presented your design to Dave.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In this part, we continue our exploration of the tendency of OO systems to be complex.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;whats-wrong-with-you-oo&quot;&gt;What's wrong with you OO?&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Before you start coding, and while you prepare yourself another cup of coffee, I would like to
-challenge your design. It might look beautiful and clear on the paper but, this design is too complex.
-It&amp;#8217;s not that you picked the wrong classes
-or that you misunderstood the relationships between the classes. It&amp;#8217;s much deeper.
-It&amp;#8217;s about the programming paradigm you chose to implement the system.
-It&amp;#8217;s about the Object Oriented paradigm. It&amp;#8217;s about OO.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-OO is too complex.
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The purpose of this book is to present a much simpler programming paradigm called Data Oriented Programming (DO).
-If you are already convinced that OO is too complex,
-you can skip to the next chapter and start your journey into DO.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;If you are a skeptic about that, please keep reading.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;According to DO, the main sources of complexity of your system - and of any OO system - are:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Code and data are mixed&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Objects are mutable&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Data is locked in objects as members&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Code is locked into classes as methods&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In this section, we are going to illustrate each of the above points in the context
-of the library management system
-and explain in what sense it is a source of complexity.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;code-and-data-are-mixed&quot;&gt;Code and data are mixed&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;One way to assess the complexity of a class diagram is to look only at the entities and their relationships
-(ignoring members and methods) as in &lt;a href=&quot;#lib-mgmt-class-diagram-overview&quot;&gt;A class diagram overview for a Library management system&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Don&amp;#8217;t you think this diagram is too complex for such a simple system?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;lib-mgmt-class-diagram-overview&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/complex-class-relation.png&quot; alt=&quot;complex class relation&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 1. A class diagram overview for a Library management system&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;When we design a system, no matter whether it&amp;#8217;s OO or DO,
-we have to define the relationships between different pieces of code and data: that&amp;#8217;s unavoidable.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In OO, code and data are mixed together in classes, data as members and code as methods.
-From a system analysis perspective, the fact that code and data are mixed together makes the system complex
-in the sense that entities tend to be involved in many relationships.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Take a look for instance at the &lt;code&gt;Member&lt;/code&gt; class in our class diagram &lt;a href=&quot;#lib-mgmt-class-diagram-overview&quot;&gt;A class diagram overview for a Library management system&lt;/a&gt;.
-It is involved 5 relations: 2 data relations and 3 code relations.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist loweralpha&quot;&gt;
-&lt;ol class=&quot;loweralpha&quot; type=&quot;a&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Data relations:&lt;/p&gt;
-&lt;div class=&quot;olist lowerroman&quot;&gt;
-&lt;ol class=&quot;lowerroman&quot; type=&quot;i&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;Library&lt;/code&gt; has &lt;code&gt;Member&lt;/code&gt;s&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;Member&lt;/code&gt; has &lt;code&gt;BookLending&lt;/code&gt;s&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Code relations:&lt;/p&gt;
-&lt;div class=&quot;olist lowerroman&quot;&gt;
-&lt;ol class=&quot;lowerroman&quot; type=&quot;i&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;Member&lt;/code&gt; extends &lt;code&gt;User&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;Librarian&lt;/code&gt; uses &lt;code&gt;Member&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;Member&lt;/code&gt; uses &lt;code&gt;BookItem&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Imagine for a moment that we were able somehow to split the &lt;code&gt;Member&lt;/code&gt; class into two separate entitites:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;&lt;code&gt;MemberData&lt;/code&gt; for the data&lt;/div&gt;
-&lt;p&gt;Instead of a &lt;code&gt;Member&lt;/code&gt; class with 5 relations, we would have as shown in &lt;a href=&quot;#lib-mgmt-member-split&quot;&gt;A class diagram where &lt;code&gt;Member&lt;/code&gt; is split into code and data entities&lt;/a&gt;:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;A &lt;code&gt;MemberCode&lt;/code&gt; entity with 3 relations&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;A &lt;code&gt;MemberData&lt;/code&gt; entity with 2 relations&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div id=&quot;lib-mgmt-member-split&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/member-code-data.png&quot; alt=&quot;member code data&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 2. A class diagram where &lt;code&gt;Member&lt;/code&gt; is split into code and data entities&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Not yet convinced that this imaginary system is simpler than the original one?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;No problem, I know how to convince you.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Let&amp;#8217;s split every class of our original class diagram into code and data entities.
-Now we have a system  made of two disjoint parts as shown in &lt;a href=&quot;#lib-mgmt-simplified-class-diagram&quot;&gt;A class diagram where every class is split into code and data entities&lt;/a&gt;:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;A part that involves only code entities&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;A part that involves only data entities&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div id=&quot;lib-mgmt-simplified-class-diagram&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/data-code-relation.png&quot; alt=&quot;data code relation&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 3. A class diagram where every class is split into code and data entities&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;I hope that you agree that this system, made of two disjoint sub-systems, is simpler than the original one.
-It&amp;#8217;s not simpler by accident, it is a logical consequence of separating code and data.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock important&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;Important&lt;/div&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-A system made of disjoint simple parts is less complex than a simple made of a single complex part.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;objects-are-mutable&quot;&gt;Objects are mutable&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You are probably a bit tired with all the system-level analysis that we presented in the previous section.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Let&amp;#8217;s get refreshed and look at some code. Well not exactly code, but pseudocode.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Please take a look at the pseudocode shown in &lt;a href=&quot;#code-simple&quot;&gt;[code-simple]&lt;/a&gt;:
-we get the blocked status of a member and we display it twice.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;If I tell you that when I called &lt;code&gt;displayBlockedStatusTwice&lt;/code&gt;,
-the program displayed &lt;code&gt;true&lt;/code&gt; on the first &lt;code&gt;print&lt;/code&gt; call,
-can you tell me what the program displayed on the second &lt;code&gt;print&lt;/code&gt; call?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;class&lt;/span&gt; &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;Member&lt;/span&gt; &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;{&lt;/span&gt;
-      &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;Bool&lt;/span&gt; &lt;span style=&quot;background-color: #f8f8f8&quot;&gt;member&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;;&lt;/span&gt;
-
-      &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;displayBlockedStatusTwice&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;()&lt;/span&gt; &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;{&lt;/span&gt;
-         &lt;span style=&quot;background-color: #f8f8f8&quot;&gt;isBlocked&lt;/span&gt; &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;this&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;isBlocked&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;()&lt;/span&gt;
-         &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;System&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;Print&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;isBlocked&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;);&lt;/span&gt;
-         &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;System&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;Print&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;isBlocked&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;);&lt;/span&gt;
-    &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;}&lt;/span&gt;
-&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;Of course, it displayed &lt;code&gt;true&lt;/code&gt; again&quot;, you tell me.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;And you are right.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Now, please take a look at a slightly different pseudocode as shown in &lt;a href=&quot;#code-block-member&quot;&gt;Apparently simple pseudo code&lt;/a&gt;:
-here we display twice the blocked status of a member without assigning a variable.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Same question as before:
-If I tell you that when I called &lt;code&gt;displayBlockedStatusTwice&lt;/code&gt;,
-the program displayed &lt;code&gt;true&lt;/code&gt; on the first &lt;code&gt;print&lt;/code&gt; call,
-can you tell me what the program displayed on the second &lt;code&gt;print&lt;/code&gt; call?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;code-block-member&quot; class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;Apparently simple pseudo code&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;class&lt;/span&gt; &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;Member&lt;/span&gt; &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;{&lt;/span&gt;
-      &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;Bool&lt;/span&gt; &lt;span style=&quot;background-color: #f8f8f8&quot;&gt;member&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;;&lt;/span&gt;
-
-      &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;displayBlockedStatusTwice&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;()&lt;/span&gt; &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;{&lt;/span&gt;
-        &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;System&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;Print&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;this&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;isBlocked&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;);&lt;/span&gt;
-        &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;System&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;Print&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;this&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;isBlocked&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;);&lt;/span&gt;
-    &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;}&lt;/span&gt;
-&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;If your answer is &lt;code&gt;false&lt;/code&gt;, I am suggesting you to consult a therapist.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;If your answer is &lt;code&gt;true&lt;/code&gt;, I am suggesting you to take a few seconds and think about it again.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;I&amp;#8217;ll give you a clue: multi threading.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The correct answer is: in a single threaded environment, it displays &lt;code&gt;true&lt;/code&gt;
-while on a multi threaded environment it&amp;#8217;s unpredictable.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Indeed in a multi threaded environment, between the two print calls,
-there could be a context switch and the state of the member object could be changed (e.g. a librarian unblocked the member).&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The difference between the two pseudocode snippets is that:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;in the first snippet, we access twice a boolean value which is a primitive value&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;in the second snippet, we access twice a member of an object&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This unpredictable behavior of the second snippet is one of the annoying consequences of the fact that in OO, unlike
-primitive types who are immutable, object members are mutable.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;One way to solve this problem in OO is to protect sensitive code with mutexes, but it introduces issues on its own like a performance hit and a risk of deadlocks.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;We will see later in the book that DO treats every piece of data in the same way: both primitive types and collection types have immutable values.
-This &quot;value treatment for all citizens&quot; brings to DO developers' minds a lot of serenity.
-As a consequence, more cells of DO developers' minds are available
-to handle the interesting pieces of the applications they build.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Until then, keep you mind busy with boring stuff.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;When you feel ready to explore more sources of complexity in OO, move to the &lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part4.html&quot;&gt;next part&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    Enter your email address below to get notified when the book is published.
-  &lt;/p&gt;
-
-  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
-	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
-	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
-	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
-  &lt;/form&gt;
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">The complexity of Object Oriented Programming: A bit of UML</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part2.html" rel="alternate" type="text/html" title="The complexity of Object Oriented Programming: A bit of UML" /><published>2020-09-25T07:45:32+03:00</published><updated>2020-09-25T07:45:32+03:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part2</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part2.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">The complexity of Object Oriented Programming: A bit of UML</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part2.html" rel="alternate" type="text/html" title="The complexity of Object Oriented Programming: A bit of UML" /><published>2020-09-25T04:45:32+00:00</published><updated>2020-09-25T04:45:32+00:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part2</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part2.html">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div&gt;
   &lt;p&gt;
@@ -1213,7 +798,342 @@ You were so excited to show your class diagram to Dave that you forgot to drink 
   &lt;br&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /></entry><entry><title type="html">The complexity of Object Oriented Programming: DO magic sauce</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part4.html" rel="alternate" type="text/html" title="The complexity of Object Oriented Programming: DO magic sauce" /><published>2020-09-25T07:45:32+03:00</published><updated>2020-09-25T07:45:32+03:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part4</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part4.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /></entry><entry><title type="html">The complexity of Object Oriented Programming: What’s wrong with you OO?</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part3.html" rel="alternate" type="text/html" title="The complexity of Object Oriented Programming: What's wrong with you OO?" /><published>2020-09-25T04:45:32+00:00</published><updated>2020-09-25T04:45:32+00:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part3</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part3.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In the &lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part2.html&quot;&gt;previous part&lt;/a&gt;, you presented your design to Dave.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In this part, we continue our exploration of the tendency of OO systems to be complex.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;whats-wrong-with-you-oo&quot;&gt;What's wrong with you OO?&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Before you start coding, and while you prepare yourself another cup of coffee, I would like to
+challenge your design. It might look beautiful and clear on the paper but, this design is too complex.
+It&amp;#8217;s not that you picked the wrong classes
+or that you misunderstood the relationships between the classes. It&amp;#8217;s much deeper.
+It&amp;#8217;s about the programming paradigm you chose to implement the system.
+It&amp;#8217;s about the Object Oriented paradigm. It&amp;#8217;s about OO.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+OO is too complex.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The purpose of this book is to present a much simpler programming paradigm called Data Oriented Programming (DO).
+If you are already convinced that OO is too complex,
+you can skip to the next chapter and start your journey into DO.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If you are a skeptic about that, please keep reading.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;According to DO, the main sources of complexity of your system - and of any OO system - are:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Code and data are mixed&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Objects are mutable&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Data is locked in objects as members&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Code is locked into classes as methods&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In this section, we are going to illustrate each of the above points in the context
+of the library management system
+and explain in what sense it is a source of complexity.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;code-and-data-are-mixed&quot;&gt;Code and data are mixed&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;One way to assess the complexity of a class diagram is to look only at the entities and their relationships
+(ignoring members and methods) as in &lt;a href=&quot;#lib-mgmt-class-diagram-overview&quot;&gt;A class diagram overview for a Library management system&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Don&amp;#8217;t you think this diagram is too complex for such a simple system?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;lib-mgmt-class-diagram-overview&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/complex-class-relation.png&quot; alt=&quot;complex class relation&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 1. A class diagram overview for a Library management system&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When we design a system, no matter whether it&amp;#8217;s OO or DO,
+we have to define the relationships between different pieces of code and data: that&amp;#8217;s unavoidable.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In OO, code and data are mixed together in classes, data as members and code as methods.
+From a system analysis perspective, the fact that code and data are mixed together makes the system complex
+in the sense that entities tend to be involved in many relationships.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Take a look for instance at the &lt;code&gt;Member&lt;/code&gt; class in our class diagram &lt;a href=&quot;#lib-mgmt-class-diagram-overview&quot;&gt;A class diagram overview for a Library management system&lt;/a&gt;.
+It is involved 5 relations: 2 data relations and 3 code relations.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist loweralpha&quot;&gt;
+&lt;ol class=&quot;loweralpha&quot; type=&quot;a&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Data relations:&lt;/p&gt;
+&lt;div class=&quot;olist lowerroman&quot;&gt;
+&lt;ol class=&quot;lowerroman&quot; type=&quot;i&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Library&lt;/code&gt; has &lt;code&gt;Member&lt;/code&gt;s&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Member&lt;/code&gt; has &lt;code&gt;BookLending&lt;/code&gt;s&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Code relations:&lt;/p&gt;
+&lt;div class=&quot;olist lowerroman&quot;&gt;
+&lt;ol class=&quot;lowerroman&quot; type=&quot;i&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Member&lt;/code&gt; extends &lt;code&gt;User&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Librarian&lt;/code&gt; uses &lt;code&gt;Member&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Member&lt;/code&gt; uses &lt;code&gt;BookItem&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Imagine for a moment that we were able somehow to split the &lt;code&gt;Member&lt;/code&gt; class into two separate entitites:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;&lt;code&gt;MemberData&lt;/code&gt; for the data&lt;/div&gt;
+&lt;p&gt;Instead of a &lt;code&gt;Member&lt;/code&gt; class with 5 relations, we would have as shown in &lt;a href=&quot;#lib-mgmt-member-split&quot;&gt;A class diagram where &lt;code&gt;Member&lt;/code&gt; is split into code and data entities&lt;/a&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;A &lt;code&gt;MemberCode&lt;/code&gt; entity with 3 relations&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A &lt;code&gt;MemberData&lt;/code&gt; entity with 2 relations&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div id=&quot;lib-mgmt-member-split&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/member-code-data.png&quot; alt=&quot;member code data&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 2. A class diagram where &lt;code&gt;Member&lt;/code&gt; is split into code and data entities&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Not yet convinced that this imaginary system is simpler than the original one?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;No problem, I know how to convince you.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Let&amp;#8217;s split every class of our original class diagram into code and data entities.
+Now we have a system  made of two disjoint parts as shown in &lt;a href=&quot;#lib-mgmt-simplified-class-diagram&quot;&gt;A class diagram where every class is split into code and data entities&lt;/a&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;A part that involves only code entities&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A part that involves only data entities&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div id=&quot;lib-mgmt-simplified-class-diagram&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/data-code-relation.png&quot; alt=&quot;data code relation&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 3. A class diagram where every class is split into code and data entities&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I hope that you agree that this system, made of two disjoint sub-systems, is simpler than the original one.
+It&amp;#8217;s not simpler by accident, it is a logical consequence of separating code and data.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock important&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Important&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+A system made of disjoint simple parts is less complex than a simple made of a single complex part.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;objects-are-mutable&quot;&gt;Objects are mutable&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You are probably a bit tired with all the system-level analysis that we presented in the previous section.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Let&amp;#8217;s get refreshed and look at some code. Well not exactly code, but pseudocode.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Please take a look at the pseudocode shown in &lt;a href=&quot;#code-simple&quot;&gt;[code-simple]&lt;/a&gt;:
+we get the blocked status of a member and we display it twice.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If I tell you that when I called &lt;code&gt;displayBlockedStatusTwice&lt;/code&gt;,
+the program displayed &lt;code&gt;true&lt;/code&gt; on the first &lt;code&gt;print&lt;/code&gt; call,
+can you tell me what the program displayed on the second &lt;code&gt;print&lt;/code&gt; call?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;class&lt;/span&gt; &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;Member&lt;/span&gt; &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;{&lt;/span&gt;
+      &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;Bool&lt;/span&gt; &lt;span style=&quot;background-color: #f8f8f8&quot;&gt;member&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;;&lt;/span&gt;
+
+      &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;displayBlockedStatusTwice&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;()&lt;/span&gt; &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;{&lt;/span&gt;
+         &lt;span style=&quot;background-color: #f8f8f8&quot;&gt;isBlocked&lt;/span&gt; &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;this&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;isBlocked&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;()&lt;/span&gt;
+         &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;System&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;Print&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;isBlocked&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;);&lt;/span&gt;
+         &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;System&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;Print&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;isBlocked&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;);&lt;/span&gt;
+    &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;}&lt;/span&gt;
+&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;Of course, it displayed &lt;code&gt;true&lt;/code&gt; again&quot;, you tell me.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;And you are right.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now, please take a look at a slightly different pseudocode as shown in &lt;a href=&quot;#code-block-member&quot;&gt;Apparently simple pseudo code&lt;/a&gt;:
+here we display twice the blocked status of a member without assigning a variable.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Same question as before:
+If I tell you that when I called &lt;code&gt;displayBlockedStatusTwice&lt;/code&gt;,
+the program displayed &lt;code&gt;true&lt;/code&gt; on the first &lt;code&gt;print&lt;/code&gt; call,
+can you tell me what the program displayed on the second &lt;code&gt;print&lt;/code&gt; call?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;code-block-member&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Apparently simple pseudo code&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;class&lt;/span&gt; &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;Member&lt;/span&gt; &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;{&lt;/span&gt;
+      &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;Bool&lt;/span&gt; &lt;span style=&quot;background-color: #f8f8f8&quot;&gt;member&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;;&lt;/span&gt;
+
+      &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;displayBlockedStatusTwice&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;()&lt;/span&gt; &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;{&lt;/span&gt;
+        &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;System&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;Print&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;this&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;isBlocked&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;);&lt;/span&gt;
+        &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;System&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;Print&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;this&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;isBlocked&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;);&lt;/span&gt;
+    &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;}&lt;/span&gt;
+&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If your answer is &lt;code&gt;false&lt;/code&gt;, I am suggesting you to consult a therapist.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If your answer is &lt;code&gt;true&lt;/code&gt;, I am suggesting you to take a few seconds and think about it again.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I&amp;#8217;ll give you a clue: multi threading.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The correct answer is: in a single threaded environment, it displays &lt;code&gt;true&lt;/code&gt;
+while on a multi threaded environment it&amp;#8217;s unpredictable.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Indeed in a multi threaded environment, between the two print calls,
+there could be a context switch and the state of the member object could be changed (e.g. a librarian unblocked the member).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The difference between the two pseudocode snippets is that:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;in the first snippet, we access twice a boolean value which is a primitive value&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;in the second snippet, we access twice a member of an object&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This unpredictable behavior of the second snippet is one of the annoying consequences of the fact that in OO, unlike
+primitive types who are immutable, object members are mutable.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;One way to solve this problem in OO is to protect sensitive code with mutexes, but it introduces issues on its own like a performance hit and a risk of deadlocks.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We will see later in the book that DO treats every piece of data in the same way: both primitive types and collection types have immutable values.
+This &quot;value treatment for all citizens&quot; brings to DO developers' minds a lot of serenity.
+As a consequence, more cells of DO developers' minds are available
+to handle the interesting pieces of the applications they build.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Until then, keep you mind busy with boring stuff.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When you feel ready to explore more sources of complexity in OO, move to the &lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part4.html&quot;&gt;next part&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">The complexity of Object Oriented Programming: DO magic sauce</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part4.html" rel="alternate" type="text/html" title="The complexity of Object Oriented Programming: DO magic sauce" /><published>2020-09-25T04:45:32+00:00</published><updated>2020-09-25T04:45:32+00:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part4</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part4.html">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div&gt;
   &lt;p&gt;
@@ -1655,7 +1575,87 @@ of DO magic sauce.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published. According to DO, the main sources of complexity of any OO system - are:</summary></entry><entry><title type="html">Core.match available for self hosted ClojureScript (Planck and Klipse)</title><link href="https://blog.klipse.tech//clojure/2020/09/16/core-match-abbinare.html" rel="alternate" type="text/html" title="Core.match available for self hosted ClojureScript (Planck and Klipse)" /><published>2020-09-16T16:21:32+03:00</published><updated>2020-09-16T16:21:32+03:00</updated><id>https://blog.klipse.tech//clojure/2020/09/16/core-match-abbinare</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/09/16/core-match-abbinare.html">&lt;p&gt;&lt;a href=&quot;https://github.com/clojure/core.match&quot;&gt;core.match&lt;/a&gt; - A pattern matching library for Clojure[script] - is  available for self-hosted &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ClojureScript&lt;/code&gt;. It means that it can run in &lt;a href=&quot;https://github.com/mfikes/planck&quot;&gt;Planck&lt;/a&gt; and &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published. According to DO, the main sources of complexity of any OO system - are:</summary></entry><entry><title type="html">The complexity of Object Oriented Programming: Imagine</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part5.html" rel="alternate" type="text/html" title="The complexity of Object Oriented Programming: Imagine" /><published>2020-09-25T04:45:32+00:00</published><updated>2020-09-25T04:45:32+00:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part5</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part5.html">&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A couple of years ago, a famous composer had an illumination and he wrote a song about a world without OO.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/assets/imagine.jpeg&quot; alt=&quot;imagine&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Imagine there&amp;#8217;s no objects&lt;br&gt;
+It&amp;#8217;s easy if you try&lt;br&gt;
+No classes below us&lt;br&gt;
+Above us only information&lt;br&gt;
+Imagine all the entities being only data&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Imagine there&amp;#8217;s no mutations&lt;br&gt;
+It isn&amp;#8217;t hard to do&lt;br&gt;
+Nothing to protect with a mutex&lt;br&gt;
+And no deadlock too&lt;br&gt;
+Imagine all the entities being only data&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You may say I&amp;#8217;m a dreamer&lt;br&gt;
+But I&amp;#8217;m not the only one&lt;br&gt;
+I hope some day OO will join us&lt;br&gt;
+And the world will be as one&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Imagine no code is locked&lt;br&gt;
+I wonder if you can&lt;br&gt;
+No need for methods and inheritance&lt;br&gt;
+A brotherhood of input and output&lt;br&gt;
+Imagine all the code being pure functions&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You may say I&amp;#8217;m a dreamer&lt;br&gt;
+But I&amp;#8217;m not the only one&lt;br&gt;
+I hope some day OO will join us&lt;br&gt;
+And the world will be as one&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">Core.match available for self hosted ClojureScript (Planck and Klipse)</title><link href="https://blog.klipse.tech//clojure/2020/09/16/core-match-abbinare.html" rel="alternate" type="text/html" title="Core.match available for self hosted ClojureScript (Planck and Klipse)" /><published>2020-09-16T13:21:32+00:00</published><updated>2020-09-16T13:21:32+00:00</updated><id>https://blog.klipse.tech//clojure/2020/09/16/core-match-abbinare</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/09/16/core-match-abbinare.html">&lt;p&gt;&lt;a href=&quot;https://github.com/clojure/core.match&quot;&gt;core.match&lt;/a&gt; - A pattern matching library for Clojure[script] - is  available for self-hosted &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ClojureScript&lt;/code&gt;. It means that it can run in &lt;a href=&quot;https://github.com/mfikes/planck&quot;&gt;Planck&lt;/a&gt; and &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;The code is available as a &lt;a href=&quot;https://github.com/viebel/abbinare&quot;&gt;fork&lt;/a&gt; of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;core.match&lt;/code&gt; called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;abbinare&lt;/code&gt;.&lt;/p&gt;
 
@@ -1687,7 +1687,7 @@ of DO magic sauce.&lt;/p&gt;
            :else n))))
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Want more &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;core.match&lt;/code&gt; cool stuff in your browser? Read this &lt;a href=&quot;/clojure/2016/10/25/core-match.html&quot;&gt;core.match interactive tutorial&lt;/a&gt;.&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">core.match - A pattern matching library for Clojure[script] - is available for self-hosted ClojureScript. It means that it can run in Planck and Klipse.</summary></entry><entry><title type="html">The most elegant implementation of FizzBuzz</title><link href="https://blog.klipse.tech//clojure/2020/09/11/fizbuzz-clj.html" rel="alternate" type="text/html" title="The most elegant implementation of FizzBuzz" /><published>2020-09-11T07:28:22+03:00</published><updated>2020-09-11T07:28:22+03:00</updated><id>https://blog.klipse.tech//clojure/2020/09/11/fizbuzz-clj</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/09/11/fizbuzz-clj.html">&lt;h3 id=&quot;what-is-fizzbuzz&quot;&gt;What is FizzBuzz?&lt;/h3&gt;
+&lt;p&gt;Want more &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;core.match&lt;/code&gt; cool stuff in your browser? Read this &lt;a href=&quot;/clojure/2016/10/25/core-match.html&quot;&gt;core.match interactive tutorial&lt;/a&gt;.&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">core.match - A pattern matching library for Clojure[script] - is available for self-hosted ClojureScript. It means that it can run in Planck and Klipse.</summary></entry><entry><title type="html">The most elegant implementation of FizzBuzz</title><link href="https://blog.klipse.tech//clojure/2020/09/11/fizbuzz-clj.html" rel="alternate" type="text/html" title="The most elegant implementation of FizzBuzz" /><published>2020-09-11T04:28:22+00:00</published><updated>2020-09-11T04:28:22+00:00</updated><id>https://blog.klipse.tech//clojure/2020/09/11/fizbuzz-clj</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/09/11/fizbuzz-clj.html">&lt;h3 id=&quot;what-is-fizzbuzz&quot;&gt;What is FizzBuzz?&lt;/h3&gt;
 
 &lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FizzBuzz&lt;/code&gt; test is an interview question designed to help filter out the 99.5% of programming job candidates who can’t seem to program their way out of a wet paper bag. 
 The text of the programming assignment is as follows:&lt;/p&gt;
@@ -1750,7 +1750,7 @@ Today, I’d like to share with you the most elegant implementation of FizzBuzz 
 &lt;p&gt;And it works also:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(fizzbuzz-clean 15)
-&lt;/code&gt;&lt;/pre&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">What is FizzBuzz?</summary></entry><entry><title type="html">Generative testing in Clojure with test.check</title><link href="https://blog.klipse.tech//clojure/2020/09/11/test-check-clj.html" rel="alternate" type="text/html" title="Generative testing in Clojure with test.check" /><published>2020-09-11T05:11:22+03:00</published><updated>2020-09-11T05:11:22+03:00</updated><id>https://blog.klipse.tech//clojure/2020/09/11/test-check-clj</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/09/11/test-check-clj.html">&lt;h3 id=&quot;the-idea&quot;&gt;The idea&lt;/h3&gt;
+&lt;/code&gt;&lt;/pre&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">What is FizzBuzz?</summary></entry><entry><title type="html">Generative testing in Clojure with test.check</title><link href="https://blog.klipse.tech//clojure/2020/09/11/test-check-clj.html" rel="alternate" type="text/html" title="Generative testing in Clojure with test.check" /><published>2020-09-11T02:11:22+00:00</published><updated>2020-09-11T02:11:22+00:00</updated><id>https://blog.klipse.tech//clojure/2020/09/11/test-check-clj</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/09/11/test-check-clj.html">&lt;h3 id=&quot;the-idea&quot;&gt;The idea&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&quot;https://github.com/clojure/test.check&quot;&gt;test.check&lt;/a&gt; is a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Clojure&lt;/code&gt; property-based testing tool inspired by &lt;a href=&quot;https://en.wikipedia.org/wiki/QuickCheck&quot;&gt;QuickCheck&lt;/a&gt; from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Haskell&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;The core idea of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;test.check&lt;/code&gt; is that instead of enumerating expected input and output for unit tests, you write properties about your function that should
@@ -1885,7 +1885,7 @@ To see how powerful shrinking is, let’s come up with a contrived example: a fu
 
 &lt;p&gt;I hope that you enjoyed this interactive tutorial about generative testing in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;clojure&lt;/code&gt;. This is really a powerful paradigm that might change forever the way you write and think about testing. And who know? Maybe it will catch a bug or two…&lt;/p&gt;
 
-&lt;p&gt;Please forward it to your friends if you liked it and share your critics on &lt;a href=&quot;https://twitter.com/viebel&quot;&gt;twitter @viebel&lt;/a&gt; or on slack &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;#klipse&lt;/code&gt; channel.&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">The idea test.check is a Clojure property-based testing tool inspired by QuickCheck from Haskell.</summary></entry><entry><title type="html">Symbolic Computation in JavaScript with Math.js</title><link href="https://blog.klipse.tech//javascript/2020/09/10/symbolic-computation-math-js.html" rel="alternate" type="text/html" title="Symbolic Computation in JavaScript with Math.js" /><published>2020-09-10T17:08:22+03:00</published><updated>2020-09-10T17:08:22+03:00</updated><id>https://blog.klipse.tech//javascript/2020/09/10/symbolic-computation-math-js</id><content type="html" xml:base="https://blog.klipse.tech//javascript/2020/09/10/symbolic-computation-math-js.html">&lt;p&gt;&lt;a href=&quot;http://mathjs.org/index.html&quot;&gt;Math.js&lt;/a&gt; is an extensive math library for JavaScript and Node.js.&lt;/p&gt;
+&lt;p&gt;Please forward it to your friends if you liked it and share your critics on &lt;a href=&quot;https://twitter.com/viebel&quot;&gt;twitter @viebel&lt;/a&gt; or on slack &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;#klipse&lt;/code&gt; channel.&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">The idea test.check is a Clojure property-based testing tool inspired by QuickCheck from Haskell.</summary></entry><entry><title type="html">Symbolic Computation in JavaScript with Math.js</title><link href="https://blog.klipse.tech//javascript/2020/09/10/symbolic-computation-math-js.html" rel="alternate" type="text/html" title="Symbolic Computation in JavaScript with Math.js" /><published>2020-09-10T14:08:22+00:00</published><updated>2020-09-10T14:08:22+00:00</updated><id>https://blog.klipse.tech//javascript/2020/09/10/symbolic-computation-math-js</id><content type="html" xml:base="https://blog.klipse.tech//javascript/2020/09/10/symbolic-computation-math-js.html">&lt;p&gt;&lt;a href=&quot;http://mathjs.org/index.html&quot;&gt;Math.js&lt;/a&gt; is an extensive math library for JavaScript and Node.js.&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Math.js&lt;/code&gt; comes with a function &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;math.evaluate&lt;/code&gt; to evaluate expressions.&lt;/p&gt;
 

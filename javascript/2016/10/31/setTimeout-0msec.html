@@ -7,18 +7,18 @@
 
   <link rel="shortcut icon" href="/assets/favicon2.png">
 
-  <title>Interactive Business Report with Google Charts</title>
-  <meta name="description" content="Interactive Business Report with Google Charts">
+  <title>In javascript, setTimeout is forced to be &gt;= 4 msec</title>
+  <meta name="description" content="In javascript, setTimeout is forced to be >= 4 msec. 0 delay timer. postMessage. asynchronous.">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="https://blog.klipse.tech//data/2017/03/16/google-charts.html">
+  <link rel="canonical" href="https://blog.klipse.tech//javascript/2016/10/31/setTimeout-0msec.html">
   <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
 
   <!-- start: facebook -->
-  <meta property="og:title" content="Interactive Business Report with Google Charts">
+  <meta property="og:title" content="In javascript, setTimeout is forced to be >= 4 msec">
   <meta property="og:image" content="https://blog.klipse.tech/assets/klipse.png">
-  <meta property="og:description" content="Interactive Business Report with Google Charts">
+  <meta property="og:description" content="In javascript, setTimeout is forced to be >= 4 msec. 0 delay timer. postMessage. asynchronous.">
   <meta property="og:site_name" content="An interactive journey into functional programming with Yehonathan Sharvit">
   <meta property="article:author" content="Yehonathan Sharvit">
   <!-- end: facebook -->
@@ -83,8 +83,8 @@
       <img src="https://blog.klipse.tech/assets/klipse.png">
     </div>
     <div>
-      <h1 class="post-title" itemprop="name headline">Interactive Business Report with Google Charts</h1>
-      <p class="post-meta"><time datetime="2017-03-16T01:42:44+02:00" itemprop="datePublished">Mar 16, 2017</time>
+      <h1 class="post-title" itemprop="name headline">In javascript, setTimeout is forced to be >= 4 msec</h1>
+      <p class="post-meta"><time datetime="2016-10-31T23:12:54+00:00" itemprop="datePublished">Oct 31, 2016</time>
 	 •
 	<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Yehonathan Sharvit</span></span>
 	
@@ -93,111 +93,119 @@
 
   </header>
   <div class="post-content" itemprop="articleBody">
-    <h2 id="introduction">Introduction</h2>
+    <p>Javascript is a language full of surprises: there are the <code class="language-plaintext highlighter-rouge">good parts</code> and the <code class="language-plaintext highlighter-rouge">bad parts</code>. Today, I discovered that <code class="language-plaintext highlighter-rouge">setTimeout</code> featured a minimal delay of 4 msec.</p>
 
-<p>This article demonstrates how to create an interactive business report with data visualization widgets using <a href="https://github.com/viebel/klipse">Klipse</a>.</p>
+<p>This is well documented in <a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setTimeout#Reasons_for_delays_longer_than_specified">Reasons for delays longer than specified</a>.</p>
 
-<p>Usually, there are two types of data-driven reports:</p>
+<p>But I wonder, how many experienced javascript developers are aware of this weird behaviour.</p>
 
-<ul>
-  <li>advanced reports written by Software Developers</li>
-  <li>Static reports written by Business Analysts with <em>static</em> screen shorts of the charts - generated in Excel for instance</li>
-  <li>Live reports written by Business Analysts hosted on data platforms like Jupyter</li>
-</ul>
+<p>What about you?</p>
 
-<p><a href="https://github.com/viebel/klipse">Klipse</a> allows the author of a business report to get the full power of the javascript visualization libraries without requiring any help from a Software developer.</p>
+<p>Did you know that the minimal delay of <code class="language-plaintext highlighter-rouge">setTimeout</code> was 4 msec?</p>
 
-<p>For instance, in this article we will show how a Business Analyst can create interactive google charts widgets - simply by providing the specifications of the chart as a JSON object with threes keys:</p>
+<p>In this article, we are going to:</p>
 
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">data</code>: the data of the chart as an array</li>
-  <li><code class="language-plaintext highlighter-rouge">options</code>: the options of the chart as a map.</li>
-  <li><code class="language-plaintext highlighter-rouge">chartType</code>: the Google chart type e.g. “Table”, “ComboChart”, “AreaChart” etc…</li>
-</ul>
+<ol>
+  <li>demonstrate the 4 sec delay added by the browser when one uses a <code class="language-plaintext highlighter-rouge">setTimeout</code> with 0 delay.</li>
+  <li>demonstrate how to write 0-delay timers using <code class="language-plaintext highlighter-rouge">postMessage</code>.</li>
+</ol>
 
-<h2 id="coffee-production-in-the-world">Coffee Production in the World</h2>
+<p><img src="/assets/stopwatch.jpg" alt="Stop" /></p>
 
-<p>In this article, we use <a href="https://developers.google.com/chart/interactive/docs/">Google Charts</a> to visualize the coffee production in the world.</p>
+<h1 id="code-example">Code example</h1>
 
-<p>Here is the data that we are going to use in this article: The production of coffee in million of cups by year and by country.</p>
+<p>All the code snippets of this page are <strong>live</strong> and <strong>interactive</strong> powered by the <a href="https://github.com/viebel/klipse">klipse plugin</a>:</p>
 
-<p>The format of the data is a JSON array (in the future, we will support more formats like CSV and data coming from an HTTP endpoint).</p>
+<ol>
+  <li><strong>Live</strong>: The code is executed in your browser</li>
+  <li><strong>Interactive</strong>: You can modify the code and it is evaluated after 3 seconds of inactivity of if you press <code class="language-plaintext highlighter-rouge">Ctrl-Enter</code> inside the code snippet.</li>
+</ol>
+
+<h1 id="the-4-msec-delay-in-action">The 4 msec delay in action</h1>
+
+<p>Here is the  code that demonstrates the 4-msec delay - calling <code class="language-plaintext highlighter-rouge">setTimeout</code> recursively 100 times with a <code class="language-plaintext highlighter-rouge">0</code> delay.</p>
+
+<p>As you can see by yourslef, the execution time for 100 iterations is around 400 msec.</p>
+
+<p>You might need to reevaluate the snippet - for some reason the first evaluation takes much more time.</p>
+
+<p>Press <code class="language-plaintext highlighter-rouge">Ctrl-Enter</code> inside the code snippet or modify the code and wait for 3 seconds…</p>
 
 <pre><code class="language-klipse-eval-js" data-async-code="true">
-window.coffeeData = [
-    ['Year', 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda', 'Average'],
-    ['2012',  165,      938,         522,             998,           450,      614.6],
-    ['2013',  135,      1120,        599,             1268,          288,      682],
-    ['2014',  157,      1167,        587,             807,           397,      623],
-    ['2015',  139,      1110,        615,             968,           215,      609.4],
-    ['2016',  136,      691,         629,             1026,          366,      569.6]
-  ]
+function bar(iterations) {
+  if(iterations === 0) {
+    console.log("done in: " + (new Date() - startTimeout)+ " msec")
+  }
+  else {
+  setTimeout(bar, 0, iterations - 1);
+  }
+  }
+
+startTimeout = new Date();
+console.log("Start");
+bar(100);
 </code></pre>
 
-<p>When the reader modifies the data, the charts are updated immediately (give it a try)…</p>
+<p>Amazing. No?</p>
 
-<h1 id="data-table">Data Table</h1>
+<h1 id="the-solution-for-fast-timeouts">The solution for fast timeouts</h1>
 
-<p>First, let’s look at the data in a sortable data table - using a <a href="https://developers.google.com/chart/interactive/docs/gallery/table">Table chart</a>:</p>
+<p>If we want to have a <code class="language-plaintext highlighter-rouge">0 msec</code> timer, we have to use <code class="language-plaintext highlighter-rouge">postMessage</code>.</p>
 
-<pre><code class="language-google-chart" data-loop-msec="1000">
-{
-  dataTable: coffeeData,
-  options: {
-    showRowNumber: true,
-    width: '100%', 
-    height: '100%'
-  },
-  chartType: "Table"
+<p>So, let’s do it and take the following code from <a href="https://dbaron.org/log/20100309-faster-timeouts">setTimeout with a shorter delay</a>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">setZeroTimeout</code> takes a single argument: the callback function that is going to be called with 0 delay - but asynchronously.</p>
+
+<pre><code class="language-klipse-eval-js">(function() {
+    var timeouts = [];
+    var messageName = "zero-timeout-message";
+
+    function setZeroTimeout(fn) {
+        timeouts.push(fn);
+        window.postMessage(messageName, "*");
+    }
+
+    function handleMessage(event) {
+        if (event.source == window &amp;&amp; event.data == messageName) {
+            event.stopPropagation();
+            if (timeouts.length &gt; 0) {
+                var fn = timeouts.shift();
+                fn();
+            }
+        }
+    }
+    window.addEventListener("message", handleMessage, true);
+    window.setZeroTimeout = setZeroTimeout;
+})();
+</code></pre>
+
+<p>And now, let’s see it in action - in my browser, it takes around 17 msec for 100 iterations.</p>
+
+<p>Again, you might need to reevaluate the snippet - as the first evaluation takes much more time.</p>
+
+<p>Press <code class="language-plaintext highlighter-rouge">Ctrl-Enter</code> inside the code snippet or modify the code and wait for 3 seconds…</p>
+
+<pre><code class="language-klipse-eval-js" data-async-code="true">
+function runBaz(iterations) {
+  function baz() {
+    if(--iterations === 0) {
+      console.log("done in: " + (new Date() - startZeroTimeout) + " msec")
+    }
+    else {
+      setZeroTimeout(baz);
+    }
+  }
+  baz();
 }
 
+startZeroTimeout = new Date();
+console.log("OK");
+runBaz(100);
 </code></pre>
 
-<h1 id="combo-chart">Combo Chart</h1>
+<p>By the way, what do you think about the interactive code snippets powered by <a href="https://github.com/viebel/klipse">KLIPSE</a>?</p>
 
-<p>Now, let’s visualize the data with a <a href="https://developers.google.com/chart/interactive/docs/gallery/table">Combo chart</a>:</p>
-
-<p>(Feel free to modify the options - the chart will re-draw itself immediately…)</p>
-
-<pre><code class="language-google-chart" data-loop-msec="1000">
-{
-  dataTable: coffeeData,
-  options: {
-    title : 'Annual Coffee Production by Country',
-    legend: {position: 'top', maxLines: 3},	
-    vAxis: {title: 'Million of Cups'},
-    hAxis: {title: 'Year'},
-    seriesType: 'bars',
-	height: 500,
-    series: {5: {type: 'line'}}
-  },
-  chartType: "ComboChart"
-}
-</code></pre>
-
-<h1 id="area-chart">Area Chart</h1>
-
-<p>Let’s see if we get more interesting insights when we visualize the data as an <a href="https://developers.google.com/chart/interactive/docs/gallery/areachart">Area chart</a>:</p>
-
-<p>(Again, feel free to modify the options - the chart will re-draw itself immediately…)</p>
-
-<pre><code class="language-google-chart" data-loop-msec="1000">
-{
-  dataTable: coffeeData,
-  options: {
-    title : 'Annual Coffee Production by country',
-    hAxis: {title: 'Year'},
-    legend: {position: 'top', maxLines: 3},
-    vAxis: {minValue: 0, title: "Million of Cups"}
-  },
-  chartType: "AreaChart"
-}
-</code></pre>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<p>Let us know what you think about this interactive charts in the comments below…</p>
-
+<p>You might what to give a star on <a href="https://github.com/viebel/klipse">Github</a>…</p>
 
   </div>
 
@@ -262,6 +270,9 @@ window.coffeeData = [
 
 
 
+   window.klipse_settings.eval_idle_msec =
+3000;
+
 
 
 
@@ -275,7 +286,7 @@ window.coffeeData = [
 
 
 
-<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?v=8.0.1"></script>
 
 
 
@@ -361,9 +372,9 @@ window.coffeeData = [
     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
     */
     var disqus_config = function () {
-        this.page.url = "https://blog.klipse.tech/" + "/data/2017/03/16/google-charts.html";
-        this.page.identifier = "1810818B-BCB5-4B58-AB6F-3A81CAF19318";
-        this.page.title = "Interactive Business Report with Google Charts";
+        this.page.url = "https://blog.klipse.tech/" + "/javascript/2016/10/31/setTimeout-0msec.html";
+        this.page.identifier = "07407DA4-151B-4AE0-AC13-779965B1E3B5";
+        this.page.title = "In javascript, setTimeout is forced to be >= 4 msec";
     };
     (function() { // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');

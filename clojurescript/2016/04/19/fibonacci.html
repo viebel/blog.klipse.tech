@@ -7,18 +7,18 @@
 
   <link rel="shortcut icon" href="/assets/favicon2.png">
 
-  <title>Dead code elimination in clojurescript</title>
-  <meta name="description" content="A simple example of dead code elimination in clojurescript, using KLIPSE">
+  <title>3 ways to generate Lazy Fibonacci sequences in Clojure</title>
+  <meta name="description" content="How to write Lazy Fibonacci in Clojure. share code clojure with KLIPSE. macros with klipse. lazy sequences fibonacci.">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="https://blog.klipse.tech//clojure/2016/03/24/dead-code-elimination.html">
+  <link rel="canonical" href="https://blog.klipse.tech//clojurescript/2016/04/19/fibonacci.html">
   <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
 
   <!-- start: facebook -->
-  <meta property="og:title" content="Dead code elimination in clojurescript">
+  <meta property="og:title" content="3 ways to generate Lazy Fibonacci sequences in Clojure">
   <meta property="og:image" content="https://blog.klipse.tech/assets/klipse.png">
-  <meta property="og:description" content="A simple example of dead code elimination in clojurescript, using KLIPSE">
+  <meta property="og:description" content="How to write Lazy Fibonacci in Clojure. share code clojure with KLIPSE. macros with klipse. lazy sequences fibonacci.">
   <meta property="og:site_name" content="An interactive journey into functional programming with Yehonathan Sharvit">
   <meta property="article:author" content="Yehonathan Sharvit">
   <!-- end: facebook -->
@@ -83,8 +83,8 @@
       <img src="https://blog.klipse.tech/assets/klipse.png">
     </div>
     <div>
-      <h1 class="post-title" itemprop="name headline">Dead code elimination in clojurescript</h1>
-      <p class="post-meta"><time datetime="2016-03-24T00:25:46+02:00" itemprop="datePublished">Mar 24, 2016</time>
+      <h1 class="post-title" itemprop="name headline">3 ways to generate Lazy Fibonacci sequences in Clojure</h1>
+      <p class="post-meta"><time datetime="2016-04-19T23:28:14+00:00" itemprop="datePublished">Apr 19, 2016</time>
 	 •
 	<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Yehonathan Sharvit</span></span>
 	
@@ -93,31 +93,119 @@
 
   </header>
   <div class="post-content" itemprop="articleBody">
-    <p>Do you see any substantial difference between the two pieces of code below?</p>
+    <p>Generating the Fibonacci sequence is a good exercise to illustrate the concept of lazy sequences in <code class="language-plaintext highlighter-rouge">Clojure</code>.
+In this article, we will present 3 ways to create a lazy Fibonacci sequence:</p>
 
-<p><strong>Code #1:</strong></p>
+<ul>
+  <li>lazy-seq</li>
+  <li>lazy-cat</li>
+  <li>iterate</li>
+</ul>
 
-<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
+<p>We will also demonstrate two interesting features of <a href="http://app.klipse.tech?blog=klipse&amp;static-fns=true&amp;js_only=1" target="_blank">KLIPSE</a>:</p>
 
-<p><strong>Code #2:</strong></p>
+<ul>
+  <li>how to share code with KLIPSE</li>
+  <li>macros usage in KLIPSE</li>
+</ul>
 
-<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">def</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="p">))</span><span class="w">
-</span></code></pre></div></div>
+<h3 id="math-and-history">Math and History</h3>
 
-<p>They seem to be quite the same, so you’d expect their js transpiled code to be the same.</p>
+<p>In mathematics, the Fibonacci numbers or Fibonacci sequence are the numbers in the following integer sequence:</p>
 
-<p>Let’s check it with <a href="http://app.klipse.tech?js_only=1&amp;cljs_in=(if%202%203)%0A(def%20x%20(if%202%203))">KLIPSE</a>:</p>
+<blockquote>
+  <p>1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181 6765 10946 17711 28657 46368 75025 121393 196418 317811 514229 …</p>
+</blockquote>
 
-<pre><code class="language-klipse-js">(if 2 3)
-(def x (if 2 3))
+<p>or (often, in modern usage):</p>
+
+<blockquote>
+  <p>0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181 6765 10946 17711 28657 46368 75025 121393 196418 317811 514229 …</p>
+</blockquote>
+
+<p>The first two numbers in the Fibonacci sequence are either 1 and 1, or 0 and 1, and each subsequent number is the sum of the previous two.</p>
+
+<p>The Fibonacci sequence is named after Italian mathematician Leonardo of Pisa, known as Fibonacci. His 1202 book Liber Abaci introduced the sequence to Western European mathematics, although the sequence had been described earlier as Virahanka numbers in Indian mathematics.</p>
+
+<p><img src="/assets/fibonacci.jpg" alt="Secret" /></p>
+
+<h3 id="fibonacci-with-lazy-seq">Fibonacci with <code class="language-plaintext highlighter-rouge">lazy-seq</code></h3>
+
+<p>Here is the doc for <code class="language-plaintext highlighter-rouge">lazy-seq</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(lazy-seq &amp; body)
+Takes a body of expressions that returns an ISeq or nil, and yields
+a Seqable object that will invoke the body only the first time seq
+is called, and will cache the result and return it on all subsequent
+seq calls. See also - realized?
+</code></pre></div></div>
+
+<p>Let’s do Fibonacci with <code class="language-plaintext highlighter-rouge">lazy-seq</code>:</p>
+
+<pre><code class="language-klipse">(def fib-seq-seq
+  ((fn fib [a b] 
+       (lazy-seq (cons a (fib b (+ a b)))))
+     0 1))
+
+(take 30 fib-seq-seq)
 </code></pre>
 
-<p>Do you see what’s going on here?</p>
+<p>Now, imagine you are very proud of your code and you’d like to share it by email, on twitter or on Clojurians Slack. How would you do that?</p>
 
-<p><strong>Code #1</strong> is completely dead code no matter what code will come after it. Therefore it has been completly eliminated by the cljs transpiler!</p>
+<ul>
+  <li>The common option is to copy/paste it =&gt; no indentation and colors</li>
+  <li>A more elegant way is to create a github gist =&gt; indentation, colors but the code is <strong>static</strong></li>
+  <li>Another way is to share your klipse =&gt; indentation, colors and the code is <strong>dynamic</strong> and <strong>editable</strong></li>
+</ul>
 
-<p>Feel free to continue to play with dead code with <a href="http://app.klipse.tech?js_only=1&amp;cljs_in=(if%202%203)%0A(def%20x%20(if%202%203))">KLIPSE</a>.</p>
+<p>In order to share your klipse, you press <code class="language-plaintext highlighter-rouge">Ctrl-S</code> (<code class="language-plaintext highlighter-rouge">S</code> is for share or save) and the url of a klipse with your code (something like http://app.klipse.tech?cljs_in=….) will be displayed in an alert box and in the browser console.</p>
+
+<p>Go ahead! Give it a try in the Klipse box above that contains the <code class="language-plaintext highlighter-rouge">lazy-seq</code> implementation of the Fibonacci sequence.</p>
+
+<h3 id="fibonacci-with-lazy-cat">Fibonacci with <code class="language-plaintext highlighter-rouge">lazy-cat</code></h3>
+
+<p>Here is the doc for <code class="language-plaintext highlighter-rouge">lazy-cat</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(lazy-cat &amp; colls)
+
+Expands to code which yields a lazy sequence of the concatenation
+of the supplied colls.  Each coll expr is not evaluated until it is
+needed. 
+
+(lazy-cat xs ys zs) === (concat (lazy-seq xs) (lazy-seq ys) (lazy-seq zs))
+</code></pre></div></div>
+
+<p>Now, we’ll do Fibonacci with <code class="language-plaintext highlighter-rouge">lazy-cat</code>:</p>
+
+<pre><code class="language-klipse">(def fib-seq-cat
+  (lazy-cat [0 1] (map + (rest fib-seq-cat) fib-seq-cat)))
+
+(take 30 fib-seq-cat)
+</code></pre>
+
+<p>If you prefer this version, don’t hesitate share it! <code class="language-plaintext highlighter-rouge">Ctrl-S</code> is your friend…</p>
+
+<h3 id="fibonacci-with-iterate">Fibonacci with <code class="language-plaintext highlighter-rouge">iterate</code></h3>
+
+<p>Here is the doc for <code class="language-plaintext highlighter-rouge">iterate</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(iterate f x)
+Returns a lazy sequence of x, (f x), (f (f x)) etc...
+f must be free of side-effects
+</code></pre></div></div>
+
+<p>Now, Fibonacci with <code class="language-plaintext highlighter-rouge">iterate</code>:</p>
+
+<pre><code class="language-klipse">(def fib-seq-iterate
+  (map first (iterate 
+                 (fn [[a b]] [b (+ a b)]) [0 1])))
+
+(take 30 fib-seq-iterate)
+</code></pre>
+
+<p>Do you have another interesting Fibonacci sequence implementation? Feel free to share your klipse in the comments below…</p>
+
+<p>Clojure rocks!</p>
 
 
   </div>
@@ -282,9 +370,9 @@
     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
     */
     var disqus_config = function () {
-        this.page.url = "https://blog.klipse.tech/" + "/clojure/2016/03/24/dead-code-elimination.html";
-        this.page.identifier = "";
-        this.page.title = "Dead code elimination in clojurescript";
+        this.page.url = "https://blog.klipse.tech/" + "/clojurescript/2016/04/19/fibonacci.html";
+        this.page.identifier = "F34D7A10-69DB-493D-909D-374E5D4580A6";
+        this.page.title = "3 ways to generate Lazy Fibonacci sequences in Clojure";
     };
     (function() { // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');
