@@ -1,8 +1,6 @@
 = The complexity of Object Oriented Programming: DO magic sauce
 :page-layout: post
 :page-description: The complexity of Object Oriented Programming
-:page-draft: true
-:page-hidden: true
 :page-categories: databook
 :page-guid: 475A3C20-D7A4-4710-BB7B-544FA6BE1B83
 :page-booktitle: Chapter 1, Part 4

@@ -1,8 +1,6 @@
 = The complexity of Object Oriented Programming: What\'s wrong with you OO?
 :page-layout: post
 :page-description: The complexity of Object Oriented Programming
-:page-draft: true
-:page-hidden: true
 :page-categories: databook
 :page-guid: 64D2ED92-6627-4A04-BAC0-98F9BB281FB9
 :page-booktitle: Chapter 1, Part 3

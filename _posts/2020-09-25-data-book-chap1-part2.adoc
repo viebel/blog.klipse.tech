@@ -1,8 +1,6 @@
 = The complexity of Object Oriented Programming: A bit of UML
 :page-layout: post
 :page-description: The complexity of Object Oriented Programming
-:page-draft: true
-:page-hidden: true
 :page-categories: databook
 :page-guid: E7BABC47-3BA8-4012-B781-AA94AD979435
 :page-booktitle: Chapter 1, Part 2

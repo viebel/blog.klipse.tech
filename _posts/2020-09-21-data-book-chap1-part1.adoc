@@ -1,8 +1,6 @@
 = The complexity of Object Oriented Programming: Classic OO design
 :page-layout: post
 :page-description: The complexity of Object Oriented Programming
-:page-draft: true
-:page-hidden: true
 :page-categories: databook
 :page-guid: 6071166D-8595-43D1-9ED1-CD7B5F8F8BDF
 :page-booktitle: Chapter 1, Part 1

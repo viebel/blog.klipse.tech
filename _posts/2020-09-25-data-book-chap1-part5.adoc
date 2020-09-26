@@ -1,8 +1,6 @@
 = The complexity of Object Oriented Programming: Imagine
 :page-layout: post
 :page-description: The complexity of Object Oriented Programming
-:page-draft: true
-:page-hidden: true
 :page-categories: databook
 :page-guid: 274C6E10-FABE-4AE3-BCAC-2B8350A3E659
 :page-booktitle: Chapter 1, Part 5
