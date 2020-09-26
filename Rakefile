@@ -4,5 +4,7 @@ require 'rake-jekyll'
 # It's preconfigured to be used with GitHub and Travis CI.
 # See http://github.com/jirutka/rake-jekyll for more options.
 Rake::Jekyll::GitDeployTask.new(:deploy) do |t|
-    t.committer = 'Jekyll Publisher <jekyll@example.com>'
+  t.deploy_branch = -> {
+    'gh-pages'
+  }
 end
