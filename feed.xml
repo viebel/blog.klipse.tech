@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2020-09-26T20:27:07+03:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2020-09-26T20:46:29+03:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
 </subtitle><author><name>Yehonathan Sharvit</name></author><entry><title type="html">What is Data Oriented Programming?</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap0.html" rel="alternate" type="text/html" title="What is Data Oriented Programming?" /><published>2020-09-25T08:45:32+03:00</published><updated>2020-09-25T08:45:32+03:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap0</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap0.html">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div&gt;
@@ -217,7 +217,1445 @@ At the end of this chapter, we will refine what DO is about by comparing it with
   &lt;br&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">Core.match available for self hosted ClojureScript (Planck and Klipse)</title><link href="https://blog.klipse.tech//clojure/2020/09/16/core-match-abbinare.html" rel="alternate" type="text/html" title="Core.match available for self hosted ClojureScript (Planck and Klipse)" /><published>2020-09-16T16:21:32+03:00</published><updated>2020-09-16T16:21:32+03:00</updated><id>https://blog.klipse.tech//clojure/2020/09/16/core-match-abbinare</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/09/16/core-match-abbinare.html">&lt;p&gt;&lt;a href=&quot;https://github.com/clojure/core.match&quot;&gt;core.match&lt;/a&gt; - A pattern matching library for Clojure[script] - is  available for self-hosted &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ClojureScript&lt;/code&gt;. It means that it can run in &lt;a href=&quot;https://github.com/mfikes/planck&quot;&gt;Planck&lt;/a&gt; and &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">The complexity of Object Oriented Programming: Classic OO design</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part1.html" rel="alternate" type="text/html" title="The complexity of Object Oriented Programming: Classic OO design" /><published>2020-09-25T08:45:32+03:00</published><updated>2020-09-25T08:45:32+03:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part1</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part1.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In the &lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part1.html&quot;&gt;introduction&lt;/a&gt;, we discussed how Data Oriented Programming differs from Object Oriented (OO) Programming and from Functional Programming (FP).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In this chapter, we explore the tendency of OO systems to be complex.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This complexity is not related to the syntax or the semantics of a specific OO language. It is something that is inherent to OO fundamental insight that programs should be composed from objects that consist of some state together with methods for accessing and manipulating that state.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In this chapter, we illustrate how some core aspects of OO tend to increase the complexity of OO systems.&lt;/p&gt;
+&lt;/div&gt;
+&lt;table id=&quot;oo-increases-compplexity&quot; class=&quot;tableblock frame-all grid-all stretch&quot;&gt;
+&lt;caption class=&quot;title&quot;&gt;Table 1. Aspects of Object Oriented programming and their impact on complexity&lt;/caption&gt;
+&lt;colgroup&gt;
+&lt;col style=&quot;width: 50%;&quot;&gt;
+&lt;col style=&quot;width: 50%;&quot;&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Aspect&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Impact on complexity&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Code and data are mixed&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Classes tend to be involved in many relations&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Objects are mutable&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Extra thinking when reading code that involves state mutation&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Objects are mutable&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Explicit synchronization on multi-threaded environments&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Data is locked in objects&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Data serialization is a nightmare&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Code is locked in classes&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Class hierarchies are complex&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Over the years, OO ecosystems have alleviated this complexity increase by adding new features to the language (e.g. anonymous classes and anonymous functions) and by developing frameworks that hide part of this complexity by providing a simpler interface to the developers (e.g. Spring and Jackson in Java). Internally, they rely on advanced features of the language (like reflection and custom annotations).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This chapter is not meant to be read as a critics of OO programming. Its purpose is to increase your awareness about the complexity of OO as a programming paradigm.
+I hope that after reading this chapter, you will be motivated to discover a different programming paradigm where this complexity tend to be less present, namely Data Oriented programming.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;oo-design-classic-or-classical&quot;&gt;OO design: classic or classical?&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It&amp;#8217;s Monday morning 9:00 AM, you seat at a coffee shop with a potential customer, Nancy, that needs you to build a new library management system.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;What&amp;#8217;s a library management system in your mind?&quot; you ask.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;It&amp;#8217;s a system that handles housekeeping functions of a library, mainly around the book collection
+and the library members&quot; Nancy replies&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;Could you be a little bit more precise?&quot; you ask politely.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;Sure&quot; Nancy answers.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;She grabs the napkin under her coffee mug and she writes down a couple of bullet points on the napkin:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;. Two kinds of users: library members and librarians
+. Users log in to the system via email and password.
+. Members can borrow books
+. Members and librarians can search books by title or by author
+. Librarians can block and unblock members (e.g. when they are late in returning a book)
+. Librarians can list the books currently lent by a member
+. There could be several copies of a book&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;Well, that&amp;#8217;s pretty clear.&quot;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;When will you be able to deliver it?&quot;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;If you give me a down payment today, I should be able to deliver it by next Wednesday.&quot;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;Fantastic! I&amp;#8217;ll make you a bitcoin transfer later today.&quot;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You get back to your office with Nancy&amp;#8217;s napkin in your pocket.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Before rushing to your laptop to code the system,
+you grab a sheet of paper - slightly bigger than the napkin - and you prepare yourself to draw the UML class diagram of the system.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Everything is life is an object and every object is made from a class. Right?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Here are the main classes that you identify for the library management system:&lt;/p&gt;
+&lt;/div&gt;
+* `Library`: The central part for which the system is designed
+* `Book`: A book
+* `BookItem`: A book can have multiple copies, each copy is considered as a book item
+* `BookLending`: When a book is lent, a book lending object is created
+* `Member`: A member of the library
+* `Librarian`: A librarian
+* `User`: A base class for `Librarian` and `Member`
+* `Catalog`: Contains list of books
+* `Author`: A book author
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;That was the easy part. Now comes the difficult part: the relationships between the classes.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;After two hours or so, you come up with a first draft of a design for the
+library management system. It looks like the diagram shown on &lt;a href=&quot;#lib-mgmt-class-diagram&quot;&gt;A class diagram for a Library management system&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;lib-mgmt-class-diagram&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/class-diagram-lms.png&quot; alt=&quot;class diagram lms&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 1. A class diagram for a Library management system&lt;/div&gt;
+&lt;/div&gt;
+This design is meant to be very simple and by no means it pretends to cover all the features of the system.
+This design serves two purposes:
+
+. For you - the developer - it is rich enough to start coding
+. For me - the author of the book - it is rich enough to illustrate the complexity of a typical OO system
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You feel proud of yourself and of the design you produced. You definitely deserve a cup of coffee.
+Near the coffee machine, you meet Dave, a junior software developer that you appreciate.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Hey Dave! How are you doing?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Trying to fix a bug in my code: I cannot understand why the state of my objects always change! You?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;I have just finished the design of a system for a new customer.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Cool! Can you show me your design?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Sure.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Are you curious to discover Dave&amp;#8217;s reaction to your design?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Read the &lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part2.html&quot;&gt;next part&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">The complexity of Object Oriented Programming: Imagine</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part5.html" rel="alternate" type="text/html" title="The complexity of Object Oriented Programming: Imagine" /><published>2020-09-25T07:45:32+03:00</published><updated>2020-09-25T07:45:32+03:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part5</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part5.html">&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A couple of years ago, a famous composer had an illumination and he wrote a song about a world without OO.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/assets/imagine.jpeg&quot; alt=&quot;imagine&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Imagine there&amp;#8217;s no objects&lt;br&gt;
+It&amp;#8217;s easy if you try&lt;br&gt;
+No classes below us&lt;br&gt;
+Above us only information&lt;br&gt;
+Imagine all the entities being only data&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Imagine there&amp;#8217;s no mutations&lt;br&gt;
+It isn&amp;#8217;t hard to do&lt;br&gt;
+Nothing to protect with a mutex&lt;br&gt;
+And no deadlock too&lt;br&gt;
+Imagine all the entities being only data&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You may say I&amp;#8217;m a dreamer&lt;br&gt;
+But I&amp;#8217;m not the only one&lt;br&gt;
+I hope some day OO will join us&lt;br&gt;
+And the world will be as one&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Imagine no code is locked&lt;br&gt;
+I wonder if you can&lt;br&gt;
+No need for methods and inheritance&lt;br&gt;
+A brotherhood of input and output&lt;br&gt;
+Imagine all the code being pure functions&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You may say I&amp;#8217;m a dreamer&lt;br&gt;
+But I&amp;#8217;m not the only one&lt;br&gt;
+I hope some day OO will join us&lt;br&gt;
+And the world will be as one&lt;br&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">The complexity of Object Oriented Programming: What’s wrong with you OO?</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part3.html" rel="alternate" type="text/html" title="The complexity of Object Oriented Programming: What's wrong with you OO?" /><published>2020-09-25T07:45:32+03:00</published><updated>2020-09-25T07:45:32+03:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part3</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part3.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In the &lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part2.html&quot;&gt;previous part&lt;/a&gt;, you presented your design to Dave.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In this part, we continue our exploration of the tendency of OO systems to be complex.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;whats-wrong-with-you-oo&quot;&gt;What's wrong with you OO?&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Before you start coding, and while you prepare yourself another cup of coffee, I would like to
+challenge your design. It might look beautiful and clear on the paper but, this design is too complex.
+It&amp;#8217;s not that you picked the wrong classes
+or that you misunderstood the relationships between the classes. It&amp;#8217;s much deeper.
+It&amp;#8217;s about the programming paradigm you chose to implement the system.
+It&amp;#8217;s about the Object Oriented paradigm. It&amp;#8217;s about OO.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+OO is too complex.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The purpose of this book is to present a much simpler programming paradigm called Data Oriented Programming (DO).
+If you are already convinced that OO is too complex,
+you can skip to the next chapter and start your journey into DO.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If you are a skeptic about that, please keep reading.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;According to DO, the main sources of complexity of your system - and of any OO system - are:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Code and data are mixed&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Objects are mutable&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Data is locked in objects as members&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Code is locked into classes as methods&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In this section, we are going to illustrate each of the above points in the context
+of the library management system
+and explain in what sense it is a source of complexity.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;code-and-data-are-mixed&quot;&gt;Code and data are mixed&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;One way to assess the complexity of a class diagram is to look only at the entities and their relationships
+(ignoring members and methods) as in &lt;a href=&quot;#lib-mgmt-class-diagram-overview&quot;&gt;A class diagram overview for a Library management system&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Don&amp;#8217;t you think this diagram is too complex for such a simple system?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;lib-mgmt-class-diagram-overview&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/complex-class-relation.png&quot; alt=&quot;complex class relation&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 1. A class diagram overview for a Library management system&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When we design a system, no matter whether it&amp;#8217;s OO or DO,
+we have to define the relationships between different pieces of code and data: that&amp;#8217;s unavoidable.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In OO, code and data are mixed together in classes, data as members and code as methods.
+From a system analysis perspective, the fact that code and data are mixed together makes the system complex
+in the sense that entities tend to be involved in many relationships.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Take a look for instance at the &lt;code&gt;Member&lt;/code&gt; class in our class diagram &lt;a href=&quot;#lib-mgmt-class-diagram-overview&quot;&gt;A class diagram overview for a Library management system&lt;/a&gt;.
+It is involved 5 relations: 2 data relations and 3 code relations.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist loweralpha&quot;&gt;
+&lt;ol class=&quot;loweralpha&quot; type=&quot;a&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Data relations:&lt;/p&gt;
+&lt;div class=&quot;olist lowerroman&quot;&gt;
+&lt;ol class=&quot;lowerroman&quot; type=&quot;i&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Library&lt;/code&gt; has &lt;code&gt;Member&lt;/code&gt;s&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Member&lt;/code&gt; has &lt;code&gt;BookLending&lt;/code&gt;s&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Code relations:&lt;/p&gt;
+&lt;div class=&quot;olist lowerroman&quot;&gt;
+&lt;ol class=&quot;lowerroman&quot; type=&quot;i&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Member&lt;/code&gt; extends &lt;code&gt;User&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Librarian&lt;/code&gt; uses &lt;code&gt;Member&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Member&lt;/code&gt; uses &lt;code&gt;BookItem&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Imagine for a moment that we were able somehow to split the &lt;code&gt;Member&lt;/code&gt; class into two separate entitites:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;&lt;code&gt;MemberData&lt;/code&gt; for the data&lt;/div&gt;
+&lt;p&gt;Instead of a &lt;code&gt;Member&lt;/code&gt; class with 5 relations, we would have as shown in &lt;a href=&quot;#lib-mgmt-member-split&quot;&gt;A class diagram where &lt;code&gt;Member&lt;/code&gt; is split into code and data entities&lt;/a&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;A &lt;code&gt;MemberCode&lt;/code&gt; entity with 3 relations&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A &lt;code&gt;MemberData&lt;/code&gt; entity with 2 relations&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div id=&quot;lib-mgmt-member-split&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/member-code-data.png&quot; alt=&quot;member code data&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 2. A class diagram where &lt;code&gt;Member&lt;/code&gt; is split into code and data entities&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Not yet convinced that this imaginary system is simpler than the original one?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;No problem, I know how to convince you.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Let&amp;#8217;s split every class of our original class diagram into code and data entities.
+Now we have a system  made of two disjoint parts as shown in &lt;a href=&quot;#lib-mgmt-simplified-class-diagram&quot;&gt;A class diagram where every class is split into code and data entities&lt;/a&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;A part that involves only code entities&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A part that involves only data entities&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div id=&quot;lib-mgmt-simplified-class-diagram&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/data-code-relation.png&quot; alt=&quot;data code relation&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 3. A class diagram where every class is split into code and data entities&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I hope that you agree that this system, made of two disjoint sub-systems, is simpler than the original one.
+It&amp;#8217;s not simpler by accident, it is a logical consequence of separating code and data.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock important&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Important&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+A system made of disjoint simple parts is less complex than a simple made of a single complex part.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;objects-are-mutable&quot;&gt;Objects are mutable&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You are probably a bit tired with all the system-level analysis that we presented in the previous section.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Let&amp;#8217;s get refreshed and look at some code. Well not exactly code, but pseudocode.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Please take a look at the pseudocode shown in &lt;a href=&quot;#code-simple&quot;&gt;[code-simple]&lt;/a&gt;:
+we get the blocked status of a member and we display it twice.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If I tell you that when I called &lt;code&gt;displayBlockedStatusTwice&lt;/code&gt;,
+the program displayed &lt;code&gt;true&lt;/code&gt; on the first &lt;code&gt;print&lt;/code&gt; call,
+can you tell me what the program displayed on the second &lt;code&gt;print&lt;/code&gt; call?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;class&lt;/span&gt; &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;Member&lt;/span&gt; &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;{&lt;/span&gt;
+      &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;Bool&lt;/span&gt; &lt;span style=&quot;background-color: #f8f8f8&quot;&gt;member&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;;&lt;/span&gt;
+
+      &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;displayBlockedStatusTwice&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;()&lt;/span&gt; &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;{&lt;/span&gt;
+         &lt;span style=&quot;background-color: #f8f8f8&quot;&gt;isBlocked&lt;/span&gt; &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;this&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;isBlocked&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;()&lt;/span&gt;
+         &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;System&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;Print&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;isBlocked&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;);&lt;/span&gt;
+         &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;System&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;Print&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;isBlocked&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;);&lt;/span&gt;
+    &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;}&lt;/span&gt;
+&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;Of course, it displayed &lt;code&gt;true&lt;/code&gt; again&quot;, you tell me.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;And you are right.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now, please take a look at a slightly different pseudocode as shown in &lt;a href=&quot;#code-block-member&quot;&gt;Apparently simple pseudo code&lt;/a&gt;:
+here we display twice the blocked status of a member without assigning a variable.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Same question as before:
+If I tell you that when I called &lt;code&gt;displayBlockedStatusTwice&lt;/code&gt;,
+the program displayed &lt;code&gt;true&lt;/code&gt; on the first &lt;code&gt;print&lt;/code&gt; call,
+can you tell me what the program displayed on the second &lt;code&gt;print&lt;/code&gt; call?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;code-block-member&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Apparently simple pseudo code&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;class&lt;/span&gt; &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;Member&lt;/span&gt; &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;{&lt;/span&gt;
+      &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;Bool&lt;/span&gt; &lt;span style=&quot;background-color: #f8f8f8&quot;&gt;member&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;;&lt;/span&gt;
+
+      &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;displayBlockedStatusTwice&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;()&lt;/span&gt; &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;{&lt;/span&gt;
+        &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;System&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;Print&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;this&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;isBlocked&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;);&lt;/span&gt;
+        &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;System&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;Print&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;this&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;isBlocked&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;);&lt;/span&gt;
+    &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;}&lt;/span&gt;
+&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If your answer is &lt;code&gt;false&lt;/code&gt;, I am suggesting you to consult a therapist.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If your answer is &lt;code&gt;true&lt;/code&gt;, I am suggesting you to take a few seconds and think about it again.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I&amp;#8217;ll give you a clue: multi threading.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The correct answer is: in a single threaded environment, it displays &lt;code&gt;true&lt;/code&gt;
+while on a multi threaded environment it&amp;#8217;s unpredictable.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Indeed in a multi threaded environment, between the two print calls,
+there could be a context switch and the state of the member object could be changed (e.g. a librarian unblocked the member).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The difference between the two pseudocode snippets is that:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;in the first snippet, we access twice a boolean value which is a primitive value&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;in the second snippet, we access twice a member of an object&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This unpredictable behavior of the second snippet is one of the annoying consequences of the fact that in OO, unlike
+primitive types who are immutable, object members are mutable.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;One way to solve this problem in OO is to protect sensitive code with mutexes, but it introduces issues on its own like a performance hit and a risk of deadlocks.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We will see later in the book that DO treats every piece of data in the same way: both primitive types and collection types have immutable values.
+This &quot;value treatment for all citizens&quot; brings to DO developers' minds a lot of serenity.
+As a consequence, more cells of DO developers' minds are available
+to handle the interesting pieces of the applications they build.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Until then, keep you mind busy with boring stuff.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When you feel ready to explore more sources of complexity in OO, move to the &lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part4.html&quot;&gt;next part&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">The complexity of Object Oriented Programming: A bit of UML</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part2.html" rel="alternate" type="text/html" title="The complexity of Object Oriented Programming: A bit of UML" /><published>2020-09-25T07:45:32+03:00</published><updated>2020-09-25T07:45:32+03:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part2</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part2.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In the &lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part1.html&quot;&gt;previous part&lt;/a&gt;, we presented a possible OO design for a library management system.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In this part, we continue our exploration of the tendency of OO systems to be complex.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;daves-reaction-to-your-design&quot;&gt;Dave's reaction to your design&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dave follows you to your desk and you show him your piece of art: the UML diagram.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;Wow! Such a detailed class diagram.&quot; Dave is really excited.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;Yeah. It&amp;#8217;s pretty neat.&quot; You reply proudly.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;The thing is that I can never remember the meaning of each arrow&quot; Dave admits.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;There are 4 types of arrows in my class diagram: composition, association, inheritance and usage&quot;, you reply with a feeling of superiority.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;What&amp;#8217;s the difference between composition and association?&quot;, Dave asks.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You google &quot;composition vs association&quot; and you read loudly to Dave:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;It&amp;#8217;s all about whether the objects can live one without each other:
+with &lt;strong&gt;composition&lt;/strong&gt;, when one object dies, the other one dies also,
+while in an &lt;strong&gt;association&lt;/strong&gt; relation, each object has an independent life.&quot;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In my class diagram, there are two kinds of &lt;strong&gt;composition&lt;/strong&gt; relation,
+symbolized by an arrow with a plain diamond at one edge, and an optional star at
+the other edge:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;A &lt;code&gt;Library&lt;/code&gt; owns a &lt;code&gt;Catalog&lt;/code&gt;. That&amp;#8217;s a one-to-one composition relation: if a &lt;code&gt;Library&lt;/code&gt; object
+dies, then its &lt;code&gt;Catalog&lt;/code&gt; object dies with it.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A &lt;code&gt;Library&lt;/code&gt; owns many &lt;code&gt;Member&lt;/code&gt;s. That&amp;#8217;s a one-to-many composition relation: if a &lt;code&gt;Library&lt;/code&gt; object
+dies, then all its &lt;code&gt;Member&lt;/code&gt; objects die with it.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div id=&quot;composition-diagram&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/composition.png&quot; alt=&quot;composition&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 1. Two kinds of composition: one to one and one to many. In both cases, when an object dies, the composed object dies with it.&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;Do you have association relations in your diagram?&quot; Dave asks&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;Yeap. Take a look at the arrow between &lt;code&gt;Book&lt;/code&gt; and &lt;code&gt;Author&lt;/code&gt;.
+It has an empty diamond and a start at both edges: it&amp;#8217;s a many to many association relation&quot;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Indeed, a book can be written by multiple authors
+and an author can write multiplet books.
+Moreover, &lt;code&gt;Book&lt;/code&gt; and &lt;code&gt;Author&lt;/code&gt; objects can live independently.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;association-diagram&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/association.png&quot; alt=&quot;association&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 2. Many to many association relation: each object lives independently&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;I see also many dashed arrows in your diagram&quot;, Dave notices.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;Dashed arrows are for &lt;strong&gt;usage&lt;/strong&gt; relations: when a class uses a method of another class.
+Consider for example, at the &lt;code&gt;Librarian::blockMember()&lt;/code&gt; method. It calls &lt;code&gt;Member::block()&lt;/code&gt;.&quot;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;usage-diagram&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/usage.png&quot; alt=&quot;usage&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 3. Usage relation: a class uses a method of another class&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;I see. And I guess that plain arrows - like the one between &lt;code&gt;Member&lt;/code&gt; and &lt;code&gt;User&lt;/code&gt; - represent inheritance.&quot;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;Absolutely&quot;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;inheritance-diagram&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/inheritance.png&quot; alt=&quot;inheritance&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 4. Inheritance relation: a class derives from another class&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;Great! Now that I understand the meaning of each kind of arrow.
+&quot;Where should I look first?&quot; Dave asks&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;I think you should start from &lt;code&gt;Library&lt;/code&gt;.&quot;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;library-diagram&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/library.png&quot; alt=&quot;library&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 5. The &lt;code&gt;Library&lt;/code&gt; class&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In terms of code, a &lt;code&gt;Library&lt;/code&gt; object does nothing on its own, it delegates everything to objects it owns:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;It owns multiple &lt;code&gt;Member&lt;/code&gt; objects&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;It owns multiple &lt;code&gt;Librarian&lt;/code&gt; objects&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;It owns a single &lt;code&gt;Catalog&lt;/code&gt; object&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;Looks pretty clear to me. What&amp;#8217;s next?&quot;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;`Librarian` and &lt;code&gt;Member&lt;/code&gt; who both derive from &lt;code&gt;User&lt;/code&gt; &quot;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;user-diagram&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/user.png&quot; alt=&quot;user&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 6. &lt;code&gt;Librarian&lt;/code&gt; and &lt;code&gt;Member&lt;/code&gt; derive from &lt;code&gt;User&lt;/code&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;code&gt;User&lt;/code&gt; class represents a user of the library.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;In terms of data members, I stick to the bare minimum: it has a &lt;code&gt;id&lt;/code&gt;, &lt;code&gt;email&lt;/code&gt; and &lt;code&gt;password&lt;/code&gt;
+(I&amp;#8217;ll deal with security and encryption, later).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;In terms of code, it can login via &lt;code&gt;login()&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;code&gt;Member&lt;/code&gt; class represents a member of the library.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;It derives from &lt;code&gt;User&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;In terms of data members, it has nothing more than &lt;code&gt;User&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;In terms of code, it can:&lt;/p&gt;
+&lt;div class=&quot;olist loweralpha&quot;&gt;
+&lt;ol class=&quot;loweralpha&quot; type=&quot;a&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Checkout a book via &lt;code&gt;checkout()&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Return a book via &lt;code&gt;returnBook()&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Answer if it is blocked via &lt;code&gt;isBlocked()&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;It owns multiple &lt;code&gt;BookLending&lt;/code&gt; objects&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;It uses &lt;code&gt;BookItem&lt;/code&gt; in order to implement &lt;code&gt;checkout()&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;code&gt;Librarian&lt;/code&gt; class represents a librarian.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;It derives from &lt;code&gt;User&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;In terms of data members, it has nothing more than &lt;code&gt;User&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;In terms of code, it can:&lt;/p&gt;
+&lt;div class=&quot;olist loweralpha&quot;&gt;
+&lt;ol class=&quot;loweralpha&quot; type=&quot;a&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Block and unblock a &lt;code&gt;Member&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;List the book lendings of a member via &lt;code&gt;getBookLendings()&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add book items to the library via &lt;code&gt;addBookItem()&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;It uses &lt;code&gt;Member&lt;/code&gt; in order to implement &lt;code&gt;blockMember()&lt;/code&gt;, &lt;code&gt;UnblockMember()&lt;/code&gt; and &lt;code&gt;getBookLendings()&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;It uses &lt;code&gt;BookItem&lt;/code&gt; in order to implement &lt;code&gt;checkout()&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;It uses &lt;code&gt;BookLending&lt;/code&gt; in order to implement &lt;code&gt;getBookLendings()&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;What class should I look at now?&quot;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;The &lt;code&gt;Catalog&lt;/code&gt; class who is responsible for the management of the books.&quot;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;catalog-diagram&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/catalog.png&quot; alt=&quot;catalog&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 7. The &lt;code&gt;Catalog&lt;/code&gt; class&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist loweralpha&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;In terms of code, a &lt;code&gt;Catalog&lt;/code&gt; object can:&lt;/div&gt;
+&lt;ol class=&quot;loweralpha&quot; type=&quot;a&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Search books via &lt;code&gt;search()&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add book items to the library via &lt;code&gt;addBookItem()&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;It owns multiple &lt;code&gt;Book&lt;/code&gt; objects&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;It uses &lt;code&gt;Librarian&lt;/code&gt; in order to implement &lt;code&gt;addBookItem&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;Then we have the &lt;code&gt;Book&lt;/code&gt; class&quot;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;book-diagram&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/book.png&quot; alt=&quot;book&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 8. The &lt;code&gt;Book&lt;/code&gt; class&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;In terms data members, we stick to the bare minimum: it has a &lt;code&gt;id&lt;/code&gt;, and a &lt;code&gt;title&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;It is associated with multiple &lt;code&gt;Author&lt;/code&gt; objects (A book might have multiple authors)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;It owns multiple &lt;code&gt;BookItem&lt;/code&gt; objects, one for each copy of the book&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;What&amp;#8217;s a &lt;code&gt;BookItem&lt;/code&gt;?&quot;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;The &lt;code&gt;BookItem&lt;/code&gt; class represents a book copy. A book could have many copies.&quot;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;In terms data members, we stick to the bare minimum: it has a &lt;code&gt;id&lt;/code&gt;, and a &lt;code&gt;rackId&lt;/code&gt; (for its physical location in the library)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;In terms of code, it can be checked out via &lt;code&gt;checkout()&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;It owns multiple &lt;code&gt;BookLending&lt;/code&gt; objects, one for each time the book is lent&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;Wow! That&amp;#8217;s amazing&quot; Dave compliments you. &quot;I didn&amp;#8217;t know people were
+really spending time to write down their design in such details, before coding.&quot;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;I always do that. It saves me lots of coding errors&quot;, you reply proudly.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;When will you start coding?&quot; Dave asks&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&quot;When I finish my coffee&quot;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You look at your coffee mug and it&amp;#8217;s full (and cold).
+You were so excited to show your class diagram to Dave that you forgot to drink your coffee.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Go and make yourself another cup of coffee before you move to the &lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part3.html&quot;&gt;next part&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /></entry><entry><title type="html">The complexity of Object Oriented Programming: DO magic sauce</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part4.html" rel="alternate" type="text/html" title="The complexity of Object Oriented Programming: DO magic sauce" /><published>2020-09-25T07:45:32+03:00</published><updated>2020-09-25T07:45:32+03:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part4</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part4.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;According to DO, the main sources of complexity of any OO system - are:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Code and data are mixed&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Objects are mutable&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Data is locked in objects as members&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Code is locked into classes as methods&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In the &lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part3.html&quot;&gt;previous part&lt;/a&gt;, we explored item #1 and #2.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In this part, we are going to explore item #3 and #4.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;whats-wrong-with-you-oo&quot;&gt;What's wrong with you OO?&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;data-is-locked-in-objects-as-members&quot;&gt;Data is locked in objects as members&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now, you are really tired and you fall asleep at your desk&amp;#8230;&amp;#8203;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You have a dream about Nancy, your customer.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In this dream, Nancy would want to make the library management system accessible via a REST API
+using JSON as a transport layer.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You would need to implement a &lt;code&gt;/search&lt;/code&gt; endpoint that receives
+a query in JSON format and return results in JSON format.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;An input example of the &lt;code&gt;/search&lt;/code&gt; endpoint is shown in &lt;a href=&quot;#Listing-search-input-json&quot;&gt;A JSON input of the &lt;code&gt;/search&lt;/code&gt; endpoint&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;Listing-search-input-json&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;A JSON input of the &lt;code&gt;/search&lt;/code&gt; endpoint&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;json&quot;&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;{&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
+  &lt;/span&gt;&lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;&quot;searchCriteria&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;:&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt; &lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;&quot;author&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;,&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
+  &lt;/span&gt;&lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;&quot;query&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;:&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt; &lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;&quot;albert&quot;&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
+&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;An output example of the &lt;code&gt;/search&lt;/code&gt; endpoint is shown in &lt;a href=&quot;#Listing-search-output-json&quot;&gt;A JSON output of the &lt;code&gt;/search&lt;/code&gt; endpoint&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;Listing-search-output-json&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;A JSON output of the &lt;code&gt;/search&lt;/code&gt; endpoint&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;json&quot;&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;[&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
+    &lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;{&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
+        &lt;/span&gt;&lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;:&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt; &lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;&quot;The world as I see it&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;,&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
+        &lt;/span&gt;&lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;&quot;authors&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;:&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt; &lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;[&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
+            &lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;{&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
+                &lt;/span&gt;&lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;&quot;fullName&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;:&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt; &lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;&quot;Albert Einstein&quot;&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
+            &lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;}&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
+        &lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;]&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
+    &lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;},&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
+    &lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;{&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
+        &lt;/span&gt;&lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;:&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt; &lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;&quot;The Stranger&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;,&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
+        &lt;/span&gt;&lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;&quot;authors&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;:&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt; &lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;[&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
+            &lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;{&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
+                &lt;/span&gt;&lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;&quot;fullName&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;:&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt; &lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;&quot;Albert Camus&quot;&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
+            &lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;}&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
+        &lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;]&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
+    &lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;}&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
+&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You would probably implement the &lt;code&gt;/search&lt;/code&gt; endpoint by creating three classes similarly to what is
+shown in &lt;a href=&quot;#json-search-controller&quot;&gt;A class diagram where every class is split into code and data entities&lt;/a&gt; (Not surprising: everything in OO has to be wrapped in a class. Right?):&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;SearchController&lt;/code&gt; that is responsible for handling the query&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;SearchQuery&lt;/code&gt; that converts the JSON query string into data&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;SearchResult&lt;/code&gt; that converts the search result data into a JSON string&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;code&gt;SearchController&lt;/code&gt; would have a single &lt;code&gt;handle&lt;/code&gt; method with the following flow:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Create a &lt;code&gt;SearchQuery&lt;/code&gt; object from the JSON query string&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Retrieve &lt;code&gt;searchCriteria&lt;/code&gt; and &lt;code&gt;queryStr&lt;/code&gt; from the &lt;code&gt;SearchQuery&lt;/code&gt; object&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Call the &lt;code&gt;search&lt;/code&gt; method of the &lt;code&gt;catalog:Catalog&lt;/code&gt; with  &lt;code&gt;searchCriteria&lt;/code&gt; and &lt;code&gt;queryStr&lt;/code&gt; and receives &lt;code&gt;books:List&amp;lt;Book&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Create a &lt;code&gt;SearchResult&lt;/code&gt; object with &lt;code&gt;books&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Convert the &lt;code&gt;SearchResult&lt;/code&gt; object to a &lt;code&gt;JSON&lt;/code&gt; string&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div id=&quot;json-search-controller&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/json-search-controller.png&quot; alt=&quot;json search controller&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 1. A class diagram where every class is split into code and data entities&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;What about other endpoints, for instance allowing librarians to add book items through &lt;code&gt;/add-book-item&lt;/code&gt;?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Well, you would have to repeat the exact same process and create 3 classes:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;AddBookItemController&lt;/code&gt; that is responsible for handling the query&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;BookItemQuery&lt;/code&gt; that converts the JSON query string into data&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;BookItemResult&lt;/code&gt; that converts the search result into a JSON string&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The code that deals with JSON deserialization that you wrote previously in &lt;code&gt;SearchQuery&lt;/code&gt; would have to
+be rewritten in &lt;code&gt;BookItemQuery&lt;/code&gt;.
+Same thing for the code that deals with JSON serialization that you wrote previously in &lt;code&gt;SearchResult&lt;/code&gt;:
+it would have to be rewritten in &lt;code&gt;BookItemResult&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The bad news is that you would have to repeat the same process for every endpoint of the system.
+Each time you encounter a new kind of JSON input or input, you have to create a new class and write code.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Suddenly, you wake up and realize that Nancy never asked for JSON.
+All of the above was a dream, a really bad dream&amp;#8230;&amp;#8203;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+In OO, data serialization is a nightmare
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It&amp;#8217;s quite frustrating that handling JSON serialization and deserialization in OO requires
+to add so many classes and to write so much code again and again!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The frustration gets bigger when you consider that serializing a search query, a book item query or any query is quite similar.
+It comes down to:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Go over data fields&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Concatenate the name of the data fields and the value of the data field (separated by a comma)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Why such a simple thing is so hard to achieve in OO?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The thing is that in OO, data has to follow a rigid shape (defined in classes),
+which means that data is locked in members.
+There is no way to access data generically.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+In OO, data is locked in classes as members
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We will refine later what we mean by a generic access to the data and
+we will see how DO provides a generic way to handle JSON serialization and deserialization.
+Until then, you will have to continue suffering.
+But at least you know that this suffer is avoidable. (Not sure if it makes your suffer more pleasant or more painful&amp;#8230;&amp;#8203;)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Note&lt;/div&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+Most OO programming languages provide ways to ease a bit the conversion from and to JSON. It either involves reflection (which is definitely a complex thing) or code verbosity.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;code-is-locked-into-classes-as-methods&quot;&gt;Code is locked into classes as methods&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It is a common belief that OO promotes code reuse through class inheritance.
+Indeed, when every requirement of the system is known up front, you design your class hierarchy is such a way that
+classes with common behavior derive from a base class.
+An example of this pattern is shown in &lt;a href=&quot;#class-diagram-librarian-member&quot;&gt;The part of the class diagram that deals with members and librarians&lt;/a&gt; , that zooms in the part of our
+class diagram that deals with members and librarians.
+Both librarians and members need the ability to login and they inherit this ability form the &lt;code&gt;User&lt;/code&gt; class.
+So far so good.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;class-diagram-librarian-member&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/class-diagram-librarian-member.png&quot; alt=&quot;class diagram librarian member&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 2. The part of the class diagram that deals with members and librarians&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;But when requirements to the system are added after the system is implemented that&amp;#8217;s a completely different story.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It&amp;#8217;s Monday 11:00 AM, two days are left before the deadline (which is on Wednesday midnight) and Nancy put your on an urgent phone call.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You are not sure if it&amp;#8217;s dream or reality.
+You pinch yourself and you feel the jolt.
+It&amp;#8217;s definitely reality!&lt;/p&gt;
+&lt;/div&gt;
+- How is the project doing?
+- Fine, Nancy. We are on schedule for the deadline. Running our last round of regression tests.
+- Fantastic! It means we have time for adding a tiny feature to the system. Right?
+- Depends what you mean by &quot;tiny&quot;.
+- We need to add VIP members to the system.
+- What do you mean by VIP members?
+- VIP members are members that are allowed to add by themselves book items to the library.
+- Hmm...
+- What?
+- That's not a tiny change!
+- Why?
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I am asking you the same question Nancy asked: Why adding VIP members to your system is not a tiny task?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;After all, you already have written the code that allows librarians to add book items to the library:
+it&amp;#8217;s in &lt;code&gt;Librarian::addBookItem()&lt;/code&gt;.
+What prevents you from reusing this code for VIP members?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The reason is that in OO, the code is locked into classes as methods.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Let&amp;#8217;s see how you would probably handle this last minute request from your customer.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+VIP members are members that are allowed to add by themselves book items to the library.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Let&amp;#8217;s decompose the customer requirements into two pieces:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;VIP members are members&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;VIP members are allowed to add by themselves book items to the library&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For sure, you need a new class &lt;code&gt;VIPMember&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For requirement #1, it sounds reasonable to make &lt;code&gt;VIPMember&lt;/code&gt; derive from &lt;code&gt;Member&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;However, handling requirement #2 is more complex. We cannot make &lt;code&gt;VIPMember&lt;/code&gt; derive from &lt;code&gt;Librarian&lt;/code&gt; because the relationship between &lt;code&gt;VIPMember&lt;/code&gt; and &lt;code&gt;Librarian&lt;/code&gt; is not linear:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;On one hand, VIP members are like librarians as they are allowed to add book items&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;On the other hand, VIP members are not like librarians as they are not allowed to block members or to list the book lendings of a member&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The problem is that the code that adds book items is locked in the &lt;code&gt;Librarian&lt;/code&gt; class.
+There is no way for &lt;code&gt;VIPMember&lt;/code&gt; class to use this code.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;One possible solution that makes the code of &lt;code&gt;Librarian::addBookItem()&lt;/code&gt; available to both &lt;code&gt;Librarian&lt;/code&gt; and &lt;code&gt;VIPMember&lt;/code&gt;,
+is shown in &lt;a href=&quot;#class-diagram-vip-member&quot;&gt;A class diagram for a system with VIP members&lt;/a&gt;. Here are the changes to the previous class diagram:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;A base class &lt;code&gt;UserWithBookItemRight&lt;/code&gt; that extends &lt;code&gt;User&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Move &lt;code&gt;addBookItem()&lt;/code&gt; from &lt;code&gt;Librarian&lt;/code&gt; to &lt;code&gt;UserWithBookItemRight&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Both &lt;code&gt;VIPMember&lt;/code&gt; and &lt;code&gt;Librarian&lt;/code&gt; extend &lt;code&gt;UserWithBookItemRight&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div id=&quot;class-diagram-vip-member&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/class-diagram-vip-member.png&quot; alt=&quot;class diagram vip member&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 3. A class diagram for a system with VIP members&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;That was tough but you were able to handle it on time (thanks to a white night in front of your laptop).
+You were even able to include new tests to the system and running again the regression tests.
+You were so excited that you didn&amp;#8217;t pay attention to the diamond &lt;code&gt;VIPMember&lt;/code&gt; introduced in your class diagram,
+(&lt;code&gt;VIPMember&lt;/code&gt; extends both &lt;code&gt;Member&lt;/code&gt; and &lt;code&gt;UserWithBookItemRight&lt;/code&gt; who both extend &lt;code&gt;User&lt;/code&gt;)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We are Wednesday morning 10:00 AM, 14 hours before the deadline and you call Nancy to tell her the good news:&lt;/p&gt;
+&lt;/div&gt;
+- We were able to add VIP members to the system on time, Nancy.
+- Fantastic! I told you it was a tiny feature.
+- Hmm...
+- Look, I was to call you anyway. I just finished a meeting with my business partner and we realized that we need another tiny feature before the launch. Will you be able to handle it before the deadline?
+- Again, it depends what you mean by &quot;tiny&quot;.
+- We need to add Super members to the system.
+- What do you mean by Super members?
+- Super members are members that are allowed to block and unblock members
+- Hmm...
+- What?
+- That's not a tiny change!
+- Why?
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Like with VIP members, adding Super members to the system requires changes to your class hierarchy.
+A possible solution is shown in &lt;a href=&quot;#class-diagram-super-member&quot;&gt;A class diagram for a system with Super members and VIP members&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;class-diagram-super-member&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/class-diagram-super-member.png&quot; alt=&quot;class diagram super member&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 4. A class diagram for a system with Super members and VIP members&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The addition of Super members made the system too complex. You suddenly noticed that you had 3 diamonds in your class diagram:
+not gemstones but 3 Deadly Diamonds of Death!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You tried to avoid the diamonds by transforming the &lt;code&gt;User&lt;/code&gt; class into an interface and using Composition over Inheritance Design Pattern.
+But with the stress of the deadline coming, you were not able to use all the cells of your brain. (Indeed all the cells of a human brain are required to handle this OO complexity!)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In fact, this complexity prevented you from delivering the system before the deadline.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You call the customer in order to explain her the situation at 10:00 PM, two hours before the deadline:&lt;/p&gt;
+&lt;/div&gt;
+- Look Nancy, we really did our best, but we will not be able to add Super members to the system before the deadline
+- No worries, my business partner and I decided to postpone the launch by a week
+- Phew!
+- Do you think that if we add other tiny features next week, you'd be able to handle them on time?
+- Yes
+- How could it be?
+- We are going to refactor the system from Object Oriented to Data Oriented over the weekend.
+- What is Data Oriented?
+- It is a magic sauce that allows developers to write code faster!
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;By the end of this book, you will belong to the community of happy developers who know the recipe
+of DO magic sauce.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You must be tired with all this OO complexity.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I invite you to imagine a world with no objects and sing a song. Here are the &lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part5.html&quot;&gt;lyrics&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published. According to DO, the main sources of complexity of any OO system - are:</summary></entry><entry><title type="html">Core.match available for self hosted ClojureScript (Planck and Klipse)</title><link href="https://blog.klipse.tech//clojure/2020/09/16/core-match-abbinare.html" rel="alternate" type="text/html" title="Core.match available for self hosted ClojureScript (Planck and Klipse)" /><published>2020-09-16T16:21:32+03:00</published><updated>2020-09-16T16:21:32+03:00</updated><id>https://blog.klipse.tech//clojure/2020/09/16/core-match-abbinare</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/09/16/core-match-abbinare.html">&lt;p&gt;&lt;a href=&quot;https://github.com/clojure/core.match&quot;&gt;core.match&lt;/a&gt; - A pattern matching library for Clojure[script] - is  available for self-hosted &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ClojureScript&lt;/code&gt;. It means that it can run in &lt;a href=&quot;https://github.com/mfikes/planck&quot;&gt;Planck&lt;/a&gt; and &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;The code is available as a &lt;a href=&quot;https://github.com/viebel/abbinare&quot;&gt;fork&lt;/a&gt; of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;core.match&lt;/code&gt; called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;abbinare&lt;/code&gt;.&lt;/p&gt;
 
@@ -517,536 +1955,4 @@ To see how powerful shrinking is, let’s come up with a contrived example: a fu
 
 &lt;p&gt;Happy interactive coding!&lt;/p&gt;
 
-&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjs/7.2.0/math.min.js&quot; integrity=&quot;sha512-4VdpCxbABk7wjJb/9z/d3EyibeHwUY0FgHbFO4EiIPVtyyV6llhENCvzRk8SH5D86+Jwm6QLagqRRnEJCd3gJg==&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">Math.js is an extensive math library for JavaScript and Node.js.</summary></entry><entry><title type="html">Procedural Texture Generator in JavaScript</title><link href="https://blog.klipse.tech//javascript/2020/09/10/procedural-texture-generator-javascript.html" rel="alternate" type="text/html" title="Procedural Texture Generator in JavaScript" /><published>2020-09-10T07:23:22+03:00</published><updated>2020-09-10T07:23:22+03:00</updated><id>https://blog.klipse.tech//javascript/2020/09/10/procedural-texture-generator-javascript</id><content type="html" xml:base="https://blog.klipse.tech//javascript/2020/09/10/procedural-texture-generator-javascript.html">&lt;p&gt;The code snippets are powered by the &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse plugin&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;First, let’s load &lt;a href=&quot;https://github.com/mrdoob/texgen.js&quot;&gt;texgen.js&lt;/a&gt; - a Procedural Texture Generator javascript library - from github:&lt;/p&gt;
-
-&lt;pre&gt;
-&lt;code class=&quot;language-eval-js&quot; data-external-libs=&quot;https://raw.githubusercontent.com/mrdoob/texgen.js/master/src/TexGen.js&quot;&gt;
-Object.keys(TG).length;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre class=&quot;hidden&quot;&gt;
-&lt;code class=&quot;language-eval-js&quot;&gt;
-function render(texture) {
-  container.innerHTML = &quot;&quot;;  
-  container.appendChild(texture.toCanvas());
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now, let’s create a nice texture:&lt;/p&gt;
-
-&lt;pre&gt;
-&lt;code class=&quot;language-eval-js&quot; data-preamble=&quot;container =document.getElementById('c0');&quot;&gt;
-var texture = new TG.Texture( 256, 256 )
-    .add( new TG.XOR().tint( 1, 0.5, 0.7 ) )
-    .add( new TG.SinX().frequency( 0.004 ).tint( 0.5, 0, 0 ) )
-    .mul( new TG.SinY().frequency( 0.004 ).tint( 0.5, 0, 0 ) )
-    .add( new TG.SinX().frequency( 0.0065 ).tint( 0.1, 0.5, 0.2 ) )
-    .add( new TG.SinY().frequency( 0.0065 ).tint( 0.5, 0.5, 0.5 ) )
-    .add( new TG.Noise().tint( 0.1, 0.1, 0.2 ) );
-
-render(texture);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;div id=&quot;c0&quot;&gt;&lt;/div&gt;
-
-&lt;p&gt;Go ahead! Feel free to play with the code above and see how the texture is rendered as you modify the code.&lt;/p&gt;
-
-&lt;p&gt;The library is not well documented, but the function names are quite expressive…&lt;/p&gt;
-
-&lt;p&gt;And here is another texture:&lt;/p&gt;
-
-&lt;pre&gt;
-&lt;code class=&quot;language-eval-js&quot; data-preamble=&quot;container =document.getElementById('c1');&quot;&gt;
-
-var texture = new TG.Texture( 256, 256 )
-					.add( new TG.SinX().offset( - 16 ).frequency( 0.03 ).tint( 0.1, 0.25, 0.5 ) )
-					.add( new TG.SinY().offset( - 16 ).frequency( 0.03 ).tint( 0.1, 0.25, 0.5 ) )
-					.add( new TG.Number().tint( 0.75, 0.5, 0.5 ) )
-					.add( new TG.SinX().frequency( 0.03 ).tint( 0.2, 0.2, 0.2 ) )
-					.add( new TG.SinY().frequency( 0.03 ).tint( 0.2, 0.2, 0.2 ) )
-					.add( new TG.Noise().tint( 0.1, 0, 0 ) )
-					.add( new TG.Noise().tint( 0, 0.1, 0 ) )
-					.add( new TG.Noise().tint( 0, 0, 0.1 ) );
-
-render(texture);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;div id=&quot;c1&quot;&gt;&lt;/div&gt;
-
-&lt;p&gt;Enjoy the code interactivity!&lt;/p&gt;
-
-&lt;p&gt;The code snippets are powered by the &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse plugin&lt;/a&gt;.&lt;/p&gt;
-
-&lt;style&gt;
-canvas {
-  border: rgb(35, 41, 45) 1px solid;
-  margin: 10px 20px;
-}
-			
-&lt;/style&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">The code snippets are powered by the Klipse plugin.</summary></entry><entry><title type="html">A new way of blogging about HTML and CSS</title><link href="https://blog.klipse.tech//clojure/2020/09/10/new-way-html-css.html" rel="alternate" type="text/html" title="A new way of blogging about HTML and CSS" /><published>2020-09-10T07:13:14+03:00</published><updated>2020-09-10T07:13:14+03:00</updated><id>https://blog.klipse.tech//clojure/2020/09/10/new-way-html-css</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/09/10/new-way-html-css.html">&lt;p&gt;Imagine you want to write a blog post that shows something really cool about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;html&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;css&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;How would you do that? You will probably embed a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jsfiddle&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jsbin&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;codepen&lt;/code&gt; in your page. The problem is that for each snippet you have to create a page on their server and embed an iframe in your page.&lt;/p&gt;
-
-&lt;p&gt;Today, we are going to show a new way of blogging about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;html&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;css&lt;/code&gt; in a much more lighweight way: we are going to have our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;html&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;css&lt;/code&gt; code in our page and use &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;the Klipse plugin&lt;/a&gt; to transform the code into an interactive code snippet.&lt;/p&gt;
-
-&lt;h2 id=&quot;hello-world&quot;&gt;Hello World&lt;/h2&gt;
-
-&lt;p&gt;First, let’s have an interactive &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;html&lt;/code&gt; “Hello World”:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse-html&quot;&gt;&amp;lt;div&amp;gt; Hello &amp;lt;b&amp;gt; World&amp;lt;/b&amp;gt; &amp;lt;/div&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;An image:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse-html&quot;&gt;&amp;lt;p&amp;gt; I have invented HTML &amp;lt;/p&amp;gt;
-&amp;lt;img src=&quot;/assets/tim.jpg&quot; width=&quot;300&quot;&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Go ahead, play with the code: it is re-rendered as you type…&lt;/p&gt;
-
-&lt;p&gt;And you can even add &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;css&lt;/code&gt; using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;style&amp;gt;&lt;/code&gt; tag:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse-html&quot;&gt;&amp;lt;style&amp;gt;  
-#lea {
-    display: inline-block;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-shadow: 0 0 5px 5px black;
-    padding: 5px;
-    transition: 0.3s;
-}
-#lea:hover {
-    box-shadow: 0 0 5px 5px green;
-}
-&amp;lt;/style&amp;gt;  
-&amp;lt;div&amp;gt; I am a CSS Guru. &amp;lt;/div&amp;gt;  
-&amp;lt;div&amp;gt; If you hover on my picture, the shadow will change...&amp;lt;/div&amp;gt;  
-&amp;lt;img id=&quot;lea&quot; src=&quot;/assets/lea.jpg&quot; width=&quot;300&quot;&amp;gt; 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;svg&quot;&gt;SVG&lt;/h2&gt;
-
-&lt;p&gt;It becomes really cool when you start to play with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SVG&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse-html&quot;&gt;&amp;lt;svg width=&quot;100%&quot; height=&quot;400&quot; viewBox=&quot;0 0 300 200&quot;&amp;gt;
-  &amp;lt;path d=&quot;M3.9,74.8c0,0,0-106.4,75.5-42.6S271.8,184,252.9,106.9s-47.4-130.9-58.2-92s59.8,111.2-32.9,126.1 S5.9,138.6,3.9,90z&quot;
-      fill=&quot;none&quot; id=&quot;theMotionPath&quot; stroke=&quot;brown&quot;/&amp;gt;
-  &amp;lt;g stroke-width=&quot;2&quot; stroke=&quot;black&quot; fill=&quot;white&quot;&amp;gt;
-    &amp;lt;circle r=&quot;20&quot;/&amp;gt;
-    &amp;lt;circle r=&quot;2&quot; cx=&quot;-7&quot; cy=&quot;-5&quot;/&amp;gt;
-    &amp;lt;circle r=&quot;2&quot; cx=&quot;7&quot; cy=&quot;-5&quot;/&amp;gt;
-    &amp;lt;path d=&quot;M -10 5 Q 0 15 10 5&quot;/&amp;gt;
-    &amp;lt;animateMotion dur=&quot;4s&quot; repeatCount=&quot;indefinite&quot;  rotate=&quot;auto&quot;&amp;gt;
-      &amp;lt;mpath xlink:href=&quot;#theMotionPath&quot;/&amp;gt;
-    &amp;lt;/animateMotion&amp;gt;
-  &amp;lt;/g&amp;gt;
-&amp;lt;/svg&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;or like that:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse-html&quot;&gt;&amp;lt;svg width=&quot;100%&quot; height=&quot;300&quot;&amp;gt;
-   &amp;lt;g stroke-width=&quot;5&quot; stroke=&quot;lightgreen&quot; fill=&quot;none&quot;
-      transform=&quot;translate(150,100) scale(3)&quot;
-      style=&quot;stroke-dasharray: 3; animation: dash-spin 5s linear infinite;&quot;&amp;gt;
-    &amp;lt;circle r=&quot;20&quot;/&amp;gt;
-    &amp;lt;circle r=&quot;2&quot; cx=&quot;-7&quot; cy=&quot;-5&quot;/&amp;gt;
-    &amp;lt;circle r=&quot;2&quot; cx=&quot;7&quot; cy=&quot;-5&quot;/&amp;gt;
-    &amp;lt;path d=&quot;M -10 5 Q 0 15 10 5&quot;/&amp;gt;
-    &amp;lt;text x=&quot;0&quot; y=&quot;35&quot; font-family=&quot;Verdana&quot; font-size=&quot;30&quot; text-anchor=&quot;middle&quot;
-          fill=&quot;red&quot; stroke=&quot;blue&quot; stroke-width=&quot;2&quot;&amp;gt;
-      Klipse
-    &amp;lt;/text&amp;gt;
-  &amp;lt;/g&amp;gt;
-&amp;lt;/svg&amp;gt;
-&amp;lt;style&amp;gt;@keyframes dash-spin { to { stroke-dashoffset: 100; } }&amp;lt;/style&amp;gt;
-&amp;lt;/svg&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;the-grand-finale&quot;&gt;The Grand Finale&lt;/h2&gt;
-
-&lt;p&gt;And now for the Grand Finale, a &lt;strong&gt;universal Klipse machine&lt;/strong&gt;: an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Html&lt;/code&gt; Klipse snippet of an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iframe&lt;/code&gt; of a document that includes Klipse &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt; tag and a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Javascript&lt;/code&gt; and an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HTML&lt;/code&gt; Klipse snippet:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse-html&quot;&gt;&amp;lt;iframe style=&quot;overflow: scroll;&quot; height=&quot;450&quot; width=&quot;500&quot;  
-        srcdoc=&quot;  
-                &amp;lt;!DOCTYPE html&amp;gt;  
-                &amp;lt;head&amp;gt;  
-                &amp;lt;meta charset='utf-8'&amp;gt;
-                &amp;lt;link rel='stylesheet' type='text/css' href='https://storage.googleapis.com/app.klipse.tech/css/codemirror.css'&amp;gt;
-                &amp;lt;/head&amp;gt;  
-                &amp;lt;h2&amp;gt; A JavaScript interactive snippet:&amp;lt;/h2&amp;gt;
-                &amp;lt;div class='js'&amp;gt;[1, 2, 3].map((x) =&amp;gt; x + 1)&amp;lt;/div&amp;gt;
-                &amp;lt;h2&amp;gt; An html interactive snippet (this one is completly crazy - don't look at the source):&amp;lt;/h2&amp;gt;
-                &amp;lt;div class='html'&amp;gt;&amp;amp;amp;lt;div&amp;amp;amp;gt; Hello &amp;amp;amp;lt;b&amp;amp;amp;gt; World&amp;amp;amp;lt;/b&amp;amp;amp;gt; &amp;amp;amp;lt;/div&amp;amp;amp;gt;&amp;lt;/div&amp;gt;
-                &amp;lt;script&amp;gt;  
-                window.klipse_settings = {  
-                selector: '.klipse',
-                selector_eval_js: '.js',
-                selector_eval_html: '.html'
-                };
-                &amp;lt;/script&amp;gt;  
-                &amp;lt;script src='https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js'&amp;gt;&amp;lt;/script&amp;gt;  
-                &quot;&amp;gt;&amp;lt;/iframe&amp;gt;   
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;One last thing: &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;the Klipse plugin&lt;/a&gt; supports a couple of languages: &lt;a href=&quot;http://blog.klipse.tech/javascript/2016/06/20/blog-javascript.html&quot;&gt;javascript&lt;/a&gt;, &lt;a href=&quot;http://blog.klipse.tech/javascript/2016/12/14/jsx.html&quot;&gt;jsx&lt;/a&gt;, &lt;a href=&quot;http://blog.klipse.tech/javascript/2016/12/21/es2017-await.html&quot;&gt;es2017&lt;/a&gt;, &lt;a href=&quot;http://blog.klipse.tech/python/2017/01/04/python-turtle-fractal.html&quot;&gt;python&lt;/a&gt;, &lt;a href=&quot;http://blog.klipse.tech/ruby/2016/06/20/blog-ruby.html&quot;&gt;ruby&lt;/a&gt;, &lt;a href=&quot;http://exupero.org/hazard/post/fractals/&quot;&gt;clojure&lt;/a&gt; and even &lt;a href=&quot;http://blog.klipse.tech/brainfuck/2016/12/17/brainfuck.html&quot;&gt;brainfuck&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Give us a star on &lt;a href=&quot;https://github.com/viebel/klipse/stargazers&quot;&gt;github&lt;/a&gt; if you like this stuff and leave us a comment below to tell you what you think about this new way of blogging….&lt;/p&gt;
-
-&lt;p&gt;Big thanks to &lt;a href=&quot;https://twitter.com/timothypratley&quot;&gt;Timothy Pratley&lt;/a&gt; for the cool &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;svg&lt;/code&gt; examples and the incredible &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Klipse inside Klipse&lt;/code&gt; snippet.&lt;/p&gt;
-
-&lt;script&gt;
-window.klipse_settings.eval_idle_msec = 1000;
-&lt;/script&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">Imagine you want to write a blog post that shows something really cool about html and css.</summary></entry><entry><title type="html">Manipulating the DOM with Clojure using Klipse</title><link href="https://blog.klipse.tech//clojure/2020/09/10/dom-clj-klipse.html" rel="alternate" type="text/html" title="Manipulating the DOM with Clojure using Klipse" /><published>2020-09-10T07:11:22+03:00</published><updated>2020-09-10T07:11:22+03:00</updated><id>https://blog.klipse.tech//clojure/2020/09/10/dom-clj-klipse</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/09/10/dom-clj-klipse.html">&lt;p&gt;The &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse plugin&lt;/a&gt; is a &lt;strong&gt;client-side&lt;/strong&gt; code evaluator.&lt;/p&gt;
-
-&lt;p&gt;This means that inside a web page, you are not limited to manipulate data, but you can also manipulate the DOM.&lt;/p&gt;
-
-&lt;p&gt;In this article we will show 4 approaches for manipulating the DOM with Clojure using &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse&lt;/a&gt;:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;reagent&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;the Klipse container&lt;/li&gt;
-  &lt;li&gt;the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;html&lt;/code&gt; editor type&lt;/li&gt;
-  &lt;li&gt;a custom DOM element&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;1-reagent&quot;&gt;1. Reagent&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(require '[reagent.core :as r])
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-reagent&quot;&gt;[:div
-  &quot;Hello &quot;
-  [:strong &quot;World!&quot;]]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;For a full explanation about using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;reagent&lt;/code&gt; inside Klipse, have a look at &lt;a href=&quot;http://blog.klipse.tech/reagent/2016/12/31/reagent-in-klipse.html&quot;&gt;Interactive reagent snippets&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;And if you want very cool material about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;reagent&lt;/code&gt;, read this &lt;a href=&quot;http://timothypratley.blogspot.co.il/2017/01/reagent-deep-dive-part-1.html&quot;&gt;series of reagegent deep dive&lt;/a&gt; and &lt;a href=&quot;http://ingesolvoll.github.io/2017/01/01/how-to-use-a-charting-library-in-reagent.html&quot;&gt;How to use a charting library in Reagent&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;2-the-klipse-container&quot;&gt;2. The Klipse container&lt;/h2&gt;
-
-&lt;p&gt;Each Klipse snippet is associated with a container -  a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DOM&lt;/code&gt; element that is just below the Klipse snippet and accessible with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;js/klipse-container&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;js/klipse-container-id&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(set!
- (.-innerHTML js/klipse-container)
- &quot;&amp;lt;div style='color: blue;'&amp;gt; Hello &amp;lt;b&amp;gt;Container&amp;lt;/b&amp;gt;!&amp;lt;/div&amp;gt;&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(set!
-  (.-innerHTML (js/document.getElementById js/klipse-container-id))
-  &quot;&amp;lt;div style='color: red;'&amp;gt; Hello &amp;lt;b&amp;gt;Container Id&amp;lt;/b&amp;gt;!&amp;lt;/div&amp;gt;&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;3-html-editor-type&quot;&gt;3. Html editor type&lt;/h2&gt;
-
-&lt;p&gt;You can also have a Klipse snippet with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data-editor-type=&quot;html&quot;&lt;/code&gt;: the evaluation of the snippet will be the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;innerHTML&lt;/code&gt; of the result box.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot; data-editor-type=&quot;html&quot;&gt;
-&quot;Hello &amp;lt;strong&amp;gt;HTML editor&amp;lt;/strong&amp;gt;&quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;4-a-custom-dom-element&quot;&gt;4. A custom DOM element&lt;/h2&gt;
-
-&lt;p&gt;Another thing you can do is to add a DOM element to you page (a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;div&lt;/code&gt; a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;canvas&lt;/code&gt; or anything you want) and to manipulate it with your klipse snippet.&lt;/p&gt;
-
-&lt;p&gt;In this page we have inserted a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;div id=&quot;my-custom-container&quot;&amp;gt;&lt;/code&gt;  just above the Klipse snippet.&lt;/p&gt;
-
-&lt;div id=&quot;my-custom-container&quot;&gt;&lt;/div&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(set!
-  (.-innerHTML (js/document.getElementById &quot;my-custom-container&quot;))
-  &quot;&amp;lt;div style='color: green;'&amp;gt; Hello &amp;lt;b&amp;gt;Custom Container&amp;lt;/b&amp;gt;!&amp;lt;/div&amp;gt;&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;There are a couple of blog posts with lots of creative stuff using this approach:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://exupero.org/hazard/post/islands/&quot;&gt;An Island Generator&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://blog.jrheard.com/procedural-dungeon-generation-drunkards-walk-in-clojurescript&quot;&gt;Procedural Dungeon Generation: A Drunkard’s Walk in ClojureScript&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://exupero.org/hazard/post/fractals/&quot;&gt;Lindenmayer Fractals&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">The Klipse plugin is a client-side code evaluator.</summary></entry><entry><title type="html">How to draw on a canvas with Klipse and core.async</title><link href="https://blog.klipse.tech//clojure/2020/09/09/core-async-canvas.html" rel="alternate" type="text/html" title="How to draw on a canvas with Klipse and core.async" /><published>2020-09-09T10:12:22+03:00</published><updated>2020-09-09T10:12:22+03:00</updated><id>https://blog.klipse.tech//clojure/2020/09/09/core-async-canvas</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/09/09/core-async-canvas.html">&lt;p&gt;The cool thing with Klipse is that it is 100% client-side.
-It means that you can interact freely with the page where the Klipse snippets are hosted. As an example, you can draw on a canvas. All you need to do is to add in your html a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; element and refer it from your Klipse snippet.&lt;/p&gt;
-
-&lt;h2 id=&quot;boring-fillrect&quot;&gt;Boring fillRect&lt;/h2&gt;
-
-&lt;p&gt;Let’s start with a simple &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fillRect&lt;/code&gt; manipulation:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(let [canvas (js/document.getElementById &quot;canvas-1&quot;)
-      ctx (.getContext canvas &quot;2d&quot;)
-      width (.-width canvas)
-      height (.-height canvas)]
-  (set! (.-fillStyle  ctx) &quot;red&quot;)
-  (.clearRect ctx 0 0 width height)
-  (.fillRect ctx 0 0 width height))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;canvas id=&quot;canvas-1&quot; width=&quot;500&quot; height=&quot;300&quot;&gt;&lt;/canvas&gt;
-
-&lt;h2 id=&quot;random-color&quot;&gt;Random color&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(let [canvas (js/document.getElementById &quot;canvas-2&quot;)
-      ctx (.getContext canvas &quot;2d&quot;)
-      width (.-width canvas)
-      height (.-height canvas)
-      colors [&quot;red&quot; &quot;blue&quot; &quot;green&quot; &quot;yellow&quot; &quot;magenta&quot; &quot;purple&quot; &quot;pink&quot;]]
-  (set! (.-fillStyle  ctx) (rand-nth colors))
-  (.clearRect ctx 0 0 width height)
-  (.fillRect ctx 0 0 width height))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;canvas id=&quot;canvas-2&quot; width=&quot;500&quot; height=&quot;300&quot;&gt;&lt;/canvas&gt;
-
-&lt;p&gt;Each time you press &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl-Enter&lt;/code&gt; inside the snippet, the color is randomly picked.&lt;/p&gt;
-
-&lt;p&gt;Wouldn’t it be cool to evaluate the snippet automatically every second or so?&lt;/p&gt;
-
-&lt;h2 id=&quot;random-color-in-a-loop&quot;&gt;Random color in a loop&lt;/h2&gt;
-
-&lt;p&gt;Let’s run the same Klipse snippet in a loop - by setting &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data-loop-msec=&quot;1000&quot;&lt;/code&gt; attribute of the DOM element that contains the snippet (look at the page source!):&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse&quot; data-loop-msec=&quot;1000&quot;&gt;
-(let [canvas (js/document.getElementById &quot;canvas-3&quot;)
-      ctx (.getContext canvas &quot;2d&quot;)
-      width (.-width canvas)
-      height (.-height canvas)
-      colors [&quot;red&quot; &quot;blue&quot; &quot;green&quot; &quot;yellow&quot; &quot;magenta&quot; &quot;purple&quot; &quot;pink&quot;]]
-  (set! (.-fillStyle  ctx) (rand-nth colors))
-  (.clearRect ctx 0 0 width height)
-  (.fillRect ctx 0 0 width height))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;canvas id=&quot;canvas-3&quot; width=&quot;500&quot; height=&quot;300&quot;&gt;&lt;/canvas&gt;
-
-&lt;h2 id=&quot;coreasync&quot;&gt;Core.async&lt;/h2&gt;
-
-&lt;p&gt;With &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;core.async&lt;/code&gt; you can do really cool stuff - like having a progress bar:&lt;/p&gt;
-
-&lt;p&gt;First, let’s require &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;core.async&lt;/code&gt; (It takes a bit of time…):&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(ns my.canvas
-  (:require [cljs.core.async :refer [go go-loop &amp;lt;! timeout]]))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;canvas id=&quot;canvas-4&quot; width=&quot;500&quot; height=&quot;50&quot;&gt;&lt;/canvas&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse&quot; data-eval-idle-msec=&quot;10000000&quot;&gt;
-(let [canvas (js/document.getElementById &quot;canvas-4&quot;)
-      ctx (.getContext canvas &quot;2d&quot;)
-      width (.-width canvas)
-      height (.-height canvas)]
-  (.clearRect ctx 0 0 width height)
-  (set! (.-fillStyle  ctx) &quot;green&quot;)
-  (go-loop [percentage 0]
-           (when (&amp;lt;= percentage 100)
-             (&amp;lt;! (timeout 200))
-             (.fillRect ctx 0 (/ height 2) (/ (* width percentage) 100) 10)
-             (recur (+ percentage 10)))))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;It’s a bit tricky to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;core.async&lt;/code&gt; inside Klipse because once a snippet is evaluated it runs forever. That might cause a lot of confusion if several versions of the snippet run in parallel.&lt;/p&gt;
-
-&lt;p&gt;In our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;core.async&lt;/code&gt; snippet, we have set &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data-eval-idle-msec=&quot;10000000&quot;&lt;/code&gt; which means that the snippets will run automatically only after 10000 seconds of idleness or when you press &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl-Enter&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;That’s it!
-Enjoy your interactive drawings…&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">The cool thing with Klipse is that it is 100% client-side. It means that you can interact freely with the page where the Klipse snippets are hosted. As an example, you can draw on a canvas. All you need to do is to add in your html a &amp;lt;canvas&amp;gt; element and refer it from your Klipse snippet.</summary></entry><entry><title type="html">Apollo and GraphQL</title><link href="https://blog.klipse.tech//react/2020/02/19/graphql-apollo.html" rel="alternate" type="text/html" title="Apollo and GraphQL" /><published>2020-02-19T12:43:32+02:00</published><updated>2020-02-19T12:43:32+02:00</updated><id>https://blog.klipse.tech//react/2020/02/19/graphql-apollo</id><content type="html" xml:base="https://blog.klipse.tech//react/2020/02/19/graphql-apollo.html">&lt;h1 id=&quot;prelude&quot;&gt;Prelude&lt;/h1&gt;
-
-&lt;p&gt;This article is an interactive version of Facebook official tutorial about &lt;a href=&quot;https://facebook.github.io/react/docs/forms.html&quot;&gt;React.js controlled components&lt;/a&gt; using the &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;KLIPSE plugin&lt;/a&gt; to make the code snippets interactive: the JSX code will be transpiled in your browser while you read this article and a couple of react components will be rendered.&lt;/p&gt;
-
-&lt;p&gt;In the original tutorial, you have to launch the CodePen editor in another tab in order to test the code snippets.&lt;/p&gt;
-
-&lt;p&gt;In the present version of the tutorial, you can play with the code snippets inside the article itself!&lt;/p&gt;
-
-&lt;p&gt;I hope that you will enjoy the code interactivity…&lt;/p&gt;
-
-&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;
-myDiv = {
-  $$typeof: Symbol.for('react.element'),
-  type: 'div',
-  ref: null,
-  props: {
-    children: ['hello', ' ', 'react']
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;div class=&quot;react-container&quot; id=&quot;container1&quot;&gt;&lt;/div&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse&quot; data-preamble=&quot;let container=document.getElementById('container2');&quot;&gt;
-(let [my-div #js {&quot;$$typeof&quot; 2}])
-&lt;/code&gt;&lt;/pre&gt;
-&lt;div class=&quot;react-container&quot; id=&quot;container2&quot;&gt;&lt;/div&gt;
-
-&lt;p&gt;Since the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;value&lt;/code&gt; attribute is set on our form element, the displayed value will always be &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;this.state.value&lt;/code&gt;, making the React state the source of truth. Since &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;handleChange&lt;/code&gt; runs on every keystroke to update the React state, the displayed value will update as the user types.&lt;/p&gt;
-
-&lt;p&gt;With a controlled component, every state mutation will have an associated handler function. This makes it straightforward to modify or validate user input. For example, if we wanted to enforce that names are written with all uppercase letters, we could write &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;handleChange&lt;/code&gt; as:&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;handleChange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setState&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toUpperCase&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()});&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Here is the full code:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse-jsx&quot; data-preamble=&quot;let container=document.getElementById('container2');&quot;&gt;
-class NameForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {value: ''};
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
-      this.setState({value: event.target.value.toUpperCase()});
-  }
-
-  handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.value);
-    event.preventDefault();
-  }
-
-  render() {
-    return (
-      &amp;lt;form onSubmit={this.handleSubmit}&amp;gt;
-        &amp;lt;label&amp;gt;
-          Name:
-          &amp;lt;input type=&quot;text&quot; value={this.state.value} onChange={this.handleChange} /&amp;gt;
-        &amp;lt;/label&amp;gt;
-        &amp;lt;input type=&quot;submit&quot; value=&quot;Submit&quot; /&amp;gt;
-      &amp;lt;/form&amp;gt;
-    );
-  }
-}
-
-ReactDOM.render(React.createElement(NameForm, null), container);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Give it a try in the component below:&lt;/p&gt;
-
-&lt;div class=&quot;react-container&quot; id=&quot;container2&quot;&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;the-textarea-tag&quot;&gt;The textarea Tag&lt;/h2&gt;
-
-&lt;p&gt;In HTML, a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;textarea&amp;gt;&lt;/code&gt; element defines its text by its children:&lt;/p&gt;
-
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;textarea&amp;gt;&lt;/span&gt;
-  Hello there, this is some text in a text area
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/textarea&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;In React, a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;textarea&amp;gt;&lt;/code&gt; uses a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;value&lt;/code&gt; attribute instead. This way, a form using a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;textarea&amp;gt;&lt;/code&gt; can be written very similarly to a form that uses a single-line input:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse-jsx&quot; data-preamble=&quot;let container=document.getElementById('container3');&quot;&gt;
-class EssayForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: 'Please write an essay about your favorite DOM element.'
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({value: event.target.value});
-  }
-
-  handleSubmit(event) {
-    alert('An essay was submitted: ' + this.state.value);
-    event.preventDefault();
-  }
-
-  render() {
-    return (
-      &amp;lt;form onSubmit={this.handleSubmit}&amp;gt;
-        &amp;lt;label&amp;gt;
-          Name:
-          &amp;lt;textarea value={this.state.value} cols=&quot;40&quot; onChange={this.handleChange} /&amp;gt;
-        &amp;lt;/label&amp;gt;
-        &amp;lt;input type=&quot;submit&quot; value=&quot;Submit&quot; /&amp;gt;
-      &amp;lt;/form&amp;gt;
-    );
-  }
-}
-ReactDOM.render(React.createElement(EssayForm, null), container);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;div class=&quot;react-container&quot; id=&quot;container3&quot;&gt;&lt;/div&gt;
-
-&lt;p&gt;Notice that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;this.state.value&lt;/code&gt; is initialized in the constructor, so that the text area starts off with some text in it.&lt;/p&gt;
-
-&lt;h2 id=&quot;the-select-tag&quot;&gt;The select Tag&lt;/h2&gt;
-
-&lt;p&gt;In HTML, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;select&amp;gt;&lt;/code&gt; creates a drop-down list.&lt;/p&gt;
-
-&lt;p&gt;For example, this HTML creates a drop-down list of flavors:&lt;/p&gt;
-
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;select&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;option&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;grapefruit&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Grapefruit&lt;span class=&quot;nt&quot;&gt;&amp;lt;/option&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;option&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;lime&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Lime&lt;span class=&quot;nt&quot;&gt;&amp;lt;/option&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;option&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;selected&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;coconut&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Coconut&lt;span class=&quot;nt&quot;&gt;&amp;lt;/option&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;option&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;mango&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;Mango&lt;span class=&quot;nt&quot;&gt;&amp;lt;/option&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/select&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Note that the Coconut option is initially selected, because of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;selected&lt;/code&gt; attribute. React, instead of using this &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;selected&lt;/code&gt; attribute, uses a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;value&lt;/code&gt; attribute on the root &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;select&lt;/code&gt; tag. This is more convenient in a controlled component because you only need to update it in one place.&lt;/p&gt;
-
-&lt;p&gt;For example:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse-jsx&quot; data-preamble=&quot;let container=document.getElementById('container4');&quot;&gt;
-class FlavorForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {value: 'coconut'};
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({value: event.target.value});
-  }
-
-  handleSubmit(event) {
-    alert('Your favorite flavor is: ' + this.state.value);
-    event.preventDefault();
-  }
-
-  render() {
-    return (
-      &amp;lt;form onSubmit={this.handleSubmit}&amp;gt;
-        &amp;lt;label&amp;gt;
-          Pick your favorite La Croix flavor:
-          &amp;lt;select value={this.state.value} onChange={this.handleChange}&amp;gt;
-            &amp;lt;option value=&quot;grapefruit&quot;&amp;gt;Grapefruit&amp;lt;/option&amp;gt;
-            &amp;lt;option value=&quot;lime&quot;&amp;gt;Lime&amp;lt;/option&amp;gt;
-            &amp;lt;option value=&quot;coconut&quot;&amp;gt;Coconut&amp;lt;/option&amp;gt;
-            &amp;lt;option value=&quot;mango&quot;&amp;gt;Mango&amp;lt;/option&amp;gt;
-          &amp;lt;/select&amp;gt;
-        &amp;lt;/label&amp;gt;
-        &amp;lt;input type=&quot;submit&quot; value=&quot;Submit&quot; /&amp;gt;
-      &amp;lt;/form&amp;gt;
-    );
-  }
-}
-ReactDOM.render(React.createElement(FlavorForm, null), container);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;div class=&quot;react-container&quot; id=&quot;container4&quot;&gt;&lt;/div&gt;
-
-&lt;p&gt;Overall, this makes it so that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;input type=&quot;text&quot;&amp;gt;&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;textarea&amp;gt;&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;select&amp;gt;&lt;/code&gt; all work very similarly - they all accept a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;value&lt;/code&gt; attribute that you can use to implement a controlled component.&lt;/p&gt;
-
-&lt;h2 id=&quot;alternatives-to-controlled-components&quot;&gt;Alternatives to Controlled Components&lt;/h2&gt;
-
-&lt;p&gt;It can sometimes be tedious to use controlled components, because you need to write an event handler for every way your data can change and pipe all of the input state through a React component. This can become particularly annoying when you are converting a preexisting codebase to React, or integrating a React application with a non-React library. In these situations, you might want to check out &lt;a href=&quot;https://facebook.github.io/react/docs/uncontrolled-components.html&quot;&gt;uncontrolled components&lt;/a&gt;, an alternative technique for implementing input forms.&lt;/p&gt;
-
-&lt;script src=&quot;https://cdn.jsdelivr.net/npm/relay-runtime@9.0.0/relay-runtime.js&quot;&gt;&lt;/script&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">Prelude</summary></entry></feed>
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjs/7.2.0/math.min.js&quot; integrity=&quot;sha512-4VdpCxbABk7wjJb/9z/d3EyibeHwUY0FgHbFO4EiIPVtyyV6llhENCvzRk8SH5D86+Jwm6QLagqRRnEJCd3gJg==&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">Math.js is an extensive math library for JavaScript and Node.js.</summary></entry></feed>
