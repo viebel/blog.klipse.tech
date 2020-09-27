@@ -112,7 +112,7 @@ image::../uml/data-code-relation.png[]
 I hope that you agree that this system, made of two disjoint sub-systems, is simpler than the original one.
 It's not simpler by accident, it is a logical consequence of separating code and data.
 
-IMPORTANT: A system made of disjoint simple parts is less complex than a simple made of a single complex part.
+IMPORTANT: A system made of disjoint simple parts is less complex than a system made of a single complex part.
 
 === Objects are mutable
 
