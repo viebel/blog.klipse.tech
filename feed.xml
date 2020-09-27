@@ -1,5 +1,122 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2020-09-27T05:34:03+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
-</subtitle><author><name>Yehonathan Sharvit</name></author><entry><title type="html">The complexity of Object Oriented Programming: Classic OO design</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part1.html" rel="alternate" type="text/html" title="The complexity of Object Oriented Programming: Classic OO design" /><published>2020-09-25T05:45:32+00:00</published><updated>2020-09-25T05:45:32+00:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part1</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part1.html">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2020-09-27T06:02:37+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
+</subtitle><author><name>Yehonathan Sharvit</name></author><entry><title type="html">Table of Contents</title><link href="https://blog.klipse.tech//databook/2020/09/27/data-book-toc.html" rel="alternate" type="text/html" title="Table of Contents" /><published>2020-09-27T00:45:32+00:00</published><updated>2020-09-27T00:45:32+00:00</updated><id>https://blog.klipse.tech//databook/2020/09/27/data-book-toc</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/27/data-book-toc.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;h1 id=&quot;before-we-start&quot; class=&quot;sect0&quot;&gt;Before we start&lt;/h1&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/databook/2020/09/25/data-book-chap0.html&quot;&gt;What is Data Oriented Programming&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;h1 id=&quot;part-1-design-a-data-oriented-system&quot; class=&quot;sect0&quot;&gt;Part 1: Design a Data Oriented system&lt;/h1&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part1.html&quot;&gt;The complexity of Object Oriented programming&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The simplicity of Data Oriented programming&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Model business entities as data collections&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Polymorphism without objects&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Data as a value that never changes&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Assess the quality of your data model&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;h1 id=&quot;part-2-implement-a-data-oriented-system&quot; class=&quot;sect0&quot;&gt;Part 2: Implement a Data Oriented system&lt;/h1&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;State management in an immutable world&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Data manipulation kills bugs in the egg&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The data manipulation tool set in action&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Write unit tests without mocking&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Debug your program without a debugger&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;h1 id=&quot;part-3-evolve-a-data-oriented-system&quot; class=&quot;sect0&quot;&gt;Part 3: Evolve a Data Oriented system&lt;/h1&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Write your own data manipulation tool set&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Extend the primitive data types&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Specify the shape of your data&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Write unit tests that cover every possible data combination with property based testing&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Are you now motivated to discover the DO world?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Start reading the &lt;a href=&quot;/databook/2020/09/25/data-book-chap0.html&quot;&gt;introduction&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">The complexity of Object Oriented Programming: Classic OO design</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part1.html" rel="alternate" type="text/html" title="The complexity of Object Oriented Programming: Classic OO design" /><published>2020-09-25T05:45:32+00:00</published><updated>2020-09-25T05:45:32+00:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part1</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part1.html">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div&gt;
   &lt;p&gt;
@@ -1885,74 +2002,4 @@ To see how powerful shrinking is, let’s come up with a contrived example: a fu
 
 &lt;p&gt;I hope that you enjoyed this interactive tutorial about generative testing in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;clojure&lt;/code&gt;. This is really a powerful paradigm that might change forever the way you write and think about testing. And who know? Maybe it will catch a bug or two…&lt;/p&gt;
 
-&lt;p&gt;Please forward it to your friends if you liked it and share your critics on &lt;a href=&quot;https://twitter.com/viebel&quot;&gt;twitter @viebel&lt;/a&gt; or on slack &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;#klipse&lt;/code&gt; channel.&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">The idea test.check is a Clojure property-based testing tool inspired by QuickCheck from Haskell.</summary></entry><entry><title type="html">Symbolic Computation in JavaScript with Math.js</title><link href="https://blog.klipse.tech//javascript/2020/09/10/symbolic-computation-math-js.html" rel="alternate" type="text/html" title="Symbolic Computation in JavaScript with Math.js" /><published>2020-09-10T14:08:22+00:00</published><updated>2020-09-10T14:08:22+00:00</updated><id>https://blog.klipse.tech//javascript/2020/09/10/symbolic-computation-math-js</id><content type="html" xml:base="https://blog.klipse.tech//javascript/2020/09/10/symbolic-computation-math-js.html">&lt;p&gt;&lt;a href=&quot;http://mathjs.org/index.html&quot;&gt;Math.js&lt;/a&gt; is an extensive math library for JavaScript and Node.js.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Math.js&lt;/code&gt; comes with a function &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;math.evaluate&lt;/code&gt; to evaluate expressions.&lt;/p&gt;
-
-&lt;p&gt;In this blog post, we are going to see the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Math.js&lt;/code&gt; evaluator in action with interactive code snippets powered by the &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse plugin&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://pi.tedcdn.com/r/pf.tedcdn.com/images/playlists/hated_math_1200x627.jpg?c=1050%2C550&amp;amp;w=1050&quot; alt=&quot;Math&quot; /&gt;&lt;/p&gt;
-
-&lt;pre class=&quot;hidden&quot;&gt;&lt;code class=&quot;language-js&quot; data-external-libs=&quot;https://raw.githubusercontent.com/josdejong/mathjs/master/dist/math.min.js&quot;&gt;
-  Object.keys(math)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&quot;simple-expressions&quot;&gt;Simple expressions&lt;/h1&gt;
-
-&lt;p&gt;Easy power:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;math.evaluate('sqrt(3^2 + 4^2)'); 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Implicit multiplication:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;math.evaluate('(2+3)(4+5)');  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Complex numbers:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;math.evaluate('sqrt(-1)').toString();
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;math.evaluate('sqrt(1+i)').toString();  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Easy trigonometry:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;math.evaluate('cos(pi)')
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;But the real power of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Math.js&lt;/code&gt; comes with the ability to define symbolic expressions…&lt;/p&gt;
-
-&lt;h1 id=&quot;defining-symbolic-functions&quot;&gt;Defining symbolic functions&lt;/h1&gt;
-
-&lt;p&gt;First, we need to create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scope&lt;/code&gt; for our evaluation environment: The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scope&lt;/code&gt; is a regular JavaScript Object that is used to resolve symbols, and to write assigned variables or function.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;scope = {}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then, we can create functions:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;math.evaluate('bar(x,y) = (x+y)(x-y)', scope)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And call them:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;math.evaluate('bar(10,5)', scope)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now, let’s check that for any angle, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sinus squared + cosinus squared&lt;/code&gt; equals 1:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;math.evaluate('amp(x,y) = sqrt(x^2 + y^2)', scope)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;math.evaluate('foo(x)=amp(sin(x), cos(x))', scope)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;math.evaluate('foo(pi/2)',scope)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;I hope that I have been able to trigger your curiousity about &lt;a href=&quot;http://mathjs.org/index.html&quot;&gt;Math.js&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;And that you cannot wait to use the &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse plugin&lt;/a&gt; on your next blog post.&lt;/p&gt;
-
-&lt;p&gt;Happy interactive coding!&lt;/p&gt;
-
-&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjs/7.2.0/math.min.js&quot; integrity=&quot;sha512-4VdpCxbABk7wjJb/9z/d3EyibeHwUY0FgHbFO4EiIPVtyyV6llhENCvzRk8SH5D86+Jwm6QLagqRRnEJCd3gJg==&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">Math.js is an extensive math library for JavaScript and Node.js.</summary></entry></feed>
+&lt;p&gt;Please forward it to your friends if you liked it and share your critics on &lt;a href=&quot;https://twitter.com/viebel&quot;&gt;twitter @viebel&lt;/a&gt; or on slack &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;#klipse&lt;/code&gt; channel.&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">The idea test.check is a Clojure property-based testing tool inspired by QuickCheck from Haskell.</summary></entry></feed>
