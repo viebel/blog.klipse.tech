@@ -1,0 +1,47 @@
+= Table of Contents
+:page-layout: post
+:page-description:  Table of Contents of Data Oriented Programming
+:page-categories: databook
+:page-guid: 81362E9F-45CF-46A1-BD8B-971FCD540DDE
+:page-thumbnail: assets/klipse.png
+:page-booktitle: TOC
+:page-bookorder: 000_01
+:page-liquid:
+:page-author: Yehonathan Sharvit
+:page-date:   2020-09-27 02:45:32 +0200
+
+
+++++
+{% include databook-intro.html %}
+++++
+
+= Before we start
+. link:{% post_url 2020-09-25-data-book-chap0 %}[What is Data Oriented Programming]
+
+= Part 1: Design a Data Oriented system
+. link:{% post_url 2020-09-21-data-book-chap1-part1 %}[The complexity of Object Oriented programming]
+. The simplicity of Data Oriented programming
+. Model business entities as data collections
+. Polymorphism without objects
+. Data as a value that never changes
+. Assess the quality of your data model
+
+= Part 2: Implement a Data Oriented system
+. State management in an immutable world
+. Data manipulation kills bugs in the egg
+. The data manipulation tool set in action
+. Write unit tests without mocking
+. Debug your program without a debugger
+
+= Part 3: Evolve a Data Oriented system
+. Write your own data manipulation tool set
+. Extend the primitive data types
+. Specify the shape of your data
+. Write unit tests that cover every possible data combination with property based testing
+
+Are you now motivated to discover the DO world?
+
+Start reading the link:{% post_url 2020-09-25-data-book-chap0 %}[introduction].
+++++
+{% include databook-intro.html %}
+++++
