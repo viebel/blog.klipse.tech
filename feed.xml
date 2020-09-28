@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2020-09-27T06:02:37+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2020-09-28T19:24:28+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
 </subtitle><author><name>Yehonathan Sharvit</name></author><entry><title type="html">Table of Contents</title><link href="https://blog.klipse.tech//databook/2020/09/27/data-book-toc.html" rel="alternate" type="text/html" title="Table of Contents" /><published>2020-09-27T00:45:32+00:00</published><updated>2020-09-27T00:45:32+00:00</updated><id>https://blog.klipse.tech//databook/2020/09/27/data-book-toc</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/27/data-book-toc.html">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div&gt;
@@ -1114,7 +1114,7 @@ It&amp;#8217;s not simpler by accident, it is a logical consequence of separatin
 &lt;div class=&quot;title&quot;&gt;Important&lt;/div&gt;
 &lt;/td&gt;
 &lt;td class=&quot;content&quot;&gt;
-A system made of disjoint simple parts is less complex than a simple made of a single complex part.
+A system made of disjoint simple parts is less complex than a system made of a single complex part.
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
