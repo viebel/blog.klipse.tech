@@ -1,0 +1,109 @@
+= Principle #2: Model entities with generic data structures
+:page-layout: post
+:page-description:  Principles of Data Oriented Programming. Principle #1: Model entities with generic data structures. Benefits and price. Pros and Cons. Simpler systems. Systems less complex. Object oriented programming. Functional programming.
+:page-categories: clojure
+:page-guid: 773E5FB2-5F72-41ED-8256-40B8D69E9C3E
+:page-thumbnail: assets/klipse.png
+:page-liquid:
+:page-author: Yehonathan Sharvit
+:page-date:   2020-10-02 11:31:24 +0200
+
+
+== The principle in a nutshell
+
+[quote]
+Principle #2: Model the data part of the entities of your application using generic data structures (mostly maps and arrays).
+
+
+== Remarks on Principle #2
+
+* It's optional to specify or not the shape of the data of an entity.
+* FP Languages that are statically typed (e.g. Haskell and Ocaml) are not compliant with this principle.
+* The most common data structures are maps (a.k.a dictionaries) and arrays. Other data structures: sets, lists and queues.
+* Principle #2 doesn't deal with the mutability or the immutability of the data. This is the theme of link:{% post_url 2020-10-02-immutable-data %}[Principle #3: Data is immutable].
+
+== Illustration of Principle #2
+
+According to link:{% post_url 2020-10-02-separate-code-data %}[Principle #1: Separate code from data], we have to separate code and data. The theme of Principle #2 is about the programming constructs that we should use to model our data.
+
+In DO, we model our data with generic data structures (like maps and arrays) instead of specific classes.
+
+Let's look at the same simplistic example as the one used to illustrate link:{% post_url 2020-10-02-separate-code-data %}[Principle #1]: the data that represents and author.
+
+An author is a data entity with a `firstName`, a `lastName` and a number of `books` he/she wrote.
+
+We break this principle when we use classes to represent an author, like this:
+
+[source, klipse-javascript]
+----
+class AuthorData {
+  constructor(firstName, lastName, books) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.books = books;
+  }
+}
+----
+
+We are compliant with this principle when we use a map (which is a generic data structure) to represent an author:
+
+[source,klipse-javascript]
+----
+function createAuthorData(firstName, lastName, books) {
+ var data = new Object;
+ data.firstName = firstName;
+ data.lastName = lastName;
+ data.books = books;
+return data;
+}
+----
+
+
+In a language like JavaScript, a map could be instantiated also via literals, which is a bit more convenient:
+[source,klipse-javascript]
+----
+function createAuthorData(firstName, lastName, books) {
+   return {firstName: firstName, lastName: lastName, books: books};
+}
+----
+
+
+
+
+==  Benefits of Principle #2
+
+When we use generic data structures to represent our data, our programs benefit from:
+
+* Leverage functions that are not limited to our specific use case (e.g. serialization)
+* Code is less verbose
+* Flexible data model
+
+=== Leverage functions that are not limited to our specific use case
+
+There is a famous quote of Alan Perlis that summarizes this benefit very well:
+
+[quote, Alan Perlis]
+It is better to have 100 functions operate on one data structure than 10 functions on 10 data structures.
+
+When we use a map to represent an entity, we can use the rich set of functions available on maps either natively in our programming language or by third party library.
+
+For instance in JavaScript, the language natively provides some basic functions on objects and third party libraries like https://lodash.com/[lodash] extends the functionality with functions like inverting the keys and the values.
+
+When you adhere to Principle #2, all this wealth of functionalities is available for all your data entities.
+
+As an example, when an author is represented as a map, we can serialize it into JSON for free, using `JSON.stringify` which is part of JavaScript:
+
+[source, klipse-javascript]
+----
+var data = createAuthorData("Isaac", "Asimov", 500);
+JSON.stringify(data);
+----
+
+
+
+== Price
+
+* Data shape needs to be documented manually
+* No compile time check that the data is valid
+* Performance hit
+* Less structure

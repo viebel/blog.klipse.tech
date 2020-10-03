@@ -1,0 +1,36 @@
+= Principle #3: Data is immutable
+:page-layout: post
+:page-description:  Principles of Data Oriented Programming. Principle #1: Model entities with generic data structures. Benefits and price. Pros and Cons. Simpler systems. Systems less complex. Object oriented programming. Functional programming.
+:page-categories: clojure
+:page-guid: 773E5FB2-5F72-41ED-8256-40B8D69E9C3E
+:page-thumbnail: assets/klipse.png
+:page-liquid:
+:page-author: Yehonathan Sharvit
+:page-date:   2020-10-02 11:31:24 +0200
+
+/Users/viebel/prj/blog.klipse.tech/_posts/2020-10-02-immutable-data
+
+== The principle in a nutshell
+
+[quote]
+Principle #2: Model the data part of the entities of your application using generic data structures (mostly maps and arrays).
+
+
+== Remarks on Principle #2
+
+
+== Illustration of Principle #1
+
+==  Benefits
+
+*** Generic functions
+*** Flexible data model
+*** Code is less verbose
+*** Serialization for free
+
+== Price
+
+*** Data shape needs to be documented manually
+*** No compile time check that the data is valid
+*** Less structure
+

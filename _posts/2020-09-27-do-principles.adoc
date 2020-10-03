@@ -1,0 +1,95 @@
+= Principles of Data Oriented Programming
+:page-layout: post
+:page-description:  Data Oriented Programming in a nutshell. Benefits and drawbacks of data oriented programming. DO vs OOP. DO vs FP.
+:page-categories: clojure
+:page-guid: D964C45D-5CD0-409E-BBAC-60AAB0CA0FB7
+:page-thumbnail: assets/klipse.png
+:page-liquid:
+:page-author: Yehonathan Sharvit
+:page-date:   2020-09-29 05:31:24 +0200
+
+
+This article is an attempt to summarize what are the core principles of Data Oriented Programming as I understand them.
+It is highly influenced by my programming experience in Clojure, but those principles are language agnostic.
+
+In fact, in this article I am going to illustrate how those principles could be applied or broken
+in JavaScript which is a language that supports both Functional Programming (FP) and Object Oriented Programming (OOP).
+
+
+I believe that those principles can also be followed on other programming languages.
+
+We might not achieve the same power of expression as in Clojure but it would reduce the complexity of the programs we write.
+
+The principles of Data Oriented (DO) Programming are:
+
+. link:{% post_url 2020-10-02-separate-code-data %}[Separate code from data]
+. link:{% post_url 2020-10-02-generic-data-structures %}[Model entities with generic data structures]
+. link:{% post_url 2020-10-02-immutable-data %}[Data is immutable]
+. Data is comparable by value
+. Data has a literal representation
+
+Each of the article linked above:
+
+* Exposes the principle in a language agnostic way
+* Illustrates the principle with JavaScript code snippets
+* Presents the benefits of the principle
+* Acknowledges the price we have to pay when adhere to the principle
+
+=  Model entities with generic data structures
+
+Data shape specifications is not mandatory.
+===  Benefits
+
+*** Generic functions
+*** Flexible data model
+*** Code is less verbose
+*** Serialization for free
+
+=== Price
+
+*** Data shape needs to be documented manually
+*** No compile time check that the data is valid
+*** Less structure
+
+=   Data is immutable
+
+=== Benefits
+
+*** Flows can be replayed
+*** Concurrency safety for free
+*** Code behavior is predictable
+*** Data is treated as a value
+*** Equality check is well defined and fast
+
+=== Price
+
+*** Performance hit
+*** State management requires a special construct (e.g. Clojure's atom)
+*** Need a library that implements it
+*** Data is not native (e.g. Immutable.js)
+*** Some algorithms are easier to implement with in-place change
+*** Hard to enforce all over the program with no native support (e.g. Ramda.js)
+*** Integration with 3rd party libraries
+
+
+== Language requirements for applying DO
+
+In Clojure, all the programming constructs required by DO are available at the core of the language.
+
+* Persistent Data structures
+* Equality by value
+* Literal for data collections (is it mandatory?)
+* Atoms
+* Functions passed as arguments to other functions
+
+I believe that those programming constructs could be made available to other programming languages.
+* Anonymous functions or at lease anonymous classes
+* Fast synchronization mechanism
+* Implementation of persistent data structures
+
+Language non-requirements
+
+* Function as a return value
+* Lexical scope
+* Macros
+* Dynamic scope
