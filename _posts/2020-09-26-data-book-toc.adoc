@@ -20,7 +20,7 @@
 
 == Part 1: Design a Data Oriented system
 . link:{% post_url 2020-09-21-data-book-chap1-part1 %}[The complexity of Object Oriented programming]
-. link: {% post_url 2020-09-27-do-principles %}[Principles of Data Oriented programming]
+. link:{% post_url 2020-09-27-do-principles %}[Principles of Data Oriented programming]
 . Polymorphism without objects
 . Assess the quality of your data model
 

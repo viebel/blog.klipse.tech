@@ -1,10 +1,12 @@
 = DO Principle #5: Data has a literal representation
 :page-layout: post
 :page-description:  Principles of Data Oriented Programming. Principle #5: Data has a literal representation. Benefits and price. Pros and Cons. Simpler systems. Systems less complex. Object oriented programming. Functional programming.
-:page-categories: clojure
 :page-guid: 131507A0-3D11-4206-B141-75E6EF221CEA
 :page-thumbnail: assets/klipse.png
 :page-liquid:
+:page-categories: databook
+:page-bookorder: 02_05
+:page-booktitle: Chapter 2, Part 5
 :page-author: Yehonathan Sharvit
 :page-date:   2020-10-03 20:31:24 +0200
 

@@ -1,9 +1,11 @@
 = DO Principle #1: Separate code from data
 :page-layout: post
 :page-description:  Principles of Data Oriented Programming. Principle #1: Separate code from data. Benefits and price. Pros and Cons. Simpler systems. Systems less complex. Object oriented programming. Functional programming.
-:page-categories: clojure
 :page-guid: F3112EEC-3EC1-4757-BD6D-970AEA98D87B
 :page-thumbnail: assets/klipse.png
+:page-categories: databook
+:page-booktitle: Chapter 2, Part 1
+:page-bookorder: 02_01
 :page-liquid:
 :page-author: Yehonathan Sharvit
 :page-date:   2020-10-02 09:31:24 +0200

@@ -1,10 +1,12 @@
 = DO Principle #3: Data is immutable
 :page-layout: post
 :page-description:  Principles of Data Oriented Programming. Principle #3: Data is immutable. Benefits and price. Pros and Cons. Simpler systems. Systems less complex. Object oriented programming. Functional programming.
-:page-categories: clojure
 :page-guid: 773E5FB2-5F72-41ED-8256-40B8D69E9C3E
 :page-thumbnail: assets/klipse.png
 :page-liquid:
+:page-categories: databook
+:page-bookorder: 02_03
+:page-booktitle: Chapter 2, Part 3
 :page-author: Yehonathan Sharvit
 :page-date:   2020-10-02 11:31:24 +0200
 

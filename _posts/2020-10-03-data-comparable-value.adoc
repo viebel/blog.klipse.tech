@@ -1,10 +1,12 @@
 = DO Principle #4: Data is comparable by value
 :page-layout: post
 :page-description:  Principles of Data Oriented Programming. Principle #4: Data is comparable by value. Benefits and price. Pros and Cons. Simpler systems. Systems less complex. Object oriented programming. Functional programming.
-:page-categories: clojure
 :page-guid: 6996D17A-93F7-4E97-AD8B-D83E20A932A3
 :page-thumbnail: assets/klipse.png
 :page-liquid:
+:page-categories: databook
+:page-booktitle: Chapter 2, Part 4
+:page-bookorder: 02_04
 :page-author: Yehonathan Sharvit
 :page-date:   2020-10-02 19:31:24 +0200
 
