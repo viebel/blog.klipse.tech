@@ -7,16 +7,16 @@
 
   <link rel="shortcut icon" href="/assets/favicon2.png">
 
-  <title>DO Principle #5: Data has a literal representation</title>
+  <title>DO Principle #2: Model entities with generic data structures</title>
   <meta name="description" content="Principles of Data Oriented Programming. Principle">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="https://blog.klipse.tech//clojure/2020/10/03/data-literal.html">
+  <link rel="canonical" href="https://blog.klipse.tech//databook/2020/10/02/generic-data-structures.html">
   <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
 
   <!-- start: facebook -->
-  <meta property="og:title" content="DO Principle #5: Data has a literal representation">
+  <meta property="og:title" content="DO Principle #2: Model entities with generic data structures">
   <meta property="og:image" content="https://blog.klipse.tech/assets/klipse.png">
   <meta property="og:description" content="Principles of Data Oriented Programming. Principle">
   <meta property="og:site_name" content="An interactive journey into functional programming with Yehonathan Sharvit">
@@ -83,8 +83,8 @@
       <img src="https://blog.klipse.tech/assets/klipse.png">
     </div>
     <div>
-      <h1 class="post-title" itemprop="name headline">DO Principle #5: Data has a literal representation</h1>
-      <p class="post-meta"><time datetime="2020-10-03T18:31:24+00:00" itemprop="datePublished">Oct 3, 2020</time>
+      <h1 class="post-title" itemprop="name headline">DO Principle #2: Model entities with generic data structures</h1>
+      <p class="post-meta"><time datetime="2020-10-02T09:31:24+00:00" itemprop="datePublished">Oct 2, 2020</time>
 	 •
 	<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Yehonathan Sharvit</span></span>
 	
@@ -95,6 +95,7 @@
   <div class="post-content" itemprop="articleBody">
     <div id="preamble">
 <div class="sectionbody">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js" integrity="sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww==" crossorigin="anonymous"></script>
 <div>
   <p>
     This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
@@ -115,28 +116,6 @@
   </form>
   <br>
 </div>
-<div class="paragraph">
-<p>In Data Oriented programming data is a first class citizen that is considered as a value.</p>
-</div>
-<div class="paragraph">
-<p>It comes down to 3 principles:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><a href="/clojure/2020/10/02/immutable-data.html">Principle #3: Data is immutable</a></p>
-</li>
-<li>
-<p><a href="/clojure/2020/10/02/data-comparable-value.html">Principle #4: Data is comparable by value</a></p>
-</li>
-<li>
-<p><a href="/clojure/2020/10/03/data-literal.html">Principle #5: Data has a literal representation</a></p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>In this article, we explore Principle #5.</p>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -144,189 +123,254 @@
 <div class="sectionbody">
 <div class="quoteblock">
 <blockquote>
-Principle #5: Data can be represented by literals.
+Principle #2: Model the data part of the entities of your application using generic data structures (mostly maps and arrays).
 </blockquote>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="remarks-on-principle-5">Remarks on Principle #5</h2>
+<h2 id="remarks-on-principle-2">Remarks on Principle #2</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Principle #5 is in fact made of two parts:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>It is possible to display the content of any data collection.</p>
-</li>
-<li>
-<p>A data collection can be instantiated via a literal.</p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="illustration-of-principle-5">Illustration of Principle #5</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Principle #5 is in fact made of two parts:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>It is possible to display the content of any data collection</p>
-</li>
-<li>
-<p>A data collection can be instantiated via a literal</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>A language like JavaScript adheres to both parts of Principle #5.</p>
-</div>
-<div class="paragraph">
-<p>Part 1 is satisfied because any data collection could be serialized to a JSON string.</p>
-</div>
-<div class="paragraph">
-<p>Part 2 is satisfied because we can instantiate maps and arrays via literals</p>
-</div>
-<div class="paragraph">
-<p>In a language like Java or C#, where the only way to instantiate a data collection is via class constructors and setters, it is not possible to adhere to the second part of Principle #5.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="benefits-of-principle-5">Benefits of Principle #5</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>When we choose a language that support data representation via literals, we benefit from:</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Data creation is not verbose</p>
+<p>It&#8217;s optional to specify or not the shape of the data of an entity.</p>
 </li>
 <li>
-<p>Data is explorable in any context</p>
+<p>FP Languages that are statically typed (e.g. Haskell and Ocaml) are not compliant with this principle.</p>
+</li>
+<li>
+<p>The most common data structures are maps (a.k.a dictionaries) and arrays. Other data structures: sets, lists and queues.</p>
+</li>
+<li>
+<p>Principle #2 doesn&#8217;t deal with the mutability or the immutability of the data. This is the theme of <a href="/databook/2020/10/02/immutable-data.html">Principle #3: Data is immutable</a>.</p>
 </li>
 </ul>
 </div>
-<div class="sect2">
-<h3 id="benefit-1-data-creation-is-not-verbose">Benefit #1: Data creation is not verbose</h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="illustration-of-principle-2">Illustration of Principle #2</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Let&#8217;s illustrate how much verbosity is involved in data creation via class constructors and setters:</p>
+<p>According to <a href="/databook/2020/10/02/separate-code-data.html">Principle #1: Separate code from data</a>, we have to separate code and data. The theme of Principle #2 is about the programming constructs that we should use to model our data.</p>
+</div>
+<div class="paragraph">
+<p>In DO, we model our data with generic data structures (like maps and arrays) instead of specific classes. Most of the data entities that appear in a typical application could be modeled with maps and arrays.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s look at the same simplistic example as the one used to illustrate <a href="/databook/2020/10/02/separate-code-data.html">Principle #1</a>: the data that represents and author.</p>
+</div>
+<div class="paragraph">
+<p>An author is a data entity with a <code>firstName</code>, a <code>lastName</code> and a number of <code>books</code> he/she wrote.</p>
+</div>
+<div class="paragraph">
+<p>We break this principle when we use classes to represent an author, like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var data = new Object();
-data.firstName = "Isaac";
-data.lastName = "Asimov";
-data</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>And it is even worse when the map is nested, as we have to explicitly create empty maps for intermediate levels of nesting:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var data = new Object();
-data.firstName = "Isaac";
-data.lastName = "Asimov";
-data.details = new Object();
-data.details.yearOfBirth = 1920;
-data.details.yearOfDeath = 1992;
-data;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>However, data creation via literals is compact and clear:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var data = {
-  "firstName": "Isaac",
-  "lastName": "Asimov",
-  "details": {
-    "yearOfBirth": 1920,
-    "yearOfDeath": 1992
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">class AuthorData {
+  constructor(firstName, lastName, books) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.books = books;
   }
-}
-data;</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="benefit-2-data-is-explorable-in-any-context">Benefit #2: Data is explorable in any context</h3>
-<div class="paragraph">
-<p>In a program that adhere to DO principles, it is quite common to display data to the console or to log files.
-No special effort is required for that. We simply call a printing function and our data is automatically converted to a string.</p>
-</div>
-<div class="paragraph">
-<p>When we combine Benefit #1 and #2 together we are able to open a log file, copy from it a piece of data, paste it in our source code as a data literal and boom, our data is instantiated!</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="price-for-principle-5">Price for Principle #5</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>There are no free meals. The privilege of being able to represent data with literals comes at a price:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Dangerous when the data is big</p>
-</li>
-<li>
-<p>Confusion when part of the data is not data</p>
-</li>
-</ul>
-</div>
-<div class="sect2">
-<h3 id="price-1-dangerous-when-the-data-is-big">Price #1: Dangerous when the data is big</h3>
-<div class="paragraph">
-<p>It is so convenient to print data to log files that we sometimes omit to check that the data is not too big and it causes our log files to grow beyond expectations.</p>
-</div>
-<div class="paragraph">
-<p>In a language like Clojure, it is possible to control the maximal length of the printing functions via a dynamic variable which mitigates the risk for huge log files.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="price-3-confusion-when-part-of-the-data-is-not-data">Price #3: Confusion when part of the data is not data</h3>
-<div class="paragraph">
-<p>It might occur that we store a value in a map that is not data, for instance a function in JavaScript:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var mapWithFunction = {
-  "firstName": "Isaac",
-  "lastName": "Asimov",
-  "foo": function (x) { return x;}
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The value associated to <code>foo</code> is not data: it is a function. Functions are not serializable to JSON. Therefore, by default when we serialize <code>mapWithFunction</code>, the <code>foo</code> field is omitted from the serialized string:</p>
+<p>We are compliant with this principle when we use a map (which is a generic data structure) to represent an author:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">JSON.stringify(mapWithFunction);</code></pre>
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">function createAuthorData(firstName, lastName, books) {
+ var data = new Object;
+ data.firstName = firstName;
+ data.lastName = lastName;
+ data.books = books;
+return data;
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>On one hand it makes sense. On the other hand it might be confusing in some situations.</p>
-</div>
-<div class="paragraph">
-<p>For example, a confusion could occur if we stringify <code>mapWithFunction</code> then parse it back and count the number of keys in the resulting objects.
-We might be confused by the fact that <code>mapWithFunction</code> has 3 keys while after a round trip, we are left with two keys:</p>
+<p>In a language like JavaScript, a map could be instantiated also via literals, which is a bit more convenient:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">Object.keys(JSON.parse(JSON.stringify(mapWithFunction))).length;</code></pre>
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">function createAuthorData(firstName, lastName, books) {
+   return {firstName: firstName, lastName: lastName, books: books};
+}</code></pre>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="benefits-of-principle-2">Benefits of Principle #2</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When we use generic data structures to represent our data, our programs benefit from:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Leverage functions that are not limited to our specific use case</p>
+</li>
+<li>
+<p>Flexible data model</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="leverage-functions-that-are-not-limited-to-our-specific-use-case">Leverage functions that are not limited to our specific use case</h3>
+<div class="paragraph">
+<p>There is a famous quote by Alan Perlis that summarizes this benefit very well:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+It is better to have 100 functions operate on one data structure than 10 functions on 10 data structures.
+</blockquote>
+<div class="attribution">
+&#8212; Alan Perlis
+</div>
+</div>
+<div class="paragraph">
+<p>When we use generic data structures to represent entities, we have the privilege to manipulate the entities with the rich set of functions available on maps natively in our programming language in addition to the ones provided by third party libraries.</p>
+</div>
+<div class="paragraph">
+<p>For instance, JavaScript natively provides some basic functions on objects and
+third party libraries like <a href="https://lodash.com/">lodash</a> extend the functionality with even more functions.</p>
+</div>
+<div class="paragraph">
+<p>As an example, when an author is represented as a map, we can serialize it into JSON for free, using <code>JSON.stringify</code> which is part of JavaScript:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var data = createAuthorData("Isaac", "Asimov", 500);
+JSON.stringify(data);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And if we want to serialize the author data without the number of books,
+we can use lodash&#8217;s <code>pick</code> function to create an object with a subset of keys:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var data = createAuthorData("Isaac", "Asimov", 500);
+var dataWithoutBooks = _.pick(data, ['firstName', 'lastName']);
+JSON.stringify(dataWithoutBooks);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When you adhere to Principle #2, all this wealth of functionalities is available to manipulate all your entities.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="flexible-data-model">Flexible data model</h3>
+<div class="paragraph">
+<p>When we use generic data structures, our data model is flexible in the sense that our data is not forced to adhere to a specific shape. We are free to create data with no predefined shape. And we are free to modify the shape of our data.</p>
+</div>
+<div class="paragraph">
+<p>In classical OO, each piece of data is instantiated via a class.
+As a consequence, even when a slightly different data shape is needed, we have to define a new class.</p>
+</div>
+<div class="paragraph">
+<p>Take for example a class <code>AuthorData</code> that represent an author entity that made of 3 fields:
+<code>firstName</code>, <code>lastName</code> and <code>books</code>. Suppose that you want to add a field <code>fullName</code> with the full name of the author.
+In OO, you would have to define a new class <code>AuthorDataWithFullName</code>.</p>
+</div>
+<div class="paragraph">
+<p>However in DO, you are free to add (or remove) fields to a map "on the fly":</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var data = createAuthorData("Isaac", "Asimov", 500);
+data.fullName = "Isaac Asimov";
+data</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="price-for-principle-2">Price for Principle #2</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are no free meals. Applying Principle #2 comes at a price.</p>
+</div>
+<div class="paragraph">
+<p>The price we have to pay when we mode entities with generic data structures is that:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Performance hit</p>
+</li>
+<li>
+<p>Data shape needs to be documented manually</p>
+</li>
+<li>
+<p>No compile time check that the data is valid</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="price-1-performance-hit">Price #1: Performance hit</h3>
+<div class="paragraph">
+<p>When we use specific classes to instantiate data, retrieving the value of a class member is super fast. The reason is that the compiler knows upfront how the data is going to look like and it can do all kinds of optimizations.</p>
+</div>
+<div class="paragraph">
+<p>However, when we use generic data structures to store data, the data structure is optimized for the general case, like retrieving an arbitrary key from a map.</p>
+</div>
+<div class="paragraph">
+<p>Retrieving an arbitrary key from a map is slower than retrieving the value of a class member.</p>
+</div>
+<div class="paragraph">
+<p>Similarly setting an arbitrary key to a value is slower that setting the valued of a class member.</p>
+</div>
+<div class="paragraph">
+<p>Usually, this performance hit is not significant, but it is something to keep in mind.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="price-2-data-shape-needs-to-be-documented-manually">Price #2: Data shape needs to be documented manually</h3>
+<div class="paragraph">
+<p>When an object is instantiated from a class, the information of the data shape is in the class definition.
+It is helpful for developers and for IDEs (think about auto-completion features).</p>
+</div>
+<div class="paragraph">
+<p>When we use generic data structures to store data, the shape of the data needs to be documented manually.</p>
+</div>
+<div class="paragraph">
+<p>Even when we are disciplined enough and we document our code,
+it may occur that we modify slightly the shape of an entity and we forget to update the documentation.</p>
+</div>
+<div class="paragraph">
+<p>In that case, we have to explore the code in order to figure out what is the real shape of our data.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="price-3-no-compile-time-check-that-the-data-is-valid">Price #3: No compile time check that the data is valid</h3>
+<div class="paragraph">
+<p>Take a look again at the <code>fullName</code> function that we created during our exploration of <a href="/databook/2020/10/02/separate-code-data.html">Principle #1</a>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">function fullName(data) {
+   return data.firstName + " " + data.lastName;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When we pass to <code>fullName</code> a piece of data that doesn&#8217;t conform to the shape <code>fullName</code> expects, an error occurs at runtime.
+For example, we could mistype the field that stores the first name (<code>fistName</code> instead of <code>firstName</code>):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">fullName({fistName: "Issac", lastName: "Asimov"})</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When data is instantiated only via classes, this type of error is caught at compile time.</p>
 </div>
 </div>
 </div>
@@ -335,10 +379,17 @@ We might be confused by the fact that <code>mapWithFunction</code> has 3 keys wh
 <h2 id="wrapping-up">Wrapping up</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>We conclude our exploration of the principles of Data Oriented programming with the principle that says that data (like numbers and strings) should be representable by literals. That is the cherry on the cake if you want. This cherry is indeed very tasty but it is not available in every programming language.</p>
+<p>DO guides us to use generic data structures to model our entities.</p>
 </div>
 <div class="paragraph">
-<p>If you adhere to all the principles of DO beside this one, I am willing to make an exception and give you a DO certificate&#8230;&#8203;</p>
+<p>When we adhere to this principle, it allows us to manipulate the entities with generic functions (provided by the language and by third party libraries)
+and it keeps our data model flexible.</p>
+</div>
+<div class="paragraph">
+<p>This flexibility causes a (small) performance hit and forces us to document manually the shape of our data as we cannot rely on the compiler to statically validate it.</p>
+</div>
+<div class="paragraph">
+<p>Continue your exploration of <a href="/databook/2020/09/29/do-principles.html">Data Oriented Programming principles</a> and move to <a href="/databook/2020/10/02/immutable-data.html">Principle #3: Data is immutable</a>.</p>
 </div>
 <div>
   <p>
@@ -524,9 +575,9 @@ We might be confused by the fact that <code>mapWithFunction</code> has 3 keys wh
     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
     */
     var disqus_config = function () {
-        this.page.url = "https://blog.klipse.tech/" + "/clojure/2020/10/03/data-literal.html";
-        this.page.identifier = "131507A0-3D11-4206-B141-75E6EF221CEA";
-        this.page.title = "DO Principle #5: Data has a literal representation";
+        this.page.url = "https://blog.klipse.tech/" + "/databook/2020/10/02/generic-data-structures.html";
+        this.page.identifier = "773E5FB2-5F72-41ED-8256-40B8D69E9C3E";
+        this.page.title = "DO Principle #2: Model entities with generic data structures";
     };
     (function() { // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');

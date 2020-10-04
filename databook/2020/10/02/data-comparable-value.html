@@ -7,16 +7,16 @@
 
   <link rel="shortcut icon" href="/assets/favicon2.png">
 
-  <title>DO Principle #3: Data is immutable</title>
+  <title>DO Principle #4: Data is comparable by value</title>
   <meta name="description" content="Principles of Data Oriented Programming. Principle">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="https://blog.klipse.tech//clojure/2020/10/02/immutable-data.html">
+  <link rel="canonical" href="https://blog.klipse.tech//databook/2020/10/02/data-comparable-value.html">
   <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
 
   <!-- start: facebook -->
-  <meta property="og:title" content="DO Principle #3: Data is immutable">
+  <meta property="og:title" content="DO Principle #4: Data is comparable by value">
   <meta property="og:image" content="https://blog.klipse.tech/assets/klipse.png">
   <meta property="og:description" content="Principles of Data Oriented Programming. Principle">
   <meta property="og:site_name" content="An interactive journey into functional programming with Yehonathan Sharvit">
@@ -83,8 +83,8 @@
       <img src="https://blog.klipse.tech/assets/klipse.png">
     </div>
     <div>
-      <h1 class="post-title" itemprop="name headline">DO Principle #3: Data is immutable</h1>
-      <p class="post-meta"><time datetime="2020-10-02T09:31:24+00:00" itemprop="datePublished">Oct 2, 2020</time>
+      <h1 class="post-title" itemprop="name headline">DO Principle #4: Data is comparable by value</h1>
+      <p class="post-meta"><time datetime="2020-10-02T17:31:24+00:00" itemprop="datePublished">Oct 2, 2020</time>
 	 •
 	<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Yehonathan Sharvit</span></span>
 	
@@ -125,18 +125,18 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><a href="/clojure/2020/10/02/immutable-data.html">Principle #3: Data is immutable</a></p>
+<p><a href="/databook/2020/10/02/immutable-data.html">Principle #3: Data is immutable</a></p>
 </li>
 <li>
-<p><a href="/clojure/2020/10/02/data-comparable-value.html">Principle #4: Data is comparable by value</a></p>
+<p><a href="/databook/2020/10/02/data-comparable-value.html">Principle #4: Data is comparable by value</a></p>
 </li>
 <li>
-<p><a href="/clojure/2020/10/03/data-literal.html">Principle #5: Data has a literal representation</a></p>
+<p><a href="/databook/2020/10/03/data-literal.html">Principle #5: Data has a literal representation</a></p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>In this article, we explore Principle #3.</p>
+<p>In this article, we explore Principle #4.</p>
 </div>
 </div>
 </div>
@@ -145,230 +145,208 @@
 <div class="sectionbody">
 <div class="quoteblock">
 <blockquote>
-Principle #3: Data never changes.
+Principle #4: Data collections are considered to be equal if they represent the same collection of values.
 </blockquote>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="remarks-on-principle-3">Remarks on Principle #3</h2>
+<h2 id="remarks-on-principle-4">Remarks on Principle #4</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>Data never changes, but we have the possibility to create a new version of the data.</p>
+<p>Definition of equality in Computer Science is a deep topic. We are only scratching the surface here</p>
 </li>
 <li>
-<p>We are allowed to change the reference of a variable, so that it refers to a new version of the data.</p>
+<p>We are not dealing here with the comparison of data collection of different types (e.g. lists and vectors)</p>
+</li>
+<li>
+<p>We are not dealing only with equality of primitive types</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="illustration-of-principle-3">Illustration of Principle #3</h2>
+<h2 id="illustration-of-principle-4">Illustration of Principle #4</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Think about the number <code>42</code>. What happens to <code>42</code> when you add <code>1</code> to it? Does it become <code>43</code>?</p>
+<p>In concrete terms, Principle #4 says that:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Two arrays with same elements are considered to be equal</p>
+</li>
+<li>
+<p>Two maps with the same keys and values are considered to be equal</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
-<p>No! <code>42</code> stays <code>42</code> forever!!!</p>
+<p>This definition is in fact a recursive definition because the elements of an array and the values of a map could themselves be arrays and maps.</p>
 </div>
 <div class="paragraph">
-<p>Now put <code>42</code> inside an object <code>{num: 42}</code>. What happens to the object when you add <code>1</code> to <code>42</code>? Does it become <code>43</code>?</p>
-</div>
-<div class="paragraph">
-<p>It depends on the programming language. In Clojure, a programming language that embraces data immutability,  <code>42</code> stays <code>42</code> forever, no matter what.</p>
-</div>
-<div class="paragraph">
-<p>In many programming languages, <code>42</code> becomes <code>43</code>. For instance, in JavaScript:</p>
+<p>In native JavaScript, this principle is broken both for arrays and maps:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var myData = {num: 42};
-var yourData = myData;
-
-myData.num = myData.num + 1;
-[myData.num, yourData.num];</code></pre>
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var a = [1];
+var b = [1];
+a === b;</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>According to DO, data should never change. Instead of mutating data, we create a new version of it.</p>
-</div>
-<div class="paragraph">
-<p>A naive (and inefficient) way to create a new version of a data is to clone it before modifying it.</p>
-</div>
-<div class="paragraph">
-<p>For instance, here is an function that changes the value of a field inside an object, by cloning the object via <code>Object.assign</code> provided natively by JavaScript:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">function changeValue(obj, k, v) {
-  var res = Object.assign({}, obj);
-  res[k] = v;
-  return res;
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var a = {username: "foo"};
+var b = {username: "foo"};
+a === b;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In order to compare data by value, one needs a custom equality function like the <code>is</code> function provided by
+  <a href="https://immutable-js.github.io/immutable-js">Immutable.js</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var a = Immutable.List([1]);
+var b = Immutable.List([1]);
+Immutable.is(a, b);</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var a = Immutable.Map({username: "foo"});
+var b = Immutable.Map({username: "foo"});
+Immutable.is(a, b);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="benefits-of-principle-4">Benefits of Principle #4</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When we compare data by value across the board, our programs benefit from:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Writing unit tests is a pleasure</p>
+</li>
+<li>
+<p>Maps with data keys</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="benefit-1-writing-unit-tests-is-a-pleasure">Benefit #1: Writing unit tests is a pleasure</h3>
+<div class="paragraph">
+<p>When data equality is defined by value, we can specify the expected return value of a function as data instead of having to check each value separately.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s write a "unit test" for a function that returns a (immutable) map with the full name of an author</p>
+</div>
+<div class="paragraph">
+<p>Here is the code for <code>addFullName</code>, using <code>R.assoc</code> from Ramda.js as we showed in  <a href="/databook/2020/10/02/immutable-data.html">Principle #3: Data is immutable</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">function addFullName(data) {
+  return data.set("fullName",
+          data.firstName + " " + data.lastName,
+          data);
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Now, when change <code>myData</code>, <code>yourData</code> is not affected:</p>
+<p>In order to write a unit test for <code>addFullName</code> without equality by value, we would need to check each field separately:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var myData = {num: 42};
-var yourData = myData;
-
-myData = changeValue(myData, "num", myData.num + 1);
-[myData.num, yourData.num];</code></pre>
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var isaac = Immutable.Map({firstName: "Isaac", lastName: "Asimov"});
+var enrichedIsaac = addFullName(isaac);
+enrichedIsaac.get("firstName") === "Isaac" &amp;&amp;
+  enrichedIsaac.get("lastName") === "Asimov" &amp;&amp;
+  enrichedIsaac.get("fullName") === "Isaac Asimov";</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>That&#8217;s the essence of data immutability.</p>
-</div>
-<div class="paragraph">
-<p>In Clojure, data is immutable by default. In JavaScript, embracing immutability in an efficient way requires a third party library like <a href="https://immutable-js.github.io/immutable-js">Immutable.js</a> that provides an efficient implementation of persistent data structures.</p>
-</div>
-<div class="paragraph">
-<p>In most programming languages, there exists libraries that provide an efficient implementation of persistent data structures.</p>
-</div>
-<div class="paragraph">
-<p>With Immutable.js, we don&#8217;t use JavaScript native maps and arrays but immutable maps and arrays instantiated via <code>Immutable.Map</code> and <code>Immutable.List</code>.
-In order to access the element of a map, we use the <code>get</code> method and we create a new version of the map where one field is modified, with the <code>set</code> method:</p>
+<p>With equality by value, using <code>Immutable.is</code> from Immutable.js, the unit test becomes much clearer
+as we are able to simply specify what is the expected output of our function:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var myData = Immutable.Map({num: 42})
-var yourData = myData;
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var isaac = Immutable.Map({firstName: "Isaac", lastName: "Asimov"});
+var enrichedIsaac = addFullName(isaac);
+Immutable.is(enrichedIsaac, Immutable.Map({firstName: "Isaac",
+                                           lastName: "Asimov",
+                                           fullName: "Isaac Asimov"}))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="benefit-2-maps-with-data-keys">Benefit #2: Maps with data keys</h3>
+<div class="paragraph">
+<p>The behavior of a map data structure is connected deeply with the definition of <strong>equality</strong> of the map keys. When we look for the value associated to key <code>a</code> in a map <code>m</code> what we really means is to find an entry in the map whose key is <strong>equal</strong> to <code>a</code>.</p>
+</div>
+<div class="paragraph">
+<p>In many situations, the keys of the maps are strings and strings are compared by value. But what happens when we allow keys to be maps?</p>
+</div>
+<div class="paragraph">
+<p>In JavaScript, when map keys are maps, we could have two different entries in the map with the "same" key:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var myMap = new Map;
+var myData = {"foo": 1};
+var yourData = {"foo": 1};
 
-myData = myData.set("num", 43);
+myMap.set(myData, 42);
+myMap.set(yourData, 43);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The reason is that JavaScript doesn&#8217;t adhere to Principle #4.</p>
+</div>
+<div class="paragraph">
+<p>When we use a library that adheres to Principle #4, like Immutable.js, this weird situation doesn&#8217;t occur:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var myMap = Immutable.Map({});
+var myData = Immutable.Map({"foo": 1});
+var yourData = Immutable.Map({"foo": 1});
 
-[myData.get("num"), yourData.get("num")];</code></pre>
+myMap.set(myData, 42);
+myMap.set(yourData, 43);</code></pre>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="benefits-of-principle-3">Benefits of Principle #3</h2>
+<h2 id="price-for-principle-4">Price for Principle #4</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>When we constraint our program to never mutate data, our programs benefit from:</p>
+<p>There are no free meals. Applying Principle #4 comes at a price:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Data access to all with serenity</p>
-</li>
-<li>
-<p>Code behavior is predictable</p>
-</li>
-<li>
-<p>Equality check is fast</p>
-</li>
-<li>
-<p>Concurrency safety for free</p>
+<p>No native support</p>
 </li>
 </ul>
 </div>
 <div class="sect2">
-<h3 id="benefit-1-data-access-to-all-with-serenity">Benefit #1: Data access to all with serenity</h3>
+<h3 id="price-1-no-native-support">Price #1: No native support</h3>
 <div class="paragraph">
-<p>According to <a href="/clojure/2020/10/02/separate-code-data.html">Principle #1: Separate code from data</a>, data access is transparent.</p>
-</div>
-<div class="paragraph">
-<p>Any function is allowed to access any piece of data. Without data immutability, we would need to be careful each time we pass data as an argument to a function.
-We would need to either make sure the function doesn&#8217;t mutate the data or clone the data before we pass it to the function.</p>
+<p>In Clojure, equality is defined by value in compliance with Principle #4.
+However, on most programming languages, equality is defined by reference and not by value.</p>
 </div>
 <div class="paragraph">
-<p>When we adhere to data immutability, none of this is required. We can pass data to any function with serenity, because data never changes.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="benefit-2-code-behavior-is-predictable">Benefit #2: Code behavior is predictable</h3>
-<div class="paragraph">
-<p>Let me illustrate what I mean by <em>predictable</em> by giving an example of an unpredictable piece of code that doesn&#8217;t adhere to data immutability.</p>
-</div>
-<div class="paragraph">
-<p>Please take a look at the following piece of asynchronous piece of code in JavaScript:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var myData = {num: 42};
-setTimeout(function(data){
-  console.log(data.num);
-}, 1000, myData)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The value of <code>data.num</code> inside the timeout callback is not predictable. It could be modified by another callback.</p>
-</div>
-<div class="paragraph">
-<p>However, if you constraint yourself to data immutability, you are guaranteed that data never changes and you can predict that <code>data.num</code> is <code>42</code> inside the callback!</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="benefit-3-equality-check-is-fast">Benefit #3: Equality check is fast</h3>
-<div class="paragraph">
-<p>In a UI framework like React.js, we frequently check what portion of the "UI data" has been modified since the previous rendering cycle. Portions that didn&#8217;t change are not rendered again.</p>
-</div>
-<div class="paragraph">
-<p>In fact, in a typical frontend application, most of the UI data is left unchanged between subsequent rendering cycles. In a React application that doesn&#8217;t adhere to data immutability, we have no other choice that checking every (nested) part of the UI data.</p>
-</div>
-<div class="paragraph">
-<p>However in a React application that follows data immutability, we can optimize the comparison of the data for the case where data was not modified. Indeed, when the object address is the same, then we know for sure that the data did not change. Comparing object addresses is much faster than comparing all the fields.</p>
-</div>
-<div class="paragraph">
-<p>Fast equality check could be leverage in any program that adhere to Principle #3.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="benefit-4-concurrency-safety-for-free">Benefit #4: Concurrency safety for free</h3>
-<div class="paragraph">
-<p>In a multi threaded environment, we usually use concurrency safety mechanisms (e.g. mutexes) to make sure the data is not modified by thread <code>A</code> while we access it in thread <code>B</code>.</p>
-</div>
-<div class="paragraph">
-<p>In addition to the slight performance hit they cause, concurrency safety mechanisms is a burden for our minds and it makes code writing and reading much more difficult.</p>
-</div>
-<div class="paragraph">
-<p>When we adhere to data immutability, no concurrency mechanism is required: the data you have in hand never changes!</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="price-for-principle-3">Price for Principle #3</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>There are no free meals. Applying Principle #3 comes at a price:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Performance hit</p>
-</li>
-<li>
-<p>Need a library for persistent data structures</p>
-</li>
-</ul>
-</div>
-<div class="sect2">
-<h3 id="price-1-performance-hit">Price #1: Performance hit</h3>
-<div class="paragraph">
-<p>As we mentioned earlier, there exist implementation of persistent data structures in most programming languages. But the most efficient implementation will always be a bit slower than the in-place mutation of the data.</p>
-</div>
-<div class="paragraph">
-<p>In most applications, the performance hit is not significant. But it is something to keep in mind.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="price-2-need-a-library-for-persistent-data-structures">Price #2: Need a library for persistent data structures</h3>
-<div class="paragraph">
-<p>As far as I know, Clojure is the only programming language where data is immutable by default.  For other languages, adhering to data immutability requires the inclusion a third party library.</p>
-</div>
-<div class="paragraph">
-<p>The fact that the data structures are not native to the language means that it is difficult (if not impossible) to enforce the usage of immutable data across the board.</p>
-</div>
-<div class="paragraph">
-<p>Also, when you integrate with other third party libraries (e.g. a chart library), you need first to convert your persistent data structure into a equivalent native data structure.</p>
+<p>In order to adhere to Principle #4, we must careful to never use the native equality check to compare data collections.</p>
 </div>
 </div>
 </div>
@@ -377,13 +355,10 @@ setTimeout(function(data){
 <h2 id="wrapping-up">Wrapping up</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>DO considers data as a value that never changes. When you adhere to this principle, your code is predictable even in a multi threaded environment without mutexes and equality check is fast.</p>
+<p>DO considers data as a value. As consequence, data should be compared by value either when we explicitly check if two pieces of data are equal or implicitly as a data key in a map. In most languages, we need a third party library to provide this value based equality check.</p>
 </div>
 <div class="paragraph">
-<p>However, it requires a non negligible mind shift and in all languages beside Clojure, you&#8217;d have to use a third party library that provides an efficient implementation of persistent data structures.</p>
-</div>
-<div class="paragraph">
-<p>Continue your exploration of <a href="/clojure/2020/09/29/do-principles.html">Data Oriented Programming principles</a> and move to <a href="/clojure/2020/10/02/data-comparable-value.html">Principle #4: Data is comparable by value</a>.</p>
+<p>Continue your exploration of <a href="/databook/2020/09/29/do-principles.html">Data Oriented Programming principles</a> and move to <a href="/databook/2020/10/03/data-literal.html">Data has a literal representation</a>.</p>
 </div>
 <div>
   <p>
@@ -569,9 +544,9 @@ setTimeout(function(data){
     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
     */
     var disqus_config = function () {
-        this.page.url = "https://blog.klipse.tech/" + "/clojure/2020/10/02/immutable-data.html";
-        this.page.identifier = "773E5FB2-5F72-41ED-8256-40B8D69E9C3E";
-        this.page.title = "DO Principle #3: Data is immutable";
+        this.page.url = "https://blog.klipse.tech/" + "/databook/2020/10/02/data-comparable-value.html";
+        this.page.identifier = "6996D17A-93F7-4E97-AD8B-D83E20A932A3";
+        this.page.title = "DO Principle #4: Data is comparable by value";
     };
     (function() { // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');

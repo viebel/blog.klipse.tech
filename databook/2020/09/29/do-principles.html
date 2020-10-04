@@ -7,18 +7,18 @@
 
   <link rel="shortcut icon" href="/assets/favicon2.png">
 
-  <title>DO Principle #4: Data is comparable by value</title>
-  <meta name="description" content="Principles of Data Oriented Programming. Principle">
+  <title>Principles of Data Oriented Programming</title>
+  <meta name="description" content="Data Oriented Programming in a nutshell. Benefits and drawbacks of data oriented programming. DO vs OOP. DO vs FP.">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="https://blog.klipse.tech//clojure/2020/10/02/data-comparable-value.html">
+  <link rel="canonical" href="https://blog.klipse.tech//databook/2020/09/29/do-principles.html">
   <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
 
   <!-- start: facebook -->
-  <meta property="og:title" content="DO Principle #4: Data is comparable by value">
+  <meta property="og:title" content="Principles of Data Oriented Programming">
   <meta property="og:image" content="https://blog.klipse.tech/assets/klipse.png">
-  <meta property="og:description" content="Principles of Data Oriented Programming. Principle">
+  <meta property="og:description" content="Data Oriented Programming in a nutshell. Benefits and drawbacks of data oriented programming. DO vs OOP. DO vs FP.">
   <meta property="og:site_name" content="An interactive journey into functional programming with Yehonathan Sharvit">
   <meta property="article:author" content="Yehonathan Sharvit">
   <!-- end: facebook -->
@@ -83,8 +83,8 @@
       <img src="https://blog.klipse.tech/assets/klipse.png">
     </div>
     <div>
-      <h1 class="post-title" itemprop="name headline">DO Principle #4: Data is comparable by value</h1>
-      <p class="post-meta"><time datetime="2020-10-02T17:31:24+00:00" itemprop="datePublished">Oct 2, 2020</time>
+      <h1 class="post-title" itemprop="name headline">Principles of Data Oriented Programming</h1>
+      <p class="post-meta"><time datetime="2020-09-29T03:31:24+00:00" itemprop="datePublished">Sep 29, 2020</time>
 	 •
 	<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Yehonathan Sharvit</span></span>
 	
@@ -93,10 +93,7 @@
 
   </header>
   <div class="post-content" itemprop="articleBody">
-    <div id="preamble">
-<div class="sectionbody">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.2/immutable.min.js" integrity="sha512-myCdDiGJRYrvRb/VuJ67ljifYTJdc1jdEvL4c4ftX9o3N6EAnmD83c/7l2/91RCINZ7c8w21tiXDT7RDFjdc3g==" crossorigin="anonymous"></script>
-<div>
+    <div>
   <p>
     This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
   </p>
@@ -117,248 +114,47 @@
   <br>
 </div>
 <div class="paragraph">
-<p>In Data Oriented programming data is a first class citizen that is considered as a value.</p>
+<p>This chapter is an attempt to illustrate what are the core principles of Data Oriented Programming as I understand them.
+It is highly influenced by my programming experience in Clojure, but I believe that those principles are language agnostic.</p>
 </div>
 <div class="paragraph">
-<p>It comes down to 3 principles:</p>
+<p>One could adhere to them in an Object Oriented (OO) language like Java or C# and one could break them
+in a Functional Programming (FP) language like Ocaml, Haskell, JavaScript (or even in Clojure).</p>
+</div>
+<div class="paragraph">
+<p>In fact, in this chapter, I am going to illustrate how those principles could be applied or broken
+in JavaScript, a programming language that supports both FP and OOP.</p>
+</div>
+<div class="paragraph">
+<p>The principles of Data Oriented (DO) Programming are:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><a href="/clojure/2020/10/02/immutable-data.html">Principle #3: Data is immutable</a></p>
+<p><a href="/databook/2020/10/02/separate-code-data.html">Separate code from data</a></p>
 </li>
 <li>
-<p><a href="/clojure/2020/10/02/data-comparable-value.html">Principle #4: Data is comparable by value</a></p>
+<p><a href="/databook/2020/10/02/generic-data-structures.html">Model entities with generic data structures</a></p>
 </li>
 <li>
-<p><a href="/clojure/2020/10/03/data-literal.html">Principle #5: Data has a literal representation</a></p>
+<p><a href="/databook/2020/10/02/immutable-data.html">Data is immutable</a></p>
+</li>
+<li>
+<p><a href="/databook/2020/10/02/data-comparable-value.html">Data is comparable by value</a></p>
+</li>
+<li>
+<p><a href="/databook/2020/10/03/data-literal.html">Data has a literal representation</a></p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>In this article, we explore Principle #4.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="the-principle-in-a-nutshell">The principle in a nutshell</h2>
-<div class="sectionbody">
-<div class="quoteblock">
-<blockquote>
-Principle #4: Data collections are considered to be equal if they represent the same collection of values.
-</blockquote>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="remarks-on-principle-4">Remarks on Principle #4</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Definition of equality in Computer Science is a deep topic. We are only scratching the surface here</p>
-</li>
-<li>
-<p>We are not dealing here with the comparison of data collection of different types (e.g. lists and vectors)</p>
-</li>
-<li>
-<p>We are not dealing only with equality of primitive types</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="illustration-of-principle-4">Illustration of Principle #4</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In concrete terms, Principle #4 says that:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Two arrays with same elements are considered to be equal</p>
-</li>
-<li>
-<p>Two maps with the same keys and values are considered to be equal</p>
-</li>
-</ol>
+<p>Each principle is explored in a separate article.</p>
 </div>
 <div class="paragraph">
-<p>This definition is in fact a recursive definition because the elements of an array and the values of a map could themselves be arrays and maps.</p>
+<p>I encourage you to start your exploration from <a href="/databook/2020/10/02/separate-code-data.html">Principle #1: Separate code from data</a>.</p>
 </div>
 <div class="paragraph">
-<p>In native JavaScript, this principle is broken both for arrays and maps:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var a = [1];
-var b = [1];
-a === b;</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var a = {username: "foo"};
-var b = {username: "foo"};
-a === b;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In order to compare data by value, one needs a custom equality function like the <code>is</code> function provided by
-  <a href="https://immutable-js.github.io/immutable-js">Immutable.js</a></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var a = Immutable.List([1]);
-var b = Immutable.List([1]);
-Immutable.is(a, b);</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var a = Immutable.Map({username: "foo"});
-var b = Immutable.Map({username: "foo"});
-Immutable.is(a, b);</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="benefits-of-principle-4">Benefits of Principle #4</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>When we compare data by value across the board, our programs benefit from:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Writing unit tests is a pleasure</p>
-</li>
-<li>
-<p>Maps with data keys</p>
-</li>
-</ul>
-</div>
-<div class="sect2">
-<h3 id="benefit-1-writing-unit-tests-is-a-pleasure">Benefit #1: Writing unit tests is a pleasure</h3>
-<div class="paragraph">
-<p>When data equality is defined by value, we can specify the expected return value of a function as data instead of having to check each value separately.</p>
-</div>
-<div class="paragraph">
-<p>Let&#8217;s write a "unit test" for a function that returns a (immutable) map with the full name of an author</p>
-</div>
-<div class="paragraph">
-<p>Here is the code for <code>addFullName</code>, using <code>R.assoc</code> from Ramda.js as we showed in  <a href="/clojure/2020/10/02/immutable-data.html">Principle #3: Data is immutable</a>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">function addFullName(data) {
-  return data.set("fullName",
-          data.firstName + " " + data.lastName,
-          data);
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In order to write a unit test for <code>addFullName</code> without equality by value, we would need to check each field separately:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var isaac = Immutable.Map({firstName: "Isaac", lastName: "Asimov"});
-var enrichedIsaac = addFullName(isaac);
-enrichedIsaac.get("firstName") === "Isaac" &amp;&amp;
-  enrichedIsaac.get("lastName") === "Asimov" &amp;&amp;
-  enrichedIsaac.get("fullName") === "Isaac Asimov";</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>With equality by value, using <code>Immutable.is</code> from Immutable.js, the unit test becomes much clearer
-as we are able to simply specify what is the expected output of our function:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var isaac = Immutable.Map({firstName: "Isaac", lastName: "Asimov"});
-var enrichedIsaac = addFullName(isaac);
-Immutable.is(enrichedIsaac, Immutable.Map({firstName: "Isaac",
-                                           lastName: "Asimov",
-                                           fullName: "Isaac Asimov"}))</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="benefit-2-maps-with-data-keys">Benefit #2: Maps with data keys</h3>
-<div class="paragraph">
-<p>The behavior of a map data structure is connected deeply with the definition of <strong>equality</strong> of the map keys. When we look for the value associated to key <code>a</code> in a map <code>m</code> what we really means is to find an entry in the map whose key is <strong>equal</strong> to <code>a</code>.</p>
-</div>
-<div class="paragraph">
-<p>In many situations, the keys of the maps are strings and strings are compared by value. But what happens when we allow keys to be maps?</p>
-</div>
-<div class="paragraph">
-<p>In JavaScript, when map keys are maps, we could have two different entries in the map with the "same" key:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var myMap = new Map;
-var myData = {"foo": 1};
-var yourData = {"foo": 1};
-
-myMap.set(myData, 42);
-myMap.set(yourData, 43);</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The reason is that JavaScript doesn&#8217;t adhere to Principle #4.</p>
-</div>
-<div class="paragraph">
-<p>When we use a library that adheres to Principle #4, like Immutable.js, this weird situation doesn&#8217;t occur:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var myMap = Immutable.Map({});
-var myData = Immutable.Map({"foo": 1});
-var yourData = Immutable.Map({"foo": 1});
-
-myMap.set(myData, 42);
-myMap.set(yourData, 43);</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="price-for-principle-4">Price for Principle #4</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>There are no free meals. Applying Principle #4 comes at a price:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>No native support</p>
-</li>
-</ul>
-</div>
-<div class="sect2">
-<h3 id="price-1-no-native-support">Price #1: No native support</h3>
-<div class="paragraph">
-<p>In Clojure, equality is defined by value in compliance with Principle #4.
-However, on most programming languages, equality is defined by reference and not by value.</p>
-</div>
-<div class="paragraph">
-<p>In order to adhere to Principle #4, we must careful to never use the native equality check to compare data collections.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="wrapping-up">Wrapping up</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>DO considers data as a value. As consequence, data should be compared by value either when we explicitly check if two pieces of data are equal or implicitly as a data key in a map. In most languages, we need a third party library to provide this value based equality check.</p>
-</div>
-<div class="paragraph">
-<p>Continue your exploration of <a href="/clojure/2020/09/29/do-principles.html">Data Oriented Programming principles</a> and move to <a href="/clojure/2020/10/03/data-literal.html">Data has a literal representation</a>.</p>
+<p>Enjoy!</p>
 </div>
 <div>
   <p>
@@ -379,8 +175,6 @@ However, on most programming languages, equality is defined by reference and not
 	  <input style="padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;" type="submit" value="Subscribe" />
   </form>
   <br>
-</div>
-</div>
 </div>
   </div>
 
@@ -544,9 +338,9 @@ However, on most programming languages, equality is defined by reference and not
     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
     */
     var disqus_config = function () {
-        this.page.url = "https://blog.klipse.tech/" + "/clojure/2020/10/02/data-comparable-value.html";
-        this.page.identifier = "6996D17A-93F7-4E97-AD8B-D83E20A932A3";
-        this.page.title = "DO Principle #4: Data is comparable by value";
+        this.page.url = "https://blog.klipse.tech/" + "/databook/2020/09/29/do-principles.html";
+        this.page.identifier = "D964C45D-5CD0-409E-BBAC-60AAB0CA0FB7";
+        this.page.title = "Principles of Data Oriented Programming";
     };
     (function() { // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');
