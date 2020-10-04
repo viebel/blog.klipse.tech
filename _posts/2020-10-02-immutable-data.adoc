@@ -1,6 +1,6 @@
-= Principle #3: Data is immutable
+= DO Principle #3: Data is immutable
 :page-layout: post
-:page-description:  Principles of Data Oriented Programming. Principle #1: Model entities with generic data structures. Benefits and price. Pros and Cons. Simpler systems. Systems less complex. Object oriented programming. Functional programming.
+:page-description:  Principles of Data Oriented Programming. Principle #3: Data is immutable. Benefits and price. Pros and Cons. Simpler systems. Systems less complex. Object oriented programming. Functional programming.
 :page-categories: clojure
 :page-guid: 773E5FB2-5F72-41ED-8256-40B8D69E9C3E
 :page-thumbnail: assets/klipse.png
@@ -8,29 +8,203 @@
 :page-author: Yehonathan Sharvit
 :page-date:   2020-10-02 11:31:24 +0200
 
-/Users/viebel/prj/blog.klipse.tech/_posts/2020-10-02-immutable-data
+++++
+<script src="https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.2/immutable.min.js" integrity="sha512-myCdDiGJRYrvRb/VuJ67ljifYTJdc1jdEvL4c4ftX9o3N6EAnmD83c/7l2/91RCINZ7c8w21tiXDT7RDFjdc3g==" crossorigin="anonymous"></script>
+++++
+
+++++
+{% include databook-intro.html %}
+++++
+
+In Data Oriented programming data is a first class citizen that is considered as a value.
+
+It comes down to 3 principles:
+
+. link:{% post_url 2020-10-02-immutable-data %}[Principle #3: Data is immutable]
+. link:{% post_url 2020-10-03-data-comparable-value %}[Principle #4: Data is comparable by value]
+. link:{% post_url 2020-10-03-data-literal %}[Principle #5: Data has a literal representation]
+
+
+In this article, we explore Principle #3.
 
 == The principle in a nutshell
 
 [quote]
-Principle #2: Model the data part of the entities of your application using generic data structures (mostly maps and arrays).
+Principle #3: Data never changes.
+
+== Remarks on Principle #3
+
+* Data never changes, but we have the possibility to create a new version of the data.
+* We are allowed to change the reference of a variable, so that it refers to a new version of the data.
+
+== Illustration of Principle #3
+
+Think about the number `42`. What happens to `42` when you add `1` to it? Does it become `43`?
+
+No! `42` stays `42` forever!!!
+
+Now put `42` inside an object `{num: 42}`. What happens to the object when you add `1` to `42`? Does it become `43`?
 
 
-== Remarks on Principle #2
+It depends on the programming language. In Clojure, a programming language that embraces data immutability,  `42` stays `42` forever, no matter what.
+
+In many programming languages, `42` becomes `43`. For instance, in JavaScript:
+
+[source, klipse-javascript]
+----
+var myData = {num: 42};
+var yourData = myData;
+
+myData.num = myData.num + 1;
+[myData.num, yourData.num];
+----
+
+According to DO, data should never change. Instead of mutating data, we create a new version of it.
+
+A naive (and inefficient) way to create a new version of a data is to clone it before modifying it.
+
+For instance, here is an function that changes the value of a field inside an object, by cloning the object via `Object.assign` provided natively by JavaScript:
+
+[source,klipse-javascript]
+----
+function changeValue(obj, k, v) {
+  var res = Object.assign({}, obj);
+  res[k] = v;
+  return res;
+}
+----
 
 
-== Illustration of Principle #1
+Now, when change `myData`, `yourData` is not affected:
 
-==  Benefits
+[source,klipse-javascript]
+----
+var myData = {num: 42};
+var yourData = myData;
 
-*** Generic functions
-*** Flexible data model
-*** Code is less verbose
-*** Serialization for free
+myData = changeValue(myData, "num", myData.num + 1);
+[myData.num, yourData.num];
+----
 
-== Price
+That's the essence of data immutability.
 
-*** Data shape needs to be documented manually
-*** No compile time check that the data is valid
-*** Less structure
 
+In Clojure, data is immutable by default. In JavaScript, embracing immutability in an efficient way requires a third party library like https://immutable-js.github.io/immutable-js[Immutable.js] that provides an efficient implementation of persistent data structures.
+
+In most programming languages, there exists libraries that provide an efficient implementation of persistent data structures.
+
+With Immutable.js, we don't use JavaScript native maps and arrays but immutable maps and arrays instantiated via `Immutable.Map` and `Immutable.List`.
+In order to access the element of a map, we use the `get` method and we create a new version of the map where one field is modified, with the `set` method:
+
+[source,klipse-javascript]
+----
+var myData = Immutable.Map({num: 42})
+var yourData = myData;
+
+myData = myData.set("num", 43);
+
+[myData.get("num"), yourData.get("num")];
+----
+
+
+== Benefits of Principle #3
+
+When we constraint our program to never mutate data, our programs benefit from:
+
+* Data access to all with serenity
+* Code behavior is predictable
+* Equality check is fast
+* Concurrency safety for free
+
+
+=== Benefit #1: Data access to all with serenity
+
+According to link:{% post_url 2020-10-02-separate-code-data %}[Principle #1: Separate code from data], data access is transparent.
+
+Any function is allowed to access any piece of data. Without data immutability, we would need to be careful each time we pass data as an argument to a function.
+We would need to either make sure the function doesn't mutate the data or clone the data before we pass it to the function.
+
+When we adhere to data immutability, none of this is required. We can pass data to any function with serenity, because data never changes.
+
+
+=== Benefit #2: Code behavior is predictable
+
+
+Let me illustrate what I mean by _predictable_ by giving an example of an unpredictable piece of code that doesn't adhere to data immutability.
+
+
+Please take a look at the following piece of asynchronous piece of code in JavaScript:
+
+[source,klipse-javascript]
+----
+var myData = {num: 42};
+setTimeout(function(data){
+  console.log(data.num);
+}, 1000, myData)
+----
+
+The value of `data.num` inside the timeout callback is not predictable. It could be modified by another callback.
+
+However, if you constraint yourself to data immutability, you are guaranteed that data never changes and you can predict that `data.num` is `42` inside the callback!
+
+
+=== Benefit #3: Equality check is fast
+
+In a UI framework like React.js, we frequently check what portion of the "UI data" has been modified since the previous rendering cycle. Portions that didn't change are not rendered again.
+
+In fact, in a typical frontend application, most of the UI data is left unchanged between subsequent rendering cycles. In a React application that doesn't adhere to data immutability, we have no other choice that checking every (nested) part of the UI data.
+
+
+However in a React application that follows data immutability, we can optimize the comparison of the data for the case where data was not modified. Indeed, when the object address is the same, then we know for sure that the data did not change. Comparing object addresses is much faster than comparing all the fields.
+
+
+Fast equality check could be leverage in any program that adhere to Principle #3.
+
+=== Benefit #4: Concurrency safety for free
+
+
+In a multi threaded environment, we usually use concurrency safety mechanisms (e.g. mutexes) to make sure the data is not modified by thread `A` while we access it in thread `B`.
+
+In addition to the slight performance hit they cause, concurrency safety mechanisms is a burden for our minds and it makes code writing and reading much more difficult.
+
+When we adhere to data immutability, no concurrency mechanism is required: the data you have in hand never changes!
+
+
+
+== Price for Principle #3
+
+There are no free meals. Applying Principle #3 comes at a price:
+
+* Performance hit
+* Need a library for persistent data structures
+
+
+=== Price #1: Performance hit
+
+As we mentioned earlier, there exist implementation of persistent data structures in most programming languages. But the most efficient implementation will always be a bit slower than the in-place mutation of the data.
+
+In most applications, the performance hit is not significant. But it is something to keep in mind.
+
+
+=== Price #2: Need a library for persistent data structures
+
+As far as I know, Clojure is the only programming language where data is immutable by default.  For other languages, adhering to data immutability requires the inclusion a third party library.
+
+The fact that the data structures are not native to the language means that it is difficult (if not impossible) to enforce the usage of immutable data across the board.
+
+Also, when you integrate with other third party libraries (e.g. a chart library), you need first to convert your persistent data structure into a equivalent native data structure.
+
+
+== Wrapping up
+
+
+DO considers data as a value that never changes. When you adhere to this principle, your code is predictable even in a multi threaded environment without mutexes and equality check is fast.
+
+However, it requires a non negligible mind shift and in all languages beside Clojure, you'd have to use a third party library that provides an efficient implementation of persistent data structures.
+
+
+Continue your exploration of link:{% post_url 2020-09-27-do-principles %}[Data Oriented Programming principles] and move to link:{% post_url 2020-10-03-data-comparable-value %}[Principle #4: Data is comparable by value].
+
+++++
+{% include databook-intro.html %}
+++++

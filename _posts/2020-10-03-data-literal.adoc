@@ -1,0 +1,173 @@
+= DO Principle #5: Data has a literal representation
+:page-layout: post
+:page-description:  Principles of Data Oriented Programming. Principle #5: Data has a literal representation. Benefits and price. Pros and Cons. Simpler systems. Systems less complex. Object oriented programming. Functional programming.
+:page-categories: clojure
+:page-guid: 131507A0-3D11-4206-B141-75E6EF221CEA
+:page-thumbnail: assets/klipse.png
+:page-liquid:
+:page-author: Yehonathan Sharvit
+:page-date:   2020-10-03 20:31:24 +0200
+
+++++
+{% include databook-intro.html %}
+++++
+
+In Data Oriented programming data is a first class citizen that is considered as a value.
+
+It comes down to 3 principles:
+
+. link:{% post_url 2020-10-02-immutable-data %}[Principle #3: Data is immutable]
+. link:{% post_url 2020-10-03-data-comparable-value %}[Principle #4: Data is comparable by value]
+. link:{% post_url 2020-10-03-data-literal %}[Principle #5: Data has a literal representation]
+
+
+In this article, we explore Principle #5.
+
+
+== The principle in a nutshell
+
+[quote]
+Principle #5: Data can be represented by literals.
+
+
+== Remarks on Principle #5
+
+Principle #5 is in fact made of two parts:
+
+. It is possible to display the content of any data collection.
+. A data collection can be instantiated via a literal.
+
+== Illustration of Principle #5
+
+Principle #5 is in fact made of two parts:
+
+. It is possible to display the content of any data collection
+. A data collection can be instantiated via a literal
+
+A language like JavaScript adheres to both parts of Principle #5.
+
+Part 1 is satisfied because any data collection could be serialized to a JSON string.
+
+Part 2 is satisfied because we can instantiate maps and arrays via literals
+
+
+In a language like Java or C#, where the only way to instantiate a data collection is via class constructors and setters, it is not possible to adhere to the second part of Principle #5.
+
+==  Benefits of Principle #5
+
+When we choose a language that support data representation via literals, we benefit from:
+
+* Data creation is not verbose
+* Data is explorable in any context
+
+=== Benefit #1: Data creation is not verbose
+
+
+Let's illustrate how much verbosity is involved in data creation via class constructors and setters:
+
+[source, klipse-javascript]
+----
+var data = new Object();
+data.firstName = "Isaac";
+data.lastName = "Asimov";
+data
+----
+
+And it is even worse when the map is nested, as we have to explicitly create empty maps for intermediate levels of nesting:
+
+[source, klipse-javascript]
+----
+var data = new Object();
+data.firstName = "Isaac";
+data.lastName = "Asimov";
+data.details = new Object();
+data.details.yearOfBirth = 1920;
+data.details.yearOfDeath = 1992;
+data;
+----
+
+
+However, data creation via literals is compact and clear:
+
+[source, klipse-javascript]
+----
+var data = {
+  "firstName": "Isaac",
+  "lastName": "Asimov",
+  "details": {
+    "yearOfBirth": 1920,
+    "yearOfDeath": 1992
+  }
+}
+data;
+----
+
+
+=== Benefit #2: Data is explorable in any context
+
+
+In a program that adhere to DO principles, it is quite common to display data to the console or to log files.
+No special effort is required for that. We simply call a printing function and our data is automatically converted to a string.
+
+When we combine Benefit #1 and #2 together we are able to open a log file, copy from it a piece of data, paste it in our source code as a data literal and boom, our data is instantiated!
+
+== Price for Principle #5
+
+There are no free meals. The privilege of being able to represent data with literals comes at a price:
+
+* Dangerous when the data is big
+* Confusion when part of the data is not data
+
+
+=== Price #1: Dangerous when the data is big
+
+
+It is so convenient to print data to log files that we sometimes omit to check that the data is not too big and it causes our log files to grow beyond expectations.
+
+In a language like Clojure, it is possible to control the maximal length of the printing functions via a dynamic variable which mitigates the risk for huge log files.
+
+
+=== Price #3: Confusion when part of the data is not data
+
+
+It might occur that we store a value in a map that is not data, for instance a function in JavaScript:
+
+[source,klipse-javascript]
+----
+var mapWithFunction = {
+  "firstName": "Isaac",
+  "lastName": "Asimov",
+  "foo": function (x) { return x;}
+}
+----
+
+The value associated to `foo` is not data: it is a function. Functions are not serializable to JSON. Therefore, by default when we serialize `mapWithFunction`, the `foo` field is omitted from the serialized string:
+
+[source,klipse-javascript]
+----
+JSON.stringify(mapWithFunction);
+----
+
+
+On one hand it makes sense. On the other hand it might be confusing in some situations.
+
+
+For example, a confusion could occur if we stringify `mapWithFunction` then parse it back and count the number of keys in the resulting objects.
+We might be confused by the fact that `mapWithFunction` has 3 keys while after a round trip, we are left with two keys:
+
+[source,klipse-javascript]
+----
+Object.keys(JSON.parse(JSON.stringify(mapWithFunction))).length;
+----
+
+
+== Wrapping up
+
+
+We conclude our exploration of the principles of Data Oriented programming with the principle that says that data (like numbers and strings) should be representable by literals. That is the cherry on the cake if you want. This cherry is indeed very tasty but it is not available in every programming language.
+
+If you adhere to all the principles of DO beside this one, I am willing to make an exception and give you a DO certificate...
+
+++++
+{% include databook-intro.html %}
+++++

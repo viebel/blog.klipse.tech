@@ -9,6 +9,10 @@
 :page-date:   2020-10-02 09:31:24 +0200
 
 
+++++
+{% include databook-intro.html %}
+++++
+
 == The principle in a nutshell
 
 [quote]
@@ -363,8 +367,52 @@ The price we have to pay in order to benefit from the separation between code an
 ===  Price #1: There is no control on what code access what data
 
 When code and data are mixed, one can easily understand what are the pieces of code that access a piece of data.
-The reason is that the data is encapsulated in an object. It gives us the guarantee that the data is accessible only by the object's methods.
+The reason is that the data is encapsulated in an object. It gives us the guaranty that the data is accessible only by the object's methods.
 
-In DO, data stands on its own. It is transparent if you want. As a consequence it can be accessed by any piece of code.
-Without the application of Principle #3 that enforces data immutability, it could be really unsafe.
+In DO, data stands on its own. It is transparent if you want. As a consequence, it can be accessed by any piece of code.
 
+When we want to refactor the shape of our data,
+we need to be very careful and make sure that we have found all the places in our code that access the data.
+
+Without the application of link:{% post_url 2020-10-02-immutable-data %}[Principle #3] that enforces data immutability,
+the fact that the data is accessible by any piece of code would be really unsafe as it would be very hard to guarantee the validity of our data.
+
+=== Price #2: No packaging
+
+
+One of the benefits of OOP is that when you have an object in hand,
+it's a package that contains both the code (via methods) and the data (via members).
+As a consequence, as a developer it's really easy to discover what are the various ways to manipulate the data: you look at the methods of the class.
+
+
+In DO, the code that manipulate the data could be everywhere. For example, `createAuthorData` could be in a file and `fullName` in another file. It makes it difficult for developers to discover that the `fullName` function is available. In some situations, it could lead to waste of time and unnecessary code duplication.
+
+
+=== Price #3: Our systems are made from more entities
+
+Let's do simple arithmetic. Imagine a system made of N classes that combine code and data. When you split the separate code and data, you get a system made of 2N entities.
+
+
+That's not accurate, because usually when you separate code and data, the class hierarchy tends to get simpler. Therefore the number of classes in the resulting system will probably be lower than 2N.
+
+
+On one hand, the entities are simpler.
+
+On the other hand, we have more entities.
+
+Depending on the situation, you might prefer one or the other.
+
+
+== Wrapping up
+
+DO guides us to separate code from data.
+
+When we adhere to this principle, our code can be reused in different contexts and tested in isolation and our systems tend to be made of simpler parts.
+
+This separation reduces the control we have on what pieces of code access our data and could cause our systems to be made of more entities.
+
+Continue your exploration of link:{% post_url 2020-09-27-do-principles %}[Data Oriented Programming principles] and move to link:{% post_url 2020-10-02-generic-data-structures %}[Principle #2: Model entities with generic data structures].
+
+++++
+{% include databook-intro.html %}
+++++

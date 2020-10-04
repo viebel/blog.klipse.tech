@@ -1,0 +1,199 @@
+= DO Principle #4: Data is comparable by value
+:page-layout: post
+:page-description:  Principles of Data Oriented Programming. Principle #4: Data is comparable by value. Benefits and price. Pros and Cons. Simpler systems. Systems less complex. Object oriented programming. Functional programming.
+:page-categories: clojure
+:page-guid: 6996D17A-93F7-4E97-AD8B-D83E20A932A3
+:page-thumbnail: assets/klipse.png
+:page-liquid:
+:page-author: Yehonathan Sharvit
+:page-date:   2020-10-02 19:31:24 +0200
+
+++++
+<script src="https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.2/immutable.min.js" integrity="sha512-myCdDiGJRYrvRb/VuJ67ljifYTJdc1jdEvL4c4ftX9o3N6EAnmD83c/7l2/91RCINZ7c8w21tiXDT7RDFjdc3g==" crossorigin="anonymous"></script>
+++++
+
+
+++++
+{% include databook-intro.html %}
+++++
+
+In Data Oriented programming data is a first class citizen that is considered as a value.
+
+It comes down to 3 principles:
+
+. link:{% post_url 2020-10-02-immutable-data %}[Principle #3: Data is immutable]
+. link:{% post_url 2020-10-03-data-comparable-value %}[Principle #4: Data is comparable by value]
+. link:{% post_url 2020-10-03-data-literal %}[Principle #5: Data has a literal representation]
+
+
+In this article, we explore Principle #4.
+
+
+== The principle in a nutshell
+
+[quote]
+Principle #4: Data collections are considered to be equal if they represent the same collection of values.
+
+
+== Remarks on Principle #4
+
+* Definition of equality in Computer Science is a deep topic. We are only scratching the surface here
+* We are not dealing here with the comparison of data collection of different types (e.g. lists and vectors)
+* We are not dealing only with equality of primitive types
+
+== Illustration of Principle #4
+
+In concrete terms, Principle #4 says that:
+
+. Two arrays with same elements are considered to be equal
+. Two maps with the same keys and values are considered to be equal
+
+
+This definition is in fact a recursive definition because the elements of an array and the values of a map could themselves be arrays and maps.
+
+
+In native JavaScript, this principle is broken both for arrays and maps:
+
+[source,klipse-javascript]
+----
+var a = [1];
+var b = [1];
+a === b;
+----
+[source,klipse-javascript]
+----
+var a = {username: "foo"};
+var b = {username: "foo"};
+a === b;
+----
+
+In order to compare data by value, one needs a custom equality function like the `is` function provided by
+  https://immutable-js.github.io/immutable-js[Immutable.js]
+
+[source,klipse-javascript]
+----
+var a = Immutable.List([1]);
+var b = Immutable.List([1]);
+Immutable.is(a, b);
+----
+[source,klipse-javascript]
+----
+var a = Immutable.Map({username: "foo"});
+var b = Immutable.Map({username: "foo"});
+Immutable.is(a, b);
+----
+
+
+==  Benefits of Principle #4
+
+When we compare data by value across the board, our programs benefit from:
+
+* Writing unit tests is a pleasure
+* Maps with data keys
+
+
+=== Benefit #1: Writing unit tests is a pleasure
+
+
+When data equality is defined by value, we can specify the expected return value of a function as data instead of having to check each value separately.
+
+
+Let's write a "unit test" for a function that returns a (immutable) map with the full name of an author
+
+Here is the code for `addFullName`, using `R.assoc` from Ramda.js as we showed in  link:{% post_url 2020-10-02-immutable-data %}[Principle #3: Data is immutable].
+
+[source, klipse-javascript]
+----
+function addFullName(data) {
+  return data.set("fullName",
+          data.firstName + " " + data.lastName,
+          data);
+}
+----
+
+
+In order to write a unit test for `addFullName` without equality by value, we would need to check each field separately:
+
+[source,klipse-javascript]
+----
+var isaac = Immutable.Map({firstName: "Isaac", lastName: "Asimov"});
+var enrichedIsaac = addFullName(isaac);
+enrichedIsaac.get("firstName") === "Isaac" &&
+  enrichedIsaac.get("lastName") === "Asimov" &&
+  enrichedIsaac.get("fullName") === "Isaac Asimov";
+
+----
+
+With equality by value, using `Immutable.is` from Immutable.js, the unit test becomes much clearer
+as we are able to simply specify what is the expected output of our function:
+
+[source, klipse-javascript]
+----
+var isaac = Immutable.Map({firstName: "Isaac", lastName: "Asimov"});
+var enrichedIsaac = addFullName(isaac);
+Immutable.is(enrichedIsaac, Immutable.Map({firstName: "Isaac",
+                                           lastName: "Asimov",
+                                           fullName: "Isaac Asimov"}))
+----
+
+
+=== Benefit #2: Maps with data keys
+
+
+The behavior of a map data structure is connected deeply with the definition of *equality* of the map keys. When we look for the value associated to key `a` in a map `m` what we really means is to find an entry in the map whose key is *equal* to `a`.
+
+In many situations, the keys of the maps are strings and strings are compared by value. But what happens when we allow keys to be maps?
+
+In JavaScript, when map keys are maps, we could have two different entries in the map with the "same" key:
+
+[source,klipse-javascript]
+----
+var myMap = new Map;
+var myData = {"foo": 1};
+var yourData = {"foo": 1};
+
+myMap.set(myData, 42);
+myMap.set(yourData, 43);
+----
+
+The reason is that JavaScript doesn't adhere to Principle #4.
+
+
+When we use a library that adheres to Principle #4, like Immutable.js, this weird situation doesn't occur:
+
+[source,klipse-javascript]
+----
+var myMap = Immutable.Map({});
+var myData = Immutable.Map({"foo": 1});
+var yourData = Immutable.Map({"foo": 1});
+
+myMap.set(myData, 42);
+myMap.set(yourData, 43);
+----
+
+
+
+== Price for Principle #4
+
+There are no free meals. Applying Principle #4 comes at a price:
+
+* No native support
+
+
+=== Price #1: No native support
+
+In Clojure, equality is defined by value in compliance with Principle #4.
+However, on most programming languages, equality is defined by reference and not by value.
+
+In order to adhere to Principle #4, we must careful to never use the native equality check to compare data collections.
+
+== Wrapping up
+
+
+DO considers data as a value. As consequence, data should be compared by value either when we explicitly check if two pieces of data are equal or implicitly as a data key in a map. In most languages, we need a third party library to provide this value based equality check.
+
+
+Continue your exploration of link:{% post_url 2020-09-27-do-principles %}[Data Oriented Programming principles] and move to link:{% post_url 2020-10-03-data-literal %}[Data has a literal representation].
+++++
+{% include databook-intro.html %}
+++++

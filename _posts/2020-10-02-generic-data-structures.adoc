@@ -1,4 +1,4 @@
-= Principle #2: Model entities with generic data structures
+= DO Principle #2: Model entities with generic data structures
 :page-layout: post
 :page-description:  Principles of Data Oriented Programming. Principle #1: Model entities with generic data structures. Benefits and price. Pros and Cons. Simpler systems. Systems less complex. Object oriented programming. Functional programming.
 :page-categories: clojure
@@ -8,6 +8,14 @@
 :page-author: Yehonathan Sharvit
 :page-date:   2020-10-02 11:31:24 +0200
 
+
+++++
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js" integrity="sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww==" crossorigin="anonymous"></script>
+++++
+
+++++
+{% include databook-intro.html %}
+++++
 
 == The principle in a nutshell
 
@@ -26,7 +34,7 @@ Principle #2: Model the data part of the entities of your application using gene
 
 According to link:{% post_url 2020-10-02-separate-code-data %}[Principle #1: Separate code from data], we have to separate code and data. The theme of Principle #2 is about the programming constructs that we should use to model our data.
 
-In DO, we model our data with generic data structures (like maps and arrays) instead of specific classes.
+In DO, we model our data with generic data structures (like maps and arrays) instead of specific classes. Most of the data entities that appear in a typical application could be modeled with maps and arrays.
 
 Let's look at the same simplistic example as the one used to illustrate link:{% post_url 2020-10-02-separate-code-data %}[Principle #1]: the data that represents and author.
 
@@ -68,28 +76,25 @@ function createAuthorData(firstName, lastName, books) {
 ----
 
 
-
-
 ==  Benefits of Principle #2
 
 When we use generic data structures to represent our data, our programs benefit from:
 
-* Leverage functions that are not limited to our specific use case (e.g. serialization)
-* Code is less verbose
+* Leverage functions that are not limited to our specific use case
 * Flexible data model
 
 === Leverage functions that are not limited to our specific use case
 
-There is a famous quote of Alan Perlis that summarizes this benefit very well:
+There is a famous quote by Alan Perlis that summarizes this benefit very well:
 
 [quote, Alan Perlis]
 It is better to have 100 functions operate on one data structure than 10 functions on 10 data structures.
 
-When we use a map to represent an entity, we can use the rich set of functions available on maps either natively in our programming language or by third party library.
+When we use generic data structures to represent entities, we have the privilege to manipulate the entities with the rich set of functions available on maps natively in our programming language in addition to the ones provided by third party libraries.
 
-For instance in JavaScript, the language natively provides some basic functions on objects and third party libraries like https://lodash.com/[lodash] extends the functionality with functions like inverting the keys and the values.
+For instance, JavaScript natively provides some basic functions on objects and
+third party libraries like https://lodash.com/[lodash] extend the functionality with even more functions.
 
-When you adhere to Principle #2, all this wealth of functionalities is available for all your data entities.
 
 As an example, when an author is represented as a map, we can serialize it into JSON for free, using `JSON.stringify` which is part of JavaScript:
 
@@ -99,11 +104,111 @@ var data = createAuthorData("Isaac", "Asimov", 500);
 JSON.stringify(data);
 ----
 
+And if we want to serialize the author data without the number of books,
+we can use lodash's `pick` function to create an object with a subset of keys:
+
+[source, klipse-javascript]
+----
+var data = createAuthorData("Isaac", "Asimov", 500);
+var dataWithoutBooks = _.pick(data, ['firstName', 'lastName']);
+JSON.stringify(dataWithoutBooks);
+----
 
 
-== Price
+When you adhere to Principle #2, all this wealth of functionalities is available to manipulate all your entities.
 
+=== Flexible data model
+
+When we use generic data structures, our data model is flexible in the sense that our data is not forced to adhere to a specific shape. We are free to create data with no predefined shape. And we are free to modify the shape of our data.
+
+In classical OO, each piece of data is instantiated via a class.
+As a consequence, even when a slightly different data shape is needed, we have to define a new class.
+
+Take for example a class `AuthorData` that represent an author entity that made of 3 fields:
+`firstName`, `lastName` and `books`. Suppose that you want to add a field `fullName` with the full name of the author.
+In OO, you would have to define a new class `AuthorDataWithFullName`.
+
+However in DO, you are free to add (or remove) fields to a map "on the fly":
+
+[source,klipse-javascript]
+----
+var data = createAuthorData("Isaac", "Asimov", 500);
+data.fullName = "Isaac Asimov";
+data
+----
+
+
+== Price for Principle #2
+
+There are no free meals. Applying Principle #2 comes at a price.
+
+The price we have to pay when we mode entities with generic data structures is that:
+
+* Performance hit
 * Data shape needs to be documented manually
 * No compile time check that the data is valid
-* Performance hit
-* Less structure
+
+
+=== Price #1: Performance hit
+
+When we use specific classes to instantiate data, retrieving the value of a class member is super fast. The reason is that the compiler knows upfront how the data is going to look like and it can do all kinds of optimizations.
+
+However, when we use generic data structures to store data, the data structure is optimized for the general case, like retrieving an arbitrary key from a map.
+
+
+Retrieving an arbitrary key from a map is slower than retrieving the value of a class member.
+
+Similarly setting an arbitrary key to a value is slower that setting the valued of a class member.
+
+
+Usually, this performance hit is not significant, but it is something to keep in mind.
+
+=== Price #2: Data shape needs to be documented manually
+
+When an object is instantiated from a class, the information of the data shape is in the class definition.
+It is helpful for developers and for IDEs (think about auto-completion features).
+
+When we use generic data structures to store data, the shape of the data needs to be documented manually.
+
+Even when we are disciplined enough and we document our code,
+it may occur that we modify slightly the shape of an entity and we forget to update the documentation.
+
+In that case, we have to explore the code in order to figure out what is the real shape of our data.
+
+
+=== Price #3: No compile time check that the data is valid
+
+Take a look again at the `fullName` function that we created during our exploration of link:{% post_url 2020-10-02-separate-code-data %}[Principle #1]:
+
+[source,klipse-javascript]
+----
+
+function fullName(data) {
+   return data.firstName + " " + data.lastName;
+}
+----
+
+When we pass to `fullName` a piece of data that doesn't conform to the shape `fullName` expects, an error occurs at runtime.
+For example, we could mistype the field that stores the first name (`fistName` instead of `firstName`):
+
+[source,klipse-javascript]
+----
+fullName({fistName: "Issac", lastName: "Asimov"})
+----
+
+
+When data is instantiated only via classes, this type of error is caught at compile time.
+
+== Wrapping up
+
+DO guides us to use generic data structures to model our entities.
+
+When we adhere to this principle, it allows us to manipulate the entities with generic functions (provided by the language and by third party libraries)
+and it keeps our data model flexible.
+
+This flexibility causes a (small) performance hit and forces us to document manually the shape of our data as we cannot rely on the compiler to statically validate it.
+
+Continue your exploration of link:{% post_url 2020-09-27-do-principles %}[Data Oriented Programming principles] and move to link:{% post_url 2020-10-02-immutable-data %}[Principle #3: Data is immutable].
+++++
+{% include databook-intro.html %}
+++++
