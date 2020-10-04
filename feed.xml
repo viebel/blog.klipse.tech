@@ -1,5 +1,1193 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2020-09-28T19:24:28+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
-</subtitle><author><name>Yehonathan Sharvit</name></author><entry><title type="html">Table of Contents</title><link href="https://blog.klipse.tech//databook/2020/09/27/data-book-toc.html" rel="alternate" type="text/html" title="Table of Contents" /><published>2020-09-27T00:45:32+00:00</published><updated>2020-09-27T00:45:32+00:00</updated><id>https://blog.klipse.tech//databook/2020/09/27/data-book-toc</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/27/data-book-toc.html">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2020-10-04T21:09:13+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
+</subtitle><author><name>Yehonathan Sharvit</name></author><entry><title type="html">DO Principle #5: Data has a literal representation</title><link href="https://blog.klipse.tech//clojure/2020/10/03/data-literal.html" rel="alternate" type="text/html" title="DO Principle #5: Data has a literal representation" /><published>2020-10-03T18:31:24+00:00</published><updated>2020-10-03T18:31:24+00:00</updated><id>https://blog.klipse.tech//clojure/2020/10/03/data-literal</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/10/03/data-literal.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In Data Oriented programming data is a first class citizen that is considered as a value.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It comes down to 3 principles:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/clojure/2020/10/02/immutable-data.html&quot;&gt;Principle #3: Data is immutable&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/clojure/2020/10/02/data-comparable-value.html&quot;&gt;Principle #4: Data is comparable by value&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/clojure/2020/10/03/data-literal.html&quot;&gt;Principle #5: Data has a literal representation&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In this article, we explore Principle #5.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;the-principle-in-a-nutshell&quot;&gt;The principle in a nutshell&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+Principle #5: Data can be represented by literals.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;remarks-on-principle-5&quot;&gt;Remarks on Principle #5&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Principle #5 is in fact made of two parts:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;It is possible to display the content of any data collection.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A data collection can be instantiated via a literal.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;illustration-of-principle-5&quot;&gt;Illustration of Principle #5&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Principle #5 is in fact made of two parts:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;It is possible to display the content of any data collection&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A data collection can be instantiated via a literal&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A language like JavaScript adheres to both parts of Principle #5.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Part 1 is satisfied because any data collection could be serialized to a JSON string.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Part 2 is satisfied because we can instantiate maps and arrays via literals&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In a language like Java or C#, where the only way to instantiate a data collection is via class constructors and setters, it is not possible to adhere to the second part of Principle #5.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;benefits-of-principle-5&quot;&gt;Benefits of Principle #5&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When we choose a language that support data representation via literals, we benefit from:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Data creation is not verbose&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Data is explorable in any context&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;benefit-1-data-creation-is-not-verbose&quot;&gt;Benefit #1: Data creation is not verbose&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Let&amp;#8217;s illustrate how much verbosity is involved in data creation via class constructors and setters:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;var data = new Object();
+data.firstName = &quot;Isaac&quot;;
+data.lastName = &quot;Asimov&quot;;
+data&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;And it is even worse when the map is nested, as we have to explicitly create empty maps for intermediate levels of nesting:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;var data = new Object();
+data.firstName = &quot;Isaac&quot;;
+data.lastName = &quot;Asimov&quot;;
+data.details = new Object();
+data.details.yearOfBirth = 1920;
+data.details.yearOfDeath = 1992;
+data;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;However, data creation via literals is compact and clear:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;var data = {
+  &quot;firstName&quot;: &quot;Isaac&quot;,
+  &quot;lastName&quot;: &quot;Asimov&quot;,
+  &quot;details&quot;: {
+    &quot;yearOfBirth&quot;: 1920,
+    &quot;yearOfDeath&quot;: 1992
+  }
+}
+data;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;benefit-2-data-is-explorable-in-any-context&quot;&gt;Benefit #2: Data is explorable in any context&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In a program that adhere to DO principles, it is quite common to display data to the console or to log files.
+No special effort is required for that. We simply call a printing function and our data is automatically converted to a string.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When we combine Benefit #1 and #2 together we are able to open a log file, copy from it a piece of data, paste it in our source code as a data literal and boom, our data is instantiated!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;price-for-principle-5&quot;&gt;Price for Principle #5&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;There are no free meals. The privilege of being able to represent data with literals comes at a price:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Dangerous when the data is big&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Confusion when part of the data is not data&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;price-1-dangerous-when-the-data-is-big&quot;&gt;Price #1: Dangerous when the data is big&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It is so convenient to print data to log files that we sometimes omit to check that the data is not too big and it causes our log files to grow beyond expectations.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In a language like Clojure, it is possible to control the maximal length of the printing functions via a dynamic variable which mitigates the risk for huge log files.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;price-3-confusion-when-part-of-the-data-is-not-data&quot;&gt;Price #3: Confusion when part of the data is not data&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It might occur that we store a value in a map that is not data, for instance a function in JavaScript:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;var mapWithFunction = {
+  &quot;firstName&quot;: &quot;Isaac&quot;,
+  &quot;lastName&quot;: &quot;Asimov&quot;,
+  &quot;foo&quot;: function (x) { return x;}
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The value associated to &lt;code&gt;foo&lt;/code&gt; is not data: it is a function. Functions are not serializable to JSON. Therefore, by default when we serialize &lt;code&gt;mapWithFunction&lt;/code&gt;, the &lt;code&gt;foo&lt;/code&gt; field is omitted from the serialized string:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;JSON.stringify(mapWithFunction);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;On one hand it makes sense. On the other hand it might be confusing in some situations.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For example, a confusion could occur if we stringify &lt;code&gt;mapWithFunction&lt;/code&gt; then parse it back and count the number of keys in the resulting objects.
+We might be confused by the fact that &lt;code&gt;mapWithFunction&lt;/code&gt; has 3 keys while after a round trip, we are left with two keys:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;Object.keys(JSON.parse(JSON.stringify(mapWithFunction))).length;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;wrapping-up&quot;&gt;Wrapping up&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We conclude our exploration of the principles of Data Oriented programming with the principle that says that data (like numbers and strings) should be representable by literals. That is the cherry on the cake if you want. This cherry is indeed very tasty but it is not available in every programming language.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If you adhere to all the principles of DO beside this one, I am willing to make an exception and give you a DO certificate&amp;#8230;&amp;#8203;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="c" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">DO Principle #4: Data is comparable by value</title><link href="https://blog.klipse.tech//clojure/2020/10/02/data-comparable-value.html" rel="alternate" type="text/html" title="DO Principle #4: Data is comparable by value" /><published>2020-10-02T17:31:24+00:00</published><updated>2020-10-02T17:31:24+00:00</updated><id>https://blog.klipse.tech//clojure/2020/10/02/data-comparable-value</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/10/02/data-comparable-value.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.2/immutable.min.js&quot; integrity=&quot;sha512-myCdDiGJRYrvRb/VuJ67ljifYTJdc1jdEvL4c4ftX9o3N6EAnmD83c/7l2/91RCINZ7c8w21tiXDT7RDFjdc3g==&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In Data Oriented programming data is a first class citizen that is considered as a value.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It comes down to 3 principles:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/clojure/2020/10/02/immutable-data.html&quot;&gt;Principle #3: Data is immutable&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/clojure/2020/10/02/data-comparable-value.html&quot;&gt;Principle #4: Data is comparable by value&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/clojure/2020/10/03/data-literal.html&quot;&gt;Principle #5: Data has a literal representation&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In this article, we explore Principle #4.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;the-principle-in-a-nutshell&quot;&gt;The principle in a nutshell&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+Principle #4: Data collections are considered to be equal if they represent the same collection of values.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;remarks-on-principle-4&quot;&gt;Remarks on Principle #4&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Definition of equality in Computer Science is a deep topic. We are only scratching the surface here&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;We are not dealing here with the comparison of data collection of different types (e.g. lists and vectors)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;We are not dealing only with equality of primitive types&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;illustration-of-principle-4&quot;&gt;Illustration of Principle #4&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In concrete terms, Principle #4 says that:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Two arrays with same elements are considered to be equal&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Two maps with the same keys and values are considered to be equal&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This definition is in fact a recursive definition because the elements of an array and the values of a map could themselves be arrays and maps.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In native JavaScript, this principle is broken both for arrays and maps:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;var a = [1];
+var b = [1];
+a === b;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;var a = {username: &quot;foo&quot;};
+var b = {username: &quot;foo&quot;};
+a === b;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In order to compare data by value, one needs a custom equality function like the &lt;code&gt;is&lt;/code&gt; function provided by
+  &lt;a href=&quot;https://immutable-js.github.io/immutable-js&quot;&gt;Immutable.js&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;var a = Immutable.List([1]);
+var b = Immutable.List([1]);
+Immutable.is(a, b);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;var a = Immutable.Map({username: &quot;foo&quot;});
+var b = Immutable.Map({username: &quot;foo&quot;});
+Immutable.is(a, b);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;benefits-of-principle-4&quot;&gt;Benefits of Principle #4&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When we compare data by value across the board, our programs benefit from:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Writing unit tests is a pleasure&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Maps with data keys&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;benefit-1-writing-unit-tests-is-a-pleasure&quot;&gt;Benefit #1: Writing unit tests is a pleasure&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When data equality is defined by value, we can specify the expected return value of a function as data instead of having to check each value separately.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Let&amp;#8217;s write a &quot;unit test&quot; for a function that returns a (immutable) map with the full name of an author&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Here is the code for &lt;code&gt;addFullName&lt;/code&gt;, using &lt;code&gt;R.assoc&lt;/code&gt; from Ramda.js as we showed in  &lt;a href=&quot;/clojure/2020/10/02/immutable-data.html&quot;&gt;Principle #3: Data is immutable&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;function addFullName(data) {
+  return data.set(&quot;fullName&quot;,
+          data.firstName + &quot; &quot; + data.lastName,
+          data);
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In order to write a unit test for &lt;code&gt;addFullName&lt;/code&gt; without equality by value, we would need to check each field separately:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;var isaac = Immutable.Map({firstName: &quot;Isaac&quot;, lastName: &quot;Asimov&quot;});
+var enrichedIsaac = addFullName(isaac);
+enrichedIsaac.get(&quot;firstName&quot;) === &quot;Isaac&quot; &amp;amp;&amp;amp;
+  enrichedIsaac.get(&quot;lastName&quot;) === &quot;Asimov&quot; &amp;amp;&amp;amp;
+  enrichedIsaac.get(&quot;fullName&quot;) === &quot;Isaac Asimov&quot;;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;With equality by value, using &lt;code&gt;Immutable.is&lt;/code&gt; from Immutable.js, the unit test becomes much clearer
+as we are able to simply specify what is the expected output of our function:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;var isaac = Immutable.Map({firstName: &quot;Isaac&quot;, lastName: &quot;Asimov&quot;});
+var enrichedIsaac = addFullName(isaac);
+Immutable.is(enrichedIsaac, Immutable.Map({firstName: &quot;Isaac&quot;,
+                                           lastName: &quot;Asimov&quot;,
+                                           fullName: &quot;Isaac Asimov&quot;}))&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;benefit-2-maps-with-data-keys&quot;&gt;Benefit #2: Maps with data keys&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The behavior of a map data structure is connected deeply with the definition of &lt;strong&gt;equality&lt;/strong&gt; of the map keys. When we look for the value associated to key &lt;code&gt;a&lt;/code&gt; in a map &lt;code&gt;m&lt;/code&gt; what we really means is to find an entry in the map whose key is &lt;strong&gt;equal&lt;/strong&gt; to &lt;code&gt;a&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In many situations, the keys of the maps are strings and strings are compared by value. But what happens when we allow keys to be maps?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In JavaScript, when map keys are maps, we could have two different entries in the map with the &quot;same&quot; key:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;var myMap = new Map;
+var myData = {&quot;foo&quot;: 1};
+var yourData = {&quot;foo&quot;: 1};
+
+myMap.set(myData, 42);
+myMap.set(yourData, 43);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The reason is that JavaScript doesn&amp;#8217;t adhere to Principle #4.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When we use a library that adheres to Principle #4, like Immutable.js, this weird situation doesn&amp;#8217;t occur:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;var myMap = Immutable.Map({});
+var myData = Immutable.Map({&quot;foo&quot;: 1});
+var yourData = Immutable.Map({&quot;foo&quot;: 1});
+
+myMap.set(myData, 42);
+myMap.set(yourData, 43);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;price-for-principle-4&quot;&gt;Price for Principle #4&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;There are no free meals. Applying Principle #4 comes at a price:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;No native support&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;price-1-no-native-support&quot;&gt;Price #1: No native support&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In Clojure, equality is defined by value in compliance with Principle #4.
+However, on most programming languages, equality is defined by reference and not by value.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In order to adhere to Principle #4, we must careful to never use the native equality check to compare data collections.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;wrapping-up&quot;&gt;Wrapping up&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;DO considers data as a value. As consequence, data should be compared by value either when we explicitly check if two pieces of data are equal or implicitly as a data key in a map. In most languages, we need a third party library to provide this value based equality check.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Continue your exploration of &lt;a href=&quot;/clojure/2020/09/29/do-principles.html&quot;&gt;Data Oriented Programming principles&lt;/a&gt; and move to &lt;a href=&quot;/clojure/2020/10/03/data-literal.html&quot;&gt;Data has a literal representation&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="c" /><summary type="html"></summary></entry><entry><title type="html">DO Principle #2: Model entities with generic data structures</title><link href="https://blog.klipse.tech//clojure/2020/10/02/generic-data-structures.html" rel="alternate" type="text/html" title="DO Principle #2: Model entities with generic data structures" /><published>2020-10-02T09:31:24+00:00</published><updated>2020-10-02T09:31:24+00:00</updated><id>https://blog.klipse.tech//clojure/2020/10/02/generic-data-structures</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/10/02/generic-data-structures.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js&quot; integrity=&quot;sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww==&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;the-principle-in-a-nutshell&quot;&gt;The principle in a nutshell&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+Principle #2: Model the data part of the entities of your application using generic data structures (mostly maps and arrays).
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;remarks-on-principle-2&quot;&gt;Remarks on Principle #2&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;It&amp;#8217;s optional to specify or not the shape of the data of an entity.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;FP Languages that are statically typed (e.g. Haskell and Ocaml) are not compliant with this principle.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The most common data structures are maps (a.k.a dictionaries) and arrays. Other data structures: sets, lists and queues.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Principle #2 doesn&amp;#8217;t deal with the mutability or the immutability of the data. This is the theme of &lt;a href=&quot;/clojure/2020/10/02/immutable-data.html&quot;&gt;Principle #3: Data is immutable&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;illustration-of-principle-2&quot;&gt;Illustration of Principle #2&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;According to &lt;a href=&quot;/clojure/2020/10/02/separate-code-data.html&quot;&gt;Principle #1: Separate code from data&lt;/a&gt;, we have to separate code and data. The theme of Principle #2 is about the programming constructs that we should use to model our data.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In DO, we model our data with generic data structures (like maps and arrays) instead of specific classes. Most of the data entities that appear in a typical application could be modeled with maps and arrays.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Let&amp;#8217;s look at the same simplistic example as the one used to illustrate &lt;a href=&quot;/clojure/2020/10/02/separate-code-data.html&quot;&gt;Principle #1&lt;/a&gt;: the data that represents and author.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;An author is a data entity with a &lt;code&gt;firstName&lt;/code&gt;, a &lt;code&gt;lastName&lt;/code&gt; and a number of &lt;code&gt;books&lt;/code&gt; he/she wrote.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We break this principle when we use classes to represent an author, like this:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;class AuthorData {
+  constructor(firstName, lastName, books) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.books = books;
+  }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We are compliant with this principle when we use a map (which is a generic data structure) to represent an author:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;function createAuthorData(firstName, lastName, books) {
+ var data = new Object;
+ data.firstName = firstName;
+ data.lastName = lastName;
+ data.books = books;
+return data;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In a language like JavaScript, a map could be instantiated also via literals, which is a bit more convenient:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;function createAuthorData(firstName, lastName, books) {
+   return {firstName: firstName, lastName: lastName, books: books};
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;benefits-of-principle-2&quot;&gt;Benefits of Principle #2&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When we use generic data structures to represent our data, our programs benefit from:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Leverage functions that are not limited to our specific use case&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Flexible data model&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;leverage-functions-that-are-not-limited-to-our-specific-use-case&quot;&gt;Leverage functions that are not limited to our specific use case&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;There is a famous quote by Alan Perlis that summarizes this benefit very well:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+It is better to have 100 functions operate on one data structure than 10 functions on 10 data structures.
+&lt;/blockquote&gt;
+&lt;div class=&quot;attribution&quot;&gt;
+&amp;#8212; Alan Perlis
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When we use generic data structures to represent entities, we have the privilege to manipulate the entities with the rich set of functions available on maps natively in our programming language in addition to the ones provided by third party libraries.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For instance, JavaScript natively provides some basic functions on objects and
+third party libraries like &lt;a href=&quot;https://lodash.com/&quot;&gt;lodash&lt;/a&gt; extend the functionality with even more functions.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;As an example, when an author is represented as a map, we can serialize it into JSON for free, using &lt;code&gt;JSON.stringify&lt;/code&gt; which is part of JavaScript:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;var data = createAuthorData(&quot;Isaac&quot;, &quot;Asimov&quot;, 500);
+JSON.stringify(data);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;And if we want to serialize the author data without the number of books,
+we can use lodash&amp;#8217;s &lt;code&gt;pick&lt;/code&gt; function to create an object with a subset of keys:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;var data = createAuthorData(&quot;Isaac&quot;, &quot;Asimov&quot;, 500);
+var dataWithoutBooks = _.pick(data, ['firstName', 'lastName']);
+JSON.stringify(dataWithoutBooks);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When you adhere to Principle #2, all this wealth of functionalities is available to manipulate all your entities.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;flexible-data-model&quot;&gt;Flexible data model&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When we use generic data structures, our data model is flexible in the sense that our data is not forced to adhere to a specific shape. We are free to create data with no predefined shape. And we are free to modify the shape of our data.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In classical OO, each piece of data is instantiated via a class.
+As a consequence, even when a slightly different data shape is needed, we have to define a new class.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Take for example a class &lt;code&gt;AuthorData&lt;/code&gt; that represent an author entity that made of 3 fields:
+&lt;code&gt;firstName&lt;/code&gt;, &lt;code&gt;lastName&lt;/code&gt; and &lt;code&gt;books&lt;/code&gt;. Suppose that you want to add a field &lt;code&gt;fullName&lt;/code&gt; with the full name of the author.
+In OO, you would have to define a new class &lt;code&gt;AuthorDataWithFullName&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;However in DO, you are free to add (or remove) fields to a map &quot;on the fly&quot;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;var data = createAuthorData(&quot;Isaac&quot;, &quot;Asimov&quot;, 500);
+data.fullName = &quot;Isaac Asimov&quot;;
+data&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;price-for-principle-2&quot;&gt;Price for Principle #2&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;There are no free meals. Applying Principle #2 comes at a price.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The price we have to pay when we mode entities with generic data structures is that:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Performance hit&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Data shape needs to be documented manually&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;No compile time check that the data is valid&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;price-1-performance-hit&quot;&gt;Price #1: Performance hit&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When we use specific classes to instantiate data, retrieving the value of a class member is super fast. The reason is that the compiler knows upfront how the data is going to look like and it can do all kinds of optimizations.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;However, when we use generic data structures to store data, the data structure is optimized for the general case, like retrieving an arbitrary key from a map.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Retrieving an arbitrary key from a map is slower than retrieving the value of a class member.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Similarly setting an arbitrary key to a value is slower that setting the valued of a class member.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Usually, this performance hit is not significant, but it is something to keep in mind.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;price-2-data-shape-needs-to-be-documented-manually&quot;&gt;Price #2: Data shape needs to be documented manually&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When an object is instantiated from a class, the information of the data shape is in the class definition.
+It is helpful for developers and for IDEs (think about auto-completion features).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When we use generic data structures to store data, the shape of the data needs to be documented manually.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Even when we are disciplined enough and we document our code,
+it may occur that we modify slightly the shape of an entity and we forget to update the documentation.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In that case, we have to explore the code in order to figure out what is the real shape of our data.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;price-3-no-compile-time-check-that-the-data-is-valid&quot;&gt;Price #3: No compile time check that the data is valid&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Take a look again at the &lt;code&gt;fullName&lt;/code&gt; function that we created during our exploration of &lt;a href=&quot;/clojure/2020/10/02/separate-code-data.html&quot;&gt;Principle #1&lt;/a&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;function fullName(data) {
+   return data.firstName + &quot; &quot; + data.lastName;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When we pass to &lt;code&gt;fullName&lt;/code&gt; a piece of data that doesn&amp;#8217;t conform to the shape &lt;code&gt;fullName&lt;/code&gt; expects, an error occurs at runtime.
+For example, we could mistype the field that stores the first name (&lt;code&gt;fistName&lt;/code&gt; instead of &lt;code&gt;firstName&lt;/code&gt;):&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;fullName({fistName: &quot;Issac&quot;, lastName: &quot;Asimov&quot;})&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When data is instantiated only via classes, this type of error is caught at compile time.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;wrapping-up&quot;&gt;Wrapping up&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;DO guides us to use generic data structures to model our entities.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When we adhere to this principle, it allows us to manipulate the entities with generic functions (provided by the language and by third party libraries)
+and it keeps our data model flexible.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This flexibility causes a (small) performance hit and forces us to document manually the shape of our data as we cannot rely on the compiler to statically validate it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Continue your exploration of &lt;a href=&quot;/clojure/2020/09/29/do-principles.html&quot;&gt;Data Oriented Programming principles&lt;/a&gt; and move to &lt;a href=&quot;/clojure/2020/10/02/immutable-data.html&quot;&gt;Principle #3: Data is immutable&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="c" /><summary type="html"></summary></entry><entry><title type="html">DO Principle #3: Data is immutable</title><link href="https://blog.klipse.tech//clojure/2020/10/02/immutable-data.html" rel="alternate" type="text/html" title="DO Principle #3: Data is immutable" /><published>2020-10-02T09:31:24+00:00</published><updated>2020-10-02T09:31:24+00:00</updated><id>https://blog.klipse.tech//clojure/2020/10/02/immutable-data</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/10/02/immutable-data.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.2/immutable.min.js&quot; integrity=&quot;sha512-myCdDiGJRYrvRb/VuJ67ljifYTJdc1jdEvL4c4ftX9o3N6EAnmD83c/7l2/91RCINZ7c8w21tiXDT7RDFjdc3g==&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In Data Oriented programming data is a first class citizen that is considered as a value.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It comes down to 3 principles:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/clojure/2020/10/02/immutable-data.html&quot;&gt;Principle #3: Data is immutable&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/clojure/2020/10/02/data-comparable-value.html&quot;&gt;Principle #4: Data is comparable by value&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/clojure/2020/10/03/data-literal.html&quot;&gt;Principle #5: Data has a literal representation&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In this article, we explore Principle #3.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;the-principle-in-a-nutshell&quot;&gt;The principle in a nutshell&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+Principle #3: Data never changes.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;remarks-on-principle-3&quot;&gt;Remarks on Principle #3&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Data never changes, but we have the possibility to create a new version of the data.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;We are allowed to change the reference of a variable, so that it refers to a new version of the data.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;illustration-of-principle-3&quot;&gt;Illustration of Principle #3&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Think about the number &lt;code&gt;42&lt;/code&gt;. What happens to &lt;code&gt;42&lt;/code&gt; when you add &lt;code&gt;1&lt;/code&gt; to it? Does it become &lt;code&gt;43&lt;/code&gt;?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;No! &lt;code&gt;42&lt;/code&gt; stays &lt;code&gt;42&lt;/code&gt; forever!!!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now put &lt;code&gt;42&lt;/code&gt; inside an object &lt;code&gt;{num: 42}&lt;/code&gt;. What happens to the object when you add &lt;code&gt;1&lt;/code&gt; to &lt;code&gt;42&lt;/code&gt;? Does it become &lt;code&gt;43&lt;/code&gt;?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It depends on the programming language. In Clojure, a programming language that embraces data immutability,  &lt;code&gt;42&lt;/code&gt; stays &lt;code&gt;42&lt;/code&gt; forever, no matter what.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In many programming languages, &lt;code&gt;42&lt;/code&gt; becomes &lt;code&gt;43&lt;/code&gt;. For instance, in JavaScript:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;var myData = {num: 42};
+var yourData = myData;
+
+myData.num = myData.num + 1;
+[myData.num, yourData.num];&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;According to DO, data should never change. Instead of mutating data, we create a new version of it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A naive (and inefficient) way to create a new version of a data is to clone it before modifying it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For instance, here is an function that changes the value of a field inside an object, by cloning the object via &lt;code&gt;Object.assign&lt;/code&gt; provided natively by JavaScript:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;function changeValue(obj, k, v) {
+  var res = Object.assign({}, obj);
+  res[k] = v;
+  return res;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now, when change &lt;code&gt;myData&lt;/code&gt;, &lt;code&gt;yourData&lt;/code&gt; is not affected:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;var myData = {num: 42};
+var yourData = myData;
+
+myData = changeValue(myData, &quot;num&quot;, myData.num + 1);
+[myData.num, yourData.num];&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;That&amp;#8217;s the essence of data immutability.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In Clojure, data is immutable by default. In JavaScript, embracing immutability in an efficient way requires a third party library like &lt;a href=&quot;https://immutable-js.github.io/immutable-js&quot;&gt;Immutable.js&lt;/a&gt; that provides an efficient implementation of persistent data structures.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In most programming languages, there exists libraries that provide an efficient implementation of persistent data structures.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;With Immutable.js, we don&amp;#8217;t use JavaScript native maps and arrays but immutable maps and arrays instantiated via &lt;code&gt;Immutable.Map&lt;/code&gt; and &lt;code&gt;Immutable.List&lt;/code&gt;.
+In order to access the element of a map, we use the &lt;code&gt;get&lt;/code&gt; method and we create a new version of the map where one field is modified, with the &lt;code&gt;set&lt;/code&gt; method:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;var myData = Immutable.Map({num: 42})
+var yourData = myData;
+
+myData = myData.set(&quot;num&quot;, 43);
+
+[myData.get(&quot;num&quot;), yourData.get(&quot;num&quot;)];&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;benefits-of-principle-3&quot;&gt;Benefits of Principle #3&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When we constraint our program to never mutate data, our programs benefit from:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Data access to all with serenity&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Code behavior is predictable&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Equality check is fast&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Concurrency safety for free&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;benefit-1-data-access-to-all-with-serenity&quot;&gt;Benefit #1: Data access to all with serenity&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;According to &lt;a href=&quot;/clojure/2020/10/02/separate-code-data.html&quot;&gt;Principle #1: Separate code from data&lt;/a&gt;, data access is transparent.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Any function is allowed to access any piece of data. Without data immutability, we would need to be careful each time we pass data as an argument to a function.
+We would need to either make sure the function doesn&amp;#8217;t mutate the data or clone the data before we pass it to the function.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When we adhere to data immutability, none of this is required. We can pass data to any function with serenity, because data never changes.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;benefit-2-code-behavior-is-predictable&quot;&gt;Benefit #2: Code behavior is predictable&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Let me illustrate what I mean by &lt;em&gt;predictable&lt;/em&gt; by giving an example of an unpredictable piece of code that doesn&amp;#8217;t adhere to data immutability.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Please take a look at the following piece of asynchronous piece of code in JavaScript:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;var myData = {num: 42};
+setTimeout(function(data){
+  console.log(data.num);
+}, 1000, myData)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The value of &lt;code&gt;data.num&lt;/code&gt; inside the timeout callback is not predictable. It could be modified by another callback.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;However, if you constraint yourself to data immutability, you are guaranteed that data never changes and you can predict that &lt;code&gt;data.num&lt;/code&gt; is &lt;code&gt;42&lt;/code&gt; inside the callback!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;benefit-3-equality-check-is-fast&quot;&gt;Benefit #3: Equality check is fast&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In a UI framework like React.js, we frequently check what portion of the &quot;UI data&quot; has been modified since the previous rendering cycle. Portions that didn&amp;#8217;t change are not rendered again.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In fact, in a typical frontend application, most of the UI data is left unchanged between subsequent rendering cycles. In a React application that doesn&amp;#8217;t adhere to data immutability, we have no other choice that checking every (nested) part of the UI data.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;However in a React application that follows data immutability, we can optimize the comparison of the data for the case where data was not modified. Indeed, when the object address is the same, then we know for sure that the data did not change. Comparing object addresses is much faster than comparing all the fields.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Fast equality check could be leverage in any program that adhere to Principle #3.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;benefit-4-concurrency-safety-for-free&quot;&gt;Benefit #4: Concurrency safety for free&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In a multi threaded environment, we usually use concurrency safety mechanisms (e.g. mutexes) to make sure the data is not modified by thread &lt;code&gt;A&lt;/code&gt; while we access it in thread &lt;code&gt;B&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In addition to the slight performance hit they cause, concurrency safety mechanisms is a burden for our minds and it makes code writing and reading much more difficult.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When we adhere to data immutability, no concurrency mechanism is required: the data you have in hand never changes!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;price-for-principle-3&quot;&gt;Price for Principle #3&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;There are no free meals. Applying Principle #3 comes at a price:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Performance hit&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Need a library for persistent data structures&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;price-1-performance-hit&quot;&gt;Price #1: Performance hit&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;As we mentioned earlier, there exist implementation of persistent data structures in most programming languages. But the most efficient implementation will always be a bit slower than the in-place mutation of the data.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In most applications, the performance hit is not significant. But it is something to keep in mind.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;price-2-need-a-library-for-persistent-data-structures&quot;&gt;Price #2: Need a library for persistent data structures&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;As far as I know, Clojure is the only programming language where data is immutable by default.  For other languages, adhering to data immutability requires the inclusion a third party library.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The fact that the data structures are not native to the language means that it is difficult (if not impossible) to enforce the usage of immutable data across the board.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Also, when you integrate with other third party libraries (e.g. a chart library), you need first to convert your persistent data structure into a equivalent native data structure.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;wrapping-up&quot;&gt;Wrapping up&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;DO considers data as a value that never changes. When you adhere to this principle, your code is predictable even in a multi threaded environment without mutexes and equality check is fast.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;However, it requires a non negligible mind shift and in all languages beside Clojure, you&amp;#8217;d have to use a third party library that provides an efficient implementation of persistent data structures.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Continue your exploration of &lt;a href=&quot;/clojure/2020/09/29/do-principles.html&quot;&gt;Data Oriented Programming principles&lt;/a&gt; and move to &lt;a href=&quot;/clojure/2020/10/02/data-comparable-value.html&quot;&gt;Principle #4: Data is comparable by value&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="c" /><summary type="html"></summary></entry><entry><title type="html">DO Principle #1: Separate code from data</title><link href="https://blog.klipse.tech//clojure/2020/10/02/separate-code-data.html" rel="alternate" type="text/html" title="DO Principle #1: Separate code from data" /><published>2020-10-02T07:31:24+00:00</published><updated>2020-10-02T07:31:24+00:00</updated><id>https://blog.klipse.tech//clojure/2020/10/02/separate-code-data</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/10/02/separate-code-data.html">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div&gt;
   &lt;p&gt;
@@ -23,7 +1211,645 @@
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;h1 id=&quot;before-we-start&quot; class=&quot;sect0&quot;&gt;Before we start&lt;/h1&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;the-principle-in-a-nutshell&quot;&gt;The principle in a nutshell&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+Principle #1: Separate code from data in a way that code resides in functions whose behavior does not depend on data that is somehow encapsulated in the function&amp;#8217;s context.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;remarks-on-principle-1&quot;&gt;Remarks on Principle #1&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;In pure FP, functions behavior depend only on its arguments, but it is not a requirement for DO (global variables are allowed in DO).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;It is possible to break this principle in FP, by hiding state in the lexical scope of a function.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;It is possible to be compliant with this principle in OOP: The functions could be aggregated as methods of a static class for instance.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;This principle doesn&amp;#8217;t relate to the way data is modeled. We could be compliant with this principle by creating a specific class for each kind of data.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;illustration-of-principle-1&quot;&gt;Illustration of Principle #1&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Let me illustrate how we can follow this principle or break it on a simplistic program that deals with:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;An author entity with a &lt;code&gt;firstName&lt;/code&gt;, a &lt;code&gt;lastName&lt;/code&gt; and a number of &lt;code&gt;books&lt;/code&gt; he/she wrote&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A piece of code that calculates the full name of the author and a number of &lt;code&gt;books&lt;/code&gt; he/she wrote&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A piece of code that determines if an author is prolific, based on the number of books he/she wrote&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We break this principle when we combine data and code together in an object, like this:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;class Author {
+  constructor(firstName, lastName, books) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.books = books;
+  }
+  fullName() {
+      return this.firstName + &quot; &quot; + this.lastName;
+  }
+  isProlific() {
+    return this.books &amp;gt; 100;
+  }
+}
+
+var obj = new Author(&quot;Isaac&quot;, &quot;Asimov&quot;, 500); // Isaac Asimov wrote 500 books!
+obj.fullName();&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We break this principle &lt;strong&gt;even without classes&lt;/strong&gt;, when we hide the data in the lexical scope of a function:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;function createAuthorObject(firstName, lastName, books) {
+ return {
+   fullName: function() {
+       return firstName + &quot; &quot; + lastName;
+      },
+    isProlific: function () {
+      return books &amp;gt; 100;
+    }
+  };
+ }
+
+var obj = createAuthorObject(&quot;Isaac&quot;, &quot;Asimov&quot;, 500); // Isaac Asimov wrote 500 books!
+obj.fullName();&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We are compliant with this principle when we separate the code and the data, like this:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;function createAuthorData(firstName, lastName, books) {
+   return {firstName: firstName, lastName: lastName, books: books};
+}
+
+function fullName(data) {
+   return data.firstName + &quot; &quot; + data.lastName;
+}
+
+function isProlific () {
+  return books &amp;gt; 100;
+}
+
+var data = createAuthorData(&quot;Isaac&quot;, &quot;Asimov&quot;, 500); // Isaac Asimov wrote 500 books!
+fullName(data);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We are compliant with this principle &lt;strong&gt;even with classes&lt;/strong&gt; when we write our code in static classes and store our data in classes with no functions, like this:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;class AuthorData {
+  constructor(firstName, lastName, books) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.books = books;
+  }
+}
+
+class NameCalculation {
+  static fullName(data) {
+    return data.firstName + &quot; &quot; + data.lastName;
+  }
+}
+
+class AuthorRating {
+  static isProlific (data) {
+    return data.books &amp;gt; 100;
+  }
+}
+
+var data = new AuthorData(&quot;Isaac&quot;, &quot;Asimov&quot;, 500); // Isaac Asimov wrote 500 books!
+NameCalculation.fullName(data);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now that we have illustrated how one could follow or break Principle #1, both in OOP and FP,
+let&amp;#8217;s explore what benefits Principle #1 brings to our programs.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;benefits-of-principle-1&quot;&gt;Benefits of Principle #1&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When we are careful to separate code and data, our programs benefit from:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Code can be reused in different contexts&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Code can be tested in isolation&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Systems tend to be less complex&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;benefit-1-code-can-be-reused-in-different-contexts&quot;&gt;Benefit #1: Code can be reused in different contexts&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Imagine that we have in our program an entity that is similar to an author e.g. an artist that has the same &lt;code&gt;firstName&lt;/code&gt; and &lt;code&gt;lastName&lt;/code&gt; fields as an author.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In the version with &lt;code&gt;createAuthorObject&lt;/code&gt;, we cannot reuse the code of &lt;code&gt;fullName&lt;/code&gt; on an artist in a straightforward way.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;One way to deal with that is to use OO mechanisms like inheritance or composition to let the &lt;code&gt;artist&lt;/code&gt; and the &lt;code&gt;author&lt;/code&gt; object use the same &lt;code&gt;fullName&lt;/code&gt; method.
+In a simplistic use case like the author and the artist that&amp;#8217;s fine but on real world systems, the usage of OO mechanisms tends to increase complexity.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Another option is to rewrite the code of &lt;code&gt;fullName&lt;/code&gt; inside a &lt;code&gt;createArtistObject&lt;/code&gt; function:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;function createAuthorObject(firstName, lastName, books) {
+   var data = {firstName: firstName, lastName: lastName, books: books};
+
+ return {
+   fullName: function fullName() {
+       return data.firstName + &quot; &quot; + data.lastName;
+      }
+  };
+ }
+
+function createArtistObject(firstName, lastName, genre) {
+   var data = {firstName: firstName, lastName: lastName, genre: genre};
+
+ return {
+   fullName: function fullName() {
+       return data.firstName + &quot; &quot; + data.lastName;
+      }
+  };
+ }
+
+var obj = createArtistObject(&quot;Maurits&quot;, &quot;Escher&quot;, &quot;Painting&quot;);
+obj.fullName();&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In the DO version where &lt;code&gt;createAuthorData&lt;/code&gt; and &lt;code&gt;fullName&lt;/code&gt; are separate, we don&amp;#8217;t need to make any modification to the existing code (the code that deals with author).
+We simply leverage the fact that
+the data that is relevant to the full name calculation for an artist and an author
+follows the same shape and we call &lt;code&gt;fullName&lt;/code&gt; on an artist data.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;function createAuthorData(firstName, lastName, books) {
+  return {firstName: firstName, lastName: lastName, books: books};
+}
+
+function fullName(data) {
+  return data.firstName + &quot; &quot; + data.lastName;
+}
+
+function createArtistData(firstName, lastName, genre) {
+   return {firstName: firstName, lastName: lastName, genre: genre};
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;code&gt;fullName&lt;/code&gt; function works properly both on author data and on artist data:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;var data = createAuthorData(&quot;Isaac&quot;, &quot;Asimov&quot;, 500);
+fullName(data);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;var data = createArtistData(&quot;Maurits&quot;, &quot;Escher&quot;, &quot;Painting&quot;);
+fullName(data);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When applied, this principle allows code to be reused in a straightforward way, &lt;strong&gt;even when we use classes&lt;/strong&gt;.
+In statically typed OO languages (like Java or C#), we would have to create a common interface
+for &lt;code&gt;AuthorData&lt;/code&gt; and &lt;code&gt;ArtistData&lt;/code&gt;, but in a dynamically typed language like JavaScript, it is not required:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;class AuthorData {
+  constructor(firstName, lastName, books) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.books = books;
+  }
+}
+
+class NameCalculation {
+  static fullName() {
+    return data.firstName + &quot; &quot; + data.lastName;
+  }
+}
+
+class ArtistData {
+  constructor(firstName, lastName, books) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.books = books;
+  }
+}
+
+// required trick to make the classes accessible to other snippets
+window.AuthorData = AuthorData
+window.NameCalculation = NameCalculation
+window.ArtistData = ArtistData&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The code of &lt;code&gt;NameCalculation.fullName&lt;/code&gt; works both of author data and artist data:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;var data = new ArtistData(&quot;Maurits&quot;, &quot;Escher&quot;, &quot;Painting&quot;);
+NameCalculation.fullName(data);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;var data = new AuthorData(&quot;Isaac&quot;, &quot;Asimov&quot;, 500);
+NameCalculation.fullName(data);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+When we separate code and data, it is straightforward to reuse code in different contexts. This benefit is achievable both in FP and in OOP.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;benefit-2-code-can-be-tested-in-isolation&quot;&gt;Benefit #2: Code can be tested in isolation&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Another benefit of separating code and data, which is similar to the previous one, is that we are free to test code in an isolated context.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When we don&amp;#8217;t separate code from data, we are forced to instantiate an object in order to test each of its methods.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For instance, in order to test the &lt;code&gt;fullName&lt;/code&gt; code that lives inside the &lt;code&gt;createAuthorObject&lt;/code&gt; function, we are required to instantiate an author object:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;var author =  createAuthorObject(&quot;Isaac&quot;, &quot;Asimov&quot;, 500);
+
+author.fullName() === &quot;Isaac Asimov&quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In this simplistic scenario, it is not a big pain (only loading unnecessarily the code for &lt;code&gt;isProlific&lt;/code&gt;),
+but in a real world situation, instantiating an object might involve lots of unnecessary steps.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In the DO version, where &lt;code&gt;createAuthorData&lt;/code&gt; and &lt;code&gt;fullName&lt;/code&gt; are separate, we are free to create the data to be passed to &lt;code&gt;fullName&lt;/code&gt; as we want and test &lt;code&gt;fullName&lt;/code&gt; in isolation:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;fullName({firstName: &quot;Isaac&quot;, lastName: &quot;Asimov&quot;}) === &quot;Isaac Asimov&quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If we choose to use classes, we only need to instantiate a data object. The code for &lt;code&gt;isProlific&lt;/code&gt; doesn&amp;#8217;t have to be loaded in order to test &lt;code&gt;fullName&lt;/code&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;var data =  new AuthorData(&quot;Isaac&quot;, &quot;Asimov&quot;);
+
+NameCalculation.fullName(data) === &quot;Isaac Asimov&quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The second benefit of separating code and data is that it&amp;#8217;s easier to write tests for our code.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;benefit-3-systems-tend-to-be-less-complex&quot;&gt;Benefit #3: Systems tend to be less complex&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The third and last benefit of applying Principle #1 is that systems tend to be less complex.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This benefit is the deepest one but also the one that is the hardest (for me) to explain.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The type of complexity I refer to is the one which makes large systems hard to understand as it is defined in the beautiful paper &lt;a href=&quot;https://github.com/papers-we-love/papers-we-love/blob/master/design/out-of-the-tar-pit.pdf&quot;&gt;Out of the Tar Pit&lt;/a&gt;.
+It has nothing to do with the complexity of the resources consumed by a program.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Similarly, when we refer to simplicity, we mean &quot;not complex&quot;, in other words easy to understand.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Keep in mind that complexity and simplicity (like hard and easy) are not absolute but relative concepts.
+We can compare the complexity of two systems and argue that system A is more complex (or simpler) than system B.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When code and data reside in separate entities, the system is easier to understand for two reasons:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Entities are split into disjoint groups: code and data. Therefore entities have less relations with other entitites.&lt;/div&gt;
+&lt;p&gt;Let me illustrate this insight on a class diagram of a Library management system, where code and data are mixed.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;lib-mgmt-class-diagram-overview&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/complex-class-relation.png&quot; alt=&quot;complex class relation&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 1. A class diagram overview for a Library management system&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It is not required to know the details of the classes to notice that this diagram represent a system that is complex in the sense that it is hard to understand.
+The system is hard to understand because there are many dependencies between the entities that compose the system.
+The most complex node of the system is the Librarian entity which is connected via 7 edges to other nodes.
+Part of the edges are data edges (association and composition) and part of the edges are code edges (inheritance and dependency).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now, if we split each class of this system in a code entity and a data entity &lt;em&gt;without making any other modification to the system&lt;/em&gt; the diagram of the system is split into two disjoint parts.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The left part is made only of data entities and data edges: association and composition&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The right part is made only of code entities and code edges: dependency and inheritance&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&quot;lib-mgmt-simplified-class-diagram&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/data-code-relation.png&quot; alt=&quot;data code relation&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 2. A class diagram where every class is split into code and data entities&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The resulting system is definitely simpler. I am not sure if there is a formal metric of the complexity of a system that could make tangible what I mean by simpler, but my informal understanding is that:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+A system made of disjoint simple parts is less complex than a system made of a single complex part.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;One could argue that the complexity of the system where code and data are mixed is due to a bad design and data an experienced OO developer would have designed a simpler system, leveraging smart design patterns.
+That&amp;#8217;s true, but in a sense it&amp;#8217;s irrelevant. The point I am trying to make here is that a system made of entities that do not combine code and data &lt;em&gt;tends&lt;/em&gt; to be simpler that a system made of entities that combine code and data.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It has been said many times that &quot;Simplicity is hard&quot;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;My claim is that simplicity is easier to achieve when we separate code and data.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;price-for-principle-1&quot;&gt;Price for Principle #1&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;There are no free meals. Applying Principle #1 comes at a price.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The price we have to pay in order to benefit from the separation between code and data is that:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;There is no control on what code access what data&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;No packaging&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Our systems are made from more entities&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;price-1-there-is-no-control-on-what-code-access-what-data&quot;&gt;Price #1: There is no control on what code access what data&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When code and data are mixed, one can easily understand what are the pieces of code that access a piece of data.
+The reason is that the data is encapsulated in an object. It gives us the guaranty that the data is accessible only by the object&amp;#8217;s methods.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In DO, data stands on its own. It is transparent if you want. As a consequence, it can be accessed by any piece of code.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When we want to refactor the shape of our data,
+we need to be very careful and make sure that we have found all the places in our code that access the data.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Without the application of &lt;a href=&quot;/clojure/2020/10/02/immutable-data.html&quot;&gt;Principle #3&lt;/a&gt; that enforces data immutability,
+the fact that the data is accessible by any piece of code would be really unsafe as it would be very hard to guarantee the validity of our data.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;price-2-no-packaging&quot;&gt;Price #2: No packaging&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;One of the benefits of OOP is that when you have an object in hand,
+it&amp;#8217;s a package that contains both the code (via methods) and the data (via members).
+As a consequence, as a developer it&amp;#8217;s really easy to discover what are the various ways to manipulate the data: you look at the methods of the class.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In DO, the code that manipulate the data could be everywhere. For example, &lt;code&gt;createAuthorData&lt;/code&gt; could be in a file and &lt;code&gt;fullName&lt;/code&gt; in another file. It makes it difficult for developers to discover that the &lt;code&gt;fullName&lt;/code&gt; function is available. In some situations, it could lead to waste of time and unnecessary code duplication.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;price-3-our-systems-are-made-from-more-entities&quot;&gt;Price #3: Our systems are made from more entities&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Let&amp;#8217;s do simple arithmetic. Imagine a system made of N classes that combine code and data. When you split the separate code and data, you get a system made of 2N entities.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;That&amp;#8217;s not accurate, because usually when you separate code and data, the class hierarchy tends to get simpler. Therefore the number of classes in the resulting system will probably be lower than 2N.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;On one hand, the entities are simpler.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;On the other hand, we have more entities.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Depending on the situation, you might prefer one or the other.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;wrapping-up&quot;&gt;Wrapping up&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;DO guides us to separate code from data.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When we adhere to this principle, our code can be reused in different contexts and tested in isolation and our systems tend to be made of simpler parts.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This separation reduces the control we have on what pieces of code access our data and could cause our systems to be made of more entities.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Continue your exploration of &lt;a href=&quot;/clojure/2020/09/29/do-principles.html&quot;&gt;Data Oriented Programming principles&lt;/a&gt; and move to &lt;a href=&quot;/clojure/2020/10/02/generic-data-structures.html&quot;&gt;Principle #2: Model entities with generic data structures&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="c" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">Principles of Data Oriented Programming</title><link href="https://blog.klipse.tech//clojure/2020/09/29/do-principles.html" rel="alternate" type="text/html" title="Principles of Data Oriented Programming" /><published>2020-09-29T03:31:24+00:00</published><updated>2020-09-29T03:31:24+00:00</updated><id>https://blog.klipse.tech//clojure/2020/09/29/do-principles</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/09/29/do-principles.html">&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This chapter is an attempt to illustrate what are the core principles of Data Oriented Programming as I understand them.
+It is highly influenced by my programming experience in Clojure, but I believe that those principles are language agnostic.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;One could adhere to them in an Object Oriented (OO) language like Java or C# and one could break them
+in a Functional Programming (FP) language like Ocaml, Haskell, JavaScript (or even in Clojure).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In fact, in this chapter, I am going to illustrate how those principles could be applied or broken
+in JavaScript, a programming language that supports both FP and OOP.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The principles of Data Oriented (DO) Programming are:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/clojure/2020/10/02/separate-code-data.html&quot;&gt;Separate code from data&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/clojure/2020/10/02/generic-data-structures.html&quot;&gt;Model entities with generic data structures&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/clojure/2020/10/02/immutable-data.html&quot;&gt;Data is immutable&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/clojure/2020/10/02/data-comparable-value.html&quot;&gt;Data is comparable by value&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/clojure/2020/10/03/data-literal.html&quot;&gt;Data has a literal representation&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Each principle is explored in a separate article.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;I encourage you to start your exploration from &lt;a href=&quot;/clojure/2020/10/02/separate-code-data.html&quot;&gt;Principle #1: Separate code from data&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Enjoy!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="c" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">Data Oriented Programming: Table of Contents</title><link href="https://blog.klipse.tech//databook/2020/09/27/data-book-toc.html" rel="alternate" type="text/html" title="Data Oriented Programming: Table of Contents" /><published>2020-09-27T00:45:32+00:00</published><updated>2020-09-27T00:45:32+00:00</updated><id>https://blog.klipse.tech//databook/2020/09/27/data-book-toc</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/27/data-book-toc.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;before-we-start&quot;&gt;Before we start&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;olist arabic&quot;&gt;
 &lt;ol class=&quot;arabic&quot;&gt;
 &lt;li&gt;
@@ -31,30 +1857,32 @@
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
-&lt;h1 id=&quot;part-1-design-a-data-oriented-system&quot; class=&quot;sect0&quot;&gt;Part 1: Design a Data Oriented system&lt;/h1&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;part-1-design-a-data-oriented-system&quot;&gt;Part 1: Design a Data Oriented system&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;olist arabic&quot;&gt;
 &lt;ol class=&quot;arabic&quot;&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part1.html&quot;&gt;The complexity of Object Oriented programming&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;The simplicity of Data Oriented programming&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Model business entities as data collections&lt;/p&gt;
+&lt;p&gt;link: /clojure/2020/09/29/do-principles.html[Principles of Data Oriented programming]&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Polymorphism without objects&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Data as a value that never changes&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Assess the quality of your data model&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
-&lt;h1 id=&quot;part-2-implement-a-data-oriented-system&quot; class=&quot;sect0&quot;&gt;Part 2: Implement a Data Oriented system&lt;/h1&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;part-2-implement-a-data-oriented-system&quot;&gt;Part 2: Implement a Data Oriented system&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;olist arabic&quot;&gt;
 &lt;ol class=&quot;arabic&quot;&gt;
 &lt;li&gt;
@@ -74,7 +1902,11 @@
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
-&lt;h1 id=&quot;part-3-evolve-a-data-oriented-system&quot; class=&quot;sect0&quot;&gt;Part 3: Evolve a Data Oriented system&lt;/h1&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;part-3-evolve-a-data-oriented-system&quot;&gt;Part 3: Evolve a Data Oriented system&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;olist arabic&quot;&gt;
 &lt;ol class=&quot;arabic&quot;&gt;
 &lt;li&gt;
@@ -116,6 +1948,8 @@
 	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
   &lt;/form&gt;
   &lt;br&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 &lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">The complexity of Object Oriented Programming: Classic OO design</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part1.html" rel="alternate" type="text/html" title="The complexity of Object Oriented Programming: Classic OO design" /><published>2020-09-25T05:45:32+00:00</published><updated>2020-09-25T05:45:32+00:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part1</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part1.html">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div&gt;
@@ -915,1091 +2749,4 @@ You were so excited to show your class diagram to Dave that you forgot to drink 
   &lt;br&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /></entry><entry><title type="html">The complexity of Object Oriented Programming: What’s wrong with you OO?</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part3.html" rel="alternate" type="text/html" title="The complexity of Object Oriented Programming: What's wrong with you OO?" /><published>2020-09-25T04:45:32+00:00</published><updated>2020-09-25T04:45:32+00:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part3</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part3.html">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    Enter your email address below to get notified when the book is published.
-  &lt;/p&gt;
-
-  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
-	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
-	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
-	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
-  &lt;/form&gt;
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In the &lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part2.html&quot;&gt;previous part&lt;/a&gt;, you presented your design to Dave.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In this part, we continue our exploration of the tendency of OO systems to be complex.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;whats-wrong-with-you-oo&quot;&gt;What's wrong with you OO?&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Before you start coding, and while you prepare yourself another cup of coffee, I would like to
-challenge your design. It might look beautiful and clear on the paper but, this design is too complex.
-It&amp;#8217;s not that you picked the wrong classes
-or that you misunderstood the relationships between the classes. It&amp;#8217;s much deeper.
-It&amp;#8217;s about the programming paradigm you chose to implement the system.
-It&amp;#8217;s about the Object Oriented paradigm. It&amp;#8217;s about OO.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-OO is too complex.
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The purpose of this book is to present a much simpler programming paradigm called Data Oriented Programming (DO).
-If you are already convinced that OO is too complex,
-you can skip to the next chapter and start your journey into DO.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;If you are a skeptic about that, please keep reading.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;According to DO, the main sources of complexity of your system - and of any OO system - are:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Code and data are mixed&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Objects are mutable&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Data is locked in objects as members&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Code is locked into classes as methods&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In this section, we are going to illustrate each of the above points in the context
-of the library management system
-and explain in what sense it is a source of complexity.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;code-and-data-are-mixed&quot;&gt;Code and data are mixed&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;One way to assess the complexity of a class diagram is to look only at the entities and their relationships
-(ignoring members and methods) as in &lt;a href=&quot;#lib-mgmt-class-diagram-overview&quot;&gt;A class diagram overview for a Library management system&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Don&amp;#8217;t you think this diagram is too complex for such a simple system?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;lib-mgmt-class-diagram-overview&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/complex-class-relation.png&quot; alt=&quot;complex class relation&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 1. A class diagram overview for a Library management system&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;When we design a system, no matter whether it&amp;#8217;s OO or DO,
-we have to define the relationships between different pieces of code and data: that&amp;#8217;s unavoidable.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In OO, code and data are mixed together in classes, data as members and code as methods.
-From a system analysis perspective, the fact that code and data are mixed together makes the system complex
-in the sense that entities tend to be involved in many relationships.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Take a look for instance at the &lt;code&gt;Member&lt;/code&gt; class in our class diagram &lt;a href=&quot;#lib-mgmt-class-diagram-overview&quot;&gt;A class diagram overview for a Library management system&lt;/a&gt;.
-It is involved 5 relations: 2 data relations and 3 code relations.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist loweralpha&quot;&gt;
-&lt;ol class=&quot;loweralpha&quot; type=&quot;a&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Data relations:&lt;/p&gt;
-&lt;div class=&quot;olist lowerroman&quot;&gt;
-&lt;ol class=&quot;lowerroman&quot; type=&quot;i&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;Library&lt;/code&gt; has &lt;code&gt;Member&lt;/code&gt;s&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;Member&lt;/code&gt; has &lt;code&gt;BookLending&lt;/code&gt;s&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Code relations:&lt;/p&gt;
-&lt;div class=&quot;olist lowerroman&quot;&gt;
-&lt;ol class=&quot;lowerroman&quot; type=&quot;i&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;Member&lt;/code&gt; extends &lt;code&gt;User&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;Librarian&lt;/code&gt; uses &lt;code&gt;Member&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;Member&lt;/code&gt; uses &lt;code&gt;BookItem&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Imagine for a moment that we were able somehow to split the &lt;code&gt;Member&lt;/code&gt; class into two separate entitites:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;&lt;code&gt;MemberData&lt;/code&gt; for the data&lt;/div&gt;
-&lt;p&gt;Instead of a &lt;code&gt;Member&lt;/code&gt; class with 5 relations, we would have as shown in &lt;a href=&quot;#lib-mgmt-member-split&quot;&gt;A class diagram where &lt;code&gt;Member&lt;/code&gt; is split into code and data entities&lt;/a&gt;:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;A &lt;code&gt;MemberCode&lt;/code&gt; entity with 3 relations&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;A &lt;code&gt;MemberData&lt;/code&gt; entity with 2 relations&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div id=&quot;lib-mgmt-member-split&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/member-code-data.png&quot; alt=&quot;member code data&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 2. A class diagram where &lt;code&gt;Member&lt;/code&gt; is split into code and data entities&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Not yet convinced that this imaginary system is simpler than the original one?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;No problem, I know how to convince you.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Let&amp;#8217;s split every class of our original class diagram into code and data entities.
-Now we have a system  made of two disjoint parts as shown in &lt;a href=&quot;#lib-mgmt-simplified-class-diagram&quot;&gt;A class diagram where every class is split into code and data entities&lt;/a&gt;:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;A part that involves only code entities&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;A part that involves only data entities&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div id=&quot;lib-mgmt-simplified-class-diagram&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/data-code-relation.png&quot; alt=&quot;data code relation&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 3. A class diagram where every class is split into code and data entities&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;I hope that you agree that this system, made of two disjoint sub-systems, is simpler than the original one.
-It&amp;#8217;s not simpler by accident, it is a logical consequence of separating code and data.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock important&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;Important&lt;/div&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-A system made of disjoint simple parts is less complex than a system made of a single complex part.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;objects-are-mutable&quot;&gt;Objects are mutable&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You are probably a bit tired with all the system-level analysis that we presented in the previous section.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Let&amp;#8217;s get refreshed and look at some code. Well not exactly code, but pseudocode.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Please take a look at the pseudocode shown in &lt;a href=&quot;#code-simple&quot;&gt;[code-simple]&lt;/a&gt;:
-we get the blocked status of a member and we display it twice.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;If I tell you that when I called &lt;code&gt;displayBlockedStatusTwice&lt;/code&gt;,
-the program displayed &lt;code&gt;true&lt;/code&gt; on the first &lt;code&gt;print&lt;/code&gt; call,
-can you tell me what the program displayed on the second &lt;code&gt;print&lt;/code&gt; call?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;class&lt;/span&gt; &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;Member&lt;/span&gt; &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;{&lt;/span&gt;
-      &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;Bool&lt;/span&gt; &lt;span style=&quot;background-color: #f8f8f8&quot;&gt;member&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;;&lt;/span&gt;
-
-      &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;displayBlockedStatusTwice&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;()&lt;/span&gt; &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;{&lt;/span&gt;
-         &lt;span style=&quot;background-color: #f8f8f8&quot;&gt;isBlocked&lt;/span&gt; &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;this&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;isBlocked&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;()&lt;/span&gt;
-         &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;System&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;Print&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;isBlocked&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;);&lt;/span&gt;
-         &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;System&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;Print&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;isBlocked&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;);&lt;/span&gt;
-    &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;}&lt;/span&gt;
-&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;Of course, it displayed &lt;code&gt;true&lt;/code&gt; again&quot;, you tell me.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;And you are right.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Now, please take a look at a slightly different pseudocode as shown in &lt;a href=&quot;#code-block-member&quot;&gt;Apparently simple pseudo code&lt;/a&gt;:
-here we display twice the blocked status of a member without assigning a variable.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Same question as before:
-If I tell you that when I called &lt;code&gt;displayBlockedStatusTwice&lt;/code&gt;,
-the program displayed &lt;code&gt;true&lt;/code&gt; on the first &lt;code&gt;print&lt;/code&gt; call,
-can you tell me what the program displayed on the second &lt;code&gt;print&lt;/code&gt; call?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;code-block-member&quot; class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;Apparently simple pseudo code&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;class&lt;/span&gt; &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;Member&lt;/span&gt; &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;{&lt;/span&gt;
-      &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;Bool&lt;/span&gt; &lt;span style=&quot;background-color: #f8f8f8&quot;&gt;member&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;;&lt;/span&gt;
-
-      &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;displayBlockedStatusTwice&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;()&lt;/span&gt; &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;{&lt;/span&gt;
-        &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;System&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;Print&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;this&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;isBlocked&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;);&lt;/span&gt;
-        &lt;span style=&quot;color: #445588;font-weight: bold&quot;&gt;System&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;Print&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;this&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #008080&quot;&gt;isBlocked&lt;/span&gt;&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;);&lt;/span&gt;
-    &lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;}&lt;/span&gt;
-&lt;span style=&quot;color: #000000;font-weight: bold&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;If your answer is &lt;code&gt;false&lt;/code&gt;, I am suggesting you to consult a therapist.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;If your answer is &lt;code&gt;true&lt;/code&gt;, I am suggesting you to take a few seconds and think about it again.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;I&amp;#8217;ll give you a clue: multi threading.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The correct answer is: in a single threaded environment, it displays &lt;code&gt;true&lt;/code&gt;
-while on a multi threaded environment it&amp;#8217;s unpredictable.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Indeed in a multi threaded environment, between the two print calls,
-there could be a context switch and the state of the member object could be changed (e.g. a librarian unblocked the member).&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The difference between the two pseudocode snippets is that:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;in the first snippet, we access twice a boolean value which is a primitive value&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;in the second snippet, we access twice a member of an object&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This unpredictable behavior of the second snippet is one of the annoying consequences of the fact that in OO, unlike
-primitive types who are immutable, object members are mutable.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;One way to solve this problem in OO is to protect sensitive code with mutexes, but it introduces issues on its own like a performance hit and a risk of deadlocks.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;We will see later in the book that DO treats every piece of data in the same way: both primitive types and collection types have immutable values.
-This &quot;value treatment for all citizens&quot; brings to DO developers' minds a lot of serenity.
-As a consequence, more cells of DO developers' minds are available
-to handle the interesting pieces of the applications they build.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Until then, keep you mind busy with boring stuff.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;When you feel ready to explore more sources of complexity in OO, move to the &lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part4.html&quot;&gt;next part&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    Enter your email address below to get notified when the book is published.
-  &lt;/p&gt;
-
-  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
-	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
-	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
-	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
-  &lt;/form&gt;
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">The complexity of Object Oriented Programming: DO magic sauce</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part4.html" rel="alternate" type="text/html" title="The complexity of Object Oriented Programming: DO magic sauce" /><published>2020-09-25T04:45:32+00:00</published><updated>2020-09-25T04:45:32+00:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part4</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part4.html">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    Enter your email address below to get notified when the book is published.
-  &lt;/p&gt;
-
-  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
-	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
-	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
-	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
-  &lt;/form&gt;
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;According to DO, the main sources of complexity of any OO system - are:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Code and data are mixed&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Objects are mutable&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Data is locked in objects as members&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Code is locked into classes as methods&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In the &lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part3.html&quot;&gt;previous part&lt;/a&gt;, we explored item #1 and #2.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In this part, we are going to explore item #3 and #4.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;whats-wrong-with-you-oo&quot;&gt;What's wrong with you OO?&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;data-is-locked-in-objects-as-members&quot;&gt;Data is locked in objects as members&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Now, you are really tired and you fall asleep at your desk&amp;#8230;&amp;#8203;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You have a dream about Nancy, your customer.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In this dream, Nancy would want to make the library management system accessible via a REST API
-using JSON as a transport layer.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You would need to implement a &lt;code&gt;/search&lt;/code&gt; endpoint that receives
-a query in JSON format and return results in JSON format.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;An input example of the &lt;code&gt;/search&lt;/code&gt; endpoint is shown in &lt;a href=&quot;#Listing-search-input-json&quot;&gt;A JSON input of the &lt;code&gt;/search&lt;/code&gt; endpoint&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;Listing-search-input-json&quot; class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;A JSON input of the &lt;code&gt;/search&lt;/code&gt; endpoint&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;json&quot;&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;{&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
-  &lt;/span&gt;&lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;&quot;searchCriteria&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;:&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt; &lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;&quot;author&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;,&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
-  &lt;/span&gt;&lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;&quot;query&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;:&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt; &lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;&quot;albert&quot;&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
-&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;An output example of the &lt;code&gt;/search&lt;/code&gt; endpoint is shown in &lt;a href=&quot;#Listing-search-output-json&quot;&gt;A JSON output of the &lt;code&gt;/search&lt;/code&gt; endpoint&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;Listing-search-output-json&quot; class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;A JSON output of the &lt;code&gt;/search&lt;/code&gt; endpoint&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;rouge highlight&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;code data-lang=&quot;json&quot;&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;[&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
-    &lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;{&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
-        &lt;/span&gt;&lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;:&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt; &lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;&quot;The world as I see it&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;,&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
-        &lt;/span&gt;&lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;&quot;authors&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;:&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt; &lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;[&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
-            &lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;{&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
-                &lt;/span&gt;&lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;&quot;fullName&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;:&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt; &lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;&quot;Albert Einstein&quot;&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
-            &lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;}&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
-        &lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;]&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
-    &lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;},&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
-    &lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;{&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
-        &lt;/span&gt;&lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;:&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt; &lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;&quot;The Stranger&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;,&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
-        &lt;/span&gt;&lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;&quot;authors&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;:&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt; &lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;[&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
-            &lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;{&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
-                &lt;/span&gt;&lt;span style=&quot;color: #990000;font-weight: bold&quot;&gt;&quot;fullName&quot;&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;:&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt; &lt;/span&gt;&lt;span style=&quot;color: #d14&quot;&gt;&quot;Albert Camus&quot;&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
-            &lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;}&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
-        &lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;]&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
-    &lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;}&lt;/span&gt;&lt;span style=&quot;color: #bbbbbb&quot;&gt;
-&lt;/span&gt;&lt;span style=&quot;background-color: #f8f8f8&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You would probably implement the &lt;code&gt;/search&lt;/code&gt; endpoint by creating three classes similarly to what is
-shown in &lt;a href=&quot;#json-search-controller&quot;&gt;A class diagram where every class is split into code and data entities&lt;/a&gt; (Not surprising: everything in OO has to be wrapped in a class. Right?):&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;SearchController&lt;/code&gt; that is responsible for handling the query&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;SearchQuery&lt;/code&gt; that converts the JSON query string into data&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;SearchResult&lt;/code&gt; that converts the search result data into a JSON string&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The &lt;code&gt;SearchController&lt;/code&gt; would have a single &lt;code&gt;handle&lt;/code&gt; method with the following flow:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Create a &lt;code&gt;SearchQuery&lt;/code&gt; object from the JSON query string&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Retrieve &lt;code&gt;searchCriteria&lt;/code&gt; and &lt;code&gt;queryStr&lt;/code&gt; from the &lt;code&gt;SearchQuery&lt;/code&gt; object&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Call the &lt;code&gt;search&lt;/code&gt; method of the &lt;code&gt;catalog:Catalog&lt;/code&gt; with  &lt;code&gt;searchCriteria&lt;/code&gt; and &lt;code&gt;queryStr&lt;/code&gt; and receives &lt;code&gt;books:List&amp;lt;Book&amp;gt;&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Create a &lt;code&gt;SearchResult&lt;/code&gt; object with &lt;code&gt;books&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Convert the &lt;code&gt;SearchResult&lt;/code&gt; object to a &lt;code&gt;JSON&lt;/code&gt; string&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div id=&quot;json-search-controller&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/json-search-controller.png&quot; alt=&quot;json search controller&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 1. A class diagram where every class is split into code and data entities&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;What about other endpoints, for instance allowing librarians to add book items through &lt;code&gt;/add-book-item&lt;/code&gt;?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Well, you would have to repeat the exact same process and create 3 classes:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;AddBookItemController&lt;/code&gt; that is responsible for handling the query&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;BookItemQuery&lt;/code&gt; that converts the JSON query string into data&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;BookItemResult&lt;/code&gt; that converts the search result into a JSON string&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The code that deals with JSON deserialization that you wrote previously in &lt;code&gt;SearchQuery&lt;/code&gt; would have to
-be rewritten in &lt;code&gt;BookItemQuery&lt;/code&gt;.
-Same thing for the code that deals with JSON serialization that you wrote previously in &lt;code&gt;SearchResult&lt;/code&gt;:
-it would have to be rewritten in &lt;code&gt;BookItemResult&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The bad news is that you would have to repeat the same process for every endpoint of the system.
-Each time you encounter a new kind of JSON input or input, you have to create a new class and write code.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Suddenly, you wake up and realize that Nancy never asked for JSON.
-All of the above was a dream, a really bad dream&amp;#8230;&amp;#8203;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-In OO, data serialization is a nightmare
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;It&amp;#8217;s quite frustrating that handling JSON serialization and deserialization in OO requires
-to add so many classes and to write so much code again and again!&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The frustration gets bigger when you consider that serializing a search query, a book item query or any query is quite similar.
-It comes down to:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Go over data fields&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Concatenate the name of the data fields and the value of the data field (separated by a comma)&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Why such a simple thing is so hard to achieve in OO?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The thing is that in OO, data has to follow a rigid shape (defined in classes),
-which means that data is locked in members.
-There is no way to access data generically.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-In OO, data is locked in classes as members
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;We will refine later what we mean by a generic access to the data and
-we will see how DO provides a generic way to handle JSON serialization and deserialization.
-Until then, you will have to continue suffering.
-But at least you know that this suffer is avoidable. (Not sure if it makes your suffer more pleasant or more painful&amp;#8230;&amp;#8203;)&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;Note&lt;/div&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-Most OO programming languages provide ways to ease a bit the conversion from and to JSON. It either involves reflection (which is definitely a complex thing) or code verbosity.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;code-is-locked-into-classes-as-methods&quot;&gt;Code is locked into classes as methods&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;It is a common belief that OO promotes code reuse through class inheritance.
-Indeed, when every requirement of the system is known up front, you design your class hierarchy is such a way that
-classes with common behavior derive from a base class.
-An example of this pattern is shown in &lt;a href=&quot;#class-diagram-librarian-member&quot;&gt;The part of the class diagram that deals with members and librarians&lt;/a&gt; , that zooms in the part of our
-class diagram that deals with members and librarians.
-Both librarians and members need the ability to login and they inherit this ability form the &lt;code&gt;User&lt;/code&gt; class.
-So far so good.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;class-diagram-librarian-member&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/class-diagram-librarian-member.png&quot; alt=&quot;class diagram librarian member&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 2. The part of the class diagram that deals with members and librarians&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;But when requirements to the system are added after the system is implemented that&amp;#8217;s a completely different story.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;It&amp;#8217;s Monday 11:00 AM, two days are left before the deadline (which is on Wednesday midnight) and Nancy put your on an urgent phone call.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You are not sure if it&amp;#8217;s dream or reality.
-You pinch yourself and you feel the jolt.
-It&amp;#8217;s definitely reality!&lt;/p&gt;
-&lt;/div&gt;
-- How is the project doing?
-- Fine, Nancy. We are on schedule for the deadline. Running our last round of regression tests.
-- Fantastic! It means we have time for adding a tiny feature to the system. Right?
-- Depends what you mean by &quot;tiny&quot;.
-- We need to add VIP members to the system.
-- What do you mean by VIP members?
-- VIP members are members that are allowed to add by themselves book items to the library.
-- Hmm...
-- What?
-- That's not a tiny change!
-- Why?
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;I am asking you the same question Nancy asked: Why adding VIP members to your system is not a tiny task?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;After all, you already have written the code that allows librarians to add book items to the library:
-it&amp;#8217;s in &lt;code&gt;Librarian::addBookItem()&lt;/code&gt;.
-What prevents you from reusing this code for VIP members?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The reason is that in OO, the code is locked into classes as methods.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Let&amp;#8217;s see how you would probably handle this last minute request from your customer.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-VIP members are members that are allowed to add by themselves book items to the library.
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Let&amp;#8217;s decompose the customer requirements into two pieces:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;VIP members are members&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;VIP members are allowed to add by themselves book items to the library&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;For sure, you need a new class &lt;code&gt;VIPMember&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;For requirement #1, it sounds reasonable to make &lt;code&gt;VIPMember&lt;/code&gt; derive from &lt;code&gt;Member&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;However, handling requirement #2 is more complex. We cannot make &lt;code&gt;VIPMember&lt;/code&gt; derive from &lt;code&gt;Librarian&lt;/code&gt; because the relationship between &lt;code&gt;VIPMember&lt;/code&gt; and &lt;code&gt;Librarian&lt;/code&gt; is not linear:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;On one hand, VIP members are like librarians as they are allowed to add book items&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;On the other hand, VIP members are not like librarians as they are not allowed to block members or to list the book lendings of a member&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The problem is that the code that adds book items is locked in the &lt;code&gt;Librarian&lt;/code&gt; class.
-There is no way for &lt;code&gt;VIPMember&lt;/code&gt; class to use this code.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;One possible solution that makes the code of &lt;code&gt;Librarian::addBookItem()&lt;/code&gt; available to both &lt;code&gt;Librarian&lt;/code&gt; and &lt;code&gt;VIPMember&lt;/code&gt;,
-is shown in &lt;a href=&quot;#class-diagram-vip-member&quot;&gt;A class diagram for a system with VIP members&lt;/a&gt;. Here are the changes to the previous class diagram:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;A base class &lt;code&gt;UserWithBookItemRight&lt;/code&gt; that extends &lt;code&gt;User&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Move &lt;code&gt;addBookItem()&lt;/code&gt; from &lt;code&gt;Librarian&lt;/code&gt; to &lt;code&gt;UserWithBookItemRight&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Both &lt;code&gt;VIPMember&lt;/code&gt; and &lt;code&gt;Librarian&lt;/code&gt; extend &lt;code&gt;UserWithBookItemRight&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div id=&quot;class-diagram-vip-member&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/class-diagram-vip-member.png&quot; alt=&quot;class diagram vip member&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 3. A class diagram for a system with VIP members&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;That was tough but you were able to handle it on time (thanks to a white night in front of your laptop).
-You were even able to include new tests to the system and running again the regression tests.
-You were so excited that you didn&amp;#8217;t pay attention to the diamond &lt;code&gt;VIPMember&lt;/code&gt; introduced in your class diagram,
-(&lt;code&gt;VIPMember&lt;/code&gt; extends both &lt;code&gt;Member&lt;/code&gt; and &lt;code&gt;UserWithBookItemRight&lt;/code&gt; who both extend &lt;code&gt;User&lt;/code&gt;)&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;We are Wednesday morning 10:00 AM, 14 hours before the deadline and you call Nancy to tell her the good news:&lt;/p&gt;
-&lt;/div&gt;
-- We were able to add VIP members to the system on time, Nancy.
-- Fantastic! I told you it was a tiny feature.
-- Hmm...
-- Look, I was to call you anyway. I just finished a meeting with my business partner and we realized that we need another tiny feature before the launch. Will you be able to handle it before the deadline?
-- Again, it depends what you mean by &quot;tiny&quot;.
-- We need to add Super members to the system.
-- What do you mean by Super members?
-- Super members are members that are allowed to block and unblock members
-- Hmm...
-- What?
-- That's not a tiny change!
-- Why?
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Like with VIP members, adding Super members to the system requires changes to your class hierarchy.
-A possible solution is shown in &lt;a href=&quot;#class-diagram-super-member&quot;&gt;A class diagram for a system with Super members and VIP members&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;class-diagram-super-member&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/class-diagram-super-member.png&quot; alt=&quot;class diagram super member&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 4. A class diagram for a system with Super members and VIP members&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The addition of Super members made the system too complex. You suddenly noticed that you had 3 diamonds in your class diagram:
-not gemstones but 3 Deadly Diamonds of Death!&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You tried to avoid the diamonds by transforming the &lt;code&gt;User&lt;/code&gt; class into an interface and using Composition over Inheritance Design Pattern.
-But with the stress of the deadline coming, you were not able to use all the cells of your brain. (Indeed all the cells of a human brain are required to handle this OO complexity!)&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In fact, this complexity prevented you from delivering the system before the deadline.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You call the customer in order to explain her the situation at 10:00 PM, two hours before the deadline:&lt;/p&gt;
-&lt;/div&gt;
-- Look Nancy, we really did our best, but we will not be able to add Super members to the system before the deadline
-- No worries, my business partner and I decided to postpone the launch by a week
-- Phew!
-- Do you think that if we add other tiny features next week, you'd be able to handle them on time?
-- Yes
-- How could it be?
-- We are going to refactor the system from Object Oriented to Data Oriented over the weekend.
-- What is Data Oriented?
-- It is a magic sauce that allows developers to write code faster!
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;By the end of this book, you will belong to the community of happy developers who know the recipe
-of DO magic sauce.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You must be tired with all this OO complexity.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;I invite you to imagine a world with no objects and sing a song. Here are the &lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part5.html&quot;&gt;lyrics&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    Enter your email address below to get notified when the book is published.
-  &lt;/p&gt;
-
-  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
-	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
-	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
-	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
-  &lt;/form&gt;
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published. According to DO, the main sources of complexity of any OO system - are:</summary></entry><entry><title type="html">The complexity of Object Oriented Programming: Imagine</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part5.html" rel="alternate" type="text/html" title="The complexity of Object Oriented Programming: Imagine" /><published>2020-09-25T04:45:32+00:00</published><updated>2020-09-25T04:45:32+00:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part5</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part5.html">&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    Enter your email address below to get notified when the book is published.
-  &lt;/p&gt;
-
-  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
-	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
-	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
-	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
-  &lt;/form&gt;
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;A couple of years ago, a famous composer had an illumination and he wrote a song about a world without OO.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/assets/imagine.jpeg&quot; alt=&quot;imagine&quot;&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Imagine there&amp;#8217;s no objects&lt;br&gt;
-It&amp;#8217;s easy if you try&lt;br&gt;
-No classes below us&lt;br&gt;
-Above us only information&lt;br&gt;
-Imagine all the entities being only data&lt;br&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Imagine there&amp;#8217;s no mutations&lt;br&gt;
-It isn&amp;#8217;t hard to do&lt;br&gt;
-Nothing to protect with a mutex&lt;br&gt;
-And no deadlock too&lt;br&gt;
-Imagine all the entities being only data&lt;br&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You may say I&amp;#8217;m a dreamer&lt;br&gt;
-But I&amp;#8217;m not the only one&lt;br&gt;
-I hope some day OO will join us&lt;br&gt;
-And the world will be as one&lt;br&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Imagine no code is locked&lt;br&gt;
-I wonder if you can&lt;br&gt;
-No need for methods and inheritance&lt;br&gt;
-A brotherhood of input and output&lt;br&gt;
-Imagine all the code being pure functions&lt;br&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You may say I&amp;#8217;m a dreamer&lt;br&gt;
-But I&amp;#8217;m not the only one&lt;br&gt;
-I hope some day OO will join us&lt;br&gt;
-And the world will be as one&lt;br&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    Enter your email address below to get notified when the book is published.
-  &lt;/p&gt;
-
-  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
-	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
-	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
-	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
-  &lt;/form&gt;
-  &lt;br&gt;
-&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">Core.match available for self hosted ClojureScript (Planck and Klipse)</title><link href="https://blog.klipse.tech//clojure/2020/09/16/core-match-abbinare.html" rel="alternate" type="text/html" title="Core.match available for self hosted ClojureScript (Planck and Klipse)" /><published>2020-09-16T13:21:32+00:00</published><updated>2020-09-16T13:21:32+00:00</updated><id>https://blog.klipse.tech//clojure/2020/09/16/core-match-abbinare</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/09/16/core-match-abbinare.html">&lt;p&gt;&lt;a href=&quot;https://github.com/clojure/core.match&quot;&gt;core.match&lt;/a&gt; - A pattern matching library for Clojure[script] - is  available for self-hosted &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ClojureScript&lt;/code&gt;. It means that it can run in &lt;a href=&quot;https://github.com/mfikes/planck&quot;&gt;Planck&lt;/a&gt; and &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;The code is available as a &lt;a href=&quot;https://github.com/viebel/abbinare&quot;&gt;fork&lt;/a&gt; of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;core.match&lt;/code&gt; called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;abbinare&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;The approach is similar to what Mike Fikes did for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;core.async&lt;/code&gt; with &lt;a href=&quot;https://github.com/mfikes/andare&quot;&gt;andare&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Both names comes from italian: “andare” means “go” and “abbinare” means match (in the sense of combine).&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/match.jpg&quot; alt=&quot;match&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;In order to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;core.match&lt;/code&gt; in Klipse, simply require it and Klipse will fetch &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;abbinare&lt;/code&gt; code from its &lt;a href=&quot;https://viebel.github.io/cljs-analysis-cache/cache/&quot;&gt;analysis cache repository&lt;/a&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;
-(require '[cljs.core.match :refer-macros [match]])
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In order to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;core.match&lt;/code&gt; in Planck, add &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;abbinare&lt;/code&gt; as a dependency with:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; [viebel/abbinare &quot;1.10.597&quot;]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Here is a quick demo - running in your browser - of a solution to the famous &lt;a href=&quot;https://en.wikipedia.org/wiki/Fizz_buzz&quot;&gt;Fizz buzz&lt;/a&gt; interview question with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;core.match&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(with-out-str (doseq [n (range 1 11)]
-  (println
-    (match [(mod n 3) (mod n 5)]
-           [0 0] &quot;FizzBuzz&quot;
-           [0 _] &quot;Fizz&quot;
-           [_ 0] &quot;Buzz&quot;
-           :else n))))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Want more &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;core.match&lt;/code&gt; cool stuff in your browser? Read this &lt;a href=&quot;/clojure/2016/10/25/core-match.html&quot;&gt;core.match interactive tutorial&lt;/a&gt;.&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">core.match - A pattern matching library for Clojure[script] - is available for self-hosted ClojureScript. It means that it can run in Planck and Klipse.</summary></entry><entry><title type="html">The most elegant implementation of FizzBuzz</title><link href="https://blog.klipse.tech//clojure/2020/09/11/fizbuzz-clj.html" rel="alternate" type="text/html" title="The most elegant implementation of FizzBuzz" /><published>2020-09-11T04:28:22+00:00</published><updated>2020-09-11T04:28:22+00:00</updated><id>https://blog.klipse.tech//clojure/2020/09/11/fizbuzz-clj</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/09/11/fizbuzz-clj.html">&lt;h3 id=&quot;what-is-fizzbuzz&quot;&gt;What is FizzBuzz?&lt;/h3&gt;
-
-&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FizzBuzz&lt;/code&gt; test is an interview question designed to help filter out the 99.5% of programming job candidates who can’t seem to program their way out of a wet paper bag. 
-The text of the programming assignment is as follows:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Write a program that prints the numbers from 1 to 100. But for multiples of three print “Fizz” instead of the number and for the multiples of five print “Buzz”. For numbers which are multiples of both three and five print “FizzBuzz”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;There are a lot of ways to write the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FizzBuzz&lt;/code&gt; program. See for instance &lt;a href=&quot;http://blog.klipse.tech/clojure/2016/10/25/core-match.html#fizzbuzz&quot;&gt;the one using Clojure pattern matching&lt;/a&gt;. 
-Today, I’d like to share with you the most elegant implementation of FizzBuzz I’ve ever seen. It’s elegant because it doesn’t make use of any imperative constructs (like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;if&lt;/code&gt; statements), but only functional programming constructs (like infinite lazy sequences and function composition).&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/blog_purity.jpg&quot; alt=&quot;Pure&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;This implementation was developed by &lt;a href=&quot;https://dierk.gitbooks.io/fregegoodness/content/src/docs/asciidoc/fizzbuzz.html&quot;&gt;Dierk Konig&lt;/a&gt; and Kevlin Henney presented a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Haskell&lt;/code&gt; version of it - in his amazing talk &lt;a href=&quot;https://youtu.be/nrVIlhtoE3Y&quot;&gt;Declarative Thinking, Declarative Practice&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;In this article, we are going to present an interactive version of Kevlin’s code in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Clojure&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;the-elegant-code&quot;&gt;The elegant code&lt;/h3&gt;
-
-&lt;p&gt;Take a look at this marvel: no &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;if&lt;/code&gt; statements - only 3 infinite lazy sequences and function composition.&lt;/p&gt;
-
-&lt;p&gt;This is exactly what we call -  &lt;strong&gt;Purely Functional&lt;/strong&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot; data-gist-id=&quot;viebel/b133efde8669d6c0630ee6895c1797c6&quot;&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And it works like a charm:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(fizzbuzz 19)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Feel free to modify &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;19&lt;/code&gt; - the code snippets are &lt;strong&gt;live&lt;/strong&gt; and &lt;strong&gt;interactive&lt;/strong&gt; powered by the &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse plugin&lt;/a&gt;:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;Live&lt;/strong&gt;: The code is executed in your browser&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Interactive&lt;/strong&gt;: You can modify the code and it is evaluated as you type&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;If you are a bit skeptic (yet) about the elegance of this implementation, you might want to read &lt;a href=&quot;https://dierk.gitbooks.io/fregegoodness/content/src/docs/asciidoc/fizzbuzz.html&quot;&gt;Dierk Konig’s article&lt;/a&gt;: he explains in details the pragmatic advantages of his code.&lt;/p&gt;
-
-&lt;h3 id=&quot;further-details&quot;&gt;Further details&lt;/h3&gt;
-
-&lt;p&gt;You probably wonder what is this &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;choice&lt;/code&gt; function and why does &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;max&lt;/code&gt; do when it receives 2 strings?&lt;/p&gt;
-
-&lt;p&gt;Well, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ClojureScript&lt;/code&gt; runs on top of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt; - and in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt;, strings are comparable:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(&amp;gt; &quot;Fizz&quot; &quot;&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(max &quot;Fizz&quot; &quot;&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;But that is an ugly trick - that doesn’t work in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Clojure&lt;/code&gt;. So it’s much better to use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;choice&lt;/code&gt; function - that returns the first non-empty string of the two it receives:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(choice &quot;abc&quot; &quot;&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot; data-gist-id=&quot;viebel/564b99b1365d1966342ad0a0977b94b3&quot;&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And it works also:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(fizzbuzz-clean 15)
-&lt;/code&gt;&lt;/pre&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">What is FizzBuzz?</summary></entry><entry><title type="html">Generative testing in Clojure with test.check</title><link href="https://blog.klipse.tech//clojure/2020/09/11/test-check-clj.html" rel="alternate" type="text/html" title="Generative testing in Clojure with test.check" /><published>2020-09-11T02:11:22+00:00</published><updated>2020-09-11T02:11:22+00:00</updated><id>https://blog.klipse.tech//clojure/2020/09/11/test-check-clj</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/09/11/test-check-clj.html">&lt;h3 id=&quot;the-idea&quot;&gt;The idea&lt;/h3&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/clojure/test.check&quot;&gt;test.check&lt;/a&gt; is a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Clojure&lt;/code&gt; property-based testing tool inspired by &lt;a href=&quot;https://en.wikipedia.org/wiki/QuickCheck&quot;&gt;QuickCheck&lt;/a&gt; from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Haskell&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;The core idea of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;test.check&lt;/code&gt; is that instead of enumerating expected input and output for unit tests, you write properties about your function that should
-hold true for all inputs.&lt;/p&gt;
-
-&lt;p&gt;This lets you write concise, powerful tests.&lt;/p&gt;
-
-&lt;p&gt;In a sense it gives you the illusion that you deal with the infinity.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/infinity.jpg&quot; alt=&quot;Infinity&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;code-examples&quot;&gt;Code examples&lt;/h4&gt;
-
-&lt;p&gt;First, let’s require &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;test.check&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot; data-external-libs=&quot;https://raw.githubusercontent.com/clojure/test.check/master/src/main/clojure&quot;&gt;
-(ns my.test
-  (:require [clojure.test.check :as tc]
-            [clojure.test.check.generators :as gen]
-            [clojure.test.check.properties :as prop :include-macros true]))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Let’s say we’re testing a sort function. We want to check that that our sort function is &lt;strong&gt;idempotent&lt;/strong&gt; - that is, applying sort twice should be equivalent to
-applying it once: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(= (sort a) (sort (sort a)))&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Let’s write a quick test to make sure this is the case:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(def sort-idempotent-prop
-  (prop/for-all [v (gen/vector gen/int)]
-    (= (sort v) (sort (sort v)))))
-
-(tc/quick-check 100 sort-idempotent-prop)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In prose, this test reads: for all vectors of integers, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;v&lt;/code&gt;, sorting &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;v&lt;/code&gt; is equal to sorting &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;v&lt;/code&gt; twice.&lt;/p&gt;
-
-&lt;p&gt;What happens if our test fails? &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;test.check&lt;/code&gt; will try and find ‘smaller’ inputs that still fail. This process is called &lt;strong&gt;shrinking&lt;/strong&gt;. Let’s see it in action:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(def prop-sorted-first-less-than-last
-  (prop/for-all [v (gen/not-empty (gen/vector gen/int))]
-    (let [s (sort v)]
-      (&amp;lt; (first s) (last s)))))
-
-(tc/quick-check 100 prop-sorted-first-less-than-last)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This test claims that the first element of a sorted vector should be less-than the last. Of course, this isn’t true: the test fails with input &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[3]&lt;/code&gt;, which gets shrunk down to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[0]&lt;/code&gt;, as seen in the output above.&lt;/p&gt;
-
-&lt;h3 id=&quot;deterministic-randomness&quot;&gt;Deterministic Randomness&lt;/h3&gt;
-
-&lt;p&gt;Each time you call &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tc/quick-check&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;test.check&lt;/code&gt; generates different test cases - as you can see in this two examples where the failing test cases are always different:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(:fail (tc/quick-check 100 prop-sorted-first-less-than-last))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(:fail (tc/quick-check 100 prop-sorted-first-less-than-last))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;But what if you want to re-run exactly the same values?&lt;/p&gt;
-
-&lt;p&gt;No problem: pass &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:seed&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tc/quick-check&lt;/code&gt; and you’ll run always the same values:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(:fail (tc/quick-check 100 prop-sorted-first-less-than-last :seed 1477508406394))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(:fail (tc/quick-check 100 prop-sorted-first-less-than-last :seed 1477508406394))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&quot;shrinking&quot;&gt;Shrinking&lt;/h3&gt;
-&lt;p&gt;As your test functions require more  sophisticated input, shrinking becomes critical to being able to understand exactly why a random test failed.
-To see how powerful shrinking is, let’s come up with a contrived example: a function that fails if it’s passed a sequence that contains the number &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;12&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(def prop-no-12
-  (prop/for-all [v (gen/vector gen/int)]
-    (not (some #{12} v))))
-
-(tc/quick-check 100 prop-no-12)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We see that the test failed on a rather large vector, as seen in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:fail&lt;/code&gt; key. But then &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;test.check&lt;/code&gt; was able to shrink the input down to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[12]&lt;/code&gt;, as seen in the keys &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[:shrunk :smallest]&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;zipmap&quot;&gt;zipmap&lt;/h3&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(zipmap keys vals)&lt;/code&gt; allows you to creates a map with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;keys&lt;/code&gt; mapped to the corresponding &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vals&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(keys map)&lt;/code&gt; retrieves the keys of a map.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(vals map)&lt;/code&gt; retrieves the values of a map.&lt;/p&gt;
-
-&lt;p&gt;But how well do they combine together?&lt;/p&gt;
-
-&lt;p&gt;According to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;keys&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vals&lt;/code&gt; docstrings, the keys and the values are returned in the same order - the order of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(seq map)&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;And indeed, for map with 100 pairs of random integers, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zipmap&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;keys&lt;/code&gt; and  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vals&lt;/code&gt; are consistent:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(def n 100)
-(def mm (zipmap (shuffle (range n)) (shuffle (range n))))
-[(count mm) (= mm (zipmap (keys mm) (vals mm)))]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You can try to increase the value of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; - and it will remain true. But is it a proof? What about keys and values from other types?&lt;/p&gt;
-
-&lt;p&gt;Let’s check it for sure - using a more advanced random genertor, provided by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;test.check&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(def random-map (gen/map (gen/one-of [gen/keyword gen/string gen/boolean gen/int gen/symbol]) gen/int))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(gen/one-of generators)&lt;/code&gt; creates a generator that randomly chooses a value from the list of
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;generators&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(gen/map map key-gen val-gen)&lt;/code&gt; creates a generator that generates maps, with keys chosen from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;key-gen&lt;/code&gt; and values chosen from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;val-gen&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Let’s look at some samples - with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gen/sample&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(gen/sample random-map)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now, we can test the consistency of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zipmap&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;keys&lt;/code&gt; and  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vals&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-clj&quot;&gt;(def zipmap-keys-vals-consistency
-  (prop/for-all [m (gen/map (gen/one-of [gen/keyword gen/string gen/boolean gen/int gen/symbol]) gen/int)]
-                  (= m (zipmap (keys m) (vals m)))))
-
-(tc/quick-check 15 zipmap-keys-vals-consistency)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;It seems that the docstrings were right: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zipmap&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;keys&lt;/code&gt; and  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vals&lt;/code&gt; are consistent.&lt;/p&gt;
-
-&lt;p&gt;Check &lt;a href=&quot;http://clojure.github.io/test.check/index.html&quot;&gt;test.check documentation&lt;/a&gt; for additional functions and explanations.&lt;/p&gt;
-
-&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h3&gt;
-
-&lt;p&gt;I hope that you enjoyed this interactive tutorial about generative testing in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;clojure&lt;/code&gt;. This is really a powerful paradigm that might change forever the way you write and think about testing. And who know? Maybe it will catch a bug or two…&lt;/p&gt;
-
-&lt;p&gt;Please forward it to your friends if you liked it and share your critics on &lt;a href=&quot;https://twitter.com/viebel&quot;&gt;twitter @viebel&lt;/a&gt; or on slack &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;#klipse&lt;/code&gt; channel.&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">The idea test.check is a Clojure property-based testing tool inspired by QuickCheck from Haskell.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /></entry></feed>

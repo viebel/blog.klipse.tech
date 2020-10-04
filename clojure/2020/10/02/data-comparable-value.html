@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="shortcut icon" href="/assets/favicon2.png">
+
+  <title>DO Principle #4: Data is comparable by value</title>
+  <meta name="description" content="Principles of Data Oriented Programming. Principle">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://blog.klipse.tech//clojure/2020/10/02/data-comparable-value.html">
+  <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- start: facebook -->
+  <meta property="og:title" content="DO Principle #4: Data is comparable by value">
+  <meta property="og:image" content="https://blog.klipse.tech/assets/klipse.png">
+  <meta property="og:description" content="Principles of Data Oriented Programming. Principle">
+  <meta property="og:site_name" content="An interactive journey into functional programming with Yehonathan Sharvit">
+  <meta property="article:author" content="Yehonathan Sharvit">
+  <!-- end: facebook -->
+
+
+</head>
+
+  <body>
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">An interactive journey into functional programming with Yehonathan Sharvit</a>
+
+    <div class="site-title" style="float:right;margin-top:14px;">
+<a class="github-button" href="https://github.com/viebel/klipse" data-size="large" data-show-count="true" aria-label="Star viebel/klipse on GitHub">Klipse</a>
+</div>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/data-oriented-programming-book.html">Data Oriented Programming</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav> -->
+
+  </div>
+
+</header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <div class="left-post-header">
+      <img src="https://blog.klipse.tech/assets/klipse.png">
+    </div>
+    <div>
+      <h1 class="post-title" itemprop="name headline">DO Principle #4: Data is comparable by value</h1>
+      <p class="post-meta"><time datetime="2020-10-02T17:31:24+00:00" itemprop="datePublished">Oct 2, 2020</time>
+	 •
+	<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Yehonathan Sharvit</span></span>
+	
+	</p>
+    </div>
+
+  </header>
+  <div class="post-content" itemprop="articleBody">
+    <div id="preamble">
+<div class="sectionbody">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.2/immutable.min.js" integrity="sha512-myCdDiGJRYrvRb/VuJ67ljifYTJdc1jdEvL4c4ftX9o3N6EAnmD83c/7l2/91RCINZ7c8w21tiXDT7RDFjdc3g==" crossorigin="anonymous"></script>
+<div>
+  <p>
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  </p>
+
+  <p>
+    More excerpts are available on my <a href="/data-oriented-programming-book.html">blog</a>.
+  </p>
+
+  <p>
+    Enter your email address below to get notified when the book is published.
+  </p>
+
+  <form style="text-align: left;" action="https://tinyletter.com/data-oriented-programming" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	  <input type="email" style="width:180px" name="email" id="tlemail" placeholder="Your email address"/>
+	  <input type="hidden" value="1" name="embed"/>
+	  <input style="padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;" type="submit" value="Subscribe" />
+  </form>
+  <br>
+</div>
+<div class="paragraph">
+<p>In Data Oriented programming data is a first class citizen that is considered as a value.</p>
+</div>
+<div class="paragraph">
+<p>It comes down to 3 principles:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="/clojure/2020/10/02/immutable-data.html">Principle #3: Data is immutable</a></p>
+</li>
+<li>
+<p><a href="/clojure/2020/10/02/data-comparable-value.html">Principle #4: Data is comparable by value</a></p>
+</li>
+<li>
+<p><a href="/clojure/2020/10/03/data-literal.html">Principle #5: Data has a literal representation</a></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>In this article, we explore Principle #4.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the-principle-in-a-nutshell">The principle in a nutshell</h2>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+Principle #4: Data collections are considered to be equal if they represent the same collection of values.
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="remarks-on-principle-4">Remarks on Principle #4</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Definition of equality in Computer Science is a deep topic. We are only scratching the surface here</p>
+</li>
+<li>
+<p>We are not dealing here with the comparison of data collection of different types (e.g. lists and vectors)</p>
+</li>
+<li>
+<p>We are not dealing only with equality of primitive types</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="illustration-of-principle-4">Illustration of Principle #4</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In concrete terms, Principle #4 says that:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Two arrays with same elements are considered to be equal</p>
+</li>
+<li>
+<p>Two maps with the same keys and values are considered to be equal</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>This definition is in fact a recursive definition because the elements of an array and the values of a map could themselves be arrays and maps.</p>
+</div>
+<div class="paragraph">
+<p>In native JavaScript, this principle is broken both for arrays and maps:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var a = [1];
+var b = [1];
+a === b;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var a = {username: "foo"};
+var b = {username: "foo"};
+a === b;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In order to compare data by value, one needs a custom equality function like the <code>is</code> function provided by
+  <a href="https://immutable-js.github.io/immutable-js">Immutable.js</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var a = Immutable.List([1]);
+var b = Immutable.List([1]);
+Immutable.is(a, b);</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var a = Immutable.Map({username: "foo"});
+var b = Immutable.Map({username: "foo"});
+Immutable.is(a, b);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="benefits-of-principle-4">Benefits of Principle #4</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When we compare data by value across the board, our programs benefit from:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Writing unit tests is a pleasure</p>
+</li>
+<li>
+<p>Maps with data keys</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="benefit-1-writing-unit-tests-is-a-pleasure">Benefit #1: Writing unit tests is a pleasure</h3>
+<div class="paragraph">
+<p>When data equality is defined by value, we can specify the expected return value of a function as data instead of having to check each value separately.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s write a "unit test" for a function that returns a (immutable) map with the full name of an author</p>
+</div>
+<div class="paragraph">
+<p>Here is the code for <code>addFullName</code>, using <code>R.assoc</code> from Ramda.js as we showed in  <a href="/clojure/2020/10/02/immutable-data.html">Principle #3: Data is immutable</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">function addFullName(data) {
+  return data.set("fullName",
+          data.firstName + " " + data.lastName,
+          data);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In order to write a unit test for <code>addFullName</code> without equality by value, we would need to check each field separately:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var isaac = Immutable.Map({firstName: "Isaac", lastName: "Asimov"});
+var enrichedIsaac = addFullName(isaac);
+enrichedIsaac.get("firstName") === "Isaac" &amp;&amp;
+  enrichedIsaac.get("lastName") === "Asimov" &amp;&amp;
+  enrichedIsaac.get("fullName") === "Isaac Asimov";</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With equality by value, using <code>Immutable.is</code> from Immutable.js, the unit test becomes much clearer
+as we are able to simply specify what is the expected output of our function:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var isaac = Immutable.Map({firstName: "Isaac", lastName: "Asimov"});
+var enrichedIsaac = addFullName(isaac);
+Immutable.is(enrichedIsaac, Immutable.Map({firstName: "Isaac",
+                                           lastName: "Asimov",
+                                           fullName: "Isaac Asimov"}))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="benefit-2-maps-with-data-keys">Benefit #2: Maps with data keys</h3>
+<div class="paragraph">
+<p>The behavior of a map data structure is connected deeply with the definition of <strong>equality</strong> of the map keys. When we look for the value associated to key <code>a</code> in a map <code>m</code> what we really means is to find an entry in the map whose key is <strong>equal</strong> to <code>a</code>.</p>
+</div>
+<div class="paragraph">
+<p>In many situations, the keys of the maps are strings and strings are compared by value. But what happens when we allow keys to be maps?</p>
+</div>
+<div class="paragraph">
+<p>In JavaScript, when map keys are maps, we could have two different entries in the map with the "same" key:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var myMap = new Map;
+var myData = {"foo": 1};
+var yourData = {"foo": 1};
+
+myMap.set(myData, 42);
+myMap.set(yourData, 43);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The reason is that JavaScript doesn&#8217;t adhere to Principle #4.</p>
+</div>
+<div class="paragraph">
+<p>When we use a library that adheres to Principle #4, like Immutable.js, this weird situation doesn&#8217;t occur:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var myMap = Immutable.Map({});
+var myData = Immutable.Map({"foo": 1});
+var yourData = Immutable.Map({"foo": 1});
+
+myMap.set(myData, 42);
+myMap.set(yourData, 43);</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="price-for-principle-4">Price for Principle #4</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are no free meals. Applying Principle #4 comes at a price:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>No native support</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="price-1-no-native-support">Price #1: No native support</h3>
+<div class="paragraph">
+<p>In Clojure, equality is defined by value in compliance with Principle #4.
+However, on most programming languages, equality is defined by reference and not by value.</p>
+</div>
+<div class="paragraph">
+<p>In order to adhere to Principle #4, we must careful to never use the native equality check to compare data collections.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="wrapping-up">Wrapping up</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>DO considers data as a value. As consequence, data should be compared by value either when we explicitly check if two pieces of data are equal or implicitly as a data key in a map. In most languages, we need a third party library to provide this value based equality check.</p>
+</div>
+<div class="paragraph">
+<p>Continue your exploration of <a href="/clojure/2020/09/29/do-principles.html">Data Oriented Programming principles</a> and move to <a href="/clojure/2020/10/03/data-literal.html">Data has a literal representation</a>.</p>
+</div>
+<div>
+  <p>
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  </p>
+
+  <p>
+    More excerpts are available on my <a href="/data-oriented-programming-book.html">blog</a>.
+  </p>
+
+  <p>
+    Enter your email address below to get notified when the book is published.
+  </p>
+
+  <form style="text-align: left;" action="https://tinyletter.com/data-oriented-programming" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	  <input type="email" style="width:180px" name="email" id="tlemail" placeholder="Your email address"/>
+	  <input type="hidden" value="1" name="embed"/>
+	  <input style="padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;" type="submit" value="Subscribe" />
+  </form>
+  <br>
+</div>
+</div>
+</div>
+  </div>
+
+</article>
+<div class="patreon">
+  If you enjoy this kind of interactive articles would you consider a (small) donation💸  on <a href="https://www.patreon.com/bePatron?u=18227864">Patreon</a> or at least giving a star⭐ for the Klispe repo on <a href="https://github.com/viebel/klipse/stargazers"> Github</a>?
+</div>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js, [data-lang=klipse-javascript]',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+
+
+
+<footer class="site-footer">
+  
+  <div class="wrapper" style="
+			      font-size: larger;
+			      color: #5f7fbf;
+			      font-weight: bold;">
+    <p> <span> <!-- <a href="https://twitter.com/viebel">
+  <span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span>
+  <span class="username">viebel</span>
+</a> -->
+
+
+<a href="https://twitter.com/viebel"
+   class="twitter-follow-button" 
+   data-show-count="false" 
+   data-size="large">Follow viebel</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+ </span> to stay up-to-date with the coolest interactive articles around the world.</p>
+    <p> Discover <a href="/"> more cool interactive articles</a> about javascript, clojure[script], python, ruby, scheme, c++ and even brainfuck!</p>
+    <p> Give Klipse a Github star
+      <span>
+  <a class="github-button" href="https://github.com/viebel/klipse" data-size="large" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+      </span>
+      to express how much you appreciate <em>Code Interactivity</em>. </p>
+    <p>
+      <form style="text-align: left;" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	<label for="tlemail">Subscribe to the Klipse newsletter:</label>
+	<input type="email" style="width:180px" name="email" id="tlemail" placeholder="Enter your email address"/>
+	<input type="hidden" value="1" name="embed"/>
+	<input style="padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;" type="submit" value="Subscribe" />
+      </form>
+    </p>
+    <p> Feel free to email me <a href="mailto:viebel@gmail.com?Subject=I%20want%20to%20write%20an%20interactive%20blog%20post%20with%20KLIPSE"><span class="icon icon--github"><?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 382.117 382.117" style="enable-background:new 0 0 382.117 382.117;" xml:space="preserve" width="512px" height="512px">
+<path d="M336.764,45.945H45.354C20.346,45.945,0,65.484,0,89.5v203.117c0,24.016,20.346,43.555,45.354,43.555h291.41  c25.008,0,45.353-19.539,45.353-43.555V89.5C382.117,65.484,361.772,45.945,336.764,45.945z M336.764,297.72H45.354  c-3.676,0-6.9-2.384-6.9-5.103V116.359l131.797,111.27c2.702,2.282,6.138,3.538,9.676,3.538l22.259,0.001  c3.536,0,6.974-1.257,9.677-3.539l131.803-111.274v176.264C343.664,295.336,340.439,297.72,336.764,297.72z M191.059,192.987  L62.87,84.397h256.378L191.059,192.987z" fill="#fc8ba0"/>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+</span><span class="username">viebel@gmail.com</span></a>
+ for getting practical tips and tricks in writing your first interactive blog post.</p>
+  </div>
+</footer>
+
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+    */
+    var disqus_config = function () {
+        this.page.url = "https://blog.klipse.tech/" + "/clojure/2020/10/02/data-comparable-value.html";
+        this.page.identifier = "6996D17A-93F7-4E97-AD8B-D83E20A932A3";
+        this.page.title = "DO Principle #4: Data is comparable by value";
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//klipse.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+      </div>
+    </div>
+    
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-75651930-1', 'auto');
+  
+  	ga('send', 'pageview', {'dimension1': 'Yehonathan Sharvit'});
+  
+
+  function timer11(){ga('send', 'event', 'TimeOnPage', '1', '11-30 seconds', { 'nonInteraction': 1 });}
+  function timer31(){ga('send', 'event', 'TimeOnPage', '2', '31-60 seconds', { 'nonInteraction': 1 });}
+  function timer61(){ga('send', 'event', 'TimeOnPage', '3', '61-180 seconds', { 'nonInteraction': 1 });}
+  function timer181(){ga('send', 'event', 'TimeOnPage', '4', '181-600 seconds', { 'nonInteraction': 1 });}
+  function timer601(){ga('send', 'event', 'TimeOnPage', '5', '601-1800 seconds', { 'nonInteraction': 1 });}
+  function timer1801(){ga('send', 'event', 'TimeOnPage', '6', '1801+ seconds', { 'nonInteraction': 1 });}
+  ga('send', 'event', 'TimeOnPage', '0', '0-10 seconds', { 'nonInteraction': 1 });
+  setTimeout(timer11,11000);
+  setTimeout(timer31,31000);
+  setTimeout(timer61,61000);
+  setTimeout(timer181,181000);
+  setTimeout(timer601,601000);
+  setTimeout(timer1801,1801000);
+</script>
+
+
+  </body>
+</html>
