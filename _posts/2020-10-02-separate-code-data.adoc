@@ -88,8 +88,8 @@ function fullName(data) {
    return data.firstName + " " + data.lastName;
 }
 
-function isProlific () {
-  return books > 100;
+function isProlific (data) {
+  return data.books > 100;
 }
 
 var data = createAuthorData("Isaac", "Asimov", 500); // Isaac Asimov wrote 500 books!
