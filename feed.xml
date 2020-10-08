@@ -1,5 +1,51 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2020-10-04T21:19:53+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
-</subtitle><author><name>Yehonathan Sharvit</name></author><entry><title type="html">DO Principle #5: Data has a literal representation</title><link href="https://blog.klipse.tech//databook/2020/10/03/data-literal.html" rel="alternate" type="text/html" title="DO Principle #5: Data has a literal representation" /><published>2020-10-03T18:31:24+00:00</published><updated>2020-10-03T18:31:24+00:00</updated><id>https://blog.klipse.tech//databook/2020/10/03/data-literal</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/10/03/data-literal.html">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2020-10-08T11:48:19+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
+</subtitle><author><name>Yehonathan Sharvit</name></author><entry><title type="html">Clojure and EDN diff tool</title><link href="https://blog.klipse.tech//clojure/2020/10/08/edn-diff.html" rel="alternate" type="text/html" title="Clojure and EDN diff tool" /><published>2020-10-08T05:21:22+00:00</published><updated>2020-10-08T05:21:22+00:00</updated><id>https://blog.klipse.tech//clojure/2020/10/08/edn-diff</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/10/08/edn-diff.html">&lt;p&gt;Compare recursively two Clojure data structures &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;b&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Comparison is updated as you type…&lt;/p&gt;
+
+&lt;pre class=&quot;hidden&quot;&gt;&lt;code class=&quot;language-klipse&quot;&gt;
+(require '[clojure.data :refer [diff]])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt; &amp;lt;pre class=&quot;hidden&quot;&amp;gt;&amp;lt;code class=&quot;language-klipse&quot;&amp;gt;
+(def a {:only-in-a 1
+        :both-in-a-and-b 3}) 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(def b {:only-in-b 2
+        :both-in-a-and-b 3}) 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Full comparison:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(def full-comparison (clojure.data/diff a b)) 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Things only in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(first full-comparison)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Things only in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;b&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(second full-comparison)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Things in both &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;b&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(last full-comparison)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Comparison rules:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;For equal &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;b&lt;/code&gt;, return &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[nil nil a]&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Maps are subdiffed where keys match and values differ.&lt;/li&gt;
+  &lt;li&gt;Sets are never subdiffed.&lt;/li&gt;
+  &lt;li&gt;All sequential things are treated as associative collections by their indexes, with results returned as vectors.&lt;/li&gt;
+  &lt;li&gt;Everything else (including strings!) is treated as an atom and compared for equality.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Explore more examples on &lt;a href=&quot;https://clojuredocs.org/clojure.data/diff&quot;&gt;ClojureDocs&lt;/a&gt;.&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">Compare recursively two Clojure data structures a and b.</summary></entry><entry><title type="html">DO Principle #5: Data has a literal representation</title><link href="https://blog.klipse.tech//databook/2020/10/03/data-literal.html" rel="alternate" type="text/html" title="DO Principle #5: Data has a literal representation" /><published>2020-10-03T18:31:24+00:00</published><updated>2020-10-03T18:31:24+00:00</updated><id>https://blog.klipse.tech//databook/2020/10/03/data-literal</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/10/03/data-literal.html">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div&gt;
   &lt;p&gt;
@@ -1317,8 +1363,8 @@ function fullName(data) {
    return data.firstName + &quot; &quot; + data.lastName;
 }
 
-function isProlific () {
-  return books &amp;gt; 100;
+function isProlific (data) {
+  return data.books &amp;gt; 100;
 }
 
 var data = createAuthorData(&quot;Isaac&quot;, &quot;Asimov&quot;, 500); // Isaac Asimov wrote 500 books!
@@ -2381,372 +2427,4 @@ At the end of this chapter, we will refine what DO is about by comparing it with
   &lt;br&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">The complexity of Object Oriented Programming: A bit of UML</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part2.html" rel="alternate" type="text/html" title="The complexity of Object Oriented Programming: A bit of UML" /><published>2020-09-25T04:45:32+00:00</published><updated>2020-09-25T04:45:32+00:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part2</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part2.html">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    Enter your email address below to get notified when the book is published.
-  &lt;/p&gt;
-
-  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
-	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
-	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
-	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
-  &lt;/form&gt;
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In the &lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part1.html&quot;&gt;previous part&lt;/a&gt;, we presented a possible OO design for a library management system.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In this part, we continue our exploration of the tendency of OO systems to be complex.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;daves-reaction-to-your-design&quot;&gt;Dave's reaction to your design&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Dave follows you to your desk and you show him your piece of art: the UML diagram.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;Wow! Such a detailed class diagram.&quot; Dave is really excited.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;Yeah. It&amp;#8217;s pretty neat.&quot; You reply proudly.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;The thing is that I can never remember the meaning of each arrow&quot; Dave admits.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;There are 4 types of arrows in my class diagram: composition, association, inheritance and usage&quot;, you reply with a feeling of superiority.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;What&amp;#8217;s the difference between composition and association?&quot;, Dave asks.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You google &quot;composition vs association&quot; and you read loudly to Dave:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;It&amp;#8217;s all about whether the objects can live one without each other:
-with &lt;strong&gt;composition&lt;/strong&gt;, when one object dies, the other one dies also,
-while in an &lt;strong&gt;association&lt;/strong&gt; relation, each object has an independent life.&quot;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In my class diagram, there are two kinds of &lt;strong&gt;composition&lt;/strong&gt; relation,
-symbolized by an arrow with a plain diamond at one edge, and an optional star at
-the other edge:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;A &lt;code&gt;Library&lt;/code&gt; owns a &lt;code&gt;Catalog&lt;/code&gt;. That&amp;#8217;s a one-to-one composition relation: if a &lt;code&gt;Library&lt;/code&gt; object
-dies, then its &lt;code&gt;Catalog&lt;/code&gt; object dies with it.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;A &lt;code&gt;Library&lt;/code&gt; owns many &lt;code&gt;Member&lt;/code&gt;s. That&amp;#8217;s a one-to-many composition relation: if a &lt;code&gt;Library&lt;/code&gt; object
-dies, then all its &lt;code&gt;Member&lt;/code&gt; objects die with it.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div id=&quot;composition-diagram&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/composition.png&quot; alt=&quot;composition&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 1. Two kinds of composition: one to one and one to many. In both cases, when an object dies, the composed object dies with it.&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;Do you have association relations in your diagram?&quot; Dave asks&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;Yeap. Take a look at the arrow between &lt;code&gt;Book&lt;/code&gt; and &lt;code&gt;Author&lt;/code&gt;.
-It has an empty diamond and a start at both edges: it&amp;#8217;s a many to many association relation&quot;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Indeed, a book can be written by multiple authors
-and an author can write multiplet books.
-Moreover, &lt;code&gt;Book&lt;/code&gt; and &lt;code&gt;Author&lt;/code&gt; objects can live independently.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;association-diagram&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/association.png&quot; alt=&quot;association&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 2. Many to many association relation: each object lives independently&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;I see also many dashed arrows in your diagram&quot;, Dave notices.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;Dashed arrows are for &lt;strong&gt;usage&lt;/strong&gt; relations: when a class uses a method of another class.
-Consider for example, at the &lt;code&gt;Librarian::blockMember()&lt;/code&gt; method. It calls &lt;code&gt;Member::block()&lt;/code&gt;.&quot;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;usage-diagram&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/usage.png&quot; alt=&quot;usage&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 3. Usage relation: a class uses a method of another class&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;I see. And I guess that plain arrows - like the one between &lt;code&gt;Member&lt;/code&gt; and &lt;code&gt;User&lt;/code&gt; - represent inheritance.&quot;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;Absolutely&quot;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;inheritance-diagram&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/inheritance.png&quot; alt=&quot;inheritance&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 4. Inheritance relation: a class derives from another class&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;Great! Now that I understand the meaning of each kind of arrow.
-&quot;Where should I look first?&quot; Dave asks&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;I think you should start from &lt;code&gt;Library&lt;/code&gt;.&quot;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;library-diagram&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/library.png&quot; alt=&quot;library&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 5. The &lt;code&gt;Library&lt;/code&gt; class&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In terms of code, a &lt;code&gt;Library&lt;/code&gt; object does nothing on its own, it delegates everything to objects it owns:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;It owns multiple &lt;code&gt;Member&lt;/code&gt; objects&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;It owns multiple &lt;code&gt;Librarian&lt;/code&gt; objects&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;It owns a single &lt;code&gt;Catalog&lt;/code&gt; object&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;Looks pretty clear to me. What&amp;#8217;s next?&quot;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;`Librarian` and &lt;code&gt;Member&lt;/code&gt; who both derive from &lt;code&gt;User&lt;/code&gt; &quot;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;user-diagram&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/user.png&quot; alt=&quot;user&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 6. &lt;code&gt;Librarian&lt;/code&gt; and &lt;code&gt;Member&lt;/code&gt; derive from &lt;code&gt;User&lt;/code&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The &lt;code&gt;User&lt;/code&gt; class represents a user of the library.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;In terms of data members, I stick to the bare minimum: it has a &lt;code&gt;id&lt;/code&gt;, &lt;code&gt;email&lt;/code&gt; and &lt;code&gt;password&lt;/code&gt;
-(I&amp;#8217;ll deal with security and encryption, later).&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;In terms of code, it can login via &lt;code&gt;login()&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The &lt;code&gt;Member&lt;/code&gt; class represents a member of the library.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;It derives from &lt;code&gt;User&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;In terms of data members, it has nothing more than &lt;code&gt;User&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;In terms of code, it can:&lt;/p&gt;
-&lt;div class=&quot;olist loweralpha&quot;&gt;
-&lt;ol class=&quot;loweralpha&quot; type=&quot;a&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Checkout a book via &lt;code&gt;checkout()&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Return a book via &lt;code&gt;returnBook()&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Answer if it is blocked via &lt;code&gt;isBlocked()&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;It owns multiple &lt;code&gt;BookLending&lt;/code&gt; objects&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;It uses &lt;code&gt;BookItem&lt;/code&gt; in order to implement &lt;code&gt;checkout()&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The &lt;code&gt;Librarian&lt;/code&gt; class represents a librarian.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;It derives from &lt;code&gt;User&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;In terms of data members, it has nothing more than &lt;code&gt;User&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;In terms of code, it can:&lt;/p&gt;
-&lt;div class=&quot;olist loweralpha&quot;&gt;
-&lt;ol class=&quot;loweralpha&quot; type=&quot;a&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Block and unblock a &lt;code&gt;Member&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;List the book lendings of a member via &lt;code&gt;getBookLendings()&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Add book items to the library via &lt;code&gt;addBookItem()&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;It uses &lt;code&gt;Member&lt;/code&gt; in order to implement &lt;code&gt;blockMember()&lt;/code&gt;, &lt;code&gt;UnblockMember()&lt;/code&gt; and &lt;code&gt;getBookLendings()&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;It uses &lt;code&gt;BookItem&lt;/code&gt; in order to implement &lt;code&gt;checkout()&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;It uses &lt;code&gt;BookLending&lt;/code&gt; in order to implement &lt;code&gt;getBookLendings()&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;What class should I look at now?&quot;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;The &lt;code&gt;Catalog&lt;/code&gt; class who is responsible for the management of the books.&quot;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;catalog-diagram&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/catalog.png&quot; alt=&quot;catalog&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 7. The &lt;code&gt;Catalog&lt;/code&gt; class&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist loweralpha&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;In terms of code, a &lt;code&gt;Catalog&lt;/code&gt; object can:&lt;/div&gt;
-&lt;ol class=&quot;loweralpha&quot; type=&quot;a&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Search books via &lt;code&gt;search()&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Add book items to the library via &lt;code&gt;addBookItem()&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;It owns multiple &lt;code&gt;Book&lt;/code&gt; objects&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;It uses &lt;code&gt;Librarian&lt;/code&gt; in order to implement &lt;code&gt;addBookItem&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;Then we have the &lt;code&gt;Book&lt;/code&gt; class&quot;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;book-diagram&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/book.png&quot; alt=&quot;book&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 8. The &lt;code&gt;Book&lt;/code&gt; class&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;In terms data members, we stick to the bare minimum: it has a &lt;code&gt;id&lt;/code&gt;, and a &lt;code&gt;title&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;It is associated with multiple &lt;code&gt;Author&lt;/code&gt; objects (A book might have multiple authors)&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;It owns multiple &lt;code&gt;BookItem&lt;/code&gt; objects, one for each copy of the book&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;What&amp;#8217;s a &lt;code&gt;BookItem&lt;/code&gt;?&quot;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;The &lt;code&gt;BookItem&lt;/code&gt; class represents a book copy. A book could have many copies.&quot;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;In terms data members, we stick to the bare minimum: it has a &lt;code&gt;id&lt;/code&gt;, and a &lt;code&gt;rackId&lt;/code&gt; (for its physical location in the library)&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;In terms of code, it can be checked out via &lt;code&gt;checkout()&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;It owns multiple &lt;code&gt;BookLending&lt;/code&gt; objects, one for each time the book is lent&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;Wow! That&amp;#8217;s amazing&quot; Dave compliments you. &quot;I didn&amp;#8217;t know people were
-really spending time to write down their design in such details, before coding.&quot;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;I always do that. It saves me lots of coding errors&quot;, you reply proudly.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;When will you start coding?&quot; Dave asks&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;When I finish my coffee&quot;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You look at your coffee mug and it&amp;#8217;s full (and cold).
-You were so excited to show your class diagram to Dave that you forgot to drink your coffee.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Go and make yourself another cup of coffee before you move to the &lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part3.html&quot;&gt;next part&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    Enter your email address below to get notified when the book is published.
-  &lt;/p&gt;
-
-  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
-	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
-	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
-	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
-  &lt;/form&gt;
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /></entry></feed>
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry></feed>

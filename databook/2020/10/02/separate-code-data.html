@@ -223,8 +223,8 @@ function fullName(data) {
    return data.firstName + " " + data.lastName;
 }
 
-function isProlific () {
-  return books &gt; 100;
+function isProlific (data) {
+  return data.books &gt; 100;
 }
 
 var data = createAuthorData("Isaac", "Asimov", 500); // Isaac Asimov wrote 500 books!
@@ -671,6 +671,7 @@ As a consequence, as a developer it&#8217;s really easy to discover what are the
             lineWrapping: true
         },
         beautify_strings: true,
+
         selector: '.language-klipse, .language-eval-clj',
         selector_eval_js: '.language-klipse-eval-js, .language-eval-js, [data-lang=klipse-javascript]',
         selector_jsx: '.language-klipse-jsx',
