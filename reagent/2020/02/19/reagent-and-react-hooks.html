@@ -7,18 +7,18 @@
 
   <link rel="shortcut icon" href="/assets/favicon2.png">
 
-  <title>In javascript, setTimeout is forced to be &gt;= 4 msec</title>
-  <meta name="description" content="In javascript, setTimeout is forced to be >= 4 msec. 0 delay timer. postMessage. asynchronous.">
+  <title>Reagent and react hooks</title>
+  <meta name="description" content="Interactive reagent snippets in klipse. react clojurescript. minimal. fast">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="https://blog.klipse.tech//javascript/2016/10/31/setTimeout-0msec.html">
+  <link rel="canonical" href="https://blog.klipse.tech//reagent/2020/02/19/reagent-and-react-hooks.html">
   <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
 
   <!-- start: facebook -->
-  <meta property="og:title" content="In javascript, setTimeout is forced to be >= 4 msec">
+  <meta property="og:title" content="Reagent and react hooks">
   <meta property="og:image" content="https://blog.klipse.tech/assets/klipse.png">
-  <meta property="og:description" content="In javascript, setTimeout is forced to be >= 4 msec. 0 delay timer. postMessage. asynchronous.">
+  <meta property="og:description" content="Interactive reagent snippets in klipse. react clojurescript. minimal. fast">
   <meta property="og:site_name" content="An interactive journey into functional programming with Yehonathan Sharvit">
   <meta property="article:author" content="Yehonathan Sharvit">
   <!-- end: facebook -->
@@ -83,8 +83,8 @@
       <img src="https://blog.klipse.tech/assets/klipse.png">
     </div>
     <div>
-      <h1 class="post-title" itemprop="name headline">In javascript, setTimeout is forced to be >= 4 msec</h1>
-      <p class="post-meta"><time datetime="2016-10-31T23:12:54+00:00" itemprop="datePublished">Oct 31, 2016</time>
+      <h1 class="post-title" itemprop="name headline">Reagent and react hooks</h1>
+      <p class="post-meta"><time datetime="2020-02-19T10:11:44+02:00" itemprop="datePublished">Feb 19, 2020</time>
 	 •
 	<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Yehonathan Sharvit</span></span>
 	
@@ -93,119 +93,139 @@
 
   </header>
   <div class="post-content" itemprop="articleBody">
-    <p>Javascript is a language full of surprises: there are the <code class="language-plaintext highlighter-rouge">good parts</code> and the <code class="language-plaintext highlighter-rouge">bad parts</code>. Today, I discovered that <code class="language-plaintext highlighter-rouge">setTimeout</code> featured a minimal delay of 4 msec.</p>
+    <p><a href="https://github.com/reagent-project/reagent">Reagent</a> provides a minimalistic interface between ClojureScript and React. It allows you to define efficient React components using nothing but plain ClojureScript functions and data, that describe your UI using a <a href="https://github.com/weavejester/hiccup">Hiccup</a>-like syntax.</p>
 
-<p>This is well documented in <a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setTimeout#Reasons_for_delays_longer_than_specified">Reasons for delays longer than specified</a>.</p>
+<p>In this article, we are going to show you how you can write a blog post with interactive reagent component inside a blog post using the <a href="https://github.com/viebel/klipse">klipse plugin</a>.</p>
 
-<p>But I wonder, how many experienced javascript developers are aware of this weird behaviour.</p>
+<p>In this context, <strong>interactive</strong> means that the reader of the blog post can edit the code of the component.</p>
 
-<p>What about you?</p>
-
-<p>Did you know that the minimal delay of <code class="language-plaintext highlighter-rouge">setTimeout</code> was 4 msec?</p>
-
-<p>In this article, we are going to:</p>
+<p>It’s super simple:</p>
 
 <ol>
-  <li>demonstrate the 4 sec delay added by the browser when one uses a <code class="language-plaintext highlighter-rouge">setTimeout</code> with 0 delay.</li>
-  <li>demonstrate how to write 0-delay timers using <code class="language-plaintext highlighter-rouge">postMessage</code>.</li>
+  <li>You add the klipse javascript tag to your blog posts as explained <a href="https://github.com/viebel/klipse">here</a>.</li>
+  <li>You require <code class="language-plaintext highlighter-rouge">reagent.core</code> in a <code class="language-plaintext highlighter-rouge">clojure</code> snippet.</li>
+  <li>You define and render your component in a <code class="language-plaintext highlighter-rouge">clojure</code> snippet.</li>
 </ol>
 
-<p><img src="/assets/stopwatch.jpg" alt="Stop" /></p>
+<p><img src="/assets/minority.jpg" alt="minority" /></p>
 
-<h1 id="code-example">Code example</h1>
+<h1 id="hello-world">Hello World!</h1>
 
-<p>All the code snippets of this page are <strong>live</strong> and <strong>interactive</strong> powered by the <a href="https://github.com/viebel/klipse">klipse plugin</a>:</p>
+<p>Let’s start with a <strong>Hello World!</strong> reagent component:</p>
 
-<ol>
-  <li><strong>Live</strong>: The code is executed in your browser</li>
-  <li><strong>Interactive</strong>: You can modify the code and it is evaluated after 3 seconds of inactivity of if you press <code class="language-plaintext highlighter-rouge">Ctrl-Enter</code> inside the code snippet.</li>
-</ol>
+<p>First, we require <code class="language-plaintext highlighter-rouge">reagent.core</code> - in a <code class="language-plaintext highlighter-rouge">clojure</code> snippet:</p>
 
-<h1 id="the-4-msec-delay-in-action">The 4 msec delay in action</h1>
+<p>(Please be a bit patient, it takes some time to load both <code class="language-plaintext highlighter-rouge">react.js</code> and <code class="language-plaintext highlighter-rouge">reagent</code> code into this web page…)</p>
 
-<p>Here is the  code that demonstrates the 4-msec delay - calling <code class="language-plaintext highlighter-rouge">setTimeout</code> recursively 100 times with a <code class="language-plaintext highlighter-rouge">0</code> delay.</p>
-
-<p>As you can see by yourslef, the execution time for 100 iterations is around 400 msec.</p>
-
-<p>You might need to reevaluate the snippet - for some reason the first evaluation takes much more time.</p>
-
-<p>Press <code class="language-plaintext highlighter-rouge">Ctrl-Enter</code> inside the code snippet or modify the code and wait for 3 seconds…</p>
-
-<pre><code class="language-klipse-eval-js" data-async-code="true">
-function bar(iterations) {
-  if(iterations === 0) {
-    console.log("done in: " + (new Date() - startTimeout)+ " msec")
-  }
-  else {
-  setTimeout(bar, 0, iterations - 1);
-  }
-  }
-
-startTimeout = new Date();
-console.log("Start");
-bar(100);
+<pre><code class="language-klipse">(require '[reagent.core :as r])
 </code></pre>
 
-<p>Amazing. No?</p>
+<p>Then, we define and render our component - in a <code class="language-plaintext highlighter-rouge">reagent</code> snippet:</p>
 
-<h1 id="the-solution-for-fast-timeouts">The solution for fast timeouts</h1>
+<pre><code class="language-reagent">(defn hello [name]
+[:p (str "Hello " name "!")])
 
-<p>If we want to have a <code class="language-plaintext highlighter-rouge">0 msec</code> timer, we have to use <code class="language-plaintext highlighter-rouge">postMessage</code>.</p>
-
-<p>So, let’s do it and take the following code from <a href="https://dbaron.org/log/20100309-faster-timeouts">setTimeout with a shorter delay</a>.</p>
-
-<p><code class="language-plaintext highlighter-rouge">setZeroTimeout</code> takes a single argument: the callback function that is going to be called with 0 delay - but asynchronously.</p>
-
-<pre><code class="language-klipse-eval-js">(function() {
-    var timeouts = [];
-    var messageName = "zero-timeout-message";
-
-    function setZeroTimeout(fn) {
-        timeouts.push(fn);
-        window.postMessage(messageName, "*");
-    }
-
-    function handleMessage(event) {
-        if (event.source == window &amp;&amp; event.data == messageName) {
-            event.stopPropagation();
-            if (timeouts.length &gt; 0) {
-                var fn = timeouts.shift();
-                fn();
-            }
-        }
-    }
-    window.addEventListener("message", handleMessage, true);
-    window.setZeroTimeout = setZeroTimeout;
-})();
+[hello "Klipse"]
 </code></pre>
 
-<p>And now, let’s see it in action - in my browser, it takes around 17 msec for 100 iterations.</p>
+<p>So easy. Right?</p>
 
-<p>Again, you might need to reevaluate the snippet - as the first evaluation takes much more time.</p>
+<p>Go ahead, enjoy the interactivity: modify the code of the component and see how it is rendered as you type.</p>
 
-<p>Press <code class="language-plaintext highlighter-rouge">Ctrl-Enter</code> inside the code snippet or modify the code and wait for 3 seconds…</p>
+<p>Now, let’s see how it works…</p>
 
-<pre><code class="language-klipse-eval-js" data-async-code="true">
-function runBaz(iterations) {
-  function baz() {
-    if(--iterations === 0) {
-      console.log("done in: " + (new Date() - startZeroTimeout) + " msec")
-    }
-    else {
-      setZeroTimeout(baz);
-    }
-  }
-  baz();
+<h1 id="under-the-hood">Under the hood</h1>
+
+<p>The code snippet with <code class="language-plaintext highlighter-rouge">[hello "World"]</code> is not a regular <code class="language-plaintext highlighter-rouge">clojure</code> snippet: it’s a <code class="language-plaintext highlighter-rouge">reagent</code> snippet. Klipse wraps the last expression of the snippet in a call to <code class="language-plaintext highlighter-rouge">reagent.core/render-component</code> and passes to it the dom element that is right after the code snippet (a.k.a the klipsecontainer).</p>
+
+<p>Nothing magic, we can do it manually using a regular <code class="language-plaintext highlighter-rouge">clojure</code> snippet like this:</p>
+
+<pre><code class="language-klipse">(reagent.core/render-component [hello "World!"] js/klipse-container)
+</code></pre>
+
+<p>Each klipse snippets has a dom sibling associated to it and it is accessible by <code class="language-plaintext highlighter-rouge">js/klipse-container</code>.</p>
+
+<p>And if your component doesn’t require any argument, you even don’t need to wrap into into a vector - klipse will wrap it into a vector for you - this nice idea was emitted and implemented by <a href="https://twitter.com/timothypratley">Timothy Pratley</a>:</p>
+
+<pre><code class="language-reagent">(defn tim []
+  [:span "Timothy"])
+
+(defn hello-there []
+    [:p "Thanks " [tim]])
+</code></pre>
+
+<p>Now, for the fun, let’s take a look at a more interesting <code class="language-plaintext highlighter-rouge">reagent</code> component…</p>
+
+<h1 id="a-more-interesting-example-a-bmi-calculator">A more interesting example: A BMI calculator</h1>
+
+<p>Here is a nice example from <a href="http://reagent-project.github.io/">Reagent Website</a> that shows how to implement a BMI calculator with <code class="language-plaintext highlighter-rouge">reagent</code>:</p>
+
+<pre><code class="language-reagent">(def bmi-data (r/atom {:height 180 :weight 80}))
+
+(defn calc-bmi []
+  (let [{:keys [height weight bmi] :as data} @bmi-data
+        h (/ height 100)]
+    (if (nil? bmi)
+      (assoc data :bmi (/ weight (* h h)))
+      (assoc data :weight (* bmi h h)))))
+
+(defn slider [param value min max]
+  [:input {:type "range" :value value :min min :max max
+           :style {:width "100%"}
+           :on-change (fn [e]
+                        (swap! bmi-data assoc param (.-target.value e))
+                        (when (not= param :bmi)
+                          (swap! bmi-data assoc :bmi nil)))}])
+
+(defn bmi-component []
+  (let [{:keys [weight height bmi]} (calc-bmi)
+        [color diagnose] (cond
+                          (&lt; bmi 18.5) ["orange" "underweight"]
+                          (&lt; bmi 25) ["inherit" "normal"]
+                          (&lt; bmi 30) ["orange" "overweight"]
+                          :else ["red" "obese"])]
+    [:div
+     [:h3 "BMI calculator"]
+     [:div
+      "Height: " (int height) "cm"
+      [slider :height height 100 220]]
+     [:div
+      "Weight: " (int weight) "kg"
+      [slider :weight weight 30 150]]
+     [:div
+      "BMI: " (int bmi) " "
+      [:span {:style {:color color}} diagnose]
+      [slider :bmi bmi 10 50]]]))
+</code></pre>
+
+<h1 id="what-else-now">What else now?</h1>
+
+<p>Now, I’m expecting all the cool guys of the clojurecript community to write incredible blog posts with interactive reagent code snippets…</p>
+
+<p>If you haven’t done it already, please give a github star to <a href="https://github.com/reagent-project/reagent">reagent</a> and <a href="https://github.com/viebel/klipse">klipse</a>.</p>
+
+<h1 id="a-final-note">A final note</h1>
+
+<p>It is also possible to evaluate <code class="language-plaintext highlighter-rouge">reagent</code> code snippets in the browser with the great <a href="http://escherize.com/cljsfiddle/">CljsFiddle</a> by <a href="https://twitter.com/escherize">@escherize</a>.</p>
+
+<h1 id="a-last-final-note">A last final note</h1>
+
+<p>If you really want to become a reagent master, take a <a href="https://www.learnreframe.com/?ref=pjksj" target="_blank">video course on reagent</a>.</p>
+
+<style>
+
+.klipse-container:not(:empty):before {
+    content: "**** Rendered Component ****";
+    font-weight: bold;
+    font-family: monospace;
 }
 
-startZeroTimeout = new Date();
-console.log("OK");
-runBaz(100);
-</code></pre>
+</style>
 
-<p>By the way, what do you think about the interactive code snippets powered by <a href="https://github.com/viebel/klipse">KLIPSE</a>?</p>
+<script crossorigin="" src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
 
-<p>You might what to give a star on <a href="https://github.com/viebel/klipse">Github</a>…</p>
+<script crossorigin="" src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+
 
   </div>
 
@@ -271,9 +291,6 @@ runBaz(100);
 
 
 
-   window.klipse_settings.eval_idle_msec =
-3000;
-
 
 
 
@@ -287,7 +304,7 @@ runBaz(100);
 
 
 
-<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?v=8.0.1"></script>
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
 
 
 
@@ -373,9 +390,9 @@ runBaz(100);
     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
     */
     var disqus_config = function () {
-        this.page.url = "https://blog.klipse.tech/" + "/javascript/2016/10/31/setTimeout-0msec.html";
-        this.page.identifier = "07407DA4-151B-4AE0-AC13-779965B1E3B5";
-        this.page.title = "In javascript, setTimeout is forced to be >= 4 msec";
+        this.page.url = "https://blog.klipse.tech/" + "/reagent/2020/02/19/reagent-and-react-hooks.html";
+        this.page.identifier = "997E7297-EA98-4CF6-B225-F310264C6886";
+        this.page.title = "Reagent and react hooks";
     };
     (function() { // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');
@@ -393,32 +410,6 @@ runBaz(100);
       </div>
     </div>
     
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-75651930-1', 'auto');
-  
-  	ga('send', 'pageview', {'dimension1': 'Yehonathan Sharvit'});
-  
-
-  function timer11(){ga('send', 'event', 'TimeOnPage', '1', '11-30 seconds', { 'nonInteraction': 1 });}
-  function timer31(){ga('send', 'event', 'TimeOnPage', '2', '31-60 seconds', { 'nonInteraction': 1 });}
-  function timer61(){ga('send', 'event', 'TimeOnPage', '3', '61-180 seconds', { 'nonInteraction': 1 });}
-  function timer181(){ga('send', 'event', 'TimeOnPage', '4', '181-600 seconds', { 'nonInteraction': 1 });}
-  function timer601(){ga('send', 'event', 'TimeOnPage', '5', '601-1800 seconds', { 'nonInteraction': 1 });}
-  function timer1801(){ga('send', 'event', 'TimeOnPage', '6', '1801+ seconds', { 'nonInteraction': 1 });}
-  ga('send', 'event', 'TimeOnPage', '0', '0-10 seconds', { 'nonInteraction': 1 });
-  setTimeout(timer11,11000);
-  setTimeout(timer31,31000);
-  setTimeout(timer61,61000);
-  setTimeout(timer181,181000);
-  setTimeout(timer601,601000);
-  setTimeout(timer1801,1801000);
-</script>
 
 
   </body>

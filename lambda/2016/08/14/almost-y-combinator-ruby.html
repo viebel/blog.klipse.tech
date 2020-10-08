@@ -7,18 +7,18 @@
 
   <link rel="shortcut icon" href="/assets/favicon2.png">
 
-  <title>Interactive Business Report with Google Charts</title>
-  <meta name="description" content="Interactive Business Report with Google Charts">
+  <title>Recursions without names: Introduction to the Y combinator in ruby</title>
+  <meta name="description" content="Recursions without names: Introduction to the Y combinator in ruby">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="https://blog.klipse.tech//data/2017/03/15/google-charts.html">
+  <link rel="canonical" href="https://blog.klipse.tech//lambda/2016/08/14/almost-y-combinator-ruby.html">
   <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
 
   <!-- start: facebook -->
-  <meta property="og:title" content="Interactive Business Report with Google Charts">
+  <meta property="og:title" content="Recursions without names: Introduction to the Y combinator in ruby">
   <meta property="og:image" content="https://blog.klipse.tech/assets/klipse.png">
-  <meta property="og:description" content="Interactive Business Report with Google Charts">
+  <meta property="og:description" content="Recursions without names: Introduction to the Y combinator in ruby">
   <meta property="og:site_name" content="An interactive journey into functional programming with Yehonathan Sharvit">
   <meta property="article:author" content="Yehonathan Sharvit">
   <!-- end: facebook -->
@@ -83,8 +83,8 @@
       <img src="https://blog.klipse.tech/assets/klipse.png">
     </div>
     <div>
-      <h1 class="post-title" itemprop="name headline">Interactive Business Report with Google Charts</h1>
-      <p class="post-meta"><time datetime="2017-03-15T23:42:44+00:00" itemprop="datePublished">Mar 15, 2017</time>
+      <h1 class="post-title" itemprop="name headline">Recursions without names: Introduction to the Y combinator in ruby</h1>
+      <p class="post-meta"><time datetime="2016-08-14T02:22:53+03:00" itemprop="datePublished">Aug 14, 2016</time>
 	 •
 	<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Yehonathan Sharvit</span></span>
 	
@@ -93,110 +93,153 @@
 
   </header>
   <div class="post-content" itemprop="articleBody">
-    <h2 id="introduction">Introduction</h2>
+    <p>This is an introductory article to the <a href="https://en.wikipedia.org/wiki/Fixed-point_combinator">Y combinator</a> from <code class="language-plaintext highlighter-rouge">lambda-calculus</code>. But we won’t mention the <code class="language-plaintext highlighter-rouge">Y combinator</code> in this article.</p>
 
-<p>This article demonstrates how to create an interactive business report with data visualization widgets using <a href="https://github.com/viebel/klipse">Klipse</a>.</p>
+<p>This article is the first one of a serie about the Y combinator in <code class="language-plaintext highlighter-rouge">ruby</code>:</p>
 
-<p>Usually, there are two types of data-driven reports:</p>
+<ol>
+  <li><a href="/lambda/2016/08/14/almost-y-combinator-ruby.html">Recursions without names: Introduction to the Y combinator in ruby</a></li>
+  <li><a href="/lambda/2016/08/10/pure-y-combinator-ruby.html">The Y combinator in ruby</a></li>
+  <li><a href="/lambda/2016/08/14/y-combinator-app-ruby.html">Y combinator real life application: recursive memoization in ruby</a></li>
+</ol>
+
+<p>In this article, we are going to show how to write recursive functions in <code class="language-plaintext highlighter-rouge">ruby</code> without giving names to any function.</p>
+
+<p>(If you are curious to see it in other languages, there is <a href="/lambda/2016/08/07/almost-y-combinator.html">a version of the code</a> in <code class="language-plaintext highlighter-rouge">clojure</code> and <code class="language-plaintext highlighter-rouge">javascript</code>.)</p>
+
+<p>At first glance, it seems impossible: how could we refer to something that we are currently defining without using its name?</p>
+
+<p><img src="/assets/escher_hand.jpg" alt="Escher" /></p>
+
+<p>All the code snippets of this page are <strong>live</strong> and <strong>interactive</strong> powered by the <a href="https://github.com/viebel/klipse">klipse plugin</a>:</p>
+
+<ol>
+  <li><strong>Live</strong>: The code is executed in your browser</li>
+  <li><strong>Interactive</strong>: You can modify the code and it is evaluated as you type</li>
+</ol>
+
+<h2 id="begin-with-the-end-in-mind">Begin with the end in mind</h2>
+
+<p>The end result of this article is the recursive implementation of the <code class="language-plaintext highlighter-rouge">factorial</code> function without using neither names nor loops.</p>
+
+<p>Here is the code:</p>
+
+<pre><code class="language-klipse-eval-ruby">-&gt;(f){
+  f[f]
+  }[-&gt;(func){
+    -&gt;(n) { n == 0 ? 1 : n * func[func][n-1]}
+    }][19]
+</code></pre>
+
+<p>As you can check, no mention of any names.</p>
+
+<p>At first, it feels like magic.</p>
+
+<p>Now, we are going to show the 4 step process that leads to this wonderful piece of code.</p>
+
+<p>(We were inspired by this <a href="http://mvanier.livejournal.com/2897.html">long but awesome article</a> by <a href="http://users.cms.caltech.edu/~mvanier/">Mike Vanier</a>.)</p>
+
+<h2 id="the-process">The process</h2>
+
+<h1 id="step-0-recursive-function">Step 0: recursive function</h1>
+
+<p>Let’s start with the recursive implementation of <code class="language-plaintext highlighter-rouge">factorial</code>:</p>
+
+<pre><code class="language-klipse-eval-ruby">$factorial = -&gt;(n) {
+  (n === 0) ? 1 : n * $factorial[n - 1]
+    }
+$factorial[10]
+</code></pre>
+
+<h1 id="step-1-simple-generator">Step 1: simple generator</h1>
+
+<p>Let’s write a function that is a generator of the <code class="language-plaintext highlighter-rouge">factorial</code> function:</p>
+
+<pre><code class="language-klipse-eval-ruby">$factorial_gen = -&gt;(f) {
+  -&gt;(n) {(n === 0) ? 1 : n * f[n - 1]}
+    }
+nil
+</code></pre>
+
+<p>One one hand, <code class="language-plaintext highlighter-rouge">factorial_gen</code> is not recursive.</p>
+
+<p>On the other hand, <code class="language-plaintext highlighter-rouge">factorial_gen</code> is not the <code class="language-plaintext highlighter-rouge">factorial</code> function.</p>
+
+<p>But the interesting thing is that if we pass <code class="language-plaintext highlighter-rouge">factorial</code> to <code class="language-plaintext highlighter-rouge">factorial_gen</code> it returns the <code class="language-plaintext highlighter-rouge">factorial</code> function:</p>
+
+<pre><code class="language-klipse-eval-ruby">$factorial_gen[$factorial][19]
+</code></pre>
+
+<p>Before going on reading make sure you understand why it is true that:</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">$factorial_gen[factorial]</code> is equivalent to <code class="language-plaintext highlighter-rouge">$factorial</code></p>
+</blockquote>
+
+<h1 id="step-2-weird-generator">Step 2: weird generator</h1>
+
+<p>Now, we are going to do something very weird: instead of using <code class="language-plaintext highlighter-rouge">func</code>, we are going to use <code class="language-plaintext highlighter-rouge">(func func)</code>. Like this:</p>
+
+<pre><code class="language-klipse-eval-ruby">$factorial_weird = -&gt;(f) {
+  -&gt;(n) {(n === 0) ? 1 : n * f[f][n - 1]}
+    }
+nil
+</code></pre>
+
+<p>The funny thing now is that if we apply <code class="language-plaintext highlighter-rouge">factorial_weird</code> to itself we get the <code class="language-plaintext highlighter-rouge">factorial</code> function:</p>
+
+<pre><code class="language-klipse-eval-ruby">$factorial_weird[$factorial_weird][19]
+</code></pre>
+
+<p>Before going on reading make sure you understand why it is true that:</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">$factorial_weird[factorial_weird]</code> is equivalent to <code class="language-plaintext highlighter-rouge">factorial</code></p>
+</blockquote>
+
+<h1 id="step-3-recursion-without-names">Step 3: Recursion without names</h1>
+
+<p>Now, let’s write down the application of <code class="language-plaintext highlighter-rouge">factorial_weird</code> to itself, using the body of <code class="language-plaintext highlighter-rouge">factorial_weird</code> instead of its name:</p>
+
+<pre><code class="language-klipse-eval-ruby">$factorial_no_names = -&gt;(f) {
+      -&gt;(n) {(n === 0) ? 1 : n * f[f][n - 1]}
+        }[-&gt;(f) {
+      -&gt;(n) {(n === 0) ? 1 : n * f[f][n - 1]}
+        }]
+$factorial_no_names[19]
+</code></pre>
+
+<p>And we got a recursive implementation of <code class="language-plaintext highlighter-rouge">factorial</code> without using any names!</p>
+
+<p>We gave it a name just for the convenience of using it.</p>
+
+<p>As you can check, this is a completely valid implementation of <code class="language-plaintext highlighter-rouge">factorial</code>:</p>
+
+<pre><code class="language-klipse-eval-ruby">(1..11).map(&amp;$factorial_no_names).to_a
+</code></pre>
+
+<p>Do you understand why this is equivalent to the code we shown in the beginning of the article?</p>
+
+<pre><code class="language-klipse-eval-ruby">-&gt;(f){
+  f[f]
+  }[-&gt;(func){
+    -&gt;(n) { n == 0 ? 1 : n * func[func][n-1]}
+    }][19]
+</code></pre>
+
+<p>Can you write your own implementation of other recursive functions without names?</p>
+
+<p>Share in the comments your implementation for:</p>
 
 <ul>
-  <li>advanced reports written by Software Developers</li>
-  <li>Static reports written by Business Analysts with <em>static</em> screen shorts of the charts - generated in Excel for instance</li>
-  <li>Live reports written by Business Analysts hosted on data platforms like Jupyter</li>
+  <li>Fibonacci</li>
+  <li>Quicksort</li>
+  <li>max</li>
+  <li>min</li>
+  <li>…</li>
 </ul>
 
-<p><a href="https://github.com/viebel/klipse">Klipse</a> allows the author of a business report to get the full power of the javascript visualization libraries without requiring any help from a Software developer.</p>
-
-<p>For instance, in this article we will show how a Business Analyst can create interactive google charts widgets - simply by providing the specifications of the chart as a JSON object with threes keys:</p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">data</code>: the data of the chart as an array</li>
-  <li><code class="language-plaintext highlighter-rouge">options</code>: the options of the chart as a map.</li>
-  <li><code class="language-plaintext highlighter-rouge">chartType</code>: the Google chart type e.g. “Table”, “ComboChart”, “AreaChart” etc…</li>
-</ul>
-
-<h2 id="coffee-production-in-the-world">Coffee Production in the World</h2>
-
-<p>In this article, we use <a href="https://developers.google.com/chart/interactive/docs/">Google Charts</a> to visualize the coffee production in the world.</p>
-
-<p>Here is the data that we are going to use in this article: The production of coffee in million of cups by year and by country.</p>
-
-<p>The format of the data is a JSON array (in the future, we will support more formats like CSV and data coming from an HTTP endpoint).</p>
-
-<pre><code class="language-klipse-eval-js" data-async-code="true">
-window.coffeeData = [
-    ['Year', 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda', 'Average'],
-    ['2012',  165,      938,         522,             998,           450,      614.6],
-    ['2013',  135,      1120,        599,             1268,          288,      682],
-    ['2014',  157,      1167,        587,             807,           397,      623],
-    ['2015',  139,      1110,        615,             968,           215,      609.4],
-    ['2016',  136,      691,         629,             1026,          366,      569.6]
-  ]
-</code></pre>
-
-<p>When the reader modifies the data, the charts are updated immediately (give it a try)…</p>
-
-<h1 id="data-table">Data Table</h1>
-
-<p>First, let’s look at the data in a sortable data table - using a <a href="https://developers.google.com/chart/interactive/docs/gallery/table">Table chart</a>:</p>
-
-<pre><code class="language-google-chart" data-loop-msec="1000">
-{
-  dataTable: coffeeData,
-  options: {
-    showRowNumber: true,
-    width: '100%', 
-    height: '100%'
-  },
-  chartType: "Table"
-}
-
-</code></pre>
-
-<h1 id="combo-chart">Combo Chart</h1>
-
-<p>Now, let’s visualize the data with a <a href="https://developers.google.com/chart/interactive/docs/gallery/table">Combo chart</a>:</p>
-
-<p>(Feel free to modify the options - the chart will re-draw itself immediately…)</p>
-
-<pre><code class="language-google-chart" data-loop-msec="1000">
-{
-  dataTable: coffeeData,
-  options: {
-    title : 'Annual Coffee Production by Country',
-    legend: {position: 'top', maxLines: 3},	
-    vAxis: {title: 'Million of Cups'},
-    hAxis: {title: 'Year'},
-    seriesType: 'bars',
-	height: 500,
-    series: {5: {type: 'line'}}
-  },
-  chartType: "ComboChart"
-}
-</code></pre>
-
-<h1 id="area-chart">Area Chart</h1>
-
-<p>Let’s see if we get more interesting insights when we visualize the data as an <a href="https://developers.google.com/chart/interactive/docs/gallery/areachart">Area chart</a>:</p>
-
-<p>(Again, feel free to modify the options - the chart will re-draw itself immediately…)</p>
-
-<pre><code class="language-google-chart" data-loop-msec="1000">
-{
-  dataTable: coffeeData,
-  options: {
-    title : 'Annual Coffee Production by country',
-    hAxis: {title: 'Year'},
-    legend: {position: 'top', maxLines: 3},
-    vAxis: {minValue: 0, title: "Million of Cups"}
-  },
-  chartType: "AreaChart"
-}
-</code></pre>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<p>Let us know what you think about this interactive charts in the comments below…</p>
+<p>In our <a href="/lambda/2016/08/10/pure-y-combinator-ruby.html">next article</a>, we are going to show the Y combinator in action in <code class="language-plaintext highlighter-rouge">ruby</code>.</p>
 
 
   </div>
@@ -276,7 +319,7 @@ window.coffeeData = [
 
 
 
-<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?v=8.0.1"></script>
 
 
 
@@ -362,9 +405,9 @@ window.coffeeData = [
     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
     */
     var disqus_config = function () {
-        this.page.url = "https://blog.klipse.tech/" + "/data/2017/03/15/google-charts.html";
-        this.page.identifier = "1810818B-BCB5-4B58-AB6F-3A81CAF19318";
-        this.page.title = "Interactive Business Report with Google Charts";
+        this.page.url = "https://blog.klipse.tech/" + "/lambda/2016/08/14/almost-y-combinator-ruby.html";
+        this.page.identifier = "d8faa4da-61f9-11e6-82e6-600308a46268";
+        this.page.title = "Recursions without names: Introduction to the Y combinator in ruby";
     };
     (function() { // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');
@@ -382,32 +425,6 @@ window.coffeeData = [
       </div>
     </div>
     
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-75651930-1', 'auto');
-  
-  	ga('send', 'pageview', {'dimension1': 'Yehonathan Sharvit'});
-  
-
-  function timer11(){ga('send', 'event', 'TimeOnPage', '1', '11-30 seconds', { 'nonInteraction': 1 });}
-  function timer31(){ga('send', 'event', 'TimeOnPage', '2', '31-60 seconds', { 'nonInteraction': 1 });}
-  function timer61(){ga('send', 'event', 'TimeOnPage', '3', '61-180 seconds', { 'nonInteraction': 1 });}
-  function timer181(){ga('send', 'event', 'TimeOnPage', '4', '181-600 seconds', { 'nonInteraction': 1 });}
-  function timer601(){ga('send', 'event', 'TimeOnPage', '5', '601-1800 seconds', { 'nonInteraction': 1 });}
-  function timer1801(){ga('send', 'event', 'TimeOnPage', '6', '1801+ seconds', { 'nonInteraction': 1 });}
-  ga('send', 'event', 'TimeOnPage', '0', '0-10 seconds', { 'nonInteraction': 1 });
-  setTimeout(timer11,11000);
-  setTimeout(timer31,31000);
-  setTimeout(timer61,61000);
-  setTimeout(timer181,181000);
-  setTimeout(timer601,601000);
-  setTimeout(timer1801,1801000);
-</script>
 
 
   </body>
