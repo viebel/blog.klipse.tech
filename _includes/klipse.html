@@ -16,6 +16,9 @@
             lineWrapping: true
         },
         beautify_strings: true,
+{% if page.re_evaluate_all_snippets_on_change %}
+      re_evaluate_all_snippets_on_change: {{ page.re_evaluate_all_snippets_on_change }},
+{% endif %}
         selector: '.language-klipse, .language-eval-clj',
         selector_eval_js: '.language-klipse-eval-js, .language-eval-js, [data-lang=klipse-javascript]',
         selector_jsx: '.language-klipse-jsx',
