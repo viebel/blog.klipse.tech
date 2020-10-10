@@ -7,18 +7,18 @@
 
   <link rel="shortcut icon" href="/assets/favicon2.png">
 
-  <title>Fiverr demo: Funnel Visualization</title>
-  <meta name="description" content="Fiverr demo: Funnel Visualization">
+  <title>setInterval with limited number of iterations</title>
+  <meta name="description" content="setInterval with limited number of iterations">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="https://blog.klipse.tech//data/2017/04/27/fiverr-demo.html">
+  <link rel="canonical" href="https://blog.klipse.tech//javascript/2016/10/31/setIntervalX.html">
   <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
 
   <!-- start: facebook -->
-  <meta property="og:title" content="Fiverr demo: Funnel Visualization">
+  <meta property="og:title" content="setInterval with limited number of iterations">
   <meta property="og:image" content="https://blog.klipse.tech/assets/klipse.png">
-  <meta property="og:description" content="Fiverr demo: Funnel Visualization">
+  <meta property="og:description" content="setInterval with limited number of iterations">
   <meta property="og:site_name" content="An interactive journey into functional programming with Yehonathan Sharvit">
   <meta property="article:author" content="Yehonathan Sharvit">
   <!-- end: facebook -->
@@ -83,8 +83,8 @@
       <img src="https://blog.klipse.tech/assets/klipse.png">
     </div>
     <div>
-      <h1 class="post-title" itemprop="name headline">Fiverr demo: Funnel Visualization</h1>
-      <p class="post-meta"><time datetime="2017-04-27T02:22:44+03:00" itemprop="datePublished">Apr 27, 2017</time>
+      <h1 class="post-title" itemprop="name headline">setInterval with limited number of iterations</h1>
+      <p class="post-meta"><time datetime="2016-10-31T23:12:54+00:00" itemprop="datePublished">Oct 31, 2016</time>
 	 •
 	<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Yehonathan Sharvit</span></span>
 	
@@ -93,84 +93,40 @@
 
   </header>
   <div class="post-content" itemprop="articleBody">
-    <h2 id="introduction">Introduction</h2>
-
-<p>This article demonstrates how to create an interactive business report with data visualization widgets using <a href="https://github.com/viebel/klipse">Klipse</a> add Google Charts.</p>
-
-<p>Google chart is a solid and rich javascript library for visualization widgets. Be sure to check out <a href="https://developers.google.com/chart/interactive/docs/gallery">the Google chart Gallery</a>.</p>
-
-<p>We will visualize simulated data for a website conversion funnel.</p>
-
-<p>The data of the funnel is in this <a href="https://docs.google.com/spreadsheets/d/1kB4B4c0x11SNagYKmjI1ZpHYP-pQn1Hq_N6tlWaWg10/edit#gid=0">Google drive spreadsheet</a>.</p>
-
-<h2 id="raw-data-grouped-by-month">Raw data grouped by month</h2>
-
-<pre><code class="language-google-chart">{
-  chartType:'ColumnChart',
-  dataSourceUrl:'https://docs.google.com/spreadsheets/d/1kB4B4c0x11SNagYKmjI1ZpHYP-pQn1Hq_N6tlWaWg10/edit?usp=sharing',
-  query: 'select A, sum(B), sum(C), sum(D), sum(E) group by A',
-  refreshInterval: 5,
-  options: {
-    height: 400,
-  }
+    <pre><code class="language-klipse-eval-js">function printInterval (txt) {
+  document.getElementById("interval").innerText = txt;
 }
 </code></pre>
 
-<p>Modify the query parameter and the chart will update automagically…</p>
-
-<p>You can also modify the options.</p>
-
-<p>Check out the <a href="https://developers.google.com/chart/interactive/docs/gallery/columnchart">Bar chart guide</a> for more visulization options.</p>
-
-<h2 id="revenue-by-geography-for-january-2016">Revenue by Geography for January 2016</h2>
-
-<pre><code class="language-google-chart">{
-  chartType:'PieChart',
-  dataSourceUrl:'https://docs.google.com/spreadsheets/d/1kB4B4c0x11SNagYKmjI1ZpHYP-pQn1Hq_N6tlWaWg10/edit?usp=sharing',
-  query: "select F, sum(E) where A = 'Jan 2016' group by F ",
-  refreshInterval: 5,  
-  options: {
-    title: "Revenue by Geography",
-    height: 400, 
-  },
-}  
-</code></pre>
-
-<p>Modify the query parameter and the chart will update automagically…</p>
-
-<p>You can also modify the options.</p>
-
-<p>Check out the <a href="https://developers.google.com/chart/interactive/docs/gallery/piechart">Pie chart guide</a> for more visulization options.</p>
-
-<h2 id="conversion-rate-by-region">Conversion rate by region</h2>
-
-<pre><code class="language-google-chart">{
-  chartType:'ColumnChart',
-  dataSourceUrl:'https://docs.google.com/spreadsheets/d/1kB4B4c0x11SNagYKmjI1ZpHYP-pQn1Hq_N6tlWaWg10/edit?usp=sharing',
-  query: "select F, sum(D)/sum(B)  where A = 'Jan 2016' group by F ",
-  refreshInterval: 5,  
-  options: {
-    title: 'Conversion rate by Region',
-    series: [
-      {color: 'orange', visibleInLegend: false,},
-    ],
-    height: 400,
-    vAxis: {
-      format: "#,##0.00%",
-      title: 'conversion rate'
-    },
-    xAxis: {
-      title: 'Region'
+<pre><div class="language-klipse-eval-js">
+setIntervalX = function (callback, delay, repetitions, onCompleted) {
+  var x = 0;
+  var intervalID = window.setInterval(function () {
+    callback();
+    if (++x === repetitions) {
+      window.clearInterval(intervalID);
+      if(onCompleted) {
+        onCompleted();
+      }
     }
-  } 
+  }, delay);
 }
-</code></pre>
 
-<p>Modify the query parameter and the chart will update automagically…</p>
 
-<p>You can also modify the options.</p>
+let startInterval = new Date();
+printInterval("Start");
 
-<p>Check out the <a href="https://developers.google.com/chart/interactive/docs/gallery/columnchart">Bar chart guide</a> for more visulization options.</p>
+setIntervalX(function(){},
+             0,
+             100,
+             function() {
+  printInterval("done in: " + (new Date() - startInterval) + " msec");
+});
+</div><div id="interval">Empty</div></pre>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>What do you think about the interactive code snippets powered by <a href="https://github.com/viebel/klipse">KLIPSE</a>?</p>
 
 
   </div>
@@ -237,6 +193,9 @@
 
 
 
+   window.klipse_settings.eval_idle_msec =
+5000;
+
 
 
 
@@ -250,7 +209,7 @@
 
 
 
-<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?v=8.0.1"></script>
 
 
 
@@ -336,9 +295,9 @@
     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
     */
     var disqus_config = function () {
-        this.page.url = "https://blog.klipse.tech/" + "/data/2017/04/27/fiverr-demo.html";
-        this.page.identifier = "380CE61C-4E0D-4FC6-8310-85F236305B24";
-        this.page.title = "Fiverr demo: Funnel Visualization";
+        this.page.url = "https://blog.klipse.tech/" + "/javascript/2016/10/31/setIntervalX.html";
+        this.page.identifier = "53BC6A1A-BA1B-4527-A2B2-FF741CF4C9EE";
+        this.page.title = "setInterval with limited number of iterations";
     };
     (function() { // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');
@@ -356,6 +315,32 @@
       </div>
     </div>
     
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-75651930-1', 'auto');
+  
+  	ga('send', 'pageview', {'dimension1': 'Yehonathan Sharvit'});
+  
+
+  function timer11(){ga('send', 'event', 'TimeOnPage', '1', '11-30 seconds', { 'nonInteraction': 1 });}
+  function timer31(){ga('send', 'event', 'TimeOnPage', '2', '31-60 seconds', { 'nonInteraction': 1 });}
+  function timer61(){ga('send', 'event', 'TimeOnPage', '3', '61-180 seconds', { 'nonInteraction': 1 });}
+  function timer181(){ga('send', 'event', 'TimeOnPage', '4', '181-600 seconds', { 'nonInteraction': 1 });}
+  function timer601(){ga('send', 'event', 'TimeOnPage', '5', '601-1800 seconds', { 'nonInteraction': 1 });}
+  function timer1801(){ga('send', 'event', 'TimeOnPage', '6', '1801+ seconds', { 'nonInteraction': 1 });}
+  ga('send', 'event', 'TimeOnPage', '0', '0-10 seconds', { 'nonInteraction': 1 });
+  setTimeout(timer11,11000);
+  setTimeout(timer31,31000);
+  setTimeout(timer61,61000);
+  setTimeout(timer181,181000);
+  setTimeout(timer601,601000);
+  setTimeout(timer1801,1801000);
+</script>
 
 
   </body>

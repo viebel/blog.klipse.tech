@@ -7,18 +7,18 @@
 
   <link rel="shortcut icon" href="/assets/favicon2.png">
 
-  <title>setInterval with limited number of iterations</title>
-  <meta name="description" content="setInterval with limited number of iterations">
+  <title>Dead code elimination in clojurescript</title>
+  <meta name="description" content="A simple example of dead code elimination in clojurescript, using KLIPSE">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="https://blog.klipse.tech//javascript/2016/11/01/setIntervalX.html">
+  <link rel="canonical" href="https://blog.klipse.tech//clojure/2016/03/23/dead-code-elimination.html">
   <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
 
   <!-- start: facebook -->
-  <meta property="og:title" content="setInterval with limited number of iterations">
+  <meta property="og:title" content="Dead code elimination in clojurescript">
   <meta property="og:image" content="https://blog.klipse.tech/assets/klipse.png">
-  <meta property="og:description" content="setInterval with limited number of iterations">
+  <meta property="og:description" content="A simple example of dead code elimination in clojurescript, using KLIPSE">
   <meta property="og:site_name" content="An interactive journey into functional programming with Yehonathan Sharvit">
   <meta property="article:author" content="Yehonathan Sharvit">
   <!-- end: facebook -->
@@ -83,8 +83,8 @@
       <img src="https://blog.klipse.tech/assets/klipse.png">
     </div>
     <div>
-      <h1 class="post-title" itemprop="name headline">setInterval with limited number of iterations</h1>
-      <p class="post-meta"><time datetime="2016-11-01T01:12:54+02:00" itemprop="datePublished">Nov 1, 2016</time>
+      <h1 class="post-title" itemprop="name headline">Dead code elimination in clojurescript</h1>
+      <p class="post-meta"><time datetime="2016-03-23T22:25:46+00:00" itemprop="datePublished">Mar 23, 2016</time>
 	 •
 	<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Yehonathan Sharvit</span></span>
 	
@@ -93,40 +93,31 @@
 
   </header>
   <div class="post-content" itemprop="articleBody">
-    <pre><code class="language-klipse-eval-js">function printInterval (txt) {
-  document.getElementById("interval").innerText = txt;
-}
+    <p>Do you see any substantial difference between the two pieces of code below?</p>
+
+<p><strong>Code #1:</strong></p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><strong>Code #2:</strong></p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">def</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="p">))</span><span class="w">
+</span></code></pre></div></div>
+
+<p>They seem to be quite the same, so you’d expect their js transpiled code to be the same.</p>
+
+<p>Let’s check it with <a href="http://app.klipse.tech?js_only=1&amp;cljs_in=(if%202%203)%0A(def%20x%20(if%202%203))">KLIPSE</a>:</p>
+
+<pre><code class="language-klipse-js">(if 2 3)
+(def x (if 2 3))
 </code></pre>
 
-<pre><div class="language-klipse-eval-js">
-setIntervalX = function (callback, delay, repetitions, onCompleted) {
-  var x = 0;
-  var intervalID = window.setInterval(function () {
-    callback();
-    if (++x === repetitions) {
-      window.clearInterval(intervalID);
-      if(onCompleted) {
-        onCompleted();
-      }
-    }
-  }, delay);
-}
+<p>Do you see what’s going on here?</p>
 
+<p><strong>Code #1</strong> is completely dead code no matter what code will come after it. Therefore it has been completly eliminated by the cljs transpiler!</p>
 
-let startInterval = new Date();
-printInterval("Start");
-
-setIntervalX(function(){},
-             0,
-             100,
-             function() {
-  printInterval("done in: " + (new Date() - startInterval) + " msec");
-});
-</div><div id="interval">Empty</div></pre>
-
-<h1 id="conclusion">Conclusion</h1>
-
-<p>What do you think about the interactive code snippets powered by <a href="https://github.com/viebel/klipse">KLIPSE</a>?</p>
+<p>Feel free to continue to play with dead code with <a href="http://app.klipse.tech?js_only=1&amp;cljs_in=(if%202%203)%0A(def%20x%20(if%202%203))">KLIPSE</a>.</p>
 
 
   </div>
@@ -193,9 +184,6 @@ setIntervalX(function(){},
 
 
 
-   window.klipse_settings.eval_idle_msec =
-5000;
-
 
 
 
@@ -209,7 +197,7 @@ setIntervalX(function(){},
 
 
 
-<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?v=8.0.1"></script>
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
 
 
 
@@ -295,9 +283,9 @@ setIntervalX(function(){},
     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
     */
     var disqus_config = function () {
-        this.page.url = "https://blog.klipse.tech/" + "/javascript/2016/11/01/setIntervalX.html";
-        this.page.identifier = "53BC6A1A-BA1B-4527-A2B2-FF741CF4C9EE";
-        this.page.title = "setInterval with limited number of iterations";
+        this.page.url = "https://blog.klipse.tech/" + "/clojure/2016/03/23/dead-code-elimination.html";
+        this.page.identifier = "";
+        this.page.title = "Dead code elimination in clojurescript";
     };
     (function() { // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');
@@ -315,6 +303,32 @@ setIntervalX(function(){},
       </div>
     </div>
     
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-75651930-1', 'auto');
+  
+  	ga('send', 'pageview', {'dimension1': 'Yehonathan Sharvit'});
+  
+
+  function timer11(){ga('send', 'event', 'TimeOnPage', '1', '11-30 seconds', { 'nonInteraction': 1 });}
+  function timer31(){ga('send', 'event', 'TimeOnPage', '2', '31-60 seconds', { 'nonInteraction': 1 });}
+  function timer61(){ga('send', 'event', 'TimeOnPage', '3', '61-180 seconds', { 'nonInteraction': 1 });}
+  function timer181(){ga('send', 'event', 'TimeOnPage', '4', '181-600 seconds', { 'nonInteraction': 1 });}
+  function timer601(){ga('send', 'event', 'TimeOnPage', '5', '601-1800 seconds', { 'nonInteraction': 1 });}
+  function timer1801(){ga('send', 'event', 'TimeOnPage', '6', '1801+ seconds', { 'nonInteraction': 1 });}
+  ga('send', 'event', 'TimeOnPage', '0', '0-10 seconds', { 'nonInteraction': 1 });
+  setTimeout(timer11,11000);
+  setTimeout(timer31,31000);
+  setTimeout(timer61,61000);
+  setTimeout(timer181,181000);
+  setTimeout(timer601,601000);
+  setTimeout(timer1801,1801000);
+</script>
 
 
   </body>

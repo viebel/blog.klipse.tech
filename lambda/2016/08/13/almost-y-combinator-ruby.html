@@ -7,18 +7,18 @@
 
   <link rel="shortcut icon" href="/assets/favicon2.png">
 
-  <title>Reagent Forms Tutorial</title>
-  <meta name="description" content="Gallery of reagent forms">
+  <title>Recursions without names: Introduction to the Y combinator in ruby</title>
+  <meta name="description" content="Recursions without names: Introduction to the Y combinator in ruby">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="https://blog.klipse.tech//reagent/2017/03/12/reagent-forms.html">
+  <link rel="canonical" href="https://blog.klipse.tech//lambda/2016/08/13/almost-y-combinator-ruby.html">
   <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
 
   <!-- start: facebook -->
-  <meta property="og:title" content="Reagent Forms Tutorial">
+  <meta property="og:title" content="Recursions without names: Introduction to the Y combinator in ruby">
   <meta property="og:image" content="https://blog.klipse.tech/assets/klipse.png">
-  <meta property="og:description" content="Gallery of reagent forms">
+  <meta property="og:description" content="Recursions without names: Introduction to the Y combinator in ruby">
   <meta property="og:site_name" content="An interactive journey into functional programming with Yehonathan Sharvit">
   <meta property="article:author" content="Yehonathan Sharvit">
   <!-- end: facebook -->
@@ -83,8 +83,8 @@
       <img src="https://blog.klipse.tech/assets/klipse.png">
     </div>
     <div>
-      <h1 class="post-title" itemprop="name headline">Reagent Forms Tutorial</h1>
-      <p class="post-meta"><time datetime="2017-03-12T00:42:44+02:00" itemprop="datePublished">Mar 12, 2017</time>
+      <h1 class="post-title" itemprop="name headline">Recursions without names: Introduction to the Y combinator in ruby</h1>
+      <p class="post-meta"><time datetime="2016-08-13T23:22:53+00:00" itemprop="datePublished">Aug 13, 2016</time>
 	 •
 	<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Yehonathan Sharvit</span></span>
 	
@@ -93,189 +93,153 @@
 
   </header>
   <div class="post-content" itemprop="articleBody">
-    <h1 id="hello-world">Hello World!</h1>
+    <p>This is an introductory article to the <a href="https://en.wikipedia.org/wiki/Fixed-point_combinator">Y combinator</a> from <code class="language-plaintext highlighter-rouge">lambda-calculus</code>. But we won’t mention the <code class="language-plaintext highlighter-rouge">Y combinator</code> in this article.</p>
 
-<pre><code class="language-klipse">(ns my.playground
-  (:require [reagent.core :as r]
-            [reagent-forms.core :refer [bind-fields]]))
+<p>This article is the first one of a serie about the Y combinator in <code class="language-plaintext highlighter-rouge">ruby</code>:</p>
+
+<ol>
+  <li><a href="/lambda/2016/08/13/almost-y-combinator-ruby.html">Recursions without names: Introduction to the Y combinator in ruby</a></li>
+  <li><a href="/lambda/2016/08/10/pure-y-combinator-ruby.html">The Y combinator in ruby</a></li>
+  <li><a href="/lambda/2016/08/14/y-combinator-app-ruby.html">Y combinator real life application: recursive memoization in ruby</a></li>
+</ol>
+
+<p>In this article, we are going to show how to write recursive functions in <code class="language-plaintext highlighter-rouge">ruby</code> without giving names to any function.</p>
+
+<p>(If you are curious to see it in other languages, there is <a href="/lambda/2016/08/07/almost-y-combinator.html">a version of the code</a> in <code class="language-plaintext highlighter-rouge">clojure</code> and <code class="language-plaintext highlighter-rouge">javascript</code>.)</p>
+
+<p>At first glance, it seems impossible: how could we refer to something that we are currently defining without using its name?</p>
+
+<p><img src="/assets/escher_hand.jpg" alt="Escher" /></p>
+
+<p>All the code snippets of this page are <strong>live</strong> and <strong>interactive</strong> powered by the <a href="https://github.com/viebel/klipse">klipse plugin</a>:</p>
+
+<ol>
+  <li><strong>Live</strong>: The code is executed in your browser</li>
+  <li><strong>Interactive</strong>: You can modify the code and it is evaluated as you type</li>
+</ol>
+
+<h2 id="begin-with-the-end-in-mind">Begin with the end in mind</h2>
+
+<p>The end result of this article is the recursive implementation of the <code class="language-plaintext highlighter-rouge">factorial</code> function without using neither names nor loops.</p>
+
+<p>Here is the code:</p>
+
+<pre><code class="language-klipse-eval-ruby">-&gt;(f){
+  f[f]
+  }[-&gt;(func){
+    -&gt;(n) { n == 0 ? 1 : n * func[func][n-1]}
+    }][19]
 </code></pre>
 
-<pre><code class="language-klipse">
-(defn row [label input]
-  [:div.row
-   [:div.col-md-2 [:label label]]
-   [:div.col-md-5 input]])
+<p>As you can check, no mention of any names.</p>
 
-(defn radio [label name value]
-  [:div.radio
-   [:label
-    [:input {:field :radio :name name :value value}]
-    label]])
+<p>At first, it feels like magic.</p>
 
-(defn input [label type id]
-  (row label [:input.form-control {:field type :id id}]))
+<p>Now, we are going to show the 4 step process that leads to this wonderful piece of code.</p>
 
-(def form-template
-  [:div
-   (input "first name" :text :person.first-name)
-   [:div.row
-    [:div.col-md-2]
-    [:div.col-md-5
-     [:div.alert.alert-danger
-      {:field :alert :id :errors.first-name}]]]
+<p>(We were inspired by this <a href="http://mvanier.livejournal.com/2897.html">long but awesome article</a> by <a href="http://users.cms.caltech.edu/~mvanier/">Mike Vanier</a>.)</p>
 
-   (input "last name" :text :person.last-name)
-   [:div.row
-    [:div.col-md-2]
-    [:div.col-md-5
-     [:div.alert.alert-success
-      {:field :alert :id :person.last-name :event empty?}
-      "last name is empty!"]]]
+<h2 id="the-process">The process</h2>
 
-   (input "email" :email :person.email)
-   (row
-     "comments"
-     [:textarea.form-control
-      {:field :textarea :id :comments}])
+<h1 id="step-0-recursive-function">Step 0: recursive function</h1>
 
-   [:hr]
+<p>Let’s start with the recursive implementation of <code class="language-plaintext highlighter-rouge">factorial</code>:</p>
 
-
-   (input "kg" :numeric :weight-kg)
-   (input "lb" :numeric :weight-lb)
-
-   [:hr]
-   [:div.row
-    [:div.col-md-5 [:label "date of birth"]]]
-
-   [:div.row
-    [:div.col-md-7
-     [:div {:field :datepicker
-            :auto-close? true
-            :id :dob
-            :date-format "yyyy/mm/dd"
-            :inline true}]]]
-   [:hr]
-
-   [:h3 "BMI Calculator"]
-   (input "height" :numeric :height)
-   (input "weight" :numeric :weight)
-   (row "BMI"
-        [:input.form-control
-         {:field :numeric :fmt "%.2f" :id :bmi :disabled true}])
-   [:hr]
-
-   (row "isn't data binding lovely?"
-        [:input {:field :checkbox :id :databinding.lovely}])
-   [:label
-    {:field :label
-     :preamble "The level of awesome: "
-     :placeholder "N/A"
-     :id :awesomeness}]
-
-   [:input {:field :range :min 1 :max 10 :id :awesomeness}]
-
-   [:h3 "option list"]
-   [:div.form-group
-    [:label "pick an option"]
-    [:select.form-control {:field :list :id :many.options}
-     [:option {:key :foo} "foo"]
-     [:option {:key :bar} "bar"]
-     [:option {:key :baz} "baz"]]]
-
-   (radio
-     "Option one is this and that—be sure to include why it's great"
-     :foo :a)
-   (radio
-     "Option is something else, selecting it will deselect option one"
-     :foo :b)
-
-   [:h3 "multi-select buttons"]
-   [:div.btn-group {:field :multi-select :id :every.position}
-    [:button.btn.btn-default {:key :left} "Left"]
-    [:button.btn.btn-default {:key :middle} "Middle"]
-    [:button.btn.btn-default {:key :right} "Right"]]
-
-   [:h3 "single-select buttons"]
-   [:div.btn-group {:field :single-select :id :unique.position}
-    [:button.btn.btn-default {:key :left} "Left"]
-    [:button.btn.btn-default {:key :middle} "Middle"]
-    [:button.btn.btn-default {:key :right} "Right"]]
-
-   [:h3 "single-select list"]
-   [:div.list-group {:field :single-select :id :pick-one}
-    [:div.list-group-item {:key :foo} "foo"]
-    [:div.list-group-item {:key :bar} "bar"]
-    [:div.list-group-item {:key :baz} "baz"]]
-
-   [:h3 "multi-select list"]
-   [:ul.list-group {:field :multi-select :id :pick-a-few}
-    [:li.list-group-item {:key :foo} "foo"]
-    [:li.list-group-item {:key :bar} "bar"]
-    [:li.list-group-item {:key :baz} "baz"]]])
-
-
-
-
-(defn weight-translation
-  [[id] value {:keys [weight-lb weight-kg] :as document}]
-  (cond
-    (= id :weight-lb)
-    (assoc document :weight-kg (/ value 2.2046))
-    (= id :weight-kg)
-    (assoc document :weight-lb (* value 2.2046))
-    :else nil))
-
-(defn bmi-calculation
-  [[id] value {:keys [height weight] :as document}]
-  (when (and (some #{id} [:height :weight]) weight height)
-    (assoc document :bmi (/ weight (* height height)))))
-
-(defn page []
-  (let [doc
-        (atom {:person {:first-name "Johnat"
-                        :age 35
-                        :email "foo@bar.baz"}
-               :weight 100
-               :height 200
-               :comments "some interesting comments
-               on this subject"
-               :radioselection :b
-               :position [:left :right]
-               :pick-one :bar
-               :unique {:position :middle}
-               :pick-a-few [:bar :baz]
-               :many {:options :bar}})]
-    (fn []
-      [:div
-       [:div.padding]
-
-       [:div.page-header [:h1 "Sample Form"]]
-
-       [:div
-        [bind-fields
-         form-template
-         doc
-         bmi-calculation
-         weight-translation]
-
-        [:button.btn.btn-default
-         {:on-click
-          #(if (empty? (get-in @doc [:person :first-name]))
-             (swap! doc assoc-in [:errors :first-name]
-                    "first name is empty"))}
-         "save"]]])))
+<pre><code class="language-klipse-eval-ruby">$factorial = -&gt;(n) {
+  (n === 0) ? 1 : n * $factorial[n - 1]
+    }
+$factorial[10]
 </code></pre>
 
-<pre><code class="language-reagent">[:div 
-   (input "name" :numeric :name)
-   (input "number of kids" :numeric :kids)]
+<h1 id="step-1-simple-generator">Step 1: simple generator</h1>
+
+<p>Let’s write a function that is a generator of the <code class="language-plaintext highlighter-rouge">factorial</code> function:</p>
+
+<pre><code class="language-klipse-eval-ruby">$factorial_gen = -&gt;(f) {
+  -&gt;(n) {(n === 0) ? 1 : n * f[n - 1]}
+    }
+nil
 </code></pre>
 
-<pre><code class="language-reagent">[page]
+<p>One one hand, <code class="language-plaintext highlighter-rouge">factorial_gen</code> is not recursive.</p>
+
+<p>On the other hand, <code class="language-plaintext highlighter-rouge">factorial_gen</code> is not the <code class="language-plaintext highlighter-rouge">factorial</code> function.</p>
+
+<p>But the interesting thing is that if we pass <code class="language-plaintext highlighter-rouge">factorial</code> to <code class="language-plaintext highlighter-rouge">factorial_gen</code> it returns the <code class="language-plaintext highlighter-rouge">factorial</code> function:</p>
+
+<pre><code class="language-klipse-eval-ruby">$factorial_gen[$factorial][19]
 </code></pre>
 
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+<p>Before going on reading make sure you understand why it is true that:</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">$factorial_gen[factorial]</code> is equivalent to <code class="language-plaintext highlighter-rouge">$factorial</code></p>
+</blockquote>
+
+<h1 id="step-2-weird-generator">Step 2: weird generator</h1>
+
+<p>Now, we are going to do something very weird: instead of using <code class="language-plaintext highlighter-rouge">func</code>, we are going to use <code class="language-plaintext highlighter-rouge">(func func)</code>. Like this:</p>
+
+<pre><code class="language-klipse-eval-ruby">$factorial_weird = -&gt;(f) {
+  -&gt;(n) {(n === 0) ? 1 : n * f[f][n - 1]}
+    }
+nil
+</code></pre>
+
+<p>The funny thing now is that if we apply <code class="language-plaintext highlighter-rouge">factorial_weird</code> to itself we get the <code class="language-plaintext highlighter-rouge">factorial</code> function:</p>
+
+<pre><code class="language-klipse-eval-ruby">$factorial_weird[$factorial_weird][19]
+</code></pre>
+
+<p>Before going on reading make sure you understand why it is true that:</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">$factorial_weird[factorial_weird]</code> is equivalent to <code class="language-plaintext highlighter-rouge">factorial</code></p>
+</blockquote>
+
+<h1 id="step-3-recursion-without-names">Step 3: Recursion without names</h1>
+
+<p>Now, let’s write down the application of <code class="language-plaintext highlighter-rouge">factorial_weird</code> to itself, using the body of <code class="language-plaintext highlighter-rouge">factorial_weird</code> instead of its name:</p>
+
+<pre><code class="language-klipse-eval-ruby">$factorial_no_names = -&gt;(f) {
+      -&gt;(n) {(n === 0) ? 1 : n * f[f][n - 1]}
+        }[-&gt;(f) {
+      -&gt;(n) {(n === 0) ? 1 : n * f[f][n - 1]}
+        }]
+$factorial_no_names[19]
+</code></pre>
+
+<p>And we got a recursive implementation of <code class="language-plaintext highlighter-rouge">factorial</code> without using any names!</p>
+
+<p>We gave it a name just for the convenience of using it.</p>
+
+<p>As you can check, this is a completely valid implementation of <code class="language-plaintext highlighter-rouge">factorial</code>:</p>
+
+<pre><code class="language-klipse-eval-ruby">(1..11).map(&amp;$factorial_no_names).to_a
+</code></pre>
+
+<p>Do you understand why this is equivalent to the code we shown in the beginning of the article?</p>
+
+<pre><code class="language-klipse-eval-ruby">-&gt;(f){
+  f[f]
+  }[-&gt;(func){
+    -&gt;(n) { n == 0 ? 1 : n * func[func][n-1]}
+    }][19]
+</code></pre>
+
+<p>Can you write your own implementation of other recursive functions without names?</p>
+
+<p>Share in the comments your implementation for:</p>
+
+<ul>
+  <li>Fibonacci</li>
+  <li>Quicksort</li>
+  <li>max</li>
+  <li>min</li>
+  <li>…</li>
+</ul>
+
+<p>In our <a href="/lambda/2016/08/10/pure-y-combinator-ruby.html">next article</a>, we are going to show the Y combinator in action in <code class="language-plaintext highlighter-rouge">ruby</code>.</p>
 
 
   </div>
@@ -355,7 +319,7 @@
 
 
 
-<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?v=8.0.1"></script>
 
 
 
@@ -441,9 +405,9 @@
     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
     */
     var disqus_config = function () {
-        this.page.url = "https://blog.klipse.tech/" + "/reagent/2017/03/12/reagent-forms.html";
-        this.page.identifier = "DCB1C486-06AB-4E52-A1CF-5E481884EB80";
-        this.page.title = "Reagent Forms Tutorial";
+        this.page.url = "https://blog.klipse.tech/" + "/lambda/2016/08/13/almost-y-combinator-ruby.html";
+        this.page.identifier = "d8faa4da-61f9-11e6-82e6-600308a46268";
+        this.page.title = "Recursions without names: Introduction to the Y combinator in ruby";
     };
     (function() { // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');
@@ -461,6 +425,32 @@
       </div>
     </div>
     
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-75651930-1', 'auto');
+  
+  	ga('send', 'pageview', {'dimension1': 'Yehonathan Sharvit'});
+  
+
+  function timer11(){ga('send', 'event', 'TimeOnPage', '1', '11-30 seconds', { 'nonInteraction': 1 });}
+  function timer31(){ga('send', 'event', 'TimeOnPage', '2', '31-60 seconds', { 'nonInteraction': 1 });}
+  function timer61(){ga('send', 'event', 'TimeOnPage', '3', '61-180 seconds', { 'nonInteraction': 1 });}
+  function timer181(){ga('send', 'event', 'TimeOnPage', '4', '181-600 seconds', { 'nonInteraction': 1 });}
+  function timer601(){ga('send', 'event', 'TimeOnPage', '5', '601-1800 seconds', { 'nonInteraction': 1 });}
+  function timer1801(){ga('send', 'event', 'TimeOnPage', '6', '1801+ seconds', { 'nonInteraction': 1 });}
+  ga('send', 'event', 'TimeOnPage', '0', '0-10 seconds', { 'nonInteraction': 1 });
+  setTimeout(timer11,11000);
+  setTimeout(timer31,31000);
+  setTimeout(timer61,61000);
+  setTimeout(timer181,181000);
+  setTimeout(timer601,601000);
+  setTimeout(timer1801,1801000);
+</script>
 
 
   </body>
