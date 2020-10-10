@@ -7,4 +7,9 @@ Rake::Jekyll::GitDeployTask.new(:deploy) do |t|
   t.deploy_branch = -> {
     'gh-pages'
   }
+  t.build_script = ->(dest_dir) {
+    puts "\nRunning Jekyll..."
+    sh "bundle exec jekyll build --destination #{dest_dir}"
+    sh "cp CNAME  #{dest_dir}"
+  }
 end
