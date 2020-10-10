@@ -102,7 +102,7 @@ When data equality is defined by value, we can specify the expected return value
 
 Let's write a "unit test" for a function that returns a (immutable) map with the full name of an author
 
-Here is the code for `addFullName`, using `R.assoc` from Ramda.js as we showed in  link:{% post_url 2020-10-02-immutable-data %}[Principle #3: Data is immutable].
+Here is the code for `addFullName`, using the `set` function from Immutable.js as we showed in link:{% post_url 2020-10-02-immutable-data %}[Principle #3: Data is immutable].
 
 [source, klipse-javascript]
 ----
