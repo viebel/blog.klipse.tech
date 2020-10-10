@@ -10,6 +10,6 @@ Rake::Jekyll::GitDeployTask.new(:deploy) do |t|
   t.build_script = ->(dest_dir) {
     puts "\nRunning Jekyll..."
     sh "bundle exec jekyll build --destination #{dest_dir}"
-    sh "echo blog.klipse.tech > CNAME"
+    sh "echo blog.klipse.tech > #{dest_dir}/CNAME"
   }
 end
