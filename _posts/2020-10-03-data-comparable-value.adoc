@@ -108,8 +108,7 @@ Here is the code for `addFullName`, using the `set` function from Immutable.js a
 ----
 function addFullName(data) {
   return data.set("fullName",
-          data.firstName + " " + data.lastName,
-          data);
+                  data.get('firstName') + " " + data.get('lastName'));
 }
 ----
 
