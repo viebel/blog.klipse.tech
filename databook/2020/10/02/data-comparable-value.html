@@ -255,8 +255,7 @@ Immutable.is(a, b);</code></pre>
 <div class="content">
 <pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">function addFullName(data) {
   return data.set("fullName",
-          data.firstName + " " + data.lastName,
-          data);
+                  data.get('firstName') + " " + data.get('lastName'));
 }</code></pre>
 </div>
 </div>
