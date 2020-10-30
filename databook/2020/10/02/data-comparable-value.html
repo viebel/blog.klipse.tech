@@ -11,6 +11,7 @@
   <meta name="description" content="Principles of Data Oriented Programming. Principle">
 
   <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/asciidoc-pygments.css">
   <link rel="canonical" href="https://blog.klipse.tech//databook/2020/10/02/data-comparable-value.html">
   <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
@@ -192,15 +193,15 @@ Principle #4: Data collections are considered to be equal if they represent the 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var a = [1];
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var a = [1];
 var b = [1];
 a === b;</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var a = {username: "foo"};
-var b = {username: "foo"};
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var a = {username: &quot;foo&quot;};
+var b = {username: &quot;foo&quot;};
 a === b;</code></pre>
 </div>
 </div>
@@ -210,15 +211,15 @@ a === b;</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var a = Immutable.List([1]);
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var a = Immutable.List([1]);
 var b = Immutable.List([1]);
 Immutable.is(a, b);</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var a = Immutable.Map({username: "foo"});
-var b = Immutable.Map({username: "foo"});
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var a = Immutable.Map({username: &quot;foo&quot;});
+var b = Immutable.Map({username: &quot;foo&quot;});
 Immutable.is(a, b);</code></pre>
 </div>
 </div>
@@ -253,9 +254,9 @@ Immutable.is(a, b);</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">function addFullName(data) {
-  return data.set("fullName",
-                  data.get('firstName') + " " + data.get('lastName'));
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>function addFullName(data) {
+  return data.set(&quot;fullName&quot;,
+                  data.get(&#39;firstName&#39;) + &quot; &quot; + data.get(&#39;lastName&#39;));
 }</code></pre>
 </div>
 </div>
@@ -264,11 +265,11 @@ Immutable.is(a, b);</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var isaac = Immutable.Map({firstName: "Isaac", lastName: "Asimov"});
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var isaac = Immutable.Map({firstName: &quot;Isaac&quot;, lastName: &quot;Asimov&quot;});
 var enrichedIsaac = addFullName(isaac);
-enrichedIsaac.get("firstName") === "Isaac" &amp;&amp;
-  enrichedIsaac.get("lastName") === "Asimov" &amp;&amp;
-  enrichedIsaac.get("fullName") === "Isaac Asimov";</code></pre>
+enrichedIsaac.get(&quot;firstName&quot;) === &quot;Isaac&quot; &amp;&amp;
+  enrichedIsaac.get(&quot;lastName&quot;) === &quot;Asimov&quot; &amp;&amp;
+  enrichedIsaac.get(&quot;fullName&quot;) === &quot;Isaac Asimov&quot;;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -277,11 +278,11 @@ as we are able to simply specify what is the expected output of our function:</p
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var isaac = Immutable.Map({firstName: "Isaac", lastName: "Asimov"});
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var isaac = Immutable.Map({firstName: &quot;Isaac&quot;, lastName: &quot;Asimov&quot;});
 var enrichedIsaac = addFullName(isaac);
-Immutable.is(enrichedIsaac, Immutable.Map({firstName: "Isaac",
-                                           lastName: "Asimov",
-                                           fullName: "Isaac Asimov"}))</code></pre>
+Immutable.is(enrichedIsaac, Immutable.Map({firstName: &quot;Isaac&quot;,
+                                           lastName: &quot;Asimov&quot;,
+                                           fullName: &quot;Isaac Asimov&quot;}))</code></pre>
 </div>
 </div>
 </div>
@@ -298,9 +299,9 @@ Immutable.is(enrichedIsaac, Immutable.Map({firstName: "Isaac",
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var myMap = new Map;
-var myData = {"foo": 1};
-var yourData = {"foo": 1};
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var myMap = new Map;
+var myData = {&quot;foo&quot;: 1};
+var yourData = {&quot;foo&quot;: 1};
 
 myMap.set(myData, 42);
 myMap.set(yourData, 43);</code></pre>
@@ -314,9 +315,9 @@ myMap.set(yourData, 43);</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var myMap = Immutable.Map({});
-var myData = Immutable.Map({"foo": 1});
-var yourData = Immutable.Map({"foo": 1});
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var myMap = Immutable.Map({});
+var myData = Immutable.Map({&quot;foo&quot;: 1});
+var yourData = Immutable.Map({&quot;foo&quot;: 1});
 
 myMap.set(myData, 42);
 myMap.set(yourData, 43);</code></pre>

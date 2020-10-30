@@ -11,6 +11,7 @@
   <meta name="description" content="What is Data Oriented programming?">
 
   <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/asciidoc-pygments.css">
   <link rel="canonical" href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap0.html">
   <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
@@ -192,32 +193,32 @@ At the end of this chapter, we will refine what DO is about by comparing it with
 <div id="Listing-Customer" class="listingblock">
 <div class="title">A simple representation of a customer</div>
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="javascript"><span style="background-color: #f8f8f8">{</span>
- <span style="color: #990000;font-weight: bold">name</span><span style="background-color: #f8f8f8">:</span> <span style="color: #d14">"</span><span style="color: #d14">John Smith</span><span style="color: #d14">"</span><span style="background-color: #f8f8f8">,</span>
- <span style="background-color: #f8f8f8">email</span><span style="background-color: #f8f8f8">:</span> <span style="color: #d14">"</span><span style="color: #d14">john@smith.com</span><span style="color: #d14">"</span><span style="background-color: #f8f8f8">,</span>
- <span style="background-color: #f8f8f8">numberOfPurchases</span><span style="background-color: #f8f8f8">:</span> <span style="color: #009999">10</span>
-<span style="background-color: #f8f8f8">}</span></code></pre>
+<pre class="pygments highlight"><code data-lang="javascript"><span></span><span class="tok-p">{</span>
+ <span class="tok-nx">name</span><span class="tok-o">:</span> <span class="tok-s2">&quot;John Smith&quot;</span><span class="tok-p">,</span>
+ <span class="tok-nx">email</span><span class="tok-o">:</span> <span class="tok-s2">&quot;john@smith.com&quot;</span><span class="tok-p">,</span>
+ <span class="tok-nx">numberOfPurchases</span><span class="tok-o">:</span> <span class="tok-mi">10</span>
+<span class="tok-p">}</span></code></pre>
 </div>
 </div>
 <div id="Listing-Product" class="listingblock">
 <div class="title">A simple representation of a product</div>
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="javascript"><span style="background-color: #f8f8f8">{</span>
- <span style="color: #990000;font-weight: bold">name</span><span style="background-color: #f8f8f8">:</span> <span style="color: #d14">"</span><span style="color: #d14">iPhone 10</span><span style="color: #d14">"</span><span style="background-color: #f8f8f8">,</span>
- <span style="background-color: #f8f8f8">id</span><span style="background-color: #f8f8f8">:</span> <span style="color: #d14">"</span><span style="color: #d14">product-234</span><span style="color: #d14">"</span><span style="background-color: #f8f8f8">,</span>
- <span style="background-color: #f8f8f8">category</span><span style="background-color: #f8f8f8">:</span> <span style="color: #d14">"</span><span style="color: #d14">Electronics</span><span style="color: #d14">"</span><span style="background-color: #f8f8f8">,</span>
- <span style="background-color: #f8f8f8">price</span><span style="background-color: #f8f8f8">:</span> <span style="color: #009999">1000</span>
-<span style="background-color: #f8f8f8">}</span></code></pre>
+<pre class="pygments highlight"><code data-lang="javascript"><span></span><span class="tok-p">{</span>
+ <span class="tok-nx">name</span><span class="tok-o">:</span> <span class="tok-s2">&quot;iPhone 10&quot;</span><span class="tok-p">,</span>
+ <span class="tok-nx">id</span><span class="tok-o">:</span> <span class="tok-s2">&quot;product-234&quot;</span><span class="tok-p">,</span>
+ <span class="tok-nx">category</span><span class="tok-o">:</span> <span class="tok-s2">&quot;Electronics&quot;</span><span class="tok-p">,</span>
+ <span class="tok-nx">price</span><span class="tok-o">:</span> <span class="tok-mi">1000</span>
+<span class="tok-p">}</span></code></pre>
 </div>
 </div>
 <div id="Listing-Order" class="listingblock">
 <div class="title">A simple representation of an order</div>
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="javascript"><span style="background-color: #f8f8f8">{</span>
- <span style="color: #990000;font-weight: bold">products</span><span style="background-color: #f8f8f8">:</span> <span style="background-color: #f8f8f8">[</span><span style="color: #d14">"</span><span style="color: #d14">product-001</span><span style="color: #d14">"</span><span style="background-color: #f8f8f8">,</span> <span style="color: #d14">"</span><span style="color: #d14">product-234</span><span style="color: #d14">"</span><span style="background-color: #f8f8f8">],</span>
- <span style="background-color: #f8f8f8">totalAmount</span><span style="background-color: #f8f8f8">:</span> <span style="color: #009999">200</span><span style="background-color: #f8f8f8">,</span>
- <span style="background-color: #f8f8f8">customer</span><span style="background-color: #f8f8f8">:</span> <span style="color: #d14">"</span><span style="color: #d14">customer-id-345</span><span style="color: #d14">"</span>
-<span style="background-color: #f8f8f8">}</span></code></pre>
+<pre class="pygments highlight"><code data-lang="javascript"><span></span><span class="tok-p">{</span>
+ <span class="tok-nx">products</span><span class="tok-o">:</span> <span class="tok-p">[</span><span class="tok-s2">&quot;product-001&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;product-234&quot;</span><span class="tok-p">],</span>
+ <span class="tok-nx">totalAmount</span><span class="tok-o">:</span> <span class="tok-mi">200</span><span class="tok-p">,</span>
+ <span class="tok-nx">customer</span><span class="tok-o">:</span> <span class="tok-s2">&quot;customer-id-345&quot;</span>
+<span class="tok-p">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">

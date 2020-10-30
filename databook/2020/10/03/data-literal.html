@@ -11,6 +11,7 @@
   <meta name="description" content="Principles of Data Oriented Programming. Principle">
 
   <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/asciidoc-pygments.css">
   <link rel="canonical" href="https://blog.klipse.tech//databook/2020/10/03/data-literal.html">
   <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
@@ -220,9 +221,9 @@ Principle #5: Data can be represented by literals.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var data = new Object();
-data.firstName = "Isaac";
-data.lastName = "Asimov";
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var data = new Object();
+data.firstName = &quot;Isaac&quot;;
+data.lastName = &quot;Asimov&quot;;
 data</code></pre>
 </div>
 </div>
@@ -231,9 +232,9 @@ data</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var data = new Object();
-data.firstName = "Isaac";
-data.lastName = "Asimov";
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var data = new Object();
+data.firstName = &quot;Isaac&quot;;
+data.lastName = &quot;Asimov&quot;;
 data.details = new Object();
 data.details.yearOfBirth = 1920;
 data.details.yearOfDeath = 1992;
@@ -245,12 +246,12 @@ data;</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var data = {
-  "firstName": "Isaac",
-  "lastName": "Asimov",
-  "details": {
-    "yearOfBirth": 1920,
-    "yearOfDeath": 1992
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var data = {
+  &quot;firstName&quot;: &quot;Isaac&quot;,
+  &quot;lastName&quot;: &quot;Asimov&quot;,
+  &quot;details&quot;: {
+    &quot;yearOfBirth&quot;: 1920,
+    &quot;yearOfDeath&quot;: 1992
   }
 }
 data;</code></pre>
@@ -301,10 +302,10 @@ No special effort is required for that. We simply call a printing function and o
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var mapWithFunction = {
-  "firstName": "Isaac",
-  "lastName": "Asimov",
-  "foo": function (x) { return x;}
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var mapWithFunction = {
+  &quot;firstName&quot;: &quot;Isaac&quot;,
+  &quot;lastName&quot;: &quot;Asimov&quot;,
+  &quot;foo&quot;: function (x) { return x;}
 }</code></pre>
 </div>
 </div>
@@ -313,7 +314,7 @@ No special effort is required for that. We simply call a printing function and o
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">JSON.stringify(mapWithFunction);</code></pre>
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>JSON.stringify(mapWithFunction);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -325,7 +326,7 @@ We might be confused by the fact that <code>mapWithFunction</code> has 3 keys wh
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">Object.keys(JSON.parse(JSON.stringify(mapWithFunction))).length;</code></pre>
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>Object.keys(JSON.parse(JSON.stringify(mapWithFunction))).length;</code></pre>
 </div>
 </div>
 </div>

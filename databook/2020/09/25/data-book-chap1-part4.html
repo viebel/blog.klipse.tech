@@ -11,6 +11,7 @@
   <meta name="description" content="The complexity of Object Oriented Programming">
 
   <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/asciidoc-pygments.css">
   <link rel="canonical" href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part4.html">
   <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
@@ -167,10 +168,10 @@ a query in JSON format and return results in JSON format.</p>
 <div id="Listing-search-input-json" class="listingblock">
 <div class="title">A JSON input of the <code>/search</code> endpoint</div>
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="json"><span style="background-color: #f8f8f8">{</span><span style="color: #bbbbbb">
-  </span><span style="color: #990000;font-weight: bold">"searchCriteria"</span><span style="background-color: #f8f8f8">:</span><span style="color: #bbbbbb"> </span><span style="color: #d14">"author"</span><span style="background-color: #f8f8f8">,</span><span style="color: #bbbbbb">
-  </span><span style="color: #990000;font-weight: bold">"query"</span><span style="background-color: #f8f8f8">:</span><span style="color: #bbbbbb"> </span><span style="color: #d14">"albert"</span><span style="color: #bbbbbb">
-</span><span style="background-color: #f8f8f8">}</span></code></pre>
+<pre class="pygments highlight"><code data-lang="json"><span></span><span class="tok-p">{</span>
+  <span class="tok-nt">&quot;searchCriteria&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;author&quot;</span><span class="tok-p">,</span>
+  <span class="tok-nt">&quot;query&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;albert&quot;</span>
+<span class="tok-p">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -179,24 +180,24 @@ a query in JSON format and return results in JSON format.</p>
 <div id="Listing-search-output-json" class="listingblock">
 <div class="title">A JSON output of the <code>/search</code> endpoint</div>
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="json"><span style="background-color: #f8f8f8">[</span><span style="color: #bbbbbb">
-    </span><span style="background-color: #f8f8f8">{</span><span style="color: #bbbbbb">
-        </span><span style="color: #990000;font-weight: bold">"title"</span><span style="background-color: #f8f8f8">:</span><span style="color: #bbbbbb"> </span><span style="color: #d14">"The world as I see it"</span><span style="background-color: #f8f8f8">,</span><span style="color: #bbbbbb">
-        </span><span style="color: #990000;font-weight: bold">"authors"</span><span style="background-color: #f8f8f8">:</span><span style="color: #bbbbbb"> </span><span style="background-color: #f8f8f8">[</span><span style="color: #bbbbbb">
-            </span><span style="background-color: #f8f8f8">{</span><span style="color: #bbbbbb">
-                </span><span style="color: #990000;font-weight: bold">"fullName"</span><span style="background-color: #f8f8f8">:</span><span style="color: #bbbbbb"> </span><span style="color: #d14">"Albert Einstein"</span><span style="color: #bbbbbb">
-            </span><span style="background-color: #f8f8f8">}</span><span style="color: #bbbbbb">
-        </span><span style="background-color: #f8f8f8">]</span><span style="color: #bbbbbb">
-    </span><span style="background-color: #f8f8f8">},</span><span style="color: #bbbbbb">
-    </span><span style="background-color: #f8f8f8">{</span><span style="color: #bbbbbb">
-        </span><span style="color: #990000;font-weight: bold">"title"</span><span style="background-color: #f8f8f8">:</span><span style="color: #bbbbbb"> </span><span style="color: #d14">"The Stranger"</span><span style="background-color: #f8f8f8">,</span><span style="color: #bbbbbb">
-        </span><span style="color: #990000;font-weight: bold">"authors"</span><span style="background-color: #f8f8f8">:</span><span style="color: #bbbbbb"> </span><span style="background-color: #f8f8f8">[</span><span style="color: #bbbbbb">
-            </span><span style="background-color: #f8f8f8">{</span><span style="color: #bbbbbb">
-                </span><span style="color: #990000;font-weight: bold">"fullName"</span><span style="background-color: #f8f8f8">:</span><span style="color: #bbbbbb"> </span><span style="color: #d14">"Albert Camus"</span><span style="color: #bbbbbb">
-            </span><span style="background-color: #f8f8f8">}</span><span style="color: #bbbbbb">
-        </span><span style="background-color: #f8f8f8">]</span><span style="color: #bbbbbb">
-    </span><span style="background-color: #f8f8f8">}</span><span style="color: #bbbbbb">
-</span><span style="background-color: #f8f8f8">]</span></code></pre>
+<pre class="pygments highlight"><code data-lang="json"><span></span><span class="tok-p">[</span>
+    <span class="tok-p">{</span>
+        <span class="tok-nt">&quot;title&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;The world as I see it&quot;</span><span class="tok-p">,</span>
+        <span class="tok-nt">&quot;authors&quot;</span><span class="tok-p">:</span> <span class="tok-p">[</span>
+            <span class="tok-p">{</span>
+                <span class="tok-nt">&quot;fullName&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;Albert Einstein&quot;</span>
+            <span class="tok-p">}</span>
+        <span class="tok-p">]</span>
+    <span class="tok-p">},</span>
+    <span class="tok-p">{</span>
+        <span class="tok-nt">&quot;title&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;The Stranger&quot;</span><span class="tok-p">,</span>
+        <span class="tok-nt">&quot;authors&quot;</span><span class="tok-p">:</span> <span class="tok-p">[</span>
+            <span class="tok-p">{</span>
+                <span class="tok-nt">&quot;fullName&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;Albert Camus&quot;</span>
+            <span class="tok-p">}</span>
+        <span class="tok-p">]</span>
+    <span class="tok-p">}</span>
+<span class="tok-p">]</span></code></pre>
 </div>
 </div>
 <div class="paragraph">

@@ -11,6 +11,7 @@
   <meta name="description" content="Principles of Data Oriented Programming. Principle">
 
   <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/asciidoc-pygments.css">
   <link rel="canonical" href="https://blog.klipse.tech//databook/2020/10/02/separate-code-data.html">
   <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
@@ -172,21 +173,21 @@ Principle #1: Separate code from data in a way that code resides in functions wh
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">class Author {
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>class Author {
   constructor(firstName, lastName, books) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.books = books;
   }
   fullName() {
-      return this.firstName + " " + this.lastName;
+      return this.firstName + &quot; &quot; + this.lastName;
   }
   isProlific() {
     return this.books &gt; 100;
   }
 }
 
-var obj = new Author("Isaac", "Asimov", 500); // Isaac Asimov wrote 500 books!
+var obj = new Author(&quot;Isaac&quot;, &quot;Asimov&quot;, 500); // Isaac Asimov wrote 500 books!
 obj.fullName();</code></pre>
 </div>
 </div>
@@ -195,10 +196,10 @@ obj.fullName();</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">function createAuthorObject(firstName, lastName, books) {
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>function createAuthorObject(firstName, lastName, books) {
  return {
    fullName: function() {
-       return firstName + " " + lastName;
+       return firstName + &quot; &quot; + lastName;
       },
     isProlific: function () {
       return books &gt; 100;
@@ -206,7 +207,7 @@ obj.fullName();</code></pre>
   };
  }
 
-var obj = createAuthorObject("Isaac", "Asimov", 500); // Isaac Asimov wrote 500 books!
+var obj = createAuthorObject(&quot;Isaac&quot;, &quot;Asimov&quot;, 500); // Isaac Asimov wrote 500 books!
 obj.fullName();</code></pre>
 </div>
 </div>
@@ -215,19 +216,19 @@ obj.fullName();</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">function createAuthorData(firstName, lastName, books) {
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>function createAuthorData(firstName, lastName, books) {
    return {firstName: firstName, lastName: lastName, books: books};
 }
 
 function fullName(data) {
-   return data.firstName + " " + data.lastName;
+   return data.firstName + &quot; &quot; + data.lastName;
 }
 
 function isProlific (data) {
   return data.books &gt; 100;
 }
 
-var data = createAuthorData("Isaac", "Asimov", 500); // Isaac Asimov wrote 500 books!
+var data = createAuthorData(&quot;Isaac&quot;, &quot;Asimov&quot;, 500); // Isaac Asimov wrote 500 books!
 fullName(data);</code></pre>
 </div>
 </div>
@@ -236,7 +237,7 @@ fullName(data);</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">class AuthorData {
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>class AuthorData {
   constructor(firstName, lastName, books) {
     this.firstName = firstName;
     this.lastName = lastName;
@@ -246,7 +247,7 @@ fullName(data);</code></pre>
 
 class NameCalculation {
   static fullName(data) {
-    return data.firstName + " " + data.lastName;
+    return data.firstName + &quot; &quot; + data.lastName;
   }
 }
 
@@ -256,7 +257,7 @@ class AuthorRating {
   }
 }
 
-var data = new AuthorData("Isaac", "Asimov", 500); // Isaac Asimov wrote 500 books!
+var data = new AuthorData(&quot;Isaac&quot;, &quot;Asimov&quot;, 500); // Isaac Asimov wrote 500 books!
 NameCalculation.fullName(data);</code></pre>
 </div>
 </div>
@@ -302,12 +303,12 @@ In a simplistic use case like the author and the artist that&#8217;s fine but on
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">function createAuthorObject(firstName, lastName, books) {
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>function createAuthorObject(firstName, lastName, books) {
    var data = {firstName: firstName, lastName: lastName, books: books};
 
  return {
    fullName: function fullName() {
-       return data.firstName + " " + data.lastName;
+       return data.firstName + &quot; &quot; + data.lastName;
       }
   };
  }
@@ -317,12 +318,12 @@ function createArtistObject(firstName, lastName, genre) {
 
  return {
    fullName: function fullName() {
-       return data.firstName + " " + data.lastName;
+       return data.firstName + &quot; &quot; + data.lastName;
       }
   };
  }
 
-var obj = createArtistObject("Maurits", "Escher", "Painting");
+var obj = createArtistObject(&quot;Maurits&quot;, &quot;Escher&quot;, &quot;Painting&quot;);
 obj.fullName();</code></pre>
 </div>
 </div>
@@ -334,12 +335,12 @@ follows the same shape and we call <code>fullName</code> on an artist data.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">function createAuthorData(firstName, lastName, books) {
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>function createAuthorData(firstName, lastName, books) {
   return {firstName: firstName, lastName: lastName, books: books};
 }
 
 function fullName(data) {
-  return data.firstName + " " + data.lastName;
+  return data.firstName + &quot; &quot; + data.lastName;
 }
 
 function createArtistData(firstName, lastName, genre) {
@@ -352,13 +353,13 @@ function createArtistData(firstName, lastName, genre) {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var data = createAuthorData("Isaac", "Asimov", 500);
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var data = createAuthorData(&quot;Isaac&quot;, &quot;Asimov&quot;, 500);
 fullName(data);</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var data = createArtistData("Maurits", "Escher", "Painting");
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var data = createArtistData(&quot;Maurits&quot;, &quot;Escher&quot;, &quot;Painting&quot;);
 fullName(data);</code></pre>
 </div>
 </div>
@@ -369,7 +370,7 @@ for <code>AuthorData</code> and <code>ArtistData</code>, but in a dynamically ty
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">class AuthorData {
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>class AuthorData {
   constructor(firstName, lastName, books) {
     this.firstName = firstName;
     this.lastName = lastName;
@@ -379,7 +380,7 @@ for <code>AuthorData</code> and <code>ArtistData</code>, but in a dynamically ty
 
 class NameCalculation {
   static fullName() {
-    return data.firstName + " " + data.lastName;
+    return data.firstName + &quot; &quot; + data.lastName;
   }
 }
 
@@ -402,13 +403,13 @@ window.ArtistData = ArtistData</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var data = new ArtistData("Maurits", "Escher", "Painting");
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var data = new ArtistData(&quot;Maurits&quot;, &quot;Escher&quot;, &quot;Painting&quot;);
 NameCalculation.fullName(data);</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var data = new AuthorData("Isaac", "Asimov", 500);
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var data = new AuthorData(&quot;Isaac&quot;, &quot;Asimov&quot;, 500);
 NameCalculation.fullName(data);</code></pre>
 </div>
 </div>
@@ -431,9 +432,9 @@ When we separate code and data, it is straightforward to reuse code in different
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var author =  createAuthorObject("Isaac", "Asimov", 500);
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var author =  createAuthorObject(&quot;Isaac&quot;, &quot;Asimov&quot;, 500);
 
-author.fullName() === "Isaac Asimov"</code></pre>
+author.fullName() === &quot;Isaac Asimov&quot;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -445,7 +446,8 @@ but in a real world situation, instantiating an object might involve lots of unn
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">fullName({firstName: "Isaac", lastName: "Asimov"}) === "Isaac Asimov"</code></pre>
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>
+fullName({firstName: &quot;Isaac&quot;, lastName: &quot;Asimov&quot;}) === &quot;Isaac Asimov&quot;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -453,9 +455,9 @@ but in a real world situation, instantiating an object might involve lots of unn
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var data =  new AuthorData("Isaac", "Asimov");
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var data =  new AuthorData(&quot;Isaac&quot;, &quot;Asimov&quot;);
 
-NameCalculation.fullName(data) === "Isaac Asimov"</code></pre>
+NameCalculation.fullName(data) === &quot;Isaac Asimov&quot;</code></pre>
 </div>
 </div>
 <div class="paragraph">

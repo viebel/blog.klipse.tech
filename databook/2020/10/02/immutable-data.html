@@ -11,6 +11,7 @@
   <meta name="description" content="Principles of Data Oriented Programming. Principle">
 
   <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/asciidoc-pygments.css">
   <link rel="canonical" href="https://blog.klipse.tech//databook/2020/10/02/immutable-data.html">
   <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
@@ -185,7 +186,7 @@ Principle #3: Data never changes.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var myData = {num: 42};
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var myData = {num: 42};
 var yourData = myData;
 
 myData.num = myData.num + 1;
@@ -203,7 +204,7 @@ myData.num = myData.num + 1;
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">function changeValue(obj, k, v) {
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>function changeValue(obj, k, v) {
   var res = Object.assign({}, obj);
   res[k] = v;
   return res;
@@ -215,10 +216,10 @@ myData.num = myData.num + 1;
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var myData = {num: 42};
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var myData = {num: 42};
 var yourData = myData;
 
-myData = changeValue(myData, "num", myData.num + 1);
+myData = changeValue(myData, &quot;num&quot;, myData.num + 1);
 [myData.num, yourData.num];</code></pre>
 </div>
 </div>
@@ -237,12 +238,12 @@ In order to access the element of a map, we use the <code>get</code> method and 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var myData = Immutable.Map({num: 42})
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var myData = Immutable.Map({num: 42})
 var yourData = myData;
 
-myData = myData.set("num", 43);
+myData = myData.set(&quot;num&quot;, 43);
 
-[myData.get("num"), yourData.get("num")];</code></pre>
+[myData.get(&quot;num&quot;), yourData.get(&quot;num&quot;)];</code></pre>
 </div>
 </div>
 </div>
@@ -292,7 +293,7 @@ We would need to either make sure the function doesn&#8217;t mutate the data or 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="klipse-javascript">var myData = {num: 42};
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var myData = {num: 42};
 setTimeout(function(data){
   console.log(data.num);
 }, 1000, myData)</code></pre>

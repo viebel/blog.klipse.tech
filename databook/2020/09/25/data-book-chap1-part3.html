@@ -11,6 +11,7 @@
   <meta name="description" content="The complexity of Object Oriented Programming">
 
   <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/asciidoc-pygments.css">
   <link rel="canonical" href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part3.html">
   <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
@@ -317,15 +318,15 @@ can you tell me what the program displayed on the second <code>print</code> call
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="java"><span style="color: #000000;font-weight: bold">class</span> <span style="color: #445588;font-weight: bold">Member</span> <span style="color: #000000;font-weight: bold">{</span>
-      <span style="color: #445588;font-weight: bold">Bool</span> <span style="background-color: #f8f8f8">member</span><span style="color: #000000;font-weight: bold">;</span>
+<pre class="pygments highlight"><code data-lang="java"><span></span><span class="tok-kd">class</span> <span class="tok-nc">Member</span> <span class="tok-o">{</span>
+      <span class="tok-n">Bool</span> <span class="tok-n">member</span><span class="tok-o">;</span>
 
-      <span style="color: #445588;font-weight: bold">void</span> <span style="color: #990000;font-weight: bold">displayBlockedStatusTwice</span><span style="color: #000000;font-weight: bold">()</span> <span style="color: #000000;font-weight: bold">{</span>
-         <span style="background-color: #f8f8f8">isBlocked</span> <span style="color: #000000;font-weight: bold">=</span> <span style="color: #000000;font-weight: bold">this</span><span style="color: #000000;font-weight: bold">.</span><span style="color: #008080">isBlocked</span><span style="color: #000000;font-weight: bold">()</span>
-         <span style="color: #445588;font-weight: bold">System</span><span style="color: #000000;font-weight: bold">.</span><span style="color: #008080">Print</span><span style="color: #000000;font-weight: bold">(</span><span style="background-color: #f8f8f8">isBlocked</span><span style="color: #000000;font-weight: bold">);</span>
-         <span style="color: #445588;font-weight: bold">System</span><span style="color: #000000;font-weight: bold">.</span><span style="color: #008080">Print</span><span style="color: #000000;font-weight: bold">(</span><span style="background-color: #f8f8f8">isBlocked</span><span style="color: #000000;font-weight: bold">);</span>
-    <span style="color: #000000;font-weight: bold">}</span>
-<span style="color: #000000;font-weight: bold">}</span></code></pre>
+      <span class="tok-kt">void</span> <span class="tok-nf">displayBlockedStatusTwice</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+         <span class="tok-n">isBlocked</span> <span class="tok-o">=</span> <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">isBlocked</span><span class="tok-o">()</span>
+         <span class="tok-n">System</span><span class="tok-o">.</span><span class="tok-na">Print</span><span class="tok-o">(</span><span class="tok-n">isBlocked</span><span class="tok-o">);</span>
+         <span class="tok-n">System</span><span class="tok-o">.</span><span class="tok-na">Print</span><span class="tok-o">(</span><span class="tok-n">isBlocked</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -347,14 +348,14 @@ can you tell me what the program displayed on the second <code>print</code> call
 <div id="code-block-member" class="listingblock">
 <div class="title">Apparently simple pseudo code</div>
 <div class="content">
-<pre class="rouge highlight" style="background-color: #f8f8f8"><code data-lang="java"><span style="color: #000000;font-weight: bold">class</span> <span style="color: #445588;font-weight: bold">Member</span> <span style="color: #000000;font-weight: bold">{</span>
-      <span style="color: #445588;font-weight: bold">Bool</span> <span style="background-color: #f8f8f8">member</span><span style="color: #000000;font-weight: bold">;</span>
+<pre class="pygments highlight"><code data-lang="java"><span></span><span class="tok-kd">class</span> <span class="tok-nc">Member</span> <span class="tok-o">{</span>
+      <span class="tok-n">Bool</span> <span class="tok-n">member</span><span class="tok-o">;</span>
 
-      <span style="color: #445588;font-weight: bold">void</span> <span style="color: #990000;font-weight: bold">displayBlockedStatusTwice</span><span style="color: #000000;font-weight: bold">()</span> <span style="color: #000000;font-weight: bold">{</span>
-        <span style="color: #445588;font-weight: bold">System</span><span style="color: #000000;font-weight: bold">.</span><span style="color: #008080">Print</span><span style="color: #000000;font-weight: bold">(</span><span style="color: #000000;font-weight: bold">this</span><span style="color: #000000;font-weight: bold">.</span><span style="color: #008080">isBlocked</span><span style="color: #000000;font-weight: bold">);</span>
-        <span style="color: #445588;font-weight: bold">System</span><span style="color: #000000;font-weight: bold">.</span><span style="color: #008080">Print</span><span style="color: #000000;font-weight: bold">(</span><span style="color: #000000;font-weight: bold">this</span><span style="color: #000000;font-weight: bold">.</span><span style="color: #008080">isBlocked</span><span style="color: #000000;font-weight: bold">);</span>
-    <span style="color: #000000;font-weight: bold">}</span>
-<span style="color: #000000;font-weight: bold">}</span></code></pre>
+      <span class="tok-kt">void</span> <span class="tok-nf">displayBlockedStatusTwice</span><span class="tok-o">()</span> <span class="tok-o">{</span>
+        <span class="tok-n">System</span><span class="tok-o">.</span><span class="tok-na">Print</span><span class="tok-o">(</span><span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">isBlocked</span><span class="tok-o">);</span>
+        <span class="tok-n">System</span><span class="tok-o">.</span><span class="tok-na">Print</span><span class="tok-o">(</span><span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">isBlocked</span><span class="tok-o">);</span>
+    <span class="tok-o">}</span>
+<span class="tok-o">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
