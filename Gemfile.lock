@@ -212,6 +212,7 @@ GEM
       jekyll-feed (~> 0.9)
       jekyll-seo-tag (~> 2.1)
     minitest (5.14.2)
+    multi_json (1.15.0)
     multipart-post (2.1.1)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
@@ -221,6 +222,8 @@ GEM
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
     public_suffix (3.1.1)
+    pygments.rb (1.2.1)
+      multi_json (>= 1.0.0)
     rake (10.5.0)
     rake-jekyll (1.1.0)
       rake (~> 10.0)
@@ -266,6 +269,7 @@ DEPENDENCIES
   jekyll-asciidoc
   jekyll-feed
   jekyll-sitemap
+  pygments.rb
   rake-jekyll
 
 BUNDLED WITH

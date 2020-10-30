@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'jekyll'
 gem 'coderay'
+gem 'pygments.rb'
 gem 'rake-jekyll'
 
 group :jekyll_plugins do

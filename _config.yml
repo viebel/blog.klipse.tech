@@ -32,6 +32,7 @@ plugins:
 asciidoctor:
   attributes:
     imagesdir:  /assets
-    source-highlighter: rouge
-    rouge-css: style
-    rouge-theme: github
+    source-highlighter: pygments
+    pygments-css: class
+    pygments-stylesheet: css/asciidoc-pygments.css
+
