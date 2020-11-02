@@ -19,7 +19,7 @@
 
 = Introduction
 
-As we mentioned in {% post_url 2020-09-27-do-principles %}[Chapter 0], the big insight of Data Oriented Programming (DO) is that we can *decrease the complexity* of our systems by *separating code from data*. Indeed, when code is separated from data, our systems are made of two main pieces that can be *thought separately*: Data entities and Code modules.
+As we mentioned in link:{% post_url 2020-09-27-do-principles %}[Chapter 0], the big insight of Data Oriented Programming (DO) is that we can *decrease the complexity* of our systems by *separating code from data*. Indeed, when code is separated from data, our systems are made of two main pieces that can be *thought separately*: Data entities and Code modules.
 
 This chapter is a deep dive in DO Principle #1:
 
