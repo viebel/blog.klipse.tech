@@ -1,5 +1,173 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2020-11-02T09:44:04+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
-</subtitle><author><name>Yehonathan Sharvit</name></author><entry><title type="html">Decrease complexity by separating Code from Data</title><link href="https://blog.klipse.tech//databook/2020/10/30/data-book-chap2-part1.html" rel="alternate" type="text/html" title="Decrease complexity by separating Code from Data" /><published>2020-10-30T07:21:32+00:00</published><updated>2020-10-30T07:21:32+00:00</updated><id>https://blog.klipse.tech//databook/2020/10/30/data-book-chap2-part1</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/10/30/data-book-chap2-part1.html">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2020-11-10T03:41:23+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
+</subtitle><author><name>Yehonathan Sharvit</name></author><entry><title type="html">Manipulate immutable collections with no performance hit.</title><link href="https://blog.klipse.tech//javascript/2020/11/09/immutable-manipulate.html" rel="alternate" type="text/html" title="Manipulate immutable collections with no performance hit." /><published>2020-11-09T00:21:34+00:00</published><updated>2020-11-09T00:21:34+00:00</updated><id>https://blog.klipse.tech//javascript/2020/11/09/immutable-manipulate</id><content type="html" xml:base="https://blog.klipse.tech//javascript/2020/11/09/immutable-manipulate.html">&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.2/immutable.min.js&quot; integrity=&quot;sha512-myCdDiGJRYrvRb/VuJ67ljifYTJdc1jdEvL4c4ftX9o3N6EAnmD83c/7l2/91RCINZ7c8w21tiXDT7RDFjdc3g==&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js&quot; integrity=&quot;sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww==&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
+
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot; /&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot; /&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Constraining our programs to manipulate &lt;strong&gt;immutable data structures&lt;/strong&gt; is &lt;a href=&quot;/databook/2020/10/02/immutable-data.html&quot;&gt;known to be beneficial&lt;/a&gt; in terms of code predictability, concurrency and safety.&lt;/p&gt;
+
+&lt;p&gt;In a language like Clojure, where immutable data structures are native to the language, this benefits come for free.
+However, in languages where immutable data structures are not &lt;strong&gt;native&lt;/strong&gt; to the language, the &lt;strong&gt;price&lt;/strong&gt; we have to pay to benefit from data immutability is that we need to &lt;strong&gt;convert the data back and forth&lt;/strong&gt; from immutable to native. Beside the inconvenience of this conversion, it might cause a &lt;strong&gt;performance hit&lt;/strong&gt;, it we are not careful with the conversion.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/fast-car-infiniti.jpg&quot; alt=&quot;Car&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The purpose of the is article is to illustrate how to manipulate carefully immutable data collection from Immutable.js with the a data manipulation library like Lodash.js, leveraging Immutable’s &lt;strong&gt;shallow and deep conversion&lt;/strong&gt; functions.&lt;/p&gt;
+
+&lt;p&gt;A similar approach could be applied to other immutable data collection libraries and other data manipulation libraries (and also to other programming languages).&lt;/p&gt;
+
+&lt;p&gt;Imagine we have a nested piece of data that we want to:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Treat as &lt;strong&gt;immutable&lt;/strong&gt; (e.g Immutable.js)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Manipulate&lt;/strong&gt; with data manipulation library (e.g Lodash.js)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The challenge is that Immutable.js data collections are not native JavaScript objects. Therefore, before passing the data to a JS lib, we have to convert it to a JS object. In this article, we are going to show how to convert to JS without impacting the performance too much.&lt;/p&gt;
+
+&lt;p&gt;Let’s take as an example the data of a library, that might looks similar to this nested object:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;var libraryData = {
+  &quot;name&quot;: &quot;The smallest library on earth&quot;,
+  &quot;address&quot;: &quot;Here and now&quot;,
+  &quot;catalog&quot;: {
+    &quot;books&quot;: [
+      {
+        &quot;title&quot;: &quot;Watchmen&quot;,
+        &quot;publicationYear&quot;: 1986,
+        &quot;authors&quot;: [
+          {
+            &quot;firstName&quot;: &quot;Alan&quot;,
+            &quot;lastName&quot;: &quot;Moore&quot;
+          },
+          {
+            &quot;firstName&quot;: &quot;Dave&quot;,
+            &quot;lastName&quot;: &quot;Gibbons&quot;
+          }
+        ]
+      },
+      {
+        &quot;title&quot;: &quot;Jimmy Corrigan, the Smartest Kid on Earth&quot;,
+        &quot;publicationYear&quot;: 2000,
+        &quot;authors&quot;: [
+          {
+            &quot;firstName&quot;: &quot;Chris&quot;,
+            &quot;lastName&quot;: &quot;Ware&quot;
+          }
+        ]
+      },
+      {
+        &quot;title&quot;: &quot;Ultimate Spider-Man&quot;,
+        &quot;publicationYear&quot;: 2000,
+        &quot;authors&quot;: [
+          {
+            &quot;firstName&quot;: &quot;Brian Michael&quot;,
+            &quot;lastName&quot;: &quot;Bendis&quot;
+          }
+        ]
+      }
+    ]
+  },
+  &quot;users&quot;: [
+    {&quot;username&quot;: &quot;user-1&quot;}, {&quot;username&quot;: &quot;user-2&quot;}, {&quot;username&quot;: &quot;user-3&quot;}
+  ]
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, we convert the native JS object to an Immutable map with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fromJS()&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;var immutableLibData = Immutable.fromJS(libraryData);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Our purpose is to find the best way to call &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_.countBy()&lt;/code&gt; on our immutable collection, in the same way as we would use it on the JS native object:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;_.countBy(immutableLibData.toJS().catalog.books, &quot;publicationYear&quot;); 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Immutable.js provides a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.toJS()&lt;/code&gt; function that &lt;strong&gt;deeply converts&lt;/strong&gt; an immutable collection to a JS object or array.&lt;/p&gt;
+
+&lt;p&gt;We are then free to pass &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;immutableLibData.toJS()&lt;/code&gt; to any Lodash function:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;_.countBy(immutableLibData.toJS().catalog.books, &quot;publicationYear&quot;); 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The problem is that it causes a &lt;strong&gt;performance hit&lt;/strong&gt;, as we have to convert the whole &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;immutableLibData&lt;/code&gt; immutable collection (including the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;users&lt;/code&gt; part which is unnecessary)&lt;/p&gt;
+
+&lt;p&gt;A better solution is to convert only the part of the data that we are interested in:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;_.countBy(immutableLibData.getIn([&quot;catalog&quot;, &quot;books&quot;]).toJS(), &quot;publicationYear&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But still, there is a performance hit as we convert the books data deeply (including the authors part which is unnecessary).&lt;/p&gt;
+
+&lt;p&gt;The best thing we can do, is to do a careful shallow conversion to native JS: It requires 2 steps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Shallow convert&lt;/strong&gt; books to a JS array with Immutable’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;toArray()&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Shallow convert&lt;/strong&gt; each object of the books array to a JS object with Immutable’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;toObject()&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Here is the code for that:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;function toArrayofObjects(m) {
+  return m.toArray().map(x =&amp;gt; x.toObject());
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And now, we can use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_.countBy()&lt;/code&gt; with no unnecessary performance hit:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;_.countBy(toArrayofObjects(immutableLibData.getIn([&quot;catalog&quot;, &quot;books&quot;])), &quot;publicationYear&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A similar approach could be applied to other immutable data collection libraries and other data manipulation libraries (and also to other programming languages). The &lt;strong&gt;features&lt;/strong&gt; that the immutable data collection library needs to provide are:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Deep conversion&lt;/strong&gt; to native objects (like Immutable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;toJS()&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Shallow conversion&lt;/strong&gt; to native objects (like Immutable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;toArray()&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;toObject()&lt;/code&gt;)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Enjoy immutability!&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot; /&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot; /&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br /&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html"></summary></entry><entry><title type="html">Decrease complexity by separating Code from Data</title><link href="https://blog.klipse.tech//databook/2020/10/30/data-book-chap2-part1.html" rel="alternate" type="text/html" title="Decrease complexity by separating Code from Data" /><published>2020-10-30T07:21:32+00:00</published><updated>2020-10-30T07:21:32+00:00</updated><id>https://blog.klipse.tech//databook/2020/10/30/data-book-chap2-part1</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/10/30/data-book-chap2-part1.html">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div&gt;
   &lt;p&gt;
@@ -3128,219 +3296,6 @@ in JavaScript, a programming language that supports both FP and OOP.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Start reading the &lt;a href=&quot;/databook/2020/09/25/data-book-chap0.html&quot;&gt;introduction&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    Enter your email address below to get notified when the book is published.
-  &lt;/p&gt;
-
-  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
-	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
-	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
-	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
-  &lt;/form&gt;
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">The complexity of Object Oriented Programming: Classic OO design</title><link href="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part1.html" rel="alternate" type="text/html" title="The complexity of Object Oriented Programming: Classic OO design" /><published>2020-09-25T05:45:32+00:00</published><updated>2020-09-25T05:45:32+00:00</updated><id>https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part1</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/25/data-book-chap1-part1.html">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    Enter your email address below to get notified when the book is published.
-  &lt;/p&gt;
-
-  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
-	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
-	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
-	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
-  &lt;/form&gt;
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In the &lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part1.html&quot;&gt;introduction&lt;/a&gt;, we discussed how Data Oriented Programming differs from Object Oriented (OO) Programming and from Functional Programming (FP).&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In this chapter, we explore the tendency of OO systems to be complex.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This complexity is not related to the syntax or the semantics of a specific OO language. It is something that is inherent to OO fundamental insight that programs should be composed from objects that consist of some state together with methods for accessing and manipulating that state.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In this chapter, we illustrate how some core aspects of OO tend to increase the complexity of OO systems.&lt;/p&gt;
-&lt;/div&gt;
-&lt;table id=&quot;oo-increases-compplexity&quot; class=&quot;tableblock frame-all grid-all stretch&quot;&gt;
-&lt;caption class=&quot;title&quot;&gt;Table 1. Aspects of Object Oriented programming and their impact on complexity&lt;/caption&gt;
-&lt;colgroup&gt;
-&lt;col style=&quot;width: 50%;&quot;&gt;
-&lt;col style=&quot;width: 50%;&quot;&gt;
-&lt;/colgroup&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Aspect&lt;/th&gt;
-&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Impact on complexity&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Code and data are mixed&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Classes tend to be involved in many relations&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Objects are mutable&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Extra thinking when reading code that involves state mutation&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Objects are mutable&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Explicit synchronization on multi-threaded environments&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Data is locked in objects&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Data serialization is a nightmare&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Code is locked in classes&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Class hierarchies are complex&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Over the years, OO ecosystems have alleviated this complexity increase by adding new features to the language (e.g. anonymous classes and anonymous functions) and by developing frameworks that hide part of this complexity by providing a simpler interface to the developers (e.g. Spring and Jackson in Java). Internally, they rely on advanced features of the language (like reflection and custom annotations).&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This chapter is not meant to be read as a critics of OO programming. Its purpose is to increase your awareness about the complexity of OO as a programming paradigm.
-I hope that after reading this chapter, you will be motivated to discover a different programming paradigm where this complexity tend to be less present, namely Data Oriented programming.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;oo-design-classic-or-classical&quot;&gt;OO design: classic or classical?&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;It&amp;#8217;s Monday morning 9:00 AM, you seat at a coffee shop with a potential customer, Nancy, that needs you to build a new library management system.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;What&amp;#8217;s a library management system in your mind?&quot; you ask.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;It&amp;#8217;s a system that handles housekeeping functions of a library, mainly around the book collection
-and the library members&quot; Nancy replies&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;Could you be a little bit more precise?&quot; you ask politely.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;Sure&quot; Nancy answers.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;She grabs the napkin under her coffee mug and she writes down a couple of bullet points on the napkin:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre&gt;. Two kinds of users: library members and librarians
-. Users log in to the system via email and password.
-. Members can borrow books
-. Members and librarians can search books by title or by author
-. Librarians can block and unblock members (e.g. when they are late in returning a book)
-. Librarians can list the books currently lent by a member
-. There could be several copies of a book&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;Well, that&amp;#8217;s pretty clear.&quot;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;When will you be able to deliver it?&quot;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;If you give me a down payment today, I should be able to deliver it by next Wednesday.&quot;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&quot;Fantastic! I&amp;#8217;ll make you a bitcoin transfer later today.&quot;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You get back to your office with Nancy&amp;#8217;s napkin in your pocket.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Before rushing to your laptop to code the system,
-you grab a sheet of paper - slightly bigger than the napkin - and you prepare yourself to draw the UML class diagram of the system.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Everything is life is an object and every object is made from a class. Right?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Here are the main classes that you identify for the library management system:&lt;/p&gt;
-&lt;/div&gt;
-* `Library`: The central part for which the system is designed
-* `Book`: A book
-* `BookItem`: A book can have multiple copies, each copy is considered as a book item
-* `BookLending`: When a book is lent, a book lending object is created
-* `Member`: A member of the library
-* `Librarian`: A librarian
-* `User`: A base class for `Librarian` and `Member`
-* `Catalog`: Contains list of books
-* `Author`: A book author
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;That was the easy part. Now comes the difficult part: the relationships between the classes.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;After two hours or so, you come up with a first draft of a design for the
-library management system. It looks like the diagram shown on &lt;a href=&quot;#lib-mgmt-class-diagram&quot;&gt;A class diagram for a Library management system&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;lib-mgmt-class-diagram&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/class-diagram-lms.png&quot; alt=&quot;class diagram lms&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 1. A class diagram for a Library management system&lt;/div&gt;
-&lt;/div&gt;
-This design is meant to be very simple and by no means it pretends to cover all the features of the system.
-This design serves two purposes:
-
-. For you - the developer - it is rich enough to start coding
-. For me - the author of the book - it is rich enough to illustrate the complexity of a typical OO system
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You feel proud of yourself and of the design you produced. You definitely deserve a cup of coffee.
-Near the coffee machine, you meet Dave, a junior software developer that you appreciate.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Hey Dave! How are you doing?&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Trying to fix a bug in my code: I cannot understand why the state of my objects always change! You?&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;I have just finished the design of a system for a new customer.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Cool! Can you show me your design?&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Sure.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Are you curious to discover Dave&amp;#8217;s reaction to your design?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Read the &lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part2.html&quot;&gt;next part&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div&gt;
   &lt;p&gt;
