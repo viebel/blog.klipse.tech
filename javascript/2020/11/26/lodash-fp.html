@@ -7,19 +7,19 @@
 
   <link rel="shortcut icon" href="/assets/favicon2.png">
 
-  <title>Data Oriented Programming: Table of Contents</title>
-  <meta name="description" content="Table of Contents of Data Oriented Programming">
+  <title>Functional Lodash</title>
+  <meta name="description" content="Functional Lodash. Immutable Lodash. JavaScript. Functional Programming. Persistent data structures.">
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/asciidoc-pygments.css">
-  <link rel="canonical" href="https://blog.klipse.tech//databook/2020/09/27/data-book-toc.html">
+  <link rel="canonical" href="https://blog.klipse.tech//javascript/2020/11/26/lodash-fp.html">
   <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
 
   <!-- start: facebook -->
-  <meta property="og:title" content="Data Oriented Programming: Table of Contents">
+  <meta property="og:title" content="Functional Lodash">
   <meta property="og:image" content="https://blog.klipse.tech/assets/klipse.png">
-  <meta property="og:description" content="Table of Contents of Data Oriented Programming">
+  <meta property="og:description" content="Functional Lodash. Immutable Lodash. JavaScript. Functional Programming. Persistent data structures.">
   <meta property="og:site_name" content="An interactive journey into functional programming with Yehonathan Sharvit">
   <meta property="article:author" content="Yehonathan Sharvit">
   <!-- end: facebook -->
@@ -84,8 +84,8 @@
       <img src="https://blog.klipse.tech/assets/klipse.png">
     </div>
     <div>
-      <h1 class="post-title" itemprop="name headline">Data Oriented Programming: Table of Contents</h1>
-      <p class="post-meta"><time datetime="2020-09-27T00:45:32+00:00" itemprop="datePublished">Sep 27, 2020</time>
+      <h1 class="post-title" itemprop="name headline">Functional Lodash</h1>
+      <p class="post-meta"><time datetime="2020-11-26T01:43:52+00:00" itemprop="datePublished">Nov 26, 2020</time>
 	 •
 	<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Yehonathan Sharvit</span></span>
 	
@@ -94,8 +94,14 @@
 
   </header>
   <div class="post-content" itemprop="articleBody">
-    <div id="preamble">
-<div class="sectionbody">
+    <p>Did you know that <a href="https://lodash.com/">Lodash</a> - the popular JavaScript utility library - had a <strong>functional</strong> flavor?</p>
+
+<p>The most exciting part to me is that functions of Lodash FP do not <strong>mutate</strong> the data they receive.</p>
+
+<p>As a Clojure developer, I am excited because I am <strong>addicted</strong> to <strong>data immutability</strong>.</p>
+
+<p><img src="/assets/serenity-immutability.png" alt="Immutability" /></p>
+
 <div>
   <p>
     This article is an excerpt from my upcoming book about <b>Data Oriented Programming</b>. The book will be published by Manning, once it is completed (hopefully in 2021).
@@ -110,118 +116,76 @@
   </p>
 
   <form style="text-align: left;" action="https://tinyletter.com/data-oriented-programming" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
-	  <input type="email" style="width:180px" name="email" id="tlemail" placeholder="Your email address"/>
-	  <input type="hidden" value="1" name="embed"/>
+	  <input type="email" style="width:180px" name="email" id="tlemail" placeholder="Your email address" />
+	  <input type="hidden" value="1" name="embed" />
 	  <input style="padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;" type="submit" value="Subscribe" />
   </form>
-  <br>
+  <br />
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="before-we-start">Before we start</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><a href="/databook/2020/09/25/data-book-chap0.html">What is Data Oriented Programming</a></p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="part-1-design-a-data-oriented-system">Part 1: Design a Data Oriented system</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><a href="/databook/2020/09/25/data-book-chap1-part1.html">The complexity of Object Oriented programming</a></p>
-</li>
-<li>
-<p><a href="/databook/2020/09/29/do-principles.html">Principles of Data Oriented programming</a></p>
-</li>
-<li>
-<p>Polymorphism without objects</p>
-</li>
-<li>
-<p>Assess the quality of your data model</p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="part-2-implement-a-data-oriented-system">Part 2: Implement a Data Oriented system</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>State management in an immutable world</p>
-</li>
-<li>
-<p>Data manipulation kills bugs in the egg</p>
-</li>
-<li>
-<p>The data manipulation tool set in action</p>
-</li>
-<li>
-<p>Write unit tests without mocking</p>
-</li>
-<li>
-<p>Debug your program without a debugger</p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="part-3-evolve-a-data-oriented-system">Part 3: Evolve a Data Oriented system</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Write your own data manipulation tool set</p>
-</li>
-<li>
-<p>Extend the primitive data types</p>
-</li>
-<li>
-<p>Specify the shape of your data</p>
-</li>
-<li>
-<p>Write unit tests that cover every possible data combination with property based testing</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Are you now motivated to discover the DO world?</p>
-</div>
-<div class="paragraph">
-<p>Start reading the <a href="/databook/2020/09/25/data-book-chap0.html">introduction</a>.</p>
-</div>
-<div>
-  <p>
-    This article is an excerpt from my upcoming book about <b>Data Oriented Programming</b>. The book will be published by Manning, once it is completed (hopefully in 2021).
-  </p>
 
-  <p>
-    More excerpts are available on my <a href="/data-oriented-programming-book.html">blog</a>.
-  </p>
+<h1 id="tldr">TL;DR</h1>
 
-  <p>
-    Enter your email address below to get notified when the book is published.
-  </p>
+<p>Lodash FP differs from the standard Lodash on 4 main points:</p>
 
-  <form style="text-align: left;" action="https://tinyletter.com/data-oriented-programming" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
-	  <input type="email" style="width:180px" name="email" id="tlemail" placeholder="Your email address"/>
-	  <input type="hidden" value="1" name="embed"/>
-	  <input style="padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;" type="submit" value="Subscribe" />
-  </form>
-  <br>
-</div>
-</div>
-</div>
+<ol>
+  <li>The functions receive the <strong>data</strong> to be manipulated as <strong>last argument</strong></li>
+  <li>The functions <strong>do not mutate</strong> the data they manipulate</li>
+  <li>The functions are <strong>auto curried</strong></li>
+  <li>The functions receive the <strong>iteratee</strong> as <strong>first argument</strong></li>
+</ol>
+
+<h1 id="immutability">Immutability</h1>
+
+<p>In Lodash FP, the functions do not <strong>mutate</strong> the data they manipulate.</p>
+
+<p>For instance, the <code class="language-plaintext highlighter-rouge">set()</code> function differs from the standard Lodash in two points:</p>
+
+<ol>
+  <li>It receives the object as <strong>last argument</strong></li>
+  <li>It returns a <strong>new version</strong> of the object instead of modifying the object</li>
+</ol>
+
+<p>In the following code snippet, you see that <code class="language-plaintext highlighter-rouge">a</code> is not modified by <code class="language-plaintext highlighter-rouge">fp.set()</code>:</p>
+
+<pre><code class="language-eval-js">var a = {foo: 1};
+var b = fp.set("foo", 2, a);
+a
+</code></pre>
+
+<p>However in standard Lodash, <code class="language-plaintext highlighter-rouge">a</code> is modified by <code class="language-plaintext highlighter-rouge">_.set()</code>:</p>
+
+<pre><code class="language-eval-js">var a = {foo: 1};
+var b = _.set(a, "foo", 2);
+a
+</code></pre>
+
+<p>Be aware that the <a href="https://github.com/lodash/lodash/commit/f132c0024fccd4a2b4d6fbd18df37d7b7996312e">implementation</a> of the data immutability is via <strong>deep cloning</strong>. When the objects are big, the <strong>performance hit</strong> of deep cloning might be an issue. You might prefer to use a library that implement persistent data structures to avoid this performance hit. But then you’d have to pay the price of <strong>converting persistent data structures</strong> to native objects back and forth (like I illustrated in <a href="/javascript/2020/11/09/immutable-manipulate.html">this article</a>).</p>
+
+<h1 id="auto-currying">Auto currying</h1>
+
+<p>In Lodash FP, the functions that receive an <strong>iteratee</strong> (a piece of code that expresses the data manipulation) receive the iteratee as <strong>first argument</strong> and are <strong>curried</strong>.</p>
+
+<p>Functions like <code class="language-plaintext highlighter-rouge">map()</code> receive a single argument (the iteratee) and return a function to be called on a collection:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fp.map(x =&gt; x +1)([1, 2, 3])
+</code></pre></div></div>
+
+<p>Functions like <code class="language-plaintext highlighter-rouge">reduce()</code> function receive two arguments (the iteratee and the accumulator) and return a function to be called on a collection:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fp.reduce((a,b) =&gt; a + b, 0)([1, 2, 3])
+</code></pre></div></div>
+
+<h1 id="installation">Installation</h1>
+
+<p>The installation instruction and the semantics of the functional flavor are exposed in <a href="https://github.com/lodash/lodash/wiki/FP-Guide">Lodash FP Guide</a>.</p>
+
+<script src="https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)"></script>
+
+<script>
+var fp = _.noConflict();
+</script>
+
+
   </div>
 
 </article>
@@ -385,9 +349,9 @@
     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
     */
     var disqus_config = function () {
-        this.page.url = "https://blog.klipse.tech/" + "/databook/2020/09/27/data-book-toc.html";
-        this.page.identifier = "81362E9F-45CF-46A1-BD8B-971FCD540DDE";
-        this.page.title = "Data Oriented Programming: Table of Contents";
+        this.page.url = "https://blog.klipse.tech/" + "/javascript/2020/11/26/lodash-fp.html";
+        this.page.identifier = "2133562F-D755-4484-9B73-12D7438A335C";
+        this.page.title = "Functional Lodash";
     };
     (function() { // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');

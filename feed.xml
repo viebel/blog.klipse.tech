@@ -1,11 +1,100 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2020-11-10T03:41:23+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
-</subtitle><author><name>Yehonathan Sharvit</name></author><entry><title type="html">Manipulate immutable collections with no performance hit.</title><link href="https://blog.klipse.tech//javascript/2020/11/09/immutable-manipulate.html" rel="alternate" type="text/html" title="Manipulate immutable collections with no performance hit." /><published>2020-11-09T00:21:34+00:00</published><updated>2020-11-09T00:21:34+00:00</updated><id>https://blog.klipse.tech//javascript/2020/11/09/immutable-manipulate</id><content type="html" xml:base="https://blog.klipse.tech//javascript/2020/11/09/immutable-manipulate.html">&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.2/immutable.min.js&quot; integrity=&quot;sha512-myCdDiGJRYrvRb/VuJ67ljifYTJdc1jdEvL4c4ftX9o3N6EAnmD83c/7l2/91RCINZ7c8w21tiXDT7RDFjdc3g==&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2020-11-26T08:09:32+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
+</subtitle><author><name>Yehonathan Sharvit</name></author><entry><title type="html">Functional Lodash</title><link href="https://blog.klipse.tech//javascript/2020/11/26/lodash-fp.html" rel="alternate" type="text/html" title="Functional Lodash" /><published>2020-11-26T01:43:52+00:00</published><updated>2020-11-26T01:43:52+00:00</updated><id>https://blog.klipse.tech//javascript/2020/11/26/lodash-fp</id><content type="html" xml:base="https://blog.klipse.tech//javascript/2020/11/26/lodash-fp.html">&lt;p&gt;Did you know that &lt;a href=&quot;https://lodash.com/&quot;&gt;Lodash&lt;/a&gt; - the popular JavaScript utility library - had a &lt;strong&gt;functional&lt;/strong&gt; flavor?&lt;/p&gt;
+
+&lt;p&gt;The most exciting part to me is that functions of Lodash FP do not &lt;strong&gt;mutate&lt;/strong&gt; the data they receive.&lt;/p&gt;
+
+&lt;p&gt;As a Clojure developer, I am excited because I am &lt;strong&gt;addicted&lt;/strong&gt; to &lt;strong&gt;data immutability&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/serenity-immutability.png&quot; alt=&quot;Immutability&quot; /&gt;&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot; /&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot; /&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br /&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;tldr&quot;&gt;TL;DR&lt;/h1&gt;
+
+&lt;p&gt;Lodash FP differs from the standard Lodash on 4 main points:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;The functions receive the &lt;strong&gt;data&lt;/strong&gt; to be manipulated as &lt;strong&gt;last argument&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;The functions &lt;strong&gt;do not mutate&lt;/strong&gt; the data they manipulate&lt;/li&gt;
+  &lt;li&gt;The functions are &lt;strong&gt;auto curried&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;The functions receive the &lt;strong&gt;iteratee&lt;/strong&gt; as &lt;strong&gt;first argument&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;immutability&quot;&gt;Immutability&lt;/h1&gt;
+
+&lt;p&gt;In Lodash FP, the functions do not &lt;strong&gt;mutate&lt;/strong&gt; the data they manipulate.&lt;/p&gt;
+
+&lt;p&gt;For instance, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;set()&lt;/code&gt; function differs from the standard Lodash in two points:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;It receives the object as &lt;strong&gt;last argument&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;It returns a &lt;strong&gt;new version&lt;/strong&gt; of the object instead of modifying the object&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;In the following code snippet, you see that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; is not modified by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fp.set()&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;var a = {foo: 1};
+var b = fp.set(&quot;foo&quot;, 2, a);
+a
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;However in standard Lodash, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; is modified by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_.set()&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;var a = {foo: 1};
+var b = _.set(a, &quot;foo&quot;, 2);
+a
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Be aware that the &lt;a href=&quot;https://github.com/lodash/lodash/commit/f132c0024fccd4a2b4d6fbd18df37d7b7996312e&quot;&gt;implementation&lt;/a&gt; of the data immutability is via &lt;strong&gt;deep cloning&lt;/strong&gt;. When the objects are big, the &lt;strong&gt;performance hit&lt;/strong&gt; of deep cloning might be an issue. You might prefer to use a library that implement persistent data structures to avoid this performance hit. But then you’d have to pay the price of &lt;strong&gt;converting persistent data structures&lt;/strong&gt; to native objects back and forth (like I illustrated in &lt;a href=&quot;/javascript/2020/11/09/immutable-manipulate.html&quot;&gt;this article&lt;/a&gt;).&lt;/p&gt;
+
+&lt;h1 id=&quot;auto-currying&quot;&gt;Auto currying&lt;/h1&gt;
+
+&lt;p&gt;In Lodash FP, the functions that receive an &lt;strong&gt;iteratee&lt;/strong&gt; (a piece of code that expresses the data manipulation) receive the iteratee as &lt;strong&gt;first argument&lt;/strong&gt; and are &lt;strong&gt;curried&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Functions like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;map()&lt;/code&gt; receive a single argument (the iteratee) and return a function to be called on a collection:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fp.map(x =&amp;gt; x +1)([1, 2, 3])
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Functions like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;reduce()&lt;/code&gt; function receive two arguments (the iteratee and the accumulator) and return a function to be called on a collection:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fp.reduce((a,b) =&amp;gt; a + b, 0)([1, 2, 3])
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;installation&quot;&gt;Installation&lt;/h1&gt;
+
+&lt;p&gt;The installation instruction and the semantics of the functional flavor are exposed in &lt;a href=&quot;https://github.com/lodash/lodash/wiki/FP-Guide&quot;&gt;Lodash FP Guide&lt;/a&gt;.&lt;/p&gt;
+
+&lt;script src=&quot;https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)&quot;&gt;&lt;/script&gt;
+
+&lt;script&gt;
+var fp = _.noConflict();
+&lt;/script&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">Did you know that Lodash - the popular JavaScript utility library - had a functional flavor?</summary></entry><entry><title type="html">Manipulate immutable collections with no performance hit.</title><link href="https://blog.klipse.tech//javascript/2020/11/09/immutable-manipulate.html" rel="alternate" type="text/html" title="Manipulate immutable collections with no performance hit." /><published>2020-11-09T00:21:34+00:00</published><updated>2020-11-09T00:21:34+00:00</updated><id>https://blog.klipse.tech//javascript/2020/11/09/immutable-manipulate</id><content type="html" xml:base="https://blog.klipse.tech//javascript/2020/11/09/immutable-manipulate.html">&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.2/immutable.min.js&quot; integrity=&quot;sha512-myCdDiGJRYrvRb/VuJ67ljifYTJdc1jdEvL4c4ftX9o3N6EAnmD83c/7l2/91RCINZ7c8w21tiXDT7RDFjdc3g==&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
 
 &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js&quot; integrity=&quot;sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww==&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
 
 &lt;div&gt;
   &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
   &lt;/p&gt;
 
   &lt;p&gt;
@@ -150,7 +239,7 @@ However, in languages where immutable data structures are not &lt;strong&gt;nati
 
 &lt;div&gt;
   &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
   &lt;/p&gt;
 
   &lt;p&gt;
@@ -171,7 +260,7 @@ However, in languages where immutable data structures are not &lt;strong&gt;nati
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div&gt;
   &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
   &lt;/p&gt;
 
   &lt;p&gt;
@@ -1370,7 +1459,7 @@ Everything is clear in my &lt;strong&gt;system&lt;/strong&gt;&lt;br&gt;&lt;/p&gt
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div&gt;
   &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
   &lt;/p&gt;
 
   &lt;p&gt;
@@ -1615,7 +1704,7 @@ We might be confused by the fact that &lt;code&gt;mapWithFunction&lt;/code&gt; h
 &lt;/div&gt;
 &lt;div&gt;
   &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
   &lt;/p&gt;
 
   &lt;p&gt;
@@ -1639,7 +1728,7 @@ We might be confused by the fact that &lt;code&gt;mapWithFunction&lt;/code&gt; h
 &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.2/immutable.min.js&quot; integrity=&quot;sha512-myCdDiGJRYrvRb/VuJ67ljifYTJdc1jdEvL4c4ftX9o3N6EAnmD83c/7l2/91RCINZ7c8w21tiXDT7RDFjdc3g==&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
 &lt;div&gt;
   &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
   &lt;/p&gt;
 
   &lt;p&gt;
@@ -1902,7 +1991,7 @@ However, on most programming languages, equality is defined by reference and not
 &lt;/div&gt;
 &lt;div&gt;
   &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
   &lt;/p&gt;
 
   &lt;p&gt;
@@ -1926,7 +2015,7 @@ However, on most programming languages, equality is defined by reference and not
 &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js&quot; integrity=&quot;sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww==&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
 &lt;div&gt;
   &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
   &lt;/p&gt;
 
   &lt;p&gt;
@@ -2222,7 +2311,7 @@ and it keeps our data model flexible.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div&gt;
   &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
   &lt;/p&gt;
 
   &lt;p&gt;
@@ -2246,7 +2335,7 @@ and it keeps our data model flexible.&lt;/p&gt;
 &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.2/immutable.min.js&quot; integrity=&quot;sha512-myCdDiGJRYrvRb/VuJ67ljifYTJdc1jdEvL4c4ftX9o3N6EAnmD83c/7l2/91RCINZ7c8w21tiXDT7RDFjdc3g==&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
 &lt;div&gt;
   &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
   &lt;/p&gt;
 
   &lt;p&gt;
@@ -2535,7 +2624,7 @@ setTimeout(function(data){
 &lt;/div&gt;
 &lt;div&gt;
   &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
   &lt;/p&gt;
 
   &lt;p&gt;
@@ -2558,7 +2647,7 @@ setTimeout(function(data){
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div&gt;
   &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
   &lt;/p&gt;
 
   &lt;p&gt;
@@ -3090,7 +3179,7 @@ As a consequence, as a developer it&amp;#8217;s really easy to discover what are
 &lt;/div&gt;
 &lt;div&gt;
   &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
   &lt;/p&gt;
 
   &lt;p&gt;
@@ -3111,7 +3200,7 @@ As a consequence, as a developer it&amp;#8217;s really easy to discover what are
 &lt;/div&gt;
 &lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">Principles of Data Oriented Programming</title><link href="https://blog.klipse.tech//databook/2020/09/29/do-principles.html" rel="alternate" type="text/html" title="Principles of Data Oriented Programming" /><published>2020-09-29T03:31:24+00:00</published><updated>2020-09-29T03:31:24+00:00</updated><id>https://blog.klipse.tech//databook/2020/09/29/do-principles</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/29/do-principles.html">&lt;div&gt;
   &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
   &lt;/p&gt;
 
   &lt;p&gt;
@@ -3174,7 +3263,7 @@ in JavaScript, a programming language that supports both FP and OOP.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div&gt;
   &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
+    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
   &lt;/p&gt;
 
   &lt;p&gt;
@@ -3191,131 +3280,4 @@ in JavaScript, a programming language that supports both FP and OOP.&lt;/p&gt;
 	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
   &lt;/form&gt;
   &lt;br&gt;
-&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">Data Oriented Programming: Table of Contents</title><link href="https://blog.klipse.tech//databook/2020/09/27/data-book-toc.html" rel="alternate" type="text/html" title="Data Oriented Programming: Table of Contents" /><published>2020-09-27T00:45:32+00:00</published><updated>2020-09-27T00:45:32+00:00</updated><id>https://blog.klipse.tech//databook/2020/09/27/data-book-toc</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/27/data-book-toc.html">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    Enter your email address below to get notified when the book is published.
-  &lt;/p&gt;
-
-  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
-	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
-	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
-	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
-  &lt;/form&gt;
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;before-we-start&quot;&gt;Before we start&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;/databook/2020/09/25/data-book-chap0.html&quot;&gt;What is Data Oriented Programming&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;part-1-design-a-data-oriented-system&quot;&gt;Part 1: Design a Data Oriented system&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;/databook/2020/09/25/data-book-chap1-part1.html&quot;&gt;The complexity of Object Oriented programming&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;/databook/2020/09/29/do-principles.html&quot;&gt;Principles of Data Oriented programming&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Polymorphism without objects&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Assess the quality of your data model&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;part-2-implement-a-data-oriented-system&quot;&gt;Part 2: Implement a Data Oriented system&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;State management in an immutable world&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Data manipulation kills bugs in the egg&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;The data manipulation tool set in action&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Write unit tests without mocking&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Debug your program without a debugger&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;part-3-evolve-a-data-oriented-system&quot;&gt;Part 3: Evolve a Data Oriented system&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Write your own data manipulation tool set&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Extend the primitive data types&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Specify the shape of your data&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Write unit tests that cover every possible data combination with property based testing&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Are you now motivated to discover the DO world?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Start reading the &lt;a href=&quot;/databook/2020/09/25/data-book-chap0.html&quot;&gt;introduction&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021).
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    Enter your email address below to get notified when the book is published.
-  &lt;/p&gt;
-
-  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
-	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
-	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
-	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
-  &lt;/form&gt;
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;/div&gt;
 &lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry></feed>
