@@ -14,7 +14,7 @@ author: Yehonathan Sharvit
 
 You have probably used Lodash in one of your projects. 
 
-Wouldn't it be great if every javascript developer could experiment Lodash in herB browser without needing to install anything or to create a JsFiddle?
+Wouldn't it be great if every javascript developer could experiment Lodash in her browser without needing to install anything or to create a JsFiddle?
 
 Today, this dream comes true. In this blog post, you can play with Lodash functions. Experiment the edge cases of the API. Compose a short gist and check if it works as expected....
 
