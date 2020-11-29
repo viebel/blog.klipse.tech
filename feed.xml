@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2020-11-26T08:09:32+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2020-11-29T17:20:53+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
 </subtitle><author><name>Yehonathan Sharvit</name></author><entry><title type="html">Functional Lodash</title><link href="https://blog.klipse.tech//javascript/2020/11/26/lodash-fp.html" rel="alternate" type="text/html" title="Functional Lodash" /><published>2020-11-26T01:43:52+00:00</published><updated>2020-11-26T01:43:52+00:00</updated><id>https://blog.klipse.tech//javascript/2020/11/26/lodash-fp</id><content type="html" xml:base="https://blog.klipse.tech//javascript/2020/11/26/lodash-fp.html">&lt;p&gt;Did you know that &lt;a href=&quot;https://lodash.com/&quot;&gt;Lodash&lt;/a&gt; - the popular JavaScript utility library - had a &lt;strong&gt;functional&lt;/strong&gt; flavor?&lt;/p&gt;
 
 &lt;p&gt;The most exciting part to me is that functions of Lodash FP do not &lt;strong&gt;mutate&lt;/strong&gt; the data they receive.&lt;/p&gt;
@@ -72,13 +72,13 @@ a
 
 &lt;p&gt;Functions like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;map()&lt;/code&gt; receive a single argument (the iteratee) and return a function to be called on a collection:&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fp.map(x =&amp;gt; x +1)([1, 2, 3])
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;fp.map(x =&amp;gt; x +1)([1, 2, 3])
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Functions like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;reduce()&lt;/code&gt; function receive two arguments (the iteratee and the accumulator) and return a function to be called on a collection:&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;fp.reduce((a,b) =&amp;gt; a + b, 0)([1, 2, 3])
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;fp.reduce((a,b) =&amp;gt; a + b, 0)([1, 2, 3])
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;h1 id=&quot;installation&quot;&gt;Installation&lt;/h1&gt;
 
