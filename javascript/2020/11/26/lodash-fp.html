@@ -159,7 +159,7 @@ var b = _.set(a, "foo", 2);
 a
 </code></pre>
 
-<p>Be aware that the <a href="https://github.com/lodash/lodash/commit/f132c0024fccd4a2b4d6fbd18df37d7b7996312e">implementation</a> of the data immutability is via <strong>deep cloning</strong>. When the objects are big, the <strong>performance hit</strong> of deep cloning might be an issue. You might prefer to use a library that implement persistent data structures to avoid this performance hit. But then you’d have to pay the price of <strong>converting persistent data structures</strong> to native objects back and forth (like I illustrated in <a href="/javascript/2020/11/09/immutable-manipulate.html">this article</a>).</p>
+<p>The <a href="https://stackoverflow.com/questions/65055922/how-do-immutable-methods-work-in-lodash-fp/65059704#65059704">implementation</a> of the data immutability is based on <strong>structural sharing</strong>, which makes it efficient both in terms of memory and CPU.</p>
 
 <h1 id="auto-currying">Auto currying</h1>
 
