@@ -149,14 +149,14 @@
 
 <pre><code class="language-eval-js">var a = {foo: 1};
 var b = fp.set("foo", 2, a);
-a
+[a, b]
 </code></pre>
 
 <p>However in standard Lodash, <code class="language-plaintext highlighter-rouge">a</code> is modified by <code class="language-plaintext highlighter-rouge">_.set()</code>:</p>
 
 <pre><code class="language-eval-js">var a = {foo: 1};
 var b = _.set(a, "foo", 2);
-a
+[a, b]
 </code></pre>
 
 <p>The <a href="https://stackoverflow.com/questions/65055922/how-do-immutable-methods-work-in-lodash-fp/65059704#65059704">implementation</a> of the data immutability is based on <strong>structural sharing</strong>, which makes it efficient both in terms of memory and CPU.</p>
@@ -173,6 +173,32 @@ a
 <p>Functions like <code class="language-plaintext highlighter-rouge">reduce()</code> function receive two arguments (the iteratee and the accumulator) and return a function to be called on a collection:</p>
 
 <pre><code class="language-eval-js">fp.reduce((a,b) =&gt; a + b, 0)([1, 2, 3])
+</code></pre>
+
+<h1 id="configuration">Configuration</h1>
+
+<p>If you want to benefit from the immutability without changing the argument order, you can configure it:</p>
+
+<pre><code class="language-eval-js">// Every option is `true` by default.
+var _fp = fp.convert({
+  // Specify capping iteratee arguments.
+  'cap': false,
+  // Specify currying.
+  'curry': false,
+  // Specify fixed arity.
+  'fixed': false,
+  // Specify immutable operations.
+  'immutable': true,
+  // Specify rearranging arguments.
+  'rearg': false
+});
+</code></pre>
+
+<p>Now, Lodash FP looks like regular Lodash, excepts it doesn’t mutate data:</p>
+
+<pre><code class="language-eval-js">var a = {foo: 1};
+var b = _fp.set(a, "foo", 2);
+[a, b]
 </code></pre>
 
 <h1 id="installation">Installation</h1>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2020-11-30T02:24:54+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2020-12-18T04:36:53+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
 </subtitle><author><name>Yehonathan Sharvit</name></author><entry><title type="html">Functional Lodash</title><link href="https://blog.klipse.tech//javascript/2020/11/26/lodash-fp.html" rel="alternate" type="text/html" title="Functional Lodash" /><published>2020-11-26T01:43:52+00:00</published><updated>2020-11-26T01:43:52+00:00</updated><id>https://blog.klipse.tech//javascript/2020/11/26/lodash-fp</id><content type="html" xml:base="https://blog.klipse.tech//javascript/2020/11/26/lodash-fp.html">&lt;p&gt;Did you know that &lt;a href=&quot;https://lodash.com/&quot;&gt;Lodash&lt;/a&gt; - the popular JavaScript utility library - had a &lt;strong&gt;functional&lt;/strong&gt; flavor?&lt;/p&gt;
 
 &lt;p&gt;The most exciting part to me is that functions of Lodash FP do not &lt;strong&gt;mutate&lt;/strong&gt; the data they receive.&lt;/p&gt;
@@ -54,14 +54,14 @@
 
 &lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;var a = {foo: 1};
 var b = fp.set(&quot;foo&quot;, 2, a);
-a
+[a, b]
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;However in standard Lodash, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; is modified by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_.set()&lt;/code&gt;:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;var a = {foo: 1};
 var b = _.set(a, &quot;foo&quot;, 2);
-a
+[a, b]
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;The &lt;a href=&quot;https://stackoverflow.com/questions/65055922/how-do-immutable-methods-work-in-lodash-fp/65059704#65059704&quot;&gt;implementation&lt;/a&gt; of the data immutability is based on &lt;strong&gt;structural sharing&lt;/strong&gt;, which makes it efficient both in terms of memory and CPU.&lt;/p&gt;
@@ -78,6 +78,32 @@ a
 &lt;p&gt;Functions like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;reduce()&lt;/code&gt; function receive two arguments (the iteratee and the accumulator) and return a function to be called on a collection:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;fp.reduce((a,b) =&amp;gt; a + b, 0)([1, 2, 3])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;configuration&quot;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;If you want to benefit from the immutability without changing the argument order, you can configure it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;// Every option is `true` by default.
+var _fp = fp.convert({
+  // Specify capping iteratee arguments.
+  'cap': false,
+  // Specify currying.
+  'curry': false,
+  // Specify fixed arity.
+  'fixed': false,
+  // Specify immutable operations.
+  'immutable': true,
+  // Specify rearranging arguments.
+  'rearg': false
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, Lodash FP looks like regular Lodash, excepts it doesn’t mutate data:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;var a = {foo: 1};
+var b = _fp.set(a, &quot;foo&quot;, 2);
+[a, b]
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h1 id=&quot;installation&quot;&gt;Installation&lt;/h1&gt;
