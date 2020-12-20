@@ -1,0 +1,1 @@
+DataDiff.diff(previous, next);

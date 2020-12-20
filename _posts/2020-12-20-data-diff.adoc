@@ -1,0 +1,138 @@
+= Computing the data diff between two hash maps
+:page-layout: post
+:includedir: _posts/data-book/code
+:page-description: Computing the data diff between two hash maps.
+:page-guid: 6FD59B4B-E1B0-4992-81BA-E50036A04C93
+:page-thumbnail: assets/klipse.png
+:page-categories: databook
+:page-booktitle: Chapter 4
+:page-bookorder: 04_02
+:page-liquid:
+:page-author: Yehonathan Sharvit
+:page-date: 2020-12-20 02:15:29 +0200
+
+++++
+{% include databook-intro.html %}
+++++
+
+
+Our link:{% post_url 2020-12-18-occ-do-git %}[implementation] of the 3-way merge resolution algorithm, where the system state is represented as a nested hash map, relies on the ability two compare two versions of the system state via the `DataDiff` class that implements:
+
+. The computation of a *semantic diff* between two hash maps (a.k.a data diff)
+. The detection of *empty intersection* between two hash maps
+
+The internals of the `DataDiff` class are now revealed.
+
+== The data diff algorithm
+
+Computing a *semantic diff* between two hash maps is the most challenging part of the reconciliation algorithm.
+
+But at the end of the day, it deals only with *data manipulation*.
+
+Let's define exactly what we mean by a semantic diff between two hash maps `a` and `b`:
+
+> The semantic diff between `a` and `b` is a hash map `d` that contains all the nested fields of `b` whose value differ from their value in `a`.
+
+For instance,
+
+[source,javascript]
+----
+DataDiff.diff(
+    {
+        x: {
+            y: 2,
+            z: 3
+        }
+    },
+    {
+        x: {
+            y: 2,
+            z: 4
+        }
+    }
+)
+----
+
+should return
+
+[source,javascript]
+----
+
+{
+    x: {
+        z: 4
+    }
+}
+
+----
+
+Our implementation uses *immutable functions* from link:{% post_url 2020-11-26-lodash-fp %}[Lodash]. By default, Lodash functions are not immutable. In order to use a immutable version of the functions, we need to use Lodash FP module (Functional Programming), as it is explained in the Lodash FP guide.footnote:[https://github.com/lodash/lodash/wiki/FP-Guide]. With this <<lodash-config,piece of code>> the signature of the immutable functions is exactly the same as the mutable functions.
+
+[#lodash-config]
+[source,klipse-javascript]
+----
+include::{includedir}/chapter04/lodash-config.js[]
+----
+
+
+And now to the implementation! The core of the code is inside `_.reduce()` where we make the recursive call to `DataDiff.diff()`.
+
+[source,klipse-javascript]
+----
+include::{includedir}/chapter04/data-diff-short.js[]
+----
+
+== Performance of calculating semantic diff
+
+In the general case, calculating the semantic diff of two hash maps is not efficient as we have to go over all the leaves of both maps.
+
+But when the two maps are created via *structural sharing* from the same map, the implementation in *efficient* as most of the nodes are shared between the two hash maps.
+
+[quote]
+In DO, the versions of the system state are always created via structural sharing: that's why the code in the conflict resolution phase is efficient.
+
+== Playing with data diff
+
+Even if you don't grasp all the details of the implementation, feel free to play with `DataDiff` and see how it calculates the semantic diff between two hash maps.
+
+[source,klipse-javascript]
+----
+include::{includedir}/chapter04/data-diff-test.js[]
+----
+== Intersection of maps
+
+
+`DataDiff` also provides a `DataDiff.isEmptyIntersection()` that we used in the link:{% post_url 2020-12-18-occ-do-git %}[reconciliation algorithm] to detect a conflict.
+[source,klipse-javascript]
+----
+include::{includedir}/chapter04/data-diff-leaves.js[]
+----
+
+
+Feel free to play with it also!
+
+[source,klipse-javascript]
+----
+include::{includedir}/chapter04/empty-intersection-test-1.js[]
+----
+
+
+[source,klipse-javascript]
+----
+include::{includedir}/chapter04/empty-intersection-test-2.js[]
+----
+
+
+++++
+{% include databook-intro.html %}
+++++
+
+
+
+
+++++
+<script src='https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)'></script>
+<script>
+var fp = _.noConflict();
+</script>
+++++

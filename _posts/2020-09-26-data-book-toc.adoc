@@ -10,7 +10,6 @@
 :page-author: Yehonathan Sharvit
 :page-date:   2020-09-27 02:45:32 +0200
 
-
 ++++
 {% include databook-intro.html %}
 ++++
@@ -19,10 +18,12 @@
 . link:{% post_url 2020-09-25-data-book-chap0 %}[What is Data Oriented Programming]
 
 == Part 1: Design a Data Oriented system
-. link:{% post_url 2020-09-21-data-book-chap1-part1 %}[The complexity of Object Oriented programming]
+. link:{% post_url 2020-09-21-data-book-chap1-part1 %}[The tendency to complexity of Object Oriented programming]
 . link:{% post_url 2020-09-27-do-principles %}[Principles of Data Oriented programming]
-. Polymorphism without objects
-. Assess the quality of your data model
+. Decrease complexity by separating Code from Data
+. Gain power by representing data records as maps
+. link:{% post_url 2020-12-18-occ-do-git %}[Maintain effectiveness by managing state with immutable data]
+
 
 == Part 2: Implement a Data Oriented system
 . State management in an immutable world
