@@ -661,10 +661,7 @@ var current2 = _.set(library,
 <p>During the <strong>Calculation phase</strong>, the data is manipulated with <strong>immutable functions</strong> that leverage <strong>structural sharing</strong> to create <strong>efficiently</strong> (memory and computation) a <strong>new version</strong> of the data where the data that is common between the two versions is shared.</p>
 </div>
 <div class="paragraph">
-<p><strong>Data validation</strong> and <strong>conflict resolution</strong> between <strong>concurrent mutations</strong> occur in the <strong>Commit</strong> phase. The code for the <strong>commit phase</strong> is common to all the mutations. The code that implements conflict detection in the commit phase is efficient in virtue of <strong>structural sharing</strong>.</p>
-</div>
-<div class="paragraph">
-<p>When the system data is immutable, keeping the <strong>history</strong> of the versions of the system data is efficient and restoring the system to a previous state is straightforward. As an example, we have seen how to implement <em>undo</em> in a DO system.</p>
+<p><strong>Conflict resolution</strong> between <strong>concurrent mutations</strong> occur in the <strong>Commit</strong> phase. The code for the <strong>commit phase</strong> is common to all the mutations. The code that implements conflict detection in the commit phase is efficient in virtue of <strong>structural sharing</strong>.</p>
 </div>
 <div>
   <p>
