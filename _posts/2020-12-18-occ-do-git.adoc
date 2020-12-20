@@ -314,9 +314,8 @@ In this chapter, we have explored how DO *manages state* with *Optimistic Concur
 
 During the *Calculation phase*, the data is manipulated with *immutable functions* that leverage *structural sharing* to create *efficiently* (memory and computation) a *new version* of the data where the data that is common between the two versions is shared.
 
-*Data validation* and *conflict resolution* between *concurrent mutations* occur in the *Commit* phase. The code for the *commit phase* is common to all the mutations. The code that implements conflict detection in the commit phase is efficient in virtue of *structural sharing*.
+*Conflict resolution* between *concurrent mutations* occur in the *Commit* phase. The code for the *commit phase* is common to all the mutations. The code that implements conflict detection in the commit phase is efficient in virtue of *structural sharing*.
 
-When the system data is immutable, keeping the *history* of the versions of the system data is efficient and restoring the system to a previous state is straightforward. As an example, we have seen how to implement _undo_ in a DO system.
 ++++
 {% include databook-intro.html %}
 ++++
