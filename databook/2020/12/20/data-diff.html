@@ -7,19 +7,19 @@
 
   <link rel="shortcut icon" href="/assets/favicon2.png">
 
-  <title>Data Oriented Programming: Table of Contents</title>
-  <meta name="description" content="Table of Contents of Data Oriented Programming">
+  <title>Computing the data diff between two hash maps</title>
+  <meta name="description" content="Computing the data diff between two hash maps.">
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/asciidoc-pygments.css">
-  <link rel="canonical" href="https://blog.klipse.tech//databook/2020/09/27/data-book-toc.html">
+  <link rel="canonical" href="https://blog.klipse.tech//databook/2020/12/20/data-diff.html">
   <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
 
   <!-- start: facebook -->
-  <meta property="og:title" content="Data Oriented Programming: Table of Contents">
+  <meta property="og:title" content="Computing the data diff between two hash maps">
   <meta property="og:image" content="https://blog.klipse.tech/assets/klipse.png">
-  <meta property="og:description" content="Table of Contents of Data Oriented Programming">
+  <meta property="og:description" content="Computing the data diff between two hash maps.">
   <meta property="og:site_name" content="An interactive journey into functional programming with Yehonathan Sharvit">
   <meta property="article:author" content="Yehonathan Sharvit">
   <!-- end: facebook -->
@@ -84,8 +84,8 @@
       <img src="https://blog.klipse.tech/assets/klipse.png">
     </div>
     <div>
-      <h1 class="post-title" itemprop="name headline">Data Oriented Programming: Table of Contents</h1>
-      <p class="post-meta"><time datetime="2020-09-27T00:45:32+00:00" itemprop="datePublished">Sep 27, 2020</time>
+      <h1 class="post-title" itemprop="name headline">Computing the data diff between two hash maps</h1>
+      <p class="post-meta"><time datetime="2020-12-20T00:15:29+00:00" itemprop="datePublished">Dec 20, 2020</time>
 	 •
 	<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Yehonathan Sharvit</span></span>
 	
@@ -116,92 +116,246 @@
   </form>
   <br>
 </div>
+<div class="paragraph">
+<p>Our <a href="/databook/2020/12/18/occ-do-git.html">implementation</a> of the 3-way merge resolution algorithm, where the system state is represented as a nested hash map, relies on the ability two compare two versions of the system state via the <code>DataDiff</code> class that implements:</p>
 </div>
-</div>
-<div class="sect1">
-<h2 id="before-we-start">Before we start</h2>
-<div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><a href="/databook/2020/09/25/data-book-chap0.html">What is Data Oriented Programming</a></p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="part-1-design-a-data-oriented-system">Part 1: Design a Data Oriented system</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><a href="/databook/2020/09/25/data-book-chap1-part1.html">The tendency to complexity of Object Oriented programming</a></p>
+<p>The computation of a <strong>semantic diff</strong> between two hash maps (a.k.a data diff)</p>
 </li>
 <li>
-<p><a href="/databook/2020/09/29/do-principles.html">Principles of Data Oriented programming</a></p>
-</li>
-<li>
-<p>Decrease complexity by separating Code from Data</p>
-</li>
-<li>
-<p>Gain power by representing data records as maps</p>
-</li>
-<li>
-<p><a href="/databook/2020/12/18/occ-do-git.html">Maintain effectiveness by managing state with immutable data</a></p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="part-2-implement-a-data-oriented-system">Part 2: Implement a Data Oriented system</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>State management in an immutable world</p>
-</li>
-<li>
-<p>Data manipulation kills bugs in the egg</p>
-</li>
-<li>
-<p>The data manipulation tool set in action</p>
-</li>
-<li>
-<p>Write unit tests without mocking</p>
-</li>
-<li>
-<p>Debug your program without a debugger</p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="part-3-evolve-a-data-oriented-system">Part 3: Evolve a Data Oriented system</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Write your own data manipulation tool set</p>
-</li>
-<li>
-<p>Extend the primitive data types</p>
-</li>
-<li>
-<p>Specify the shape of your data</p>
-</li>
-<li>
-<p>Write unit tests that cover every possible data combination with property based testing</p>
+<p>The detection of <strong>empty intersection</strong> between two hash maps</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>Are you now motivated to discover the DO world?</p>
+<p>The internals of the <code>DataDiff</code> class are now revealed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the-data-diff-algorithm">The data diff algorithm</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Computing a <strong>semantic diff</strong> between two hash maps is the most challenging part of the reconciliation algorithm.</p>
 </div>
 <div class="paragraph">
-<p>Start reading the <a href="/databook/2020/09/25/data-book-chap0.html">introduction</a>.</p>
+<p>But at the end of the day, it deals only with <strong>data manipulation</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s define exactly what we mean by a semantic diff between two hash maps <code>a</code> and <code>b</code>:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>The semantic diff between <code>a</code> and <code>b</code> is a hash map <code>d</code> that contains all the nested fields of <code>b</code> whose value differ from their value in <code>a</code>.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>For instance,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="javascript"><span></span><span class="tok-nx">DataDiff</span><span class="tok-p">.</span><span class="tok-nx">diff</span><span class="tok-p">(</span>
+    <span class="tok-p">{</span>
+        <span class="tok-nx">x</span><span class="tok-o">:</span> <span class="tok-p">{</span>
+            <span class="tok-nx">y</span><span class="tok-o">:</span> <span class="tok-mi">2</span><span class="tok-p">,</span>
+            <span class="tok-nx">z</span><span class="tok-o">:</span> <span class="tok-mi">3</span>
+        <span class="tok-p">}</span>
+    <span class="tok-p">},</span>
+    <span class="tok-p">{</span>
+        <span class="tok-nx">x</span><span class="tok-o">:</span> <span class="tok-p">{</span>
+            <span class="tok-nx">y</span><span class="tok-o">:</span> <span class="tok-mi">2</span><span class="tok-p">,</span>
+            <span class="tok-nx">z</span><span class="tok-o">:</span> <span class="tok-mi">4</span>
+        <span class="tok-p">}</span>
+    <span class="tok-p">}</span>
+<span class="tok-p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>should return</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="javascript"><span></span>
+<span class="tok-p">{</span>
+    <span class="tok-nx">x</span><span class="tok-o">:</span> <span class="tok-p">{</span>
+        <span class="tok-nx">z</span><span class="tok-o">:</span> <span class="tok-mi">4</span>
+    <span class="tok-p">}</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Our implementation uses <strong>immutable functions</strong> from <a href="/javascript/2020/11/26/lodash-fp.html">Lodash</a>. By default, Lodash functions are not immutable. In order to use a immutable version of the functions, we need to use Lodash FP module (Functional Programming), as it is explained in the Lodash FP guide.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>. With this <a href="#lodash-config">piece of code</a> the signature of the immutable functions is exactly the same as the mutable functions.</p>
+</div>
+<div id="lodash-config" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>_ = fp.convert({
+    &quot;cap&quot;: false,
+    &quot;curry&quot;: false,
+    &quot;fixed&quot;: false,
+    &quot;immutable&quot;: true,
+    &quot;rearg&quot;: false
+});</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And now to the implementation! The core of the code is inside <code>_.reduce()</code> where we make the recursive call to <code>DataDiff.diff()</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>class DataDiff {
+    static diffObjects(data1, data2) {
+        var emptyObject = _.isArray(data1) ? [] : {};
+        if(data1 == data2) {
+            return emptyObject;
+        }
+        var keys = _.union(_.keys(data1), _.keys(data2));
+        return _.reduce(keys,
+                        function (acc, k) {
+                            var res = DataDiff.diff(_.get(data1, k),
+                                                    _.get(data2, k));
+                            if((_.isObject(res) &amp;&amp; _.isEmpty(res)) ||
+                               (res == &quot;data-diff:no-diff&quot;)) {
+                                return acc;
+                            }
+                            return _.set(acc, k, res);
+                        },
+                        emptyObject);
+    }
+
+    static diff(data1, data2) {
+        if(_.isObject(data1) &amp;&amp; _.isObject(data2)) {
+            return DataDiff.diffObjects(data1, data2);
+        }
+        if(data1 !== data2) {
+            return data2;
+        }
+        return &quot;data-diff:no-diff&quot;;
+    }
+}
+
+window.DataDiff = DataDiff</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="performance-of-calculating-semantic-diff">Performance of calculating semantic diff</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In the general case, calculating the semantic diff of two hash maps is not efficient as we have to go over all the leaves of both maps.</p>
+</div>
+<div class="paragraph">
+<p>But when the two maps are created via <strong>structural sharing</strong> from the same map, the implementation in <strong>efficient</strong> as most of the nodes are shared between the two hash maps.</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+In DO, the versions of the system state are always created via structural sharing: that&#8217;s why the code in the conflict resolution phase is efficient.
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="playing-with-data-diff">Playing with data diff</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Even if you don&#8217;t grasp all the details of the implementation, feel free to play with <code>DataDiff</code> and see how it calculates the semantic diff between two hash maps.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var data1 = {
+    g: {
+        c: 3
+    },
+    x: 2,
+    y: {
+        z: 1
+    },
+    w: [5]
+}
+
+var data2 = {
+    g: {
+        c: 3
+    },
+    x: 2,
+    y: {
+        z: 2
+    },
+    w: [4]
+}
+
+DataDiff.diff(data1, data2);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="intersection-of-maps">Intersection of maps</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>DataDiff</code> also provides a <code>DataDiff.isEmptyIntersection()</code> that we used in the <a href="/databook/2020/12/18/occ-do-git.html">reconciliation algorithm</a> to detect a conflict.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>DataDiff.leaves = function(obj, prefix = &#39;&#39;) {
+    return _.reduce(obj,
+                    function(acc, v, k) {
+                        if (_.isObject(v)) {
+                            return _.concat(acc,
+                                            DataDiff.leaves(v,
+                                                            prefix + k + &quot;.&quot;))
+                        }
+                        return _.concat(acc, [prefix + k]);
+                    },
+                    []);
+}
+
+DataDiff.isEmptyIntersection = function(delta1, delta2) {
+    return _.isEmpty(_.intersection(DataDiff.leaves(delta1),
+                                    DataDiff.leaves(delta2)));
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Feel free to play with it also!</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var diff1 = {
+    g: {
+        c: 3
+    }
+}
+
+var diff2 = {
+    g: {
+        c: 4
+    }
+}
+
+DataDiff.isEmptyIntersection(diff1, diff2);</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var diff3 = {
+    g: {
+        c: 3
+    }
+}
+
+var diff4 = {
+    g: {
+        d: 4
+    }
+}
+
+DataDiff.isEmptyIntersection(diff3, diff4);</code></pre>
+</div>
 </div>
 <div>
   <p>
@@ -223,6 +377,16 @@
   </form>
   <br>
 </div>
+<script src='https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)'></script>
+<script>
+var fp = _.noConflict();
+</script>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. <a href="https://github.com/lodash/lodash/wiki/FP-Guide" class="bare">https://github.com/lodash/lodash/wiki/FP-Guide</a>
 </div>
 </div>
   </div>
@@ -388,9 +552,9 @@
     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
     */
     var disqus_config = function () {
-        this.page.url = "https://blog.klipse.tech/" + "/databook/2020/09/27/data-book-toc.html";
-        this.page.identifier = "81362E9F-45CF-46A1-BD8B-971FCD540DDE";
-        this.page.title = "Data Oriented Programming: Table of Contents";
+        this.page.url = "https://blog.klipse.tech/" + "/databook/2020/12/20/data-diff.html";
+        this.page.identifier = "6FD59B4B-E1B0-4992-81BA-E50036A04C93";
+        this.page.title = "Computing the data diff between two hash maps";
     };
     (function() { // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');

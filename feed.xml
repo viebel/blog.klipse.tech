@@ -1,5 +1,917 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2020-12-18T04:36:53+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
-</subtitle><author><name>Yehonathan Sharvit</name></author><entry><title type="html">Functional Lodash</title><link href="https://blog.klipse.tech//javascript/2020/11/26/lodash-fp.html" rel="alternate" type="text/html" title="Functional Lodash" /><published>2020-11-26T01:43:52+00:00</published><updated>2020-11-26T01:43:52+00:00</updated><id>https://blog.klipse.tech//javascript/2020/11/26/lodash-fp</id><content type="html" xml:base="https://blog.klipse.tech//javascript/2020/11/26/lodash-fp.html">&lt;p&gt;Did you know that &lt;a href=&quot;https://lodash.com/&quot;&gt;Lodash&lt;/a&gt; - the popular JavaScript utility library - had a &lt;strong&gt;functional&lt;/strong&gt; flavor?&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2020-12-20T07:33:14+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
+</subtitle><author><name>Yehonathan Sharvit</name></author><entry><title type="html">Computing the data diff between two hash maps</title><link href="https://blog.klipse.tech//databook/2020/12/20/data-diff.html" rel="alternate" type="text/html" title="Computing the data diff between two hash maps" /><published>2020-12-20T00:15:29+00:00</published><updated>2020-12-20T00:15:29+00:00</updated><id>https://blog.klipse.tech//databook/2020/12/20/data-diff</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/12/20/data-diff.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Our &lt;a href=&quot;/databook/2020/12/18/occ-do-git.html&quot;&gt;implementation&lt;/a&gt; of the 3-way merge resolution algorithm, where the system state is represented as a nested hash map, relies on the ability two compare two versions of the system state via the &lt;code&gt;DataDiff&lt;/code&gt; class that implements:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;The computation of a &lt;strong&gt;semantic diff&lt;/strong&gt; between two hash maps (a.k.a data diff)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The detection of &lt;strong&gt;empty intersection&lt;/strong&gt; between two hash maps&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The internals of the &lt;code&gt;DataDiff&lt;/code&gt; class are now revealed.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;the-data-diff-algorithm&quot;&gt;The data diff algorithm&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Computing a &lt;strong&gt;semantic diff&lt;/strong&gt; between two hash maps is the most challenging part of the reconciliation algorithm.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;But at the end of the day, it deals only with &lt;strong&gt;data manipulation&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Let&amp;#8217;s define exactly what we mean by a semantic diff between two hash maps &lt;code&gt;a&lt;/code&gt; and &lt;code&gt;b&lt;/code&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The semantic diff between &lt;code&gt;a&lt;/code&gt; and &lt;code&gt;b&lt;/code&gt; is a hash map &lt;code&gt;d&lt;/code&gt; that contains all the nested fields of &lt;code&gt;b&lt;/code&gt; whose value differ from their value in &lt;code&gt;a&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For instance,&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;DataDiff&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;diff&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;tok-nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;tok-nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;tok-nx&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-mi&quot;&gt;3&lt;/span&gt;
+        &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;tok-p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;tok-nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;tok-nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;tok-nx&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-mi&quot;&gt;4&lt;/span&gt;
+        &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;should return&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;
+&lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;tok-nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;tok-nx&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-mi&quot;&gt;4&lt;/span&gt;
+    &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Our implementation uses &lt;strong&gt;immutable functions&lt;/strong&gt; from &lt;a href=&quot;/javascript/2020/11/26/lodash-fp.html&quot;&gt;Lodash&lt;/a&gt;. By default, Lodash functions are not immutable. In order to use a immutable version of the functions, we need to use Lodash FP module (Functional Programming), as it is explained in the Lodash FP guide.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;. With this &lt;a href=&quot;#lodash-config&quot;&gt;piece of code&lt;/a&gt; the signature of the immutable functions is exactly the same as the mutable functions.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;lodash-config&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;_ = fp.convert({
+    &amp;quot;cap&amp;quot;: false,
+    &amp;quot;curry&amp;quot;: false,
+    &amp;quot;fixed&amp;quot;: false,
+    &amp;quot;immutable&amp;quot;: true,
+    &amp;quot;rearg&amp;quot;: false
+});&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;And now to the implementation! The core of the code is inside &lt;code&gt;_.reduce()&lt;/code&gt; where we make the recursive call to &lt;code&gt;DataDiff.diff()&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;class DataDiff {
+    static diffObjects(data1, data2) {
+        var emptyObject = _.isArray(data1) ? [] : {};
+        if(data1 == data2) {
+            return emptyObject;
+        }
+        var keys = _.union(_.keys(data1), _.keys(data2));
+        return _.reduce(keys,
+                        function (acc, k) {
+                            var res = DataDiff.diff(_.get(data1, k),
+                                                    _.get(data2, k));
+                            if((_.isObject(res) &amp;amp;&amp;amp; _.isEmpty(res)) ||
+                               (res == &amp;quot;data-diff:no-diff&amp;quot;)) {
+                                return acc;
+                            }
+                            return _.set(acc, k, res);
+                        },
+                        emptyObject);
+    }
+
+    static diff(data1, data2) {
+        if(_.isObject(data1) &amp;amp;&amp;amp; _.isObject(data2)) {
+            return DataDiff.diffObjects(data1, data2);
+        }
+        if(data1 !== data2) {
+            return data2;
+        }
+        return &amp;quot;data-diff:no-diff&amp;quot;;
+    }
+}
+
+window.DataDiff = DataDiff&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;performance-of-calculating-semantic-diff&quot;&gt;Performance of calculating semantic diff&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In the general case, calculating the semantic diff of two hash maps is not efficient as we have to go over all the leaves of both maps.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;But when the two maps are created via &lt;strong&gt;structural sharing&lt;/strong&gt; from the same map, the implementation in &lt;strong&gt;efficient&lt;/strong&gt; as most of the nodes are shared between the two hash maps.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+In DO, the versions of the system state are always created via structural sharing: that&amp;#8217;s why the code in the conflict resolution phase is efficient.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;playing-with-data-diff&quot;&gt;Playing with data diff&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Even if you don&amp;#8217;t grasp all the details of the implementation, feel free to play with &lt;code&gt;DataDiff&lt;/code&gt; and see how it calculates the semantic diff between two hash maps.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var data1 = {
+    g: {
+        c: 3
+    },
+    x: 2,
+    y: {
+        z: 1
+    },
+    w: [5]
+}
+
+var data2 = {
+    g: {
+        c: 3
+    },
+    x: 2,
+    y: {
+        z: 2
+    },
+    w: [4]
+}
+
+DataDiff.diff(data1, data2);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;intersection-of-maps&quot;&gt;Intersection of maps&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;code&gt;DataDiff&lt;/code&gt; also provides a &lt;code&gt;DataDiff.isEmptyIntersection()&lt;/code&gt; that we used in the &lt;a href=&quot;/databook/2020/12/18/occ-do-git.html&quot;&gt;reconciliation algorithm&lt;/a&gt; to detect a conflict.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;DataDiff.leaves = function(obj, prefix = &amp;#39;&amp;#39;) {
+    return _.reduce(obj,
+                    function(acc, v, k) {
+                        if (_.isObject(v)) {
+                            return _.concat(acc,
+                                            DataDiff.leaves(v,
+                                                            prefix + k + &amp;quot;.&amp;quot;))
+                        }
+                        return _.concat(acc, [prefix + k]);
+                    },
+                    []);
+}
+
+DataDiff.isEmptyIntersection = function(delta1, delta2) {
+    return _.isEmpty(_.intersection(DataDiff.leaves(delta1),
+                                    DataDiff.leaves(delta2)));
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Feel free to play with it also!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var diff1 = {
+    g: {
+        c: 3
+    }
+}
+
+var diff2 = {
+    g: {
+        c: 4
+    }
+}
+
+DataDiff.isEmptyIntersection(diff1, diff2);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var diff3 = {
+    g: {
+        c: 3
+    }
+}
+
+var diff4 = {
+    g: {
+        d: 4
+    }
+}
+
+DataDiff.isEmptyIntersection(diff3, diff4);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;script src='https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)'&gt;&lt;/script&gt;
+&lt;script&gt;
+var fp = _.noConflict();
+&lt;/script&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
+&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. &lt;a href=&quot;https://github.com/lodash/lodash/wiki/FP-Guide&quot; class=&quot;bare&quot;&gt;https://github.com/lodash/lodash/wiki/FP-Guide&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">Applying Git and Optimistic Concurrency Control principles to Data Oriented Programming</title><link href="https://blog.klipse.tech//databook/2020/12/18/occ-do-git.html" rel="alternate" type="text/html" title="Applying Git and Optimistic Concurrency Control principles to Data Oriented Programming" /><published>2020-12-18T06:21:24+00:00</published><updated>2020-12-18T06:21:24+00:00</updated><id>https://blog.klipse.tech//databook/2020/12/18/occ-do-git</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/12/18/occ-do-git.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;So far in &lt;a href=&quot;/databook/2020/09/27/data-book-toc.html&quot;&gt;the book&lt;/a&gt;, we have seen how Data Oriented Programming (DO) deals with requests that &lt;strong&gt;query information&lt;/strong&gt; about the system, leveraging the representation of the whole system data as a &lt;strong&gt;single nested hash map&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In this chapter, we illustrate how DO deals with &lt;strong&gt;mutations&lt;/strong&gt;, i.e. requests that &lt;strong&gt;change&lt;/strong&gt; the &lt;strong&gt;system state&lt;/strong&gt;. Mutations are inherently more complex than queries, especially in a &lt;strong&gt;concurrent&lt;/strong&gt; system where mutations could conflict.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;DO reduces significantly the complexity of mutations, by constraining the hash map that represents the system data to be &lt;strong&gt;immutable&lt;/strong&gt;. We will see that in virtue of the immutability of the data, the code for a mutation is as &lt;strong&gt;efficient&lt;/strong&gt; as the code for a query and we benefit from the same &lt;strong&gt;power of expression&lt;/strong&gt; and &lt;strong&gt;flexibility&lt;/strong&gt; as with queries.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;DO manages concurrency using a lock free strategy called &lt;strong&gt;Optimistic Concurrency Control&lt;/strong&gt;, that leads to &lt;strong&gt;high throughput&lt;/strong&gt; of queries and mutations. The mutation logic is split into two distinct phases:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;The &lt;strong&gt;Calculation phase&lt;/strong&gt; where we &lt;strong&gt;compute&lt;/strong&gt; what would be the next state of the system if only this mutation were executed.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The &lt;strong&gt;Commit phase&lt;/strong&gt; where we &lt;strong&gt;update&lt;/strong&gt; the state of the system taking into account possible &lt;strong&gt;concurrent&lt;/strong&gt; mutations.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The code in both phases is made &lt;strong&gt;efficient&lt;/strong&gt; in terms of &lt;strong&gt;memory&lt;/strong&gt; and &lt;strong&gt;computation&lt;/strong&gt; by ensuring that the data is &lt;strong&gt;immutable&lt;/strong&gt;: Instead of mutating data in place, we create a new version of the data, leveraging a &lt;strong&gt;structural sharing&lt;/strong&gt; algorithm.  As a consequence, the computation done in the Calculation phase is efficient and the comparison between two versions of the data for conflict resolution in the Commit phase is super fast.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;optimistic-concurrency-control&quot;&gt;Optimistic Concurrency Control&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+&lt;strong&gt;Optimistic Concurrency Control&lt;/strong&gt; with &lt;strong&gt;immutable&lt;/strong&gt; data is super &lt;strong&gt;efficient&lt;/strong&gt;.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In DO, we manage different versions of the system data. At a specific point in time, the state of the system refers to a version of the system data. Each time a mutation is executed, we move forward the reference.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The data is &lt;strong&gt;immutable&lt;/strong&gt; but the state reference is &lt;strong&gt;mutable&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/chapter04/different-versions-t0.png&quot; alt=&quot;different versions t0&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/chapter04/different-versions-t1.png&quot; alt=&quot;different versions t1&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Updating the state of the system is done inside a &lt;strong&gt;commit&lt;/strong&gt; phase. The commit phase is responsible for &lt;strong&gt;reconciling concurrent mutations&lt;/strong&gt; when they don&amp;#8217;t conflict or &lt;strong&gt;aborting&lt;/strong&gt; the mutation.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/chapter04/mutation-flow-icons.png&quot; alt=&quot;mutation flow icons&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;structural-sharing&quot;&gt;Structural sharing&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Structural sharing allows to &lt;strong&gt;efficiently&lt;/strong&gt; create new versions of immutable data. In DO, we leverage &lt;strong&gt;structural sharing&lt;/strong&gt; in the &lt;strong&gt;calculation&lt;/strong&gt; phase of a &lt;strong&gt;mutation&lt;/strong&gt; to compute the next state of the system based of the current state of the system. Inside the calculation phase, we don&amp;#8217;t have to deal with any concurrency control: this is delayed to the commit phase. As a consequence, the code involved in the calculation phase of a mutation remains &lt;strong&gt;stateless&lt;/strong&gt; and is as simple as the code of a query.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Let&amp;#8217;s take a simple example from our library system: &lt;a href=&quot;#lib-data&quot;&gt;a library&lt;/a&gt; with no users and a catalog with a single book: Watchmen.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;lib-data&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var library = {
+    &amp;quot;name&amp;quot;: &amp;quot;The smallest library on earth&amp;quot;,
+    &amp;quot;address&amp;quot;: &amp;quot;Here and now&amp;quot;,
+    &amp;quot;catalog&amp;quot;: {
+        &amp;quot;booksByIsbn&amp;quot;: {
+            &amp;quot;978-1779501127&amp;quot;: {
+                &amp;quot;isbn&amp;quot;: &amp;quot;978-1779501127&amp;quot;,
+                &amp;quot;title&amp;quot;: &amp;quot;Watchmen&amp;quot;,
+                &amp;quot;publicationYear&amp;quot;: 1987,
+                &amp;quot;authorIds&amp;quot;: [&amp;quot;alan-moore&amp;quot;, &amp;quot;dave-gibbons&amp;quot;],
+                &amp;quot;bookItems&amp;quot;: [
+                    {
+                        &amp;quot;id&amp;quot;: &amp;quot;book-item-1&amp;quot;,
+                        &amp;quot;rackId&amp;quot;: &amp;quot;rack-17&amp;quot;,
+                        &amp;quot;isLent&amp;quot;: true
+                    }
+                ]
+            }
+        },
+        &amp;quot;authorsById&amp;quot;: {
+            &amp;quot;alan-moore&amp;quot;: {
+                &amp;quot;name&amp;quot;: &amp;quot;Alan Moore&amp;quot;,
+                &amp;quot;bookIsbns&amp;quot;: [&amp;quot;978-1779501127&amp;quot;]
+            },
+            &amp;quot;dave-gibbons&amp;quot;: {
+                &amp;quot;name&amp;quot;: &amp;quot;Dave Gibbons&amp;quot;,
+                &amp;quot;bookIsbns&amp;quot;: [&amp;quot;978-1779501127&amp;quot;]
+            }
+        }
+    },
+    &amp;quot;userManagement&amp;quot;: {
+        // omitted for now
+    }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Imagine that we want to modify the value of a field in a book in the catalog, for instance the publication year of Watchmen.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;library-information&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/chapter04/library-data-new-version.png&quot; alt=&quot;library data new version&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The information path for Watchmen publication year is: &lt;code&gt;[&quot;catalog&quot;, &quot;booksByIsbn&quot;, &quot;978-1779501127&quot;, &quot;publicationYear&quot;]&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We are going to use the &lt;strong&gt;immutable function&lt;/strong&gt; &lt;code&gt;_.set()&lt;/code&gt; provided by &lt;a href=&quot;/javascript/2020/11/26/lodash-fp.html&quot;&gt;Lodash&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;By default Lodash functions are not immutable. In order to use a immutable version of the functions, we need to use Lodash FP module (Functional Programming), as it is explained in the Lodash FP guide.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;. With this &lt;a href=&quot;#lodash-config&quot;&gt;piece of code&lt;/a&gt; the signature of the immutable functions is exactly the same as the mutable functions.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;lodash-config&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;_ = fp.convert({
+    &amp;quot;cap&amp;quot;: false,
+    &amp;quot;curry&amp;quot;: false,
+    &amp;quot;fixed&amp;quot;: false,
+    &amp;quot;immutable&amp;quot;: true,
+    &amp;quot;rearg&amp;quot;: false
+});&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Here is how we &lt;a href=&quot;#update-publication-year&quot;&gt;write code &lt;/a&gt; that creates a version of the library data where the publication year of Watchmen is updated to 1986, with the &lt;strong&gt;immutable function&lt;/strong&gt; &lt;code&gt;_.set()&lt;/code&gt; provided by Lodash.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;update-publication-year&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var nextLibrary = _.set(library, [&amp;quot;catalog&amp;quot;, &amp;quot;booksByIsbn&amp;quot;,
+                                  &amp;quot;978-1779501127&amp;quot;, &amp;quot;publicationYear&amp;quot;],
+                        1986);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In the new version of the library, the publication year of Watchmen is 1986&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;_.get(nextLibrary, [&amp;quot;catalog&amp;quot;, &amp;quot;booksByIsbn&amp;quot;,
+                    &amp;quot;978-1779501127&amp;quot;, &amp;quot;publicationYear&amp;quot;]);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;However in the previous version of the library, the publication year of Watchmen is still 1987&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;_.get(library, [&amp;quot;catalog&amp;quot;, &amp;quot;booksByIsbn&amp;quot;,
+                &amp;quot;978-1779501127&amp;quot;, &amp;quot;publicationYear&amp;quot;]);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+A function is said to be &lt;strong&gt;immutable&lt;/strong&gt; when instead of mutating the data, it creates a &lt;strong&gt;new version&lt;/strong&gt; of the data without changing the data it receives. The immutable functions provided by Lodash are efficient because they use &lt;strong&gt;structural sharing&lt;/strong&gt;.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Here is an illustration of how &lt;strong&gt;structural sharing&lt;/strong&gt; works.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When you use an &lt;strong&gt;immutable function&lt;/strong&gt; to create a new version of the &lt;code&gt;Library&lt;/code&gt; where the publication year of Watchmen is set to 1986 (instead of 1987), it creates a fresh &lt;code&gt;Library&lt;/code&gt; hash map that &lt;strong&gt;recursively&lt;/strong&gt; uses the parts of the current &lt;code&gt;Library&lt;/code&gt; that are &lt;strong&gt;common&lt;/strong&gt; between the two versions instead of deeply copying them. This technique is called: &lt;strong&gt;structural sharing&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;structural-sharing-a&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/chapter04/structural-sharing.png&quot; alt=&quot;structural sharing&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The next version of the &lt;code&gt;Library&lt;/code&gt;, uses the same &lt;code&gt;UserManagement&lt;/code&gt; hash map as the old one. The &lt;code&gt;Catalog&lt;/code&gt; inside the next &lt;code&gt;Library&lt;/code&gt; uses the same &lt;code&gt;authorsById&lt;/code&gt; as the current &lt;code&gt;Catalog&lt;/code&gt;. The Watchmen &lt;code&gt;Book&lt;/code&gt; record inside the next &lt;code&gt;Catalog&lt;/code&gt; uses all the fields of the current &lt;code&gt;Book&lt;/code&gt; except for the &lt;code&gt;publicationYear&lt;/code&gt; field.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;As you can see by yourself, in &lt;code&gt;nextLibrary&lt;/code&gt; the &lt;code&gt;authorsById&lt;/code&gt; node is the exact same reference as in &lt;code&gt;library&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;_.get(nextLibrary, [&amp;quot;catalog&amp;quot;, &amp;quot;authorsById&amp;quot;]) == _.get(library, [&amp;quot;catalog&amp;quot;, &amp;quot;authorsById&amp;quot;])&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We will see in a moment how we leverage this sharing of references to make the commit phase efficient.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+&lt;strong&gt;Structural sharing&lt;/strong&gt; provides an &lt;strong&gt;efficient&lt;/strong&gt; way (both &lt;strong&gt;memory&lt;/strong&gt; and &lt;strong&gt;computation&lt;/strong&gt;) to create a new version of the data by recursively sharing the parts that don&amp;#8217;t need to change.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;persistent-data-structures&quot;&gt;Persistent data structures&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+&lt;strong&gt;Persistent data structures&lt;/strong&gt; ensure the immutability of the data at the &lt;strong&gt;level of the data structure&lt;/strong&gt; while immutable functions provide the immutability of the data at the level of the functions.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The way data is organized inside persistent data structures make them &lt;strong&gt;more efficient&lt;/strong&gt; than immutable functions.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;There are &lt;strong&gt;libraries&lt;/strong&gt; providing persistent data structures in many languages: Immutable.js in JavaScript,&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt; Paguro in Java,&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_3&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_3&quot; title=&quot;View footnote.&quot;&gt;3&lt;/a&gt;]&lt;/sup&gt; Immutable Collections in C#,&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_4&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_4&quot; title=&quot;View footnote.&quot;&gt;4&lt;/a&gt;]&lt;/sup&gt; Pyrsistent in Python,&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_5&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_5&quot; title=&quot;View footnote.&quot;&gt;5&lt;/a&gt;]&lt;/sup&gt; and Hamster in Ruby.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_6&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_6&quot; title=&quot;View footnote.&quot;&gt;6&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;strong&gt;drawback&lt;/strong&gt; of persistent data structures is that they are not native which means that working with them require &lt;strong&gt;conversion&lt;/strong&gt; from native to persistent and from persistent to native.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;That&amp;#8217;s one of the reasons why I love Clojure: the native data structures of the language are immutable!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;the-reconciliation-algorithm&quot;&gt;The reconciliation algorithm&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+In a production system, multiple mutations run concurrently. Before updating the state, we need to reconcile.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;Reconciliation&lt;/strong&gt; between possible &lt;strong&gt;concurrent mutations&lt;/strong&gt; is quite similar to what could happen in git when you push your changes to a branch and you discover that meanwhile the branch has moved forward because another developer has pushed her code to the branch.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Like in git, there are &lt;a href=&quot;#occ-merge&quot;&gt;three possibilities to reconcile&lt;/a&gt; between possible concurrent mutations: fast forward, 3-way merge or abort.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;occ-merge&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/chapter04/occ-merge.png&quot; alt=&quot;occ merge&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When the Commit phase of a mutation starts, we have &lt;a href=&quot;#three-versions&quot;&gt;3 versions of the system state&lt;/a&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;previous&lt;/code&gt; - the version on which the Calculation phase based its computation&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;current&lt;/code&gt; - the current version&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;next&lt;/code&gt; - the version returned by the Calculation phase&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div id=&quot;three-versions&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/chapter04/3-versions.png&quot; alt=&quot;3 versions&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If we are in a situation where the &lt;strong&gt;current state is the same as the previous state&lt;/strong&gt;, it means that no mutations run concurrently. Therefore, like in git, we can safely &lt;strong&gt;fast forward&lt;/strong&gt; and update the state of the system with the next version.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If the state has not remained the same, it means that mutations have run concurrently. We have to check for conflicts in a way similar to the &lt;strong&gt;3-way merge&lt;/strong&gt; used by git. The difference is that instead of comparing lines, we compare fields of the system hash map.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We calculate the data diff between &lt;code&gt;previous&lt;/code&gt; and &lt;code&gt;next&lt;/code&gt; and between &lt;code&gt;previous&lt;/code&gt; and &lt;code&gt;current&lt;/code&gt;. If the two diffs are distinct, then there is no conflict between the mutations that have run concurrently. We can safely merge the changes from &lt;code&gt;previous&lt;/code&gt; to &lt;code&gt;next&lt;/code&gt; into &lt;code&gt;current&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;three-way-merge&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/chapter04/3-way-merge.png&quot; alt=&quot;3 way merge&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 1. In a 3-way merge, we calculate the diff between &lt;code&gt;previous&lt;/code&gt; and &lt;code&gt;next&lt;/code&gt; and we apply it to &lt;code&gt;current&lt;/code&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;And if there is a conflict, we abort the mutation.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+In a user facing system, conflicting concurrent mutations are fairly rare: that&amp;#8217;s why it&amp;#8217;s OK to abort and let the user run the mutation again.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;the-implementation-of-the-commit-phase&quot;&gt;The implementation of the Commit phase&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The code for the Commit phase is made of 3 classes:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;System&lt;/code&gt;, a stateful class that implements the mutations&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;SystemData&lt;/code&gt; a singleton stateful class&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;SystemConsistency&lt;/code&gt;, a stateless class that provides conflict resolution logic&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Let&amp;#8217;s start with the &lt;code&gt;System&lt;/code&gt; class and how it &lt;a href=&quot;#add-member-mutation&quot;&gt;implements&lt;/a&gt; the &lt;code&gt;addMember&lt;/code&gt; mutation.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;add-member-mutation&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;class System {
+    addMember(member) {
+        var librarySnapshot = SystemData.get();
+        var nextLibary = Library.addMember(librarySnapshot, member);
+        SystemData.commit(librarySnapshot, nextLibrary);
+    }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Here is the &lt;a href=&quot;#system-data&quot;&gt;code&lt;/a&gt; for the &lt;code&gt;SystemData&lt;/code&gt; class: It is the only stateful class in a DO system!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;system-data&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;class SystemData {
+    systemData;
+
+    get() {
+        return this.systemData;
+    }
+
+    set(_systemData) {
+        this.systemData = _systemData;
+    }
+
+    commit(previous, next) {
+        this.systemData = SystemConsistency.reconcile(this.systemData,
+                                                      previous,
+                                                      next);
+    }
+}
+
+window.SystemData = SystemData;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;And how does &lt;code&gt;SystemConsistency&lt;/code&gt; do the reconciliation?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;code&gt;SystemConsistency&lt;/code&gt; &lt;a href=&quot;#consistency&quot;&gt;class&lt;/a&gt; starts the reconciliation process by comparing &lt;code&gt;previous&lt;/code&gt; and &lt;code&gt;current&lt;/code&gt;. If they are the same, then we fast-forward and return &lt;code&gt;next&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock hidden&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;class DataDiff {
+    static diffObjects(data1, data2) {
+        var emptyObject = _.isArray(data1) ? [] : {};
+        if(data1 == data2) {
+            return emptyObject;
+        }
+        var keys = _.union(_.keys(data1), _.keys(data2));
+        return _.reduce(keys,
+                        function (acc, k) {
+                            var res = DataDiff.diff(_.get(data1, k),
+                                                    _.get(data2, k));
+                            if((_.isObject(res) &amp;amp;&amp;amp; _.isEmpty(res)) ||
+                               (res == &amp;quot;data-diff:no-diff&amp;quot;)) {
+                                return acc;
+                            }
+                            return _.set(acc, k, res);
+                        },
+                        emptyObject);
+    }
+
+    static diff(data1, data2) {
+        if(_.isObject(data1) &amp;amp;&amp;amp; _.isObject(data2)) {
+            return DataDiff.diffObjects(data1, data2);
+        }
+        if(data1 !== data2) {
+            return data2;
+        }
+        return &amp;quot;data-diff:no-diff&amp;quot;;
+    }
+
+    static leaves(obj, prefix = &amp;#39;&amp;#39;) {
+        return _.reduce(obj,
+                        function(acc, v, k) {
+                            if (_.isObject(v)) {
+                                return _.concat(acc,
+                                                DataDiff.leaves(v,
+                                                                prefix + k + &amp;quot;.&amp;quot;))
+                            }
+                            return _.concat(acc, [prefix + k]);
+                        },
+                        []);
+    }
+    static isEmptyIntersection(delta1, delta2) {
+        return _.isEmpty(_.intersection(DataDiff.leaves(delta1),
+                                        DataDiff.leaves(delta2)));
+    }
+}
+
+window.DataDiff = DataDiff&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;consistency&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;class SystemConsistency {
+    static threeWayMerge(current, previous, next) {
+        var previousToCurrent = DataDiff.diff(previous, current);
+        var previousToNext = DataDiff.diff(previous, next);
+        if(DataDiff.isEmptyIntersection(previousToCurrent, previousToNext)) {
+            return _.merge(current, previousToNext);
+        }
+        throw &amp;quot;Conflicting concurrent mutations.&amp;quot;;
+    }
+    static reconcile(current, previous, next) {
+        if(current == previous) {
+            // fast forward
+            return next;
+        }
+        return SystemConsistency.threeWayMerge(current,
+                                               previous,
+                                               next);
+    }
+}
+window.SystemConsistency = SystemConsistency;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The reconciliation algorithm relies on &lt;code&gt;DataDiff&lt;/code&gt; class that implements the computation of a data diff between two hash maps and the detection of empty intersection. The internals of the &lt;code&gt;DataDiff&lt;/code&gt; class are revealed in &lt;a href=&quot;/databook/2020/12/20/data-diff.html&quot;&gt;Computing the data diff between two hash maps&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Have you noticed that we compare &lt;code&gt;previous&lt;/code&gt; and &lt;code&gt;current&lt;/code&gt; by reference instead of comparing them recursively &lt;strong&gt;by value&lt;/strong&gt;? That&amp;#8217;s another &lt;strong&gt;benefit of immutable data&lt;/strong&gt;: when the data is not mutated, it is safe to &lt;strong&gt;compare references&lt;/strong&gt; and if they are the same, we know for sure that the data is the same.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now, to the implementation of the 3-way merge algorithm.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When &lt;code&gt;previous&lt;/code&gt; differs from &lt;code&gt;current&lt;/code&gt;, it means that concurrent mutations have run. In order to determine whether there is a conflict or not, we calculate the two diffs: &lt;code&gt;previousToCurrent&lt;/code&gt; and &lt;code&gt;previousToNext&lt;/code&gt;. If the intersection between the two diffs is empty, it means there is not conflict. We merge &lt;code&gt;previousToNext&lt;/code&gt; into &lt;code&gt;current&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You may have noticed that think the &lt;a href=&quot;#consistency&quot;&gt;code&lt;/a&gt; for the &lt;code&gt;Consistency&lt;/code&gt; class is &lt;strong&gt;not thread safe&lt;/strong&gt;! If there is a context switch between checking whether the system has changed in the &lt;code&gt;Consistency&lt;/code&gt; class and the updating of the state in &lt;code&gt;SystemData&lt;/code&gt; class, a mutation might override the changes of a previous mutation.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The code works fine in a single threaded environment like JavaScript where concurrency is handled via an &lt;strong&gt;event loop&lt;/strong&gt;. However in a &lt;strong&gt;multi threaded&lt;/strong&gt; environment, the code needs to be refined a bit and use atoms to be thread safe.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;some-examples&quot;&gt;Some examples&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Let&amp;#8217;s make the reconciliation algorithm more concrete by giving an example of a reconciliation between non-conflicting concurrent mutations.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A mutation that updates the publication year of a book &lt;a href=&quot;#compatible-mutations&quot;&gt;will not conflict&lt;/a&gt; with a mutation that updates the title of the same book. A reconciliation will result in a system state where both the title and the publication year are updated.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;compatible-mutations&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var previous = library;
+var next = _.set(library,
+                [&amp;quot;catalog&amp;quot;, &amp;quot;booksByIsbn&amp;quot;, &amp;quot;978-1779501127&amp;quot;, &amp;quot;publicationYear&amp;quot;],
+                1986);
+var current = _.set(library,
+                    [&amp;quot;catalog&amp;quot;, &amp;quot;booksByIsbn&amp;quot;, &amp;quot;978-1779501127&amp;quot;, &amp;quot;title&amp;quot;],
+                    &amp;quot;The Watchmen&amp;quot;);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The diff between &lt;code&gt;previous&lt;/code&gt; and &lt;code&gt;current&lt;/code&gt; is a nested map with &lt;a href=&quot;#diff-previous-current&quot;&gt;a single field&lt;/a&gt; that holds the updated title.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;diff-previous-current&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;DataDiff.diff(previous, current);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;And the diff between &lt;code&gt;previous&lt;/code&gt; and &lt;code&gt;next&lt;/code&gt; is also made of a &lt;a href=&quot;#diff-previous-next&quot;&gt;single field&lt;/a&gt; for the updated publication year.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;diff-previous-next&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;DataDiff.diff(previous, next);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now you see clearly how the code detects that the two mutations don&amp;#8217;t conflict: the two nested maps have no leaf in common!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;a href=&quot;#lib-data-reconciled&quot;&gt;result of the reconciliation&lt;/a&gt; is a library where both the title and the publication year are updated.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;lib-data-reconciled&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;_.get(SystemConsistency.reconcile(current, previous, next),
+     &amp;quot;catalog&amp;quot;);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;And here is an example of conflicting mutations: Two mutations that update the publication year of the same book &lt;a href=&quot;#incompatible-mutations&quot;&gt;will conflict&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;incompatible-mutations&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var previous2 = library;
+var next2 = _.set(library,
+                 [&amp;quot;catalog&amp;quot;, &amp;quot;booksByIsbn&amp;quot;, &amp;quot;978-1779501127&amp;quot;, &amp;quot;publicationYear&amp;quot;],
+                 1984);
+var current2 = _.set(library,
+                    [&amp;quot;catalog&amp;quot;, &amp;quot;booksByIsbn&amp;quot;, &amp;quot;978-1779501127&amp;quot;, &amp;quot;publicationYear&amp;quot;],
+                    1986);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Here the two diffs contain the same field.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;DataDiff.diff(previous2, current2);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;DataDiff.diff(previous2, next2);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In that case, the reconciliation will fail.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;wrapping-up&quot;&gt;Wrapping up&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In this chapter, we have explored how DO &lt;strong&gt;manages state&lt;/strong&gt; with &lt;strong&gt;Optimistic Concurrency Control&lt;/strong&gt;, where the mutation logic is split into Calculation and Commit phases.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;During the &lt;strong&gt;Calculation phase&lt;/strong&gt;, the data is manipulated with &lt;strong&gt;immutable functions&lt;/strong&gt; that leverage &lt;strong&gt;structural sharing&lt;/strong&gt; to create &lt;strong&gt;efficiently&lt;/strong&gt; (memory and computation) a &lt;strong&gt;new version&lt;/strong&gt; of the data where the data that is common between the two versions is shared.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;Data validation&lt;/strong&gt; and &lt;strong&gt;conflict resolution&lt;/strong&gt; between &lt;strong&gt;concurrent mutations&lt;/strong&gt; occur in the &lt;strong&gt;Commit&lt;/strong&gt; phase. The code for the &lt;strong&gt;commit phase&lt;/strong&gt; is common to all the mutations. The code that implements conflict detection in the commit phase is efficient in virtue of &lt;strong&gt;structural sharing&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When the system data is immutable, keeping the &lt;strong&gt;history&lt;/strong&gt; of the versions of the system data is efficient and restoring the system to a previous state is straightforward. As an example, we have seen how to implement &lt;em&gt;undo&lt;/em&gt; in a DO system.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Enter your email address below to get notified when the book is published.
+  &lt;/p&gt;
+
+  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
+	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
+	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
+	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
+  &lt;/form&gt;
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;script src='https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)'&gt;&lt;/script&gt;
+&lt;script&gt;
+var fp = _.noConflict();
+&lt;/script&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
+&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. &lt;a href=&quot;https://github.com/lodash/lodash/wiki/FP-Guide&quot; class=&quot;bare&quot;&gt;https://github.com/lodash/lodash/wiki/FP-Guide&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
+&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. &lt;a href=&quot;https://immutable-js.github.io/immutable-js/&quot; class=&quot;bare&quot;&gt;https://immutable-js.github.io/immutable-js/&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_3&quot;&gt;
+&lt;a href=&quot;#_footnoteref_3&quot;&gt;3&lt;/a&gt;. &lt;a href=&quot;https://github.com/GlenKPeterson/Paguro&quot; class=&quot;bare&quot;&gt;https://github.com/GlenKPeterson/Paguro&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_4&quot;&gt;
+&lt;a href=&quot;#_footnoteref_4&quot;&gt;4&lt;/a&gt;. &lt;a href=&quot;https://docs.microsoft.com/en-us/archive/msdn-magazine/2017/march/net-framework-immutable-collections&quot; class=&quot;bare&quot;&gt;https://docs.microsoft.com/en-us/archive/msdn-magazine/2017/march/net-framework-immutable-collections&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_5&quot;&gt;
+&lt;a href=&quot;#_footnoteref_5&quot;&gt;5&lt;/a&gt;. &lt;a href=&quot;https://github.com/tobgu/pyrsistent&quot; class=&quot;bare&quot;&gt;https://github.com/tobgu/pyrsistent&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_6&quot;&gt;
+&lt;a href=&quot;#_footnoteref_6&quot;&gt;6&lt;/a&gt;. &lt;a href=&quot;https://github.com/hamstergem/hamster&quot; class=&quot;bare&quot;&gt;https://github.com/hamstergem/hamster&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">Functional Lodash</title><link href="https://blog.klipse.tech//javascript/2020/11/26/lodash-fp.html" rel="alternate" type="text/html" title="Functional Lodash" /><published>2020-11-26T01:43:52+00:00</published><updated>2020-11-26T01:43:52+00:00</updated><id>https://blog.klipse.tech//javascript/2020/11/26/lodash-fp</id><content type="html" xml:base="https://blog.klipse.tech//javascript/2020/11/26/lodash-fp.html">&lt;p&gt;Did you know that &lt;a href=&quot;https://lodash.com/&quot;&gt;Lodash&lt;/a&gt; - the popular JavaScript utility library - had a &lt;strong&gt;functional&lt;/strong&gt; flavor?&lt;/p&gt;
 
 &lt;p&gt;The most exciting part to me is that functions of Lodash FP do not &lt;strong&gt;mutate&lt;/strong&gt; the data they receive.&lt;/p&gt;
 
@@ -282,1161 +1194,7 @@ However, in languages where immutable data structures are not &lt;strong&gt;nati
 	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
   &lt;/form&gt;
   &lt;br /&gt;
-&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html"></summary></entry><entry><title type="html">Decrease complexity by separating Code from Data</title><link href="https://blog.klipse.tech//databook/2020/10/30/data-book-chap2-part1.html" rel="alternate" type="text/html" title="Decrease complexity by separating Code from Data" /><published>2020-10-30T07:21:32+00:00</published><updated>2020-10-30T07:21:32+00:00</updated><id>https://blog.klipse.tech//databook/2020/10/30/data-book-chap2-part1</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/10/30/data-book-chap2-part1.html">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    Enter your email address below to get notified when the book is published.
-  &lt;/p&gt;
-
-  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
-	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
-	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
-	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
-  &lt;/form&gt;
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;h1 id=&quot;introduction&quot; class=&quot;sect0&quot;&gt;Introduction&lt;/h1&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;As we mentioned in &lt;a href=&quot;/databook/2020/09/29/do-principles.html&quot;&gt;Chapter 0&lt;/a&gt;, the big insight of Data Oriented Programming (DO) is that we can &lt;strong&gt;decrease the complexity&lt;/strong&gt; of our systems by &lt;strong&gt;separating code from data&lt;/strong&gt;. Indeed, when code is separated from data, our systems are made of two main pieces that can be &lt;strong&gt;thought separately&lt;/strong&gt;: Data entities and Code modules.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This chapter is a deep dive in DO Principle #1:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Principle #1: Separate &lt;strong&gt;code&lt;/strong&gt; from &lt;strong&gt;data&lt;/strong&gt; in a way that the &lt;strong&gt;code&lt;/strong&gt; resides in functions whose behavior does not depend on &lt;strong&gt;data&lt;/strong&gt; that is somehow encapsulated in the function&amp;#8217;s context.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;We &lt;strong&gt;illustrate&lt;/strong&gt; the separation between code and data in the context of a Library Management system and we unveil the &lt;strong&gt;benefits&lt;/strong&gt; that this separation brings to the system:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;The system is &lt;strong&gt;simple&lt;/strong&gt;: it is easy to understand&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;The system is &lt;strong&gt;flexible&lt;/strong&gt;: quite often, it requires no design changes to adapt to changing requirements&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;We show how to:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Design a system&lt;/strong&gt; where code and data are separate&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Write code&lt;/strong&gt; that respects the separation between code and data.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This chapter focuses on the &lt;strong&gt;design of the code part&lt;/strong&gt; of a system where code and data are separate. In Chapter 3, we will focus on the &lt;strong&gt;design of the data part&lt;/strong&gt; of the system. As we progress in the book, we will discover other benefits of separating code from data.&lt;/p&gt;
-&lt;/div&gt;
-&lt;h1 id=&quot;the-two-parts-of-a-do-system&quot; class=&quot;sect0&quot;&gt;The two parts of a DO system&lt;/h1&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You invite Joe to your office. Joe is a 40-year old developer that used to be a Java developer for many years and moved to Clojure 7 years ago.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;When you tell Joe about the Library management system you built (Chapter 1) and the struggle you had to adapt to changing requirements, he is not surprised.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Joe tells you that the systems he and his team have build in Clojure over the last 7 years are &lt;strong&gt;less complex&lt;/strong&gt; and &lt;strong&gt;more flexible&lt;/strong&gt; than the systems he used to build in Java. The main cause of this benefits is that the systems he built were following principles of Data Oriented Programming.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; What makes DO systems &lt;strong&gt;less complex&lt;/strong&gt; and &lt;strong&gt;more flexible&lt;/strong&gt;?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; The first &lt;strong&gt;insight&lt;/strong&gt; of DO is about the relationships between &lt;strong&gt;code&lt;/strong&gt; and &lt;strong&gt;data&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; You mean the &lt;strong&gt;encapsulation&lt;/strong&gt; of data in objects?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Actually, DO is against encapsulation.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; Why is that? I thought encapsulation was a positive programming paradigm.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Data encapsulation has its merits and drawbacks: Think again at what happened when you implemented Nancy&amp;#8217;s LMS (in Chapter 1). According to DO, the main cause of the &lt;strong&gt;complexity&lt;/strong&gt; of systems and their &lt;strong&gt;lack of flexibility&lt;/strong&gt; is because code and data are mixed together (in objects).&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; Does it mean that in order to adhere to DO, I need to get rid of OO and learn a Functional programming language?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; No. DO principles are &lt;strong&gt;language agnostic&lt;/strong&gt;: they can be applied both in OO and FP languages.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; Cool! I was afraid that you were going to teach me about monads, algebraic data types and high order functions.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; None of this is required in DO.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; How does the separation between code and data looks like in DO?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Data is represented by &lt;strong&gt;data entities&lt;/strong&gt; that hold members only. Code is aggregated into &lt;strong&gt;modules&lt;/strong&gt; where all the functions are &lt;strong&gt;stateless&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; What do you mean by stateless functions?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Instead of having the state encapsulated in the object, the data entity is passed as an argument.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; I don&amp;#8217;t get that.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Let me make it &lt;a href=&quot;#principle1-nutshell&quot;&gt;visual&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; It&amp;#8217;s still not clear&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; It will become clearer when I show you how it looks like in the context of your library management system.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;principle1-nutshell&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/assets/data-book/uml/chapter02/principle1-nutshell.png&quot; alt=&quot;principle1 nutshell&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 1. The separation between code and data&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU&lt;/strong&gt;: OK. Shall we start we code or with data?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Well, it&amp;#8217;s &lt;strong&gt;Data&lt;/strong&gt; oriented programming. Let&amp;#8217;s start with Data!&lt;/p&gt;
-&lt;/div&gt;
-&lt;h1 id=&quot;data-entities&quot; class=&quot;sect0&quot;&gt;Data entities&lt;/h1&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In DO, we start the design process by discovering the data entities of our system.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; What are the &lt;strong&gt;data entities&lt;/strong&gt; of your system?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; What do you mean by &lt;em&gt;data entities&lt;/em&gt;?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; I mean the parts of your system that hold &lt;strong&gt;information&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; Well, it&amp;#8217;s a library management system, so for sure we have &lt;strong&gt;books&lt;/strong&gt; and &lt;strong&gt;members&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Of course. But there are more: One way to discover the data entities of a system is to look for nouns and &lt;strong&gt;noun phrases&lt;/strong&gt; in the requirements of the system.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You look at Nancy&amp;#8217;s requirement napkin and you highlight the &lt;strong&gt;nouns&lt;/strong&gt; and  &lt;strong&gt;noun phrases&lt;/strong&gt; that seem to represent data entities of the system:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sidebarblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;Highlighting terms in the requirements that correspond to data entities&lt;/div&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Two kinds of &lt;strong&gt;users&lt;/strong&gt;: library &lt;strong&gt;members&lt;/strong&gt; and &lt;strong&gt;librarians&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Users&lt;/strong&gt; log in to the system via email and password.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Members can borrow &lt;strong&gt;books&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Members and librarians can search books by title or by &lt;strong&gt;author&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Librarians can block and unblock members (e.g. when they are late in returning a book)&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Librarians can list the &lt;strong&gt;books currently lent&lt;/strong&gt; by a member&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;There could be several &lt;strong&gt;copies of a book&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Data entities are the parts of your system that hold information&lt;/p&gt;
-&lt;/div&gt;
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Excellent. Can you see a natural way to group the entities?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; Not sure, but it seems to me that &lt;em&gt;users&lt;/em&gt;, &lt;em&gt;members&lt;/em&gt; and &lt;em&gt;librarians&lt;/em&gt; form a group while &lt;em&gt;books&lt;/em&gt;, &lt;em&gt;authors&lt;/em&gt; and &lt;em&gt;book copies&lt;/em&gt; form another group.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Sounds good to me. How would you call each group?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; &lt;strong&gt;User management&lt;/strong&gt; for the first group and &lt;strong&gt;Catalog&lt;/strong&gt; for the second group.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sidebarblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;The data entities of the system organized in a nested list&lt;/div&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;The catalog data&lt;/p&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Data about books&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Data about authors&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Data about book items&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Data about book lendings&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;The user management data&lt;/p&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Data about users&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Data about members&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Data about librarians&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; I am not sure about the relationships between books and authors: should it be association or composition?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Don&amp;#8217;t worry too much about the details for the moment. We will refine our data entities design later (Chapter 3). For now, let&amp;#8217;s visualize the two groups in a &lt;a href=&quot;#lms-data-sketch&quot;&gt;mindmap&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;lms-data-sketch&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/assets/data-book/uml/chapter02/lms-data.png&quot; alt=&quot;lms data&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 2. The data entities of the system organized in a mind map&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The most precise way to visualize the data entities of a DO system is to draw a data entity diagram with different arrows for association and composition. We will come back to data entity diagram in Chapter 3.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Discover the data entities of your system and group them into high level groups.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;We will get deeper into the design and the representation of data entities in Chapter 3. For now, let&amp;#8217;s simplify and say that the data of our library system is made of two high level groups: &lt;strong&gt;User Management&lt;/strong&gt; and &lt;strong&gt;Catalog&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;h1 id=&quot;code-modules&quot; class=&quot;sect0&quot;&gt;Code modules&lt;/h1&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The second step of the design process in DO, is to define the &lt;strong&gt;code modules&lt;/strong&gt; of the system.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Now that you have identified the data entities of your system and group them into high level groups, it&amp;#8217;s time to think about the &lt;strong&gt;code part&lt;/strong&gt; of your system.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; What do you mean by &lt;em&gt;code part&lt;/em&gt;?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; One way to think about it is to identity the &lt;strong&gt;functionalities of your system&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You look again at Nancy&amp;#8217;s requirement napkin and this time you highlight the &lt;strong&gt;verb phrases&lt;/strong&gt; that represent functionalities of the system:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sidebarblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;Highlighting terms in the requirements that correspond to functionalities&lt;/div&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Two kinds of users: library members and librarians&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Users &lt;strong&gt;log into the system&lt;/strong&gt; via email and password.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Members can &lt;strong&gt;borrow books&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Members and librarians can &lt;strong&gt;search books&lt;/strong&gt; by title or by author&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Librarians can &lt;strong&gt;block&lt;/strong&gt; and &lt;strong&gt;unblock members&lt;/strong&gt; (e.g. when they are late in returning a book)&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Librarians can &lt;strong&gt;list the books currently lent by a member&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;There could be several copies of a book&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In addition to that, it is obvious that members can also return a book. Moreover, there should be a way to detect whether a user is a librarian or not.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Your write down a list of the functionalities of the system.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sidebarblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;The functionalities of the system&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Search a book&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Add a book item&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Block a member&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Unblock a member&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Login a user into the system&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;List the books currently lent by a member&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Borrow a book&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Return a book&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Check whether a user is a librarian&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Excellent! Now, tell me what functionalities need to be &lt;strong&gt;exposed to the outside world&lt;/strong&gt;?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; What do you mean by &lt;em&gt;exposed to the outside world_&lt;/em&gt;?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Imagine that the library management system were exposing an API over HTTP: what would be the endpoints of the API?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; I see. All the functionalities them beside checking if a user is a librarian should need to be exposed.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Perfect, now give to each exposed functionality a short name and gather them together in a box called &lt;code&gt;Library&lt;/code&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Then you draw &lt;a href=&quot;#lib-mgmt-entry-points&quot;&gt;the exposed functions of the Library&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;lib-mgmt-entry-points&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/assets/data-book/uml/chapter02/entry-points-lms.png&quot; alt=&quot;entry points lms&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 3. The exposed functions of the Library management system&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The first step in designing the code part of a DO system is to aggregate the exposed functions in a single module.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Beautiful. You just created your first &lt;strong&gt;code module&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; To me it looks like a class: What&amp;#8217;s the difference between a &lt;em&gt;module&lt;/em&gt; and a &lt;em&gt;class&lt;/em&gt;?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; A &lt;strong&gt;module&lt;/strong&gt; is an aggregation of functions. In OO, a module is represented by a class but in other programming languages, it might be a &lt;em&gt;package&lt;/em&gt; or a &lt;em&gt;namespace&lt;/em&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU&lt;/strong&gt;: I see.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; The important thing about DO code modules is that they contain only &lt;strong&gt;stateless functions&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; You mean like &lt;strong&gt;static methods&lt;/strong&gt; in Java?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Exactly!&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; So how the functions know on what piece of information they operate?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; We pass it as the first argument to the function.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; I don&amp;#8217;t understand. Could you give me an example?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Joe takes a look at the &lt;a href=&quot;#lib-mgmt-entry-points&quot;&gt;list of functions&lt;/a&gt; of the &lt;code&gt;Library&lt;/code&gt; module.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Let&amp;#8217;s take for example &lt;code&gt;getBookLendings()&lt;/code&gt;: in classic OO, what would be its arguments?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; The id of the librarian that wants to list the book lendings and the member id&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; In classic OO,  &lt;code&gt;getBookLendings&lt;/code&gt; would be a method of a &lt;code&gt;Library&lt;/code&gt; class that receives two arguments: &lt;code&gt;userId&lt;/code&gt; and &lt;code&gt;memberId&lt;/code&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; Yeap.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Now comes the subtle part: in DO, &lt;code&gt;getBookLendings&lt;/code&gt; is part of the library module and it receives the
- &lt;code&gt;LibraryData&lt;/code&gt; as the first argument.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; Could you show me what you mean?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Sure.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Joe gets closer to your keyboard and start typing.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;That&amp;#8217;s how a class method looks like in OO:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;tok-kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;Library&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;tok-nx&quot;&gt;libraryData&lt;/span&gt; &lt;span class=&quot;tok-c1&quot;&gt;// state of the object&lt;/span&gt;
-
-    &lt;span class=&quot;tok-nx&quot;&gt;getBookLendings&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;userId&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;memberId&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;tok-c1&quot;&gt;// accesses library data via this.libraryData&lt;/span&gt;
-    &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The method accesses the &lt;strong&gt;state&lt;/strong&gt; of the object&amp;#8201;&amp;#8212;&amp;#8201;in our case the library data&amp;#8201;&amp;#8212;&amp;#8201; via &lt;code&gt;this.libraryData&lt;/code&gt;. The object&amp;#8217;s state is an &lt;strong&gt;implicit argument&lt;/strong&gt; to the object&amp;#8217;s methods.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In classic OO, the state of the object is an &lt;strong&gt;implicit argument&lt;/strong&gt; to the methods of the object.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In DO, the signature of &lt;code&gt;getBookLendings&lt;/code&gt; would look like this:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;tok-kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;Library&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;tok-kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;getBookLendings&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;libraryData&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;userId&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;memberId&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The &lt;strong&gt;state&lt;/strong&gt; of the library is stored in &lt;code&gt;libraryData&lt;/code&gt; and it is passed to the &lt;code&gt;getBookLendings&lt;/code&gt; &lt;strong&gt;static&lt;/strong&gt; method as an &lt;strong&gt;explicit argument&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In DO, functions of a code module are &lt;strong&gt;stateless&lt;/strong&gt;: they receive the &lt;strong&gt;state they manipulate&lt;/strong&gt; as an &lt;strong&gt;explicit argument&lt;/strong&gt;, usually the first argument.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;A &lt;strong&gt;module&lt;/strong&gt; is an aggregation of functions. In DO, the module functions are &lt;strong&gt;stateless&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The same rule applies to the other functions of the library module. All of them are stateless: they receive the library data as first argument.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You apply this rule and you refine the &lt;a href=&quot;#library-module-args&quot;&gt;design of the library module&lt;/a&gt; by including the details about functions' arguments.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;library-module-args&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/assets/data-book/uml/chapter02/library-module-args.png&quot; alt=&quot;library module args&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 4. The Library module with the function arguments&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Perfect. We are now ready to design at a high level our system.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; What&amp;#8217;s a &lt;strong&gt;high level design in DO&lt;/strong&gt;?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; The &lt;strong&gt;definition&lt;/strong&gt; of modules and the &lt;strong&gt;interaction&lt;/strong&gt; between them.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; I see. Is there any guideline to help me define the modules?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Definitely. The &lt;strong&gt;high level modules&lt;/strong&gt; of the system correspond to the &lt;strong&gt;high level data entities&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; You mean the data entities that appear in the data mind map?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Exactly!&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You look again at the &lt;a href=&quot;#lms-data-mindmap&quot;&gt;data mind map&lt;/a&gt; and you focus on the high level data entities: &lt;strong&gt;Library&lt;/strong&gt;, &lt;strong&gt;Catalog&lt;/strong&gt; and &lt;strong&gt;User management&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;lms-data-mindmap&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/assets/data-book/uml/chapter02/lms-data-high-level.png&quot; alt=&quot;lms data high level&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 5. A mindmap of high level data entities of the Library management system&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;It means that in the system, beside, the &lt;code&gt;Library&lt;/code&gt; module, we have two high level modules:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;Catalog&lt;/code&gt; module that deals with catalog data&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;UserManagement&lt;/code&gt; module that deals with user management data&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;Code modules&lt;/strong&gt; correspond to the &lt;strong&gt;data entities&lt;/strong&gt; of the system.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Then you draw the &lt;a href=&quot;#lib-mgmt-entry-points-split-args&quot;&gt;high level design&lt;/a&gt; of library management system, where:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Functions of &lt;code&gt;Catalog&lt;/code&gt; receive &lt;code&gt;catalogData&lt;/code&gt; as first argument&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Functions of &lt;code&gt;UserManagement&lt;/code&gt; receive &lt;code&gt;userManagementData&lt;/code&gt; as first argument&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div id=&quot;lib-mgmt-entry-points-split-args&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/assets/data-book/uml/chapter02/entry-points-split-args-lms.png&quot; alt=&quot;entry points split args lms&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 6. The modules of the Library management system with the function arguments&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;It might not be totally clear for you at the moment, how the data entities get passed between modules. For the moment, you can think of &lt;code&gt;libraryData&lt;/code&gt; as a class with two members:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;catalog&lt;/code&gt; that holds the catalog data&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;userManagement&lt;/code&gt; that holds the user management data&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The functions of &lt;code&gt;Library&lt;/code&gt; share a common pattern:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;It receives &lt;code&gt;libraryData&lt;/code&gt; as an argument&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;It passes &lt;code&gt;libraryData.catalog&lt;/code&gt; to functions of &lt;code&gt;Catalog&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;It passes &lt;code&gt;libraryData.userManagement&lt;/code&gt; to functions of &lt;code&gt;UserManagement&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Later on, in this chapter, we will see code for some functions of the &lt;code&gt;Library&lt;/code&gt; module.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The high level &lt;strong&gt;modules&lt;/strong&gt; of a DO system correspond to the high level &lt;strong&gt;data entities&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;h1 id=&quot;do-systems-are-easy-to-understand&quot; class=&quot;sect0&quot;&gt;DO systems are easy to understand&lt;/h1&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You take a look at the two diagrams that represent the high level design of your system:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;The data entities in the &lt;a href=&quot;#lms-data-mindmap-2&quot;&gt;data mind map&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;The code modules in the &lt;a href=&quot;#lib-mgmt-entry-points-split-args-2&quot;&gt;module diagram&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;A bit perplexed, you ask Joe:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; I am not sure that this system is better than a classic OO system, where &lt;strong&gt;objects encapsulate data&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; The main benefit of a DO system over a classic OO systems is that it is &lt;strong&gt;easier to understand&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; What makes it easier to understand?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; The fact that the system is split clearly in code modules and data entities.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; I don&amp;#8217;t get you.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; When you try to understand the data entities of the system, you don&amp;#8217;t have to think about the details of the code that manipulates the data entities.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; You mean that when I look at the data mind map of my library management system, I am able to understand it on its own?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Exactly. And similarly, when you try to understand the code modules of the system, you don&amp;#8217;t have to think about the details of the data entities manipulated by the code. There is a clear &lt;strong&gt;separation of concerns&lt;/strong&gt; between the code and the data.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You look again at the &lt;a href=&quot;#lms-data-mindmap-2&quot;&gt;data mind map&lt;/a&gt;, and you get kind of a Aha moment:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Data lives on its own!&lt;/p&gt;
-&lt;/div&gt;
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;div id=&quot;lms-data-mindmap-2&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/assets/data-book/uml/chapter02/lms-data.png&quot; alt=&quot;lms data&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 7. A data mindmap of the Library management system&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;A DO system is easier to understand because the system is split in two parts: data entities and code modules.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Now you look at the &lt;a href=&quot;#lib-mgmt-entry-points-split-args-2&quot;&gt;module diagram&lt;/a&gt; and you feel a bit confused:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;On one hand, the module diagram looks &lt;strong&gt;similar&lt;/strong&gt; to the class diagrams from &lt;strong&gt;classic OO&lt;/strong&gt;: boxes for classes and arrows for relations between classes.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;On the other hand, the code module diagram looks much &lt;strong&gt;simpler&lt;/strong&gt; than the class diagrams from &lt;strong&gt;classic OO&lt;/strong&gt;, but you cannot explain why.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You ask Joe for a clarification.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; The module diagram seems much simpler that the class diagrams I am used to in OO. I feel it but I cannot put words on it.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; The reason is that module diagrams have &lt;strong&gt;constraints&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; What kind of constraints?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; &lt;strong&gt;Constraints on the functions&lt;/strong&gt; as we saw before: All the functions are static (stateless). But also &lt;strong&gt;constraints on the relations between the modules&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; Could you explain that?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; There is a single kind of relation between DO modules: the &lt;strong&gt;usage relation&lt;/strong&gt;. A module uses code from another module. No  &lt;strong&gt;association&lt;/strong&gt;, no &lt;strong&gt;composition&lt;/strong&gt; and no &lt;strong&gt;inheritance&lt;/strong&gt; between modules. That&amp;#8217;s what make a DO module diagram easy to understand.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; I understand why there is no association and no composition between DO modules: after all, association and composition are &lt;strong&gt;data relations&lt;/strong&gt;. But why no &lt;strong&gt;inheritance&lt;/strong&gt; relation? Does it mean that in DO is against &lt;strong&gt;polymorphism&lt;/strong&gt;?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; That&amp;#8217;s a great question. The quick answer is that in DO, we achieve polymorphism with a different mechanism than class inheritance. We will talk about it later (in Chapter 5).&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; Now, you triggered my curiosity: I was quite sure that inheritance was the only way to achieve polymorphism.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You look again at the &lt;a href=&quot;#lib-mgmt-entry-points-split-args-2&quot;&gt;module diagram&lt;/a&gt; and now you not only feel that this diagram is simpler than classic OO class diagrams, you understand why it is simpler: All the functions are static and all the relation between modules are of type usage.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;lib-mgmt-entry-points-split-args-2&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/assets/data-book/uml/chapter02/entry-points-split-args-lms.png&quot; alt=&quot;entry points split args lms&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 8. The modules of the Library management system with the function arguments&lt;/div&gt;
-&lt;/div&gt;
-&lt;table class=&quot;tableblock frame-all grid-all stretch&quot;&gt;
-&lt;caption class=&quot;title&quot;&gt;Table 1. What makes each part of a DO system easy to understand&lt;/caption&gt;
-&lt;colgroup&gt;
-&lt;col style=&quot;width: 33.3333%;&quot;&gt;
-&lt;col style=&quot;width: 33.3333%;&quot;&gt;
-&lt;col style=&quot;width: 33.3334%;&quot;&gt;
-&lt;/colgroup&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;System part&lt;/th&gt;
-&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Constraint on entities&lt;/th&gt;
-&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Constraints on relations&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Data entities&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Members (no code)&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Association and Composition&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Code modules&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Code (no members)&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Usage (no inheritance)&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Each part of a DO system is easy to understand, because it has constraints.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;h1 id=&quot;do-systems-are-flexible&quot; class=&quot;sect0&quot;&gt;DO systems are flexible&lt;/h1&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; I get that the sharp separation between code and data makes DO systems are easier to understand than classic OO systems. But what about adapting to changes in requirements?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Another benefit of DO systems is that it is &lt;strong&gt;easy to adapt&lt;/strong&gt; them to changing requirements.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; I remember that when Nancy asked me to add &lt;em&gt;Super Members&lt;/em&gt; and &lt;em&gt;VIP Members&lt;/em&gt; to the system, it was hard to adapt my OO system: I had to introduce a few base classes and the &lt;strong&gt;class hierarchy became really complex&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; I know exactly what you are talking about. I experienced the same kind of struggle when I was a OO developer. Tell me what were the changes in the requirements for &lt;em&gt;Super Members&lt;/em&gt; and &lt;em&gt;VIP Members&lt;/em&gt; and I am quite sure that you will see by yourself that it is easy to adapt your DO system.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sidebarblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;The requirements for Super Members and VIP Members&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Super Members&lt;/strong&gt; are members that are allowed to &lt;strong&gt;list the book lendings&lt;/strong&gt; of other members&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;VIP Members&lt;/strong&gt; are members that are allowed to &lt;strong&gt;add book items&lt;/strong&gt; to the library&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You open your IDE and you start to code the &lt;code&gt;getBookLendings&lt;/code&gt; function of the Library module, first without addressing the requirements for Super Members. You remember what Joe told you about module functions in DO:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Functions are &lt;strong&gt;stateless&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Functions receive the &lt;strong&gt;data&lt;/strong&gt; they manipulate as &lt;strong&gt;first argument&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In terms of functionalities, &lt;code&gt;getBookLendings&lt;/code&gt; have two parts:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Check that the user is a librarian&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Retrieve the book lendings from the catalog&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Basically, the code of &lt;code&gt;getBookLendings&lt;/code&gt; have two parts:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Call &lt;code&gt;isLibrarian&lt;/code&gt; function from the &lt;code&gt;UserManagement&lt;/code&gt; module and pass it the &lt;code&gt;UserManagementData&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Call &lt;code&gt;getBookLendings&lt;/code&gt; function from the &lt;code&gt;Catalog&lt;/code&gt; module and pass it the &lt;code&gt;CatalogData&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The code for &lt;code&gt;Library.getBookLendings&lt;/code&gt; is shown in &lt;a href=&quot;#get-book-lendings-lib&quot;&gt;this listing&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;get-book-lendings-lib&quot; class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;Getting the book lendings of a member&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;tok-kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;Library&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;tok-kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;getBookLendings&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;libraryData&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;userId&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;memberId&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;tok-k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;UserManagement&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;isLibrarian&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;libraryData&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;userManagement&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;userId&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;tok-k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;Catalog&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;getBookLendings&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;libraryData&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;catalog&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;memberId&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;tok-k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;tok-k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;Not allowed to get book lendings&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt; // &lt;b class=&quot;conum&quot;&gt;(1)&lt;/b&gt;
-        &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;tok-kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;UserManagement&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;tok-kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;isLibrarian&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;userManagementData&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;userId&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;tok-c1&quot;&gt;// will be implemented later &lt;/span&gt;&lt;b class=&quot;conum&quot;&gt;(2)&lt;/b&gt;
-    &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;tok-kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;Catalog&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;tok-kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;getBookLendings&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;catalogData&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;memberId&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;tok-c1&quot;&gt;// will be implemented later &lt;/span&gt;&lt;b class=&quot;conum&quot;&gt;(3)&lt;/b&gt;
-    &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;colist arabic&quot;&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;There are other ways to manage errors&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;In Chapter 3, we will see how to manage permissions with generic data collections&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;In Chapter 3, we will see how to query data with generic data collections&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;It&amp;#8217;s your first piece of DO code: passing around all those data objects &lt;code&gt;libraryData&lt;/code&gt;, &lt;code&gt;libraryData.userManagement&lt;/code&gt; and &lt;code&gt;libraryData.catalog&lt;/code&gt; feels a bit awkward. But you made it.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Joe looks at your code and seems satisfied.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; How would you adapt your code to adapt to Super Members?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; I would add a function &lt;code&gt;isSuperMember&lt;/code&gt; to the &lt;code&gt;UserManagement&lt;/code&gt; module and call it from &lt;code&gt;Library.getBookLendings&lt;/code&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Exactly! It&amp;#8217;s as simple as that.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You type this &lt;a href=&quot;#get-book-lendings-super&quot;&gt;piece of code&lt;/a&gt; on your laptop.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;get-book-lendings-super&quot; class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;Allowing Super Members to get the book lendings of a member&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;tok-kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;Library&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;tok-kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;getBookLendings&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;libraryData&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;userId&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;memberId&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;tok-k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;Usermanagement&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;isLibrarian&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;libraryData&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;userManagement&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;userId&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;||&lt;/span&gt;
-&lt;span class=&quot;hll&quot;&gt;           &lt;span class=&quot;tok-nx&quot;&gt;Usermanagement&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;isSuperMember&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;libraryData&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;userManagement&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;userId&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;            &lt;span class=&quot;tok-k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;Catalog&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;getBookLendings&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;libraryData&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;catalog&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;memberId&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;tok-k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;tok-k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;Not allowed to get book lendings&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt; // &lt;b class=&quot;conum&quot;&gt;(1)&lt;/b&gt;
-        &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;tok-kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;UserManagement&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;tok-kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;isLibrarian&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;userManagementData&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;userId&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;tok-c1&quot;&gt;// will be implemented later &lt;/span&gt;&lt;b class=&quot;conum&quot;&gt;(2)&lt;/b&gt;
-    &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;hll&quot;&gt;    &lt;span class=&quot;tok-kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;isSuperMember&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;userManagementData&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;userId&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class=&quot;hll&quot;&gt;        &lt;span class=&quot;tok-c1&quot;&gt;// will be implemented later &lt;/span&gt;&lt;b class=&quot;conum&quot;&gt;(2)&lt;/b&gt;
-&lt;/span&gt;&lt;span class=&quot;hll&quot;&gt;    &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;tok-kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;Catalog&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;tok-kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;getBookLendings&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;catalogData&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;memberId&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;tok-c1&quot;&gt;// will be implemented later &lt;/span&gt;&lt;b class=&quot;conum&quot;&gt;(3)&lt;/b&gt;
-    &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;colist arabic&quot;&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;There are other ways to manage errors&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;In Chapter 3, we will see how to manage permissions with generic data collections&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;In Chapter 3, we will see how to query data with generic data collections&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Now, the awkward feeling caused by passing around all those data objects is dominated by a feeling of relief: Adapting to this change in requirement takes only a few lines of code and require &lt;strong&gt;no changes in the system design&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Once again, Joe seems satisfied.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;DO systems are &lt;strong&gt;flexible&lt;/strong&gt;. Quite often, they adapt to changing requirements &lt;strong&gt;without changing the system design&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You prepare yourself a cup of coffee, and you start coding the &lt;code&gt;addBookItem&lt;/code&gt; code.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You look at the &lt;a href=&quot;#add-book-item-signature&quot;&gt;signature of &lt;code&gt;Library.addBookItem&lt;/code&gt;&lt;/a&gt; and it is not clear to you what is the meaning of the third argument &lt;code&gt;bookItemInfo&lt;/code&gt;. You ask Joe for a clarification.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;add-book-item-signature&quot; class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;The signature of &lt;code&gt;Library.addBookItem&lt;/code&gt;&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;tok-kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;Library&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;tok-kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;addBookItem&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;libraryData&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;userId&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;bookItemInfo&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; What is &lt;code&gt;booItemInfo&lt;/code&gt;?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Let’s call it the book item information and imagine we have a way to &lt;strong&gt;represent this information&lt;/strong&gt; in a &lt;strong&gt;data entity&lt;/strong&gt; named &lt;code&gt;bookItemInfo&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; You mean an object?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; For now, it’s ok to think about &lt;code&gt;bookItemInfo&lt;/code&gt; as on object. Later on (in Chapter 3), I will
-show you how to &lt;strong&gt;represent data entities&lt;/strong&gt; as &lt;strong&gt;generic data collections&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Beside this subtlety about how the book item info is represented by &lt;code&gt;bookItemInfo&lt;/code&gt;, the &lt;a href=&quot;#add-book-item-lib&quot;&gt;code for &lt;code&gt;Library.addBookItem&lt;/code&gt;&lt;/a&gt; is quite similar to &lt;a href=&quot;#get-book-lendings-super&quot;&gt;the code you wrote for &lt;code&gt;Library.getBookLendings&lt;/code&gt;&lt;/a&gt;. Once again, you are amazed by the fact that adding support for VIP Members requires &lt;strong&gt;no design change&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;add-book-item-lib&quot; class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;Allowing VIP Members to add a book item to the library&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;tok-kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;Library&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;tok-kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;addBookItem&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;libraryData&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;userId&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;bookItemData&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;tok-k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;UserManagement&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;isLibrarian&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;libraryData&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;userManagement&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;userId&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;||&lt;/span&gt;
-&lt;span class=&quot;hll&quot;&gt;           &lt;span class=&quot;tok-nx&quot;&gt;UserManagement&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;isVIPMember&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;libraryData&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;userManagement&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;userId&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;            &lt;span class=&quot;tok-k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;Catalog&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;addBookItem&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;libraryData&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;catalog&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;bookItemData&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;tok-k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;tok-k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;Not allowed to add a book item&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt; // &lt;b class=&quot;conum&quot;&gt;(1)&lt;/b&gt;
-        &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;tok-kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;UserManagement&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;tok-kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;isLibrarian&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;userManagementData&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;userId&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;tok-c1&quot;&gt;// will be implemented later &lt;/span&gt;&lt;b class=&quot;conum&quot;&gt;(2)&lt;/b&gt;
-    &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;hll&quot;&gt;    &lt;span class=&quot;tok-kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;isVIPMember&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;userManagementData&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;userId&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class=&quot;hll&quot;&gt;        &lt;span class=&quot;tok-c1&quot;&gt;// will be implemented later &lt;/span&gt;&lt;b class=&quot;conum&quot;&gt;(2)&lt;/b&gt;
-&lt;/span&gt;&lt;span class=&quot;hll&quot;&gt;    &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;tok-kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;Catalog&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;tok-kr&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;addBookItem&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;catalogData&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;memberId&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;tok-c1&quot;&gt;// will be implemented later &lt;/span&gt;&lt;b class=&quot;conum&quot;&gt;(3)&lt;/b&gt;
-    &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;colist arabic&quot;&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;There are other ways to manage errors&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;In Chapter 3, we will see how to manage permissions with generic data collections&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;In Chapter 4, we will see how to manage state of the system with immutable data&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; It required a big &lt;strong&gt;mindset shift&lt;/strong&gt; for me to learn how to separate code from data.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; What was the most challenging part for your mind?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; The fact that data is not encapsulated in objects.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; It was the same for me when I switched from OO to DO.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; Will there be other mindset shifts in my journey into DO?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; There will be two more mindset shifts but I think that they will be less challenging than separating code from data.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;YOU:&lt;/strong&gt; What will it be about?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;JOE:&lt;/strong&gt; Representing data entities as &lt;strong&gt;generic collections&lt;/strong&gt; (Chapter 3) and constraining ourselves to &lt;strong&gt;immutable data objects&lt;/strong&gt; (Chapter 4).&lt;/p&gt;
-&lt;/div&gt;
-&lt;h1 id=&quot;wrapping-up&quot; class=&quot;sect0&quot;&gt;Wrapping up&lt;/h1&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In this chapter we illustrated DO Principle #1 about the separation between code from data:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Principle #1: Separate &lt;strong&gt;code&lt;/strong&gt; from &lt;strong&gt;data&lt;/strong&gt; in a way that the &lt;strong&gt;code&lt;/strong&gt; resides in functions whose behavior does not depend on &lt;strong&gt;data&lt;/strong&gt; that is somehow encapsulated in the function&amp;#8217;s context.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;It required quite a big mindset shift to learn that in DO:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Code is &lt;strong&gt;separated&lt;/strong&gt; from data&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Code is aggregated in &lt;strong&gt;modules&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Data is aggregated in &lt;strong&gt;data entities&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Code is made of &lt;strong&gt;stateless&lt;/strong&gt; functions&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Functions receive &lt;strong&gt;data as first argument&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;We illustrated how to apply this principle in a OO language.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;A consequence of this separation is that:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;We have the &lt;strong&gt;freedom&lt;/strong&gt; to design code and data in isolation&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Module diagrams are &lt;strong&gt;simple&lt;/strong&gt;: it&amp;#8217;s only about usage (no inheritance)&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Data entities diagram are &lt;strong&gt;simple&lt;/strong&gt;: it&amp;#8217;s only about association and composition&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The details of Principle #1 are summarized in &lt;a href=&quot;#princuple1-mindmap&quot;&gt;this mindmap&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Overall, the DO systems are &lt;strong&gt;simpler&lt;/strong&gt; (easier to understand) than classic OO systems and &lt;strong&gt;more flexible&lt;/strong&gt; (easier to adapt to changing requirements).&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;princuple1-mindmap&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/assets/data-book/uml/chapter02/principle1-mindmap.png&quot; alt=&quot;principle1 mindmap&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 9. The summary of Principle #1: Separate code from data&lt;/div&gt;
-&lt;/div&gt;
-&lt;h1 id=&quot;oh-my-love&quot; class=&quot;sect0&quot;&gt;Oh my love&lt;/h1&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;What follows is an adaptation of &lt;a href=&quot;https://en.wikipedia.org/wiki/Oh_My_Love&quot;&gt;Oh My Love&lt;/a&gt; by John Lennon and Yoko Ono.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Oh my love for the first time in my life&lt;br&gt;
-My &lt;strong&gt;system&lt;/strong&gt; is &lt;strong&gt;quite simple&lt;/strong&gt;&lt;br&gt;
-Oh my lover for the first time in my life&lt;br&gt;
-My &lt;strong&gt;system&lt;/strong&gt; can adapt&lt;br&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;I see the &lt;strong&gt;code&lt;/strong&gt;, oh I see the &lt;strong&gt;data&lt;/strong&gt;&lt;br&gt;
-Everything is clear in my heart&lt;br&gt;
-I see the &lt;strong&gt;code&lt;/strong&gt;, oh I see the &lt;strong&gt;data&lt;/strong&gt;&lt;br&gt;
-Everything is clear in my &lt;strong&gt;system&lt;/strong&gt;&lt;br&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Oh my love for the first time in my life&lt;br&gt;
-My &lt;strong&gt;entities&lt;/strong&gt; are &lt;strong&gt;quite simple&lt;/strong&gt;&lt;br&gt;
-Oh my lover for the first time in my life&lt;br&gt;
-My &lt;strong&gt;modules&lt;/strong&gt; can adapt&lt;br&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;I feel the &lt;strong&gt;arguments&lt;/strong&gt;, oh I feel the dreams&lt;br&gt;
-Everything is &lt;strong&gt;stateless&lt;/strong&gt; in my &lt;strong&gt;code&lt;/strong&gt;&lt;br&gt;
-I feel life, oh I feel love&lt;br&gt;
-Everything is clear in my &lt;strong&gt;system&lt;/strong&gt;&lt;br&gt;&lt;/p&gt;
-&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">Clojure and EDN diff tool</title><link href="https://blog.klipse.tech//clojure/2020/10/08/edn-diff.html" rel="alternate" type="text/html" title="Clojure and EDN diff tool" /><published>2020-10-08T05:21:22+00:00</published><updated>2020-10-08T05:21:22+00:00</updated><id>https://blog.klipse.tech//clojure/2020/10/08/edn-diff</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/10/08/edn-diff.html">&lt;p&gt;Compare recursively two Clojure data structures &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;b&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html"></summary></entry><entry><title type="html">Clojure and EDN diff tool</title><link href="https://blog.klipse.tech//clojure/2020/10/08/edn-diff.html" rel="alternate" type="text/html" title="Clojure and EDN diff tool" /><published>2020-10-08T05:21:22+00:00</published><updated>2020-10-08T05:21:22+00:00</updated><id>https://blog.klipse.tech//clojure/2020/10/08/edn-diff</id><content type="html" xml:base="https://blog.klipse.tech//clojure/2020/10/08/edn-diff.html">&lt;p&gt;Compare recursively two Clojure data structures &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;b&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;Comparison is updated as you type…&lt;/p&gt;
 
@@ -3224,86 +2982,4 @@ As a consequence, as a developer it&amp;#8217;s really easy to discover what are
   &lt;br&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry><entry><title type="html">Principles of Data Oriented Programming</title><link href="https://blog.klipse.tech//databook/2020/09/29/do-principles.html" rel="alternate" type="text/html" title="Principles of Data Oriented Programming" /><published>2020-09-29T03:31:24+00:00</published><updated>2020-09-29T03:31:24+00:00</updated><id>https://blog.klipse.tech//databook/2020/09/29/do-principles</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/09/29/do-principles.html">&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    Enter your email address below to get notified when the book is published.
-  &lt;/p&gt;
-
-  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
-	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
-	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
-	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
-  &lt;/form&gt;
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This chapter is an attempt to illustrate what are the core principles of Data Oriented Programming as I understand them.
-It is highly influenced by my programming experience in Clojure, but I believe that those principles are language agnostic.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;One could adhere to them in an Object Oriented (OO) language like Java or C# and one could break them
-in a Functional Programming (FP) language like Ocaml, Haskell, JavaScript (or even in Clojure).&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In fact, in this chapter, I am going to illustrate how those principles could be applied or broken
-in JavaScript, a programming language that supports both FP and OOP.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The principles of Data Oriented (DO) Programming are:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;/databook/2020/10/02/separate-code-data.html&quot;&gt;Separate code from data&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;/databook/2020/10/02/generic-data-structures.html&quot;&gt;Model entities with generic data structures&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;/databook/2020/10/02/immutable-data.html&quot;&gt;Data is immutable&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;/databook/2020/10/02/data-comparable-value.html&quot;&gt;Data is comparable by value&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;/databook/2020/10/03/data-literal.html&quot;&gt;Data has a literal representation&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Each principle is explored in a separate article.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;I encourage you to start your exploration from &lt;a href=&quot;/databook/2020/10/02/separate-code-data.html&quot;&gt;Principle #1: Separate code from data&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Enjoy!&lt;/p&gt;
-&lt;/div&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    Enter your email address below to get notified when the book is published.
-  &lt;/p&gt;
-
-  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
-	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
-	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
-	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
-  &lt;/form&gt;
-  &lt;br&gt;
 &lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry></feed>

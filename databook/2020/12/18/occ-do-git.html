@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="shortcut icon" href="/assets/favicon2.png">
+
+  <title>Applying Git and Optimistic Concurrency Control principles to Data Oriented Programming</title>
+  <meta name="description" content="Applying Git and Optimistic Concurrency Control principles to Data Oriented Programming. Leverage structural sharing.">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/asciidoc-pygments.css">
+  <link rel="canonical" href="https://blog.klipse.tech//databook/2020/12/18/occ-do-git.html">
+  <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- start: facebook -->
+  <meta property="og:title" content="Applying Git and Optimistic Concurrency Control principles to Data Oriented Programming">
+  <meta property="og:image" content="https://blog.klipse.tech/assets/klipse.png">
+  <meta property="og:description" content="Applying Git and Optimistic Concurrency Control principles to Data Oriented Programming. Leverage structural sharing.">
+  <meta property="og:site_name" content="An interactive journey into functional programming with Yehonathan Sharvit">
+  <meta property="article:author" content="Yehonathan Sharvit">
+  <!-- end: facebook -->
+
+
+</head>
+
+  <body>
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">An interactive journey into functional programming with Yehonathan Sharvit</a>
+
+    <div class="site-title" style="float:right;margin-top:14px;">
+<a class="github-button" href="https://github.com/viebel/klipse" data-size="large" data-show-count="true" aria-label="Star viebel/klipse on GitHub">Klipse</a>
+</div>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/data-oriented-programming-book.html">Data Oriented Programming</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav> -->
+
+  </div>
+
+</header>
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <div class="left-post-header">
+      <img src="https://blog.klipse.tech/assets/klipse.png">
+    </div>
+    <div>
+      <h1 class="post-title" itemprop="name headline">Applying Git and Optimistic Concurrency Control principles to Data Oriented Programming</h1>
+      <p class="post-meta"><time datetime="2020-12-18T06:21:24+00:00" itemprop="datePublished">Dec 18, 2020</time>
+	 •
+	<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Yehonathan Sharvit</span></span>
+	
+	</p>
+    </div>
+
+  </header>
+  <div class="post-content" itemprop="articleBody">
+    <div id="preamble">
+<div class="sectionbody">
+<div>
+  <p>
+    This article is an excerpt from my upcoming book about <b>Data Oriented Programming</b>. The book will be published by Manning, once it is completed (hopefully in 2021).
+  </p>
+
+  <p>
+    More excerpts are available on my <a href="/data-oriented-programming-book.html">blog</a>.
+  </p>
+
+  <p>
+    Enter your email address below to get notified when the book is published.
+  </p>
+
+  <form style="text-align: left;" action="https://tinyletter.com/data-oriented-programming" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	  <input type="email" style="width:180px" name="email" id="tlemail" placeholder="Your email address"/>
+	  <input type="hidden" value="1" name="embed"/>
+	  <input style="padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;" type="submit" value="Subscribe" />
+  </form>
+  <br>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>So far in <a href="/databook/2020/09/27/data-book-toc.html">the book</a>, we have seen how Data Oriented Programming (DO) deals with requests that <strong>query information</strong> about the system, leveraging the representation of the whole system data as a <strong>single nested hash map</strong>.</p>
+</div>
+<div class="paragraph">
+<p>In this chapter, we illustrate how DO deals with <strong>mutations</strong>, i.e. requests that <strong>change</strong> the <strong>system state</strong>. Mutations are inherently more complex than queries, especially in a <strong>concurrent</strong> system where mutations could conflict.</p>
+</div>
+<div class="paragraph">
+<p>DO reduces significantly the complexity of mutations, by constraining the hash map that represents the system data to be <strong>immutable</strong>. We will see that in virtue of the immutability of the data, the code for a mutation is as <strong>efficient</strong> as the code for a query and we benefit from the same <strong>power of expression</strong> and <strong>flexibility</strong> as with queries.</p>
+</div>
+<div class="paragraph">
+<p>DO manages concurrency using a lock free strategy called <strong>Optimistic Concurrency Control</strong>, that leads to <strong>high throughput</strong> of queries and mutations. The mutation logic is split into two distinct phases:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The <strong>Calculation phase</strong> where we <strong>compute</strong> what would be the next state of the system if only this mutation were executed.</p>
+</li>
+<li>
+<p>The <strong>Commit phase</strong> where we <strong>update</strong> the state of the system taking into account possible <strong>concurrent</strong> mutations.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The code in both phases is made <strong>efficient</strong> in terms of <strong>memory</strong> and <strong>computation</strong> by ensuring that the data is <strong>immutable</strong>: Instead of mutating data in place, we create a new version of the data, leveraging a <strong>structural sharing</strong> algorithm.  As a consequence, the computation done in the Calculation phase is efficient and the comparison between two versions of the data for conflict resolution in the Commit phase is super fast.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="optimistic-concurrency-control">Optimistic Concurrency Control</h2>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<strong>Optimistic Concurrency Control</strong> with <strong>immutable</strong> data is super <strong>efficient</strong>.
+</blockquote>
+</div>
+<div class="paragraph">
+<p>In DO, we manage different versions of the system data. At a specific point in time, the state of the system refers to a version of the system data. Each time a mutation is executed, we move forward the reference.</p>
+</div>
+<div class="paragraph">
+<p>The data is <strong>immutable</strong> but the state reference is <strong>mutable</strong>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/uml/chapter04/different-versions-t0.png" alt="different versions t0">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/uml/chapter04/different-versions-t1.png" alt="different versions t1">
+</div>
+</div>
+<div class="paragraph">
+<p>Updating the state of the system is done inside a <strong>commit</strong> phase. The commit phase is responsible for <strong>reconciling concurrent mutations</strong> when they don&#8217;t conflict or <strong>aborting</strong> the mutation.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/uml/chapter04/mutation-flow-icons.png" alt="mutation flow icons">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="structural-sharing">Structural sharing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Structural sharing allows to <strong>efficiently</strong> create new versions of immutable data. In DO, we leverage <strong>structural sharing</strong> in the <strong>calculation</strong> phase of a <strong>mutation</strong> to compute the next state of the system based of the current state of the system. Inside the calculation phase, we don&#8217;t have to deal with any concurrency control: this is delayed to the commit phase. As a consequence, the code involved in the calculation phase of a mutation remains <strong>stateless</strong> and is as simple as the code of a query.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s take a simple example from our library system: <a href="#lib-data">a library</a> with no users and a catalog with a single book: Watchmen.</p>
+</div>
+<div id="lib-data" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var library = {
+    &quot;name&quot;: &quot;The smallest library on earth&quot;,
+    &quot;address&quot;: &quot;Here and now&quot;,
+    &quot;catalog&quot;: {
+        &quot;booksByIsbn&quot;: {
+            &quot;978-1779501127&quot;: {
+                &quot;isbn&quot;: &quot;978-1779501127&quot;,
+                &quot;title&quot;: &quot;Watchmen&quot;,
+                &quot;publicationYear&quot;: 1987,
+                &quot;authorIds&quot;: [&quot;alan-moore&quot;, &quot;dave-gibbons&quot;],
+                &quot;bookItems&quot;: [
+                    {
+                        &quot;id&quot;: &quot;book-item-1&quot;,
+                        &quot;rackId&quot;: &quot;rack-17&quot;,
+                        &quot;isLent&quot;: true
+                    }
+                ]
+            }
+        },
+        &quot;authorsById&quot;: {
+            &quot;alan-moore&quot;: {
+                &quot;name&quot;: &quot;Alan Moore&quot;,
+                &quot;bookIsbns&quot;: [&quot;978-1779501127&quot;]
+            },
+            &quot;dave-gibbons&quot;: {
+                &quot;name&quot;: &quot;Dave Gibbons&quot;,
+                &quot;bookIsbns&quot;: [&quot;978-1779501127&quot;]
+            }
+        }
+    },
+    &quot;userManagement&quot;: {
+        // omitted for now
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Imagine that we want to modify the value of a field in a book in the catalog, for instance the publication year of Watchmen.</p>
+</div>
+<div id="library-information" class="imageblock">
+<div class="content">
+<img src="/uml/chapter04/library-data-new-version.png" alt="library data new version">
+</div>
+</div>
+<div class="paragraph">
+<p>The information path for Watchmen publication year is: <code>["catalog", "booksByIsbn", "978-1779501127", "publicationYear"]</code>.</p>
+</div>
+<div class="paragraph">
+<p>We are going to use the <strong>immutable function</strong> <code>_.set()</code> provided by <a href="/javascript/2020/11/26/lodash-fp.html">Lodash</a>.</p>
+</div>
+<div class="paragraph">
+<p>By default Lodash functions are not immutable. In order to use a immutable version of the functions, we need to use Lodash FP module (Functional Programming), as it is explained in the Lodash FP guide.<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>. With this <a href="#lodash-config">piece of code</a> the signature of the immutable functions is exactly the same as the mutable functions.</p>
+</div>
+<div id="lodash-config" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>_ = fp.convert({
+    &quot;cap&quot;: false,
+    &quot;curry&quot;: false,
+    &quot;fixed&quot;: false,
+    &quot;immutable&quot;: true,
+    &quot;rearg&quot;: false
+});</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is how we <a href="#update-publication-year">write code </a> that creates a version of the library data where the publication year of Watchmen is updated to 1986, with the <strong>immutable function</strong> <code>_.set()</code> provided by Lodash.</p>
+</div>
+<div id="update-publication-year" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var nextLibrary = _.set(library, [&quot;catalog&quot;, &quot;booksByIsbn&quot;,
+                                  &quot;978-1779501127&quot;, &quot;publicationYear&quot;],
+                        1986);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the new version of the library, the publication year of Watchmen is 1986</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>_.get(nextLibrary, [&quot;catalog&quot;, &quot;booksByIsbn&quot;,
+                    &quot;978-1779501127&quot;, &quot;publicationYear&quot;]);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>However in the previous version of the library, the publication year of Watchmen is still 1987</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>_.get(library, [&quot;catalog&quot;, &quot;booksByIsbn&quot;,
+                &quot;978-1779501127&quot;, &quot;publicationYear&quot;]);</code></pre>
+</div>
+</div>
+<div class="quoteblock">
+<blockquote>
+A function is said to be <strong>immutable</strong> when instead of mutating the data, it creates a <strong>new version</strong> of the data without changing the data it receives. The immutable functions provided by Lodash are efficient because they use <strong>structural sharing</strong>.
+</blockquote>
+</div>
+<div class="paragraph">
+<p>Here is an illustration of how <strong>structural sharing</strong> works.</p>
+</div>
+<div class="paragraph">
+<p>When you use an <strong>immutable function</strong> to create a new version of the <code>Library</code> where the publication year of Watchmen is set to 1986 (instead of 1987), it creates a fresh <code>Library</code> hash map that <strong>recursively</strong> uses the parts of the current <code>Library</code> that are <strong>common</strong> between the two versions instead of deeply copying them. This technique is called: <strong>structural sharing</strong>.</p>
+</div>
+<div id="structural-sharing-a" class="imageblock">
+<div class="content">
+<img src="/uml/chapter04/structural-sharing.png" alt="structural sharing">
+</div>
+</div>
+<div class="paragraph">
+<p>The next version of the <code>Library</code>, uses the same <code>UserManagement</code> hash map as the old one. The <code>Catalog</code> inside the next <code>Library</code> uses the same <code>authorsById</code> as the current <code>Catalog</code>. The Watchmen <code>Book</code> record inside the next <code>Catalog</code> uses all the fields of the current <code>Book</code> except for the <code>publicationYear</code> field.</p>
+</div>
+<div class="paragraph">
+<p>As you can see by yourself, in <code>nextLibrary</code> the <code>authorsById</code> node is the exact same reference as in <code>library</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>_.get(nextLibrary, [&quot;catalog&quot;, &quot;authorsById&quot;]) == _.get(library, [&quot;catalog&quot;, &quot;authorsById&quot;])</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We will see in a moment how we leverage this sharing of references to make the commit phase efficient.</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<strong>Structural sharing</strong> provides an <strong>efficient</strong> way (both <strong>memory</strong> and <strong>computation</strong>) to create a new version of the data by recursively sharing the parts that don&#8217;t need to change.
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="persistent-data-structures">Persistent data structures</h2>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<strong>Persistent data structures</strong> ensure the immutability of the data at the <strong>level of the data structure</strong> while immutable functions provide the immutability of the data at the level of the functions.
+</blockquote>
+</div>
+<div class="paragraph">
+<p>The way data is organized inside persistent data structures make them <strong>more efficient</strong> than immutable functions.</p>
+</div>
+<div class="paragraph">
+<p>There are <strong>libraries</strong> providing persistent data structures in many languages: Immutable.js in JavaScript,<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup> Paguro in Java,<sup class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnotedef_3" title="View footnote.">3</a>]</sup> Immutable Collections in C#,<sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnotedef_4" title="View footnote.">4</a>]</sup> Pyrsistent in Python,<sup class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnotedef_5" title="View footnote.">5</a>]</sup> and Hamster in Ruby.<sup class="footnote">[<a id="_footnoteref_6" class="footnote" href="#_footnotedef_6" title="View footnote.">6</a>]</sup></p>
+</div>
+<div class="paragraph">
+<p>The <strong>drawback</strong> of persistent data structures is that they are not native which means that working with them require <strong>conversion</strong> from native to persistent and from persistent to native.</p>
+</div>
+<div class="paragraph">
+<p>That&#8217;s one of the reasons why I love Clojure: the native data structures of the language are immutable!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the-reconciliation-algorithm">The reconciliation algorithm</h2>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+In a production system, multiple mutations run concurrently. Before updating the state, we need to reconcile.
+</blockquote>
+</div>
+<div class="paragraph">
+<p><strong>Reconciliation</strong> between possible <strong>concurrent mutations</strong> is quite similar to what could happen in git when you push your changes to a branch and you discover that meanwhile the branch has moved forward because another developer has pushed her code to the branch.</p>
+</div>
+<div class="paragraph">
+<p>Like in git, there are <a href="#occ-merge">three possibilities to reconcile</a> between possible concurrent mutations: fast forward, 3-way merge or abort.</p>
+</div>
+<div id="occ-merge" class="imageblock">
+<div class="content">
+<img src="/uml/chapter04/occ-merge.png" alt="occ merge">
+</div>
+</div>
+<div class="paragraph">
+<p>When the Commit phase of a mutation starts, we have <a href="#three-versions">3 versions of the system state</a>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>previous</code> - the version on which the Calculation phase based its computation</p>
+</li>
+<li>
+<p><code>current</code> - the current version</p>
+</li>
+<li>
+<p><code>next</code> - the version returned by the Calculation phase</p>
+</li>
+</ol>
+</div>
+<div id="three-versions" class="imageblock">
+<div class="content">
+<img src="/uml/chapter04/3-versions.png" alt="3 versions">
+</div>
+</div>
+<div class="paragraph">
+<p>If we are in a situation where the <strong>current state is the same as the previous state</strong>, it means that no mutations run concurrently. Therefore, like in git, we can safely <strong>fast forward</strong> and update the state of the system with the next version.</p>
+</div>
+<div class="paragraph">
+<p>If the state has not remained the same, it means that mutations have run concurrently. We have to check for conflicts in a way similar to the <strong>3-way merge</strong> used by git. The difference is that instead of comparing lines, we compare fields of the system hash map.</p>
+</div>
+<div class="paragraph">
+<p>We calculate the data diff between <code>previous</code> and <code>next</code> and between <code>previous</code> and <code>current</code>. If the two diffs are distinct, then there is no conflict between the mutations that have run concurrently. We can safely merge the changes from <code>previous</code> to <code>next</code> into <code>current</code>.</p>
+</div>
+<div id="three-way-merge" class="imageblock">
+<div class="content">
+<img src="/uml/chapter04/3-way-merge.png" alt="3 way merge">
+</div>
+<div class="title">Figure 1. In a 3-way merge, we calculate the diff between <code>previous</code> and <code>next</code> and we apply it to <code>current</code></div>
+</div>
+<div class="paragraph">
+<p>And if there is a conflict, we abort the mutation.</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+In a user facing system, conflicting concurrent mutations are fairly rare: that&#8217;s why it&#8217;s OK to abort and let the user run the mutation again.
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the-implementation-of-the-commit-phase">The implementation of the Commit phase</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The code for the Commit phase is made of 3 classes:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>System</code>, a stateful class that implements the mutations</p>
+</li>
+<li>
+<p><code>SystemData</code> a singleton stateful class</p>
+</li>
+<li>
+<p><code>SystemConsistency</code>, a stateless class that provides conflict resolution logic</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s start with the <code>System</code> class and how it <a href="#add-member-mutation">implements</a> the <code>addMember</code> mutation.</p>
+</div>
+<div id="add-member-mutation" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>class System {
+    addMember(member) {
+        var librarySnapshot = SystemData.get();
+        var nextLibary = Library.addMember(librarySnapshot, member);
+        SystemData.commit(librarySnapshot, nextLibrary);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is the <a href="#system-data">code</a> for the <code>SystemData</code> class: It is the only stateful class in a DO system!</p>
+</div>
+<div id="system-data" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>class SystemData {
+    systemData;
+
+    get() {
+        return this.systemData;
+    }
+
+    set(_systemData) {
+        this.systemData = _systemData;
+    }
+
+    commit(previous, next) {
+        this.systemData = SystemConsistency.reconcile(this.systemData,
+                                                      previous,
+                                                      next);
+    }
+}
+
+window.SystemData = SystemData;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And how does <code>SystemConsistency</code> do the reconciliation?</p>
+</div>
+<div class="paragraph">
+<p>The <code>SystemConsistency</code> <a href="#consistency">class</a> starts the reconciliation process by comparing <code>previous</code> and <code>current</code>. If they are the same, then we fast-forward and return <code>next</code>.</p>
+</div>
+<div class="listingblock hidden">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>class DataDiff {
+    static diffObjects(data1, data2) {
+        var emptyObject = _.isArray(data1) ? [] : {};
+        if(data1 == data2) {
+            return emptyObject;
+        }
+        var keys = _.union(_.keys(data1), _.keys(data2));
+        return _.reduce(keys,
+                        function (acc, k) {
+                            var res = DataDiff.diff(_.get(data1, k),
+                                                    _.get(data2, k));
+                            if((_.isObject(res) &amp;&amp; _.isEmpty(res)) ||
+                               (res == &quot;data-diff:no-diff&quot;)) {
+                                return acc;
+                            }
+                            return _.set(acc, k, res);
+                        },
+                        emptyObject);
+    }
+
+    static diff(data1, data2) {
+        if(_.isObject(data1) &amp;&amp; _.isObject(data2)) {
+            return DataDiff.diffObjects(data1, data2);
+        }
+        if(data1 !== data2) {
+            return data2;
+        }
+        return &quot;data-diff:no-diff&quot;;
+    }
+
+    static leaves(obj, prefix = &#39;&#39;) {
+        return _.reduce(obj,
+                        function(acc, v, k) {
+                            if (_.isObject(v)) {
+                                return _.concat(acc,
+                                                DataDiff.leaves(v,
+                                                                prefix + k + &quot;.&quot;))
+                            }
+                            return _.concat(acc, [prefix + k]);
+                        },
+                        []);
+    }
+    static isEmptyIntersection(delta1, delta2) {
+        return _.isEmpty(_.intersection(DataDiff.leaves(delta1),
+                                        DataDiff.leaves(delta2)));
+    }
+}
+
+window.DataDiff = DataDiff</code></pre>
+</div>
+</div>
+<div id="consistency" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>class SystemConsistency {
+    static threeWayMerge(current, previous, next) {
+        var previousToCurrent = DataDiff.diff(previous, current);
+        var previousToNext = DataDiff.diff(previous, next);
+        if(DataDiff.isEmptyIntersection(previousToCurrent, previousToNext)) {
+            return _.merge(current, previousToNext);
+        }
+        throw &quot;Conflicting concurrent mutations.&quot;;
+    }
+    static reconcile(current, previous, next) {
+        if(current == previous) {
+            // fast forward
+            return next;
+        }
+        return SystemConsistency.threeWayMerge(current,
+                                               previous,
+                                               next);
+    }
+}
+window.SystemConsistency = SystemConsistency;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The reconciliation algorithm relies on <code>DataDiff</code> class that implements the computation of a data diff between two hash maps and the detection of empty intersection. The internals of the <code>DataDiff</code> class are revealed in <a href="/databook/2020/12/20/data-diff.html">Computing the data diff between two hash maps</a>.</p>
+</div>
+<div class="paragraph">
+<p>Have you noticed that we compare <code>previous</code> and <code>current</code> by reference instead of comparing them recursively <strong>by value</strong>? That&#8217;s another <strong>benefit of immutable data</strong>: when the data is not mutated, it is safe to <strong>compare references</strong> and if they are the same, we know for sure that the data is the same.</p>
+</div>
+<div class="paragraph">
+<p>Now, to the implementation of the 3-way merge algorithm.</p>
+</div>
+<div class="paragraph">
+<p>When <code>previous</code> differs from <code>current</code>, it means that concurrent mutations have run. In order to determine whether there is a conflict or not, we calculate the two diffs: <code>previousToCurrent</code> and <code>previousToNext</code>. If the intersection between the two diffs is empty, it means there is not conflict. We merge <code>previousToNext</code> into <code>current</code>.</p>
+</div>
+<div class="paragraph">
+<p>You may have noticed that think the <a href="#consistency">code</a> for the <code>Consistency</code> class is <strong>not thread safe</strong>! If there is a context switch between checking whether the system has changed in the <code>Consistency</code> class and the updating of the state in <code>SystemData</code> class, a mutation might override the changes of a previous mutation.</p>
+</div>
+<div class="paragraph">
+<p>The code works fine in a single threaded environment like JavaScript where concurrency is handled via an <strong>event loop</strong>. However in a <strong>multi threaded</strong> environment, the code needs to be refined a bit and use atoms to be thread safe.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="some-examples">Some examples</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s make the reconciliation algorithm more concrete by giving an example of a reconciliation between non-conflicting concurrent mutations.</p>
+</div>
+<div class="paragraph">
+<p>A mutation that updates the publication year of a book <a href="#compatible-mutations">will not conflict</a> with a mutation that updates the title of the same book. A reconciliation will result in a system state where both the title and the publication year are updated.</p>
+</div>
+<div id="compatible-mutations" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var previous = library;
+var next = _.set(library,
+                [&quot;catalog&quot;, &quot;booksByIsbn&quot;, &quot;978-1779501127&quot;, &quot;publicationYear&quot;],
+                1986);
+var current = _.set(library,
+                    [&quot;catalog&quot;, &quot;booksByIsbn&quot;, &quot;978-1779501127&quot;, &quot;title&quot;],
+                    &quot;The Watchmen&quot;);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The diff between <code>previous</code> and <code>current</code> is a nested map with <a href="#diff-previous-current">a single field</a> that holds the updated title.</p>
+</div>
+<div id="diff-previous-current" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>DataDiff.diff(previous, current);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And the diff between <code>previous</code> and <code>next</code> is also made of a <a href="#diff-previous-next">single field</a> for the updated publication year.</p>
+</div>
+<div id="diff-previous-next" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>DataDiff.diff(previous, next);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now you see clearly how the code detects that the two mutations don&#8217;t conflict: the two nested maps have no leaf in common!</p>
+</div>
+<div class="paragraph">
+<p>The <a href="#lib-data-reconciled">result of the reconciliation</a> is a library where both the title and the publication year are updated.</p>
+</div>
+<div id="lib-data-reconciled" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>_.get(SystemConsistency.reconcile(current, previous, next),
+     &quot;catalog&quot;);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And here is an example of conflicting mutations: Two mutations that update the publication year of the same book <a href="#incompatible-mutations">will conflict</a>.</p>
+</div>
+<div id="incompatible-mutations" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var previous2 = library;
+var next2 = _.set(library,
+                 [&quot;catalog&quot;, &quot;booksByIsbn&quot;, &quot;978-1779501127&quot;, &quot;publicationYear&quot;],
+                 1984);
+var current2 = _.set(library,
+                    [&quot;catalog&quot;, &quot;booksByIsbn&quot;, &quot;978-1779501127&quot;, &quot;publicationYear&quot;],
+                    1986);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here the two diffs contain the same field.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>DataDiff.diff(previous2, current2);</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>DataDiff.diff(previous2, next2);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In that case, the reconciliation will fail.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="wrapping-up">Wrapping up</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this chapter, we have explored how DO <strong>manages state</strong> with <strong>Optimistic Concurrency Control</strong>, where the mutation logic is split into Calculation and Commit phases.</p>
+</div>
+<div class="paragraph">
+<p>During the <strong>Calculation phase</strong>, the data is manipulated with <strong>immutable functions</strong> that leverage <strong>structural sharing</strong> to create <strong>efficiently</strong> (memory and computation) a <strong>new version</strong> of the data where the data that is common between the two versions is shared.</p>
+</div>
+<div class="paragraph">
+<p><strong>Data validation</strong> and <strong>conflict resolution</strong> between <strong>concurrent mutations</strong> occur in the <strong>Commit</strong> phase. The code for the <strong>commit phase</strong> is common to all the mutations. The code that implements conflict detection in the commit phase is efficient in virtue of <strong>structural sharing</strong>.</p>
+</div>
+<div class="paragraph">
+<p>When the system data is immutable, keeping the <strong>history</strong> of the versions of the system data is efficient and restoring the system to a previous state is straightforward. As an example, we have seen how to implement <em>undo</em> in a DO system.</p>
+</div>
+<div>
+  <p>
+    This article is an excerpt from my upcoming book about <b>Data Oriented Programming</b>. The book will be published by Manning, once it is completed (hopefully in 2021).
+  </p>
+
+  <p>
+    More excerpts are available on my <a href="/data-oriented-programming-book.html">blog</a>.
+  </p>
+
+  <p>
+    Enter your email address below to get notified when the book is published.
+  </p>
+
+  <form style="text-align: left;" action="https://tinyletter.com/data-oriented-programming" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	  <input type="email" style="width:180px" name="email" id="tlemail" placeholder="Your email address"/>
+	  <input type="hidden" value="1" name="embed"/>
+	  <input style="padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;" type="submit" value="Subscribe" />
+  </form>
+  <br>
+</div>
+<script src='https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)'></script>
+<script>
+var fp = _.noConflict();
+</script>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. <a href="https://github.com/lodash/lodash/wiki/FP-Guide" class="bare">https://github.com/lodash/lodash/wiki/FP-Guide</a>
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. <a href="https://immutable-js.github.io/immutable-js/" class="bare">https://immutable-js.github.io/immutable-js/</a>
+</div>
+<div class="footnote" id="_footnotedef_3">
+<a href="#_footnoteref_3">3</a>. <a href="https://github.com/GlenKPeterson/Paguro" class="bare">https://github.com/GlenKPeterson/Paguro</a>
+</div>
+<div class="footnote" id="_footnotedef_4">
+<a href="#_footnoteref_4">4</a>. <a href="https://docs.microsoft.com/en-us/archive/msdn-magazine/2017/march/net-framework-immutable-collections" class="bare">https://docs.microsoft.com/en-us/archive/msdn-magazine/2017/march/net-framework-immutable-collections</a>
+</div>
+<div class="footnote" id="_footnotedef_5">
+<a href="#_footnoteref_5">5</a>. <a href="https://github.com/tobgu/pyrsistent" class="bare">https://github.com/tobgu/pyrsistent</a>
+</div>
+<div class="footnote" id="_footnotedef_6">
+<a href="#_footnoteref_6">6</a>. <a href="https://github.com/hamstergem/hamster" class="bare">https://github.com/hamstergem/hamster</a>
+</div>
+</div>
+  </div>
+
+</article>
+<div class="patreon">
+  If you enjoy this kind of interactive articles would you consider a (small) donation💸  on <a href="https://www.patreon.com/bePatron?u=18227864">Patreon</a> or at least giving a star⭐ for the Klispe repo on <a href="https://github.com/viebel/klipse/stargazers"> Github</a>?
+</div>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js, [data-lang=klipse-javascript]',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+
+
+
+<footer class="site-footer">
+  
+  <div class="wrapper" style="
+			      font-size: larger;
+			      color: #5f7fbf;
+			      font-weight: bold;">
+    <p> <span> <!-- <a href="https://twitter.com/viebel">
+  <span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span>
+  <span class="username">viebel</span>
+</a> -->
+
+
+<a href="https://twitter.com/viebel"
+   class="twitter-follow-button" 
+   data-show-count="false" 
+   data-size="large">Follow viebel</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+ </span> to stay up-to-date with the coolest interactive articles around the world.</p>
+    <p> Discover <a href="/"> more cool interactive articles</a> about javascript, clojure[script], python, ruby, scheme, c++ and even brainfuck!</p>
+    <p> Give Klipse a Github star
+      <span>
+  <a class="github-button" href="https://github.com/viebel/klipse" data-size="large" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+      </span>
+      to express how much you appreciate <em>Code Interactivity</em>. </p>
+    <p>
+      <form style="text-align: left;" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	<label for="tlemail">Subscribe to the Klipse newsletter:</label>
+	<input type="email" style="width:180px" name="email" id="tlemail" placeholder="Enter your email address"/>
+	<input type="hidden" value="1" name="embed"/>
+	<input style="padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;" type="submit" value="Subscribe" />
+      </form>
+    </p>
+    <p> Feel free to email me <a href="mailto:viebel@gmail.com?Subject=I%20want%20to%20write%20an%20interactive%20blog%20post%20with%20KLIPSE"><span class="icon icon--github"><?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 382.117 382.117" style="enable-background:new 0 0 382.117 382.117;" xml:space="preserve" width="512px" height="512px">
+<path d="M336.764,45.945H45.354C20.346,45.945,0,65.484,0,89.5v203.117c0,24.016,20.346,43.555,45.354,43.555h291.41  c25.008,0,45.353-19.539,45.353-43.555V89.5C382.117,65.484,361.772,45.945,336.764,45.945z M336.764,297.72H45.354  c-3.676,0-6.9-2.384-6.9-5.103V116.359l131.797,111.27c2.702,2.282,6.138,3.538,9.676,3.538l22.259,0.001  c3.536,0,6.974-1.257,9.677-3.539l131.803-111.274v176.264C343.664,295.336,340.439,297.72,336.764,297.72z M191.059,192.987  L62.87,84.397h256.378L191.059,192.987z" fill="#fc8ba0"/>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+</span><span class="username">viebel@gmail.com</span></a>
+ for getting practical tips and tricks in writing your first interactive blog post.</p>
+  </div>
+</footer>
+
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+    */
+    var disqus_config = function () {
+        this.page.url = "https://blog.klipse.tech/" + "/databook/2020/12/18/occ-do-git.html";
+        this.page.identifier = "0507E021-B84B-41C3-B89F-C1049ABF6E95";
+        this.page.title = "Applying Git and Optimistic Concurrency Control principles to Data Oriented Programming";
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//klipse.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+      </div>
+    </div>
+    
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-75651930-1', 'auto');
+  
+  	ga('send', 'pageview', {'dimension1': 'Yehonathan Sharvit'});
+  
+
+  function timer11(){ga('send', 'event', 'TimeOnPage', '1', '11-30 seconds', { 'nonInteraction': 1 });}
+  function timer31(){ga('send', 'event', 'TimeOnPage', '2', '31-60 seconds', { 'nonInteraction': 1 });}
+  function timer61(){ga('send', 'event', 'TimeOnPage', '3', '61-180 seconds', { 'nonInteraction': 1 });}
+  function timer181(){ga('send', 'event', 'TimeOnPage', '4', '181-600 seconds', { 'nonInteraction': 1 });}
+  function timer601(){ga('send', 'event', 'TimeOnPage', '5', '601-1800 seconds', { 'nonInteraction': 1 });}
+  function timer1801(){ga('send', 'event', 'TimeOnPage', '6', '1801+ seconds', { 'nonInteraction': 1 });}
+  ga('send', 'event', 'TimeOnPage', '0', '0-10 seconds', { 'nonInteraction': 1 });
+  setTimeout(timer11,11000);
+  setTimeout(timer31,31000);
+  setTimeout(timer61,61000);
+  setTimeout(timer181,181000);
+  setTimeout(timer601,601000);
+  setTimeout(timer1801,1801000);
+</script>
+
+
+  </body>
+</html>
