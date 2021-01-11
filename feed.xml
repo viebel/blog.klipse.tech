@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2020-12-20T07:51:30+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2021-01-11T04:58:21+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
 </subtitle><author><name>Yehonathan Sharvit</name></author><entry><title type="html">Computing the data diff between two hash maps</title><link href="https://blog.klipse.tech//databook/2020/12/20/data-diff.html" rel="alternate" type="text/html" title="Computing the data diff between two hash maps" /><published>2020-12-20T00:15:29+00:00</published><updated>2020-12-20T00:15:29+00:00</updated><id>https://blog.klipse.tech//databook/2020/12/20/data-diff</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/12/20/data-diff.html">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div&gt;
@@ -1023,7 +1023,7 @@ var b = _fp.set(a, &quot;foo&quot;, 2);
 
 &lt;script&gt;
 var fp = _.noConflict();
-&lt;/script&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">Did you know that Lodash - the popular JavaScript utility library - had a functional flavor?</summary></entry><entry><title type="html">Manipulate immutable collections with no performance hit.</title><link href="https://blog.klipse.tech//javascript/2020/11/09/immutable-manipulate.html" rel="alternate" type="text/html" title="Manipulate immutable collections with no performance hit." /><published>2020-11-09T00:21:34+00:00</published><updated>2020-11-09T00:21:34+00:00</updated><id>https://blog.klipse.tech//javascript/2020/11/09/immutable-manipulate</id><content type="html" xml:base="https://blog.klipse.tech//javascript/2020/11/09/immutable-manipulate.html">&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.2/immutable.min.js&quot; integrity=&quot;sha512-myCdDiGJRYrvRb/VuJ67ljifYTJdc1jdEvL4c4ftX9o3N6EAnmD83c/7l2/91RCINZ7c8w21tiXDT7RDFjdc3g==&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
+&lt;/script&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">Did you know that Lodash - the popular JavaScript utility library - had a functional flavor?</summary></entry><entry><title type="html">Manipulate immutable collections with no performance hit.</title><link href="https://blog.klipse.tech//javascript/2020/11/09/immutable-manipulate.html" rel="alternate" type="text/html" title="Manipulate immutable collections with no performance hit." /><published>2020-11-09T00:21:34+00:00</published><updated>2020-11-09T00:21:34+00:00</updated><id>https://blog.klipse.tech//javascript/2020/11/09/immutable-manipulate</id><content type="html" xml:base="https://blog.klipse.tech//javascript/2020/11/09/immutable-manipulate.html">&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/immutable/4.0.0-rc.12/immutable.min.js&quot; integrity=&quot;sha512-OA48phPVdkQE2u9b6nhv71zeq9zvwc6oLq3IVWLw8WfRlcRO/+6zhUcWZxfXi75agm3bfqCxIdstBfK/g6fYvw==&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
 
 &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js&quot; integrity=&quot;sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww==&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
 
@@ -1125,14 +1125,14 @@ However, in languages where immutable data structures are not &lt;strong&gt;nati
 
 &lt;p&gt;Our purpose is to find the best way to call &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_.countBy()&lt;/code&gt; on our immutable collection, in the same way as we would use it on the JS native object:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;_.countBy(immutableLibData.toJS().catalog.books, &quot;publicationYear&quot;); 
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;_.countBy(immutableLibData.toJS().catalog.books, &quot;publicationYear&quot;);
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Immutable.js provides a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.toJS()&lt;/code&gt; function that &lt;strong&gt;deeply converts&lt;/strong&gt; an immutable collection to a JS object or array.&lt;/p&gt;
 
 &lt;p&gt;We are then free to pass &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;immutableLibData.toJS()&lt;/code&gt; to any Lodash function:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;_.countBy(immutableLibData.toJS().catalog.books, &quot;publicationYear&quot;); 
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;_.countBy(immutableLibData.toJS().catalog.books, &quot;publicationYear&quot;);
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;The problem is that it causes a &lt;strong&gt;performance hit&lt;/strong&gt;, as we have to convert the whole &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;immutableLibData&lt;/code&gt; immutable collection (including the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;users&lt;/code&gt; part which is unnecessary)&lt;/p&gt;
