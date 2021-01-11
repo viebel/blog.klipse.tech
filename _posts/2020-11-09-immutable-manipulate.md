@@ -11,8 +11,7 @@ minified_plugin: true
 
 ---
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.2/immutable.min.js" integrity="sha512-myCdDiGJRYrvRb/VuJ67ljifYTJdc1jdEvL4c4ftX9o3N6EAnmD83c/7l2/91RCINZ7c8w21tiXDT7RDFjdc3g==" crossorigin="anonymous"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/immutable/4.0.0-rc.12/immutable.min.js" integrity="sha512-OA48phPVdkQE2u9b6nhv71zeq9zvwc6oLq3IVWLw8WfRlcRO/+6zhUcWZxfXi75agm3bfqCxIdstBfK/g6fYvw==" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js" integrity="sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww==" crossorigin="anonymous"></script>
 
 
@@ -98,7 +97,7 @@ var immutableLibData = Immutable.fromJS(libraryData);
 Our purpose is to find the best way to call `_.countBy()` on our immutable collection, in the same way as we would use it on the JS native object:
 
 ~~~eval-js
-_.countBy(immutableLibData.toJS().catalog.books, "publicationYear"); 
+_.countBy(immutableLibData.toJS().catalog.books, "publicationYear");
 ~~~
 
 Immutable.js provides a `.toJS()` function that **deeply converts** an immutable collection to a JS object or array.
@@ -107,7 +106,7 @@ Immutable.js provides a `.toJS()` function that **deeply converts** an immutable
 We are then free to pass `immutableLibData.toJS()` to any Lodash function:
 
 ~~~eval-js
-_.countBy(immutableLibData.toJS().catalog.books, "publicationYear"); 
+_.countBy(immutableLibData.toJS().catalog.books, "publicationYear");
 ~~~
 
 The problem is that it causes a **performance hit**, as we have to convert the whole `immutableLibData` immutable collection (including the `users` part which is unnecessary)
@@ -149,4 +148,3 @@ A similar approach could be applied to other immutable data collection libraries
 Enjoy immutability!
 
 {% include databook-intro.html %}
-
