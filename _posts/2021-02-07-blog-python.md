@@ -67,10 +67,10 @@ hello()
 And now, we are going to **klipsify** this code snippet:
 
 ~~~klipse-python
-def foo:
+def hello():
   print("Hello World!")
   
-foo()
+hello()
 ~~~
 
 Feel free to edit the code above: it's interactive => it evaluates as you type.
