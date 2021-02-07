@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2021-02-07T06:53:30+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2021-02-07T06:59:14+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
 </subtitle><author><name>Yehonathan Sharvit</name></author><entry><title type="html">A new way of blogging about Python</title><link href="https://blog.klipse.tech//python/2021/02/07/blog-python.html" rel="alternate" type="text/html" title="A new way of blogging about Python" /><published>2021-02-07T02:34:28+00:00</published><updated>2021-02-07T02:34:28+00:00</updated><id>https://blog.klipse.tech//python/2021/02/07/blog-python</id><content type="html" xml:base="https://blog.klipse.tech//python/2021/02/07/blog-python.html">&lt;p&gt;This blog post is about to show a new way of blogging about Python.&lt;/p&gt;
 
 &lt;p&gt;Look at a typical blog post or tutorial about any programming language: The article usually presents a couple of code snippets. As I see it, there are two pains with code snippets:&lt;/p&gt;
@@ -60,10 +60,10 @@
 
 &lt;p&gt;And now, we are going to &lt;strong&gt;klipsify&lt;/strong&gt; this code snippet:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&quot;language-klipse-python&quot;&gt;def foo:
+&lt;pre&gt;&lt;code class=&quot;language-klipse-python&quot;&gt;def hello():
   print(&quot;Hello World!&quot;)
   
-foo()
+hello()
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Feel free to edit the code above: it’s interactive =&amp;gt; it evaluates as you type.&lt;/p&gt;
