@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2021-02-07T07:02:12+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2021-02-07T15:58:56+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
 </subtitle><author><name>Yehonathan Sharvit</name></author><entry><title type="html">A new way of blogging about Python</title><link href="https://blog.klipse.tech//python/2021/02/07/blog-python.html" rel="alternate" type="text/html" title="A new way of blogging about Python" /><published>2021-02-07T02:34:28+00:00</published><updated>2021-02-07T02:34:28+00:00</updated><id>https://blog.klipse.tech//python/2021/02/07/blog-python</id><content type="html" xml:base="https://blog.klipse.tech//python/2021/02/07/blog-python.html">&lt;p&gt;This blog post is about to show a new way of blogging about Python.&lt;/p&gt;
 
 &lt;p&gt;Look at a typical blog post or tutorial about any programming language: The article usually presents a couple of code snippets. As I see it, there are two pains with code snippets:&lt;/p&gt;
@@ -154,7 +154,65 @@ print(factorial(5))
 
 &lt;p&gt;It’s super simple to integrate the &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse plugin&lt;/a&gt; on a blog post: check the instructions on &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse github repository&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;You can get some inspiration by &lt;a href=&quot;https://github.com/viebel/klipse#community&quot;&gt;the work of the Klipse community&lt;/a&gt;…&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">This blog post is about to show a new way of blogging about Python.</summary></entry><entry><title type="html">Computing the data diff between two hash maps</title><link href="https://blog.klipse.tech//databook/2020/12/20/data-diff.html" rel="alternate" type="text/html" title="Computing the data diff between two hash maps" /><published>2020-12-20T00:15:29+00:00</published><updated>2020-12-20T00:15:29+00:00</updated><id>https://blog.klipse.tech//databook/2020/12/20/data-diff</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/12/20/data-diff.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;p&gt;You can get some inspiration by &lt;a href=&quot;https://github.com/viebel/klipse#community&quot;&gt;the work of the Klipse community&lt;/a&gt;…&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">This blog post is about to show a new way of blogging about Python.</summary></entry><entry><title type="html">Imagine there’s no objects</title><link href="https://blog.klipse.tech//python/2021/02/07/imagine.html" rel="alternate" type="text/html" title="Imagine there's no objects" /><published>2021-02-07T02:34:28+00:00</published><updated>2021-02-07T02:34:28+00:00</updated><id>https://blog.klipse.tech//python/2021/02/07/imagine</id><content type="html" xml:base="https://blog.klipse.tech//python/2021/02/07/imagine.html">&lt;p&gt;Here is an adaptation of &lt;em&gt;Imagine&lt;/em&gt;, by John Lennon to the context of &lt;strong&gt;Data-Oriented programming&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;You’ll best enjoy the lyrics if you sing them in your head while listening to the original performance by John Lennon, on YouTube.&lt;/p&gt;
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/T2hvkPyiAFE&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;Imagine there’s no &lt;em&gt;objects&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;It’s easy if you try&lt;/p&gt;
+
+&lt;p&gt;No &lt;em&gt;classes&lt;/em&gt; below us&lt;/p&gt;
+
+&lt;p&gt;Above us only &lt;em&gt;information&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Imagine all the entities being only &lt;em&gt;data&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Imagine there’s no &lt;em&gt;mutation&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;It isn’t hard to do&lt;/p&gt;
+
+&lt;p&gt;Nothing to protect with a &lt;em&gt;mutex&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;And no &lt;em&gt;deadlock&lt;/em&gt; too&lt;/p&gt;
+
+&lt;p&gt;Imagine all the entities being only &lt;em&gt;data&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;You may say I’m a dreamer&lt;/p&gt;
+
+&lt;p&gt;But I’m not the only one&lt;/p&gt;
+
+&lt;p&gt;I hope some day &lt;em&gt;OO&lt;/em&gt; will join us&lt;/p&gt;
+
+&lt;p&gt;And the world will be as one&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Imagine no &lt;em&gt;code&lt;/em&gt; is &lt;em&gt;locked&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;I wonder if you can&lt;/p&gt;
+
+&lt;p&gt;No need for &lt;em&gt;methods&lt;/em&gt; and &lt;em&gt;inheritance&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;A brotherhood of input and output&lt;/p&gt;
+
+&lt;p&gt;Imagine all the code being &lt;em&gt;pure functions&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;You may say I’m a dreamer&lt;/p&gt;
+
+&lt;p&gt;But I’m not the only one&lt;/p&gt;
+
+&lt;p&gt;I hope some day &lt;em&gt;OO&lt;/em&gt; will join us&lt;/p&gt;
+
+&lt;p&gt;And the world will be as one&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">Here is an adaptation of Imagine, by John Lennon to the context of Data-Oriented programming.</summary></entry><entry><title type="html">Computing the data diff between two hash maps</title><link href="https://blog.klipse.tech//databook/2020/12/20/data-diff.html" rel="alternate" type="text/html" title="Computing the data diff between two hash maps" /><published>2020-12-20T00:15:29+00:00</published><updated>2020-12-20T00:15:29+00:00</updated><id>https://blog.klipse.tech//databook/2020/12/20/data-diff</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/12/20/data-diff.html">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div&gt;
   &lt;p&gt;
@@ -2244,319 +2302,6 @@ and it keeps our data model flexible.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Continue your exploration of &lt;a href=&quot;/databook/2020/09/29/do-principles.html&quot;&gt;Data Oriented Programming principles&lt;/a&gt; and move to &lt;a href=&quot;/databook/2020/10/02/immutable-data.html&quot;&gt;Principle #3: Data is immutable&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    Enter your email address below to get notified when the book is published.
-  &lt;/p&gt;
-
-  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
-	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
-	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
-	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
-  &lt;/form&gt;
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html"></summary></entry><entry><title type="html">DO Principle #3: Data is immutable</title><link href="https://blog.klipse.tech//databook/2020/10/02/immutable-data.html" rel="alternate" type="text/html" title="DO Principle #3: Data is immutable" /><published>2020-10-02T09:31:24+00:00</published><updated>2020-10-02T09:31:24+00:00</updated><id>https://blog.klipse.tech//databook/2020/10/02/immutable-data</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/10/02/immutable-data.html">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.2/immutable.min.js&quot; integrity=&quot;sha512-myCdDiGJRYrvRb/VuJ67ljifYTJdc1jdEvL4c4ftX9o3N6EAnmD83c/7l2/91RCINZ7c8w21tiXDT7RDFjdc3g==&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    Enter your email address below to get notified when the book is published.
-  &lt;/p&gt;
-
-  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
-	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
-	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
-	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
-  &lt;/form&gt;
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In Data Oriented programming data is a first class citizen that is considered as a value.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;It comes down to 3 principles:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;/databook/2020/10/02/immutable-data.html&quot;&gt;Principle #3: Data is immutable&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;/databook/2020/10/02/data-comparable-value.html&quot;&gt;Principle #4: Data is comparable by value&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;/databook/2020/10/03/data-literal.html&quot;&gt;Principle #5: Data has a literal representation&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In this article, we explore Principle #3.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;the-principle-in-a-nutshell&quot;&gt;The principle in a nutshell&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-Principle #3: Data never changes.
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;remarks-on-principle-3&quot;&gt;Remarks on Principle #3&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Data never changes, but we have the possibility to create a new version of the data.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;We are allowed to change the reference of a variable, so that it refers to a new version of the data.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;illustration-of-principle-3&quot;&gt;Illustration of Principle #3&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Think about the number &lt;code&gt;42&lt;/code&gt;. What happens to &lt;code&gt;42&lt;/code&gt; when you add &lt;code&gt;1&lt;/code&gt; to it? Does it become &lt;code&gt;43&lt;/code&gt;?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;No! &lt;code&gt;42&lt;/code&gt; stays &lt;code&gt;42&lt;/code&gt; forever!!!&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Now put &lt;code&gt;42&lt;/code&gt; inside an object &lt;code&gt;{num: 42}&lt;/code&gt;. What happens to the object when you add &lt;code&gt;1&lt;/code&gt; to &lt;code&gt;42&lt;/code&gt;? Does it become &lt;code&gt;43&lt;/code&gt;?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;It depends on the programming language. In Clojure, a programming language that embraces data immutability,  &lt;code&gt;42&lt;/code&gt; stays &lt;code&gt;42&lt;/code&gt; forever, no matter what.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In many programming languages, &lt;code&gt;42&lt;/code&gt; becomes &lt;code&gt;43&lt;/code&gt;. For instance, in JavaScript:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var myData = {num: 42};
-var yourData = myData;
-
-myData.num = myData.num + 1;
-[myData.num, yourData.num];&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;According to DO, data should never change. Instead of mutating data, we create a new version of it.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;A naive (and inefficient) way to create a new version of a data is to clone it before modifying it.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;For instance, here is an function that changes the value of a field inside an object, by cloning the object via &lt;code&gt;Object.assign&lt;/code&gt; provided natively by JavaScript:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;function changeValue(obj, k, v) {
-  var res = Object.assign({}, obj);
-  res[k] = v;
-  return res;
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Now, when change &lt;code&gt;myData&lt;/code&gt;, &lt;code&gt;yourData&lt;/code&gt; is not affected:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var myData = {num: 42};
-var yourData = myData;
-
-myData = changeValue(myData, &amp;quot;num&amp;quot;, myData.num + 1);
-[myData.num, yourData.num];&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;That&amp;#8217;s the essence of data immutability.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In Clojure, data is immutable by default. In JavaScript, embracing immutability in an efficient way requires a third party library like &lt;a href=&quot;https://immutable-js.github.io/immutable-js&quot;&gt;Immutable.js&lt;/a&gt; that provides an efficient implementation of persistent data structures.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In most programming languages, there exists libraries that provide an efficient implementation of persistent data structures.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;With Immutable.js, we don&amp;#8217;t use JavaScript native maps and arrays but immutable maps and arrays instantiated via &lt;code&gt;Immutable.Map&lt;/code&gt; and &lt;code&gt;Immutable.List&lt;/code&gt;.
-In order to access the element of a map, we use the &lt;code&gt;get&lt;/code&gt; method and we create a new version of the map where one field is modified, with the &lt;code&gt;set&lt;/code&gt; method:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var myData = Immutable.Map({num: 42})
-var yourData = myData;
-
-myData = myData.set(&amp;quot;num&amp;quot;, 43);
-
-[myData.get(&amp;quot;num&amp;quot;), yourData.get(&amp;quot;num&amp;quot;)];&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;benefits-of-principle-3&quot;&gt;Benefits of Principle #3&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;When we constraint our program to never mutate data, our programs benefit from:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Data access to all with serenity&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Code behavior is predictable&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Equality check is fast&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Concurrency safety for free&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;benefit-1-data-access-to-all-with-serenity&quot;&gt;Benefit #1: Data access to all with serenity&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;According to &lt;a href=&quot;/databook/2020/10/02/separate-code-data.html&quot;&gt;Principle #1: Separate code from data&lt;/a&gt;, data access is transparent.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Any function is allowed to access any piece of data. Without data immutability, we would need to be careful each time we pass data as an argument to a function.
-We would need to either make sure the function doesn&amp;#8217;t mutate the data or clone the data before we pass it to the function.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;When we adhere to data immutability, none of this is required. We can pass data to any function with serenity, because data never changes.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;benefit-2-code-behavior-is-predictable&quot;&gt;Benefit #2: Code behavior is predictable&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Let me illustrate what I mean by &lt;em&gt;predictable&lt;/em&gt; by giving an example of an unpredictable piece of code that doesn&amp;#8217;t adhere to data immutability.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Please take a look at the following piece of asynchronous piece of code in JavaScript:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var myData = {num: 42};
-setTimeout(function(data){
-  console.log(data.num);
-}, 1000, myData)&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The value of &lt;code&gt;data.num&lt;/code&gt; inside the timeout callback is not predictable. It could be modified by another callback.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;However, if you constraint yourself to data immutability, you are guaranteed that data never changes and you can predict that &lt;code&gt;data.num&lt;/code&gt; is &lt;code&gt;42&lt;/code&gt; inside the callback!&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;benefit-3-equality-check-is-fast&quot;&gt;Benefit #3: Equality check is fast&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In a UI framework like React.js, we frequently check what portion of the &quot;UI data&quot; has been modified since the previous rendering cycle. Portions that didn&amp;#8217;t change are not rendered again.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In fact, in a typical frontend application, most of the UI data is left unchanged between subsequent rendering cycles. In a React application that doesn&amp;#8217;t adhere to data immutability, we have no other choice that checking every (nested) part of the UI data.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;However in a React application that follows data immutability, we can optimize the comparison of the data for the case where data was not modified. Indeed, when the object address is the same, then we know for sure that the data did not change. Comparing object addresses is much faster than comparing all the fields.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Fast equality check could be leverage in any program that adhere to Principle #3.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;benefit-4-concurrency-safety-for-free&quot;&gt;Benefit #4: Concurrency safety for free&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In a multi threaded environment, we usually use concurrency safety mechanisms (e.g. mutexes) to make sure the data is not modified by thread &lt;code&gt;A&lt;/code&gt; while we access it in thread &lt;code&gt;B&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In addition to the slight performance hit they cause, concurrency safety mechanisms is a burden for our minds and it makes code writing and reading much more difficult.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;When we adhere to data immutability, no concurrency mechanism is required: the data you have in hand never changes!&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;price-for-principle-3&quot;&gt;Price for Principle #3&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;There are no free meals. Applying Principle #3 comes at a price:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Performance hit&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Need a library for persistent data structures&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;price-1-performance-hit&quot;&gt;Price #1: Performance hit&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;As we mentioned earlier, there exist implementation of persistent data structures in most programming languages. But the most efficient implementation will always be a bit slower than the in-place mutation of the data.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In most applications, the performance hit is not significant. But it is something to keep in mind.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;price-2-need-a-library-for-persistent-data-structures&quot;&gt;Price #2: Need a library for persistent data structures&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;As far as I know, Clojure is the only programming language where data is immutable by default.  For other languages, adhering to data immutability requires the inclusion a third party library.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The fact that the data structures are not native to the language means that it is difficult (if not impossible) to enforce the usage of immutable data across the board.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Also, when you integrate with other third party libraries (e.g. a chart library), you need first to convert your persistent data structure into a equivalent native data structure.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;wrapping-up&quot;&gt;Wrapping up&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;DO considers data as a value that never changes. When you adhere to this principle, your code is predictable even in a multi threaded environment without mutexes and equality check is fast.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;However, it requires a non negligible mind shift and in all languages beside Clojure, you&amp;#8217;d have to use a third party library that provides an efficient implementation of persistent data structures.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Continue your exploration of &lt;a href=&quot;/databook/2020/09/29/do-principles.html&quot;&gt;Data Oriented Programming principles&lt;/a&gt; and move to &lt;a href=&quot;/databook/2020/10/02/data-comparable-value.html&quot;&gt;Principle #4: Data is comparable by value&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div&gt;
   &lt;p&gt;
