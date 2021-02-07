@@ -14,14 +14,14 @@ This blog post is about to show a new way of blogging about Python.
 
 Look at a typical blog post or tutorial about any programming language: The article usually presents a couple of code snippets. As I see it, there are two pains with code snippets:
 
-1. They contain the input and the output but not the actual evaluation of the input
-2. It's impossible for the reader to modify the output
+1. They contain the input and the output but not the **actual evaluation** of the input
+2. It's impossible for the reader to **modify** the output
 
 # The forgotten dream
 
-A long time ago, all the developers had a common dream. The dream was about interactivity, liveness, evaluation...
+A long time ago, all the developers had a common **dream**. The dream was about interactivity, instant feedback, evaluation...
 
-But we put this dream aside - because the browser understands only `javascript`.
+But we put this dream aside - because the browser understands only `JavaScript`.
 
 And after a while, we even forgot that we ever had this dream.
 
