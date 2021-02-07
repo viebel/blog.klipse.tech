@@ -1,5 +1,160 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2021-01-30T22:18:54+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
-</subtitle><author><name>Yehonathan Sharvit</name></author><entry><title type="html">Computing the data diff between two hash maps</title><link href="https://blog.klipse.tech//databook/2020/12/20/data-diff.html" rel="alternate" type="text/html" title="Computing the data diff between two hash maps" /><published>2020-12-20T00:15:29+00:00</published><updated>2020-12-20T00:15:29+00:00</updated><id>https://blog.klipse.tech//databook/2020/12/20/data-diff</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/12/20/data-diff.html">&lt;div id=&quot;preamble&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://blog.klipse.tech//feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.klipse.tech//" rel="alternate" type="text/html" /><updated>2021-02-07T06:53:30+00:00</updated><id>https://blog.klipse.tech//feed.xml</id><title type="html">An interactive journey into functional programming with Yehonathan Sharvit</title><subtitle>A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
+</subtitle><author><name>Yehonathan Sharvit</name></author><entry><title type="html">A new way of blogging about Python</title><link href="https://blog.klipse.tech//python/2021/02/07/blog-python.html" rel="alternate" type="text/html" title="A new way of blogging about Python" /><published>2021-02-07T02:34:28+00:00</published><updated>2021-02-07T02:34:28+00:00</updated><id>https://blog.klipse.tech//python/2021/02/07/blog-python</id><content type="html" xml:base="https://blog.klipse.tech//python/2021/02/07/blog-python.html">&lt;p&gt;This blog post is about to show a new way of blogging about Python.&lt;/p&gt;
+
+&lt;p&gt;Look at a typical blog post or tutorial about any programming language: The article usually presents a couple of code snippets. As I see it, there are two pains with code snippets:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;They contain the input and the output but not the actual evaluation of the input&lt;/li&gt;
+  &lt;li&gt;It’s impossible for the reader to modify the output&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;the-forgotten-dream&quot;&gt;The forgotten dream&lt;/h1&gt;
+
+&lt;p&gt;A long time ago, all the developers had a common dream. The dream was about interactivity, liveness, evaluation…&lt;/p&gt;
+
+&lt;p&gt;But we put this dream aside - because the browser understands only &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;javascript&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;And after a while, we even forgot that we ever had this dream.&lt;/p&gt;
+
+&lt;p&gt;Still, there are some people that didn’t forget this dream, like Alan Kay:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Question: Well, look at Wikipedia — it’s a tremendous collaboration.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Alan Kay: It is, but go to the article on &lt;a href=&quot;https://en.wikipedia.org/wiki/Logo_(programming_language)&quot;&gt;Logo&lt;/a&gt;, can you write and execute Logo programs? Are there examples? No. The Wikipedia people didn’t even imagine that, in spite of the fact that they’re on a computer.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Here is the &lt;a href=&quot;http://www.drdobbs.com/architecture-and-design/interview-with-alan-kay/240003442?pgno=2&quot; target=&quot;_blank&quot;&gt;full interview of Alan Kay&lt;/a&gt;. (Thanks &lt;a href=&quot;https://twitter.com/fasihsignal&quot;&gt;@fasihsignal&lt;/a&gt; for bringing this quote to our awareness.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/dream.jpg&quot; alt=&quot;dream&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;the-klipse-plugin&quot;&gt;The Klipse plugin&lt;/h1&gt;
+
+&lt;p&gt;The Klipse plugin is a small step toward our forgotten dream: it is a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt; tag that transforms static code snippets of an html page into live and interactive snippets:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Live&lt;/strong&gt;: The code is executed in your browser&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Interactive&lt;/strong&gt;: You can modify the code and it is evaluated as you type&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse&lt;/a&gt; is written in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ClojureScript&lt;/code&gt;,&lt;/p&gt;
+
+&lt;p&gt;The following languages are supported by &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse&lt;/a&gt;: Clojure, Ruby, JavaScript, Ocaml, Scheme, Jsx, Brainfuck, Prolog, C++ and Lua.&lt;/p&gt;
+
+&lt;p&gt;In this article, we are going to demonstrate interactive &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Python&lt;/code&gt; code snippets evaluated by 
+&lt;a href=&quot;https://skulpt.org/&quot;&gt;Skulpt&lt;/a&gt;,  an &lt;strong&gt;entirely in-browser&lt;/strong&gt; implementation of Python.&lt;/p&gt;
+
+&lt;h1 id=&quot;klipsify-an-python-code-snippet&quot;&gt;Klipsify an Python code snippet&lt;/h1&gt;
+
+&lt;p&gt;Let’s have on this page a small static code snippet:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello World!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  
+&lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;(This blog is written with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jekyll&lt;/code&gt;: the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kramdown&lt;/code&gt; plugin helps a lot in beautifying the code snippets.)&lt;/p&gt;
+
+&lt;p&gt;And now, we are going to &lt;strong&gt;klipsify&lt;/strong&gt; this code snippet:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-python&quot;&gt;def foo:
+  print(&quot;Hello World!&quot;)
+  
+foo()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Feel free to edit the code above: it’s interactive =&amp;gt; it evaluates as you type.&lt;/p&gt;
+
+&lt;p&gt;All I had to do in order to &lt;strong&gt;klipsify&lt;/strong&gt; my code snippet, was to set the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;language-klipse-python&lt;/code&gt; class (configurable) to the appropriate html element.&lt;/p&gt;
+
+&lt;p&gt;See it by yourself: here is the source of this page:&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;p&amp;gt;&lt;/span&gt;And now, we are going to &lt;span class=&quot;nt&quot;&gt;&amp;lt;strong&amp;gt;&lt;/span&gt;klipsify&lt;span class=&quot;nt&quot;&gt;&amp;lt;/strong&amp;gt;&lt;/span&gt; this code snippet:&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;pre&amp;gt;&amp;lt;code&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;language-klipse-python&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+def foo:
+  print(&quot;Hello World!&quot;)
+  
+foo()
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;live-demo&quot;&gt;Live demo&lt;/h1&gt;
+
+&lt;p&gt;Before dealing about integration of the Klipse plugin on a web page, let’s enjoy another Klipse snippet implementing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;factorial&lt;/code&gt; in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;python&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-python&quot;&gt;def factorial(n):
+  if n == 0:
+    return 1
+  return n*factorial(n-1)
+
+print(factorial(5))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Go ahead! modify the code snippet above, and it will evaluate as you type…&lt;/p&gt;
+
+&lt;h1 id=&quot;evaluating-a-gist&quot;&gt;Evaluating a gist&lt;/h1&gt;
+
+&lt;p&gt;We can also evaluate code from a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gist&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;For instance, we could evaluate &lt;a href=&quot;https://gist.github.com/viebel/9ab6b853c78c5e651f844ea2568c44a9&quot;&gt;this gist&lt;/a&gt; that tells a turtle to draw a &lt;a href=&quot;https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle&quot;&gt;Sierpiński triangle&lt;/a&gt;.&lt;/p&gt;
+
+&lt;pre&gt;
+&lt;div class=&quot;language-klipse-python&quot; data-gist-id=&quot;viebel/9ab6b853c78c5e651f844ea2568c44a9&quot;&gt;&lt;/div&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;Again, feel free to modify the code…&lt;/p&gt;
+
+&lt;h1 id=&quot;integration&quot;&gt;Integration&lt;/h1&gt;
+
+&lt;p&gt;All you need to do in order to integrate the Klipse plugin to your blog (or any other web page), is to add this &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt; tag to your web page:&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stylesheet&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text/css&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://app.klipse.tech/css/codemirror.css&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;script&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;klipse_settings&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;selector_eval_python_client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;.language-klipse-python&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://app.klipse.tech/plugin_prod/js/klipse_plugin.min.js&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;By the way, this is exactly what we did on the page that you are currently reading.&lt;/p&gt;
+
+&lt;h1 id=&quot;other-languages&quot;&gt;Other languages&lt;/h1&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse plugin&lt;/a&gt; is designed as a platform that could support any language that has a client-side evaluator, by writing modules to the Klipse plugin. Currently, in addition to Python, there are modules available for the following languages:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Javascript: &lt;a href=&quot;http://blog.klipse.tech/javascript/2016/06/20/blog-javascript.html&quot;&gt;A new way of blogging about javascript&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Clojure[script]: &lt;a href=&quot;http://blog.klipse.tech/clojure/2016/06/07/klipse-plugin-tuto.html&quot;&gt;How to klipsify a clojure[script] blog post&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Brainfuck: &lt;a href=&quot;http://blog.klipse.tech/brainfuck/2016/12/17/brainfuck.html&quot;&gt;Brainfuck for dummies&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Scheme: &lt;a href=&quot;http://blog.klipse.tech/scheme/2016/09/11/scheme-tutorial-1.html&quot;&gt;Interactive overview of Scheme’s semantics&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Lua: &lt;a href=&quot;http://blog.klipse.tech/lua/2017/03/19/blog-lua.html&quot;&gt;A new way of blogging about Lua&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;Go ahead!&lt;/p&gt;
+
+&lt;p&gt;Write your own blog post with interactive snippets in your preferred language.&lt;/p&gt;
+
+&lt;p&gt;It’s super simple to integrate the &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse plugin&lt;/a&gt; on a blog post: check the instructions on &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse github repository&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can get some inspiration by &lt;a href=&quot;https://github.com/viebel/klipse#community&quot;&gt;the work of the Klipse community&lt;/a&gt;…&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><summary type="html">This blog post is about to show a new way of blogging about Python.</summary></entry><entry><title type="html">Computing the data diff between two hash maps</title><link href="https://blog.klipse.tech//databook/2020/12/20/data-diff.html" rel="alternate" type="text/html" title="Computing the data diff between two hash maps" /><published>2020-12-20T00:15:29+00:00</published><updated>2020-12-20T00:15:29+00:00</updated><id>https://blog.klipse.tech//databook/2020/12/20/data-diff</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/12/20/data-diff.html">&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div&gt;
   &lt;p&gt;
@@ -2424,559 +2579,4 @@ setTimeout(function(data){
   &lt;br&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html"></summary></entry><entry><title type="html">DO Principle #1: Separate code from data</title><link href="https://blog.klipse.tech//databook/2020/10/02/separate-code-data.html" rel="alternate" type="text/html" title="DO Principle #1: Separate code from data" /><published>2020-10-02T07:31:24+00:00</published><updated>2020-10-02T07:31:24+00:00</updated><id>https://blog.klipse.tech//databook/2020/10/02/separate-code-data</id><content type="html" xml:base="https://blog.klipse.tech//databook/2020/10/02/separate-code-data.html">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    Enter your email address below to get notified when the book is published.
-  &lt;/p&gt;
-
-  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
-	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
-	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
-	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
-  &lt;/form&gt;
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;the-principle-in-a-nutshell&quot;&gt;The principle in a nutshell&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-Principle #1: Separate code from data in a way that code resides in functions whose behavior does not depend on data that is somehow encapsulated in the function&amp;#8217;s context.
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;remarks-on-principle-1&quot;&gt;Remarks on Principle #1&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;In pure FP, functions behavior depend only on its arguments, but it is not a requirement for DO (global variables are allowed in DO).&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;It is possible to break this principle in FP, by hiding state in the lexical scope of a function.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;It is possible to be compliant with this principle in OOP: The functions could be aggregated as methods of a static class for instance.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;This principle doesn&amp;#8217;t relate to the way data is modeled. We could be compliant with this principle by creating a specific class for each kind of data.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;illustration-of-principle-1&quot;&gt;Illustration of Principle #1&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Let me illustrate how we can follow this principle or break it on a simplistic program that deals with:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;An author entity with a &lt;code&gt;firstName&lt;/code&gt;, a &lt;code&gt;lastName&lt;/code&gt; and a number of &lt;code&gt;books&lt;/code&gt; he/she wrote&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;A piece of code that calculates the full name of the author and a number of &lt;code&gt;books&lt;/code&gt; he/she wrote&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;A piece of code that determines if an author is prolific, based on the number of books he/she wrote&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;We break this principle when we combine data and code together in an object, like this:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;class Author {
-  constructor(firstName, lastName, books) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.books = books;
-  }
-  fullName() {
-      return this.firstName + &amp;quot; &amp;quot; + this.lastName;
-  }
-  isProlific() {
-    return this.books &amp;gt; 100;
-  }
-}
-
-var obj = new Author(&amp;quot;Isaac&amp;quot;, &amp;quot;Asimov&amp;quot;, 500); // Isaac Asimov wrote 500 books!
-obj.fullName();&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;We break this principle &lt;strong&gt;even without classes&lt;/strong&gt;, when we hide the data in the lexical scope of a function:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;function createAuthorObject(firstName, lastName, books) {
- return {
-   fullName: function() {
-       return firstName + &amp;quot; &amp;quot; + lastName;
-      },
-    isProlific: function () {
-      return books &amp;gt; 100;
-    }
-  };
- }
-
-var obj = createAuthorObject(&amp;quot;Isaac&amp;quot;, &amp;quot;Asimov&amp;quot;, 500); // Isaac Asimov wrote 500 books!
-obj.fullName();&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;We are compliant with this principle when we separate the code and the data, like this:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;function createAuthorData(firstName, lastName, books) {
-   return {firstName: firstName, lastName: lastName, books: books};
-}
-
-function fullName(data) {
-   return data.firstName + &amp;quot; &amp;quot; + data.lastName;
-}
-
-function isProlific (data) {
-  return data.books &amp;gt; 100;
-}
-
-var data = createAuthorData(&amp;quot;Isaac&amp;quot;, &amp;quot;Asimov&amp;quot;, 500); // Isaac Asimov wrote 500 books!
-fullName(data);&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;We are compliant with this principle &lt;strong&gt;even with classes&lt;/strong&gt; when we write our code in static classes and store our data in classes with no functions, like this:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;class AuthorData {
-  constructor(firstName, lastName, books) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.books = books;
-  }
-}
-
-class NameCalculation {
-  static fullName(data) {
-    return data.firstName + &amp;quot; &amp;quot; + data.lastName;
-  }
-}
-
-class AuthorRating {
-  static isProlific (data) {
-    return data.books &amp;gt; 100;
-  }
-}
-
-var data = new AuthorData(&amp;quot;Isaac&amp;quot;, &amp;quot;Asimov&amp;quot;, 500); // Isaac Asimov wrote 500 books!
-NameCalculation.fullName(data);&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Now that we have illustrated how one could follow or break Principle #1, both in OOP and FP,
-let&amp;#8217;s explore what benefits Principle #1 brings to our programs.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;benefits-of-principle-1&quot;&gt;Benefits of Principle #1&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;When we are careful to separate code and data, our programs benefit from:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Code can be reused in different contexts&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Code can be tested in isolation&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Systems tend to be less complex&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;benefit-1-code-can-be-reused-in-different-contexts&quot;&gt;Benefit #1: Code can be reused in different contexts&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Imagine that we have in our program an entity that is similar to an author e.g. an artist that has the same &lt;code&gt;firstName&lt;/code&gt; and &lt;code&gt;lastName&lt;/code&gt; fields as an author.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In the version with &lt;code&gt;createAuthorObject&lt;/code&gt;, we cannot reuse the code of &lt;code&gt;fullName&lt;/code&gt; on an artist in a straightforward way.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;One way to deal with that is to use OO mechanisms like inheritance or composition to let the &lt;code&gt;artist&lt;/code&gt; and the &lt;code&gt;author&lt;/code&gt; object use the same &lt;code&gt;fullName&lt;/code&gt; method.
-In a simplistic use case like the author and the artist that&amp;#8217;s fine but on real world systems, the usage of OO mechanisms tends to increase complexity.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Another option is to rewrite the code of &lt;code&gt;fullName&lt;/code&gt; inside a &lt;code&gt;createArtistObject&lt;/code&gt; function:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;function createAuthorObject(firstName, lastName, books) {
-   var data = {firstName: firstName, lastName: lastName, books: books};
-
- return {
-   fullName: function fullName() {
-       return data.firstName + &amp;quot; &amp;quot; + data.lastName;
-      }
-  };
- }
-
-function createArtistObject(firstName, lastName, genre) {
-   var data = {firstName: firstName, lastName: lastName, genre: genre};
-
- return {
-   fullName: function fullName() {
-       return data.firstName + &amp;quot; &amp;quot; + data.lastName;
-      }
-  };
- }
-
-var obj = createArtistObject(&amp;quot;Maurits&amp;quot;, &amp;quot;Escher&amp;quot;, &amp;quot;Painting&amp;quot;);
-obj.fullName();&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In the DO version where &lt;code&gt;createAuthorData&lt;/code&gt; and &lt;code&gt;fullName&lt;/code&gt; are separate, we don&amp;#8217;t need to make any modification to the existing code (the code that deals with author).
-We simply leverage the fact that
-the data that is relevant to the full name calculation for an artist and an author
-follows the same shape and we call &lt;code&gt;fullName&lt;/code&gt; on an artist data.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;function createAuthorData(firstName, lastName, books) {
-  return {firstName: firstName, lastName: lastName, books: books};
-}
-
-function fullName(data) {
-  return data.firstName + &amp;quot; &amp;quot; + data.lastName;
-}
-
-function createArtistData(firstName, lastName, genre) {
-   return {firstName: firstName, lastName: lastName, genre: genre};
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The &lt;code&gt;fullName&lt;/code&gt; function works properly both on author data and on artist data:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var data = createAuthorData(&amp;quot;Isaac&amp;quot;, &amp;quot;Asimov&amp;quot;, 500);
-fullName(data);&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var data = createArtistData(&amp;quot;Maurits&amp;quot;, &amp;quot;Escher&amp;quot;, &amp;quot;Painting&amp;quot;);
-fullName(data);&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;When applied, this principle allows code to be reused in a straightforward way, &lt;strong&gt;even when we use classes&lt;/strong&gt;.
-In statically typed OO languages (like Java or C#), we would have to create a common interface
-for &lt;code&gt;AuthorData&lt;/code&gt; and &lt;code&gt;ArtistData&lt;/code&gt;, but in a dynamically typed language like JavaScript, it is not required:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;class AuthorData {
-  constructor(firstName, lastName, books) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.books = books;
-  }
-}
-
-class NameCalculation {
-  static fullName() {
-    return data.firstName + &amp;quot; &amp;quot; + data.lastName;
-  }
-}
-
-class ArtistData {
-  constructor(firstName, lastName, books) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.books = books;
-  }
-}
-
-// required trick to make the classes accessible to other snippets
-window.AuthorData = AuthorData
-window.NameCalculation = NameCalculation
-window.ArtistData = ArtistData&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The code of &lt;code&gt;NameCalculation.fullName&lt;/code&gt; works both of author data and artist data:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var data = new ArtistData(&amp;quot;Maurits&amp;quot;, &amp;quot;Escher&amp;quot;, &amp;quot;Painting&amp;quot;);
-NameCalculation.fullName(data);&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var data = new AuthorData(&amp;quot;Isaac&amp;quot;, &amp;quot;Asimov&amp;quot;, 500);
-NameCalculation.fullName(data);&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-When we separate code and data, it is straightforward to reuse code in different contexts. This benefit is achievable both in FP and in OOP.
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;benefit-2-code-can-be-tested-in-isolation&quot;&gt;Benefit #2: Code can be tested in isolation&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Another benefit of separating code and data, which is similar to the previous one, is that we are free to test code in an isolated context.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;When we don&amp;#8217;t separate code from data, we are forced to instantiate an object in order to test each of its methods.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;For instance, in order to test the &lt;code&gt;fullName&lt;/code&gt; code that lives inside the &lt;code&gt;createAuthorObject&lt;/code&gt; function, we are required to instantiate an author object:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var author =  createAuthorObject(&amp;quot;Isaac&amp;quot;, &amp;quot;Asimov&amp;quot;, 500);
-
-author.fullName() === &amp;quot;Isaac Asimov&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In this simplistic scenario, it is not a big pain (only loading unnecessarily the code for &lt;code&gt;isProlific&lt;/code&gt;),
-but in a real world situation, instantiating an object might involve lots of unnecessary steps.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In the DO version, where &lt;code&gt;createAuthorData&lt;/code&gt; and &lt;code&gt;fullName&lt;/code&gt; are separate, we are free to create the data to be passed to &lt;code&gt;fullName&lt;/code&gt; as we want and test &lt;code&gt;fullName&lt;/code&gt; in isolation:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;
-fullName({firstName: &amp;quot;Isaac&amp;quot;, lastName: &amp;quot;Asimov&amp;quot;}) === &amp;quot;Isaac Asimov&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;If we choose to use classes, we only need to instantiate a data object. The code for &lt;code&gt;isProlific&lt;/code&gt; doesn&amp;#8217;t have to be loaded in order to test &lt;code&gt;fullName&lt;/code&gt;:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var data =  new AuthorData(&amp;quot;Isaac&amp;quot;, &amp;quot;Asimov&amp;quot;);
-
-NameCalculation.fullName(data) === &amp;quot;Isaac Asimov&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The second benefit of separating code and data is that it&amp;#8217;s easier to write tests for our code.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;benefit-3-systems-tend-to-be-less-complex&quot;&gt;Benefit #3: Systems tend to be less complex&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The third and last benefit of applying Principle #1 is that systems tend to be less complex.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This benefit is the deepest one but also the one that is the hardest (for me) to explain.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The type of complexity I refer to is the one which makes large systems hard to understand as it is defined in the beautiful paper &lt;a href=&quot;https://github.com/papers-we-love/papers-we-love/blob/master/design/out-of-the-tar-pit.pdf&quot;&gt;Out of the Tar Pit&lt;/a&gt;.
-It has nothing to do with the complexity of the resources consumed by a program.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Similarly, when we refer to simplicity, we mean &quot;not complex&quot;, in other words easy to understand.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Keep in mind that complexity and simplicity (like hard and easy) are not absolute but relative concepts.
-We can compare the complexity of two systems and argue that system A is more complex (or simpler) than system B.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;When code and data reside in separate entities, the system is easier to understand for two reasons:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;Entities are split into disjoint groups: code and data. Therefore entities have less relations with other entitites.&lt;/div&gt;
-&lt;p&gt;Let me illustrate this insight on a class diagram of a Library management system, where code and data are mixed.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;lib-mgmt-class-diagram-overview&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/complex-class-relation.png&quot; alt=&quot;complex class relation&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 1. A class diagram overview for a Library management system&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;It is not required to know the details of the classes to notice that this diagram represent a system that is complex in the sense that it is hard to understand.
-The system is hard to understand because there are many dependencies between the entities that compose the system.
-The most complex node of the system is the Librarian entity which is connected via 7 edges to other nodes.
-Part of the edges are data edges (association and composition) and part of the edges are code edges (inheritance and dependency).&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Now, if we split each class of this system in a code entity and a data entity &lt;em&gt;without making any other modification to the system&lt;/em&gt; the diagram of the system is split into two disjoint parts.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;The left part is made only of data entities and data edges: association and composition&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;The right part is made only of code entities and code edges: dependency and inheritance&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div id=&quot;lib-mgmt-simplified-class-diagram&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/data-code-relation.png&quot; alt=&quot;data code relation&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 2. A class diagram where every class is split into code and data entities&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The resulting system is definitely simpler. I am not sure if there is a formal metric of the complexity of a system that could make tangible what I mean by simpler, but my informal understanding is that:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-A system made of disjoint simple parts is less complex than a system made of a single complex part.
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;One could argue that the complexity of the system where code and data are mixed is due to a bad design and data an experienced OO developer would have designed a simpler system, leveraging smart design patterns.
-That&amp;#8217;s true, but in a sense it&amp;#8217;s irrelevant. The point I am trying to make here is that a system made of entities that do not combine code and data &lt;em&gt;tends&lt;/em&gt; to be simpler that a system made of entities that combine code and data.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;It has been said many times that &quot;Simplicity is hard&quot;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;My claim is that simplicity is easier to achieve when we separate code and data.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;price-for-principle-1&quot;&gt;Price for Principle #1&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;There are no free meals. Applying Principle #1 comes at a price.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The price we have to pay in order to benefit from the separation between code and data is that:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;There is no control on what code access what data&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;No packaging&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Our systems are made from more entities&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;price-1-there-is-no-control-on-what-code-access-what-data&quot;&gt;Price #1: There is no control on what code access what data&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;When code and data are mixed, one can easily understand what are the pieces of code that access a piece of data.
-The reason is that the data is encapsulated in an object. It gives us the guaranty that the data is accessible only by the object&amp;#8217;s methods.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In DO, data stands on its own. It is transparent if you want. As a consequence, it can be accessed by any piece of code.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;When we want to refactor the shape of our data,
-we need to be very careful and make sure that we have found all the places in our code that access the data.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Without the application of &lt;a href=&quot;/databook/2020/10/02/immutable-data.html&quot;&gt;Principle #3&lt;/a&gt; that enforces data immutability,
-the fact that the data is accessible by any piece of code would be really unsafe as it would be very hard to guarantee the validity of our data.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;price-2-no-packaging&quot;&gt;Price #2: No packaging&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;One of the benefits of OOP is that when you have an object in hand,
-it&amp;#8217;s a package that contains both the code (via methods) and the data (via members).
-As a consequence, as a developer it&amp;#8217;s really easy to discover what are the various ways to manipulate the data: you look at the methods of the class.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In DO, the code that manipulate the data could be everywhere. For example, &lt;code&gt;createAuthorData&lt;/code&gt; could be in a file and &lt;code&gt;fullName&lt;/code&gt; in another file. It makes it difficult for developers to discover that the &lt;code&gt;fullName&lt;/code&gt; function is available. In some situations, it could lead to waste of time and unnecessary code duplication.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;price-3-our-systems-are-made-from-more-entities&quot;&gt;Price #3: Our systems are made from more entities&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Let&amp;#8217;s do simple arithmetic. Imagine a system made of N classes that combine code and data. When you split the separate code and data, you get a system made of 2N entities.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;That&amp;#8217;s not accurate, because usually when you separate code and data, the class hierarchy tends to get simpler. Therefore the number of classes in the resulting system will probably be lower than 2N.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;On one hand, the entities are simpler.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;On the other hand, we have more entities.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Depending on the situation, you might prefer one or the other.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;wrapping-up&quot;&gt;Wrapping up&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;DO guides us to separate code from data.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;When we adhere to this principle, our code can be reused in different contexts and tested in isolation and our systems tend to be made of simpler parts.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This separation reduces the control we have on what pieces of code access our data and could cause our systems to be made of more entities.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Continue your exploration of &lt;a href=&quot;/databook/2020/09/29/do-principles.html&quot;&gt;Data Oriented Programming principles&lt;/a&gt; and move to &lt;a href=&quot;/databook/2020/10/02/generic-data-structures.html&quot;&gt;Principle #2: Model entities with generic data structures&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my upcoming book about &lt;b&gt;Data Oriented Programming&lt;/b&gt;. The book will be published by Manning, once it is completed (hopefully in 2021).
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    Enter your email address below to get notified when the book is published.
-  &lt;/p&gt;
-
-  &lt;form style=&quot;text-align: left;&quot; action=&quot;https://tinyletter.com/data-oriented-programming&quot; method=&quot;post&quot; target=&quot;popupwindow&quot; onsubmit=&quot;window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true&quot;&gt;
-	  &lt;input type=&quot;email&quot; style=&quot;width:180px&quot; name=&quot;email&quot; id=&quot;tlemail&quot; placeholder=&quot;Your email address&quot;/&gt;
-	  &lt;input type=&quot;hidden&quot; value=&quot;1&quot; name=&quot;embed&quot;/&gt;
-	  &lt;input style=&quot;padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;&quot; type=&quot;submit&quot; value=&quot;Subscribe&quot; /&gt;
-  &lt;/form&gt;
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html">This article is an excerpt from my upcoming book about Data Oriented Programming. The book will be published by Manning, once it is completed (hopefully in 2021). More excerpts are available on my blog. Enter your email address below to get notified when the book is published.</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><summary type="html"></summary></entry></feed>
