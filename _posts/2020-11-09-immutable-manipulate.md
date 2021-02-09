@@ -14,9 +14,6 @@ minified_plugin: true
 <script src="https://cdnjs.cloudflare.com/ajax/libs/immutable/4.0.0-rc.12/immutable.min.js" integrity="sha512-OA48phPVdkQE2u9b6nhv71zeq9zvwc6oLq3IVWLw8WfRlcRO/+6zhUcWZxfXi75agm3bfqCxIdstBfK/g6fYvw==" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js" integrity="sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww==" crossorigin="anonymous"></script>
 
-
-{% include databook-intro.html %}
-
 Constraining our programs to manipulate **immutable data structures** is [known to be beneficial]({% post_url 2020-10-02-immutable-data %}) in terms of code predictability, concurrency and safety.
 
 In a language like Clojure, where immutable data structures are native to the language, this benefits come for free.
@@ -35,7 +32,7 @@ Imagine we have a nested piece of data that we want to:
 1. **Manipulate** with data manipulation library (e.g Lodash.js)
 
 
-The challenge is that Immutable.js data collections are not native JavaScript objects. Therefore, before passing the data to a JS lib, we have to convert it to a JS object. In this article, we are going to show how to convert to JS without impacting the performance too much.
+The challenge is that Immutable.js data collections are not native JavaScript objects. Therefore, before passing the data to a JavaScript library, we have to convert it to a JavaScript object. In this article, we are going to show how to convert to JavaScript without impacting the performance too much.
 
 Let's take as an example the data of a library, that might looks similar to this nested object:
 
@@ -88,19 +85,19 @@ var libraryData = {
 
 ~~~
 
-Now, we convert the native JS object to an Immutable map with `fromJS()`:
+Now, we convert the native JavaScript object to an Immutable map with `fromJS()`:
 
 ~~~eval-js
 var immutableLibData = Immutable.fromJS(libraryData);
 ~~~
 
-Our purpose is to find the best way to call `_.countBy()` on our immutable collection, in the same way as we would use it on the JS native object:
+Our purpose is to find the best way to call `_.countBy()` on our immutable collection, in the same way as we would use it on the JavaScript native object:
 
 ~~~eval-js
-_.countBy(immutableLibData.toJS().catalog.books, "publicationYear");
+_.countBy(libraryData.catalog.books, "publicationYear");
 ~~~
 
-Immutable.js provides a `.toJS()` function that **deeply converts** an immutable collection to a JS object or array.
+Immutable.js provides a `.toJS()` function that **deeply converts** an immutable collection to a JavaScript object or array.
 
 
 We are then free to pass `immutableLibData.toJS()` to any Lodash function:
@@ -120,10 +117,10 @@ _.countBy(immutableLibData.getIn(["catalog", "books"]).toJS(), "publicationYear"
 
 But still, there is a performance hit as we convert the books data deeply (including the authors part which is unnecessary).
 
-The best thing we can do, is to do a careful shallow conversion to native JS: It requires 2 steps:
+The best thing we can do, is to do a careful shallow conversion to native JavaScript: It requires 2 steps:
 
-1. **Shallow convert** books to a JS array with Immutable's `toArray()`
-1. **Shallow convert** each object of the books array to a JS object with Immutable's `toObject()`
+1. **Shallow convert** books to a JavaScript array with Immutable's `toArray()`
+1. **Shallow convert** each object of the books array to a JavaScript object with Immutable's `toObject()`
 
 Here is the code for that:
 
