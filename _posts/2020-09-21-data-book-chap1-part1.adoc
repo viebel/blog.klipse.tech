@@ -57,7 +57,6 @@ and the library members" Nancy replies
 
 She grabs the napkin under her coffee mug and she writes down a couple of bullet points on the napkin:
 
-----
 . Two kinds of users: library members and librarians
 . Users log in to the system via email and password.
 . Members can borrow books
@@ -65,7 +64,6 @@ She grabs the napkin under her coffee mug and she writes down a couple of bullet
 . Librarians can block and unblock members (e.g. when they are late in returning a book)
 . Librarians can list the books currently lent by a member
 . There could be several copies of a book
-----
 
 
 "Well, that's pretty clear."
@@ -85,7 +83,6 @@ Everything in life is an object and every object is made from a class. Right?
 
 Here are the main classes that you identify for the library management system:
 
-++++
 * `Library`: The central part for which the system is designed
 * `Book`: A book
 * `BookItem`: A book can have multiple copies, each copy is considered as a book item
@@ -95,7 +92,6 @@ Here are the main classes that you identify for the library management system:
 * `User`: A base class for `Librarian` and `Member`
 * `Catalog`: Contains list of books
 * `Author`: A book author
-++++
 
 That was the easy part. Now comes the difficult part: the relationships between the classes.
 
@@ -107,14 +103,12 @@ library management system. It looks like the diagram shown on <<lib-mgmt-class-d
 image::../uml/class-diagram-lms.png[]
 
 
-++++
 This design is meant to be very simple and by no means it pretends to cover all the features of the system.
 This design serves two purposes:
 
 . For you - the developer - it is rich enough to start coding
 . For me - the author of the book - it is rich enough to illustrate the complexity of a typical OO system
 
-++++
 
 You feel proud of yourself and of the design you produced. You definitely deserve a cup of coffee.
 Near the coffee machine, you meet Dave, a junior software developer that you appreciate.

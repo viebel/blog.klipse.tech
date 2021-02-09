@@ -234,7 +234,6 @@ You were so excited that you didn't pay attention to the diamond `VIPMember` int
 
 We are Wednesday morning 10:00 AM, 14 hours before the deadline and you call Nancy to tell her the good news:
 
-++++
 - We were able to add VIP members to the system on time, Nancy.
 - Fantastic! I told you it was a tiny feature.
 - Hmm...
@@ -247,7 +246,6 @@ We are Wednesday morning 10:00 AM, 14 hours before the deadline and you call Nan
 - What?
 - That's not a tiny change!
 - Why?
-++++
 
 Like with VIP members, adding Super members to the system requires changes to your class hierarchy.
 A possible solution is shown in <<class-diagram-super-member>>.
@@ -267,7 +265,6 @@ In fact, this complexity prevented you from delivering the system before the dea
 
 You call the customer in order to explain her the situation at 10:00 PM, two hours before the deadline:
 
-++++
 - Look Nancy, we really did our best, but we will not be able to add Super members to the system before the deadline
 - No worries, my business partner and I decided to postpone the launch by a week
 - Phew!
@@ -277,7 +274,6 @@ You call the customer in order to explain her the situation at 10:00 PM, two hou
 - We are going to refactor the system from Object Oriented to Data Oriented over the weekend.
 - What is Data Oriented?
 - It is a magic sauce that allows developers to write code faster!
-++++
 
 By the end of this book, you will belong to the community of happy developers who know the recipe
 of DO magic sauce.
