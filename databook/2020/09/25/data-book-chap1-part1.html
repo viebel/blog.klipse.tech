@@ -198,16 +198,30 @@ and the library members" Nancy replies</p>
 <div class="paragraph">
 <p>She grabs the napkin under her coffee mug and she writes down a couple of bullet points on the napkin:</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre>. Two kinds of users: library members and librarians
-. Users log in to the system via email and password.
-. Members can borrow books
-. Members and librarians can search books by title or by author
-. Librarians can block and unblock members (e.g. when they are late in returning a book)
-. Librarians can list the books currently lent by a member
-. There could be several copies of a book</pre>
-</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Two kinds of users: library members and librarians</p>
+</li>
+<li>
+<p>Users log in to the system via email and password.</p>
+</li>
+<li>
+<p>Members can borrow books</p>
+</li>
+<li>
+<p>Members and librarians can search books by title or by author</p>
+</li>
+<li>
+<p>Librarians can block and unblock members (e.g. when they are late in returning a book)</p>
+</li>
+<li>
+<p>Librarians can list the books currently lent by a member</p>
+</li>
+<li>
+<p>There could be several copies of a book</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p>"Well, that&#8217;s pretty clear."</p>
@@ -234,15 +248,37 @@ you grab a sheet of paper - slightly bigger than the napkin - and you prepare yo
 <div class="paragraph">
 <p>Here are the main classes that you identify for the library management system:</p>
 </div>
-* `Library`: The central part for which the system is designed
-* `Book`: A book
-* `BookItem`: A book can have multiple copies, each copy is considered as a book item
-* `BookLending`: When a book is lent, a book lending object is created
-* `Member`: A member of the library
-* `Librarian`: A librarian
-* `User`: A base class for `Librarian` and `Member`
-* `Catalog`: Contains list of books
-* `Author`: A book author
+<div class="ulist">
+<ul>
+<li>
+<p><code>Library</code>: The central part for which the system is designed</p>
+</li>
+<li>
+<p><code>Book</code>: A book</p>
+</li>
+<li>
+<p><code>BookItem</code>: A book can have multiple copies, each copy is considered as a book item</p>
+</li>
+<li>
+<p><code>BookLending</code>: When a book is lent, a book lending object is created</p>
+</li>
+<li>
+<p><code>Member</code>: A member of the library</p>
+</li>
+<li>
+<p><code>Librarian</code>: A librarian</p>
+</li>
+<li>
+<p><code>User</code>: A base class for <code>Librarian</code> and <code>Member</code></p>
+</li>
+<li>
+<p><code>Catalog</code>: Contains list of books</p>
+</li>
+<li>
+<p><code>Author</code>: A book author</p>
+</li>
+</ul>
+</div>
 <div class="paragraph">
 <p>That was the easy part. Now comes the difficult part: the relationships between the classes.</p>
 </div>
@@ -256,11 +292,20 @@ library management system. It looks like the diagram shown on <a href="#lib-mgmt
 </div>
 <div class="title">Figure 1. A class diagram for a Library management system</div>
 </div>
-This design is meant to be very simple and by no means it pretends to cover all the features of the system.
-This design serves two purposes:
-
-. For you - the developer - it is rich enough to start coding
-. For me - the author of the book - it is rich enough to illustrate the complexity of a typical OO system
+<div class="paragraph">
+<p>This design is meant to be very simple and by no means it pretends to cover all the features of the system.
+This design serves two purposes:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>For you - the developer - it is rich enough to start coding</p>
+</li>
+<li>
+<p>For me - the author of the book - it is rich enough to illustrate the complexity of a typical OO system</p>
+</li>
+</ol>
+</div>
 <div class="paragraph">
 <p>You feel proud of yourself and of the design you produced. You definitely deserve a cup of coffee.
 Near the coffee machine, you meet Dave, a junior software developer that you appreciate.</p>
