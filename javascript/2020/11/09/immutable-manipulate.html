@@ -82,7 +82,7 @@
       Change the way you <b>think</b> about writing code.
       <div style="font-weight: bold;"> Start reading my book today! </div>
       <img src="/assets/dop-book.png">
-      Unlearn outdated <b>paradigms</b> and embrace the <b>flexibility</b> of a data-first approach with this accessible guide to data-oriented programming.
+      Unlearn outdated <b>paradigms</b> and embrace the <b>flexibility</b> of a data-first approach with this accessible guide to <b>data-oriented programming</b>.
       <br>
       <b>Save 50%</b> on the cover price now through February 15. Use promo code DOP50 during checkout.
     </div>
@@ -111,27 +111,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js" integrity="sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww==" crossorigin="anonymous"></script>
 
-<div>
-  <p>
-    This article is an excerpt from my upcoming book about <b>Data Oriented Programming</b>. The book will be published by Manning, once it is completed (hopefully in 2021).
-  </p>
-
-  <p>
-    More excerpts are available on my <a href="/data-oriented-programming-book.html">blog</a>.
-  </p>
-
-  <p>
-    Enter your email address below to get notified when the book is published.
-  </p>
-
-  <form style="text-align: left;" action="https://tinyletter.com/data-oriented-programming" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
-	  <input type="email" style="width:180px" name="email" id="tlemail" placeholder="Your email address" />
-	  <input type="hidden" value="1" name="embed" />
-	  <input style="padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;" type="submit" value="Subscribe" />
-  </form>
-  <br />
-</div>
-
 <p>Constraining our programs to manipulate <strong>immutable data structures</strong> is <a href="/databook/2020/10/02/immutable-data.html">known to be beneficial</a> in terms of code predictability, concurrency and safety.</p>
 
 <p>In a language like Clojure, where immutable data structures are native to the language, this benefits come for free.
@@ -150,7 +129,7 @@ However, in languages where immutable data structures are not <strong>native</st
   <li><strong>Manipulate</strong> with data manipulation library (e.g Lodash.js)</li>
 </ol>
 
-<p>The challenge is that Immutable.js data collections are not native JavaScript objects. Therefore, before passing the data to a JS lib, we have to convert it to a JS object. In this article, we are going to show how to convert to JS without impacting the performance too much.</p>
+<p>The challenge is that Immutable.js data collections are not native JavaScript objects. Therefore, before passing the data to a JavaScript library, we have to convert it to a JavaScript object. In this article, we are going to show how to convert to JavaScript without impacting the performance too much.</p>
 
 <p>Let’s take as an example the data of a library, that might looks similar to this nested object:</p>
 
@@ -202,17 +181,17 @@ However, in languages where immutable data structures are not <strong>native</st
 
 </code></pre>
 
-<p>Now, we convert the native JS object to an Immutable map with <code class="language-plaintext highlighter-rouge">fromJS()</code>:</p>
+<p>Now, we convert the native JavaScript object to an Immutable map with <code class="language-plaintext highlighter-rouge">fromJS()</code>:</p>
 
 <pre><code class="language-eval-js">var immutableLibData = Immutable.fromJS(libraryData);
 </code></pre>
 
-<p>Our purpose is to find the best way to call <code class="language-plaintext highlighter-rouge">_.countBy()</code> on our immutable collection, in the same way as we would use it on the JS native object:</p>
+<p>Our purpose is to find the best way to call <code class="language-plaintext highlighter-rouge">_.countBy()</code> on our immutable collection, in the same way as we would use it on the JavaScript native object:</p>
 
-<pre><code class="language-eval-js">_.countBy(immutableLibData.toJS().catalog.books, "publicationYear");
+<pre><code class="language-eval-js">_.countBy(libraryData.catalog.books, "publicationYear");
 </code></pre>
 
-<p>Immutable.js provides a <code class="language-plaintext highlighter-rouge">.toJS()</code> function that <strong>deeply converts</strong> an immutable collection to a JS object or array.</p>
+<p>Immutable.js provides a <code class="language-plaintext highlighter-rouge">.toJS()</code> function that <strong>deeply converts</strong> an immutable collection to a JavaScript object or array.</p>
 
 <p>We are then free to pass <code class="language-plaintext highlighter-rouge">immutableLibData.toJS()</code> to any Lodash function:</p>
 
@@ -228,11 +207,11 @@ However, in languages where immutable data structures are not <strong>native</st
 
 <p>But still, there is a performance hit as we convert the books data deeply (including the authors part which is unnecessary).</p>
 
-<p>The best thing we can do, is to do a careful shallow conversion to native JS: It requires 2 steps:</p>
+<p>The best thing we can do, is to do a careful shallow conversion to native JavaScript: It requires 2 steps:</p>
 
 <ol>
-  <li><strong>Shallow convert</strong> books to a JS array with Immutable’s <code class="language-plaintext highlighter-rouge">toArray()</code></li>
-  <li><strong>Shallow convert</strong> each object of the books array to a JS object with Immutable’s <code class="language-plaintext highlighter-rouge">toObject()</code></li>
+  <li><strong>Shallow convert</strong> books to a JavaScript array with Immutable’s <code class="language-plaintext highlighter-rouge">toArray()</code></li>
+  <li><strong>Shallow convert</strong> each object of the books array to a JavaScript object with Immutable’s <code class="language-plaintext highlighter-rouge">toObject()</code></li>
 </ol>
 
 <p>Here is the code for that:</p>
@@ -258,22 +237,13 @@ However, in languages where immutable data structures are not <strong>native</st
 
 <div>
   <p>
-    This article is an excerpt from my upcoming book about <b>Data Oriented Programming</b>. The book will be published by Manning, once it is completed (hopefully in 2021).
+    This article is an excerpt from my <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7"> book </a> about <b>Data-Oriented Programming</b>. 
   </p>
 
   <p>
     More excerpts are available on my <a href="/data-oriented-programming-book.html">blog</a>.
   </p>
 
-  <p>
-    Enter your email address below to get notified when the book is published.
-  </p>
-
-  <form style="text-align: left;" action="https://tinyletter.com/data-oriented-programming" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/data-oriented-programming', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
-	  <input type="email" style="width:180px" name="email" id="tlemail" placeholder="Your email address" />
-	  <input type="hidden" value="1" name="embed" />
-	  <input style="padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;" type="submit" value="Subscribe" />
-  </form>
   <br />
 </div>
 
@@ -281,10 +251,6 @@ However, in languages where immutable data structures are not <strong>native</st
   </div>
 
 </article>
-<div class="patreon">
-  If you enjoy this kind of interactive articles would you consider a (small) donation💸  on <a href="https://www.patreon.com/bePatron?u=18227864">Patreon</a> or at least giving a star⭐ for the Klispe repo on <a href="https://github.com/viebel/klipse/stargazers"> Github</a>?
-</div>
-
 <div class="book-below">
   <div style="float: left; width: 50%;">
     <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
