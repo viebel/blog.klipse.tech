@@ -81,7 +81,7 @@ You get back to your office with Nancy's napkin in your pocket.
 Before rushing to your laptop to code the system,
 you grab a sheet of paper - slightly bigger than the napkin - and you prepare yourself to draw the UML class diagram of the system.
 
-Everything is life is an object and every object is made from a class. Right?
+Everything in life is an object and every object is made from a class. Right?
 
 Here are the main classes that you identify for the library management system:
 
