@@ -1,29 +1,115 @@
 ---
 layout: default
+disqus: false
+post_class: post-template
 ---
-<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
-  <header class="post-header">
-    <div class="left-post-header">
-      <img src="{{ page.thumbnail | prepend: site.url }}">
-    </div>
-    <div>
-      <h1 class="post-title" itemprop="name headline">{{ page.title }}</h1>
-      <p class="post-meta"><time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%b %-d, %Y" }}</time>
-	{% if page.author %} •
-	<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ page.author }}</span></span>
-	{% endif %}
-	</p>
-    </div>
+<main id="main" class="site-main">
 
-  </header>
-  <div class="post-content" itemprop="articleBody">
-    {{ content }}
-  </div>
+    <article class="post-full inner">
 
-</article>
-{% include book_below.html %}
+        <header class="post-header">
+            <div class="post-meta">
+                <time class="post-date" datetime="{{ page.date | date: "%Y-%m-%d" }}">
+                    {{ page.date | date: "%B %-d, %Y" }}
+                </time>
+            </div><!-- .post-meta -->
+            <h1 class="post-title">{{ page.title }}</h1>
+            {% if page.tags.size > 0 %}
+            <p class="post-tags">
+                {% for tag in page.tags %}<a href="{{ site.baseurl }}/tags/index.html#{{ tag | cgi_escape }}"
+                    rel="tag">{{ tag }}</a>
+                {% unless forloop.last %} {% endunless %}{% endfor %}
+            </p>
+            {% endif %}
+        </header><!-- .post-header -->
 
+        {% if page.featured_image %}
+        <div class="post-thumbnail">
+            <img src="{{ site.baseurl }}{{ page.featured_image }}" alt="{{ page.title }}">
+        </div>
+        {% endif %}
+        <div class="post-content">
+            {{content}}
+        </div>
+        <footer class="post-footer">
+            <div class="post-share">
+                <span class="post-share-title">Share:</span>
+                <a target="_blank"
+                    href="https://twitter.com/share?text={{ page.title | url_encode }}&amp;url={{ site.production_url }}{{ page.url | remove_first: '/' }}">Twitter</a>
+                <a target="_blank"
+                    href="https://www.facebook.com/sharer/sharer.php?u={{ site.production_url }}{{ page.url | remove_first: '/' }}">Facebook</a>
+            </div><!-- .share-post -->
+        </footer>
+    </article>
+    {% if site.mailchimp_url %}
+    {% include newsletter-box.html %}
+    {% endif %}
+    <section class="read-next inner">
+        <h2 class="read-next-title">Read Next</h2>
+        {% if page.previous.url %}
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="{{page.previous.date | date: '%B %-d, %Y'}}">{{page.previous.date
+                            | date: "%B %-d, %Y"}}</time>
+                </div>
+                <h3 class="post-title"><a href="{{ site.baseurl }}{{page.previous.url}}">{{page.previous.title}}</a>
+                </h3>
+                <p class="post-tags">
+                    {% if page.previous.tags.size > 0 %}
+                    {% for tag in page.previous.tags %}
+                    {% if forloop.index == page.previous.tags.size %}
+                    <a href='{{ site.baseurl }}/tag/{{ tag | downcase | replace: ' ', '-' }}/'>{{ tag | capitalize
+                            }}</a>
+                    {% else %}
+                    <a href='{{ site.baseurl }}/tag/{{ tag | downcase | replace: ' ', '-' }}/'>{{ tag | capitalize
+                            }}</a>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                </p>
+            </header>
+        </article>
+        {% endif %}
+        {% if page.next.url %}
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="{{page.next.date | date: '%B %-d, %Y'}}">{{page.next.date |
+                            date: "%B %-d, %Y"}}</time>
+                </div>
+                <h3 class="post-title"><a href="{{ site.baseurl }}{{page.next.url}}">{{page.next.title}}</a></h3>
+                <p class="post-tags">
+                    {% if page.next.tags.size > 0 %}
+                    {% for tag in page.next.tags %}
+                    {% if forloop.index == page.next.tags.size %}
+                    <a href='{{ site.baseurl }}/tag/{{ tag | downcase | replace: ' ', '-' }}/'>{{ tag | capitalize
+                            }}</a>
+                    {% else %}
+                    <a href='{{ site.baseurl }}/tag/{{ tag | downcase | replace: ' ', '-' }}/'>{{ tag | capitalize
+                            }}</a>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                </p>
+            </header>
+        </article>
+        {% endif %}
+    </section><!-- .read-next -->
+
+    <!-- Create a sorted array of tags -->
+    {% capture site_tags %}{% for tag in site.tags %}{{ tag | first }}{% unless forloop.last %},{% endunless %}{% endfor
+        %}{%
+        endcapture %} {% assign sortedTags = site_tags | split:',' | sort %}
+    <section class="tagcloud inner">
+        <h2 class="tagcloud-title">Tags</h2>
+        <div class="tag-links">
+            {% for tag in sortedTags %}
+            <a href='{{ site.baseurl }}/tags/#{{ tag | cgi_escape }}'>{{ tag | camelcase }}</a>
+            {% endfor %}
+        </div><!-- .tag-links -->
+    </section><!-- .tagcloud -->
+
+</main><!-- .site-main -->
 {% include klipse.html %}
-{% include footer.html %}
-{% include comments.html %}

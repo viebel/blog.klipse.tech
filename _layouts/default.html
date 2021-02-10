@@ -1,14 +1,58 @@
 <!DOCTYPE html>
-<html>
-  {% include head.html %}
-  <body>
-    {% include header.html %}
-    <div class="page-content">
-      {% include book_right.html %}
-      <div class="wrapper">
-        {{ content }}
-      </div>
-    </div>
-    {% include google_analytics.html %}
-  </body>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% if site.plugins_dir contains 'jekyll-seo-tag' %}
+        {% include head-seo.html %}
+    {% else %}
+        <title>{% if page.title %}{{ page.title | escape }}{% else %}{{ site.name | escape }}{% endif %}</title>
+        <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 | escape }}">
+        <link rel="canonical" href="{{ page.url | replace:'index.html', '' | absolute_url }}">
+    {% endif %}
+
+    <!-- Site Favicon -->
+    <link rel="shortcut icon" href="{{ site.url }}/{{ site.baseurl }}{{ site.favicon }}" type="image/png" />
+
+    <!-- Font Embed Code -->
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600,600i|Karla:400,400i,700,700i" rel="stylesheet">
+
+    <!-- CSS Styles -->
+    <link href="{{ site.baseurl }}/assets/css/style.css" rel="stylesheet">
+</head>
+
+{% capture layout %}{% if page.layout %}layout-{{ page.layout }}{% endif %}{% endcapture %}
+
+<body class="{{ layout }}">
+    <div id="page" class="site">
+        {% include header.html %}
+        <div id="content" class="site-content fadeInDown delay_075s">
+            <div class="inner-wide">
+                {{ content }}
+
+                {% if paginator.total_posts > site.paginate %}
+                {% if page.class == 'tag-template' %}
+                {% include tag-pagination.html %}
+                {% endif %}
+                {% endif %}
+
+                {% if site.mailchimp_url and page.class == 'tag-template' %}
+                {% include newsletter-box.html %}
+                {% endif %}
+                {% include footer.html %}
+            </div><!-- .inner-wide -->
+        </div><!-- .site-content -->
+    </div><!-- .site -->
+
+    {% include analytics.html %}
+    <!-- Javascript Assets -->
+    <script src="{{ site.baseurl }}/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="{{ site.baseurl }}/assets/js/plugins.js"></script>
+    <script src="{{ site.baseurl }}/assets/js/custom.js"></script>
+
+</body>
+
 </html>

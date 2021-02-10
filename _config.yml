@@ -1,31 +1,44 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely need to edit after that.
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'jekyll serve'. If you change this file, please restart the server process.
+# Site setings
+name: Yehonathan Sharvit
+description: Developer. Author. Speaker.
+meta_description: Data-Oriented programming. Simplicity. Interactive code snippets. Clojure.
+logo:
+# Author image is used in site sidebar and greetings in the home page hero text
+author:
+  image: authorimage.jpg
+  greetings: Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker based in Israel. My passion is simplicity.
+favicon: assets/favicon2.png
+baseurl: 
+production_url: https://blog.klipse.tech
+mailchimp_url: '//justgoodthemes.us3.list-manage.com/subscribe/post?u=78f1bab16028354caeb23aecd&amp;id=4a7330d117'
+# Add your GA Tracking Id
+ga_analytics: UA-75651930-1
+# Contact form setings
+email: viebel@gmail.com
+contact_page_description: I am available for giving talks and workshops about Data-Oriented programming and Clojure.
+thankyou_page_description: Your message has been successfully sent. We will contact you very soon!
 
-# Site settings
-title: An interactive journey into functional programming with Yehonathan Sharvit
-email: raphael.boukara@gmail.com
-description: > # this means to ignore newlines until "baseurl:"
-   A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
-baseurl: "" # the subpath of your site, e.g. /blog
+# Social links
+twitter: viebel
+github: viebel
+linkedin: viebel
 
-github_username_rb:  raphaelboukara
-twitter_username_rb: RaphaelBoukara
-email_rb: raphael.boukara@gmail.com
+# Navigation
+navigation:
+  - text: Blog
+    url: /
+  - text: About
+    url: /about
+  - text: Contact Me
+    url: /contact
+  - text: Search
+    url: /search
 
-github_username_ys:  viebel
-twitter_username_ys: viebel
-email_ys: viebel@gmail.com
-
-url: "https://blog.klipse.tech/" # the base hostname & protocol for your site
-author: Yehonathan Sharvit
-
-# Build settings
-plugins:
+# Required Plugins
+plugins_dir:
   - jekyll-feed
+  - jekyll-paginate
+  - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-asciidoc
 
@@ -35,4 +48,17 @@ asciidoctor:
     source-highlighter: pygments
     pygments-css: class
     pygments-stylesheet: css/asciidoc-pygments.css
+# Pagination
+paginate: 5
+paginate_path: /page:num/
 
+# Permalinks
+permalink: /:title
+
+# Other
+markdown: kramdown
+
+# Sass
+sass:
+  sass_dir: _sass
+  style: compressed

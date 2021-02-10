@@ -1,0 +1,49 @@
+/**
+ * 5. Site Footer
+ * ----------------------------------------------------------------------------
+ */
+.site-footer {
+  border-top: 1px solid $gray-lighter;
+  padding-top: 2.5em;
+}
+
+.site-info {
+  font-size: 11px;
+  letter-spacing: 1px;
+  line-height: 1.5;
+  margin-bottom: 0;
+  text-transform: uppercase;
+}
+
+.site-info a {
+  text-decoration: none;
+}
+
+.back-to-top {
+  bottom: 3vw;
+  display: none;
+  height: 40px;
+  position: fixed;
+  right: 3vw;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  width: 40px;
+  z-index: 1;
+}
+
+.back-to-top:hover {
+  color: $color-accent;
+}
+
+.back-to-top:focus {
+  outline: 0;
+}
+
+.back-to-top canvas{
+  display: block;
+  left: 0;
+  position: absolute;
+  top: 0;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}

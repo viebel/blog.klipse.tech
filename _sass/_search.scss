@@ -1,0 +1,31 @@
+/**
+ * 6. Search
+ * ----------------------------------------------------------------------------
+ */
+
+.search-field {
+  margin-bottom: 0.9375em;
+}
+
+ul.search-results {
+  list-style: none;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.search-results li {
+  border-bottom: 1px solid $gray-lighter;
+  padding-bottom: 0.8333334em;
+  padding-top: 0.555556em;
+  &:last-child {
+    border-bottom: 0;
+  }
+  a {
+    text-decoration: none;
+  }
+}
+
+.search-results li .post-meta {
+  display: block;
+  margin-bottom: 0;
+}

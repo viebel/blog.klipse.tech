@@ -1,28 +1,50 @@
-<header class="site-header">
+<header id="masthead" class="site-header">
+    <div class="site-header-wrap">
+        <div class="site-header-inside">
 
-  <div class="wrapper">
+            <div class="site-branding">
+                {% if site.logo != null %}
+                <p class="site-logo"><a href="{{ site.baseurl }}/" rel="home"><img src="{{ site.baseurl }}/assets/images/{{ site.logo }}" alt="{{ site.name }}" /></a></p>
+                <h1 class="site-title screen-reader-text"><a href="{{ site.baseurl }}" rel="home">{{site.title}}</a></h1>
+                {% elsif site.author %}
+                <p class="profile">
+                    <a href="{{ site.baseurl }}/">
+                        <img src="{{ site.baseurl }}/assets/images/{{ site.author.image }}" alt="{{ site.author.name }}'s Picture"
+                            class="avatar" />
+                    </a>
+                </p>
+                <div class="site-identity">
+                    {% if site.name %}
+                    <h1 class="site-title">
+                        <a href="{{ site.baseurl }}/">{{site.name}}</a>
+                    </h1>
+                    {% endif %}
+                    {% if site.description %}
+                    <p class="site-description">{{site.description}}</p>
+                    {% endif %}
+                </div><!-- .site-identity -->
+                {% endif %}
+                <button id="menu-toggle" class="menu-toggle"><span class="screen-reader-text">Main Menu</span><span
+                        class="icon-menu" aria-hidden="true"></span></button>
+            </div><!-- .site-branding -->
 
-    <a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a>
+            <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+                <div class="site-nav-wrap">
+                    <div class="site-nav-inside">
+                    <ul class="menu">
+                        {% for link in site.navigation %}
+                        {% assign current = nil %}
+                        {% if page.url == link.url %}
+                        {% assign current = 'current-menu-item' %}
+                        {% endif %}
+                        <li class="menu-item {{ current }}"><a href="{{ link.url }}">{{ link.text }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    {% include social-links.html %}
+                    </div><!-- .site-nav-inside -->
+                </div><!-- .site-nav-wrap -->
+            </nav><!-- .site-navigation -->
 
-    {% include github_button.html %}
-    <!-- <nav class="site-nav">
-      <a href="#" class="menu-icon">
-        <svg viewBox="0 0 18 15">
-          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
-          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
-          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
-        </svg>
-      </a>
-
-      <div class="trigger">
-        {% for my_page in site.pages %}
-          {% if my_page.title %}
-          <a class="page-link" href="{{ my_page.url | prepend: site.baseurl }}">{{ my_page.title }}</a>
-          {% endif %}
-        {% endfor %}
-      </div>
-    </nav> -->
-
-  </div>
-
-</header>
+        </div><!-- .site-header-inside -->
+    </div><!-- .site-header-wrap -->
+</header><!-- .site-header -->
