@@ -7,6 +7,7 @@ categories: lambda
 thumbnail: assets/klipse.png
 guid: "D03763A2-9A81-4336-9EDD-A1D114C73546"
 author: Yehonathan Sharvit
+tags: [lambda-calculus]
 
 ---
 

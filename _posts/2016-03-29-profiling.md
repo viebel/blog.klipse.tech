@@ -7,6 +7,7 @@ categories: clojure
 thumbnail: assets/klipse.png
 guid: "F043D871-9E0C-4CD6-B80E-067D97B0E85A"
 author: Yehonathan Sharvit
+tags: [clojure]
 ---
 
 Let's say that you want to profile a piece of code in clojurescript. 

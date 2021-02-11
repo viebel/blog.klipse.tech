@@ -6,6 +6,7 @@ categories: clojure
 thumbnail: assets/klipse.png
 description: "Clojure Append Cyclic"
 author: Yehonathan Sharvit
+tags: [clojure]
 ---
 
 ## Introduction

@@ -6,6 +6,7 @@ categories: clojurescript
 thumbnail: assets/klipse.png
 description: "In this post, we explain how clojurescript implement defprotocol in javascript."
 author: "@RaphaelBoukara"
+tags: [clojurescript]
 ---
 
 In [this precedent]({% post_url 2016-03-30-clojure-oop-part1 %}) post we have presented the skeleton of the `javascript` transpiled code of `defrecord` + `deftype` when they work together. 

@@ -6,6 +6,7 @@ categories: clojure
 thumbnail: assets/klipse.png
 description: "KLIPSE manual - hotkeys and url parameters"
 author: Yehonathan Sharvit
+tags: [klipse]
 ---
 
 [KLIPSE][klipse-url]{:target="_blank"} is a `clojure[script]` web REPL built on top of self-host `clojurescript`.

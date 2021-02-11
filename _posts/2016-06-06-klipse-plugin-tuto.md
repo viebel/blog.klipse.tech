@@ -7,6 +7,7 @@ categories: clojure
 thumbnail: assets/klipse.png
 guid: "A46AC86E-0840-4A97-A976-93F421CE8FA4"
 author: Yehonathan Sharvit
+tags: [javascript, klipse]
 ---
 
 # The pain

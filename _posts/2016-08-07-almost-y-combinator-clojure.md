@@ -8,6 +8,7 @@ thumbnail: assets/klipse.png
 guid: "A433A82B-68C5-4083-9DA4-72878DC03972"
 ruby: true
 author: Yehonathan Sharvit
+tags: [clojure,lambda-calculus]
 
 ---
 

@@ -9,6 +9,7 @@ guid: "2B82D2A8-DB18-44F0-BAD6-A4738F970302"
 author: Yehonathan Sharvit
 ruby: true
 php: true
+tags: [klipse, ruby, php, javascript, clojure]
 ---
 
 # What is Klipse?

@@ -1,7 +1,5 @@
 * Migrate to Royce theme
 ** TODO Beautufiy Book ad in footer
-** DONE keep old urls to articles 
-   CLOSED: [2021-02-11 Thu 10:59]
 ** TODO Menu
 *** DONE Talks
     CLOSED: [2021-02-11 Thu 21:14]
@@ -11,6 +9,8 @@
 ** TODO Tags
 ** TODO Kramdown 
 ** TODO SEO?
+** DONE keep old urls to articles 
+   CLOSED: [2021-02-11 Thu 10:59]
 ** DONE Klipse snippets style
    CLOSED: [2021-02-11 Thu 10:00]
 *** DONE Remove margin

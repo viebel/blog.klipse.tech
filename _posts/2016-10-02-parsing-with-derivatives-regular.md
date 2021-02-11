@@ -9,6 +9,7 @@ guid: "A5584B91-A757-470A-8E27-F8986EB57B88"
 mathjax: true
 klipse_line_numbers: true
 author: Yehonathan Sharvit
+tags: [clojure]
 ---
 
 # Introduction

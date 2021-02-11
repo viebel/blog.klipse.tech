@@ -7,6 +7,7 @@ categories: reagent
 thumbnail: assets/klipse.png
 guid: "64CBD559-2C8A-4621-9758-3629BE75680C"
 author: Yehonathan Sharvit
+tags: [clojure, reagent]
 ---
 
 

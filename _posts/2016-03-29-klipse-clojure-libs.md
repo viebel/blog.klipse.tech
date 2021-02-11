@@ -6,6 +6,7 @@ categories: clojure
 thumbnail: assets/klipse.png
 description: "Clojure libs are now available inside KLIPSE"
 author: "@RaphaelBoukara"
+tags: [klipse]
 ---
 
 Let's talk about a new pretty feature in [KLIPSE][app-url]{:target="_blank"}!

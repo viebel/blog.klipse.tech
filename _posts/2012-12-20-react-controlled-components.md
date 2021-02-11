@@ -8,6 +8,7 @@ thumbnail: assets/klipse.png
 guid: "BE44FF26-5087-4176-B720-6E1308C8A2FF"
 author: Yehonathan Sharvit
 minified_plugin: true
+tags: [react]
 ---
 
 # Prelude

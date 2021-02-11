@@ -8,6 +8,7 @@ thumbnail: assets/klipse.png
 guid: "2ADBAB51-2DEF-4394-88F7-271C2C8DFF9E"
 author: Yehonathan Sharvit
 minified_plugin: true
+tags: [javascript, klipse]
 ---
 
 This blog post is about to show a new way of blogging about `javascript`.

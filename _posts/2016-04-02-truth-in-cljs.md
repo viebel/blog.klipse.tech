@@ -7,6 +7,7 @@ categories: clojure
 thumbnail: assets/klipse.png
 guid: "C64D8095-C512-49A5-9184-15608D909CE0"
 author: Yehonathan Sharvit
+tags: [clojurescript]
 ---
 
 ## Truth and languages

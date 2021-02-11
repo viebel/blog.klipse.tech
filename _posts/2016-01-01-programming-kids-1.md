@@ -9,6 +9,7 @@ hidden: true
 thumbnail: assets/klipse.png
 guid: "F7EB3559-E509-4AED-AC6F-D902CB3AD184"
 author: Yehonathan Sharvit
+tags: [kids]
 ---
 
 

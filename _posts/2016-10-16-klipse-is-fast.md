@@ -7,6 +7,7 @@ categories: klipse
 thumbnail: assets/klipse.png
 guid: "54959EFB-5C67-427F-A14A-C883A109CCB2"
 author: Yehonathan Sharvit
+tags: [clojurescript]
 ---
 
 # The problem

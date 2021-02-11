@@ -9,6 +9,7 @@ minified_plugin: true
 ruby: true
 guid: "e29076c0-61de-11e6-8353-600308a46268"
 author: Yehonathan Sharvit
+tags: [lambda-calculus, ruby]
 
 ---
 

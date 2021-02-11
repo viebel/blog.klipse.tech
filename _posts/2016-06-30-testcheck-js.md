@@ -8,6 +8,7 @@ thumbnail: assets/klipse.png
 guid: "89E6546B-771E-4093-A83D-BA82D293F389"
 author: Yehonathan Sharvit
 minified_plugin: true
+tags: [javascript]
 ---
 
 [testcheck-js](https://github.com/leebyron/testcheck-js) is a library for generative testing of program properties. 

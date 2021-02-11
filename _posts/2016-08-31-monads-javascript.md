@@ -7,6 +7,7 @@ categories: javascript
 thumbnail: assets/klipse.png
 guid: "94672FCD-6D50-4C26-8FB3-952A86B9A6CE"
 author: Yehonathan Sharvit
+tags: [javascript]
 ---
 
 # Background 

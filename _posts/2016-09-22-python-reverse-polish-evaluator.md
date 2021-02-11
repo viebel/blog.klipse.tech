@@ -9,6 +9,7 @@ author: Yehonathan Sharvit
 guid: "c016a1c2-8098-11e6-912d-600308a46268"
 python: true
 minified_plugin: true
+tags: [python]
 ---
 
 

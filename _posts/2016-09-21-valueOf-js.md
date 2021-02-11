@@ -8,6 +8,7 @@ thumbnail: assets/klipse.png
 guid: "3e33d72a-7fbb-11e6-8909-600308a46268"
 author: Yehonathan Sharvit
 minified_plugin: true
+tags: [javascript]
 ---
 
 Javascript is a language full of surprises: there are the `good parts` and the `bad parts`. Today, I discovered [valueOf](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/valueOf). I'll let you decide to what parts of javascript `valueOf` belongs...

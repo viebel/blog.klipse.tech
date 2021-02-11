@@ -6,6 +6,7 @@ categories: clojure
 thumbnail: assets/klipse.png
 description: "A simple example of dead code elimination in clojurescript, using KLIPSE"
 author: Yehonathan Sharvit
+tags: [clojurescript]
 
 ---
 

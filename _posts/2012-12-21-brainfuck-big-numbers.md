@@ -8,6 +8,7 @@ thumbnail: assets/klipse.png
 guid: "E2BD9738-220D-433C-A860-69E4552A391F"
 author: Yehonathan Sharvit
 minified_plugin: true
+tags: [brainfuck]
 ---
 
 # BrainFuck is like the DNA of any programming language

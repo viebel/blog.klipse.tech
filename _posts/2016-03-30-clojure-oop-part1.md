@@ -6,6 +6,7 @@ categories: clojurescript
 thumbnail: assets/klipse.png
 description: "In this post, we review methods: defprotocol, deftype, extend-type, defrecord, reify, extend-protocol and specify."
 author: "@RaphaelBoukara"
+tags: [clojure]
 ---
 
 ## 1- Protocols

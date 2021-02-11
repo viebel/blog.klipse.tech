@@ -7,6 +7,7 @@ categories: clojure
 thumbnail: assets/klipse.png
 guid: "2BAE417C-E63F-4D47-86B9-365E569DEA63"
 author: Yehonathan Sharvit
+tags: [clojure]
 ---
 
 # What is Transit?
