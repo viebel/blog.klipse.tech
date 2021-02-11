@@ -1,1153 +1,793 @@
 <!DOCTYPE html>
-<html>
-  <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en">
 
-  <link rel="shortcut icon" href="/assets/favicon2.png">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>An interactive journey into functional programming with Yehonathan Sharvit</title>
-  <meta name="description" content="A journey into functional programming wonders: Clojure, Clojurescript, javascript and ruby. Live Repl. Live Coding. gist. dynamic code. Interactive Code Snippets.
-">
+    
+        <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Home | Yehonathan Sharvit</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Home" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Developer. Author. Speaker." />
+<meta property="og:description" content="Developer. Author. Speaker." />
+<meta property="og:site_name" content="Yehonathan Sharvit" />
+<link rel="next" href="/page2/" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Home" />
+<meta name="twitter:site" content="@" />
+<script type="application/ld+json">
+{"url":"/","@type":"WebSite","headline":"Home","name":"Yehonathan Sharvit","description":"Developer. Author. Speaker.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
 
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="/css/asciidoc-pygments.css">
-  <link rel="canonical" href="https://blog.klipse.tech//">
-  <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    
 
-  <!-- start: facebook -->
-  <meta property="og:title" content="An interactive journey into functional programming with Yehonathan Sharvit">
-  <meta property="og:image" content="https://blog.klipse.tech/">
-  <meta property="og:description" content="">
-  <meta property="og:site_name" content="An interactive journey into functional programming with Yehonathan Sharvit">
-  <meta property="article:author" content="Yehonathan Sharvit">
-  <!-- end: facebook -->
+    <!-- Site Favicon -->
+    <link rel="shortcut icon" href="/assets/favicon2.png" type="image/png" />
 
+    <!-- Font Embed Code -->
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600,600i|Karla:400,400i,700,700i" rel="stylesheet">
 
+    <!-- CSS Styles -->
+    <link href="/assets/css/style.css" rel="stylesheet">
 </head>
 
-  <body>
-    <header class="site-header">
 
-  <div class="wrapper">
 
-    <a class="site-title" href="/">An interactive journey into functional programming with Yehonathan Sharvit</a>
+<body class="layout-default">
+    <div id="page" class="site">
+        <header id="masthead" class="site-header">
+    <div class="site-header-wrap">
+        <div class="site-header-inside">
 
-    <div class="site-title" style="float:right;margin-top:14px;">
-<a class="github-button" href="https://github.com/viebel/klipse" data-size="large" data-show-count="true" aria-label="Star viebel/klipse on GitHub">Klipse</a>
-</div>
+            <div class="site-branding">
+                
+                <p class="profile">
+                    <a href="/">
+                        <img src="/assets/images/authorimage.jpg" alt="'s Picture"
+                            class="avatar" />
+                    </a>
+                </p>
+                <div class="site-identity">
+                    
+                    <h1 class="site-title">
+                        <a href="/">Yehonathan Sharvit</a>
+                    </h1>
+                    
+                    
+                    <p class="site-description">Developer. Author. Speaker.</p>
+                    
+                </div><!-- .site-identity -->
+                
+                <button id="menu-toggle" class="menu-toggle"><span class="screen-reader-text">Main Menu</span><span
+                        class="icon-menu" aria-hidden="true"></span></button>
+            </div><!-- .site-branding -->
+
+            <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+                <div class="site-nav-wrap">
+                    <div class="site-nav-inside">
+                    <ul class="menu">
+                        
+                        
+                        
+                        <li class="menu-item current-menu-item"><a href="/">Blog</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/about">About</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/contact">Contact Me</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/search">Search</a></li>
+                        
+                    </ul>
+                    <p class="social-links">
+    <a class="github-button" href="https://github.com/viebel/klipse" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 
-    <!-- <nav class="site-nav">
-      <a href="#" class="menu-icon">
-        <svg viewBox="0 0 18 15">
-          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
-          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
-          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
-        </svg>
-      </a>
-
-      <div class="trigger">
-        
-          
-          <a class="page-link" href="/data-oriented-programming-book.html">Data Oriented Programming</a>
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      </div>
-    </nav> -->
-
-  </div>
-
-</header>
-
-    <div class="page-content">
-      <div class="book-right">
-  <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
-    <div style="color:black;">
-      Change the way you <b>think</b> about writing code.
-      <div style="font-weight: bold;"> Start reading my book today! </div>
-      <img src="/assets/dop-book.png">
-      Unlearn outdated <b>paradigms</b> and embrace the <b>flexibility</b> of a data-first approach with this accessible guide to <b>data-oriented programming</b>.
-      <br>
-      <b>Save 50%</b> on the cover price now through February 15. Use promo code DOP50 during checkout.
-    </div>
-  </a>
-</div>
-
-      <div class="wrapper">
-        <div class="home">
-  <div>
-    <a class="post-link" href="data-oriented-programming-book.html">
-      Excerpts from my book about Data Oriented Progamming
+    
+    <a href="https://twitter.com/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
     </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+</p>
+
+                    <div class="book-header">
+  <div>
+    Discover my book!
   </div>
-  <ul class="post-list">
-    
-    
-      <li>
-        <span class="post-meta">Feb 7, 2021</span>
-        <a class="post-link" href="/databook/2021/02/07/imagine.html">Imagine there's no objects</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Feb 7, 2021</span>
-        <a class="post-link" href="/python/2021/02/07/blog-python.html">A new way of blogging about Python</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Dec 20, 2020</span>
-        <a class="post-link" href="/databook/2020/12/20/data-diff.html">Computing the data diff between two hash maps</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Dec 18, 2020</span>
-        <a class="post-link" href="/databook/2020/12/18/occ-do-git.html">Applying Git and Optimistic Concurrency Control principles to Data Oriented Programming</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Nov 26, 2020</span>
-        <a class="post-link" href="/javascript/2020/11/26/lodash-fp.html">Functional Lodash</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Nov 9, 2020</span>
-        <a class="post-link" href="/javascript/2020/11/09/immutable-manipulate.html">Manipulate immutable collections with no performance hit.</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Oct 8, 2020</span>
-        <a class="post-link" href="/clojure/2020/10/08/edn-diff.html">Clojure and EDN diff tool</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Oct 3, 2020</span>
-        <a class="post-link" href="/databook/2020/10/03/data-literal.html">DO Principle #5: Data has a literal representation</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Oct 2, 2020</span>
-        <a class="post-link" href="/databook/2020/10/02/data-comparable-value.html">DO Principle #4: Data is comparable by value</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Oct 2, 2020</span>
-        <a class="post-link" href="/databook/2020/10/02/immutable-data.html">DO Principle #3: Data is immutable</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Oct 2, 2020</span>
-        <a class="post-link" href="/databook/2020/10/02/generic-data-structures.html">DO Principle #2: Model entities with generic data structures</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Oct 2, 2020</span>
-        <a class="post-link" href="/databook/2020/10/02/separate-code-data.html">DO Principle #1: Separate code from data</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Sep 29, 2020</span>
-        <a class="post-link" href="/databook/2020/09/29/do-principles.html">Principles of Data Oriented Programming</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Sep 27, 2020</span>
-        <a class="post-link" href="/databook/2020/09/27/data-book-toc.html">Data Oriented Programming: Table of Contents</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Sep 25, 2020</span>
-        <a class="post-link" href="/databook/2020/09/25/data-book-chap0.html">What is Data Oriented Programming?</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Sep 25, 2020</span>
-        <a class="post-link" href="/databook/2020/09/25/data-book-chap1-part1.html">The complexity of Object Oriented Programming: Classic OO design</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Sep 25, 2020</span>
-        <a class="post-link" href="/databook/2020/09/25/data-book-chap1-part5.html">The complexity of Object Oriented Programming: Imagine</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Sep 25, 2020</span>
-        <a class="post-link" href="/databook/2020/09/25/data-book-chap1-part4.html">The complexity of Object Oriented Programming: DO magic sauce</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Sep 25, 2020</span>
-        <a class="post-link" href="/databook/2020/09/25/data-book-chap1-part3.html">The complexity of Object Oriented Programming: What's wrong with you OO?</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Sep 25, 2020</span>
-        <a class="post-link" href="/databook/2020/09/25/data-book-chap1-part2.html">The complexity of Object Oriented Programming: A bit of UML</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Sep 16, 2020</span>
-        <a class="post-link" href="/clojure/2020/09/16/core-match-abbinare.html">Core.match available for self hosted ClojureScript (Planck and Klipse)</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Sep 11, 2020</span>
-        <a class="post-link" href="/clojure/2020/09/11/fizbuzz-clj.html">The most elegant implementation of FizzBuzz</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Sep 11, 2020</span>
-        <a class="post-link" href="/clojure/2020/09/11/test-check-clj.html">Generative testing in Clojure with test.check</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Sep 10, 2020</span>
-        <a class="post-link" href="/javascript/2020/09/10/symbolic-computation-math-js.html">Symbolic Computation in JavaScript with Math.js</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Sep 10, 2020</span>
-        <a class="post-link" href="/javascript/2020/09/10/procedural-texture-generator-javascript.html">Procedural Texture Generator in JavaScript</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Sep 10, 2020</span>
-        <a class="post-link" href="/clojure/2020/09/10/new-way-html-css.html">A new way of blogging about HTML and CSS</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Sep 10, 2020</span>
-        <a class="post-link" href="/clojure/2020/09/10/dom-clj-klipse.html">Manipulating the DOM with Clojure using Klipse</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Sep 9, 2020</span>
-        <a class="post-link" href="/clojure/2020/09/09/core-async-canvas.html">How to draw on a canvas with Klipse and core.async</a>
-      </li>
-         
-    
-    
-    
-    
-      <li>
-        <span class="post-meta">May 20, 2019</span>
-        <a class="post-link" href="/clojure/2019/05/20/type-inference-in-clojurescript.html">The secrets of Type Inference in Clojurescript</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">May 10, 2019</span>
-        <a class="post-link" href="/clojure/2019/05/10/java-is-confusing-clojure-is-simple.html">Java is confusing, Clojure is simple.</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">May 1, 2019</span>
-        <a class="post-link" href="/clojure/2019/05/01/seqs-and-the-city.html">Seqs and the City</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Mar 8, 2019</span>
-        <a class="post-link" href="/clojure/2019/03/08/spec-custom-defn.html">Custom defn macros with clojure.spec</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Feb 17, 2019</span>
-        <a class="post-link" href="/clojure/2019/02/17/reframe-tutorial.html">re-frame interactive demo</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Feb 4, 2019</span>
-        <a class="post-link" href="/clojure/2019/02/04/clojuscript-1.10.516.html">Welcome Clojurescript 1.10.516</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Jan 8, 2019</span>
-        <a class="post-link" href="/clojure/2019/01/08/quines-in-clojure.html">An interactive Quine in Clojure</a>
-      </li>
-         
-    
-    
-    
-    
-      <li>
-        <span class="post-meta">Jan 1, 2019</span>
-        <a class="post-link" href="/prolog/2019/01/01/blog-prolog.html">A new way of blogging about Prolog</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Dec 25, 2018</span>
-        <a class="post-link" href="/clojure/2018/12/25/dynamic-scope-clojure.html">Lazy sequences are not compatible with dynamic scope</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Dec 18, 2018</span>
-        <a class="post-link" href="/clojure/2018/12/18/welcome-clojure-10.html">Welcome Clojure 10</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Dec 9, 2018</span>
-        <a class="post-link" href="/clojure/2018/12/09/easy-clojure.html">Easy Clojure, Easy REPL</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Sep 16, 2018</span>
-        <a class="post-link" href="/clojure/2018/09/16/hello-clojure.html">Hello Clojure</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">May 7, 2018</span>
-        <a class="post-link" href="/lisp/2018/05/07/blog-common-lisp.html">A new way of blogging about Common Lisp</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Mar 16, 2018</span>
-        <a class="post-link" href="/ocaml/2018/03/16/ocaml-polymorphic-types.html">Polymorphic vs. ordinary variants in ocaml</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Mar 12, 2018</span>
-        <a class="post-link" href="/reason/2018/03/12/blog-reason-types.html">Polymorphic vs. ordinary variants in reason</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Oct 17, 2017</span>
-        <a class="post-link" href="/reason/2017/10/17/externals-js-ffi-reason.html">Type-safe bindings from JS to Reason for dummies</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Oct 6, 2017</span>
-        <a class="post-link" href="/reason/2017/10/06/blog-reason.html">A new way of writing about Reason</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Oct 5, 2017</span>
-        <a class="post-link" href="/ocaml/2017/10/05/blog-ocaml.html">A new way of blogging about Ocaml</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Sep 28, 2017</span>
-        <a class="post-link" href="/javascript/2017/09/28/lodash-playground.html">Lodash playground</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Jul 19, 2017</span>
-        <a class="post-link" href="/javascript/2017/07/19/random-sequeces.html">It's complex to measure complexity</a>
-      </li>
-         
-    
-    
-    
-    
-      <li>
-        <span class="post-meta">Apr 24, 2017</span>
-        <a class="post-link" href="/omnibus/2017/04/24/omnibus-1-wallpaper-javascript.html">Turing Omnibus #1: Algorithm for generating wallpapers in javascript</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Apr 23, 2017</span>
-        <a class="post-link" href="/omnibus/2017/04/23/omnibus-1-wallpaper.html">Turing Omnibus #1: Algorithm for generating wallpapers</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Apr 22, 2017</span>
-        <a class="post-link" href="/clojure/2017/04/22/clojure-juxt-some-reduced.html">Clojure.core: juxt, some and reduced</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Mar 28, 2017</span>
-        <a class="post-link" href="/klipse/2017/03/28/klipse-explained.html">Klipse: A javascript plugin for interactive code snippets in blog posts</a>
-      </li>
-         
-    
-    
-    
-    
-    
-    
-    
-    
-      <li>
-        <span class="post-meta">Mar 19, 2017</span>
-        <a class="post-link" href="/lua/2017/03/19/blog-lua.html">A new way of blogging about Lua</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Mar 17, 2017</span>
-        <a class="post-link" href="/data/2017/03/17/data-driven-documents-google-charts.html">A new way of writing Data Driven Documents with Klipse and Google Charts</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Mar 15, 2017</span>
-        <a class="post-link" href="/data/2017/03/15/google-charts.html">Interactive Business Report with Google Charts</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Mar 14, 2017</span>
-        <a class="post-link" href="/klipse/2017/03/14/secured-eval.html">KLIPSE secured mode</a>
-      </li>
-         
-    
-    
-    
-    
-    
-    
-      <li>
-        <span class="post-meta">Feb 8, 2017</span>
-        <a class="post-link" href="/javascript/2017/02/08/tiny-compiler-compiler.html">Write your own compiler - Last station</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Feb 8, 2017</span>
-        <a class="post-link" href="/javascript/2017/02/08/tiny-compiler-emitter.html">Write your own compiler - Station #3: the emitter</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Feb 8, 2017</span>
-        <a class="post-link" href="/javascript/2017/02/08/tiny-compiler-parser.html">Write your own compiler - Station #2: the parser</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Feb 8, 2017</span>
-        <a class="post-link" href="/javascript/2017/02/08/tiny-compiler-intro.html">Write your own compiler - Introduction </a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Feb 8, 2017</span>
-        <a class="post-link" href="/javascript/2017/02/08/tiny-compiler-tokenizer.html">Write your own compiler - Station #1: the tokenizer</a>
-      </li>
-         
-    
-    
-    
-    
-      <li>
-        <span class="post-meta">Jan 4, 2017</span>
-        <a class="post-link" href="/python/2017/01/04/python-turtle-fractal.html">A turtle can draw fractals</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Dec 31, 2016</span>
-        <a class="post-link" href="/reagent/2016/12/31/reagent-in-klipse.html">Interactive reagent snippets</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Dec 29, 2016</span>
-        <a class="post-link" href="/cpp/2016/12/29/blog-cpp.html">A new way of blogging about C++</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Dec 21, 2016</span>
-        <a class="post-link" href="/javascript/2016/12/21/es2017-await.html">Javascript: await looks synchronous but it is asynchronous</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Dec 21, 2016</span>
-        <a class="post-link" href="/brainfuck/2016/12/21/brainfuck-big-numbers.html">How to do arithmetics in BrainFuck?</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Dec 20, 2016</span>
-        <a class="post-link" href="/react/2016/12/20/react-controlled-components.html">React.js controlled components</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Dec 19, 2016</span>
-        <a class="post-link" href="/javascript/2016/12/19/es2017-sleep.html">Javascript can sleep</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Dec 19, 2016</span>
-        <a class="post-link" href="/javascript/2016/12/19/es2017-entries.html">ES proposal: Object.entries() and Object.values()</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Dec 17, 2016</span>
-        <a class="post-link" href="/brainfuck/2016/12/17/brainfuck.html">Brainfuck for dummies</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Dec 14, 2016</span>
-        <a class="post-link" href="/javascript/2016/12/14/jsx.html">JSX (react) in depth - an interactive tutorial</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Nov 24, 2016</span>
-        <a class="post-link" href="/clojure/2016/11/24/stringify-clojure.html">str vs. pr-str - humans vs. machines</a>
-      </li>
-         
-    
-    
-    
-    
-      <li>
-        <span class="post-meta">Oct 31, 2016</span>
-        <a class="post-link" href="/javascript/2016/10/31/setTimeout-0msec.html">In javascript, setTimeout is forced to be >= 4 msec</a>
-      </li>
-         
-    
-    
-    
-    
-      <li>
-        <span class="post-meta">Oct 25, 2016</span>
-        <a class="post-link" href="/clojure/2016/10/25/core-match.html">Core.match interactive tutorial</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Oct 19, 2016</span>
-        <a class="post-link" href="/klipse/2016/10/19/clojurex-2016.html">KLIPSE talk at ClojureX 2016</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Oct 16, 2016</span>
-        <a class="post-link" href="/klipse/2016/10/16/klipse-is-fast.html">bootrapped (self-host) namespace loading strategy in KLIPSE - insights into the cljs compiler</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Oct 10, 2016</span>
-        <a class="post-link" href="/clojure/2016/10/10/defn-args-2.html">Custom defn macro - part 2: playing with parse trees</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Oct 10, 2016</span>
-        <a class="post-link" href="/clojure/2016/10/10/defn-args.html">Custom defn macro with clojure.spec - part 1: conform/unform</a>
-      </li>
-         
-    
-    
-    
-    
-      <li>
-        <span class="post-meta">Oct 2, 2016</span>
-        <a class="post-link" href="/clojure/2016/10/02/parsing-with-derivatives-regular.html">Parsing with derivatives - Elegant matching of regular languages in clojure</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Oct 1, 2016</span>
-        <a class="post-link" href="/clojure/2016/10/01/automata-segment-2.html">Automata to solve programming interview riddles</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Sep 30, 2016</span>
-        <a class="post-link" href="/clojure/2016/09/30/automata-segments-1.html">Regular expressions to solve programming interview riddles</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Sep 22, 2016</span>
-        <a class="post-link" href="/clojure/2016/09/22/transit-clojure-2.html">Transit format: An interactive tutorial -  custom types and caching (part 2)</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Sep 22, 2016</span>
-        <a class="post-link" href="/clojure/2016/09/22/transit-clojure.html">Transit format: An interactive tutorial - better than JSON (part 1)</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Sep 22, 2016</span>
-        <a class="post-link" href="/python/2016/09/22/python-reverse-polish-evaluator.html">Reverse Polish Evaluator in Python</a>
-      </li>
-         
-    
-    
-    
-    
-      <li>
-        <span class="post-meta">Sep 21, 2016</span>
-        <a class="post-link" href="/javascript/2016/09/21/valueOf-js.html">Fun with valueOf in javascript</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Sep 20, 2016</span>
-        <a class="post-link" href="/javascript/2016/09/20/combinatorics-riddle-js.html">Solving a not-so-easy riddle with javascript permutations</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Sep 16, 2016</span>
-        <a class="post-link" href="/clojure/2016/09/16/combinatorics-riddle.html">Solving a not-so-easy riddle with clojure.math.combinatorics</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Sep 11, 2016</span>
-        <a class="post-link" href="/scheme/2016/09/11/scheme-tutorial-1.html">Interactive overview of Scheme's semantics</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Sep 9, 2016</span>
-        <a class="post-link" href="/klipse/2016/09/09/klipse-languages.html">Code playground in ruby, clojure, javascript, python, PHP and more</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Aug 31, 2016</span>
-        <a class="post-link" href="/javascript/2016/08/31/monads-javascript.html">Functional programming: Monads made clear - in javascript</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Aug 14, 2016</span>
-        <a class="post-link" href="/lambda/2016/08/14/y-combinator-app-ruby.html">Y combinator real life application: recursive memoization in ruby</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Aug 13, 2016</span>
-        <a class="post-link" href="/lambda/2016/08/13/almost-y-combinator-ruby.html">Recursions without names: Introduction to the Y combinator in ruby</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Aug 10, 2016</span>
-        <a class="post-link" href="/lambda/2016/08/10/y-combinator-app-javascript.html">Y combinator real life application: recursive memoization in javascript</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Aug 10, 2016</span>
-        <a class="post-link" href="/lambda/2016/08/10/pure-y-combinator-ruby.html">Lambda Calculus: The Y combinator in ruby</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Aug 10, 2016</span>
-        <a class="post-link" href="/lambda/2016/08/10/pure-y-combinator-javascript.html">Lambda Calculus: The Y combinator in javascript</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Aug 10, 2016</span>
-        <a class="post-link" href="/lambda/2016/08/10/almost-y-combinator-javascript.html">Recursions without names: Introduction to the Y combinator in javascript</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Aug 10, 2016</span>
-        <a class="post-link" href="/lambda/2016/08/10/y-combinator-app.html">Y combinator real life application: recursive memoization in clojure</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Aug 7, 2016</span>
-        <a class="post-link" href="/lambda/2016/08/07/pure-y-combinator-clojure.html">Lambda Calculus: The Y combinator in clojure</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Aug 7, 2016</span>
-        <a class="post-link" href="/lambda/2016/08/07/almost-y-combinator.html">Recursions without names: Introduction to the Y combinator</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Aug 7, 2016</span>
-        <a class="post-link" href="/lambda/2016/08/07/almost-y-combinator-clojure.html">Recursions without names: Introduction to the Y combinator in clojure</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Jul 24, 2016</span>
-        <a class="post-link" href="/lambda/2016/07/24/lambda-calculus-2.html">Lambda Calculus Live Tutorial with Klipse: Boolean Algebra</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Jul 24, 2016</span>
-        <a class="post-link" href="/lambda/2016/07/24/lambda-calculus-1.html">Numbers and Arithmetics with functions only: lambda calculus live tutorial</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Jun 30, 2016</span>
-        <a class="post-link" href="/javascript/2016/06/30/testcheck-js.html">Generative property testing with Javascript: live tutorial</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Jun 28, 2016</span>
-        <a class="post-link" href="/all/2016/06/28/multi-language-demo.html">Multi language live snippets with the klipse plugin by @viebel</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Jun 26, 2016</span>
-        <a class="post-link" href="/php/2016/06/26/blog-php.html">A new way of blogging about PHP with #klipsePlugin by @viebel</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Jun 23, 2016</span>
-        <a class="post-link" href="/javascript/2016/06/23/immutable-perf.html">immutable.js is much faster than native javascript</a>
-      </li>
-         
-    
-    
-    
-    
-      <li>
-        <span class="post-meta">Jun 20, 2016</span>
-        <a class="post-link" href="/javascript/2016/06/20/js-eval-secrets.html">javascript eval: direct vs indirect call </a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Jun 20, 2016</span>
-        <a class="post-link" href="/ruby/2016/06/20/blog-ruby.html">A new way of blogging about ruby</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Jun 20, 2016</span>
-        <a class="post-link" href="/javascript/2016/06/20/blog-javascript.html">A new way of blogging about javascript</a>
-      </li>
-         
-    
-    
-    
-    
-    
-    
-    
-    
-      <li>
-        <span class="post-meta">Jun 7, 2016</span>
-        <a class="post-link" href="/clojure/2016/06/07/klipse-plugin-tuto.html">How to klipsify a clojure[script] blog post #cljklipse @viebel</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">May 30, 2016</span>
-        <a class="post-link" href="/clojure/2016/05/30/spec.html">Clojure 1.9 introduces clojure.spec: tutorial with live coding examples #cljklipse @viebel</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">May 9, 2016</span>
-        <a class="post-link" href="/clojure/2016/05/09/macro-tutorial-4.html">Clojure Macros Tutorial - part 4: Examples of cool macros #cljklipse @viebel</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">May 5, 2016</span>
-        <a class="post-link" href="/clojure/2016/05/05/macro-tutorial-3.html">Clojure Macros Tutorial - part 3: Syntax Quote (aka Backtick) in Clojure</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">May 4, 2016</span>
-        <a class="post-link" href="/clojure/2016/05/04/macro-tutorial-2.html">Clojure Macros Tutorial - part 2: how not to write macros</a>
-      </li>
-         
-    
-    
-    
-    
-      <li>
-        <span class="post-meta">May 1, 2016</span>
-        <a class="post-link" href="/clojure/2016/05/01/macro-tutorial-1.html">Clojure Macros Tutorial - part 1: functions vs. macros</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Apr 26, 2016</span>
-        <a class="post-link" href="/clojurescript/2016/04/26/deftype-explained.html">The power and danger of deftype in clojure and clojurescript</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Apr 25, 2016</span>
-        <a class="post-link" href="/clojurescript/2016/04/25/records-wacky-maps.html">In Clojure, records are wacky maps</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Apr 19, 2016</span>
-        <a class="post-link" href="/clojurescript/2016/04/19/fibonacci.html">3 ways to generate Lazy Fibonacci sequences in Clojure</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Apr 13, 2016</span>
-        <a class="post-link" href="/clojurescript/2016/04/13/static-fns.html">Deep into clojurescript function call mechanisms: static vs. dynamic dispatch</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Apr 11, 2016</span>
-        <a class="post-link" href="/clojure/2016/04/11/extend-ifn.html">IFn's magic beyond defprotocol secret</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Apr 9, 2016</span>
-        <a class="post-link" href="/clojurescript/2016/04/09/clojurescript-protocols-secret.html">Clojurescript defprotocol's secret</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Apr 7, 2016</span>
-        <a class="post-link" href="/clojure/2016/04/07/ifn.html">Extend IFn protocol like if you were part of clojurescript core team</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Apr 4, 2016</span>
-        <a class="post-link" href="/clojurescript/2016/04/04/self-host-part-1.html">Self-Hosted Clojurescript in action - Part 1</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Apr 4, 2016</span>
-        <a class="post-link" href="/clojurescript/2016/04/04/areduce.html">Clojurescript's areduce is faster than native javascript's reduce</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Apr 2, 2016</span>
-        <a class="post-link" href="/clojure/2016/04/02/truth-in-cljs.html">Truth in clojurescript</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Apr 1, 2016</span>
-        <a class="post-link" href="/clojurescript/2016/04/01/clojure-oop-part1.html">Clojurescript: abstraction and data structure clarification - Part 1</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Mar 31, 2016</span>
-        <a class="post-link" href="/clojure/2016/03/31/destructuring-part-2.html">Destructuring in Clojure - Part 2</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Mar 30, 2016</span>
-        <a class="post-link" href="/clojure/2016/03/30/destructuring.html">Destructuring in Clojure - Part 1</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Mar 30, 2016</span>
-        <a class="post-link" href="/javascript/2016/03/30/immutable.html">immutable.js live tutorial</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Mar 29, 2016</span>
-        <a class="post-link" href="/clojure/2016/03/29/klipse-clojure-libs.html">KLIPSE: Clojure libs are now available!</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Mar 29, 2016</span>
-        <a class="post-link" href="/clojure/2016/03/29/profiling.html">Measuring clojurescript performance with KLIPSE</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Mar 28, 2016</span>
-        <a class="post-link" href="/clojure/2016/03/28/append-cyclic.html">Clojure Append Cyclic</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Mar 27, 2016</span>
-        <a class="post-link" href="/clojure/2016/03/27/clojurescript-namespaces.html">Demistify clojurescript namespaces</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Mar 27, 2016</span>
-        <a class="post-link" href="/clojure/2016/03/27/klipse-manual.html">KLIPSE hotkeys and url parameters</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Mar 26, 2016</span>
-        <a class="post-link" href="/clojure/2016/03/26/messing-with-macros.html">Messing with Macros at the REPL</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Mar 26, 2016</span>
-        <a class="post-link" href="/clojure/2016/03/26/js-only.html">Javascript only with KLIPSE</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Mar 26, 2016</span>
-        <a class="post-link" href="/clojure/2016/03/26/eval-only.html">Eval only with KLIPSE</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Mar 23, 2016</span>
-        <a class="post-link" href="/clojure/2016/03/23/dead-code-elimination.html">Dead code elimination in clojurescript</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Mar 21, 2016</span>
-        <a class="post-link" href="/clojure/2016/03/21/klipse-tutorial.html">KLIPSE: how we built it?</a>
-      </li>
-         
-    
-    
-      <li>
-        <span class="post-meta">Mar 17, 2016</span>
-        <a class="post-link" href="/clojure/2016/03/17/klipse.html">KLIPSE: a simple and elegant online cljs compiler and evaluator</a>
-      </li>
-         
-    
-  </ul>
+  <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
+    <img src="/assets/dop-book.png">
+  </a>
+  <div>
+    50% DISCOUNT CODE: DOP50
+  </div>
 </div>
 
-      </div>
-    </div>
+                    </div><!-- .site-nav-inside -->
+                </div><!-- .site-nav-wrap -->
+            </nav><!-- .site-navigation -->
+
+        </div><!-- .site-header-inside -->
+    </div><!-- .site-header-wrap -->
+</header><!-- .site-header -->
+
+        <div id="content" class="site-content fadeInDown delay_075s">
+            <div class="inner-wide">
+                <main id="main" class="site-main">
+
+
+<div class="hero inner">
+    <p class="hero-text">Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker based in Israel. My passion is to make interesting things easy to understand.</p>
+</div>        
+
+
+
+<!-- Featured-->
+<div id="featured-posts" class="featured-posts">
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<article class="post post-featured has-image">
+    <div class="post-inside">
+        
+        <a href="/databook/2020/10/02/separate-code-data.html" class="post-thumbnail"><img src="/assets/separation.jpg"
+                alt="DO Principle #1: Separate code from data"></a>
+        
+        <header class="post-header">
+            <div class="post-meta">
+                <time class="published" datetime="2020-10-02">October 2, 2020</time>
+            </div><!-- .post-meta -->
+            <h2 class="post-title">
+                <a href="/databook/2020/10/02/separate-code-data.html" rel="bookmark">DO Principle #1: Separate code from data</a>
+            </h2>
+            
+        </header><!-- .post-header -->
+    </div><!-- .post-inside -->
+</article><!-- .post -->
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    
+    
+    
+    
+<article class="post post-featured has-image">
+    <div class="post-inside">
+        
+        <a href="/databook/2020/09/29/do-principles.html" class="post-thumbnail"><img src="/assets/principles.jpg"
+                alt="Principles of Data Oriented Programming"></a>
+        
+        <header class="post-header">
+            <div class="post-meta">
+                <time class="published" datetime="2020-09-29">September 29, 2020</time>
+            </div><!-- .post-meta -->
+            <h2 class="post-title">
+                <a href="/databook/2020/09/29/do-principles.html" rel="bookmark">Principles of Data Oriented Programming</a>
+            </h2>
+            
+        </header><!-- .post-header -->
+    </div><!-- .post-inside -->
+</article><!-- .post -->
 
-  ga('create', 'UA-75651930-1', 'auto');
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+
+
+<!-- Posts Index -->
+<div class="post-feed inner">
+    
+    <div class="post-feed-title">Latest Articles</div>
+    
+    <div class="post-feed inner-wide">
+        
+            <article class="post">
+    <header class="post-header">
+        <div class="post-meta">
+            <time class="published"
+                datetime="2021-02-07">February 7, 2021</time>
+        </div><!-- .post-meta -->
+        <h2 class="post-title">
+            <a href="/databook/2021/02/07/imagine.html" rel="bookmark">Imagine there's no objects</a>
+        </h2>
+    </header><!-- .post-header -->
+    <div class="post-content">
+        <p>Here is an adaptation of Imagine, by John Lennon to the context of Data-Oriented programming.
+
+ </p>
+        
+    </div><!-- .post-content -->
+</article>
+
+        
+            <article class="post">
+    <header class="post-header">
+        <div class="post-meta">
+            <time class="published"
+                datetime="2021-02-07">February 7, 2021</time>
+        </div><!-- .post-meta -->
+        <h2 class="post-title">
+            <a href="/python/2021/02/07/blog-python.html" rel="bookmark">A new way of blogging about Python</a>
+        </h2>
+    </header><!-- .post-header -->
+    <div class="post-content">
+        <p>This blog post is about to show a new way of blogging about Python.
+
+ </p>
+        
+    </div><!-- .post-content -->
+</article>
+
+        
+            <article class="post">
+    <header class="post-header">
+        <div class="post-meta">
+            <time class="published"
+                datetime="2020-12-20">December 20, 2020</time>
+        </div><!-- .post-meta -->
+        <h2 class="post-title">
+            <a href="/databook/2020/12/20/data-diff.html" rel="bookmark">Computing the data diff between two hash maps</a>
+        </h2>
+    </header><!-- .post-header -->
+    <div class="post-content">
+        <p>
   
-  	ga('send', 'pageview');
+    This article is an excerpt from my  book  about Data-Oriented Programming.
   
 
-  function timer11(){ga('send', 'event', 'TimeOnPage', '1', '11-30 seconds', { 'nonInteraction': 1 });}
-  function timer31(){ga('send', 'event', 'TimeOnPage', '2', '31-60 seconds', { 'nonInteraction': 1 });}
-  function timer61(){ga('send', 'event', 'TimeOnPage', '3', '61-180 seconds', { 'nonInteraction': 1 });}
-  function timer181(){ga('send', 'event', 'TimeOnPage', '4', '181-600 seconds', { 'nonInteraction': 1 });}
-  function timer601(){ga('send', 'event', 'TimeOnPage', '5', '601-1800 seconds', { 'nonInteraction': 1 });}
-  function timer1801(){ga('send', 'event', 'TimeOnPage', '6', '1801+ seconds', { 'nonInteraction': 1 });}
-  ga('send', 'event', 'TimeOnPage', '0', '0-10 seconds', { 'nonInteraction': 1 });
-  setTimeout(timer11,11000);
-  setTimeout(timer31,31000);
-  setTimeout(timer61,61000);
-  setTimeout(timer181,181000);
-  setTimeout(timer601,601000);
-  setTimeout(timer1801,1801000);
-</script>
+  
+    More excerpts are available on my blog.
+  
+
+  
+ </p>
+        
+    </div><!-- .post-content -->
+</article>
+
+        
+            <article class="post">
+    <header class="post-header">
+        <div class="post-meta">
+            <time class="published"
+                datetime="2020-12-18">December 18, 2020</time>
+        </div><!-- .post-meta -->
+        <h2 class="post-title">
+            <a href="/databook/2020/12/18/occ-do-git.html" rel="bookmark">Applying Git and Optimistic Concurrency Control principles to Data Oriented Programming</a>
+        </h2>
+    </header><!-- .post-header -->
+    <div class="post-content">
+        <p>
+  
+    This article is an excerpt from my  book  about Data-Oriented Programming.
+  
+
+  
+    More excerpts are available on my blog.
+  
+
+  
+ </p>
+        
+    </div><!-- .post-content -->
+</article>
+
+        
+            <article class="post">
+    <header class="post-header">
+        <div class="post-meta">
+            <time class="published"
+                datetime="2020-11-26">November 26, 2020</time>
+        </div><!-- .post-meta -->
+        <h2 class="post-title">
+            <a href="/javascript/2020/11/26/lodash-fp.html" rel="bookmark">Functional Lodash</a>
+        </h2>
+    </header><!-- .post-header -->
+    <div class="post-content">
+        <p>Did you know that Lodash - the popular JavaScript utility library - had a functional flavor?
+
+ </p>
+        
+    </div><!-- .post-content -->
+</article>
+
+        
+            <article class="post">
+    <header class="post-header">
+        <div class="post-meta">
+            <time class="published"
+                datetime="2020-11-09">November 9, 2020</time>
+        </div><!-- .post-meta -->
+        <h2 class="post-title">
+            <a href="/javascript/2020/11/09/immutable-manipulate.html" rel="bookmark">Manipulate immutable collections with no performance hit.</a>
+        </h2>
+    </header><!-- .post-header -->
+    <div class="post-content">
+        <p>
 
 
-  </body>
+
+ </p>
+        
+    </div><!-- .post-content -->
+</article>
+
+        
+            <article class="post">
+    <header class="post-header">
+        <div class="post-meta">
+            <time class="published"
+                datetime="2020-10-08">October 8, 2020</time>
+        </div><!-- .post-meta -->
+        <h2 class="post-title">
+            <a href="/clojure/2020/10/08/edn-diff.html" rel="bookmark">Clojure and EDN diff tool</a>
+        </h2>
+    </header><!-- .post-header -->
+    <div class="post-content">
+        <p>Compare recursively two Clojure data structures a and b.
+
+ </p>
+        
+    </div><!-- .post-content -->
+</article>
+
+        
+            <article class="post">
+    <header class="post-header">
+        <div class="post-meta">
+            <time class="published"
+                datetime="2020-10-03">October 3, 2020</time>
+        </div><!-- .post-meta -->
+        <h2 class="post-title">
+            <a href="/databook/2020/10/03/data-literal.html" rel="bookmark">DO Principle #5: Data has a literal representation</a>
+        </h2>
+    </header><!-- .post-header -->
+    <div class="post-content">
+        <p>
+  
+    This article is an excerpt from my  book  about Data-Oriented Programming.
+  
+
+  
+    More excerpts are available on my blog.
+  
+
+  
+ </p>
+        
+    </div><!-- .post-content -->
+</article>
+
+        
+            <article class="post">
+    <header class="post-header">
+        <div class="post-meta">
+            <time class="published"
+                datetime="2020-10-02">October 2, 2020</time>
+        </div><!-- .post-meta -->
+        <h2 class="post-title">
+            <a href="/databook/2020/10/02/data-comparable-value.html" rel="bookmark">DO Principle #4: Data is comparable by value</a>
+        </h2>
+    </header><!-- .post-header -->
+    <div class="post-content">
+        <p> </p>
+        
+    </div><!-- .post-content -->
+</article>
+
+        
+            <article class="post">
+    <header class="post-header">
+        <div class="post-meta">
+            <time class="published"
+                datetime="2020-10-02">October 2, 2020</time>
+        </div><!-- .post-meta -->
+        <h2 class="post-title">
+            <a href="/databook/2020/10/02/immutable-data.html" rel="bookmark">DO Principle #3: Data is immutable</a>
+        </h2>
+    </header><!-- .post-header -->
+    <div class="post-content">
+        <p> </p>
+        
+    </div><!-- .post-content -->
+</article>
+
+        
+    </div>
+</div>
+<!-- Pagination-->
+
+<nav class="pagination inner">
+  <div class="nav-links">
+    
+    <span class="page-number"> Page 1 of 14 </span>
+    
+    <a class="older-posts" href="/page2/"><span
+        class="screen-reader-text">Older Posts</span> <span class="icon-arrow-right" aria-hidden="true"></span></a>
+    
+  </div>
+</nav><!-- .pagination -->
+
+
+</main>
+
+
+
+
+                
+                
+                
+
+                
+                <footer id="colophon" class="site-footer">
+    <p class="site-info inner">
+        <a href="#">Yehonathan Sharvit</a> &copy; 2021.
+    </p>
+    <a id="back-to-top" class="back-to-top" href="#page">
+        <span class="icon-arrow-up" aria-hidden="true"></span>
+        <span class="screen-reader-text">Back to top</span>
+    </a>
+</footer><!-- .site-footer -->
+
+            </div><!-- .inner-wide -->
+        </div><!-- .site-content -->
+    </div><!-- .site -->
+
+    
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75651930-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-75651930-1', { 'anonymize_ip': true });
+  </script>
+
+    <!-- Javascript Assets -->
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/plugins.js"></script>
+    <script src="/assets/js/custom.js"></script>
+
+</body>
+
 </html>

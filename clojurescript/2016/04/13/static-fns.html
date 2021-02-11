@@ -1,113 +1,168 @@
 <!DOCTYPE html>
-<html>
-  <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en">
 
-  <link rel="shortcut icon" href="/assets/favicon2.png">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Deep into clojurescript function call mechanisms: static vs. dynamic dispatch</title>
-  <meta name="description" content="Deep into clojurescript function call mechanisms: static vs. dynamic dispatch">
+    
+        <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Deep into clojurescript function call mechanisms: static vs. dynamic dispatch | Yehonathan Sharvit</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Deep into clojurescript function call mechanisms: static vs. dynamic dispatch" />
+<meta name="author" content="Yehonathan Sharvit" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Deep into clojurescript function call mechanisms: static vs. dynamic dispatch" />
+<meta property="og:description" content="Deep into clojurescript function call mechanisms: static vs. dynamic dispatch" />
+<meta property="og:site_name" content="Yehonathan Sharvit" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-04-13T23:19:23+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Deep into clojurescript function call mechanisms: static vs. dynamic dispatch" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@Yehonathan Sharvit" />
+<script type="application/ld+json">
+{"url":"/clojurescript/2016/04/13/static-fns.html","@type":"BlogPosting","headline":"Deep into clojurescript function call mechanisms: static vs. dynamic dispatch","dateModified":"2016-04-13T23:19:23+00:00","datePublished":"2016-04-13T23:19:23+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"/clojurescript/2016/04/13/static-fns.html"},"author":{"@type":"Person","name":"Yehonathan Sharvit"},"description":"Deep into clojurescript function call mechanisms: static vs. dynamic dispatch","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
 
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="/css/asciidoc-pygments.css">
-  <link rel="canonical" href="https://blog.klipse.tech//clojurescript/2016/04/13/static-fns.html">
-  <link rel="alternate" type="application/rss+xml" title="An interactive journey into functional programming with Yehonathan Sharvit" href="https://blog.klipse.tech//feed.xml">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    
 
-  <!-- start: facebook -->
-  <meta property="og:title" content="Deep into clojurescript function call mechanisms: static vs. dynamic dispatch">
-  <meta property="og:image" content="https://blog.klipse.tech/assets/klipse.png">
-  <meta property="og:description" content="Deep into clojurescript function call mechanisms: static vs. dynamic dispatch">
-  <meta property="og:site_name" content="An interactive journey into functional programming with Yehonathan Sharvit">
-  <meta property="article:author" content="Yehonathan Sharvit">
-  <!-- end: facebook -->
+    <!-- Site Favicon -->
+    <link rel="shortcut icon" href="/assets/favicon2.png" type="image/png" />
 
+    <!-- Font Embed Code -->
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600,600i|Karla:400,400i,700,700i" rel="stylesheet">
 
+    <!-- CSS Styles -->
+    <link href="/assets/css/style.css" rel="stylesheet">
 </head>
 
-  <body>
-    <header class="site-header">
 
-  <div class="wrapper">
 
-    <a class="site-title" href="/">An interactive journey into functional programming with Yehonathan Sharvit</a>
+<body class="layout-post">
+    <div id="page" class="site">
+        <header id="masthead" class="site-header">
+    <div class="site-header-wrap">
+        <div class="site-header-inside">
 
-    <div class="site-title" style="float:right;margin-top:14px;">
-<a class="github-button" href="https://github.com/viebel/klipse" data-size="large" data-show-count="true" aria-label="Star viebel/klipse on GitHub">Klipse</a>
-</div>
+            <div class="site-branding">
+                
+                <p class="profile">
+                    <a href="/">
+                        <img src="/assets/images/authorimage.jpg" alt="'s Picture"
+                            class="avatar" />
+                    </a>
+                </p>
+                <div class="site-identity">
+                    
+                    <h1 class="site-title">
+                        <a href="/">Yehonathan Sharvit</a>
+                    </h1>
+                    
+                    
+                    <p class="site-description">Developer. Author. Speaker.</p>
+                    
+                </div><!-- .site-identity -->
+                
+                <button id="menu-toggle" class="menu-toggle"><span class="screen-reader-text">Main Menu</span><span
+                        class="icon-menu" aria-hidden="true"></span></button>
+            </div><!-- .site-branding -->
+
+            <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+                <div class="site-nav-wrap">
+                    <div class="site-nav-inside">
+                    <ul class="menu">
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/">Blog</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/about">About</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/contact">Contact Me</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/search">Search</a></li>
+                        
+                    </ul>
+                    <p class="social-links">
+    <a class="github-button" href="https://github.com/viebel/klipse" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 
-    <!-- <nav class="site-nav">
-      <a href="#" class="menu-icon">
-        <svg viewBox="0 0 18 15">
-          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
-          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
-          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
-        </svg>
-      </a>
+    
+    <a href="https://twitter.com/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+</p>
 
-      <div class="trigger">
-        
-          
-          <a class="page-link" href="/data-oriented-programming-book.html">Data Oriented Programming</a>
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      </div>
-    </nav> -->
-
+                    <div class="book-header">
+  <div>
+    Discover my book!
   </div>
-
-</header>
-
-    <div class="page-content">
-      <div class="book-right">
   <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
-    <div style="color:black;">
-      Change the way you <b>think</b> about writing code.
-      <div style="font-weight: bold;"> Start reading my book today! </div>
-      <img src="/assets/dop-book.png">
-      Unlearn outdated <b>paradigms</b> and embrace the <b>flexibility</b> of a data-first approach with this accessible guide to <b>data-oriented programming</b>.
-      <br>
-      <b>Save 50%</b> on the cover price now through February 15. Use promo code DOP50 during checkout.
-    </div>
+    <img src="/assets/dop-book.png">
   </a>
+  <div>
+    50% DISCOUNT CODE: DOP50
+  </div>
 </div>
 
-      <div class="wrapper">
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+                    </div><!-- .site-nav-inside -->
+                </div><!-- .site-nav-wrap -->
+            </nav><!-- .site-navigation -->
 
-  <header class="post-header">
-    <div class="left-post-header">
-      <img src="https://blog.klipse.tech/assets/klipse.png">
-    </div>
-    <div>
-      <h1 class="post-title" itemprop="name headline">Deep into clojurescript function call mechanisms: static vs. dynamic dispatch</h1>
-      <p class="post-meta"><time datetime="2016-04-13T23:19:23+00:00" itemprop="datePublished">Apr 13, 2016</time>
-	 •
-	<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Yehonathan Sharvit</span></span>
-	
-	</p>
-    </div>
+        </div><!-- .site-header-inside -->
+    </div><!-- .site-header-wrap -->
+</header><!-- .site-header -->
 
-  </header>
-  <div class="post-content" itemprop="articleBody">
-    <pre class="hidden"><code class="language-klipse">
+        <div id="content" class="site-content fadeInDown delay_075s">
+            <div class="inner-wide">
+                <main id="main" class="site-main">
+
+    <article class="post-full inner">
+
+        <header class="post-header">
+            <div class="post-meta">
+                <time class="post-date" datetime="2016-04-13">
+                    April 13, 2016
+                </time>
+            </div><!-- .post-meta -->
+            <h1 class="post-title">Deep into clojurescript function call mechanisms: static vs. dynamic dispatch</h1>
+            
+        </header><!-- .post-header -->
+
+        
+        <div class="post-content">
+            <pre class="hidden"><code class="language-klipse">
  ;; this is a workaround: currently a page with only transpiled snippets dont work
  (+ 1 2)
 </code></pre>
@@ -240,10 +295,9 @@ You might find it more convenient to open <a href="http://app.klipse.tech/?cljs_
 <p>Clojurescript rocks!</p>
 
 
-  </div>
-
-</article>
-<div class="book-below">
+        </div>
+        <footer class="post-footer">
+          <div class="book-below">
   <div style="float: left; width: 50%;">
     <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
       <div style="color:black; padding-left: 10px;">
@@ -281,7 +335,72 @@ You might find it more convenient to open <a href="http://app.klipse.tech/?cljs_
   </div>
 </div>
 
+            <div class="post-share">
+                <span class="post-share-title">Share:</span>
+                <a target="_blank"
+                    href="https://twitter.com/share?text=Deep+into+clojurescript+function+call+mechanisms%3A+static+vs.+dynamic+dispatch&amp;url=https://blog.klipse.techclojurescript/2016/04/13/static-fns.html">Twitter</a>
+                <a target="_blank"
+                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techclojurescript/2016/04/13/static-fns.html">Facebook</a>
+            </div><!-- .share-post -->
+        </footer>
+    </article>
+    
+    <section class="newsletter-box inner">
+    <h2 class="newsletter-box-title">Subscribe to Yehonathan Sharvit newsletter</h2>
+    <p>Get the latest and greatest from Yehonathan Sharvit delivered straight to your inbox every week.</p>
+    <!-- Begin TinyLetter Signup Form -->
+    <div id="tinyletter_embed_signup">
+      <form class="validate gh-subscribe-form" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	      <label for="tlemail" class="screen-reader-text">Email Address</label>
+        <input type="email" value="" name="email" class="required email subscribe-email" placeholder="Your email address">
+	      <input type="hidden" value="1" name="embed"/>
+	      <input class="button" type="submit" value="Subscribe" />
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
+</section><!-- .widget -->
 
+    
+    <section class="read-next inner">
+        <h2 class="read-next-title">Read Next</h2>
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="April 11, 2016">April 11, 2016</time>
+                </div>
+                <h3 class="post-title"><a href="/clojure/2016/04/11/extend-ifn.html">IFn's magic beyond defprotocol secret</a>
+                </h3>
+                <p class="post-tags">
+                    
+                </p>
+            </header>
+        </article>
+        
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="April 19, 2016">April 19, 2016</time>
+                </div>
+                <h3 class="post-title"><a href="/clojurescript/2016/04/19/fibonacci.html">3 ways to generate Lazy Fibonacci sequences in Clojure</a></h3>
+                <p class="post-tags">
+                    
+                </p>
+            </header>
+        </article>
+        
+    </section><!-- .read-next -->
+
+    <!-- Create a sorted array of tags -->
+     
+    <section class="tagcloud inner">
+        <h2 class="tagcloud-title">Tags</h2>
+        <div class="tag-links">
+            
+        </div><!-- .tag-links -->
+    </section><!-- .tagcloud -->
+</main><!-- .site-main -->
 
 
 <link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
@@ -355,135 +474,39 @@ You might find it more convenient to open <a href="http://app.klipse.tech/?cljs_
 
 
 
-<footer class="site-footer">
-  
-  <div class="wrapper" style="
-			      font-size: larger;
-			      color: #5f7fbf;
-			      font-weight: bold;">
-    <p> <span> <!-- <a href="https://twitter.com/viebel">
-  <span class="icon icon--twitter"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
-</span>
-  <span class="username">viebel</span>
-</a> -->
 
 
-<a href="https://twitter.com/viebel"
-   class="twitter-follow-button" 
-   data-show-count="false" 
-   data-size="large">Follow viebel</a>
-  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
- </span> to stay up-to-date with the coolest interactive articles around the world.</p>
-    <p> Discover <a href="/"> more cool interactive articles</a> about javascript, clojure[script], python, ruby, scheme, c++ and even brainfuck!</p>
-    <p> Give Klipse a Github star
-      <span>
-  <a class="github-button" href="https://github.com/viebel/klipse" data-size="large" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
-      </span>
-      to express how much you appreciate <em>Code Interactivity</em>. </p>
-    <p>
-      <form style="text-align: left;" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
-	<label for="tlemail">Subscribe to the Klipse newsletter:</label>
-	<input type="email" style="width:180px" name="email" id="tlemail" placeholder="Enter your email address"/>
-	<input type="hidden" value="1" name="embed"/>
-	<input style="padding-left:10px; font-size: larger; color: #5f7fbf; font-weight: bold;" type="submit" value="Subscribe" />
-      </form>
+                
+
+                
+                <footer id="colophon" class="site-footer">
+    <p class="site-info inner">
+        <a href="#">Yehonathan Sharvit</a> &copy; 2021.
     </p>
-    <p> Feel free to email me <a href="mailto:viebel@gmail.com?Subject=I%20want%20to%20write%20an%20interactive%20blog%20post%20with%20KLIPSE"><span class="icon icon--github"><?xml version="1.0" encoding="iso-8859-1"?>
-<!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 382.117 382.117" style="enable-background:new 0 0 382.117 382.117;" xml:space="preserve" width="512px" height="512px">
-<path d="M336.764,45.945H45.354C20.346,45.945,0,65.484,0,89.5v203.117c0,24.016,20.346,43.555,45.354,43.555h291.41  c25.008,0,45.353-19.539,45.353-43.555V89.5C382.117,65.484,361.772,45.945,336.764,45.945z M336.764,297.72H45.354  c-3.676,0-6.9-2.384-6.9-5.103V116.359l131.797,111.27c2.702,2.282,6.138,3.538,9.676,3.538l22.259,0.001  c3.536,0,6.974-1.257,9.677-3.539l131.803-111.274v176.264C343.664,295.336,340.439,297.72,336.764,297.72z M191.059,192.987  L62.87,84.397h256.378L191.059,192.987z" fill="#fc8ba0"/>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-</svg>
-</span><span class="username">viebel@gmail.com</span></a>
- for getting practical tips and tricks in writing your first interactive blog post.</p>
-  </div>
-</footer>
+    <a id="back-to-top" class="back-to-top" href="#page">
+        <span class="icon-arrow-up" aria-hidden="true"></span>
+        <span class="screen-reader-text">Back to top</span>
+    </a>
+</footer><!-- .site-footer -->
 
+            </div><!-- .inner-wide -->
+        </div><!-- .site-content -->
+    </div><!-- .site -->
 
-<div id="disqus_thread"></div>
-<script>
-    /**
-    * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-    * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-    */
-    var disqus_config = function () {
-        this.page.url = "https://blog.klipse.tech/" + "/clojurescript/2016/04/13/static-fns.html";
-        this.page.identifier = "C7711B82-686B-44A7-A626-D10AC56C087E";
-        this.page.title = "Deep into clojurescript function call mechanisms: static vs. dynamic dispatch";
-    };
-    (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-
-        s.src = '//klipse.disqus.com/embed.js';
-
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-
-
-
-      </div>
-    </div>
     
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75651930-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-75651930-1', { 'anonymize_ip': true });
+  </script>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    <!-- Javascript Assets -->
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/plugins.js"></script>
+    <script src="/assets/js/custom.js"></script>
 
-  ga('create', 'UA-75651930-1', 'auto');
-  
-  	ga('send', 'pageview', {'dimension1': 'Yehonathan Sharvit'});
-  
+</body>
 
-  function timer11(){ga('send', 'event', 'TimeOnPage', '1', '11-30 seconds', { 'nonInteraction': 1 });}
-  function timer31(){ga('send', 'event', 'TimeOnPage', '2', '31-60 seconds', { 'nonInteraction': 1 });}
-  function timer61(){ga('send', 'event', 'TimeOnPage', '3', '61-180 seconds', { 'nonInteraction': 1 });}
-  function timer181(){ga('send', 'event', 'TimeOnPage', '4', '181-600 seconds', { 'nonInteraction': 1 });}
-  function timer601(){ga('send', 'event', 'TimeOnPage', '5', '601-1800 seconds', { 'nonInteraction': 1 });}
-  function timer1801(){ga('send', 'event', 'TimeOnPage', '6', '1801+ seconds', { 'nonInteraction': 1 });}
-  ga('send', 'event', 'TimeOnPage', '0', '0-10 seconds', { 'nonInteraction': 1 });
-  setTimeout(timer11,11000);
-  setTimeout(timer31,31000);
-  setTimeout(timer61,61000);
-  setTimeout(timer181,181000);
-  setTimeout(timer601,601000);
-  setTimeout(timer1801,1801000);
-</script>
-
-
-  </body>
 </html>
