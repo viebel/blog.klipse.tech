@@ -3,7 +3,8 @@
 ** DONE keep old urls to articles 
    CLOSED: [2021-02-11 Thu 10:59]
 ** TODO Menu
-*** TODO Talks
+*** DONE Talks
+    CLOSED: [2021-02-11 Thu 21:14]
 *** TODO About me
 **** TODO Improve the text
 *** TODO Books
