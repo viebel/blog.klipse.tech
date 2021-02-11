@@ -9,6 +9,8 @@
 :page-bookorder: 02_00
 :page-author: Yehonathan Sharvit
 :page-date:   2020-09-29 05:31:24 +0200
+:page-featured_image: assets/principles.jpg
+:page-featured: true
 
 ++++
 {% include databook-intro.html %}

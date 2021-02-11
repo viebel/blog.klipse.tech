@@ -1,0 +1,16 @@
+* Migrate to Royce theme
+** DOING Featured articles
+** Book ad
+** Menu
+*** Talks
+*** About me
+**** Improve the text
+*** Books
+** Tags
+** Articles
+*** Klipse snippets style
+**** Remove margin
+**** SQL tables
+*** Kramdown 
+** SEO?
+** Newsletter subscription

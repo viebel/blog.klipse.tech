@@ -33,6 +33,7 @@ post_class: post-template
             {{content}}
         </div>
         <footer class="post-footer">
+          {% include book-below.html %}
             <div class="post-share">
                 <span class="post-share-title">Share:</span>
                 <a target="_blank"
@@ -110,6 +111,5 @@ post_class: post-template
             {% endfor %}
         </div><!-- .tag-links -->
     </section><!-- .tagcloud -->
-
 </main><!-- .site-main -->
 {% include klipse.html %}
