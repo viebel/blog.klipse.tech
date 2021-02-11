@@ -1,5 +1,7 @@
 * Migrate to Royce theme
 ** TODO Beautufiy Book ad in footer
+** DONE keep old urls to articles 
+   CLOSED: [2021-02-11 Thu 10:59]
 ** TODO Menu
 *** TODO Talks
 *** TODO About me
