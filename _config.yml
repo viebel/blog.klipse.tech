@@ -26,6 +26,8 @@ linkedin: viebel
 navigation:
   - text: Blog
     url: /
+  - text: Talks
+    url: /talks
   - text: About
     url: /about
   - text: Contact Me

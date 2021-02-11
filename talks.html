@@ -1,0 +1,17 @@
+---
+layout: default
+title: My talks
+---
+
+{% assign youtube_talks = "-JR4cbwSDnk, Q85K-VZoQks, 33mTFjPIN10" | split: ", " %}
+<div class="post-feed inner">
+  <div class="post-feed-title">Talks </div>
+  {% for talk in youtube_talks %}
+  <div class="talk-feed inner-wide">
+  <iframe width="560" height="315"
+          src="https://www.youtube.com/embed/{{ talk }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  {% endfor %}
+  <div class="post-feed inner-wide">
+</div>
+</div>
