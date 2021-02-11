@@ -70,6 +70,12 @@
   text-transform: uppercase;
 }
 
+.book-header {
+    color: $gray;
+    font-family: $font-primary;
+    font-weight: normal;
+}
+
 #menu-toggle {
   background-color: transparent;
   color: #fff;
