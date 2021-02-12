@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     
-        <!-- Begin Jekyll SEO tag v2.6.1 -->
+        <!-- Begin Jekyll SEO tag v2.7.1 -->
 <title>The complexity of Object Oriented Programming: What’s wrong with you OO? | Yehonathan Sharvit</title>
-<meta name="generator" content="Jekyll v3.9.0" />
+<meta name="generator" content="Jekyll v4.2.0" />
 <meta property="og:title" content="The complexity of Object Oriented Programming: What’s wrong with you OO?" />
 <meta name="author" content="Yehonathan Sharvit" />
 <meta property="og:locale" content="en_US" />
@@ -23,7 +23,7 @@
 <meta name="twitter:site" content="@" />
 <meta name="twitter:creator" content="@Yehonathan Sharvit" />
 <script type="application/ld+json">
-{"url":"/databook/2020/09/25/data-book-chap1-part3.html","@type":"BlogPosting","headline":"The complexity of Object Oriented Programming: What’s wrong with you OO?","dateModified":"2020-09-25T04:45:32+00:00","datePublished":"2020-09-25T04:45:32+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"/databook/2020/09/25/data-book-chap1-part3.html"},"author":{"@type":"Person","name":"Yehonathan Sharvit"},"description":"The complexity of Object Oriented Programming","@context":"https://schema.org"}</script>
+{"url":"/databook/2020/09/25/data-book-chap1-part3.html","@type":"BlogPosting","headline":"The complexity of Object Oriented Programming: What’s wrong with you OO?","dateModified":"2020-09-25T04:45:32+00:00","datePublished":"2020-09-25T04:45:32+00:00","author":{"@type":"Person","name":"Yehonathan Sharvit"},"mainEntityOfPage":{"@type":"WebPage","@id":"/databook/2020/09/25/data-book-chap1-part3.html"},"description":"The complexity of Object Oriented Programming","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     
@@ -381,15 +381,15 @@ can you tell me what the program displayed on the second <code>print</code> call
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span></span><span class="tok-kd">class</span> <span class="tok-nc">Member</span> <span class="tok-o">{</span>
-      <span class="tok-n">Bool</span> <span class="tok-n">member</span><span class="tok-o">;</span>
+<pre class="pygments highlight"><code data-lang="java"><span></span><span class="tok-kd">class</span> <span class="tok-nc">Member</span> <span class="tok-p">{</span>
+      <span class="tok-n">Bool</span> <span class="tok-n">member</span><span class="tok-p">;</span>
 
-      <span class="tok-kt">void</span> <span class="tok-nf">displayBlockedStatusTwice</span><span class="tok-o">()</span> <span class="tok-o">{</span>
-         <span class="tok-n">isBlocked</span> <span class="tok-o">=</span> <span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">isBlocked</span><span class="tok-o">()</span>
-         <span class="tok-n">System</span><span class="tok-o">.</span><span class="tok-na">Print</span><span class="tok-o">(</span><span class="tok-n">isBlocked</span><span class="tok-o">);</span>
-         <span class="tok-n">System</span><span class="tok-o">.</span><span class="tok-na">Print</span><span class="tok-o">(</span><span class="tok-n">isBlocked</span><span class="tok-o">);</span>
-    <span class="tok-o">}</span>
-<span class="tok-o">}</span></code></pre>
+      <span class="tok-kt">void</span> <span class="tok-nf">displayBlockedStatusTwice</span><span class="tok-p">()</span> <span class="tok-p">{</span>
+         <span class="tok-n">isBlocked</span> <span class="tok-o">=</span> <span class="tok-k">this</span><span class="tok-p">.</span><span class="tok-na">isBlocked</span><span class="tok-p">()</span>
+         <span class="tok-n">System</span><span class="tok-p">.</span><span class="tok-na">Print</span><span class="tok-p">(</span><span class="tok-n">isBlocked</span><span class="tok-p">);</span>
+         <span class="tok-n">System</span><span class="tok-p">.</span><span class="tok-na">Print</span><span class="tok-p">(</span><span class="tok-n">isBlocked</span><span class="tok-p">);</span>
+    <span class="tok-p">}</span>
+<span class="tok-p">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -411,14 +411,14 @@ can you tell me what the program displayed on the second <code>print</code> call
 <div id="code-block-member" class="listingblock">
 <div class="title">Apparently simple pseudo code</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="java"><span></span><span class="tok-kd">class</span> <span class="tok-nc">Member</span> <span class="tok-o">{</span>
-      <span class="tok-n">Bool</span> <span class="tok-n">member</span><span class="tok-o">;</span>
+<pre class="pygments highlight"><code data-lang="java"><span></span><span class="tok-kd">class</span> <span class="tok-nc">Member</span> <span class="tok-p">{</span>
+      <span class="tok-n">Bool</span> <span class="tok-n">member</span><span class="tok-p">;</span>
 
-      <span class="tok-kt">void</span> <span class="tok-nf">displayBlockedStatusTwice</span><span class="tok-o">()</span> <span class="tok-o">{</span>
-        <span class="tok-n">System</span><span class="tok-o">.</span><span class="tok-na">Print</span><span class="tok-o">(</span><span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">isBlocked</span><span class="tok-o">);</span>
-        <span class="tok-n">System</span><span class="tok-o">.</span><span class="tok-na">Print</span><span class="tok-o">(</span><span class="tok-k">this</span><span class="tok-o">.</span><span class="tok-na">isBlocked</span><span class="tok-o">);</span>
-    <span class="tok-o">}</span>
-<span class="tok-o">}</span></code></pre>
+      <span class="tok-kt">void</span> <span class="tok-nf">displayBlockedStatusTwice</span><span class="tok-p">()</span> <span class="tok-p">{</span>
+        <span class="tok-n">System</span><span class="tok-p">.</span><span class="tok-na">Print</span><span class="tok-p">(</span><span class="tok-k">this</span><span class="tok-p">.</span><span class="tok-na">isBlocked</span><span class="tok-p">);</span>
+        <span class="tok-n">System</span><span class="tok-p">.</span><span class="tok-na">Print</span><span class="tok-p">(</span><span class="tok-k">this</span><span class="tok-p">.</span><span class="tok-na">isBlocked</span><span class="tok-p">);</span>
+    <span class="tok-p">}</span>
+<span class="tok-p">}</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -721,7 +721,6 @@ to handle the interesting pieces of the applications they build.</p>
 
     <!-- Javascript Assets -->
     <script src="/assets/js/jquery-3.3.1.min.js"></script>
-    <script src="/assets/js/plugins.js"></script>
     <script src="/assets/js/custom.js"></script>
 
 </body>
