@@ -57,7 +57,7 @@ paginate_path: /page:num/
 #permalink: /:title
 
 # Other
-markdown: kramdown
+highlighter: rouge
 
 # Sass
 sass:
