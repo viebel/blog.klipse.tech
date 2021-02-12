@@ -6,9 +6,11 @@
 *** TODO About me
 **** TODO Improve the text
 *** TODO Books
-** TODO Tags
-** TODO Kramdown 
 ** TODO SEO?
+** DONE Tags
+   CLOSED: [2021-02-12 Fri 07:32]
+** DONE Kramdown 
+   CLOSED: [2021-02-12 Fri 07:32]
 ** DONE keep old urls to articles 
    CLOSED: [2021-02-11 Thu 10:59]
 ** DONE Klipse snippets style
@@ -25,3 +27,4 @@
    CLOSED: [2021-02-11 Thu 09:39]
 ** DONE Klipse stars
    CLOSED: [2021-02-11 Thu 10:44]
+* Add a twitter feed
