@@ -19,7 +19,7 @@ title: Contact Me
     {{else}}
     {% endif %}
     <section class="contact-form">
-      <form action="https://formspree.io/{{ site.email }}" method="post" id="contact-form">
+      <form action="https://formspree.io/f/{{ site.formspree_id }}" method="post" id="contact-form">
         <div class="form-item">
           <label class="form-label">Your Email <span>(required)</span></label>
           <input type="text" name="email" placeholder="Your email address..." class="form-input" />

@@ -18,6 +18,7 @@ email: viebel@gmail.com
 contact_page_description: I am available for giving talks and workshops about Data-Oriented programming and Clojure.
 thankyou_page_description: Your message has been successfully sent. We will contact you very soon!
 
+formspree_id: xwkwjvne 
 # Social links
 twitter: viebel
 linkedin: viebel
@@ -30,7 +31,7 @@ navigation:
     url: /talks
   - text: About
     url: /about
-  - text: Contact Me
+  - text: Contact
     url: /contact
   - text: Search
     url: /search
