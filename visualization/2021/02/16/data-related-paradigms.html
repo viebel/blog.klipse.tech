@@ -8,22 +8,20 @@
 
     
         <!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>A gentle introduction to RSA | Yehonathan Sharvit</title>
+<title>Distinction between three data related programming paradigms. | Yehonathan Sharvit</title>
 <meta name="generator" content="Jekyll v4.2.0" />
-<meta property="og:title" content="A gentle introduction to RSA" />
-<meta name="author" content="Yehonathan Sharvit" />
+<meta property="og:title" content="Distinction between three data related programming paradigms." />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="A gentle introduction to RSA" />
-<meta property="og:description" content="A gentle introduction to RSA" />
+<meta name="description" content="Distinction between three data related programming paradigms. Data-driven programming. Data-oriented design. Data-Oriented programming." />
+<meta property="og:description" content="Distinction between three data related programming paradigms. Data-driven programming. Data-oriented design. Data-Oriented programming." />
 <meta property="og:site_name" content="Yehonathan Sharvit" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2016-09-22T03:18:29+00:00" />
+<meta property="article:published_time" content="2021-02-16T14:11:22+00:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="A gentle introduction to RSA" />
+<meta property="twitter:title" content="Distinction between three data related programming paradigms." />
 <meta name="twitter:site" content="@" />
-<meta name="twitter:creator" content="@Yehonathan Sharvit" />
 <script type="application/ld+json">
-{"url":"/ruby/2016/09/22/rsa-ruby.html","@type":"BlogPosting","headline":"A gentle introduction to RSA","dateModified":"2016-09-22T03:18:29+00:00","datePublished":"2016-09-22T03:18:29+00:00","author":{"@type":"Person","name":"Yehonathan Sharvit"},"mainEntityOfPage":{"@type":"WebPage","@id":"/ruby/2016/09/22/rsa-ruby.html"},"description":"A gentle introduction to RSA","@context":"https://schema.org"}</script>
+{"url":"/visualization/2021/02/16/data-related-paradigms.html","@type":"BlogPosting","headline":"Distinction between three data related programming paradigms.","dateModified":"2021-02-16T14:11:22+00:00","datePublished":"2021-02-16T14:11:22+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"/visualization/2021/02/16/data-related-paradigms.html"},"description":"Distinction between three data related programming paradigms. Data-driven programming. Data-oriented design. Data-Oriented programming.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     
@@ -155,125 +153,96 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
     <article class="post-full inner">
 
         <header class="post-header">
-            <h1 class="post-title">A gentle introduction to RSA</h1>
+            <h1 class="post-title">Distinction between three data related programming paradigms.</h1>
             <span class="post-meta">
-              <time class="post-date" datetime="2016-09-22">
-                September 22, 2016
+              <time class="post-date" datetime="2021-02-16">
+                February 16, 2021
               </time>
             </span>
             
             <span class="post-tags">
-                <a href="/tags/index.html#ruby"
-                    rel="tag">ruby</a>
+                <a href="/tags/index.html#data"
+                    rel="tag">data</a>
+                <a href="/tags/index.html#programming"
+                    rel="tag">programming</a>
                 
             </span>
             
         </header><!-- .post-header -->
 
         <div class="post-content">
-            <p>This is an introductory article to RSA.</p>
+            <p><strong>Data-oriented programming</strong> is not a new concept. It is a paradigm that is applied by developers from different programming languages in order to reduce the complexity of the systems they build.</p>
 
-<p><a href="http://doctrina.org/How-RSA-Works-With-Examples.html">Inspiration</a></p>
+<p>The purpose of my book <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7">Data-oriented programming</a> is to explore the principles underlying this paradigm and to illustrate their benefits in the context of a software system.</p>
 
-<p><img src="/assets/crypto.jpg" alt="Crypto" /></p>
+<p>The present article describes the distinction between <strong>Data-oriented programming</strong> and two other programming paradigms whose name contain the term <em>data</em>: <strong>Data-oriented design</strong> and <strong>Data-driven programming</strong>.</p>
 
-<p>All the code snippets of this page are <strong>live</strong> and <strong>interactive</strong> powered by the <a href="https://github.com/viebel/klipse">klipse plugin</a>:</p>
+<p>Each paradigm has a its own objective and pursues it by focusing on a different aspect of data.</p>
 
-<ol>
-  <li><strong>Live</strong>: The code is executed in your browser</li>
-  <li><strong>Interactive</strong>: You can modify the code and it is evaluated as you type</li>
-</ol>
+<p><img src="/assets/data-love.jpg" alt="data" /></p>
 
-<h2 id="prime-numbers">Prime numbers</h2>
+<blockquote>
+  <p>There are only two hard things in Computer Science: cache invalidation and naming things. (<em>Phil Karlton</em>)</p>
+</blockquote>
 
-<pre><code class="language-klipse-eval-ruby">$p = 541
-$q = 547
-$n = $p*$q
-$phi = ($p-1)*($q-1)
-</code></pre>
+<h2 id="data-oriented-design">Data-oriented design</h2>
 
-<pre><code class="language-klipse-eval-ruby">def gcd(u, v)
-  u, v = u.abs, v.abs
-  while v &gt; 0
-    u, v = v, u % v
-  end
-  u
-end
+<p><strong>Data-oriented design</strong> is a program optimization approach motivated by efficient usage of the CPU cache, used mostly in video game development.</p>
 
-$e = 65537
-gcd($phi, $e)
+<p>The approach is to focus on the <strong>data layout</strong>, separating and sorting fields according to when they are needed, and to think about transformations of data.</p>
 
-</code></pre>
+<p>In this context, what’s important is how the data <strong>resides in memory</strong>.</p>
 
-<pre><code class="language-klipse-eval-ruby">def extended_gcd(a, b)
-  last_remainder, remainder = a.abs, b.abs
-  x, last_x, y, last_y = 0, 1, 1, 0
-  while remainder != 0
-    last_remainder, (quotient, remainder) = remainder, last_remainder.divmod(remainder)
-    x, last_x = last_x - quotient*x, x
-    y, last_y = last_y - quotient*y, y
-  end
- 
-  return last_remainder, last_x * (a &lt; 0 ? -1 : 1)
-end
- 
-def invmod(e, et)
-  g, x = extended_gcd(e, et)
-  if g != 1
-    raise 'The maths are broken!'
-  end
-  x % et
-end
+<p>The objective of this paradigm is to <strong>improve the performance</strong> of the system.</p>
 
-$d = invmod($e, $phi)
-</code></pre>
+<h2 id="data-driven-programming">Data-driven programming</h2>
 
-<pre><code class="language-klipse-eval-ruby">$public_key = [$e, $n]
-$private_key = [$d, $n]
-</code></pre>
+<p><strong>Data-driven programming</strong> is the idea that you create <strong>domain specific languages</strong> (DSLs) which are made out of <strong>descriptive data</strong>. It is a branch of declarative programming.</p>
 
-<pre><code class="language-klipse-eval-ruby">def pow_mod (a,b,n)
-  res = 1
-  b.times {
-    res = res * a % n
-  }
-  res
-end
+<p>In this context, what’s important is to describe the <strong>behaviour of a program</strong> in terms of data.</p>
 
-def encrypt(m, pub)
-  e,n = pub
-  pow_mod(m,e, n) 
-end
+<p>The objective of this paradigm is to <strong>increase code clarity</strong> and to <strong>reduce the risk of bugs</strong> related to mistakes in the implementation of the expected behaviour of the program.</p>
 
-encrypt(189, $public_key)
-</code></pre>
+<h2 id="data-oriented-programming">Data-oriented programming</h2>
 
-<pre><code class="language-klipse-eval-ruby">def decrypt(c, pri)
-  d,n = pri
-  pow_mod(c,d,n)
-end
+<p><strong>Data-oriented programming</strong> is a paradigm that treats data of the system as a <strong>first-class citizen</strong>. Data is represented by <strong>generic immutable data structures</strong> (like maps and vectors) that are manipulated by <strong>general purpose functions</strong> (like map, filter, select, group, sort …).</p>
 
-decrypt(165775,$private_key)
-</code></pre>
+<p>In this context, what’s important is the <strong>representation of data</strong> by the program.</p>
 
-<pre><code class="language-klipse-eval-ruby">x = 187
-decrypt(encrypt(x, $public_key),$private_key)
-</code></pre>
+<p>The objective of this paradigm is to <strong>reduce the complexity</strong> of the system.</p>
 
-<p>It works because <code class="language-plaintext highlighter-rouge">(m**e)**d = (m**ed) = m</code> (because <code class="language-plaintext highlighter-rouge">e*d=1</code>!</p>
+<h2 id="summary">Summary</h2>
 
-<pre><code class="language-klipse-eval-ruby">
-</code></pre>
+<p>Before we conclude, I’d like to mention that there is a draft <a href="https://en.wikipedia.org/wiki/Draft:Data-oriented_programming">Wikipedia article</a> about Data-Oriented programming. You are welcome to contribute to the article.</p>
 
-<pre><code class="language-klipse-eval-ruby">
-</code></pre>
+<p>We saw that the three data-related  paradigms have different objectives and each of them pursues its objective by focusing on a different aspect of data inside a program.</p>
 
-<pre><code class="language-klipse-eval-ruby">
-</code></pre>
-
-<pre><code class="language-klipse-eval-ruby">
-</code></pre>
-
+<table>
+  <thead>
+    <tr>
+      <th>Paradigm</th>
+      <th>Objective</th>
+      <th>Data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Data-oriented design</td>
+      <td>Increase performance</td>
+      <td>Data layout</td>
+    </tr>
+    <tr>
+      <td>Data-driven programming</td>
+      <td>Increase clarity</td>
+      <td>Behaviour described by data</td>
+    </tr>
+    <tr>
+      <td>Data-oriented programming</td>
+      <td>Reduce complexity</td>
+      <td>Data representation</td>
+    </tr>
+  </tbody>
+</table>
 
         </div>
         <footer class="post-footer">
@@ -318,9 +287,9 @@ decrypt(encrypt(x, $public_key),$private_key)
             <div class="post-share">
                 <span class="post-share-title">Share:</span>
                 <a target="_blank"
-                    href="https://twitter.com/share?text=A+gentle+introduction+to+RSA&amp;url=https://blog.klipse.techruby/2016/09/22/rsa-ruby.html">Twitter</a>
+                    href="https://twitter.com/share?text=Distinction+between+three+data+related+programming+paradigms.&amp;url=https://blog.klipse.techvisualization/2021/02/16/data-related-paradigms.html">Twitter</a>
                 <a target="_blank"
-                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techruby/2016/09/22/rsa-ruby.html">Facebook</a>
+                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techvisualization/2021/02/16/data-related-paradigms.html">Facebook</a>
             </div><!-- .share-post -->
         </footer>
     </article>
@@ -347,15 +316,23 @@ decrypt(encrypt(x, $public_key),$private_key)
         <article class="post">
             <header class="post-header">
                 <div class="post-meta">
-                    <time class="published" datetime="September 21, 2016">September 21, 2016</time>
+                    <time class="published" datetime="February 16, 2021">February 16, 2021</time>
                 </div>
-                <h3 class="post-title"><a href="/javascript/2016/09/21/valueOf-js.html">Fun with valueOf in javascript</a>
+                <h3 class="post-title"><a href="/visualization/2021/02/16/graph-playground-cytoscape.html">Graph visualization playground with Cytoscape.</a>
                 </h3>
                 <p class="post-tags">
                     
                     
                     
-                    <a href='/tag/javascript/'>Javascript</a>
+                    <a href='/tag/visualization/'>Visualization</a>
+                    
+                    
+                    
+                    <a href='/tag/clojure/'>Clojure</a>
+                    
+                    
+                    
+                    <a href='/tag/graph/'>Graph</a>
                     
                     
                     
@@ -363,24 +340,6 @@ decrypt(encrypt(x, $public_key),$private_key)
             </header>
         </article>
         
-        
-        <article class="post">
-            <header class="post-header">
-                <div class="post-meta">
-                    <time class="published" datetime="September 22, 2016">September 22, 2016</time>
-                </div>
-                <h3 class="post-title"><a href="/python/2016/09/22/python-reverse-polish-evaluator.html">Reverse Polish Evaluator in Python</a></h3>
-                <p class="post-tags">
-                    
-                    
-                    
-                    <a href='/tag/python/'>Python</a>
-                    
-                    
-                    
-                </p>
-            </header>
-        </article>
         
     </section><!-- .read-next -->
 
@@ -498,7 +457,7 @@ decrypt(encrypt(x, $public_key),$private_key)
 
 
 
-<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?v=8.0.1"></script>
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
 
 
 
