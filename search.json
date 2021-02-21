@@ -19,7 +19,7 @@
     {
       "title"    : "Imagine there&#39;s no objects",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "dop",
       "url"      : "/databook/2021/02/07/imagine.html",
       "date"     : "February 7, 2021"
     } ,
@@ -27,7 +27,7 @@
     {
       "title"    : "A new way of blogging about Python",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "klipse, python",
       "url"      : "/python/2021/02/07/blog-python.html",
       "date"     : "February 7, 2021"
     } ,
@@ -35,7 +35,7 @@
     {
       "title"    : "Computing the data diff between two hash maps",
       "category" : "d",
-      "tags"     : "",
+      "tags"     : "dop",
       "url"      : "/databook/2020/12/20/data-diff.html",
       "date"     : "December 20, 2020"
     } ,
@@ -43,7 +43,7 @@
     {
       "title"    : "Applying Git and Optimistic Concurrency Control principles to Data Oriented Programming",
       "category" : "d",
-      "tags"     : "",
+      "tags"     : "dop",
       "url"      : "/databook/2020/12/18/occ-do-git.html",
       "date"     : "December 18, 2020"
     } ,
@@ -51,7 +51,7 @@
     {
       "title"    : "Functional Lodash",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "javascript",
       "url"      : "/javascript/2020/11/26/lodash-fp.html",
       "date"     : "November 26, 2020"
     } ,
@@ -59,7 +59,7 @@
     {
       "title"    : "Manipulate immutable collections with no performance hit.",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "javascript",
       "url"      : "/javascript/2020/11/09/immutable-manipulate.html",
       "date"     : "November 9, 2020"
     } ,
@@ -67,7 +67,7 @@
     {
       "title"    : "Clojure and EDN diff tool",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "clojure",
       "url"      : "/clojure/2020/10/08/edn-diff.html",
       "date"     : "October 8, 2020"
     } ,
@@ -75,7 +75,7 @@
     {
       "title"    : "DO Principle #5: Data has a literal representation",
       "category" : "d",
-      "tags"     : "",
+      "tags"     : "dop",
       "url"      : "/databook/2020/10/03/data-literal.html",
       "date"     : "October 3, 2020"
     } ,
@@ -83,7 +83,7 @@
     {
       "title"    : "DO Principle #4: Data is comparable by value",
       "category" : "d",
-      "tags"     : "",
+      "tags"     : "dop",
       "url"      : "/databook/2020/10/02/data-comparable-value.html",
       "date"     : "October 2, 2020"
     } ,
@@ -91,7 +91,7 @@
     {
       "title"    : "DO Principle #3: Data is immutable",
       "category" : "d",
-      "tags"     : "",
+      "tags"     : "dop",
       "url"      : "/databook/2020/10/02/immutable-data.html",
       "date"     : "October 2, 2020"
     } ,
@@ -99,7 +99,7 @@
     {
       "title"    : "DO Principle #2: Model entities with generic data structures",
       "category" : "d",
-      "tags"     : "",
+      "tags"     : "dop",
       "url"      : "/databook/2020/10/02/generic-data-structures.html",
       "date"     : "October 2, 2020"
     } ,
@@ -107,7 +107,7 @@
     {
       "title"    : "DO Principle #1: Separate code from data",
       "category" : "d",
-      "tags"     : "",
+      "tags"     : "dop",
       "url"      : "/databook/2020/10/02/separate-code-data.html",
       "date"     : "October 2, 2020"
     } ,
@@ -115,7 +115,7 @@
     {
       "title"    : "Principles of Data Oriented Programming",
       "category" : "d",
-      "tags"     : "",
+      "tags"     : "dop",
       "url"      : "/databook/2020/09/29/do-principles.html",
       "date"     : "September 29, 2020"
     } ,
@@ -123,7 +123,7 @@
     {
       "title"    : "Data Oriented Programming: Table of Contents",
       "category" : "d",
-      "tags"     : "",
+      "tags"     : "dop",
       "url"      : "/databook/2020/09/27/data-book-toc.html",
       "date"     : "September 27, 2020"
     } ,
@@ -131,7 +131,7 @@
     {
       "title"    : "What is Data Oriented Programming?",
       "category" : "d",
-      "tags"     : "",
+      "tags"     : "dop",
       "url"      : "/databook/2020/09/25/data-book-chap0.html",
       "date"     : "September 25, 2020"
     } ,
@@ -139,7 +139,7 @@
     {
       "title"    : "The complexity of Object Oriented Programming: Classic OO design",
       "category" : "d",
-      "tags"     : "",
+      "tags"     : "dop",
       "url"      : "/databook/2020/09/25/data-book-chap1-part1.html",
       "date"     : "September 25, 2020"
     } ,
@@ -147,7 +147,7 @@
     {
       "title"    : "The complexity of Object Oriented Programming: Imagine",
       "category" : "d",
-      "tags"     : "",
+      "tags"     : "dop",
       "url"      : "/databook/2020/09/25/data-book-chap1-part5.html",
       "date"     : "September 25, 2020"
     } ,
@@ -155,7 +155,7 @@
     {
       "title"    : "The complexity of Object Oriented Programming: DO magic sauce",
       "category" : "d",
-      "tags"     : "",
+      "tags"     : "dop",
       "url"      : "/databook/2020/09/25/data-book-chap1-part4.html",
       "date"     : "September 25, 2020"
     } ,
@@ -163,7 +163,7 @@
     {
       "title"    : "The complexity of Object Oriented Programming: What&#39;s wrong with you OO?",
       "category" : "d",
-      "tags"     : "",
+      "tags"     : "dop",
       "url"      : "/databook/2020/09/25/data-book-chap1-part3.html",
       "date"     : "September 25, 2020"
     } ,
@@ -179,7 +179,7 @@
     {
       "title"    : "Core.match available for self hosted ClojureScript (Planck and Klipse)",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "clojure",
       "url"      : "/clojure/2020/09/16/core-match-abbinare.html",
       "date"     : "September 16, 2020"
     } ,
@@ -187,7 +187,7 @@
     {
       "title"    : "The most elegant implementation of FizzBuzz",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "clojure",
       "url"      : "/clojure/2020/09/11/fizbuzz-clj.html",
       "date"     : "September 11, 2020"
     } ,
@@ -195,7 +195,7 @@
     {
       "title"    : "Generative testing in Clojure with test.check",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "clojure",
       "url"      : "/clojure/2020/09/11/test-check-clj.html",
       "date"     : "September 11, 2020"
     } ,
@@ -203,7 +203,7 @@
     {
       "title"    : "Symbolic Computation in JavaScript with Math.js",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "javascript, klipse",
       "url"      : "/javascript/2020/09/10/symbolic-computation-math-js.html",
       "date"     : "September 10, 2020"
     } ,
@@ -211,7 +211,7 @@
     {
       "title"    : "Procedural Texture Generator in JavaScript",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "algo, javascript",
       "url"      : "/javascript/2020/09/10/procedural-texture-generator-javascript.html",
       "date"     : "September 10, 2020"
     } ,
@@ -219,7 +219,7 @@
     {
       "title"    : "A new way of blogging about HTML and CSS",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "klipse, html",
       "url"      : "/clojure/2020/09/10/new-way-html-css.html",
       "date"     : "September 10, 2020"
     } ,
@@ -227,7 +227,7 @@
     {
       "title"    : "Manipulating the DOM with Clojure using Klipse",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "klipse",
       "url"      : "/clojure/2020/09/10/dom-clj-klipse.html",
       "date"     : "September 10, 2020"
     } ,
@@ -235,7 +235,7 @@
     {
       "title"    : "How to draw on a canvas with Klipse and core.async",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "klipse",
       "url"      : "/clojure/2020/09/09/core-async-canvas.html",
       "date"     : "September 9, 2020"
     } ,
@@ -243,7 +243,7 @@
     {
       "title"    : "What is Category Theory?",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "theory",
       "url"      : "/clojure/2019/09/10/category-theory-part-1.html",
       "date"     : "September 10, 2019"
     } ,
@@ -251,7 +251,7 @@
     {
       "title"    : "The secrets of Type Inference in Clojurescript",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "clojurescript",
       "url"      : "/clojure/2019/05/20/type-inference-in-clojurescript.html",
       "date"     : "May 20, 2019"
     } ,
@@ -259,7 +259,7 @@
     {
       "title"    : "Java is confusing, Clojure is simple.",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "clojure, java",
       "url"      : "/clojure/2019/05/10/java-is-confusing-clojure-is-simple.html",
       "date"     : "May 10, 2019"
     } ,
@@ -267,7 +267,7 @@
     {
       "title"    : "Seqs and the City",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "clojure",
       "url"      : "/clojure/2019/05/01/seqs-and-the-city.html",
       "date"     : "May 1, 2019"
     } ,
@@ -275,7 +275,7 @@
     {
       "title"    : "Custom defn macros with clojure.spec",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "clojure",
       "url"      : "/clojure/2019/03/08/spec-custom-defn.html",
       "date"     : "March 8, 2019"
     } ,
@@ -283,7 +283,7 @@
     {
       "title"    : "re-frame interactive demo",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "clojurescript",
       "url"      : "/clojure/2019/02/17/reframe-tutorial.html",
       "date"     : "February 17, 2019"
     } ,
@@ -291,7 +291,7 @@
     {
       "title"    : "Welcome Clojurescript 1.10.516",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "clojurescript",
       "url"      : "/clojure/2019/02/04/clojuscript-1.10.516.html",
       "date"     : "February 4, 2019"
     } ,
@@ -299,7 +299,7 @@
     {
       "title"    : "An interactive Quine in Clojure",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "clojure",
       "url"      : "/clojure/2019/01/08/quines-in-clojure.html",
       "date"     : "January 8, 2019"
     } ,
@@ -307,7 +307,7 @@
     {
       "title"    : "Interactive Quines in several languages",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "javascript, clojure, html, ruby, scheme, python",
       "url"      : "/multi/2019/01/08/quines.html",
       "date"     : "January 8, 2019"
     } ,
@@ -315,7 +315,7 @@
     {
       "title"    : "A new way of blogging about Prolog",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "klipse, prolog",
       "url"      : "/prolog/2019/01/01/blog-prolog.html",
       "date"     : "January 1, 2019"
     } ,
@@ -323,7 +323,7 @@
     {
       "title"    : "Lazy sequences are not compatible with dynamic scope",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "clojure",
       "url"      : "/clojure/2018/12/25/dynamic-scope-clojure.html",
       "date"     : "December 25, 2018"
     } ,
@@ -331,7 +331,7 @@
     {
       "title"    : "Welcome Clojure 10",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "clojure",
       "url"      : "/clojure/2018/12/18/welcome-clojure-10.html",
       "date"     : "December 18, 2018"
     } ,
@@ -339,7 +339,7 @@
     {
       "title"    : "Easy Clojure, Easy REPL",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "clojure",
       "url"      : "/clojure/2018/12/09/easy-clojure.html",
       "date"     : "December 9, 2018"
     } ,
@@ -347,7 +347,7 @@
     {
       "title"    : "Hello Clojure",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "clojure",
       "url"      : "/clojure/2018/09/16/hello-clojure.html",
       "date"     : "September 16, 2018"
     } ,
@@ -355,7 +355,7 @@
     {
       "title"    : "A new way of blogging about Common Lisp",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "klipse, lisp",
       "url"      : "/lisp/2018/05/07/blog-common-lisp.html",
       "date"     : "May 7, 2018"
     } ,
@@ -363,7 +363,7 @@
     {
       "title"    : "Polymorphic vs. ordinary variants in ocaml",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "ocaml",
       "url"      : "/ocaml/2018/03/16/ocaml-polymorphic-types.html",
       "date"     : "March 16, 2018"
     } ,
@@ -371,7 +371,7 @@
     {
       "title"    : "Polymorphic vs. ordinary variants in reason",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "reasonml",
       "url"      : "/reason/2018/03/12/blog-reason-types.html",
       "date"     : "March 12, 2018"
     } ,
@@ -379,7 +379,7 @@
     {
       "title"    : "Type-safe bindings from JS to Reason for dummies",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "reasonml",
       "url"      : "/reason/2017/10/17/externals-js-ffi-reason.html",
       "date"     : "October 17, 2017"
     } ,
@@ -387,7 +387,7 @@
     {
       "title"    : "A new way of writing about Reason",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "klipse, reasonml",
       "url"      : "/reason/2017/10/06/blog-reason.html",
       "date"     : "October 6, 2017"
     } ,
@@ -395,7 +395,7 @@
     {
       "title"    : "A new way of blogging about Ocaml",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "klipse, ocaml",
       "url"      : "/ocaml/2017/10/05/blog-ocaml.html",
       "date"     : "October 5, 2017"
     } ,
@@ -403,7 +403,7 @@
     {
       "title"    : "Lodash playground",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "javascript",
       "url"      : "/javascript/2017/09/28/lodash-playground.html",
       "date"     : "September 28, 2017"
     } ,
@@ -411,7 +411,7 @@
     {
       "title"    : "It&#39;s complex to measure complexity",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "algo, javascript",
       "url"      : "/javascript/2017/07/19/random-sequeces.html",
       "date"     : "July 19, 2017"
     } ,
@@ -427,7 +427,7 @@
     {
       "title"    : "Turing Omnibus #1: Algorithm for generating wallpapers in javascript",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "algo, javascript",
       "url"      : "/omnibus/2017/04/24/omnibus-1-wallpaper-javascript.html",
       "date"     : "April 24, 2017"
     } ,
@@ -435,7 +435,7 @@
     {
       "title"    : "Turing Omnibus #1: Algorithm for generating wallpapers",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "algo, javascript",
       "url"      : "/omnibus/2017/04/23/omnibus-1-wallpaper.html",
       "date"     : "April 23, 2017"
     } ,
@@ -443,7 +443,7 @@
     {
       "title"    : "Clojure.core: juxt, some and reduced",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "clojure",
       "url"      : "/clojure/2017/04/22/clojure-juxt-some-reduced.html",
       "date"     : "April 22, 2017"
     } ,
@@ -451,7 +451,7 @@
     {
       "title"    : "Klipse: A javascript plugin for interactive code snippets in blog posts",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "klipse",
       "url"      : "/klipse/2017/03/28/klipse-explained.html",
       "date"     : "March 28, 2017"
     } ,
@@ -475,7 +475,7 @@
     {
       "title"    : "A demo of Oblivion",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "klipse, oblivion",
       "url"      : "/data/2017/03/22/oblivion.html",
       "date"     : "March 22, 2017"
     } ,
@@ -483,7 +483,7 @@
     {
       "title"    : "A new way of blogging about Lua",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "klipse, lua",
       "url"      : "/lua/2017/03/19/blog-lua.html",
       "date"     : "March 19, 2017"
     } ,
@@ -523,7 +523,7 @@
     {
       "title"    : "Klipsify any web page",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "klipse",
       "url"      : "/klipse/2017/02/11/bookmarklet.html",
       "date"     : "February 11, 2017"
     } ,
@@ -531,7 +531,7 @@
     {
       "title"    : "Write your own compiler - Last station",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "javascript, compiler",
       "url"      : "/javascript/2017/02/08/tiny-compiler-compiler.html",
       "date"     : "February 8, 2017"
     } ,
@@ -539,7 +539,7 @@
     {
       "title"    : "Write your own compiler - Station #3: the emitter",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "javascript, compiler",
       "url"      : "/javascript/2017/02/08/tiny-compiler-emitter.html",
       "date"     : "February 8, 2017"
     } ,
@@ -547,7 +547,7 @@
     {
       "title"    : "Write your own compiler - Station #2: the parser",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "javascript, compiler",
       "url"      : "/javascript/2017/02/08/tiny-compiler-parser.html",
       "date"     : "February 8, 2017"
     } ,
@@ -555,7 +555,7 @@
     {
       "title"    : "Write your own compiler - Introduction ",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "javascript, compiler",
       "url"      : "/javascript/2017/02/08/tiny-compiler-intro.html",
       "date"     : "February 8, 2017"
     } ,
@@ -563,7 +563,7 @@
     {
       "title"    : "Write your own compiler - Station #1: the tokenizer",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "javascript, compiler",
       "url"      : "/javascript/2017/02/08/tiny-compiler-tokenizer.html",
       "date"     : "February 8, 2017"
     } ,
@@ -571,7 +571,7 @@
     {
       "title"    : "A tiny compiler: the transformer",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "javascript, compiler",
       "url"      : "/javascript/2017/01/25/tiny-compiler-transformer.html",
       "date"     : "January 25, 2017"
     } ,
@@ -579,7 +579,7 @@
     {
       "title"    : "A turtle can draw fractals",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "python",
       "url"      : "/python/2017/01/04/python-turtle-fractal.html",
       "date"     : "January 4, 2017"
     } ,
@@ -643,7 +643,7 @@
     {
       "title"    : "Brainfuck for dummies",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "brainfuck",
       "url"      : "/brainfuck/2016/12/17/brainfuck.html",
       "date"     : "December 17, 2016"
     } ,
@@ -651,7 +651,7 @@
     {
       "title"    : "JSX (react) in depth - an interactive tutorial",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "javascript",
       "url"      : "/javascript/2016/12/14/jsx.html",
       "date"     : "December 14, 2016"
     } ,
@@ -659,7 +659,7 @@
     {
       "title"    : "str vs. pr-str - humans vs. machines",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "clojure",
       "url"      : "/clojure/2016/11/24/stringify-clojure.html",
       "date"     : "November 24, 2016"
     } ,
@@ -667,7 +667,7 @@
     {
       "title"    : "An interactive way of writing SQL tutorials",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "sql",
       "url"      : "/javascript/2016/11/07/best-sql-tutorial.html",
       "date"     : "November 7, 2016"
     } ,
@@ -675,7 +675,7 @@
     {
       "title"    : "In javascript, setTimeout is forced to be &gt;= 4 msec",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "javascript",
       "url"      : "/javascript/2016/10/31/setTimeout-0msec.html",
       "date"     : "October 31, 2016"
     } ,
@@ -683,7 +683,7 @@
     {
       "title"    : "setInterval with limited number of iterations",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "javascript",
       "url"      : "/javascript/2016/10/31/setIntervalX.html",
       "date"     : "October 31, 2016"
     } ,
@@ -691,7 +691,7 @@
     {
       "title"    : "Core.match interactive tutorial",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "clojure",
       "url"      : "/clojure/2016/10/25/core-match.html",
       "date"     : "October 25, 2016"
     } ,
@@ -699,7 +699,7 @@
     {
       "title"    : "KLIPSE talk at ClojureX 2016",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "clojure",
       "url"      : "/klipse/2016/10/19/clojurex-2016.html",
       "date"     : "October 19, 2016"
     } ,
@@ -843,7 +843,7 @@
     {
       "title"    : "Y combinator real life application: recursive memoization in ruby",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "ruby, lambdacalculus",
       "url"      : "/lambda/2016/08/14/y-combinator-app-ruby.html",
       "date"     : "August 14, 2016"
     } ,
@@ -859,7 +859,7 @@
     {
       "title"    : "Y combinator real life application: recursive memoization in javascript",
       "category" : "",
-      "tags"     : "",
+      "tags"     : "javascript, lambdacalculus",
       "url"      : "/lambda/2016/08/10/y-combinator-app-javascript.html",
       "date"     : "August 10, 2016"
     } ,
