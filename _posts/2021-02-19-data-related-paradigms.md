@@ -7,7 +7,7 @@ categories: visualization
 thumbnail: assets/klipse.png
 featured: true
 featured_image: /assets/data-love.jpg
-tags: [data, programming]
+tags: [dop, theory]
 ---
 
 **Data-oriented programming** is not a new concept. It is a paradigm that is applied by developers from different programming languages in order to reduce the complexity of the systems they build.
