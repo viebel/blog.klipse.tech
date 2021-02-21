@@ -7,6 +7,7 @@ categories: clojure
 thumbnail: assets/klipse.png
 guid: 26A7E17F-DDCB-40BD-9FD3-354F41E84791
 author: Yehonathan Sharvit
+tags: [clojure]
 ---
 
 ## What's a seq?

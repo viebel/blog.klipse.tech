@@ -7,6 +7,7 @@ categories: javascript
 thumbnail: assets/klipse.png
 guid: "2B8567D5-3BEA-4751-BD6D-21B6BC9693BE"
 author: "Yehonathan Sharvit"
+tags: [algo, javascript]
 ---
 
 

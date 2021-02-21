@@ -9,6 +9,7 @@
 :page-booktitle: Chapter 2, Part 5
 :page-author: Yehonathan Sharvit
 :page-date:   2020-10-03 20:31:24 +0200
+:page-tags: [dop]
 
 ++++
 {% include databook-intro.html %}

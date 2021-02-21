@@ -8,7 +8,7 @@ thumbnail: assets/klipse.png
 guid: "bb5f9d38-61de-11e6-9059-600308a46268"
 ruby: true
 author: Yehonathan Sharvit
-
+tags: [ruby,lambdacalculus]
 ---
 
 When we presented  [the Y combinator]({% post_url 2016-08-14-pure-y-combinator-ruby  %}), we said that it was very aesthetic but not so practical.

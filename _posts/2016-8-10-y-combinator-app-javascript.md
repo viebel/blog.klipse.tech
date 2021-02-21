@@ -7,7 +7,7 @@ categories: lambda
 thumbnail: assets/klipse.png
 guid: "8604CAEE-E2F4-4DEE-A86B-AE87F4B4FF13"
 author: Yehonathan Sharvit
-
+tags: [javascript,lambdacalculus]
 ---
 
 When we presented  [the Y combinator]({% post_url 2016-08-10-pure-y-combinator-javascript  %}), we said that it was very aesthetic but not so practical.

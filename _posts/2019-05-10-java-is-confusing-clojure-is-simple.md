@@ -7,6 +7,7 @@ categories: clojure
 thumbnail: assets/klipse.png
 guid: 9434BD0B-BA8D-4518-9704-BC1E45887B77
 author: Yehonathan Sharvit
+tags: [clojure, java]
 ---
 
 ## The inherent complexity of Collections in Java

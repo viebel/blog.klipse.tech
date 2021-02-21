@@ -8,6 +8,7 @@ thumbnail: assets/klipse.png
 guid: F2886609-0166-4118-A3C9-AA62816B7411
 author: Yehonathan Sharvit
 minified_plugin: true
+tags: [klipse, reasonml]
 ---
 
 This blog post is about to show a new way of writing web pages (blogs, tutorials, documentation...) about [Reason](https://reasonml.github.io/).

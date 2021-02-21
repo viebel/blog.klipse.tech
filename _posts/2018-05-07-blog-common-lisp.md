@@ -8,6 +8,7 @@ thumbnail: assets/klipse.png
 guid: "26614336-2454-4C74-BCB2-0C70705702C5"
 author: Yehonathan Sharvit
 minified_plugin: true
+tags: [klipse, lisp]
 ---
 
 This blog post is about to show a new way of blogging about [Common Lisp](https://en.wikipedia.org/wiki/Common_Lisp).

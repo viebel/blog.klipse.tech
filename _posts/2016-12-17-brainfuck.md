@@ -8,6 +8,7 @@ thumbnail: assets/klipse.png
 guid: "E541B9CD-E12F-49D6-8432-ACEBD6A8106B"
 author: Yehonathan Sharvit
 minified_plugin: true
+tags: [brainfuck]
 ---
 
 

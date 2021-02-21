@@ -9,6 +9,7 @@
 :page-liquid:
 :page-author: Yehonathan Sharvit
 :page-date:   2020-09-25 06:45:32 +0200
+:page-tags: [dop]
 
 
 ++++

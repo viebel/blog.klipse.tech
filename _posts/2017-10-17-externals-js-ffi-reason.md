@@ -8,6 +8,7 @@ thumbnail: assets/klipse.png
 guid: F2886609-0166-4118-A3C9-AA62816B7411
 author: Yehonathan Sharvit
 minified_plugin: true
+tags: [reasonml]
 ---
 
 Sometimes, we need to be able to access JS code from our `reason` code.

@@ -8,6 +8,7 @@ thumbnail: assets/klipse.png
 guid: 294191D2-B3B8-4F4A-B1E3-F98F63861F6B
 author: Yehonathan Sharvit
 minified_plugin: true
+tags: [reasonml]
 ---
 
 # Introduction

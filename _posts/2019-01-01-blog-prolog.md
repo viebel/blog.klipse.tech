@@ -8,6 +8,7 @@ thumbnail: assets/klipse.png
 guid: "7AB08321-AC7C-44C1-A1FD-91316AB392A8"
 author: Yehonathan Sharvit
 minified_plugin: true
+tags: [klipse, prolog]
 ---
 
 This blog post is about to show a new way of blogging about [Prolog](https://en.wikipedia.org/wiki/Prolog)).

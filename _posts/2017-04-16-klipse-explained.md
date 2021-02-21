@@ -7,6 +7,7 @@ categories: klipse
 thumbnail: assets/klipse.png
 guid: "5627BF95-4EE1-4C6E-98C2-1B2A720A0CD0"
 author: "Yehonathan Sharvit"
+tags: [klipse]
 ---
 
 

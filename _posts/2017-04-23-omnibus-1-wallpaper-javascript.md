@@ -7,6 +7,7 @@ categories: omnibus
 thumbnail: assets/klipse.png
 guid: "6B7DE0A8-DB07-4707-9546-B893DDD58970"
 author: "Yehonathan Sharvit"
+tags: [algo, javascript]
 ---
 
 

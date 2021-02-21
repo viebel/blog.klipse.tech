@@ -8,7 +8,7 @@ thumbnail: assets/klipse.png
 guid: FD815449-8850-4FFE-AD0B-976082BD40D4
 author: Yehonathan Sharvit
 minified_plugin: true
-
+tags: [javascript]
 ---
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/immutable/4.0.0-rc.12/immutable.min.js" integrity="sha512-OA48phPVdkQE2u9b6nhv71zeq9zvwc6oLq3IVWLw8WfRlcRO/+6zhUcWZxfXi75agm3bfqCxIdstBfK/g6fYvw==" crossorigin="anonymous"></script>

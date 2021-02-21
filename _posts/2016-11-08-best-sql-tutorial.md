@@ -11,6 +11,7 @@ minified_plugin: true
 draft: true
 hidden: true
 klipse_editor_type: "html"
+tags: [sql]
 ---
 
 # SQL

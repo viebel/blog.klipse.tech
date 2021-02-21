@@ -9,6 +9,7 @@ guid: "07407DA4-151B-4AE0-AC13-779965B1E3B5"
 author: Yehonathan Sharvit
 minified_plugin: true
 klipse_eval_idle_msec: 3000
+tags: [javascript]
 ---
 
 Javascript is a language full of surprises: there are the `good parts` and the `bad parts`. Today, I discovered that `setTimeout` featured a minimal delay of 4 msec.

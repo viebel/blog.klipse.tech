@@ -11,6 +11,7 @@
 :page-date:   2020-09-29 05:31:24 +0200
 :page-featured_image: /assets/principles.jpg
 :page-featured: true
+:page-tags: [dop]
 
 ++++
 {% include databook-intro.html %}

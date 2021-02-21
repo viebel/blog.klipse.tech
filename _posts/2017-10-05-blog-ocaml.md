@@ -8,6 +8,7 @@ thumbnail: assets/klipse.png
 guid: 7DB6EA6C-B7E5-4398-81BD-B9A4F501DF8A
 author: Yehonathan Sharvit
 minified_plugin: true
+tags: [klipse, ocaml]
 ---
 
 This blog post is about to show a new way of blogging about [OCaml](https://ocaml.org/).

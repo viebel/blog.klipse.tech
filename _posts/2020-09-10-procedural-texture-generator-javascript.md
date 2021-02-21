@@ -8,6 +8,7 @@ thumbnail: assets/klipse.png
 guid: B927BB68-F143-4492-9AE5-5DC4478725F7
 author: Yehonathan Sharvit
 minified_plugin: true
+tags: [algo, javascript]
 ---
 
 

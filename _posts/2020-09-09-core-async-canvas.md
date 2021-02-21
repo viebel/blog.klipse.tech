@@ -7,6 +7,7 @@ categories: clojure
 thumbnail: assets/klipse.png
 guid: 7950F54A-4378-4B56-921E-0F75B0AE3809
 author: Yehonathan Sharvit
+tags: [klipse]
 ---
 
 

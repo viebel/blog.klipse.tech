@@ -7,6 +7,7 @@ categories: clojure
 thumbnail: assets/klipse.png
 guid: 45866A95-4455-49EC-AFE3-98130501C005
 author: Yehonathan Sharvit
+tags: [clojure]
 ---
 
 ### What is FizzBuzz?

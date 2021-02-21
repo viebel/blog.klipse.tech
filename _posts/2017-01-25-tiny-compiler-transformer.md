@@ -10,6 +10,7 @@ author: Yehonathan Sharvit
 minified_plugin: true
 hidden: true
 draft: true
+tags: [javascript, compiler]
 ---
 
 ## The transformer

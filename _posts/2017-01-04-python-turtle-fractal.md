@@ -8,6 +8,7 @@ thumbnail: assets/klipse.png
 author: Yehonathan Sharvit
 guid: "4EEC3CC1-F7B5-4FE7-BF1C-265533EBFFCC"
 minified_plugin: true
+tags: [python]
 ---
 
 [Turtle graphics](https://docs.python.org/2/library/turtle.html) is a popular way for introducing programming to kids. It was part of the original Logo programming language developed by Wally Feurzig and Seymour Papert in 1966.

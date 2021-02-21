@@ -8,6 +8,7 @@ categories: clojure
 thumbnail: assets/klipse.png
 guid: F09CE47F-0789-480C-8E2E-2E6FAC632FF6
 author: Yehonathan Sharvit
+tags: [clojurescript]
 ---
 
 ## What is re-frame?

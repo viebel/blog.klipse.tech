@@ -7,6 +7,7 @@ categories: clojure
 thumbnail: assets/klipse.png
 guid: A5CCFFBF-5831-4979-81A2-F73D816D434F
 author: Yehonathan Sharvit
+tags: [clojure]
 ---
 
 ## What's a quine?

@@ -8,6 +8,7 @@ thumbnail: assets/klipse.png
 guid: 7AD554D9-05AF-4AA1-A5A4-926A823DE86B
 author: Yehonathan Sharvit
 minified_plugin: true
+tags: [klipse, python]
 ---
 
 This blog post is about to show a new way of blogging about Python.

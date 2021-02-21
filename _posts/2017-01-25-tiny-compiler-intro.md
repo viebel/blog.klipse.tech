@@ -8,6 +8,7 @@ thumbnail: assets/klipse.png
 guid: "DAD172A0-B2A9-4418-B175-453557BE5174"
 author: Yehonathan Sharvit
 minified_plugin: true
+tags: [javascript, compiler]
 ---
 
 ## Writing a compiler

@@ -10,6 +10,7 @@
 :page-liquid:
 :page-author: Yehonathan Sharvit
 :page-date: 2020-12-18 08:21:24 +0200
+:page-tags: [dop]
 
 ++++
 {% include databook-intro.html %}

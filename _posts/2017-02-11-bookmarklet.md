@@ -10,6 +10,7 @@ author: Yehonathan Sharvit
 minified_plugin: true
 draft: true
 hidden: true
+tags: [klipse]
 ---
 
 

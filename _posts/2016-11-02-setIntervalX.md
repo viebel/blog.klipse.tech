@@ -11,6 +11,7 @@ minified_plugin: true
 draft: true
 hidden: true
 klipse_eval_idle_msec: 5000
+tags: [javascript]
 ---
 
 
