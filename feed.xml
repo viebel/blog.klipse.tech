@@ -1,0 +1,1781 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-02-21T01:42:57+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker based in Israel. My passion is to make interesting things easy to understand.&quot;}</name></author><entry><title type="html">Graph visualization playground with Cytoscape.</title><link href="/visualization/2021/02/16/graph-playground-cytoscape.html" rel="alternate" type="text/html" title="Graph visualization playground with Cytoscape." /><published>2021-02-16T14:11:22+00:00</published><updated>2021-02-16T14:11:22+00:00</updated><id>/visualization/2021/02/16/graph-playground-cytoscape</id><content type="html" xml:base="/visualization/2021/02/16/graph-playground-cytoscape.html">&lt;p&gt;Playground for visualizing graphs using &lt;a href=&quot;https://js.cytoscape.org/&quot;&gt;Cytoscape.js&lt;/a&gt; in Clojure.&lt;/p&gt;
+
+&lt;p&gt;We define the default graph options:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(def ^:dynamic *default-graph-options* 
+  {:style [{:selector &quot;node&quot;
+  :style {:background-color &quot;#666&quot;
+        :label &quot;data(label)&quot;}}
+    {:selector &quot;edge&quot;
+      :style {&quot;width&quot; 2
+        :line-color &quot;#ccc&quot;
+        :target-arrow-color &quot;#ccc&quot;
+        :curve-style &quot;bezier&quot;
+        :target-arrow-shape &quot;triangle&quot;
+        :label &quot;data(label)&quot;}}]
+  :layout {:name &quot;circle&quot;}
+  :userZoomingEnabled false
+  :userPanningEnabled false
+  :boxSelectionEnabled false}) 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A function that renders the graph specified by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;elements&lt;/code&gt; on the container whose id is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;container-id&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(defn cytoscape-clj [elements container-id]
+  (js/cytoscape
+   (clj-&amp;gt;js (merge *default-graph-options*
+                   {:container (js/document.getElementById container-id)
+                    :elements elements})))
+  nil)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let’s render a graph with some nodes and edges:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt; (def elements [{:data {:id &quot;a&quot;}}
+               {:data {:id &quot;b&quot;}}
+               {:data {:id &quot;c&quot;}}
+               {:data {:id &quot;d&quot;}}
+               {:data {:id &quot;e&quot;}}
+               {:data {:id &quot;ab&quot; :source &quot;a&quot; :target &quot;b&quot;}}
+               {:data {:id &quot;ad&quot; :source &quot;a&quot; :target &quot;d&quot;}}
+               {:data {:id &quot;be&quot; :source &quot;b&quot; :target &quot;e&quot;}}
+               {:data {:id &quot;cb&quot; :source &quot;c&quot; :target &quot;b&quot;}}
+               {:data {:id &quot;de&quot; :source &quot;d&quot; :target &quot;e&quot;}}])
+ (cytoscape-clj elements &quot;graph-2&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div id=&quot;graph-2&quot; style=&quot;width: 100%; height: 200px; background-color: white;&quot;&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now we write functions that create edges and nodes for a fully-connected graph:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(defn edge [a b] {:data {:source a :target b}})
+(defn connect-all [ids]
+  (for [a ids
+        b ids
+        :when (&amp;lt; a b)]
+    (edge a b)))
+
+(defn nodes [ids]
+  (for [id ids]
+    {:data {:id id}}))
+
+(defn elements [ids]
+  (concat (nodes ids)
+          (connect-all ids)))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We render a fully-connected directed graph with 6 nodes:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(cytoscape-clj (elements (range 6)) &quot;graph-3&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div id=&quot;graph-3&quot; style=&quot;width: 100%; height: 200px; background-color: white;&quot;&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We render a fully-connected undirected graph with 6 nodes:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(binding [*default-graph-options* (assoc-in *default-graph-options*
+            [:style 1 :style :target-arrow-shape] nil)]
+            (cytoscape-clj (elements (range 6)) &quot;graph-4&quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div id=&quot;graph-4&quot; style=&quot;width: 100%; height: 200px; background-color: white;&quot;&gt;
+&lt;/div&gt;
+
+&lt;script type=&quot;text/javascript&quot; async=&quot;&quot; src=&quot;https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.18.0/cytoscape.min.js&quot;&gt;
+&lt;/script&gt;</content><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker based in Israel. My passion is to make interesting things easy to understand.&quot;}</name></author><category term="visualization" /><category term="visualization" /><category term="clojure" /><category term="graph" /><summary type="html">Playground for visualizing graphs using Cytoscape.js in Clojure.</summary></entry><entry><title type="html">Distinction between three data related programming paradigms.</title><link href="/visualization/2021/02/16/data-related-paradigms.html" rel="alternate" type="text/html" title="Distinction between three data related programming paradigms." /><published>2021-02-16T14:11:22+00:00</published><updated>2021-02-16T14:11:22+00:00</updated><id>/visualization/2021/02/16/data-related-paradigms</id><content type="html" xml:base="/visualization/2021/02/16/data-related-paradigms.html">&lt;p&gt;&lt;strong&gt;Data-oriented programming&lt;/strong&gt; is not a new concept. It is a paradigm that is applied by developers from different programming languages in order to reduce the complexity of the systems they build.&lt;/p&gt;
+
+&lt;p&gt;The purpose of my book &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;amp;utm_medium=affiliate&amp;amp;utm_campaign=book_sharvit2_data_1_29_21&amp;amp;a_aid=viebel&amp;amp;a_bid=d5b546b7&quot;&gt;Data-oriented programming&lt;/a&gt; is to explore the principles underlying this paradigm and to illustrate their benefits in the context of a software system.&lt;/p&gt;
+
+&lt;p&gt;The present article describes the distinction between &lt;strong&gt;Data-oriented programming&lt;/strong&gt; and two other programming paradigms whose name contain the term &lt;em&gt;data&lt;/em&gt;: &lt;strong&gt;Data-oriented design&lt;/strong&gt; and &lt;strong&gt;Data-driven programming&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Each paradigm has a its own objective and pursues it by focusing on a different aspect of data.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/data-love.jpg&quot; alt=&quot;data&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;There are only two hard things in Computer Science: cache invalidation and naming things. (&lt;em&gt;Phil Karlton&lt;/em&gt;)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;data-oriented-design&quot;&gt;Data-oriented design&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Data-oriented design&lt;/strong&gt; is a program optimization approach motivated by efficient usage of the CPU cache, used mostly in video game development.&lt;/p&gt;
+
+&lt;p&gt;The approach is to focus on the &lt;strong&gt;data layout&lt;/strong&gt;, separating and sorting fields according to when they are needed, and to think about transformations of data.&lt;/p&gt;
+
+&lt;p&gt;In this context, what’s important is how the data &lt;strong&gt;resides in memory&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;The objective of this paradigm is to &lt;strong&gt;improve the performance&lt;/strong&gt; of the system.&lt;/p&gt;
+
+&lt;h2 id=&quot;data-driven-programming&quot;&gt;Data-driven programming&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Data-driven programming&lt;/strong&gt; is the idea that you create &lt;strong&gt;domain specific languages&lt;/strong&gt; (DSLs) which are made out of &lt;strong&gt;descriptive data&lt;/strong&gt;. It is a branch of declarative programming.&lt;/p&gt;
+
+&lt;p&gt;In this context, what’s important is to describe the &lt;strong&gt;behaviour of a program&lt;/strong&gt; in terms of data.&lt;/p&gt;
+
+&lt;p&gt;The objective of this paradigm is to &lt;strong&gt;increase code clarity&lt;/strong&gt; and to &lt;strong&gt;reduce the risk of bugs&lt;/strong&gt; related to mistakes in the implementation of the expected behaviour of the program.&lt;/p&gt;
+
+&lt;h2 id=&quot;data-oriented-programming&quot;&gt;Data-oriented programming&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Data-oriented programming&lt;/strong&gt; is a paradigm that treats data of the system as a &lt;strong&gt;first-class citizen&lt;/strong&gt;. Data is represented by &lt;strong&gt;generic immutable data structures&lt;/strong&gt; (like maps and vectors) that are manipulated by &lt;strong&gt;general purpose functions&lt;/strong&gt; (like map, filter, select, group, sort …).&lt;/p&gt;
+
+&lt;p&gt;In this context, what’s important is the &lt;strong&gt;representation of data&lt;/strong&gt; by the program.&lt;/p&gt;
+
+&lt;p&gt;The objective of this paradigm is to &lt;strong&gt;reduce the complexity&lt;/strong&gt; of the system.&lt;/p&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;Before we conclude, I’d like to mention that there is a draft &lt;a href=&quot;https://en.wikipedia.org/wiki/Draft:Data-oriented_programming&quot;&gt;Wikipedia article&lt;/a&gt; about Data-Oriented programming. You are welcome to contribute to the article.&lt;/p&gt;
+
+&lt;p&gt;We saw that the three data-related  paradigms have different objectives and each of them pursues its objective by focusing on a different aspect of data inside a program.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Paradigm&lt;/th&gt;
+      &lt;th&gt;Objective&lt;/th&gt;
+      &lt;th&gt;Data&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Data-oriented design&lt;/td&gt;
+      &lt;td&gt;Increase performance&lt;/td&gt;
+      &lt;td&gt;Data layout&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Data-driven programming&lt;/td&gt;
+      &lt;td&gt;Increase clarity&lt;/td&gt;
+      &lt;td&gt;Behaviour described by data&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Data-oriented programming&lt;/td&gt;
+      &lt;td&gt;Reduce complexity&lt;/td&gt;
+      &lt;td&gt;Data representation&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</content><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker based in Israel. My passion is to make interesting things easy to understand.&quot;}</name></author><category term="visualization" /><category term="dop" /><category term="theory" /><summary type="html">Data-oriented programming is not a new concept. It is a paradigm that is applied by developers from different programming languages in order to reduce the complexity of the systems they build.</summary></entry><entry><title type="html">A new way of blogging about Python</title><link href="/python/2021/02/07/blog-python.html" rel="alternate" type="text/html" title="A new way of blogging about Python" /><published>2021-02-07T02:34:28+00:00</published><updated>2021-02-07T02:34:28+00:00</updated><id>/python/2021/02/07/blog-python</id><content type="html" xml:base="/python/2021/02/07/blog-python.html">&lt;p&gt;This blog post is about to show a new way of blogging about Python.&lt;/p&gt;
+
+&lt;p&gt;Look at a typical blog post or tutorial about any programming language: The article usually presents a couple of code snippets. As I see it, there are two pains with code snippets:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;They contain the input and the output but not the &lt;strong&gt;actual evaluation&lt;/strong&gt; of the input&lt;/li&gt;
+  &lt;li&gt;It’s impossible for the reader to &lt;strong&gt;modify&lt;/strong&gt; the output&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;the-forgotten-dream&quot;&gt;The forgotten dream&lt;/h1&gt;
+
+&lt;p&gt;A long time ago, all the developers had a common &lt;strong&gt;dream&lt;/strong&gt;. The dream was about interactivity, instant feedback, evaluation…&lt;/p&gt;
+
+&lt;p&gt;But we put this dream aside - because the browser understands only &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;And after a while, we even forgot that we ever had this dream.&lt;/p&gt;
+
+&lt;p&gt;Still, there are some people that didn’t forget this dream, like Alan Kay:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Question: Well, look at Wikipedia — it’s a tremendous collaboration.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Alan Kay: It is, but go to the article on &lt;a href=&quot;https://en.wikipedia.org/wiki/Logo_(programming_language)&quot;&gt;Logo&lt;/a&gt;, can you write and execute Logo programs? Are there examples? No. The Wikipedia people didn’t even imagine that, in spite of the fact that they’re on a computer.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Here is the &lt;a href=&quot;http://www.drdobbs.com/architecture-and-design/interview-with-alan-kay/240003442?pgno=2&quot; target=&quot;_blank&quot;&gt;full interview of Alan Kay&lt;/a&gt;. (Thanks &lt;a href=&quot;https://twitter.com/fasihsignal&quot;&gt;@fasihsignal&lt;/a&gt; for bringing this quote to our awareness.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/dream.jpg&quot; alt=&quot;dream&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;the-klipse-plugin&quot;&gt;The Klipse plugin&lt;/h1&gt;
+
+&lt;p&gt;The Klipse plugin is a small step toward our forgotten dream: it is a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt; tag that transforms static code snippets of an html page into live and interactive snippets:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Live&lt;/strong&gt;: The code is executed in your browser&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Interactive&lt;/strong&gt;: You can modify the code and it is evaluated as you type&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse&lt;/a&gt; is written in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ClojureScript&lt;/code&gt;,&lt;/p&gt;
+
+&lt;p&gt;The following languages are supported by &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse&lt;/a&gt;: Clojure, Ruby, JavaScript, Ocaml, Scheme, Jsx, Brainfuck, Prolog, C++ and Lua.&lt;/p&gt;
+
+&lt;p&gt;In this article, we are going to demonstrate interactive &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Python&lt;/code&gt; code snippets evaluated by 
+&lt;a href=&quot;https://skulpt.org/&quot;&gt;Skulpt&lt;/a&gt;,  an &lt;strong&gt;entirely in-browser&lt;/strong&gt; implementation of Python.&lt;/p&gt;
+
+&lt;h1 id=&quot;klipsify-an-python-code-snippet&quot;&gt;Klipsify an Python code snippet&lt;/h1&gt;
+
+&lt;p&gt;Let’s have on this page a small static code snippet:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello World!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  
+&lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;(This blog is written with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jekyll&lt;/code&gt;: the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kramdown&lt;/code&gt; plugin helps a lot in beautifying the code snippets.)&lt;/p&gt;
+
+&lt;p&gt;And now, we are going to &lt;strong&gt;klipsify&lt;/strong&gt; this code snippet:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-python&quot;&gt;def hello():
+  print(&quot;Hello World!&quot;)
+  
+hello()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Feel free to edit the code above: it’s interactive =&amp;gt; it evaluates as you type.&lt;/p&gt;
+
+&lt;p&gt;All I had to do in order to &lt;strong&gt;klipsify&lt;/strong&gt; my code snippet, was to set the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;language-klipse-python&lt;/code&gt; class (configurable) to the appropriate html element.&lt;/p&gt;
+
+&lt;p&gt;See it by yourself: here is the source of this page:&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;p&amp;gt;&lt;/span&gt;And now, we are going to &lt;span class=&quot;nt&quot;&gt;&amp;lt;strong&amp;gt;&lt;/span&gt;klipsify&lt;span class=&quot;nt&quot;&gt;&amp;lt;/strong&amp;gt;&lt;/span&gt; this code snippet:&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;pre&amp;gt;&amp;lt;code&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;language-klipse-python&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+def foo:
+  print(&quot;Hello World!&quot;)
+  
+foo()
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;live-demo&quot;&gt;Live demo&lt;/h1&gt;
+
+&lt;p&gt;Before dealing about integration of the Klipse plugin on a web page, let’s enjoy another Klipse snippet implementing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;factorial&lt;/code&gt; in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;python&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-python&quot;&gt;def factorial(n):
+  if n == 0:
+    return 1
+  return n*factorial(n-1)
+
+print(factorial(5))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Go ahead! modify the code snippet above, and it will evaluate as you type…&lt;/p&gt;
+
+&lt;h1 id=&quot;evaluating-a-gist&quot;&gt;Evaluating a gist&lt;/h1&gt;
+
+&lt;p&gt;We can also evaluate code from a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gist&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;For instance, we could evaluate &lt;a href=&quot;https://gist.github.com/viebel/9ab6b853c78c5e651f844ea2568c44a9&quot;&gt;this gist&lt;/a&gt; that tells a turtle to draw a &lt;a href=&quot;https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle&quot;&gt;Sierpiński triangle&lt;/a&gt;.&lt;/p&gt;
+
+&lt;pre&gt;
+&lt;div class=&quot;language-klipse-python&quot; data-gist-id=&quot;viebel/9ab6b853c78c5e651f844ea2568c44a9&quot;&gt;&lt;/div&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;Again, feel free to modify the code…&lt;/p&gt;
+
+&lt;h1 id=&quot;integration&quot;&gt;Integration&lt;/h1&gt;
+
+&lt;p&gt;All you need to do in order to integrate the Klipse plugin to your blog (or any other web page), is to add this &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt; tag to your web page:&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stylesheet&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text/css&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://app.klipse.tech/css/codemirror.css&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;script&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;klipse_settings&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;selector_eval_python_client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;.language-klipse-python&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://app.klipse.tech/plugin_prod/js/klipse_plugin.min.js&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;By the way, this is exactly what we did on the page that you are currently reading.&lt;/p&gt;
+
+&lt;h1 id=&quot;other-languages&quot;&gt;Other languages&lt;/h1&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse plugin&lt;/a&gt; is designed as a platform that could support any language that has a client-side evaluator, by writing modules to the Klipse plugin. Currently, in addition to Python, there are modules available for the following languages:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Javascript: &lt;a href=&quot;http://blog.klipse.tech/javascript/2016/06/20/blog-javascript.html&quot;&gt;A new way of blogging about javascript&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Clojure[script]: &lt;a href=&quot;http://blog.klipse.tech/clojure/2016/06/07/klipse-plugin-tuto.html&quot;&gt;How to klipsify a clojure[script] blog post&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Brainfuck: &lt;a href=&quot;http://blog.klipse.tech/brainfuck/2016/12/17/brainfuck.html&quot;&gt;Brainfuck for dummies&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Scheme: &lt;a href=&quot;http://blog.klipse.tech/scheme/2016/09/11/scheme-tutorial-1.html&quot;&gt;Interactive overview of Scheme’s semantics&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Lua: &lt;a href=&quot;http://blog.klipse.tech/lua/2017/03/19/blog-lua.html&quot;&gt;A new way of blogging about Lua&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;Go ahead!&lt;/p&gt;
+
+&lt;p&gt;Write your own blog post with interactive snippets in your preferred language.&lt;/p&gt;
+
+&lt;p&gt;It’s super simple to integrate the &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse plugin&lt;/a&gt; on a blog post: check the instructions on &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse github repository&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can get some inspiration by &lt;a href=&quot;https://github.com/viebel/klipse#community&quot;&gt;the work of the Klipse community&lt;/a&gt;…&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="python" /><category term="klipse" /><category term="python" /><summary type="html">This blog post is about to show a new way of blogging about Python.</summary></entry><entry><title type="html">Imagine there’s no objects</title><link href="/databook/2021/02/07/imagine.html" rel="alternate" type="text/html" title="Imagine there’s no objects" /><published>2021-02-07T02:34:28+00:00</published><updated>2021-02-07T02:34:28+00:00</updated><id>/databook/2021/02/07/imagine</id><content type="html" xml:base="/databook/2021/02/07/imagine.html">&lt;p&gt;Here is an adaptation of &lt;em&gt;Imagine&lt;/em&gt;, by John Lennon to the context of &lt;strong&gt;Data-Oriented programming&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/EDRRbuWuUbQ&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;Imagine there’s no &lt;em&gt;objects&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;It’s easy if you try&lt;/p&gt;
+
+&lt;p&gt;No &lt;em&gt;classes&lt;/em&gt; below us&lt;/p&gt;
+
+&lt;p&gt;Above us only &lt;em&gt;information&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Imagine all the entities being only &lt;em&gt;data&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Imagine there’s no &lt;em&gt;mutation&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;It isn’t hard to do&lt;/p&gt;
+
+&lt;p&gt;Nothing to protect with a &lt;em&gt;mutex&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;And no &lt;em&gt;deadlock&lt;/em&gt; too&lt;/p&gt;
+
+&lt;p&gt;Imagine all the entities being only &lt;em&gt;data&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;You may say I’m a dreamer&lt;/p&gt;
+
+&lt;p&gt;But I’m not the only one&lt;/p&gt;
+
+&lt;p&gt;I hope some day &lt;em&gt;OO&lt;/em&gt; will join us&lt;/p&gt;
+
+&lt;p&gt;And the world will be as one&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Imagine no &lt;em&gt;code&lt;/em&gt; is &lt;em&gt;locked&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;I wonder if you can&lt;/p&gt;
+
+&lt;p&gt;No need for &lt;em&gt;methods&lt;/em&gt; and &lt;em&gt;inheritance&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;A brotherhood of input and output&lt;/p&gt;
+
+&lt;p&gt;Imagine all the code being &lt;em&gt;pure functions&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;You may say I’m a dreamer&lt;/p&gt;
+
+&lt;p&gt;But I’m not the only one&lt;/p&gt;
+
+&lt;p&gt;I hope some day &lt;em&gt;OO&lt;/em&gt; will join us&lt;/p&gt;
+
+&lt;p&gt;And the world will be as one&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="databook" /><category term="dop" /><summary type="html">Here is an adaptation of Imagine, by John Lennon to the context of Data-Oriented programming.</summary></entry><entry><title type="html">Computing the data diff between two hash maps</title><link href="/databook/2020/12/20/data-diff.html" rel="alternate" type="text/html" title="Computing the data diff between two hash maps" /><published>2020-12-20T00:15:29+00:00</published><updated>2020-12-20T00:15:29+00:00</updated><id>/databook/2020/12/20/data-diff</id><content type="html" xml:base="/databook/2020/12/20/data-diff.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7&quot;&gt; book &lt;/a&gt; about &lt;b&gt;Data-Oriented Programming&lt;/b&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Our &lt;a href=&quot;/databook/2020/12/18/occ-do-git.html&quot;&gt;implementation&lt;/a&gt; of the 3-way merge resolution algorithm, where the system state is represented as a nested hash map, relies on the ability two compare two versions of the system state via the &lt;code&gt;DataDiff&lt;/code&gt; class that implements:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;The computation of a &lt;strong&gt;semantic diff&lt;/strong&gt; between two hash maps (a.k.a data diff)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The detection of &lt;strong&gt;empty intersection&lt;/strong&gt; between two hash maps&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The internals of the &lt;code&gt;DataDiff&lt;/code&gt; class are now revealed.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;the-data-diff-algorithm&quot;&gt;The data diff algorithm&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Computing a &lt;strong&gt;semantic diff&lt;/strong&gt; between two hash maps is the most challenging part of the reconciliation algorithm.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;But at the end of the day, it deals only with &lt;strong&gt;data manipulation&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Let&amp;#8217;s define exactly what we mean by a semantic diff between two hash maps &lt;code&gt;a&lt;/code&gt; and &lt;code&gt;b&lt;/code&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The semantic diff between &lt;code&gt;a&lt;/code&gt; and &lt;code&gt;b&lt;/code&gt; is a hash map &lt;code&gt;d&lt;/code&gt; that contains all the nested fields of &lt;code&gt;b&lt;/code&gt; whose value differ from their value in &lt;code&gt;a&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For instance,&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;DataDiff&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;diff&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;tok-nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;tok-nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-mf&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;tok-nx&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-mf&quot;&gt;3&lt;/span&gt;
+        &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;tok-p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;tok-nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;tok-nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-mf&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;tok-nx&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-mf&quot;&gt;4&lt;/span&gt;
+        &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;should return&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;
+&lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;tok-nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;tok-nx&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-mf&quot;&gt;4&lt;/span&gt;
+    &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Our implementation uses &lt;strong&gt;immutable functions&lt;/strong&gt; from &lt;a href=&quot;/javascript/2020/11/26/lodash-fp.html&quot;&gt;Lodash&lt;/a&gt;. By default, Lodash functions are not immutable. In order to use a immutable version of the functions, we need to use Lodash FP module (Functional Programming), as it is explained in the Lodash FP guide.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;. With this &lt;a href=&quot;#lodash-config&quot;&gt;piece of code&lt;/a&gt; the signature of the immutable functions is exactly the same as the mutable functions.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;lodash-config&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;_ = fp.convert({
+    &amp;quot;cap&amp;quot;: false,
+    &amp;quot;curry&amp;quot;: false,
+    &amp;quot;fixed&amp;quot;: false,
+    &amp;quot;immutable&amp;quot;: true,
+    &amp;quot;rearg&amp;quot;: false
+});&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;And now to the implementation! The core of the code is inside &lt;code&gt;_.reduce()&lt;/code&gt; where we make the recursive call to &lt;code&gt;DataDiff.diff()&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;class DataDiff {
+    static diffObjects(data1, data2) {
+        var emptyObject = _.isArray(data1) ? [] : {};
+        if(data1 == data2) {
+            return emptyObject;
+        }
+        var keys = _.union(_.keys(data1), _.keys(data2));
+        return _.reduce(keys,
+                        function (acc, k) {
+                            var res = DataDiff.diff(_.get(data1, k),
+                                                    _.get(data2, k));
+                            if((_.isObject(res) &amp;amp;&amp;amp; _.isEmpty(res)) ||
+                               (res == &amp;quot;data-diff:no-diff&amp;quot;)) {
+                                return acc;
+                            }
+                            return _.set(acc, k, res);
+                        },
+                        emptyObject);
+    }
+
+    static diff(data1, data2) {
+        if(_.isObject(data1) &amp;amp;&amp;amp; _.isObject(data2)) {
+            return DataDiff.diffObjects(data1, data2);
+        }
+        if(data1 !== data2) {
+            return data2;
+        }
+        return &amp;quot;data-diff:no-diff&amp;quot;;
+    }
+}
+
+window.DataDiff = DataDiff&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;performance-of-calculating-semantic-diff&quot;&gt;Performance of calculating semantic diff&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In the general case, calculating the semantic diff of two hash maps is not efficient as we have to go over all the leaves of both maps.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;But when the two maps are created via &lt;strong&gt;structural sharing&lt;/strong&gt; from the same map, the implementation in &lt;strong&gt;efficient&lt;/strong&gt; as most of the nodes are shared between the two hash maps.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+In DO, the versions of the system state are always created via structural sharing: that&amp;#8217;s why the code in the conflict resolution phase is efficient.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;playing-with-data-diff&quot;&gt;Playing with data diff&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Even if you don&amp;#8217;t grasp all the details of the implementation, feel free to play with &lt;code&gt;DataDiff&lt;/code&gt; and see how it calculates the semantic diff between two hash maps.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var data1 = {
+    g: {
+        c: 3
+    },
+    x: 2,
+    y: {
+        z: 1
+    },
+    w: [5]
+}
+
+var data2 = {
+    g: {
+        c: 3
+    },
+    x: 2,
+    y: {
+        z: 2
+    },
+    w: [4]
+}
+
+DataDiff.diff(data1, data2);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;intersection-of-maps&quot;&gt;Intersection of maps&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;code&gt;DataDiff&lt;/code&gt; also provides a &lt;code&gt;DataDiff.isEmptyIntersection()&lt;/code&gt; that we used in the &lt;a href=&quot;/databook/2020/12/18/occ-do-git.html&quot;&gt;reconciliation algorithm&lt;/a&gt; to detect a conflict.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;DataDiff.leaves = function(obj, prefix = &amp;#39;&amp;#39;) {
+    return _.reduce(obj,
+                    function(acc, v, k) {
+                        if (_.isObject(v)) {
+                            return _.concat(acc,
+                                            DataDiff.leaves(v,
+                                                            prefix + k + &amp;quot;.&amp;quot;))
+                        }
+                        return _.concat(acc, [prefix + k]);
+                    },
+                    []);
+}
+
+DataDiff.isEmptyIntersection = function(delta1, delta2) {
+    return _.isEmpty(_.intersection(DataDiff.leaves(delta1),
+                                    DataDiff.leaves(delta2)));
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Feel free to play with it also!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var diff1 = {
+    g: {
+        c: 3
+    }
+}
+
+var diff2 = {
+    g: {
+        c: 4
+    }
+}
+
+DataDiff.isEmptyIntersection(diff1, diff2);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var diff3 = {
+    g: {
+        c: 3
+    }
+}
+
+var diff4 = {
+    g: {
+        d: 4
+    }
+}
+
+DataDiff.isEmptyIntersection(diff3, diff4);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7&quot;&gt; book &lt;/a&gt; about &lt;b&gt;Data-Oriented Programming&lt;/b&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;script src='https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)'&gt;&lt;/script&gt;
+&lt;script&gt;
+var fp = _.noConflict();
+&lt;/script&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
+&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. &lt;a href=&quot;https://github.com/lodash/lodash/wiki/FP-Guide&quot; class=&quot;bare&quot;&gt;https://github.com/lodash/lodash/wiki/FP-Guide&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><category term="dop" /><summary type="html">This article is an excerpt from my book about Data-Oriented Programming. More excerpts are available on my blog.</summary></entry><entry><title type="html">Applying Git and Optimistic Concurrency Control principles to Data Oriented Programming</title><link href="/databook/2020/12/18/occ-do-git.html" rel="alternate" type="text/html" title="Applying Git and Optimistic Concurrency Control principles to Data Oriented Programming" /><published>2020-12-18T06:21:24+00:00</published><updated>2020-12-18T06:21:24+00:00</updated><id>/databook/2020/12/18/occ-do-git</id><content type="html" xml:base="/databook/2020/12/18/occ-do-git.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7&quot;&gt; book &lt;/a&gt; about &lt;b&gt;Data-Oriented Programming&lt;/b&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;So far in &lt;a href=&quot;/databook/2020/09/27/data-book-toc.html&quot;&gt;the book&lt;/a&gt;, we have seen how Data Oriented Programming (DO) deals with requests that &lt;strong&gt;query information&lt;/strong&gt; about the system, leveraging the representation of the whole system data as a &lt;strong&gt;single nested hash map&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In this chapter, we illustrate how DO deals with &lt;strong&gt;mutations&lt;/strong&gt;, i.e. requests that &lt;strong&gt;change&lt;/strong&gt; the &lt;strong&gt;system state&lt;/strong&gt;. Mutations are inherently more complex than queries, especially in a &lt;strong&gt;concurrent&lt;/strong&gt; system where mutations could conflict.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;DO reduces significantly the complexity of mutations, by constraining the hash map that represents the system data to be &lt;strong&gt;immutable&lt;/strong&gt;. We will see that in virtue of the immutability of the data, the code for a mutation is as &lt;strong&gt;efficient&lt;/strong&gt; as the code for a query and we benefit from the same &lt;strong&gt;power of expression&lt;/strong&gt; and &lt;strong&gt;flexibility&lt;/strong&gt; as with queries.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;DO manages concurrency using a lock free strategy called &lt;strong&gt;Optimistic Concurrency Control&lt;/strong&gt;, that leads to &lt;strong&gt;high throughput&lt;/strong&gt; of queries and mutations. The mutation logic is split into two distinct phases:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;The &lt;strong&gt;Calculation phase&lt;/strong&gt; where we &lt;strong&gt;compute&lt;/strong&gt; what would be the next state of the system if only this mutation were executed.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The &lt;strong&gt;Commit phase&lt;/strong&gt; where we &lt;strong&gt;update&lt;/strong&gt; the state of the system taking into account possible &lt;strong&gt;concurrent&lt;/strong&gt; mutations.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The code in both phases is made &lt;strong&gt;efficient&lt;/strong&gt; in terms of &lt;strong&gt;memory&lt;/strong&gt; and &lt;strong&gt;computation&lt;/strong&gt; by ensuring that the data is &lt;strong&gt;immutable&lt;/strong&gt;: Instead of mutating data in place, we create a new version of the data, leveraging a &lt;strong&gt;structural sharing&lt;/strong&gt; algorithm.  As a consequence, the computation done in the Calculation phase is efficient and the comparison between two versions of the data for conflict resolution in the Commit phase is super fast.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;optimistic-concurrency-control&quot;&gt;Optimistic Concurrency Control&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+&lt;strong&gt;Optimistic Concurrency Control&lt;/strong&gt; with &lt;strong&gt;immutable&lt;/strong&gt; data is super &lt;strong&gt;efficient&lt;/strong&gt;.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In DO, we manage different versions of the system data. At a specific point in time, the state of the system refers to a version of the system data. Each time a mutation is executed, we move forward the reference.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The data is &lt;strong&gt;immutable&lt;/strong&gt; but the state reference is &lt;strong&gt;mutable&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/chapter04/different-versions-t0.png&quot; alt=&quot;different versions t0&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/chapter04/different-versions-t1.png&quot; alt=&quot;different versions t1&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Updating the state of the system is done inside a &lt;strong&gt;commit&lt;/strong&gt; phase. The commit phase is responsible for &lt;strong&gt;reconciling concurrent mutations&lt;/strong&gt; when they don&amp;#8217;t conflict or &lt;strong&gt;aborting&lt;/strong&gt; the mutation.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/chapter04/mutation-flow-icons.png&quot; alt=&quot;mutation flow icons&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;structural-sharing&quot;&gt;Structural sharing&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Structural sharing allows to &lt;strong&gt;efficiently&lt;/strong&gt; create new versions of immutable data. In DO, we leverage &lt;strong&gt;structural sharing&lt;/strong&gt; in the &lt;strong&gt;calculation&lt;/strong&gt; phase of a &lt;strong&gt;mutation&lt;/strong&gt; to compute the next state of the system based of the current state of the system. Inside the calculation phase, we don&amp;#8217;t have to deal with any concurrency control: this is delayed to the commit phase. As a consequence, the code involved in the calculation phase of a mutation remains &lt;strong&gt;stateless&lt;/strong&gt; and is as simple as the code of a query.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Let&amp;#8217;s take a simple example from our library system: &lt;a href=&quot;#lib-data&quot;&gt;a library&lt;/a&gt; with no users and a catalog with a single book: Watchmen.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;lib-data&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var library = {
+    &amp;quot;name&amp;quot;: &amp;quot;The smallest library on earth&amp;quot;,
+    &amp;quot;address&amp;quot;: &amp;quot;Here and now&amp;quot;,
+    &amp;quot;catalog&amp;quot;: {
+        &amp;quot;booksByIsbn&amp;quot;: {
+            &amp;quot;978-1779501127&amp;quot;: {
+                &amp;quot;isbn&amp;quot;: &amp;quot;978-1779501127&amp;quot;,
+                &amp;quot;title&amp;quot;: &amp;quot;Watchmen&amp;quot;,
+                &amp;quot;publicationYear&amp;quot;: 1987,
+                &amp;quot;authorIds&amp;quot;: [&amp;quot;alan-moore&amp;quot;, &amp;quot;dave-gibbons&amp;quot;],
+                &amp;quot;bookItems&amp;quot;: [
+                    {
+                        &amp;quot;id&amp;quot;: &amp;quot;book-item-1&amp;quot;,
+                        &amp;quot;rackId&amp;quot;: &amp;quot;rack-17&amp;quot;,
+                        &amp;quot;isLent&amp;quot;: true
+                    }
+                ]
+            }
+        },
+        &amp;quot;authorsById&amp;quot;: {
+            &amp;quot;alan-moore&amp;quot;: {
+                &amp;quot;name&amp;quot;: &amp;quot;Alan Moore&amp;quot;,
+                &amp;quot;bookIsbns&amp;quot;: [&amp;quot;978-1779501127&amp;quot;]
+            },
+            &amp;quot;dave-gibbons&amp;quot;: {
+                &amp;quot;name&amp;quot;: &amp;quot;Dave Gibbons&amp;quot;,
+                &amp;quot;bookIsbns&amp;quot;: [&amp;quot;978-1779501127&amp;quot;]
+            }
+        }
+    },
+    &amp;quot;userManagement&amp;quot;: {
+        // omitted for now
+    }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Imagine that we want to modify the value of a field in a book in the catalog, for instance the publication year of Watchmen.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;library-information&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/chapter04/library-data-new-version.png&quot; alt=&quot;library data new version&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The information path for Watchmen publication year is: &lt;code&gt;[&quot;catalog&quot;, &quot;booksByIsbn&quot;, &quot;978-1779501127&quot;, &quot;publicationYear&quot;]&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We are going to use the &lt;strong&gt;immutable function&lt;/strong&gt; &lt;code&gt;_.set()&lt;/code&gt; provided by &lt;a href=&quot;/javascript/2020/11/26/lodash-fp.html&quot;&gt;Lodash&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;By default Lodash functions are not immutable. In order to use a immutable version of the functions, we need to use Lodash FP module (Functional Programming), as it is explained in the Lodash FP guide.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;. With this &lt;a href=&quot;#lodash-config&quot;&gt;piece of code&lt;/a&gt; the signature of the immutable functions is exactly the same as the mutable functions.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;lodash-config&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;_ = fp.convert({
+    &amp;quot;cap&amp;quot;: false,
+    &amp;quot;curry&amp;quot;: false,
+    &amp;quot;fixed&amp;quot;: false,
+    &amp;quot;immutable&amp;quot;: true,
+    &amp;quot;rearg&amp;quot;: false
+});&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Here is how we &lt;a href=&quot;#update-publication-year&quot;&gt;write code &lt;/a&gt; that creates a version of the library data where the publication year of Watchmen is updated to 1986, with the &lt;strong&gt;immutable function&lt;/strong&gt; &lt;code&gt;_.set()&lt;/code&gt; provided by Lodash.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;update-publication-year&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var nextLibrary = _.set(library, [&amp;quot;catalog&amp;quot;, &amp;quot;booksByIsbn&amp;quot;,
+                                  &amp;quot;978-1779501127&amp;quot;, &amp;quot;publicationYear&amp;quot;],
+                        1986);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In the new version of the library, the publication year of Watchmen is 1986&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;_.get(nextLibrary, [&amp;quot;catalog&amp;quot;, &amp;quot;booksByIsbn&amp;quot;,
+                    &amp;quot;978-1779501127&amp;quot;, &amp;quot;publicationYear&amp;quot;]);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;However in the previous version of the library, the publication year of Watchmen is still 1987&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;_.get(library, [&amp;quot;catalog&amp;quot;, &amp;quot;booksByIsbn&amp;quot;,
+                &amp;quot;978-1779501127&amp;quot;, &amp;quot;publicationYear&amp;quot;]);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+A function is said to be &lt;strong&gt;immutable&lt;/strong&gt; when instead of mutating the data, it creates a &lt;strong&gt;new version&lt;/strong&gt; of the data without changing the data it receives. The immutable functions provided by Lodash are efficient because they use &lt;strong&gt;structural sharing&lt;/strong&gt;.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Here is an illustration of how &lt;strong&gt;structural sharing&lt;/strong&gt; works.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When you use an &lt;strong&gt;immutable function&lt;/strong&gt; to create a new version of the &lt;code&gt;Library&lt;/code&gt; where the publication year of Watchmen is set to 1986 (instead of 1987), it creates a fresh &lt;code&gt;Library&lt;/code&gt; hash map that &lt;strong&gt;recursively&lt;/strong&gt; uses the parts of the current &lt;code&gt;Library&lt;/code&gt; that are &lt;strong&gt;common&lt;/strong&gt; between the two versions instead of deeply copying them. This technique is called: &lt;strong&gt;structural sharing&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;structural-sharing-a&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/chapter04/structural-sharing.png&quot; alt=&quot;structural sharing&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The next version of the &lt;code&gt;Library&lt;/code&gt;, uses the same &lt;code&gt;UserManagement&lt;/code&gt; hash map as the old one. The &lt;code&gt;Catalog&lt;/code&gt; inside the next &lt;code&gt;Library&lt;/code&gt; uses the same &lt;code&gt;authorsById&lt;/code&gt; as the current &lt;code&gt;Catalog&lt;/code&gt;. The Watchmen &lt;code&gt;Book&lt;/code&gt; record inside the next &lt;code&gt;Catalog&lt;/code&gt; uses all the fields of the current &lt;code&gt;Book&lt;/code&gt; except for the &lt;code&gt;publicationYear&lt;/code&gt; field.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;As you can see by yourself, in &lt;code&gt;nextLibrary&lt;/code&gt; the &lt;code&gt;authorsById&lt;/code&gt; node is the exact same reference as in &lt;code&gt;library&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;_.get(nextLibrary, [&amp;quot;catalog&amp;quot;, &amp;quot;authorsById&amp;quot;]) == _.get(library, [&amp;quot;catalog&amp;quot;, &amp;quot;authorsById&amp;quot;])&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We will see in a moment how we leverage this sharing of references to make the commit phase efficient.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+&lt;strong&gt;Structural sharing&lt;/strong&gt; provides an &lt;strong&gt;efficient&lt;/strong&gt; way (both &lt;strong&gt;memory&lt;/strong&gt; and &lt;strong&gt;computation&lt;/strong&gt;) to create a new version of the data by recursively sharing the parts that don&amp;#8217;t need to change.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;persistent-data-structures&quot;&gt;Persistent data structures&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+&lt;strong&gt;Persistent data structures&lt;/strong&gt; ensure the immutability of the data at the &lt;strong&gt;level of the data structure&lt;/strong&gt; while immutable functions provide the immutability of the data at the level of the functions.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The way data is organized inside persistent data structures make them &lt;strong&gt;more efficient&lt;/strong&gt; than immutable functions.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;There are &lt;strong&gt;libraries&lt;/strong&gt; providing persistent data structures in many languages: Immutable.js in JavaScript,&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt; Paguro in Java,&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_3&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_3&quot; title=&quot;View footnote.&quot;&gt;3&lt;/a&gt;]&lt;/sup&gt; Immutable Collections in C#,&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_4&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_4&quot; title=&quot;View footnote.&quot;&gt;4&lt;/a&gt;]&lt;/sup&gt; Pyrsistent in Python,&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_5&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_5&quot; title=&quot;View footnote.&quot;&gt;5&lt;/a&gt;]&lt;/sup&gt; and Hamster in Ruby.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_6&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_6&quot; title=&quot;View footnote.&quot;&gt;6&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;strong&gt;drawback&lt;/strong&gt; of persistent data structures is that they are not native which means that working with them require &lt;strong&gt;conversion&lt;/strong&gt; from native to persistent and from persistent to native.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;That&amp;#8217;s one of the reasons why I love Clojure: the native data structures of the language are immutable!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;the-reconciliation-algorithm&quot;&gt;The reconciliation algorithm&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+In a production system, multiple mutations run concurrently. Before updating the state, we need to reconcile.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;Reconciliation&lt;/strong&gt; between possible &lt;strong&gt;concurrent mutations&lt;/strong&gt; is quite similar to what could happen in git when you push your changes to a branch and you discover that meanwhile the branch has moved forward because another developer has pushed her code to the branch.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Like in git, there are &lt;a href=&quot;#occ-merge&quot;&gt;three possibilities to reconcile&lt;/a&gt; between possible concurrent mutations: fast forward, 3-way merge or abort.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;occ-merge&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/chapter04/occ-merge.png&quot; alt=&quot;occ merge&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When the Commit phase of a mutation starts, we have &lt;a href=&quot;#three-versions&quot;&gt;3 versions of the system state&lt;/a&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;previous&lt;/code&gt; - the version on which the Calculation phase based its computation&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;current&lt;/code&gt; - the current version&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;next&lt;/code&gt; - the version returned by the Calculation phase&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div id=&quot;three-versions&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/chapter04/3-versions.png&quot; alt=&quot;3 versions&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If we are in a situation where the &lt;strong&gt;current state is the same as the previous state&lt;/strong&gt;, it means that no mutations run concurrently. Therefore, like in git, we can safely &lt;strong&gt;fast forward&lt;/strong&gt; and update the state of the system with the next version.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If the state has not remained the same, it means that mutations have run concurrently. We have to check for conflicts in a way similar to the &lt;strong&gt;3-way merge&lt;/strong&gt; used by git. The difference is that instead of comparing lines, we compare fields of the system hash map.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We calculate the data diff between &lt;code&gt;previous&lt;/code&gt; and &lt;code&gt;next&lt;/code&gt; and between &lt;code&gt;previous&lt;/code&gt; and &lt;code&gt;current&lt;/code&gt;. If the two diffs are distinct, then there is no conflict between the mutations that have run concurrently. We can safely merge the changes from &lt;code&gt;previous&lt;/code&gt; to &lt;code&gt;next&lt;/code&gt; into &lt;code&gt;current&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;three-way-merge&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/chapter04/3-way-merge.png&quot; alt=&quot;3 way merge&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;title&quot;&gt;Figure 1. In a 3-way merge, we calculate the diff between &lt;code&gt;previous&lt;/code&gt; and &lt;code&gt;next&lt;/code&gt; and we apply it to &lt;code&gt;current&lt;/code&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;And if there is a conflict, we abort the mutation.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+In a user facing system, conflicting concurrent mutations are fairly rare: that&amp;#8217;s why it&amp;#8217;s OK to abort and let the user run the mutation again.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;the-implementation-of-the-commit-phase&quot;&gt;The implementation of the Commit phase&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The code for the Commit phase is made of 3 classes:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;System&lt;/code&gt;, a stateful class that implements the mutations&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;SystemData&lt;/code&gt; a singleton stateful class&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;SystemConsistency&lt;/code&gt;, a stateless class that provides conflict resolution logic&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Let&amp;#8217;s start with the &lt;code&gt;System&lt;/code&gt; class and how it &lt;a href=&quot;#add-member-mutation&quot;&gt;implements&lt;/a&gt; the &lt;code&gt;addMember&lt;/code&gt; mutation.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;add-member-mutation&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;class System {
+    addMember(member) {
+        var librarySnapshot = SystemData.get();
+        var nextLibary = Library.addMember(librarySnapshot, member);
+        SystemData.commit(librarySnapshot, nextLibrary);
+    }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Here is the &lt;a href=&quot;#system-data&quot;&gt;code&lt;/a&gt; for the &lt;code&gt;SystemData&lt;/code&gt; class: It is the only stateful class in a DO system!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;system-data&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;class SystemData {
+    systemData;
+
+    get() {
+        return this.systemData;
+    }
+
+    set(_systemData) {
+        this.systemData = _systemData;
+    }
+
+    commit(previous, next) {
+        this.systemData = SystemConsistency.reconcile(this.systemData,
+                                                      previous,
+                                                      next);
+    }
+}
+
+window.SystemData = SystemData;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;And how does &lt;code&gt;SystemConsistency&lt;/code&gt; do the reconciliation?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;code&gt;SystemConsistency&lt;/code&gt; &lt;a href=&quot;#consistency&quot;&gt;class&lt;/a&gt; starts the reconciliation process by comparing &lt;code&gt;previous&lt;/code&gt; and &lt;code&gt;current&lt;/code&gt;. If they are the same, then we fast-forward and return &lt;code&gt;next&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock hidden&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;class DataDiff {
+    static diffObjects(data1, data2) {
+        var emptyObject = _.isArray(data1) ? [] : {};
+        if(data1 == data2) {
+            return emptyObject;
+        }
+        var keys = _.union(_.keys(data1), _.keys(data2));
+        return _.reduce(keys,
+                        function (acc, k) {
+                            var res = DataDiff.diff(_.get(data1, k),
+                                                    _.get(data2, k));
+                            if((_.isObject(res) &amp;amp;&amp;amp; _.isEmpty(res)) ||
+                               (res == &amp;quot;data-diff:no-diff&amp;quot;)) {
+                                return acc;
+                            }
+                            return _.set(acc, k, res);
+                        },
+                        emptyObject);
+    }
+
+    static diff(data1, data2) {
+        if(_.isObject(data1) &amp;amp;&amp;amp; _.isObject(data2)) {
+            return DataDiff.diffObjects(data1, data2);
+        }
+        if(data1 !== data2) {
+            return data2;
+        }
+        return &amp;quot;data-diff:no-diff&amp;quot;;
+    }
+
+    static leaves(obj, prefix = &amp;#39;&amp;#39;) {
+        return _.reduce(obj,
+                        function(acc, v, k) {
+                            if (_.isObject(v)) {
+                                return _.concat(acc,
+                                                DataDiff.leaves(v,
+                                                                prefix + k + &amp;quot;.&amp;quot;))
+                            }
+                            return _.concat(acc, [prefix + k]);
+                        },
+                        []);
+    }
+    static isEmptyIntersection(delta1, delta2) {
+        return _.isEmpty(_.intersection(DataDiff.leaves(delta1),
+                                        DataDiff.leaves(delta2)));
+    }
+}
+
+window.DataDiff = DataDiff&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;consistency&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;class SystemConsistency {
+    static threeWayMerge(current, previous, next) {
+        var previousToCurrent = DataDiff.diff(previous, current);
+        var previousToNext = DataDiff.diff(previous, next);
+        if(DataDiff.isEmptyIntersection(previousToCurrent, previousToNext)) {
+            return _.merge(current, previousToNext);
+        }
+        throw &amp;quot;Conflicting concurrent mutations.&amp;quot;;
+    }
+    static reconcile(current, previous, next) {
+        if(current == previous) {
+            // fast forward
+            return next;
+        }
+        return SystemConsistency.threeWayMerge(current,
+                                               previous,
+                                               next);
+    }
+}
+window.SystemConsistency = SystemConsistency;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The reconciliation algorithm relies on &lt;code&gt;DataDiff&lt;/code&gt; class that implements the computation of a data diff between two hash maps and the detection of empty intersection. The internals of the &lt;code&gt;DataDiff&lt;/code&gt; class are revealed in &lt;a href=&quot;/databook/2020/12/20/data-diff.html&quot;&gt;Computing the data diff between two hash maps&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Have you noticed that we compare &lt;code&gt;previous&lt;/code&gt; and &lt;code&gt;current&lt;/code&gt; by reference instead of comparing them recursively &lt;strong&gt;by value&lt;/strong&gt;? That&amp;#8217;s another &lt;strong&gt;benefit of immutable data&lt;/strong&gt;: when the data is not mutated, it is safe to &lt;strong&gt;compare references&lt;/strong&gt; and if they are the same, we know for sure that the data is the same.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now, to the implementation of the 3-way merge algorithm.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When &lt;code&gt;previous&lt;/code&gt; differs from &lt;code&gt;current&lt;/code&gt;, it means that concurrent mutations have run. In order to determine whether there is a conflict or not, we calculate the two diffs: &lt;code&gt;previousToCurrent&lt;/code&gt; and &lt;code&gt;previousToNext&lt;/code&gt;. If the intersection between the two diffs is empty, it means there is not conflict. We merge &lt;code&gt;previousToNext&lt;/code&gt; into &lt;code&gt;current&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You may have noticed that think the &lt;a href=&quot;#consistency&quot;&gt;code&lt;/a&gt; for the &lt;code&gt;Consistency&lt;/code&gt; class is &lt;strong&gt;not thread safe&lt;/strong&gt;! If there is a context switch between checking whether the system has changed in the &lt;code&gt;Consistency&lt;/code&gt; class and the updating of the state in &lt;code&gt;SystemData&lt;/code&gt; class, a mutation might override the changes of a previous mutation.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The code works fine in a single threaded environment like JavaScript where concurrency is handled via an &lt;strong&gt;event loop&lt;/strong&gt;. However in a &lt;strong&gt;multi threaded&lt;/strong&gt; environment, the code needs to be refined a bit and use atoms to be thread safe.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;some-examples&quot;&gt;Some examples&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Let&amp;#8217;s make the reconciliation algorithm more concrete by giving an example of a reconciliation between non-conflicting concurrent mutations.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A mutation that updates the publication year of a book &lt;a href=&quot;#compatible-mutations&quot;&gt;will not conflict&lt;/a&gt; with a mutation that updates the title of the same book. A reconciliation will result in a system state where both the title and the publication year are updated.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;compatible-mutations&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var previous = library;
+var next = _.set(library,
+                [&amp;quot;catalog&amp;quot;, &amp;quot;booksByIsbn&amp;quot;, &amp;quot;978-1779501127&amp;quot;, &amp;quot;publicationYear&amp;quot;],
+                1986);
+var current = _.set(library,
+                    [&amp;quot;catalog&amp;quot;, &amp;quot;booksByIsbn&amp;quot;, &amp;quot;978-1779501127&amp;quot;, &amp;quot;title&amp;quot;],
+                    &amp;quot;The Watchmen&amp;quot;);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The diff between &lt;code&gt;previous&lt;/code&gt; and &lt;code&gt;current&lt;/code&gt; is a nested map with &lt;a href=&quot;#diff-previous-current&quot;&gt;a single field&lt;/a&gt; that holds the updated title.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;diff-previous-current&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;DataDiff.diff(previous, current);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;And the diff between &lt;code&gt;previous&lt;/code&gt; and &lt;code&gt;next&lt;/code&gt; is also made of a &lt;a href=&quot;#diff-previous-next&quot;&gt;single field&lt;/a&gt; for the updated publication year.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;diff-previous-next&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;DataDiff.diff(previous, next);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now you see clearly how the code detects that the two mutations don&amp;#8217;t conflict: the two nested maps have no leaf in common!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;a href=&quot;#lib-data-reconciled&quot;&gt;result of the reconciliation&lt;/a&gt; is a library where both the title and the publication year are updated.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;lib-data-reconciled&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;_.get(SystemConsistency.reconcile(current, previous, next),
+     &amp;quot;catalog&amp;quot;);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;And here is an example of conflicting mutations: Two mutations that update the publication year of the same book &lt;a href=&quot;#incompatible-mutations&quot;&gt;will conflict&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;incompatible-mutations&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var previous2 = library;
+var next2 = _.set(library,
+                 [&amp;quot;catalog&amp;quot;, &amp;quot;booksByIsbn&amp;quot;, &amp;quot;978-1779501127&amp;quot;, &amp;quot;publicationYear&amp;quot;],
+                 1984);
+var current2 = _.set(library,
+                    [&amp;quot;catalog&amp;quot;, &amp;quot;booksByIsbn&amp;quot;, &amp;quot;978-1779501127&amp;quot;, &amp;quot;publicationYear&amp;quot;],
+                    1986);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Here the two diffs contain the same field.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;DataDiff.diff(previous2, current2);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;DataDiff.diff(previous2, next2);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In that case, the reconciliation will fail.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;wrapping-up&quot;&gt;Wrapping up&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In this chapter, we have explored how DO &lt;strong&gt;manages state&lt;/strong&gt; with &lt;strong&gt;Optimistic Concurrency Control&lt;/strong&gt;, where the mutation logic is split into Calculation and Commit phases.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;During the &lt;strong&gt;Calculation phase&lt;/strong&gt;, the data is manipulated with &lt;strong&gt;immutable functions&lt;/strong&gt; that leverage &lt;strong&gt;structural sharing&lt;/strong&gt; to create &lt;strong&gt;efficiently&lt;/strong&gt; (memory and computation) a &lt;strong&gt;new version&lt;/strong&gt; of the data where the data that is common between the two versions is shared.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;Conflict resolution&lt;/strong&gt; between &lt;strong&gt;concurrent mutations&lt;/strong&gt; occur in the &lt;strong&gt;Commit&lt;/strong&gt; phase. The code for the &lt;strong&gt;commit phase&lt;/strong&gt; is common to all the mutations. The code that implements conflict detection in the commit phase is efficient in virtue of &lt;strong&gt;structural sharing&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7&quot;&gt; book &lt;/a&gt; about &lt;b&gt;Data-Oriented Programming&lt;/b&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;script src='https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)'&gt;&lt;/script&gt;
+&lt;script&gt;
+var fp = _.noConflict();
+&lt;/script&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
+&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. &lt;a href=&quot;https://github.com/lodash/lodash/wiki/FP-Guide&quot; class=&quot;bare&quot;&gt;https://github.com/lodash/lodash/wiki/FP-Guide&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
+&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. &lt;a href=&quot;https://immutable-js.github.io/immutable-js/&quot; class=&quot;bare&quot;&gt;https://immutable-js.github.io/immutable-js/&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_3&quot;&gt;
+&lt;a href=&quot;#_footnoteref_3&quot;&gt;3&lt;/a&gt;. &lt;a href=&quot;https://github.com/GlenKPeterson/Paguro&quot; class=&quot;bare&quot;&gt;https://github.com/GlenKPeterson/Paguro&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_4&quot;&gt;
+&lt;a href=&quot;#_footnoteref_4&quot;&gt;4&lt;/a&gt;. &lt;a href=&quot;https://docs.microsoft.com/en-us/archive/msdn-magazine/2017/march/net-framework-immutable-collections&quot; class=&quot;bare&quot;&gt;https://docs.microsoft.com/en-us/archive/msdn-magazine/2017/march/net-framework-immutable-collections&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_5&quot;&gt;
+&lt;a href=&quot;#_footnoteref_5&quot;&gt;5&lt;/a&gt;. &lt;a href=&quot;https://github.com/tobgu/pyrsistent&quot; class=&quot;bare&quot;&gt;https://github.com/tobgu/pyrsistent&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_6&quot;&gt;
+&lt;a href=&quot;#_footnoteref_6&quot;&gt;6&lt;/a&gt;. &lt;a href=&quot;https://github.com/hamstergem/hamster&quot; class=&quot;bare&quot;&gt;https://github.com/hamstergem/hamster&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><category term="dop" /><summary type="html">This article is an excerpt from my book about Data-Oriented Programming. More excerpts are available on my blog.</summary></entry><entry><title type="html">Functional Lodash</title><link href="/javascript/2020/11/26/lodash-fp.html" rel="alternate" type="text/html" title="Functional Lodash" /><published>2020-11-26T01:43:52+00:00</published><updated>2020-11-26T01:43:52+00:00</updated><id>/javascript/2020/11/26/lodash-fp</id><content type="html" xml:base="/javascript/2020/11/26/lodash-fp.html">&lt;p&gt;Did you know that &lt;a href=&quot;https://lodash.com/&quot;&gt;Lodash&lt;/a&gt; - the popular JavaScript utility library - had a &lt;strong&gt;functional&lt;/strong&gt; flavor?&lt;/p&gt;
+
+&lt;p&gt;The most exciting part to me is that functions of Lodash FP do not &lt;strong&gt;mutate&lt;/strong&gt; the data they receive.&lt;/p&gt;
+
+&lt;p&gt;As a Clojure developer, I am excited because I am &lt;strong&gt;addicted&lt;/strong&gt; to &lt;strong&gt;data immutability&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/serenity-immutability.png&quot; alt=&quot;Immutability&quot; /&gt;&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;amp;utm_medium=affiliate&amp;amp;utm_campaign=book_sharvit2_data_1_29_21&amp;amp;a_aid=viebel&amp;amp;a_bid=d5b546b7&quot;&gt; book &lt;/a&gt; about &lt;b&gt;Data-Oriented Programming&lt;/b&gt;. 
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;br /&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;tldr&quot;&gt;TL;DR&lt;/h1&gt;
+
+&lt;p&gt;Lodash FP differs from the standard Lodash on 4 main points:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;The functions receive the &lt;strong&gt;data&lt;/strong&gt; to be manipulated as &lt;strong&gt;last argument&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;The functions &lt;strong&gt;do not mutate&lt;/strong&gt; the data they manipulate&lt;/li&gt;
+  &lt;li&gt;The functions are &lt;strong&gt;auto curried&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;The functions receive the &lt;strong&gt;iteratee&lt;/strong&gt; as &lt;strong&gt;first argument&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;immutability&quot;&gt;Immutability&lt;/h1&gt;
+
+&lt;p&gt;In Lodash FP, the functions do not &lt;strong&gt;mutate&lt;/strong&gt; the data they manipulate.&lt;/p&gt;
+
+&lt;p&gt;For instance, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;set()&lt;/code&gt; function differs from the standard Lodash in two points:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;It receives the object as &lt;strong&gt;last argument&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;It returns a &lt;strong&gt;new version&lt;/strong&gt; of the object instead of modifying the object&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;In the following code snippet, you see that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; is not modified by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fp.set()&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;var a = {foo: 1};
+var b = fp.set(&quot;foo&quot;, 2, a);
+[a, b]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;However in standard Lodash, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; is modified by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_.set()&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;var a = {foo: 1};
+var b = _.set(a, &quot;foo&quot;, 2);
+[a, b]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://stackoverflow.com/questions/65055922/how-do-immutable-methods-work-in-lodash-fp/65059704#65059704&quot;&gt;implementation&lt;/a&gt; of the data immutability is based on &lt;strong&gt;structural sharing&lt;/strong&gt;, which makes it efficient both in terms of memory and CPU.&lt;/p&gt;
+
+&lt;h1 id=&quot;auto-currying&quot;&gt;Auto currying&lt;/h1&gt;
+
+&lt;p&gt;In Lodash FP, the functions that receive an &lt;strong&gt;iteratee&lt;/strong&gt; (a piece of code that expresses the data manipulation) receive the iteratee as &lt;strong&gt;first argument&lt;/strong&gt; and are &lt;strong&gt;curried&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Functions like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;map()&lt;/code&gt; receive a single argument (the iteratee) and return a function to be called on a collection:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;fp.map(x =&amp;gt; x +1)([1, 2, 3])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Functions like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;reduce()&lt;/code&gt; function receive two arguments (the iteratee and the accumulator) and return a function to be called on a collection:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;fp.reduce((a,b) =&amp;gt; a + b, 0)([1, 2, 3])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;configuration&quot;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;If you want to benefit from the immutability without changing the argument order, you can configure it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;// Every option is `true` by default.
+var _fp = fp.convert({
+  // Specify capping iteratee arguments.
+  'cap': false,
+  // Specify currying.
+  'curry': false,
+  // Specify fixed arity.
+  'fixed': false,
+  // Specify immutable operations.
+  'immutable': true,
+  // Specify rearranging arguments.
+  'rearg': false
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, Lodash FP looks like regular Lodash, excepts it doesn’t mutate data:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;var a = {foo: 1};
+var b = _fp.set(a, &quot;foo&quot;, 2);
+[a, b]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;installation&quot;&gt;Installation&lt;/h1&gt;
+
+&lt;p&gt;The installation instruction and the semantics of the functional flavor are exposed in &lt;a href=&quot;https://github.com/lodash/lodash/wiki/FP-Guide&quot;&gt;Lodash FP Guide&lt;/a&gt;.&lt;/p&gt;
+
+&lt;script src=&quot;https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)&quot;&gt;&lt;/script&gt;
+
+&lt;script&gt;
+var fp = _.noConflict();
+&lt;/script&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="javascript" /><category term="javascript" /><summary type="html">Did you know that Lodash - the popular JavaScript utility library - had a functional flavor?</summary></entry><entry><title type="html">Manipulate immutable collections with no performance hit.</title><link href="/javascript/2020/11/09/immutable-manipulate.html" rel="alternate" type="text/html" title="Manipulate immutable collections with no performance hit." /><published>2020-11-09T00:21:34+00:00</published><updated>2020-11-09T00:21:34+00:00</updated><id>/javascript/2020/11/09/immutable-manipulate</id><content type="html" xml:base="/javascript/2020/11/09/immutable-manipulate.html">&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/immutable/4.0.0-rc.12/immutable.min.js&quot; integrity=&quot;sha512-OA48phPVdkQE2u9b6nhv71zeq9zvwc6oLq3IVWLw8WfRlcRO/+6zhUcWZxfXi75agm3bfqCxIdstBfK/g6fYvw==&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js&quot; integrity=&quot;sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww==&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;Constraining our programs to manipulate &lt;strong&gt;immutable data structures&lt;/strong&gt; is &lt;a href=&quot;/databook/2020/10/02/immutable-data.html&quot;&gt;known to be beneficial&lt;/a&gt; in terms of code predictability, concurrency and safety.&lt;/p&gt;
+
+&lt;p&gt;In a language like Clojure, where immutable data structures are native to the language, this benefits come for free.
+However, in languages where immutable data structures are not &lt;strong&gt;native&lt;/strong&gt; to the language, the &lt;strong&gt;price&lt;/strong&gt; we have to pay to benefit from data immutability is that we need to &lt;strong&gt;convert the data back and forth&lt;/strong&gt; from immutable to native. Beside the inconvenience of this conversion, it might cause a &lt;strong&gt;performance hit&lt;/strong&gt;, it we are not careful with the conversion.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/fast-car-infiniti.jpg&quot; alt=&quot;Car&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The purpose of the is article is to illustrate how to manipulate carefully immutable data collection from Immutable.js with the a data manipulation library like Lodash.js, leveraging Immutable’s &lt;strong&gt;shallow and deep conversion&lt;/strong&gt; functions.&lt;/p&gt;
+
+&lt;p&gt;A similar approach could be applied to other immutable data collection libraries and other data manipulation libraries (and also to other programming languages).&lt;/p&gt;
+
+&lt;p&gt;Imagine we have a nested piece of data that we want to:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Treat as &lt;strong&gt;immutable&lt;/strong&gt; (e.g Immutable.js)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Manipulate&lt;/strong&gt; with data manipulation library (e.g Lodash.js)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The challenge is that Immutable.js data collections are not native JavaScript objects. Therefore, before passing the data to a JavaScript library, we have to convert it to a JavaScript object. In this article, we are going to show how to convert to JavaScript without impacting the performance too much.&lt;/p&gt;
+
+&lt;p&gt;Let’s take as an example the data of a library, that might looks similar to this nested object:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;var libraryData = {
+  &quot;name&quot;: &quot;The smallest library on earth&quot;,
+  &quot;address&quot;: &quot;Here and now&quot;,
+  &quot;catalog&quot;: {
+    &quot;books&quot;: [
+      {
+        &quot;title&quot;: &quot;Watchmen&quot;,
+        &quot;publicationYear&quot;: 1986,
+        &quot;authors&quot;: [
+          {
+            &quot;firstName&quot;: &quot;Alan&quot;,
+            &quot;lastName&quot;: &quot;Moore&quot;
+          },
+          {
+            &quot;firstName&quot;: &quot;Dave&quot;,
+            &quot;lastName&quot;: &quot;Gibbons&quot;
+          }
+        ]
+      },
+      {
+        &quot;title&quot;: &quot;Jimmy Corrigan, the Smartest Kid on Earth&quot;,
+        &quot;publicationYear&quot;: 2000,
+        &quot;authors&quot;: [
+          {
+            &quot;firstName&quot;: &quot;Chris&quot;,
+            &quot;lastName&quot;: &quot;Ware&quot;
+          }
+        ]
+      },
+      {
+        &quot;title&quot;: &quot;Ultimate Spider-Man&quot;,
+        &quot;publicationYear&quot;: 2000,
+        &quot;authors&quot;: [
+          {
+            &quot;firstName&quot;: &quot;Brian Michael&quot;,
+            &quot;lastName&quot;: &quot;Bendis&quot;
+          }
+        ]
+      }
+    ]
+  },
+  &quot;users&quot;: [
+    {&quot;username&quot;: &quot;user-1&quot;}, {&quot;username&quot;: &quot;user-2&quot;}, {&quot;username&quot;: &quot;user-3&quot;}
+  ]
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, we convert the native JavaScript object to an Immutable map with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fromJS()&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;var immutableLibData = Immutable.fromJS(libraryData);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Our purpose is to find the best way to call &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_.countBy()&lt;/code&gt; on our immutable collection, in the same way as we would use it on the JavaScript native object:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;_.countBy(libraryData.catalog.books, &quot;publicationYear&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Immutable.js provides a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.toJS()&lt;/code&gt; function that &lt;strong&gt;deeply converts&lt;/strong&gt; an immutable collection to a JavaScript object or array.&lt;/p&gt;
+
+&lt;p&gt;We are then free to pass &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;immutableLibData.toJS()&lt;/code&gt; to any Lodash function:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;_.countBy(immutableLibData.toJS().catalog.books, &quot;publicationYear&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The problem is that it causes a &lt;strong&gt;performance hit&lt;/strong&gt;, as we have to convert the whole &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;immutableLibData&lt;/code&gt; immutable collection (including the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;users&lt;/code&gt; part which is unnecessary)&lt;/p&gt;
+
+&lt;p&gt;A better solution is to convert only the part of the data that we are interested in:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;_.countBy(immutableLibData.getIn([&quot;catalog&quot;, &quot;books&quot;]).toJS(), &quot;publicationYear&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But still, there is a performance hit as we convert the books data deeply (including the authors part which is unnecessary).&lt;/p&gt;
+
+&lt;p&gt;The best thing we can do, is to do a careful shallow conversion to native JavaScript: It requires 2 steps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Shallow convert&lt;/strong&gt; books to a JavaScript array with Immutable’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;toArray()&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Shallow convert&lt;/strong&gt; each object of the books array to a JavaScript object with Immutable’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;toObject()&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Here is the code for that:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;function toArrayofObjects(m) {
+  return m.toArray().map(x =&amp;gt; x.toObject());
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And now, we can use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_.countBy()&lt;/code&gt; with no unnecessary performance hit:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;_.countBy(toArrayofObjects(immutableLibData.getIn([&quot;catalog&quot;, &quot;books&quot;])), &quot;publicationYear&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A similar approach could be applied to other immutable data collection libraries and other data manipulation libraries (and also to other programming languages). The &lt;strong&gt;features&lt;/strong&gt; that the immutable data collection library needs to provide are:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Deep conversion&lt;/strong&gt; to native objects (like Immutable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;toJS()&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Shallow conversion&lt;/strong&gt; to native objects (like Immutable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;toArray()&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;toObject()&lt;/code&gt;)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Enjoy immutability!&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;amp;utm_medium=affiliate&amp;amp;utm_campaign=book_sharvit2_data_1_29_21&amp;amp;a_aid=viebel&amp;amp;a_bid=d5b546b7&quot;&gt; book &lt;/a&gt; about &lt;b&gt;Data-Oriented Programming&lt;/b&gt;. 
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;br /&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="javascript" /><category term="javascript" /><summary type="html"></summary></entry><entry><title type="html">Clojure and EDN diff tool</title><link href="/clojure/2020/10/08/edn-diff.html" rel="alternate" type="text/html" title="Clojure and EDN diff tool" /><published>2020-10-08T05:21:22+00:00</published><updated>2020-10-08T05:21:22+00:00</updated><id>/clojure/2020/10/08/edn-diff</id><content type="html" xml:base="/clojure/2020/10/08/edn-diff.html">&lt;p&gt;Compare recursively two Clojure data structures &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;b&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Comparison is updated as you type…&lt;/p&gt;
+
+&lt;pre class=&quot;hidden&quot;&gt;&lt;code class=&quot;language-klipse&quot;&gt;
+(require '[clojure.data :refer [diff]])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(def a {:only-in-a 1
+        :both-in-a-and-b 3}) 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(def b {:only-in-b 2
+        :both-in-a-and-b 3}) 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Full comparison:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(def full-comparison (clojure.data/diff a b)) 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Things only in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(first full-comparison)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Things only in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;b&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(second full-comparison)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Things in both &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;b&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(last full-comparison)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Comparison rules:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;For equal &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;b&lt;/code&gt;, return &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[nil nil a]&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Maps are subdiffed where keys match and values differ.&lt;/li&gt;
+  &lt;li&gt;Sets are never subdiffed.&lt;/li&gt;
+  &lt;li&gt;All sequential things are treated as associative collections by their indexes, with results returned as vectors.&lt;/li&gt;
+  &lt;li&gt;Everything else (including strings!) is treated as an atom and compared for equality.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Explore more examples on &lt;a href=&quot;https://clojuredocs.org/clojure.data/diff&quot;&gt;ClojureDocs&lt;/a&gt;.&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="clojure" /><category term="clojure" /><summary type="html">Compare recursively two Clojure data structures a and b.</summary></entry><entry><title type="html">DO Principle #5: Data has a literal representation</title><link href="/databook/2020/10/03/data-literal.html" rel="alternate" type="text/html" title="DO Principle #5: Data has a literal representation" /><published>2020-10-03T18:31:24+00:00</published><updated>2020-10-03T18:31:24+00:00</updated><id>/databook/2020/10/03/data-literal</id><content type="html" xml:base="/databook/2020/10/03/data-literal.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7&quot;&gt; book &lt;/a&gt; about &lt;b&gt;Data-Oriented Programming&lt;/b&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In Data Oriented programming data is a first class citizen that is considered as a value.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It comes down to 3 principles:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/databook/2020/10/02/immutable-data.html&quot;&gt;Principle #3: Data is immutable&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/databook/2020/10/02/data-comparable-value.html&quot;&gt;Principle #4: Data is comparable by value&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/databook/2020/10/03/data-literal.html&quot;&gt;Principle #5: Data has a literal representation&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In this article, we explore Principle #5.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;the-principle-in-a-nutshell&quot;&gt;The principle in a nutshell&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+Principle #5: Data can be represented by literals.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;remarks-on-principle-5&quot;&gt;Remarks on Principle #5&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Principle #5 is in fact made of two parts:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;It is possible to display the content of any data collection.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A data collection can be instantiated via a literal.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;illustration-of-principle-5&quot;&gt;Illustration of Principle #5&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Principle #5 is in fact made of two parts:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;It is possible to display the content of any data collection&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A data collection can be instantiated via a literal&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A language like JavaScript adheres to both parts of Principle #5.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Part 1 is satisfied because any data collection could be serialized to a JSON string.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Part 2 is satisfied because we can instantiate maps and arrays via literals&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In a language like Java or C#, where the only way to instantiate a data collection is via class constructors and setters, it is not possible to adhere to the second part of Principle #5.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;benefits-of-principle-5&quot;&gt;Benefits of Principle #5&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When we choose a language that support data representation via literals, we benefit from:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Data creation is not verbose&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Data is explorable in any context&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;benefit-1-data-creation-is-not-verbose&quot;&gt;Benefit #1: Data creation is not verbose&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Let&amp;#8217;s illustrate how much verbosity is involved in data creation via class constructors and setters:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var data = new Object();
+data.firstName = &amp;quot;Isaac&amp;quot;;
+data.lastName = &amp;quot;Asimov&amp;quot;;
+data&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;And it is even worse when the map is nested, as we have to explicitly create empty maps for intermediate levels of nesting:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var data = new Object();
+data.firstName = &amp;quot;Isaac&amp;quot;;
+data.lastName = &amp;quot;Asimov&amp;quot;;
+data.details = new Object();
+data.details.yearOfBirth = 1920;
+data.details.yearOfDeath = 1992;
+data;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;However, data creation via literals is compact and clear:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var data = {
+  &amp;quot;firstName&amp;quot;: &amp;quot;Isaac&amp;quot;,
+  &amp;quot;lastName&amp;quot;: &amp;quot;Asimov&amp;quot;,
+  &amp;quot;details&amp;quot;: {
+    &amp;quot;yearOfBirth&amp;quot;: 1920,
+    &amp;quot;yearOfDeath&amp;quot;: 1992
+  }
+}
+data;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;benefit-2-data-is-explorable-in-any-context&quot;&gt;Benefit #2: Data is explorable in any context&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In a program that adhere to DO principles, it is quite common to display data to the console or to log files.
+No special effort is required for that. We simply call a printing function and our data is automatically converted to a string.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When we combine Benefit #1 and #2 together we are able to open a log file, copy from it a piece of data, paste it in our source code as a data literal and boom, our data is instantiated!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;price-for-principle-5&quot;&gt;Price for Principle #5&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;There are no free meals. The privilege of being able to represent data with literals comes at a price:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Dangerous when the data is big&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Confusion when part of the data is not data&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;price-1-dangerous-when-the-data-is-big&quot;&gt;Price #1: Dangerous when the data is big&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It is so convenient to print data to log files that we sometimes omit to check that the data is not too big and it causes our log files to grow beyond expectations.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In a language like Clojure, it is possible to control the maximal length of the printing functions via a dynamic variable which mitigates the risk for huge log files.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;price-3-confusion-when-part-of-the-data-is-not-data&quot;&gt;Price #3: Confusion when part of the data is not data&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It might occur that we store a value in a map that is not data, for instance a function in JavaScript:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var mapWithFunction = {
+  &amp;quot;firstName&amp;quot;: &amp;quot;Isaac&amp;quot;,
+  &amp;quot;lastName&amp;quot;: &amp;quot;Asimov&amp;quot;,
+  &amp;quot;foo&amp;quot;: function (x) { return x;}
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The value associated to &lt;code&gt;foo&lt;/code&gt; is not data: it is a function. Functions are not serializable to JSON. Therefore, by default when we serialize &lt;code&gt;mapWithFunction&lt;/code&gt;, the &lt;code&gt;foo&lt;/code&gt; field is omitted from the serialized string:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;JSON.stringify(mapWithFunction);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;On one hand it makes sense. On the other hand it might be confusing in some situations.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For example, a confusion could occur if we stringify &lt;code&gt;mapWithFunction&lt;/code&gt; then parse it back and count the number of keys in the resulting objects.
+We might be confused by the fact that &lt;code&gt;mapWithFunction&lt;/code&gt; has 3 keys while after a round trip, we are left with two keys:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;Object.keys(JSON.parse(JSON.stringify(mapWithFunction))).length;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;wrapping-up&quot;&gt;Wrapping up&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We conclude our exploration of the principles of Data Oriented programming with the principle that says that data (like numbers and strings) should be representable by literals. That is the cherry on the cake if you want. This cherry is indeed very tasty but it is not available in every programming language.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If you adhere to all the principles of DO beside this one, I am willing to make an exception and give you a DO certificate&amp;#8230;&amp;#8203;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7&quot;&gt; book &lt;/a&gt; about &lt;b&gt;Data-Oriented Programming&lt;/b&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><category term="dop" /><summary type="html">This article is an excerpt from my book about Data-Oriented Programming. More excerpts are available on my blog.</summary></entry></feed>
