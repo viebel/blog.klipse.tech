@@ -177,7 +177,7 @@ libraryDataV1.users[1].password
 
 Of course, the previous version is left unchanged:
 
-~~~klipse
+~~~klipse-eval-js
 libraryData.users[1].password
 ~~~
 
