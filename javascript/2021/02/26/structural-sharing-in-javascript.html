@@ -8,20 +8,20 @@
 
     
         <!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Distinction between three data related programming paradigms. | Yehonathan Sharvit</title>
+<title>Structural sharing with 7 lines of JavaScript. | Yehonathan Sharvit</title>
 <meta name="generator" content="Jekyll v4.2.0" />
-<meta property="og:title" content="Distinction between three data related programming paradigms." />
+<meta property="og:title" content="Structural sharing with 7 lines of JavaScript." />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Distinction between three data related programming paradigms. Data-driven programming. Data-oriented design. Data-Oriented programming." />
-<meta property="og:description" content="Distinction between three data related programming paradigms. Data-driven programming. Data-oriented design. Data-Oriented programming." />
+<meta name="description" content="How to implement data immutability via Structural sharing in JavaScript in 7 lines of code. Path copying implementation in JavaScript." />
+<meta property="og:description" content="How to implement data immutability via Structural sharing in JavaScript in 7 lines of code. Path copying implementation in JavaScript." />
 <meta property="og:site_name" content="Yehonathan Sharvit" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2021-02-16T14:11:22+00:00" />
+<meta property="article:published_time" content="2021-02-26T02:03:52+00:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Distinction between three data related programming paradigms." />
+<meta property="twitter:title" content="Structural sharing with 7 lines of JavaScript." />
 <meta name="twitter:site" content="@" />
 <script type="application/ld+json">
-{"url":"/visualization/2021/02/16/data-related-paradigms.html","headline":"Distinction between three data related programming paradigms.","dateModified":"2021-02-16T14:11:22+00:00","datePublished":"2021-02-16T14:11:22+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/visualization/2021/02/16/data-related-paradigms.html"},"description":"Distinction between three data related programming paradigms. Data-driven programming. Data-oriented design. Data-Oriented programming.","@context":"https://schema.org"}</script>
+{"url":"/javascript/2021/02/26/structural-sharing-in-javascript.html","headline":"Structural sharing with 7 lines of JavaScript.","dateModified":"2021-02-26T02:03:52+00:00","datePublished":"2021-02-26T02:03:52+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/javascript/2021/02/26/structural-sharing-in-javascript.html"},"description":"How to implement data immutability via Structural sharing in JavaScript in 7 lines of code. Path copying implementation in JavaScript.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     
@@ -153,96 +153,215 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
     <article class="post-full inner">
 
         <header class="post-header">
-            <h1 class="post-title">Distinction between three data related programming paradigms.</h1>
+            <h1 class="post-title">Structural sharing with 7 lines of JavaScript.</h1>
             <span class="post-meta">
-              <time class="post-date" datetime="2021-02-16">
-                February 16, 2021
+              <time class="post-date" datetime="2021-02-26">
+                February 26, 2021
               </time>
             </span>
             
             <span class="post-tags">
                 <a href="/tags/index.html#dop"
                     rel="tag">dop</a>
-                <a href="/tags/index.html#theory"
-                    rel="tag">theory</a>
+                <a href="/tags/index.html#javascript"
+                    rel="tag">javascript</a>
                 
             </span>
             
         </header><!-- .post-header -->
 
         <div class="post-content">
-            <p><strong>Data-oriented programming</strong> is not a new concept. It is a paradigm that is applied by developers from different programming languages in order to reduce the complexity of the systems they build.</p>
+            <h1 id="motivation">Motivation</h1>
 
-<p>The purpose of my book <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7">Data-oriented programming</a> is to explore the principles underlying this paradigm and to illustrate their benefits in the context of a software system.</p>
+<p>When we build an application that embraces <strong>data immutability</strong>, we handle changes in data by creating a new version of data instead of mutating data in place, without compromising on performance. There are <a href="https://en.wikipedia.org/wiki/Persistent_data_structure">various techniques</a> to achieve data immutability in an efficient manner.</p>
 
-<p>The present article describes the distinction between <strong>Data-oriented programming</strong> and two other programming paradigms whose name contain the term <em>data</em>: <strong>Data-oriented design</strong> and <strong>Data-driven programming</strong>.</p>
+<p>JavaScript data manipulation libraries like <a href="https://ramdajs.com/">Ramda</a> and <a href="{ % post_url  2020-11-26-lodash-fp %}">Lodash FP</a> provide an interesting implementation of structural sharing via a technique called <a href="https://en.wikipedia.org/wiki/Persistent_data_structure#Path_copying">path copying</a>. The cool thing with path copying is that it works with <strong>native JavaScript objects</strong>.</p>
 
-<p>Each paradigm has a its own objective and pursues it by focusing on a different aspect of data.</p>
+<p>After reading this article, you will:</p>
 
-<p><img src="/assets/data-love.jpg" alt="data" /></p>
+<ol>
+  <li>😄  Be part of the few <strong>lucky JavaScript developers</strong> that clearly understand what is structural sharing</li>
+  <li>💻  <strong>Implement</strong> structural sharing in a few lines of JavaScript code</li>
+  <li>⚠️ Be aware of the <strong>limitation</strong> of path copying</li>
+  <li>🤗  Be <strong>motivated</strong> to read my book about <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7">Data-Oriented programming</a></li>
+</ol>
 
-<blockquote>
-  <p>There are only two hard things in Computer Science: cache invalidation and naming things. (<em>Phil Karlton</em>)</p>
-</blockquote>
+<p>Remark: This article assumes that you are already aware of the benefits of data immutability.</p>
 
-<h2 id="data-oriented-design">Data-oriented design</h2>
+<h1 id="what-is-structural-sharing">What is structural sharing?</h1>
 
-<p><strong>Data-oriented design</strong> is a program optimization approach motivated by efficient usage of the CPU cache, used mostly in video game development.</p>
+<p><strong>Structural sharing</strong> provides an efficient way to share data between multiple versions of it, instead of copying the whole data.</p>
 
-<p>The approach is to focus on the <strong>data layout</strong>, separating and sorting fields according to when they are needed, and to think about transformations of data.</p>
+<p>It’s kind of similar to the way <strong>git</strong> manages multiple versions of your source code: git doesn’t copy all the files on each commit. Instead, the files that are not changed by a commit are shared with previous commits.</p>
 
-<p>In this context, what’s important is how the data <strong>resides in memory</strong>.</p>
+<p>The same strategy could be applied with data. Let’s take as an example a map that represents the data of a library in a library management system. In this map, we have 4 fields:</p>
 
-<p>The objective of this paradigm is to <strong>improve the performance</strong> of the system.</p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">name</code>: a string for the name of the library</li>
+  <li><code class="language-plaintext highlighter-rouge">address</code>: a string for the address of the library</li>
+  <li><code class="language-plaintext highlighter-rouge">catalog</code>: a map with the book information</li>
+  <li><code class="language-plaintext highlighter-rouge">users</code>: a map for the user information</li>
+</ol>
 
-<h2 id="data-driven-programming">Data-driven programming</h2>
+<p>Here is an example of a tiny library, with two users and a single book:</p>
 
-<p><strong>Data-driven programming</strong> is the idea that you create <strong>domain specific languages</strong> (DSLs) which are made out of <strong>descriptive data</strong>. It is a branch of declarative programming.</p>
+<pre><code class="language-klipse-eval-js">var libraryData = {
+  "name": "The smallest library on earth",
+  "address": "Here and now",
+  "users": [
+    {"username": "user-1",
+     "password": "pass-1"}, 
+    {"username": "user-2",
+     "password": "pass-2"}
+  ],
+  "catalog": {
+    "books": [
+      {
+        "title": "Watchmen",
+        "publicationYear": 1986,
+        "authors": [
+          {
+            "firstName": "Alan",
+            "lastName": "Moore"
+          },
+          {
+            "firstName": "Dave",
+            "lastName": "Gibbons"
+          }
+        ]
+      }
+    ]
+  }
+}
+</code></pre>
 
-<p>In this context, what’s important is to describe the <strong>behaviour of a program</strong> in terms of data.</p>
+<p>Suppose we want to create a version of the library where the <code class="language-plaintext highlighter-rouge">address</code> field is modified. We can achieve that by <strong>shallow copying</strong> the original library and modify the <code class="language-plaintext highlighter-rouge">address</code> field, using <code class="language-plaintext highlighter-rouge">Object.assign()</code>.</p>
 
-<p>The objective of this paradigm is to <strong>increase code clarity</strong> and to <strong>reduce the risk of bugs</strong> related to mistakes in the implementation of the expected behaviour of the program.</p>
+<pre><code class="language-klipse-eval-js">function set(obj, key, val) {
+  var copy = Object.assign({}, obj);
+  copy[key] = val;
+  return copy;
+}
+</code></pre>
 
-<h2 id="data-oriented-programming">Data-oriented programming</h2>
+<p>For fields whose values are strings, it works fine because <strong>strings are immutable</strong> in JavaScript. But what about fields whose values are maps? We don’t want changes made on one of version of the map to be reflected on the other versions of the map!</p>
 
-<p><strong>Data-oriented programming</strong> is a paradigm that treats data of the system as a <strong>first-class citizen</strong>. Data is represented by <strong>generic immutable data structures</strong> (like maps and vectors) that are manipulated by <strong>general purpose functions</strong> (like map, filter, select, group, sort …).</p>
+<p>Like in git, we don’t want changes in a commit to affect files in a previous commit!</p>
 
-<p>In this context, what’s important is the <strong>representation of data</strong> by the program.</p>
+<p>We could solve this challenge in a very naive way by <strong>deep copying</strong> the whole map when creating a new version of it. But of course, it would have a negative impact on the performance, both in terms of memory and CPU.</p>
 
-<p>The objective of this paradigm is to <strong>reduce the complexity</strong> of the system.</p>
+<p>Another approach is to <strong>prevent data from being changed</strong>. When data is immutable, we don’t need to protect ourselves from the threat we just mentioned. It is safe to do a shallow copy of the data because immutable data never changes.</p>
 
-<h2 id="summary">Summary</h2>
+<p>Data immutability could be guaranteed either by convention (and code reviews) or by the program itself. For example, JavaScript provides a way to prevent data from being changed, via <code class="language-plaintext highlighter-rouge">Object.freeze()</code>. Here is an implementation of a deep freeze, from <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze">MDN</a>:</p>
 
-<p>Before we conclude, I’d like to mention that there is a draft <a href="https://en.wikipedia.org/wiki/Draft:Data-oriented_programming">Wikipedia article</a> about Data-Oriented programming. You are welcome to contribute to the article.</p>
+<pre><code class="language-klipse-eval-js">function deepFreeze(object) {
+  const propNames = Object.getOwnPropertyNames(object);
+  // Freeze properties before freezing self
+  for (const name of propNames) {
+    const value = object[name];
+    if (value &amp;&amp; typeof value === "object") {
+      deepFreeze(value);
+    }
+  }
+  return Object.freeze(object);
+}
+</code></pre>
 
-<p>We saw that the three data-related  paradigms have different objectives and each of them pursues its objective by focusing on a different aspect of data inside a program.</p>
+<p>That’s the essence of structural sharing:</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Paradigm</th>
-      <th>Objective</th>
-      <th>Data</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Data-oriented design</td>
-      <td>Increase performance</td>
-      <td>Data layout</td>
-    </tr>
-    <tr>
-      <td>Data-driven programming</td>
-      <td>Increase clarity</td>
-      <td>Behaviour described by data</td>
-    </tr>
-    <tr>
-      <td>Data-oriented programming</td>
-      <td>Reduce complexity</td>
-      <td>Data representation</td>
-    </tr>
-  </tbody>
-</table>
+<ol>
+  <li>Make sure data is <strong>immutable</strong></li>
+  <li>Create new version of data via <strong>shallow copying</strong></li>
+</ol>
+
+<p>Here is a code snippet for a function called <code class="language-plaintext highlighter-rouge">set()</code> that implements structural sharing when the change occurs at the <strong>root of the map</strong>:</p>
+
+<pre><code class="language-klipse-eval-js">function shallowCopy(o) {
+  if(Array.isArray(o)) {
+    return Object.assign([], o);
+  }
+  return Object.assign({}, o);
+}
+
+function set(o, k, v) {
+  var copy = shallowCopy(o);
+  copy[k] = v;
+  return copy;
+}
+</code></pre>
+
+<p>Creating a new version of data with a change at the root of a map is easy. Now, we are going to show how to handle changes at any nesting level in a map.</p>
+
+<h1 id="implementation-of-path-copying-in-javascript">Implementation of path copying in JavaScript</h1>
+
+<p>Suppose we want to update the password of a user and see how to apply <strong>recursively</strong> our structural sharing strategy:</p>
+
+<ol>
+  <li>Shallow copy <code class="language-plaintext highlighter-rouge">name</code>, <code class="language-plaintext highlighter-rouge">address</code> and <code class="language-plaintext highlighter-rouge">catalog</code>.</li>
+  <li>Use a modified version of <code class="language-plaintext highlighter-rouge">users</code>:
+    <ol>
+      <li>Shallow copy all users except <code class="language-plaintext highlighter-rouge">user-1</code></li>
+      <li>Use a modified version of <code class="language-plaintext highlighter-rouge">user-1</code>:
+        <ol>
+          <li>Shallow copy all the fields except <code class="language-plaintext highlighter-rouge">password</code></li>
+          <li>Modify <code class="language-plaintext highlighter-rouge">password</code></li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+</ol>
+
+<p><img src="/assets/change-password.png" alt="change-password" /></p>
+
+<p>The code for it would look like this:</p>
+
+<pre><code class="language-klipse-eval-js">var nextUser = Object.assign({}, libraryData.users[1]);
+nextUser.password = "new-pass-2";
+var nextUsers = Object.assign([], libraryData.users);
+nextUsers[1] = nextUser;
+var nextLibraryData = Object.assign({}, libraryData);
+nextLibraryData.users = nextUsers;
+</code></pre>
+
+<p>And now, let’s generalize this approach with a recursive functions. As we promised in the article title, here is an implementation of structural sharing in <strong>7 lines of JavaScript code</strong>:</p>
+
+<pre><code class="language-klipse-eval-js">function setIn(m, [k, ...restOfPath], v) {
+  var modifiedNode = v;
+  if (restOfPath.length &gt; 0) {
+    modifiedNode = setIn(m[k], restOfPath, v);
+  }
+  return set(m, k, modifiedNode);
+}
+</code></pre>
+
+<p>Here is how we use <code class="language-plaintext highlighter-rouge">setIn</code> to modify the password of a user:</p>
+
+<pre><code class="language-klipse-eval-js">var libraryDataV1 = setIn(libraryData, ["users", 1, "password"], "new-pass-2");
+libraryDataV1.users[1].password
+</code></pre>
+
+<p>Of course, the previous version is left unchanged:</p>
+
+<pre><code class="language-klipse">libraryData.users[1].password
+</code></pre>
+
+<h1 id="efficiency-of-structural-sharing">Efficiency of structural sharing</h1>
+
+<p>Path copying is <strong>usually efficient</strong> – both in terms of memory and computation – because most of the nodes in a nested map are copied by reference (shallow copy).</p>
+
+<p>For example, the catalog map (that could be a huge object) is shared between the original library data and the new version of library data. They both use the same reference.</p>
+
+<pre><code class="language-klipse-eval-js">libraryDataV1.catalog === libraryData.catalog
+</code></pre>
+
+<p>Path copying works fine with deeply nested data where at each nesting level we don’t have too many elements. When we have <strong>many elements at some level</strong>, shallow copying might be an issue. Suppose we have a million user in our system, copying a million references each time we update the password of a user is not acceptable.</p>
+
+<p>The same issue occurs with git if you have a folder with too many files.</p>
+
+<p>In my book about <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7">Data-Oriented programming</a>, I discuss techniques to overcome this limitation.</p>
+
+<p>The book illustrate in details the benefits of building a software system based upon data immutability.</p>
+
 
         </div>
         <footer class="post-footer">
@@ -287,9 +406,9 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
             <div class="post-share">
                 <span class="post-share-title">Share:</span>
                 <a target="_blank"
-                    href="https://twitter.com/share?text=Distinction+between+three+data+related+programming+paradigms.&amp;url=https://blog.klipse.techvisualization/2021/02/16/data-related-paradigms.html">Twitter</a>
+                    href="https://twitter.com/share?text=Structural+sharing+with+7+lines+of+JavaScript.&amp;url=https://blog.klipse.techjavascript/2021/02/26/structural-sharing-in-javascript.html">Twitter</a>
                 <a target="_blank"
-                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techvisualization/2021/02/16/data-related-paradigms.html">Facebook</a>
+                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techjavascript/2021/02/26/structural-sharing-in-javascript.html">Facebook</a>
             </div><!-- .share-post -->
         </footer>
     </article>
@@ -318,35 +437,8 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
                 <div class="post-meta">
                     <time class="published" datetime="February 16, 2021">February 16, 2021</time>
                 </div>
-                <h3 class="post-title"><a href="/visualization/2021/02/16/graph-playground-cytoscape.html">Graph visualization playground with Cytoscape.</a>
+                <h3 class="post-title"><a href="/visualization/2021/02/16/data-related-paradigms.html">Distinction between three data related programming paradigms.</a>
                 </h3>
-                <p class="post-tags">
-                    
-                    
-                    
-                    <a href='/tag/visualization/'>Visualization</a>
-                    
-                    
-                    
-                    <a href='/tag/clojure/'>Clojure</a>
-                    
-                    
-                    
-                    <a href='/tag/graph/'>Graph</a>
-                    
-                    
-                    
-                </p>
-            </header>
-        </article>
-        
-        
-        <article class="post">
-            <header class="post-header">
-                <div class="post-meta">
-                    <time class="published" datetime="February 26, 2021">February 26, 2021</time>
-                </div>
-                <h3 class="post-title"><a href="/javascript/2021/02/26/structural-sharing-in-javascript.html">Structural sharing with 7 lines of JavaScript.</a></h3>
                 <p class="post-tags">
                     
                     
@@ -355,13 +447,14 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
                     
                     
                     
-                    <a href='/tag/javascript/'>Javascript</a>
+                    <a href='/tag/theory/'>Theory</a>
                     
                     
                     
                 </p>
             </header>
         </article>
+        
         
     </section><!-- .read-next -->
 

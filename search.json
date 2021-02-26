@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Structural sharing with 7 lines of JavaScript.",
+      "category" : "",
+      "tags"     : "dop, javascript",
+      "url"      : "/javascript/2021/02/26/structural-sharing-in-javascript.html",
+      "date"     : "February 26, 2021"
+    } ,
+  
+    {
       "title"    : "Distinction between three data related programming paradigms.",
       "category" : "",
       "tags"     : "dop, theory",

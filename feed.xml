@@ -1,4 +1,193 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-02-21T13:51:14+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker based in Israel. My passion is to make interesting things easy to understand.&quot;}</name></author><entry><title type="html">Graph visualization playground with Cytoscape.</title><link href="/visualization/2021/02/16/graph-playground-cytoscape.html" rel="alternate" type="text/html" title="Graph visualization playground with Cytoscape." /><published>2021-02-16T14:11:22+00:00</published><updated>2021-02-16T14:11:22+00:00</updated><id>/visualization/2021/02/16/graph-playground-cytoscape</id><content type="html" xml:base="/visualization/2021/02/16/graph-playground-cytoscape.html">&lt;p&gt;Playground for visualizing graphs using &lt;a href=&quot;https://js.cytoscape.org/&quot;&gt;Cytoscape.js&lt;/a&gt; in Clojure.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-02-26T07:11:37+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker based in Israel. My passion is to make interesting things easy to understand.&quot;}</name></author><entry><title type="html">Structural sharing with 7 lines of JavaScript.</title><link href="/javascript/2021/02/26/structural-sharing-in-javascript.html" rel="alternate" type="text/html" title="Structural sharing with 7 lines of JavaScript." /><published>2021-02-26T02:03:52+00:00</published><updated>2021-02-26T02:03:52+00:00</updated><id>/javascript/2021/02/26/structural-sharing-in-javascript</id><content type="html" xml:base="/javascript/2021/02/26/structural-sharing-in-javascript.html">&lt;h1 id=&quot;motivation&quot;&gt;Motivation&lt;/h1&gt;
+
+&lt;p&gt;When we build an application that embraces &lt;strong&gt;data immutability&lt;/strong&gt;, we handle changes in data by creating a new version of data instead of mutating data in place, without compromising on performance. There are &lt;a href=&quot;https://en.wikipedia.org/wiki/Persistent_data_structure&quot;&gt;various techniques&lt;/a&gt; to achieve data immutability in an efficient manner.&lt;/p&gt;
+
+&lt;p&gt;JavaScript data manipulation libraries like &lt;a href=&quot;https://ramdajs.com/&quot;&gt;Ramda&lt;/a&gt; and &lt;a href=&quot;{ % post_url  2020-11-26-lodash-fp %}&quot;&gt;Lodash FP&lt;/a&gt; provide an interesting implementation of structural sharing via a technique called &lt;a href=&quot;https://en.wikipedia.org/wiki/Persistent_data_structure#Path_copying&quot;&gt;path copying&lt;/a&gt;. The cool thing with path copying is that it works with &lt;strong&gt;native JavaScript objects&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;After reading this article, you will:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;😄  Be part of the few &lt;strong&gt;lucky JavaScript developers&lt;/strong&gt; that clearly understand what is structural sharing&lt;/li&gt;
+  &lt;li&gt;💻  &lt;strong&gt;Implement&lt;/strong&gt; structural sharing in a few lines of JavaScript code&lt;/li&gt;
+  &lt;li&gt;⚠️ Be aware of the &lt;strong&gt;limitation&lt;/strong&gt; of path copying&lt;/li&gt;
+  &lt;li&gt;🤗  Be &lt;strong&gt;motivated&lt;/strong&gt; to read my book about &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;amp;utm_medium=affiliate&amp;amp;utm_campaign=book_sharvit2_data_1_29_21&amp;amp;a_aid=viebel&amp;amp;a_bid=d5b546b7&quot;&gt;Data-Oriented programming&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Remark: This article assumes that you are already aware of the benefits of data immutability.&lt;/p&gt;
+
+&lt;h1 id=&quot;what-is-structural-sharing&quot;&gt;What is structural sharing?&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;Structural sharing&lt;/strong&gt; provides an efficient way to share data between multiple versions of it, instead of copying the whole data.&lt;/p&gt;
+
+&lt;p&gt;It’s kind of similar to the way &lt;strong&gt;git&lt;/strong&gt; manages multiple versions of your source code: git doesn’t copy all the files on each commit. Instead, the files that are not changed by a commit are shared with previous commits.&lt;/p&gt;
+
+&lt;p&gt;The same strategy could be applied with data. Let’s take as an example a map that represents the data of a library in a library management system. In this map, we have 4 fields:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;name&lt;/code&gt;: a string for the name of the library&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;address&lt;/code&gt;: a string for the address of the library&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;catalog&lt;/code&gt;: a map with the book information&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;users&lt;/code&gt;: a map for the user information&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Here is an example of a tiny library, with two users and a single book:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var libraryData = {
+  &quot;name&quot;: &quot;The smallest library on earth&quot;,
+  &quot;address&quot;: &quot;Here and now&quot;,
+  &quot;users&quot;: [
+    {&quot;username&quot;: &quot;user-1&quot;,
+     &quot;password&quot;: &quot;pass-1&quot;}, 
+    {&quot;username&quot;: &quot;user-2&quot;,
+     &quot;password&quot;: &quot;pass-2&quot;}
+  ],
+  &quot;catalog&quot;: {
+    &quot;books&quot;: [
+      {
+        &quot;title&quot;: &quot;Watchmen&quot;,
+        &quot;publicationYear&quot;: 1986,
+        &quot;authors&quot;: [
+          {
+            &quot;firstName&quot;: &quot;Alan&quot;,
+            &quot;lastName&quot;: &quot;Moore&quot;
+          },
+          {
+            &quot;firstName&quot;: &quot;Dave&quot;,
+            &quot;lastName&quot;: &quot;Gibbons&quot;
+          }
+        ]
+      }
+    ]
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Suppose we want to create a version of the library where the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;address&lt;/code&gt; field is modified. We can achieve that by &lt;strong&gt;shallow copying&lt;/strong&gt; the original library and modify the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;address&lt;/code&gt; field, using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Object.assign()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function set(obj, key, val) {
+  var copy = Object.assign({}, obj);
+  copy[key] = val;
+  return copy;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For fields whose values are strings, it works fine because &lt;strong&gt;strings are immutable&lt;/strong&gt; in JavaScript. But what about fields whose values are maps? We don’t want changes made on one of version of the map to be reflected on the other versions of the map!&lt;/p&gt;
+
+&lt;p&gt;Like in git, we don’t want changes in a commit to affect files in a previous commit!&lt;/p&gt;
+
+&lt;p&gt;We could solve this challenge in a very naive way by &lt;strong&gt;deep copying&lt;/strong&gt; the whole map when creating a new version of it. But of course, it would have a negative impact on the performance, both in terms of memory and CPU.&lt;/p&gt;
+
+&lt;p&gt;Another approach is to &lt;strong&gt;prevent data from being changed&lt;/strong&gt;. When data is immutable, we don’t need to protect ourselves from the threat we just mentioned. It is safe to do a shallow copy of the data because immutable data never changes.&lt;/p&gt;
+
+&lt;p&gt;Data immutability could be guaranteed either by convention (and code reviews) or by the program itself. For example, JavaScript provides a way to prevent data from being changed, via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Object.freeze()&lt;/code&gt;. Here is an implementation of a deep freeze, from &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze&quot;&gt;MDN&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function deepFreeze(object) {
+  const propNames = Object.getOwnPropertyNames(object);
+  // Freeze properties before freezing self
+  for (const name of propNames) {
+    const value = object[name];
+    if (value &amp;amp;&amp;amp; typeof value === &quot;object&quot;) {
+      deepFreeze(value);
+    }
+  }
+  return Object.freeze(object);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That’s the essence of structural sharing:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Make sure data is &lt;strong&gt;immutable&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;Create new version of data via &lt;strong&gt;shallow copying&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Here is a code snippet for a function called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;set()&lt;/code&gt; that implements structural sharing when the change occurs at the &lt;strong&gt;root of the map&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function shallowCopy(o) {
+  if(Array.isArray(o)) {
+    return Object.assign([], o);
+  }
+  return Object.assign({}, o);
+}
+
+function set(o, k, v) {
+  var copy = shallowCopy(o);
+  copy[k] = v;
+  return copy;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Creating a new version of data with a change at the root of a map is easy. Now, we are going to show how to handle changes at any nesting level in a map.&lt;/p&gt;
+
+&lt;h1 id=&quot;implementation-of-path-copying-in-javascript&quot;&gt;Implementation of path copying in JavaScript&lt;/h1&gt;
+
+&lt;p&gt;Suppose we want to update the password of a user and see how to apply &lt;strong&gt;recursively&lt;/strong&gt; our structural sharing strategy:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Shallow copy &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;name&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;address&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;catalog&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Use a modified version of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;users&lt;/code&gt;:
+    &lt;ol&gt;
+      &lt;li&gt;Shallow copy all users except &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;user-1&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;Use a modified version of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;user-1&lt;/code&gt;:
+        &lt;ol&gt;
+          &lt;li&gt;Shallow copy all the fields except &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;password&lt;/code&gt;&lt;/li&gt;
+          &lt;li&gt;Modify &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;password&lt;/code&gt;&lt;/li&gt;
+        &lt;/ol&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/change-password.png&quot; alt=&quot;change-password&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The code for it would look like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var nextUser = Object.assign({}, libraryData.users[1]);
+nextUser.password = &quot;new-pass-2&quot;;
+var nextUsers = Object.assign([], libraryData.users);
+nextUsers[1] = nextUser;
+var nextLibraryData = Object.assign({}, libraryData);
+nextLibraryData.users = nextUsers;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And now, let’s generalize this approach with a recursive functions. As we promised in the article title, here is an implementation of structural sharing in &lt;strong&gt;7 lines of JavaScript code&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function setIn(m, [k, ...restOfPath], v) {
+  var modifiedNode = v;
+  if (restOfPath.length &amp;gt; 0) {
+    modifiedNode = setIn(m[k], restOfPath, v);
+  }
+  return set(m, k, modifiedNode);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here is how we use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;setIn&lt;/code&gt; to modify the password of a user:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var libraryDataV1 = setIn(libraryData, [&quot;users&quot;, 1, &quot;password&quot;], &quot;new-pass-2&quot;);
+libraryDataV1.users[1].password
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Of course, the previous version is left unchanged:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;libraryData.users[1].password
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;efficiency-of-structural-sharing&quot;&gt;Efficiency of structural sharing&lt;/h1&gt;
+
+&lt;p&gt;Path copying is &lt;strong&gt;usually efficient&lt;/strong&gt; – both in terms of memory and computation – because most of the nodes in a nested map are copied by reference (shallow copy).&lt;/p&gt;
+
+&lt;p&gt;For example, the catalog map (that could be a huge object) is shared between the original library data and the new version of library data. They both use the same reference.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;libraryDataV1.catalog === libraryData.catalog
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Path copying works fine with deeply nested data where at each nesting level we don’t have too many elements. When we have &lt;strong&gt;many elements at some level&lt;/strong&gt;, shallow copying might be an issue. Suppose we have a million user in our system, copying a million references each time we update the password of a user is not acceptable.&lt;/p&gt;
+
+&lt;p&gt;The same issue occurs with git if you have a folder with too many files.&lt;/p&gt;
+
+&lt;p&gt;In my book about &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;amp;utm_medium=affiliate&amp;amp;utm_campaign=book_sharvit2_data_1_29_21&amp;amp;a_aid=viebel&amp;amp;a_bid=d5b546b7&quot;&gt;Data-Oriented programming&lt;/a&gt;, I discuss techniques to overcome this limitation.&lt;/p&gt;
+
+&lt;p&gt;The book illustrate in details the benefits of building a software system based upon data immutability.&lt;/p&gt;</content><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker based in Israel. My passion is to make interesting things easy to understand.&quot;}</name></author><category term="javascript" /><category term="dop" /><category term="javascript" /><summary type="html">Motivation</summary></entry><entry><title type="html">Graph visualization playground with Cytoscape.</title><link href="/visualization/2021/02/16/graph-playground-cytoscape.html" rel="alternate" type="text/html" title="Graph visualization playground with Cytoscape." /><published>2021-02-16T14:11:22+00:00</published><updated>2021-02-16T14:11:22+00:00</updated><id>/visualization/2021/02/16/graph-playground-cytoscape</id><content type="html" xml:base="/visualization/2021/02/16/graph-playground-cytoscape.html">&lt;p&gt;Playground for visualizing graphs using &lt;a href=&quot;https://js.cytoscape.org/&quot;&gt;Cytoscape.js&lt;/a&gt; in Clojure.&lt;/p&gt;
 
 &lt;p&gt;We define the default graph options:&lt;/p&gt;
 
@@ -1528,254 +1717,4 @@ However, in languages where immutable data structures are not &lt;strong&gt;nati
   &lt;li&gt;Everything else (including strings!) is treated as an atom and compared for equality.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Explore more examples on &lt;a href=&quot;https://clojuredocs.org/clojure.data/diff&quot;&gt;ClojureDocs&lt;/a&gt;.&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="clojure" /><category term="clojure" /><summary type="html">Compare recursively two Clojure data structures a and b.</summary></entry><entry><title type="html">DO Principle #5: Data has a literal representation</title><link href="/databook/2020/10/03/data-literal.html" rel="alternate" type="text/html" title="DO Principle #5: Data has a literal representation" /><published>2020-10-03T18:31:24+00:00</published><updated>2020-10-03T18:31:24+00:00</updated><id>/databook/2020/10/03/data-literal</id><content type="html" xml:base="/databook/2020/10/03/data-literal.html">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7&quot;&gt; book &lt;/a&gt; about &lt;b&gt;Data-Oriented Programming&lt;/b&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In Data Oriented programming data is a first class citizen that is considered as a value.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;It comes down to 3 principles:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;/databook/2020/10/02/immutable-data.html&quot;&gt;Principle #3: Data is immutable&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;/databook/2020/10/02/data-comparable-value.html&quot;&gt;Principle #4: Data is comparable by value&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;/databook/2020/10/03/data-literal.html&quot;&gt;Principle #5: Data has a literal representation&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In this article, we explore Principle #5.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;the-principle-in-a-nutshell&quot;&gt;The principle in a nutshell&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-Principle #5: Data can be represented by literals.
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;remarks-on-principle-5&quot;&gt;Remarks on Principle #5&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Principle #5 is in fact made of two parts:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;It is possible to display the content of any data collection.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;A data collection can be instantiated via a literal.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;illustration-of-principle-5&quot;&gt;Illustration of Principle #5&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Principle #5 is in fact made of two parts:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;It is possible to display the content of any data collection&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;A data collection can be instantiated via a literal&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;A language like JavaScript adheres to both parts of Principle #5.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Part 1 is satisfied because any data collection could be serialized to a JSON string.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Part 2 is satisfied because we can instantiate maps and arrays via literals&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In a language like Java or C#, where the only way to instantiate a data collection is via class constructors and setters, it is not possible to adhere to the second part of Principle #5.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;benefits-of-principle-5&quot;&gt;Benefits of Principle #5&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;When we choose a language that support data representation via literals, we benefit from:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Data creation is not verbose&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Data is explorable in any context&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;benefit-1-data-creation-is-not-verbose&quot;&gt;Benefit #1: Data creation is not verbose&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Let&amp;#8217;s illustrate how much verbosity is involved in data creation via class constructors and setters:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var data = new Object();
-data.firstName = &amp;quot;Isaac&amp;quot;;
-data.lastName = &amp;quot;Asimov&amp;quot;;
-data&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;And it is even worse when the map is nested, as we have to explicitly create empty maps for intermediate levels of nesting:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var data = new Object();
-data.firstName = &amp;quot;Isaac&amp;quot;;
-data.lastName = &amp;quot;Asimov&amp;quot;;
-data.details = new Object();
-data.details.yearOfBirth = 1920;
-data.details.yearOfDeath = 1992;
-data;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;However, data creation via literals is compact and clear:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var data = {
-  &amp;quot;firstName&amp;quot;: &amp;quot;Isaac&amp;quot;,
-  &amp;quot;lastName&amp;quot;: &amp;quot;Asimov&amp;quot;,
-  &amp;quot;details&amp;quot;: {
-    &amp;quot;yearOfBirth&amp;quot;: 1920,
-    &amp;quot;yearOfDeath&amp;quot;: 1992
-  }
-}
-data;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;benefit-2-data-is-explorable-in-any-context&quot;&gt;Benefit #2: Data is explorable in any context&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In a program that adhere to DO principles, it is quite common to display data to the console or to log files.
-No special effort is required for that. We simply call a printing function and our data is automatically converted to a string.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;When we combine Benefit #1 and #2 together we are able to open a log file, copy from it a piece of data, paste it in our source code as a data literal and boom, our data is instantiated!&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;price-for-principle-5&quot;&gt;Price for Principle #5&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;There are no free meals. The privilege of being able to represent data with literals comes at a price:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Dangerous when the data is big&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Confusion when part of the data is not data&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;price-1-dangerous-when-the-data-is-big&quot;&gt;Price #1: Dangerous when the data is big&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;It is so convenient to print data to log files that we sometimes omit to check that the data is not too big and it causes our log files to grow beyond expectations.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In a language like Clojure, it is possible to control the maximal length of the printing functions via a dynamic variable which mitigates the risk for huge log files.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;price-3-confusion-when-part-of-the-data-is-not-data&quot;&gt;Price #3: Confusion when part of the data is not data&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;It might occur that we store a value in a map that is not data, for instance a function in JavaScript:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var mapWithFunction = {
-  &amp;quot;firstName&amp;quot;: &amp;quot;Isaac&amp;quot;,
-  &amp;quot;lastName&amp;quot;: &amp;quot;Asimov&amp;quot;,
-  &amp;quot;foo&amp;quot;: function (x) { return x;}
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The value associated to &lt;code&gt;foo&lt;/code&gt; is not data: it is a function. Functions are not serializable to JSON. Therefore, by default when we serialize &lt;code&gt;mapWithFunction&lt;/code&gt;, the &lt;code&gt;foo&lt;/code&gt; field is omitted from the serialized string:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;JSON.stringify(mapWithFunction);&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;On one hand it makes sense. On the other hand it might be confusing in some situations.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;For example, a confusion could occur if we stringify &lt;code&gt;mapWithFunction&lt;/code&gt; then parse it back and count the number of keys in the resulting objects.
-We might be confused by the fact that &lt;code&gt;mapWithFunction&lt;/code&gt; has 3 keys while after a round trip, we are left with two keys:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;Object.keys(JSON.parse(JSON.stringify(mapWithFunction))).length;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;wrapping-up&quot;&gt;Wrapping up&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;We conclude our exploration of the principles of Data Oriented programming with the principle that says that data (like numbers and strings) should be representable by literals. That is the cherry on the cake if you want. This cherry is indeed very tasty but it is not available in every programming language.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;If you adhere to all the principles of DO beside this one, I am willing to make an exception and give you a DO certificate&amp;#8230;&amp;#8203;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7&quot;&gt; book &lt;/a&gt; about &lt;b&gt;Data-Oriented Programming&lt;/b&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><category term="dop" /><summary type="html">This article is an excerpt from my book about Data-Oriented Programming. More excerpts are available on my blog.</summary></entry></feed>
+&lt;p&gt;Explore more examples on &lt;a href=&quot;https://clojuredocs.org/clojure.data/diff&quot;&gt;ClojureDocs&lt;/a&gt;.&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="clojure" /><category term="clojure" /><summary type="html">Compare recursively two Clojure data structures a and b.</summary></entry></feed>
