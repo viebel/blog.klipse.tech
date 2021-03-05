@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Data-Oriented programming in Java",
+      "category" : "",
+      "tags"     : "dop, java",
+      "url"      : "/java/2021/03/05/data-oriented-programming-in-java.html",
+      "date"     : "March 5, 2021"
+    } ,
+  
+    {
       "title"    : "Structural sharing with 7 lines of JavaScript.",
       "category" : "",
       "tags"     : "dop, javascript",
