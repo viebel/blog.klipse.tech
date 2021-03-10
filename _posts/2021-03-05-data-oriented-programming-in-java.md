@@ -14,7 +14,7 @@ The purpose of Data-Oriented programming (DOP) is to **reduce the complexity** o
 
 Concretely, it comes down to the application of 3 principles:
 
-1. Code is **separated** code from data
+1. Code is **separated** from data
 2. Data is **immutable**
 3. Data access is **flexible** 
 
