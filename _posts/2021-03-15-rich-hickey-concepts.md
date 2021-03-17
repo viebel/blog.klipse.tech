@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Rich Hickey's approach to effective information systems.
+title:  The concepts behind Data-Oriented programming 
 description: Writing effective information systems. Abstraction vs. Concretion. Functional programming vs. Object-Oriented programming vs. Data-Oriented programming. Dynamic typing vs. Static typing. Identity vs. State. The value of immutability.
 date:   2021-03-15 06:03:52 +0200
 categories: clojure
@@ -9,16 +9,13 @@ tags: [dop, clojure, theory]
 ---
 
 
-Here are 9 fundamental concepts that **Rich Hickey** uses frequently in his talks to illustrate his unique approach to **effective information systems** and the rationale behind **Clojure** as a **Data-Oriented** programming language. 
+Here are 9 fundamental general concepts about programming.
 
-This glossary is my attempt to make Rich Hickey's unique approach better understood in the global community of developers by explaining the concepts in simple terms (kind of Rich Hickey for dummies?) and by giving examples that illustrate the concepts in the context of our day-to-day as programmers.
+In my opinion, **Data-Oriented programming** as a language-agnostic paradigm is founded on a certain understanding (interpretation?) of those concepts.
 
-Hopefully, the glossary clarifies the distinction between:
+My understanding of those concepts has been highly influenced by **Rich Hickey**'s talks where he shares his unique approach to **effective information systems** and the rationale behind **Clojure** as a **Data-Oriented** programming language.
 
-1. Clojure and Object-Oriented programming
-1. Clojure and Functional programming
-
-All insights are Rich's. All errors are mine.
+This glossary is my attempt to make Data-Oriented programming better understood in the global community of developers and how DOP differs from Object-Oriented programming and functional programming.
 
 The concepts are presented in alphabetical order.
 
