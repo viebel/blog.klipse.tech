@@ -1,4 +1,223 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-03-10T12:49:31+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker based in Israel. My passion is to make interesting things easy to understand.&quot;}</name></author><entry><title type="html">Data-Oriented programming in Java</title><link href="/java/2021/03/05/data-oriented-programming-in-java.html" rel="alternate" type="text/html" title="Data-Oriented programming in Java" /><published>2021-03-05T04:03:52+00:00</published><updated>2021-03-05T04:03:52+00:00</updated><id>/java/2021/03/05/data-oriented-programming-in-java</id><content type="html" xml:base="/java/2021/03/05/data-oriented-programming-in-java.html">&lt;h1 id=&quot;the-principles-of-data-oriented-programming&quot;&gt;The principles of Data-Oriented programming&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-03-17T08:20:14+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker based in Israel. My passion is to make interesting things easy to understand.&quot;}</name></author><entry><title type="html">Rich Hickey’s approach to effective information systems.</title><link href="/clojure/2021/03/15/rich-hickey-concepts.html" rel="alternate" type="text/html" title="Rich Hickey’s approach to effective information systems." /><published>2021-03-15T04:03:52+00:00</published><updated>2021-03-15T04:03:52+00:00</updated><id>/clojure/2021/03/15/rich-hickey-concepts</id><content type="html" xml:base="/clojure/2021/03/15/rich-hickey-concepts.html">&lt;p&gt;Here are 9 fundamental concepts that &lt;strong&gt;Rich Hickey&lt;/strong&gt; uses frequently in his talks to illustrate his unique approach to &lt;strong&gt;effective information systems&lt;/strong&gt; and the rationale behind &lt;strong&gt;Clojure&lt;/strong&gt; as a &lt;strong&gt;Data-Oriented&lt;/strong&gt; programming language.&lt;/p&gt;
+
+&lt;p&gt;This glossary is my attempt to make Rich Hickey’s unique approach better understood in the global community of developers by explaining the concepts in simple terms (kind of Rich Hickey for dummies?) and by giving examples that illustrate the concepts in the context of our day-to-day as programmers.&lt;/p&gt;
+
+&lt;p&gt;Hopefully, the glossary clarifies the distinction between:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Clojure and Object-Oriented programming&lt;/li&gt;
+  &lt;li&gt;Clojure and Functional programming&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;All insights are Rich’s. All errors are mine.&lt;/p&gt;
+
+&lt;p&gt;The concepts are presented in alphabetical order.&lt;/p&gt;
+
+&lt;h2 id=&quot;1-abstraction&quot;&gt;1. Abstraction&lt;/h2&gt;
+&lt;h3 id=&quot;definition&quot;&gt;Definition&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Abstraction&lt;/strong&gt; is about drawing from a set of &lt;strong&gt;exemplars&lt;/strong&gt; some &lt;strong&gt;essential&lt;/strong&gt; thing.&lt;/p&gt;
+
+&lt;h3 id=&quot;example&quot;&gt;Example&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Relational algebra&lt;/strong&gt; is an example of &lt;strong&gt;data abstraction&lt;/strong&gt;. Modelling data as relations gives us lot of power:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;We express advanced data manipulation operations with well-defined relational algebra operators&lt;/li&gt;
+  &lt;li&gt;An implementation of relational algebra operators is applicable to all exemplars of data.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;in-clojure&quot;&gt;In Clojure&lt;/h3&gt;
+&lt;p&gt;Representing data with &lt;strong&gt;maps&lt;/strong&gt; (“just use maps”) is a &lt;strong&gt;data abstraction&lt;/strong&gt;. The only required knowledge in order to access data is the field name, represented with a generic entity (e.g. a string or a keyword).&lt;/p&gt;
+
+&lt;p&gt;Moreover, there is a well-defined algebra of maps  applicable to any data represented with maps.&lt;/p&gt;
+
+&lt;h3 id=&quot;see-also&quot;&gt;See also&lt;/h3&gt;
+&lt;p&gt;Concretion&lt;/p&gt;
+
+&lt;h2 id=&quot;2-concretion&quot;&gt;2. Concretion&lt;/h2&gt;
+&lt;h3 id=&quot;definition-1&quot;&gt;Definition&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Concretion&lt;/strong&gt; is when in order to use something we need a &lt;strong&gt;concrete&lt;/strong&gt; knowledge about the thing.&lt;/p&gt;
+
+&lt;h3 id=&quot;example-1&quot;&gt;Example&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Dependency_inversion_principle&quot;&gt;Dependency Inversion Principle&lt;/a&gt;: Entities must depend on &lt;strong&gt;abstractions&lt;/strong&gt;, not on &lt;strong&gt;concretions&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;The common way to apply DIP to Object-Oriented programming is that when a class depends on another class, it should not depend on concrete instances of the other class. Rather, it should depend on an &lt;strong&gt;abstract interface&lt;/strong&gt; implemented by that class.&lt;/p&gt;
+
+&lt;p&gt;A more abstract way to handle dependency between entities is to invoke code by &lt;strong&gt;sending a message&lt;/strong&gt; to an object. The only required knowledge is the name of the message, represented with a generic entity (e.g. a string).&lt;/p&gt;
+
+&lt;h3 id=&quot;in-clojure-1&quot;&gt;In Clojure&lt;/h3&gt;
+
+&lt;p&gt;In a sense, Clojure idiom &lt;em&gt;just use maps&lt;/em&gt; is an application of the Dependency Inversion Principle to &lt;strong&gt;data&lt;/strong&gt;. Representing data with a data class or a data record is a &lt;strong&gt;concretion&lt;/strong&gt;: The only way to access data is via the class methods or record members.&lt;/p&gt;
+
+&lt;p&gt;When we access data through the methods of an interface, it’s a bit less concrete. But still, we can access data only through the methods defined in the interface.&lt;/p&gt;
+
+&lt;p&gt;A more abstract (less concrete) way to represent data is with generic maps. In order to access data in a map, the only required knowledge is the field name, represented with generic entities like strings (or Clojure keywords).&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt; &lt;/th&gt;
+      &lt;th&gt;Code&lt;/th&gt;
+      &lt;th&gt;Data&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Concrete&lt;/td&gt;
+      &lt;td&gt;Concrete class&lt;/td&gt;
+      &lt;td&gt;Concrete record&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Less concrete&lt;/td&gt;
+      &lt;td&gt;Abstract class&lt;/td&gt;
+      &lt;td&gt;Abstract class with getters&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Most abstract&lt;/td&gt;
+      &lt;td&gt;Message passing&lt;/td&gt;
+      &lt;td&gt;Generic map&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;see-also-1&quot;&gt;See also&lt;/h3&gt;
+&lt;p&gt;Abstraction&lt;/p&gt;
+
+&lt;h2 id=&quot;3-identity&quot;&gt;3. Identity&lt;/h2&gt;
+&lt;h3 id=&quot;definition-2&quot;&gt;Definition&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Identity&lt;/strong&gt; is a &lt;strong&gt;stable&lt;/strong&gt; logical entity that humans or programs associate with a series of different &lt;strong&gt;values&lt;/strong&gt; over &lt;strong&gt;time&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;An identity is not the same as a name.&lt;/p&gt;
+
+&lt;h3 id=&quot;example-2&quot;&gt;Example&lt;/h3&gt;
+
+&lt;div class=&quot;language-clojure highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yehonathan&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;atom&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yehonathan-state-on-march-2021&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+     &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;:age&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;42&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;;; No kidding!&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;:firstName&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Yehonathan&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;:lastName&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Sharvit&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset!&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yehonathan&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yehonathan-state-on-march-2021&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Let’s describe exactly what happens in this code snippet in terms of name, identity, state and value:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;yehonathan&lt;/code&gt; is a name that refers to an identity&lt;/li&gt;
+  &lt;li&gt;The identity is represented as an &lt;a href=&quot;https://clojuredocs.org/clojure.core/atom&quot;&gt;atom&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;The map with the fields &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;age=42&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firstName=&quot;Yehonathan&quot;&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lastName=&quot;Sharvit&quot;&lt;/code&gt; is a value&lt;/li&gt;
+  &lt;li&gt;After calling &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(reset! yehonathan ...)&lt;/code&gt;, the state of the identity referred by the name &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;yehonathan&lt;/code&gt; is the map with the fields &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;age=42&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firstName=&quot;Yehonathan&quot;&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lastName=&quot;Sharvit&quot;&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;see-also-2&quot;&gt;See also&lt;/h3&gt;
+&lt;p&gt;State, Value&lt;/p&gt;
+
+&lt;h2 id=&quot;4-information&quot;&gt;4. Information&lt;/h2&gt;
+&lt;h3 id=&quot;definition-3&quot;&gt;Definition&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Information&lt;/strong&gt; is what you &lt;strong&gt;know&lt;/strong&gt; about something that happened in the &lt;strong&gt;world&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Information is inherently &lt;strong&gt;sparse&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Information is &lt;strong&gt;open&lt;/strong&gt; in the sense that it could contain pieces that you don’t care about in some context.&lt;/p&gt;
+
+&lt;p&gt;Information &lt;strong&gt;accretes&lt;/strong&gt;, it just keeps accumulating.&lt;/p&gt;
+
+&lt;p&gt;The best way to grapple information is by using names.&lt;/p&gt;
+
+&lt;h2 id=&quot;5-loose-coupling&quot;&gt;5. Loose coupling&lt;/h2&gt;
+&lt;h3 id=&quot;definition-4&quot;&gt;Definition&lt;/h3&gt;
+
+&lt;p&gt;A system is &lt;strong&gt;loosely coupled&lt;/strong&gt; when its components have little knowledge of the internals of other components.&lt;/p&gt;
+
+&lt;p&gt;Components A is loosely coupled with component B if A communicates with B without &lt;strong&gt;concrete knowledge&lt;/strong&gt; about the internals of B.&lt;/p&gt;
+
+&lt;h3 id=&quot;example-3&quot;&gt;Example&lt;/h3&gt;
+
+&lt;p&gt;Web services that communicate via JSON are loosely coupled.&lt;/p&gt;
+
+&lt;h3 id=&quot;in-clojure-2&quot;&gt;In Clojure&lt;/h3&gt;
+
+&lt;p&gt;In Clojure, inside a program we “&lt;strong&gt;just use maps&lt;/strong&gt;” to communicate. This is based on the principle that
+“we should program the &lt;strong&gt;insides&lt;/strong&gt; of our systems like we program the &lt;strong&gt;outsides&lt;/strong&gt;”.
+Outside, we have loose coupling everywhere: over the wire we communicate via data (e.g. JSON).
+Let’s do the same inside and communicate via data (e.g. hash maps).&lt;/p&gt;
+
+&lt;p&gt;Compare that with functions that receive a record (or a data class) as an argument. In order to call those functions, we need to import the definition of the record. That’s not loose coupling!&lt;/p&gt;
+
+&lt;h3 id=&quot;see-also-3&quot;&gt;See also&lt;/h3&gt;
+
+&lt;p&gt;Abstraction, Concretion&lt;/p&gt;
+
+&lt;h2 id=&quot;6-maybe&quot;&gt;6. Maybe&lt;/h2&gt;
+&lt;h3 id=&quot;definition-5&quot;&gt;Definition&lt;/h3&gt;
+&lt;p&gt;Nothing is of type &lt;em&gt;maybe&lt;/em&gt; something.&lt;/p&gt;
+
+&lt;p&gt;Maybe is a property of the aggregate not of the field.&lt;/p&gt;
+
+&lt;h3 id=&quot;example-4&quot;&gt;Example&lt;/h3&gt;
+&lt;p&gt;It makes no sense to say that the type of the social security number of a person is &lt;em&gt;maybe&lt;/em&gt; a string.&lt;/p&gt;
+
+&lt;p&gt;What makes sense is to say: in this map (that aggregates data about a person), the social security number is maybe a string (it could also be absent from the map).&lt;/p&gt;
+
+&lt;p&gt;Even more precise: this function receives as an argument a map where the social security number is maybe a string.&lt;/p&gt;
+
+&lt;h2 id=&quot;7-names&quot;&gt;7. Names&lt;/h2&gt;
+&lt;h3 id=&quot;definition-6&quot;&gt;Definition&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Names&lt;/strong&gt; are a fundamental property of information. However, in statically-typed languages, names compile away. There exist at compile time but not a run time.&lt;/p&gt;
+
+&lt;p&gt;At run time, a field cannot be access &lt;strong&gt;dynamically&lt;/strong&gt; by its name. In order to access data, we are required to import the definition of the class that contains the data.&lt;/p&gt;
+
+&lt;h3 id=&quot;in-clojure-3&quot;&gt;In Clojure&lt;/h3&gt;
+&lt;p&gt;In a map, field names are first-class.&lt;/p&gt;
+
+&lt;h3 id=&quot;see-also-4&quot;&gt;See also&lt;/h3&gt;
+
+&lt;p&gt;Concretion, Loose-coupling&lt;/p&gt;
+
+&lt;h2 id=&quot;8-state&quot;&gt;8. State&lt;/h2&gt;
+&lt;h3 id=&quot;definition-7&quot;&gt;Definition&lt;/h3&gt;
+&lt;p&gt;The &lt;strong&gt;state&lt;/strong&gt; of an identity is the value &lt;strong&gt;currently&lt;/strong&gt; associated with this identity.&lt;/p&gt;
+
+&lt;p&gt;State never changes. At different times, different values are associated with an identity. We say that an identity can be in different states at different times.&lt;/p&gt;
+
+&lt;p&gt;An identity is not a state. An identity has a state at any point in time.&lt;/p&gt;
+
+&lt;h3 id=&quot;see-also-5&quot;&gt;See also&lt;/h3&gt;
+&lt;p&gt;Identity, Value&lt;/p&gt;
+
+&lt;h2 id=&quot;9-value&quot;&gt;9. Value&lt;/h2&gt;
+&lt;h3 id=&quot;definition-8&quot;&gt;Definition&lt;/h3&gt;
+&lt;p&gt;A &lt;strong&gt;value&lt;/strong&gt; is something that doesn’t change. A value is inherently &lt;strong&gt;immutable&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Values are part of the world, not part of our programs or our mental models.&lt;/p&gt;
+
+&lt;h3 id=&quot;example-5&quot;&gt;Example&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;In all programming languages, numbers are values.&lt;/li&gt;
+  &lt;li&gt;In most programming languages, strings are values.&lt;/li&gt;
+  &lt;li&gt;In functional programming languages, data collections are values.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;see-also-6&quot;&gt;See also&lt;/h3&gt;
+
+&lt;p&gt;Identity, State&lt;/p&gt;
+
+&lt;h3 id=&quot;in-clojure-4&quot;&gt;In Clojure&lt;/h3&gt;
+&lt;p&gt;In Clojure, every piece of data is a value: numbers, strings, maps, vectors, sets, lists.&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;I’ll leave you with the following questions:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;What are the fundamental differences between Clojure and Object-Oriented programming?&lt;/li&gt;
+  &lt;li&gt;What are the fundamental differences between Clojure and functional Oriented programming?&lt;/li&gt;
+  &lt;li&gt;What are the main benefits of Data-Oriented programming as evangelised by Clojure when building information systems?&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker based in Israel. My passion is to make interesting things easy to understand.&quot;}</name></author><category term="clojure" /><category term="dop" /><category term="clojure" /><category term="theory" /><summary type="html">Here are 9 fundamental concepts that Rich Hickey uses frequently in his talks to illustrate his unique approach to effective information systems and the rationale behind Clojure as a Data-Oriented programming language.</summary></entry><entry><title type="html">Data-Oriented programming in Java</title><link href="/java/2021/03/05/data-oriented-programming-in-java.html" rel="alternate" type="text/html" title="Data-Oriented programming in Java" /><published>2021-03-05T04:03:52+00:00</published><updated>2021-03-05T04:03:52+00:00</updated><id>/java/2021/03/05/data-oriented-programming-in-java</id><content type="html" xml:base="/java/2021/03/05/data-oriented-programming-in-java.html">&lt;h1 id=&quot;the-principles-of-data-oriented-programming&quot;&gt;The principles of Data-Oriented programming&lt;/h1&gt;
 
 &lt;p&gt;The purpose of Data-Oriented programming (DOP) is to &lt;strong&gt;reduce the complexity&lt;/strong&gt; of software systems, by promoting the treatment of data as a first-class citizen.&lt;/p&gt;
 
@@ -1876,142 +2095,4 @@ var b = _fp.set(a, &quot;foo&quot;, 2);
 
 &lt;script&gt;
 var fp = _.noConflict();
-&lt;/script&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="javascript" /><category term="javascript" /><summary type="html">Did you know that Lodash - the popular JavaScript utility library - had a functional flavor?</summary></entry><entry><title type="html">Manipulate immutable collections with no performance hit.</title><link href="/javascript/2020/11/09/immutable-manipulate.html" rel="alternate" type="text/html" title="Manipulate immutable collections with no performance hit." /><published>2020-11-09T00:21:34+00:00</published><updated>2020-11-09T00:21:34+00:00</updated><id>/javascript/2020/11/09/immutable-manipulate</id><content type="html" xml:base="/javascript/2020/11/09/immutable-manipulate.html">&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/immutable/4.0.0-rc.12/immutable.min.js&quot; integrity=&quot;sha512-OA48phPVdkQE2u9b6nhv71zeq9zvwc6oLq3IVWLw8WfRlcRO/+6zhUcWZxfXi75agm3bfqCxIdstBfK/g6fYvw==&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
-
-&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js&quot; integrity=&quot;sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww==&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;Constraining our programs to manipulate &lt;strong&gt;immutable data structures&lt;/strong&gt; is &lt;a href=&quot;/databook/2020/10/02/immutable-data.html&quot;&gt;known to be beneficial&lt;/a&gt; in terms of code predictability, concurrency and safety.&lt;/p&gt;
-
-&lt;p&gt;In a language like Clojure, where immutable data structures are native to the language, this benefits come for free.
-However, in languages where immutable data structures are not &lt;strong&gt;native&lt;/strong&gt; to the language, the &lt;strong&gt;price&lt;/strong&gt; we have to pay to benefit from data immutability is that we need to &lt;strong&gt;convert the data back and forth&lt;/strong&gt; from immutable to native. Beside the inconvenience of this conversion, it might cause a &lt;strong&gt;performance hit&lt;/strong&gt;, it we are not careful with the conversion.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/fast-car-infiniti.jpg&quot; alt=&quot;Car&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The purpose of the is article is to illustrate how to manipulate carefully immutable data collection from Immutable.js with the a data manipulation library like Lodash.js, leveraging Immutable’s &lt;strong&gt;shallow and deep conversion&lt;/strong&gt; functions.&lt;/p&gt;
-
-&lt;p&gt;A similar approach could be applied to other immutable data collection libraries and other data manipulation libraries (and also to other programming languages).&lt;/p&gt;
-
-&lt;p&gt;Imagine we have a nested piece of data that we want to:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Treat as &lt;strong&gt;immutable&lt;/strong&gt; (e.g Immutable.js)&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Manipulate&lt;/strong&gt; with data manipulation library (e.g Lodash.js)&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;The challenge is that Immutable.js data collections are not native JavaScript objects. Therefore, before passing the data to a JavaScript library, we have to convert it to a JavaScript object. In this article, we are going to show how to convert to JavaScript without impacting the performance too much.&lt;/p&gt;
-
-&lt;p&gt;Let’s take as an example the data of a library, that might looks similar to this nested object:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;var libraryData = {
-  &quot;name&quot;: &quot;The smallest library on earth&quot;,
-  &quot;address&quot;: &quot;Here and now&quot;,
-  &quot;catalog&quot;: {
-    &quot;books&quot;: [
-      {
-        &quot;title&quot;: &quot;Watchmen&quot;,
-        &quot;publicationYear&quot;: 1986,
-        &quot;authors&quot;: [
-          {
-            &quot;firstName&quot;: &quot;Alan&quot;,
-            &quot;lastName&quot;: &quot;Moore&quot;
-          },
-          {
-            &quot;firstName&quot;: &quot;Dave&quot;,
-            &quot;lastName&quot;: &quot;Gibbons&quot;
-          }
-        ]
-      },
-      {
-        &quot;title&quot;: &quot;Jimmy Corrigan, the Smartest Kid on Earth&quot;,
-        &quot;publicationYear&quot;: 2000,
-        &quot;authors&quot;: [
-          {
-            &quot;firstName&quot;: &quot;Chris&quot;,
-            &quot;lastName&quot;: &quot;Ware&quot;
-          }
-        ]
-      },
-      {
-        &quot;title&quot;: &quot;Ultimate Spider-Man&quot;,
-        &quot;publicationYear&quot;: 2000,
-        &quot;authors&quot;: [
-          {
-            &quot;firstName&quot;: &quot;Brian Michael&quot;,
-            &quot;lastName&quot;: &quot;Bendis&quot;
-          }
-        ]
-      }
-    ]
-  },
-  &quot;users&quot;: [
-    {&quot;username&quot;: &quot;user-1&quot;}, {&quot;username&quot;: &quot;user-2&quot;}, {&quot;username&quot;: &quot;user-3&quot;}
-  ]
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now, we convert the native JavaScript object to an Immutable map with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fromJS()&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;var immutableLibData = Immutable.fromJS(libraryData);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Our purpose is to find the best way to call &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_.countBy()&lt;/code&gt; on our immutable collection, in the same way as we would use it on the JavaScript native object:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;_.countBy(libraryData.catalog.books, &quot;publicationYear&quot;);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Immutable.js provides a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.toJS()&lt;/code&gt; function that &lt;strong&gt;deeply converts&lt;/strong&gt; an immutable collection to a JavaScript object or array.&lt;/p&gt;
-
-&lt;p&gt;We are then free to pass &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;immutableLibData.toJS()&lt;/code&gt; to any Lodash function:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;_.countBy(immutableLibData.toJS().catalog.books, &quot;publicationYear&quot;);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The problem is that it causes a &lt;strong&gt;performance hit&lt;/strong&gt;, as we have to convert the whole &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;immutableLibData&lt;/code&gt; immutable collection (including the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;users&lt;/code&gt; part which is unnecessary)&lt;/p&gt;
-
-&lt;p&gt;A better solution is to convert only the part of the data that we are interested in:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;_.countBy(immutableLibData.getIn([&quot;catalog&quot;, &quot;books&quot;]).toJS(), &quot;publicationYear&quot;);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;But still, there is a performance hit as we convert the books data deeply (including the authors part which is unnecessary).&lt;/p&gt;
-
-&lt;p&gt;The best thing we can do, is to do a careful shallow conversion to native JavaScript: It requires 2 steps:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;Shallow convert&lt;/strong&gt; books to a JavaScript array with Immutable’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;toArray()&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Shallow convert&lt;/strong&gt; each object of the books array to a JavaScript object with Immutable’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;toObject()&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Here is the code for that:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;function toArrayofObjects(m) {
-  return m.toArray().map(x =&amp;gt; x.toObject());
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And now, we can use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_.countBy()&lt;/code&gt; with no unnecessary performance hit:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;_.countBy(toArrayofObjects(immutableLibData.getIn([&quot;catalog&quot;, &quot;books&quot;])), &quot;publicationYear&quot;);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;A similar approach could be applied to other immutable data collection libraries and other data manipulation libraries (and also to other programming languages). The &lt;strong&gt;features&lt;/strong&gt; that the immutable data collection library needs to provide are:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;Deep conversion&lt;/strong&gt; to native objects (like Immutable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;toJS()&lt;/code&gt;)&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Shallow conversion&lt;/strong&gt; to native objects (like Immutable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;toArray()&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;toObject()&lt;/code&gt;)&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Enjoy immutability!&lt;/p&gt;
-
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;amp;utm_medium=affiliate&amp;amp;utm_campaign=book_sharvit2_data_1_29_21&amp;amp;a_aid=viebel&amp;amp;a_bid=d5b546b7&quot;&gt; book &lt;/a&gt; about &lt;b&gt;Data-Oriented Programming&lt;/b&gt;. 
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;br /&gt;
-&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="javascript" /><category term="javascript" /><summary type="html"></summary></entry></feed>
+&lt;/script&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="javascript" /><category term="javascript" /><summary type="html">Did you know that Lodash - the popular JavaScript utility library - had a functional flavor?</summary></entry></feed>

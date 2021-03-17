@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+        <!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Rich Hickey’s approach to effective information systems. | Yehonathan Sharvit</title>
+<meta name="generator" content="Jekyll v4.2.0" />
+<meta property="og:title" content="Rich Hickey’s approach to effective information systems." />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Writing effective information systems. Abstraction vs. Concretion. Functional programming vs. Object-Oriented programming vs. Data-Oriented programming. Dynamic typing vs. Static typing. Identity vs. State. The value of immutability." />
+<meta property="og:description" content="Writing effective information systems. Abstraction vs. Concretion. Functional programming vs. Object-Oriented programming vs. Data-Oriented programming. Dynamic typing vs. Static typing. Identity vs. State. The value of immutability." />
+<meta property="og:site_name" content="Yehonathan Sharvit" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-15T04:03:52+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Rich Hickey’s approach to effective information systems." />
+<meta name="twitter:site" content="@" />
+<script type="application/ld+json">
+{"url":"/clojure/2021/03/15/rich-hickey-concepts.html","headline":"Rich Hickey’s approach to effective information systems.","dateModified":"2021-03-15T04:03:52+00:00","datePublished":"2021-03-15T04:03:52+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/clojure/2021/03/15/rich-hickey-concepts.html"},"description":"Writing effective information systems. Abstraction vs. Concretion. Functional programming vs. Object-Oriented programming vs. Data-Oriented programming. Dynamic typing vs. Static typing. Identity vs. State. The value of immutability.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+
+    <!-- Site Favicon -->
+    <link rel="shortcut icon" href="/assets/favicon2.png" type="image/png" />
+
+    <!-- Font Embed Code -->
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600,600i|Karla:400,400i,700,700i" rel="stylesheet">
+
+    <!-- CSS Styles -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+</head>
+
+
+
+<body class="layout-post">
+    <div id="page" class="site">
+        <header id="masthead" class="site-header">
+    <div class="site-header-wrap">
+        <div class="site-header-inside">
+
+            <div class="site-branding">
+                
+                <p class="profile">
+                    <a href="/">
+                        <img src="/assets/images/authorimage.jpg" alt="'s Picture"
+                            class="avatar" />
+                    </a>
+                </p>
+                <div class="site-identity">
+                    
+                    <h1 class="site-title">
+                        <a href="/">Yehonathan Sharvit</a>
+                    </h1>
+                    
+                    
+                    <p class="site-description">Developer. Author. Speaker.</p>
+                    
+                </div><!-- .site-identity -->
+                
+                <button id="menu-toggle" class="menu-toggle"><span class="screen-reader-text">Main Menu</span><span
+                        class="icon-menu" aria-hidden="true"></span></button>
+            </div><!-- .site-branding -->
+
+            <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+                <div class="site-nav-wrap">
+                    <div class="site-nav-inside">
+                    <ul class="menu">
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/">Blog</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/talks">Talks</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/about">About</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/contact">Contact</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/search">Search</a></li>
+                        
+                    </ul>
+                    <p class="social-links">
+    <a class="github-button" href="https://github.com/viebel/klipse" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    
+    <a href="https://twitter.com/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+</p>
+
+                    <div class="book-header">
+  <div>
+    Discover my book!
+  </div>
+  <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
+    <img src="/assets/dop-book.png">
+  </a>
+  <div>
+    50% DISCOUNT CODE: mlsharvit2
+  </div>
+</div>
+
+                    </div><!-- .site-nav-inside -->
+                </div><!-- .site-nav-wrap -->
+            </nav><!-- .site-navigation -->
+
+        </div><!-- .site-header-inside -->
+    </div><!-- .site-header-wrap -->
+</header><!-- .site-header -->
+
+        <div id="content" class="site-content fadeInDown delay_075s">
+            <div class="inner-wide">
+                <main id="main" class="site-main">
+
+    <article class="post-full inner">
+
+        <header class="post-header">
+            <h1 class="post-title">Rich Hickey's approach to effective information systems.</h1>
+            <span class="post-meta">
+              <time class="post-date" datetime="2021-03-15">
+                March 15, 2021
+              </time>
+            </span>
+            
+            <span class="post-tags">
+                <a href="/tags/index.html#dop"
+                    rel="tag">dop</a>
+                <a href="/tags/index.html#clojure"
+                    rel="tag">clojure</a>
+                <a href="/tags/index.html#theory"
+                    rel="tag">theory</a>
+                
+            </span>
+            
+        </header><!-- .post-header -->
+
+        <div class="post-content">
+            <p>Here are 9 fundamental concepts that <strong>Rich Hickey</strong> uses frequently in his talks to illustrate his unique approach to <strong>effective information systems</strong> and the rationale behind <strong>Clojure</strong> as a <strong>Data-Oriented</strong> programming language.</p>
+
+<p>This glossary is my attempt to make Rich Hickey’s unique approach better understood in the global community of developers by explaining the concepts in simple terms (kind of Rich Hickey for dummies?) and by giving examples that illustrate the concepts in the context of our day-to-day as programmers.</p>
+
+<p>Hopefully, the glossary clarifies the distinction between:</p>
+
+<ol>
+  <li>Clojure and Object-Oriented programming</li>
+  <li>Clojure and Functional programming</li>
+</ol>
+
+<p>All insights are Rich’s. All errors are mine.</p>
+
+<p>The concepts are presented in alphabetical order.</p>
+
+<h2 id="1-abstraction">1. Abstraction</h2>
+<h3 id="definition">Definition</h3>
+<p><strong>Abstraction</strong> is about drawing from a set of <strong>exemplars</strong> some <strong>essential</strong> thing.</p>
+
+<h3 id="example">Example</h3>
+<p><strong>Relational algebra</strong> is an example of <strong>data abstraction</strong>. Modelling data as relations gives us lot of power:</p>
+
+<ol>
+  <li>We express advanced data manipulation operations with well-defined relational algebra operators</li>
+  <li>An implementation of relational algebra operators is applicable to all exemplars of data.</li>
+</ol>
+
+<h3 id="in-clojure">In Clojure</h3>
+<p>Representing data with <strong>maps</strong> (“just use maps”) is a <strong>data abstraction</strong>. The only required knowledge in order to access data is the field name, represented with a generic entity (e.g. a string or a keyword).</p>
+
+<p>Moreover, there is a well-defined algebra of maps  applicable to any data represented with maps.</p>
+
+<h3 id="see-also">See also</h3>
+<p>Concretion</p>
+
+<h2 id="2-concretion">2. Concretion</h2>
+<h3 id="definition-1">Definition</h3>
+
+<p><strong>Concretion</strong> is when in order to use something we need a <strong>concrete</strong> knowledge about the thing.</p>
+
+<h3 id="example-1">Example</h3>
+
+<p><a href="https://en.wikipedia.org/wiki/Dependency_inversion_principle">Dependency Inversion Principle</a>: Entities must depend on <strong>abstractions</strong>, not on <strong>concretions</strong>.</p>
+
+<p>The common way to apply DIP to Object-Oriented programming is that when a class depends on another class, it should not depend on concrete instances of the other class. Rather, it should depend on an <strong>abstract interface</strong> implemented by that class.</p>
+
+<p>A more abstract way to handle dependency between entities is to invoke code by <strong>sending a message</strong> to an object. The only required knowledge is the name of the message, represented with a generic entity (e.g. a string).</p>
+
+<h3 id="in-clojure-1">In Clojure</h3>
+
+<p>In a sense, Clojure idiom <em>just use maps</em> is an application of the Dependency Inversion Principle to <strong>data</strong>. Representing data with a data class or a data record is a <strong>concretion</strong>: The only way to access data is via the class methods or record members.</p>
+
+<p>When we access data through the methods of an interface, it’s a bit less concrete. But still, we can access data only through the methods defined in the interface.</p>
+
+<p>A more abstract (less concrete) way to represent data is with generic maps. In order to access data in a map, the only required knowledge is the field name, represented with generic entities like strings (or Clojure keywords).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Code</th>
+      <th>Data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Concrete</td>
+      <td>Concrete class</td>
+      <td>Concrete record</td>
+    </tr>
+    <tr>
+      <td>Less concrete</td>
+      <td>Abstract class</td>
+      <td>Abstract class with getters</td>
+    </tr>
+    <tr>
+      <td>Most abstract</td>
+      <td>Message passing</td>
+      <td>Generic map</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="see-also-1">See also</h3>
+<p>Abstraction</p>
+
+<h2 id="3-identity">3. Identity</h2>
+<h3 id="definition-2">Definition</h3>
+
+<p><strong>Identity</strong> is a <strong>stable</strong> logical entity that humans or programs associate with a series of different <strong>values</strong> over <strong>time</strong>.</p>
+
+<p>An identity is not the same as a name.</p>
+
+<h3 id="example-2">Example</h3>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">def</span><span class="w"> </span><span class="n">yehonathan</span><span class="w"> </span><span class="p">(</span><span class="nf">atom</span><span class="w"> </span><span class="n">nil</span><span class="p">))</span><span class="w">
+
+</span><span class="p">(</span><span class="k">def</span><span class="w"> </span><span class="n">yehonathan-state-on-march-2021</span><span class="w">
+     </span><span class="p">{</span><span class="no">:age</span><span class="w"> </span><span class="mi">42</span><span class="w">  </span><span class="c1">;; No kidding!</span><span class="w">
+      </span><span class="no">:firstName</span><span class="w"> </span><span class="s">"Yehonathan"</span><span class="w">
+      </span><span class="no">:lastName</span><span class="w"> </span><span class="s">"Sharvit"</span><span class="p">})</span><span class="w">
+  
+</span><span class="p">(</span><span class="nf">reset!</span><span class="w"> </span><span class="n">yehonathan</span><span class="w"> </span><span class="n">yehonathan-state-on-march-2021</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Let’s describe exactly what happens in this code snippet in terms of name, identity, state and value:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">yehonathan</code> is a name that refers to an identity</li>
+  <li>The identity is represented as an <a href="https://clojuredocs.org/clojure.core/atom">atom</a></li>
+  <li>The map with the fields <code class="language-plaintext highlighter-rouge">age=42</code>, <code class="language-plaintext highlighter-rouge">firstName="Yehonathan"</code> and <code class="language-plaintext highlighter-rouge">lastName="Sharvit"</code> is a value</li>
+  <li>After calling <code class="language-plaintext highlighter-rouge">(reset! yehonathan ...)</code>, the state of the identity referred by the name <code class="language-plaintext highlighter-rouge">yehonathan</code> is the map with the fields <code class="language-plaintext highlighter-rouge">age=42</code>, <code class="language-plaintext highlighter-rouge">firstName="Yehonathan"</code> and <code class="language-plaintext highlighter-rouge">lastName="Sharvit"</code>.</li>
+</ol>
+
+<h3 id="see-also-2">See also</h3>
+<p>State, Value</p>
+
+<h2 id="4-information">4. Information</h2>
+<h3 id="definition-3">Definition</h3>
+<p><strong>Information</strong> is what you <strong>know</strong> about something that happened in the <strong>world</strong>.</p>
+
+<p>Information is inherently <strong>sparse</strong>.</p>
+
+<p>Information is <strong>open</strong> in the sense that it could contain pieces that you don’t care about in some context.</p>
+
+<p>Information <strong>accretes</strong>, it just keeps accumulating.</p>
+
+<p>The best way to grapple information is by using names.</p>
+
+<h2 id="5-loose-coupling">5. Loose coupling</h2>
+<h3 id="definition-4">Definition</h3>
+
+<p>A system is <strong>loosely coupled</strong> when its components have little knowledge of the internals of other components.</p>
+
+<p>Components A is loosely coupled with component B if A communicates with B without <strong>concrete knowledge</strong> about the internals of B.</p>
+
+<h3 id="example-3">Example</h3>
+
+<p>Web services that communicate via JSON are loosely coupled.</p>
+
+<h3 id="in-clojure-2">In Clojure</h3>
+
+<p>In Clojure, inside a program we “<strong>just use maps</strong>” to communicate. This is based on the principle that
+“we should program the <strong>insides</strong> of our systems like we program the <strong>outsides</strong>”.
+Outside, we have loose coupling everywhere: over the wire we communicate via data (e.g. JSON).
+Let’s do the same inside and communicate via data (e.g. hash maps).</p>
+
+<p>Compare that with functions that receive a record (or a data class) as an argument. In order to call those functions, we need to import the definition of the record. That’s not loose coupling!</p>
+
+<h3 id="see-also-3">See also</h3>
+
+<p>Abstraction, Concretion</p>
+
+<h2 id="6-maybe">6. Maybe</h2>
+<h3 id="definition-5">Definition</h3>
+<p>Nothing is of type <em>maybe</em> something.</p>
+
+<p>Maybe is a property of the aggregate not of the field.</p>
+
+<h3 id="example-4">Example</h3>
+<p>It makes no sense to say that the type of the social security number of a person is <em>maybe</em> a string.</p>
+
+<p>What makes sense is to say: in this map (that aggregates data about a person), the social security number is maybe a string (it could also be absent from the map).</p>
+
+<p>Even more precise: this function receives as an argument a map where the social security number is maybe a string.</p>
+
+<h2 id="7-names">7. Names</h2>
+<h3 id="definition-6">Definition</h3>
+<p><strong>Names</strong> are a fundamental property of information. However, in statically-typed languages, names compile away. There exist at compile time but not a run time.</p>
+
+<p>At run time, a field cannot be access <strong>dynamically</strong> by its name. In order to access data, we are required to import the definition of the class that contains the data.</p>
+
+<h3 id="in-clojure-3">In Clojure</h3>
+<p>In a map, field names are first-class.</p>
+
+<h3 id="see-also-4">See also</h3>
+
+<p>Concretion, Loose-coupling</p>
+
+<h2 id="8-state">8. State</h2>
+<h3 id="definition-7">Definition</h3>
+<p>The <strong>state</strong> of an identity is the value <strong>currently</strong> associated with this identity.</p>
+
+<p>State never changes. At different times, different values are associated with an identity. We say that an identity can be in different states at different times.</p>
+
+<p>An identity is not a state. An identity has a state at any point in time.</p>
+
+<h3 id="see-also-5">See also</h3>
+<p>Identity, Value</p>
+
+<h2 id="9-value">9. Value</h2>
+<h3 id="definition-8">Definition</h3>
+<p>A <strong>value</strong> is something that doesn’t change. A value is inherently <strong>immutable</strong>.</p>
+
+<p>Values are part of the world, not part of our programs or our mental models.</p>
+
+<h3 id="example-5">Example</h3>
+
+<ul>
+  <li>In all programming languages, numbers are values.</li>
+  <li>In most programming languages, strings are values.</li>
+  <li>In functional programming languages, data collections are values.</li>
+</ul>
+
+<h3 id="see-also-6">See also</h3>
+
+<p>Identity, State</p>
+
+<h3 id="in-clojure-4">In Clojure</h3>
+<p>In Clojure, every piece of data is a value: numbers, strings, maps, vectors, sets, lists.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>I’ll leave you with the following questions:</p>
+
+<ol>
+  <li>What are the fundamental differences between Clojure and Object-Oriented programming?</li>
+  <li>What are the fundamental differences between Clojure and functional Oriented programming?</li>
+  <li>What are the main benefits of Data-Oriented programming as evangelised by Clojure when building information systems?</li>
+</ol>
+
+        </div>
+        <footer class="post-footer">
+          <div class="book-below">
+  <div style="float: left; width: 50%;">
+    <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
+      <div style="color:black; padding-left: 10px;">
+        Change the way you <b>think</b> about writing code.
+	      <div style="font-weight: bold;"> Start reading my book today! </div>
+        <br>
+        <ul>
+          <li>
+            Unlearn outdated <b>paradigms</b> and embrace the <b>flexibility</b> of a data-first approach with this accessible guide to data-oriented programming.
+          </li>
+
+        <li>
+        <b>Data-oriented Programming</b> is now available from Manning Publications. Learn how to implement the data-oriented paradigm in traditional object-oriented languages like Java, C# or JavaScript.
+        </li>
+
+        <li>
+          Powerful new <b>ideas</b> are presented through <i>conversations</i>, <i>code snippets</i>, <i>diagrams</i>, and even <i>songs</i> to help you quickly grok what’s great about DOP.
+        </li>
+        <li>
+          <b>Save 50%</b> on the cover price now through March 15. Use promo code mlsharvit2 during checkout. 
+        </li>
+
+
+
+        </ul>
+      </div>
+    </a>
+  </div>
+  <div style="float: left; width: 50%;">
+    <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
+      <img src="/assets/dop-book.png">
+    </a>
+  </div>
+  <div style="clear: both;">
+  </div>
+</div>
+
+            <div class="post-share">
+                <span class="post-share-title">Share:</span>
+                <a target="_blank"
+                    href="https://twitter.com/share?text=Rich+Hickey%27s+approach+to+effective+information+systems.&amp;url=https://blog.klipse.techclojure/2021/03/15/rich-hickey-concepts.html">Twitter</a>
+                <a target="_blank"
+                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techclojure/2021/03/15/rich-hickey-concepts.html">Facebook</a>
+            </div><!-- .share-post -->
+        </footer>
+    </article>
+    
+    <section class="newsletter-box inner">
+    <h2 class="newsletter-box-title">Subscribe to Yehonathan Sharvit newsletter</h2>
+    <p>Get the latest and greatest from Yehonathan Sharvit delivered straight to your inbox every week.</p>
+    <!-- Begin TinyLetter Signup Form -->
+    <div id="tinyletter_embed_signup">
+      <form class="validate gh-subscribe-form" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	      <label for="tlemail" class="screen-reader-text">Email Address</label>
+        <input type="email" value="" name="email" class="required email subscribe-email" placeholder="Your email address">
+	      <input type="hidden" value="1" name="embed"/>
+	      <input class="button" type="submit" value="Subscribe" />
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
+</section><!-- .widget -->
+
+    
+    <section class="read-next inner">
+        <h2 class="read-next-title">Read Next</h2>
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="March 5, 2021">March 5, 2021</time>
+                </div>
+                <h3 class="post-title"><a href="/java/2021/03/05/data-oriented-programming-in-java.html">Data-Oriented programming in Java</a>
+                </h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/dop/'>Dop</a>
+                    
+                    
+                    
+                    <a href='/tag/java/'>Java</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+        
+    </section><!-- .read-next -->
+
+    <!-- Create a sorted array of tags -->
+     
+    <section class="tagcloud inner">
+        <h2 class="tagcloud-title">Tags</h2>
+        <div class="tag-links">
+            
+            <a href='/tags/#algo'>algo</a>
+            
+            <a href='/tags/#brainfuck'>brainfuck</a>
+            
+            <a href='/tags/#c%2B%2B'>c++</a>
+            
+            <a href='/tags/#clojure'>clojure</a>
+            
+            <a href='/tags/#clojurescript'>clojurescript</a>
+            
+            <a href='/tags/#compiler'>compiler</a>
+            
+            <a href='/tags/#dop'>dop</a>
+            
+            <a href='/tags/#graph'>graph</a>
+            
+            <a href='/tags/#html'>html</a>
+            
+            <a href='/tags/#java'>java</a>
+            
+            <a href='/tags/#javascript'>javascript</a>
+            
+            <a href='/tags/#kids'>kids</a>
+            
+            <a href='/tags/#klipse'>klipse</a>
+            
+            <a href='/tags/#lambda-calculus'>lambda-calculus</a>
+            
+            <a href='/tags/#lambdacalculus'>lambdacalculus</a>
+            
+            <a href='/tags/#lisp'>lisp</a>
+            
+            <a href='/tags/#lua'>lua</a>
+            
+            <a href='/tags/#oblivion'>oblivion</a>
+            
+            <a href='/tags/#ocaml'>ocaml</a>
+            
+            <a href='/tags/#php'>php</a>
+            
+            <a href='/tags/#prolog'>prolog</a>
+            
+            <a href='/tags/#python'>python</a>
+            
+            <a href='/tags/#react'>react</a>
+            
+            <a href='/tags/#reagent'>reagent</a>
+            
+            <a href='/tags/#reasonml'>reasonml</a>
+            
+            <a href='/tags/#ruby'>ruby</a>
+            
+            <a href='/tags/#scheme'>scheme</a>
+            
+            <a href='/tags/#sql'>sql</a>
+            
+            <a href='/tags/#theory'>theory</a>
+            
+            <a href='/tags/#visualization'>visualization</a>
+            
+        </div><!-- .tag-links -->
+    </section><!-- .tagcloud -->
+</main><!-- .site-main -->
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js, [data-lang=klipse-javascript]',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+
+
+
+
+
+                
+
+                
+                <footer id="colophon" class="site-footer">
+    <p class="site-info inner">
+        <a href="#">Yehonathan Sharvit</a> &copy; 2021.
+    </p>
+    <a id="back-to-top" class="back-to-top" href="#page">
+        <span class="icon-arrow-up" aria-hidden="true"></span>
+        <span class="screen-reader-text">Back to top</span>
+    </a>
+</footer><!-- .site-footer -->
+
+            </div><!-- .inner-wide -->
+        </div><!-- .site-content -->
+    </div><!-- .site -->
+
+    
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75651930-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-75651930-1', { 'anonymize_ip': true });
+  </script>
+
+    <!-- Javascript Assets -->
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/custom.js"></script>
+
+</body>
+
+</html>

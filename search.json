@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Rich Hickey&#39;s approach to effective information systems.",
+      "category" : "",
+      "tags"     : "dop, clojure, theory",
+      "url"      : "/clojure/2021/03/15/rich-hickey-concepts.html",
+      "date"     : "March 15, 2021"
+    } ,
+  
+    {
       "title"    : "Data-Oriented programming in Java",
       "category" : "",
       "tags"     : "dop, java",
