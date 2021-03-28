@@ -15,7 +15,7 @@ In my opinion, **Data-Oriented programming** as a language-agnostic paradigm is 
 
 My understanding of those concepts has been highly influenced by **Rich Hickey**'s talks where he shares his unique approach to **effective information systems** and the rationale behind **Clojure** as a **Data-Oriented** programming language.
 
-This glossary is my attempt to make Data-Oriented programming better understood in the global community of developers and how DOP differs from Object-Oriented programming and functional programming.
+This glossary is my attempt to make Data-Oriented programming better understood in the global community of developers and explains how DOP differs from Object-Oriented programming and functional programming.
 
 The concepts are presented in alphabetical order.
 
