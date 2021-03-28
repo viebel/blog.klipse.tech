@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+        <!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>How to access data dynamically in Java without losing type safety | Yehonathan Sharvit</title>
+<meta name="generator" content="Jekyll v4.2.0" />
+<meta property="og:title" content="How to access data dynamically in Java without losing type safety" />
+<meta name="author" content="Yehonathan Sharvit" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Dynamic data access with Java classes and records using reflection. Type safe data access in Java hash maps." />
+<meta property="og:description" content="Dynamic data access with Java classes and records using reflection. Type safe data access in Java hash maps." />
+<meta property="og:site_name" content="Yehonathan Sharvit" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-28T12:11:42+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="How to access data dynamically in Java without losing type safety" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@Yehonathan Sharvit" />
+<script type="application/ld+json">
+{"url":"/java/2021/03/28/dynamic-data-access-in-java.html","headline":"How to access data dynamically in Java without losing type safety","dateModified":"2021-03-28T12:11:42+00:00","datePublished":"2021-03-28T12:11:42+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/java/2021/03/28/dynamic-data-access-in-java.html"},"author":{"@type":"Person","name":"Yehonathan Sharvit"},"description":"Dynamic data access with Java classes and records using reflection. Type safe data access in Java hash maps.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+
+    <!-- Site Favicon -->
+    <link rel="shortcut icon" href="/assets/favicon2.png" type="image/png" />
+
+    <!-- Font Embed Code -->
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600,600i|Karla:400,400i,700,700i" rel="stylesheet">
+
+    <!-- CSS Styles -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+</head>
+
+
+
+<body class="layout-post">
+    <div id="page" class="site">
+        <header id="masthead" class="site-header">
+    <div class="site-header-wrap">
+        <div class="site-header-inside">
+
+            <div class="site-branding">
+                
+                <p class="profile">
+                    <a href="/">
+                        <img src="/assets/images/authorimage.jpg" alt="'s Picture"
+                            class="avatar" />
+                    </a>
+                </p>
+                <div class="site-identity">
+                    
+                    <h1 class="site-title">
+                        <a href="/">Yehonathan Sharvit</a>
+                    </h1>
+                    
+                    
+                    <p class="site-description">Developer. Author. Speaker.</p>
+                    
+                </div><!-- .site-identity -->
+                
+                <button id="menu-toggle" class="menu-toggle"><span class="screen-reader-text">Main Menu</span><span
+                        class="icon-menu" aria-hidden="true"></span></button>
+            </div><!-- .site-branding -->
+
+            <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+                <div class="site-nav-wrap">
+                    <div class="site-nav-inside">
+                    <ul class="menu">
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/">Blog</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/talks">Talks</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/about">About</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/contact">Contact</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/search">Search</a></li>
+                        
+                    </ul>
+                    <p class="social-links">
+    <a class="github-button" href="https://github.com/viebel/klipse" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    
+    <a href="https://twitter.com/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+</p>
+
+                    <div class="book-header">
+  <div>
+    Discover my book!
+  </div>
+  <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
+    <img src="/assets/dop-book.png">
+  </a>
+  <div>
+    50% DISCOUNT CODE: mlsharvit2
+  </div>
+</div>
+
+                    </div><!-- .site-nav-inside -->
+                </div><!-- .site-nav-wrap -->
+            </nav><!-- .site-navigation -->
+
+        </div><!-- .site-header-inside -->
+    </div><!-- .site-header-wrap -->
+</header><!-- .site-header -->
+
+        <div id="content" class="site-content fadeInDown delay_075s">
+            <div class="inner-wide">
+                <main id="main" class="site-main">
+
+    <article class="post-full inner">
+
+        <header class="post-header">
+            <h1 class="post-title">How to access data dynamically in Java without losing type safety</h1>
+            <span class="post-meta">
+              <time class="post-date" datetime="2021-03-28">
+                March 28, 2021
+              </time>
+            </span>
+            
+            <span class="post-tags">
+                <a href="/tags/index.html#java"
+                    rel="tag">java</a>
+                
+            </span>
+            
+        </header><!-- .post-header -->
+
+        <div class="post-content">
+            <p>An interesting question in the context of information systems is:</p>
+
+<p>To what extent <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7">Data-Oriented programming</a> is applicable in a statically-typed language like Java?</p>
+
+<p>The first two principles of Data-Oriented programming (DOP) seem to be in the spirit of the newest additions to Java (e.g data records in Java 14):</p>
+
+<ul>
+  <li>Principle #1: Code is <strong>separated</strong> from data</li>
+  <li>Principle #2: Data is <strong>immutable</strong></li>
+</ul>
+
+<p>However, when it comes to Principle #3, it causes discomfort to many Java developers:</p>
+
+<ul>
+  <li>Principle #3: Data access is <strong>flexible</strong></li>
+</ul>
+
+<p>By flexible data access, we mean that it should be possible inside our programs to access dynamically a data field, given its name.</p>
+
+<p>There are two ways to provide <strong>dynamic data access</strong> in Java:</p>
+
+<ol>
+  <li>Represent data with <strong>classes</strong> (or records in Java 14) and use <strong>reflection</strong></li>
+  <li>Represent data with <strong>string maps</strong></li>
+</ol>
+
+<p>The purpose of this article is to illustrate various ways to <strong>access data dynamically</strong> in Java, both with classes and maps. Towards the end of the article, we suggest how to keep a bit of <strong>type safety</strong> even when data access is dynamic.</p>
+
+<p><img src="/assets/freedom.jpg" alt="freedom" /></p>
+
+<h1 id="data-in-json">Data in JSON</h1>
+
+<p>Let’s take as an example data from a library catalog with a single book.</p>
+
+<p>Here is an example of a catalog data in JSON:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="s2">"books"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"booksByIsbn"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"978-1779501127"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"isbn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"978-1779501127"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Watchmen"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"publicationYear"</span><span class="p">:</span><span class="w"> </span><span class="mi">1987</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"authorIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"alan-moore"</span><span class="p">,</span><span class="w"> </span><span class="s2">"dave-gibbons"</span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"authorsById"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"alan-moore"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Alan Moore"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bookIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"978-1779501127"</span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"dave-gibbons"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dave Gibbons"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"bookIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"978-1779501127"</span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Some pieces of data in our catalog are <strong>homogeneous maps of unknown size</strong> (e.g. the book index, the author index)</p>
+
+<p>Other pieces of data are <strong>heterogeneous maps of fixed size</strong> (e.g. a book, a author).</p>
+
+<p>Homogeneous maps of unknown size are usually represented by <strong>hash maps</strong>, while heterogeneous maps of fixed sized are usually represented with <strong>classes</strong>.</p>
+
+<p>The example that we are going to use again and again throughout the article, is accessing the title of watchmen inside the catalog and convert it to upper case.</p>
+
+<h1 id="representing-data-with-records">Representing data with records</h1>
+
+<p>Java 14 introduced the concept of a <strong>data record</strong> that provides a first-class means for modelling data-only aggregates.</p>
+
+<p>Here is how our data model would look like with records:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">record</span> <span class="nf">AuthorData</span> <span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span>
+                          <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">bookIds</span><span class="o">)</span> <span class="o">{}</span>
+
+<span class="kd">public</span> <span class="n">record</span> <span class="nf">BookData</span> <span class="o">(</span><span class="nc">String</span> <span class="n">title</span><span class="o">,</span>
+                        <span class="nc">String</span> <span class="n">isbn</span><span class="o">,</span>
+                        <span class="nc">Integer</span> <span class="n">publicationYear</span><span class="o">,</span>
+                        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">authorIds</span><span class="o">)</span> <span class="o">{}</span>
+
+<span class="kd">public</span> <span class="n">record</span> <span class="nf">CatalogData</span> <span class="o">(</span><span class="nc">String</span> <span class="n">items</span><span class="o">,</span> 
+                           <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">BookData</span><span class="o">&gt;</span> <span class="n">booksByIsbn</span><span class="o">,</span>
+                           <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">AuthorData</span><span class="o">&gt;</span> <span class="n">authorByIds</span><span class="o">)</span> <span class="o">{}</span>
+
+</code></pre></div></div>
+
+<p>Records are instantiated like classes:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">var</span> <span class="n">watchmen</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BookData</span><span class="o">(</span><span class="s">"Watchmen"</span><span class="o">,</span>
+                            <span class="s">"978-1779501127"</span><span class="o">,</span>
+                            <span class="mi">1987</span><span class="o">,</span>
+                            <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"alan-moore"</span><span class="o">,</span> <span class="s">"dave-gibbons"</span><span class="o">));</span>
+
+<span class="kt">var</span> <span class="n">alanM</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AuthorData</span><span class="o">(</span><span class="s">"Alan Moore"</span><span class="o">,</span> <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"978-1779501127"</span><span class="o">));</span>
+<span class="kt">var</span> <span class="n">daveG</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AuthorData</span><span class="o">(</span><span class="s">"Dave Gibbons"</span><span class="o">,</span> <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"978-1779501127"</span><span class="o">));</span>
+
+<span class="kt">var</span> <span class="n">booksByIsbn</span> <span class="o">=</span> <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"978-1779501127"</span><span class="o">,</span> <span class="n">watchmen</span><span class="o">);</span>
+
+<span class="kt">var</span> <span class="n">authorsById</span> <span class="o">=</span> <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"alan-moore"</span><span class="o">,</span> <span class="n">alanM</span><span class="o">,</span>
+                         <span class="s">"dave-gibbons"</span><span class="o">,</span> <span class="n">daveG</span><span class="o">);</span>
+
+<span class="kt">var</span> <span class="n">catalog</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CatalogData</span><span class="o">(</span><span class="s">"books"</span><span class="o">,</span> <span class="n">booksByIsbn</span><span class="o">,</span> <span class="n">authorsById</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Conceptually, the title of Watchmen, like any other piece of information has an <em>information path</em>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span><span class="s">"booksByIsbn"</span><span class="o">,</span> <span class="s">"978-1779501127"</span><span class="o">,</span> <span class="s">"title"</span><span class="o">]</span>
+</code></pre></div></div>
+
+<p>However, when we navigate the information path we encounter both records and hash maps:</p>
+
+<ul>
+  <li>The natural way to access data in a record is via the dot notation</li>
+  <li>The natural way to access data in a hash map is via the <code class="language-plaintext highlighter-rouge">get()</code> method</li>
+</ul>
+
+<p>Here is how we access the title of watchmen and convert it to upper case.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">catalog</span><span class="o">.</span><span class="na">booksByIsbn</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="s">"978-1779501127"</span><span class="o">)</span>
+<span class="o">.</span><span class="na">title</span><span class="o">().</span><span class="na">toUpperCase</span><span class="o">();</span> <span class="c1">// "WATCHMEN"</span>
+</code></pre></div></div>
+
+<p>This lack of uniformity between data access in a record and in a map is not only annoying from a theoretic perspective. It also has practical drawbacks. For instance, we cannot store the information path in a variable or in a function argument. In fact, we don’t have a <strong>dynamic access to information</strong>.</p>
+
+<h1 id="accessing-data-in-a-record-via-reflection">Accessing data in a record via reflection</h1>
+
+<p>We can overcome the drawbacks exposed in the previous section and provide a <strong>dynamic access to information</strong> in a record or in a class, via <strong>reflection</strong>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">DynamicAccess</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="nc">Object</span> <span class="nf">get</span><span class="o">(</span><span class="nc">Object</span> <span class="n">o</span><span class="o">,</span> <span class="nc">String</span> <span class="n">k</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IllegalAccessException</span><span class="o">,</span> <span class="nc">NoSuchFieldException</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="o">(</span><span class="n">o</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getDeclaredField</span><span class="o">(</span><span class="n">k</span><span class="o">).</span><span class="na">get</span><span class="o">(</span><span class="n">o</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>And now, we are able to access data in a record via a string that holds the name of a field. For instance:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">DynamicAccess</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">watchmen</span><span class="o">,</span>
+                  <span class="s">"title"</span><span class="o">)</span> <span class="c1">// "Watchmen"</span>
+</code></pre></div></div>
+
+<p>We can easily modify <code class="language-plaintext highlighter-rouge">DynamicAccess.get()</code> so that it works both with records and maps:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">DynamicAccess</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="nc">Object</span> <span class="nf">get</span><span class="o">(</span><span class="nc">Object</span> <span class="n">o</span><span class="o">,</span> <span class="nc">String</span> <span class="n">k</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IllegalAccessException</span><span class="o">,</span> <span class="nc">NoSuchFieldException</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">o</span> <span class="k">instanceof</span> <span class="nc">Map</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="o">((</span><span class="nc">Map</span><span class="o">)</span><span class="n">o</span><span class="o">).</span><span class="na">get</span><span class="o">(</span><span class="n">k</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="o">(</span><span class="n">o</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getDeclaredField</span><span class="o">(</span><span class="n">k</span><span class="o">).</span><span class="na">get</span><span class="o">(</span><span class="n">o</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>And now, we can write a <code class="language-plaintext highlighter-rouge">getIn()</code> method that receives an object and an information path:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">DynamicAccess</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="nc">Object</span> <span class="nf">get</span><span class="o">(</span><span class="nc">Object</span> <span class="n">o</span><span class="o">,</span> <span class="nc">String</span> <span class="n">k</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IllegalAccessException</span><span class="o">,</span> <span class="nc">NoSuchFieldException</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">o</span> <span class="k">instanceof</span> <span class="nc">Map</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="o">((</span><span class="nc">Map</span><span class="o">)</span><span class="n">o</span><span class="o">).</span><span class="na">get</span><span class="o">(</span><span class="n">k</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="o">(</span><span class="n">o</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getDeclaredField</span><span class="o">(</span><span class="n">k</span><span class="o">).</span><span class="na">get</span><span class="o">(</span><span class="n">o</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="kd">static</span> <span class="nc">Object</span> <span class="nf">getIn</span><span class="o">(</span><span class="nc">Object</span> <span class="n">o</span><span class="o">,</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">path</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IllegalAccessException</span><span class="o">,</span> <span class="nc">NoSuchFieldException</span> <span class="o">{</span>
+        <span class="nc">Object</span> <span class="n">v</span> <span class="o">=</span> <span class="n">o</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="nc">String</span> <span class="n">k</span> <span class="o">:</span> <span class="n">path</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">get</span><span class="o">(</span><span class="n">v</span><span class="o">,</span> <span class="n">k</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">v</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Here is how we access the title of watchmen in the catalog, via its <strong>information path</strong>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">var</span> <span class="n">informationPath</span> <span class="o">=</span> <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"booksByIsbn"</span><span class="o">,</span>
+                              <span class="s">"978-1779501127"</span><span class="o">,</span>
+                              <span class="s">"title"</span><span class="o">);</span>
+<span class="nc">DynamicAccess</span><span class="o">.</span><span class="na">getIn</span><span class="o">(</span><span class="n">catalog</span><span class="o">,</span>
+                    <span class="n">informationPath</span><span class="o">);</span> <span class="c1">// "watchmen"</span>
+</code></pre></div></div>
+
+<p>The problem that remains to be solved is the type of the value that we retrieve via <code class="language-plaintext highlighter-rouge">DynamicAccess.get()</code> or <code class="language-plaintext highlighter-rouge">DynamicAccess.getIn()</code>.</p>
+
+<p>The most cumbersome way is to cast explicitly:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">var</span> <span class="n">informationPath</span> <span class="o">=</span> <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"booksByIsbn"</span><span class="o">,</span>
+                              <span class="s">"978-1779501127"</span><span class="o">,</span>
+                              <span class="s">"title"</span><span class="o">);</span>
+
+<span class="o">((</span><span class="nc">String</span><span class="o">)</span><span class="nc">DynamicAccess</span><span class="o">.</span><span class="na">getIn</span><span class="o">(</span><span class="n">catalog</span><span class="o">,</span>
+                             <span class="n">informationPath</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">toUpperCase</span><span class="o">();</span> <span class="c1">// "WATCHMEN"</span>
+</code></pre></div></div>
+
+<p>Another option is to add two specific methods to <code class="language-plaintext highlighter-rouge">DynamicAccess</code> that return a string:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">DynamicAccess</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="nc">String</span> <span class="nf">getAsString</span><span class="o">(</span><span class="nc">Object</span> <span class="n">o</span><span class="o">,</span> <span class="nc">String</span> <span class="n">k</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IllegalAccessException</span><span class="o">,</span> <span class="nc">NoSuchFieldException</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="o">(</span><span class="nc">String</span><span class="o">)</span><span class="n">get</span><span class="o">(</span><span class="n">o</span><span class="o">,</span> <span class="n">k</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">static</span> <span class="nc">String</span> <span class="nf">getInAsString</span><span class="o">(</span><span class="nc">Object</span> <span class="n">o</span><span class="o">,</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">path</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IllegalAccessException</span><span class="o">,</span> <span class="nc">NoSuchFieldException</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="o">(</span><span class="nc">String</span><span class="o">)</span><span class="n">getIn</span><span class="o">(</span><span class="n">o</span><span class="o">,</span> <span class="n">path</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p>It makes data access a bit less verbose:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">var</span> <span class="n">informationPath</span> <span class="o">=</span> <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"booksByIsbn"</span><span class="o">,</span>
+                              <span class="s">"978-1779501127"</span><span class="o">,</span>
+                              <span class="s">"title"</span><span class="o">);</span>
+
+<span class="nc">DynamicAccess</span><span class="o">.</span><span class="na">getInAsString</span><span class="o">(</span><span class="n">catalog</span><span class="o">,</span>
+                            <span class="n">informationPath</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">toUpperCase</span><span class="o">();</span> <span class="c1">// "WATCHMEN"</span>
+</code></pre></div></div>
+
+<h1 id="representing-data-with-hash-maps">Representing data with hash maps</h1>
+
+<p>Another approach to providing a <strong>dynamic data access</strong> is to represent every piece of data with hash maps. The benefits of this approach is that we don’t need to use reflection. The drawback is that all our maps are <code class="language-plaintext highlighter-rouge">Map&lt;String, Object&gt;</code> and it means that we have lost <strong>type safety</strong>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">var</span> <span class="n">watchmen</span> <span class="o">=</span> <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"title"</span><span class="o">,</span> <span class="s">"Watchmen"</span><span class="o">,</span>
+                      <span class="s">"isbn"</span><span class="o">,</span> <span class="s">"978-1779501127"</span><span class="o">,</span>
+                      <span class="s">"publicationYear"</span><span class="o">,</span> <span class="mi">1987</span><span class="o">,</span>
+                      <span class="s">"authorIds"</span><span class="o">,</span> <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"alan-moore"</span><span class="o">,</span>
+                                           <span class="s">"dave-gibbons"</span><span class="o">));</span>
+
+<span class="kt">var</span> <span class="n">alanM</span> <span class="o">=</span> <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="s">"Alan Moore"</span><span class="o">,</span>
+                      <span class="s">"bookIds"</span><span class="o">,</span> <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"978-1779501127"</span><span class="o">));</span>
+
+<span class="kt">var</span> <span class="n">daveG</span> <span class="o">=</span> <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="s">"Dave Gibbons"</span><span class="o">,</span>
+                         <span class="s">"bookIds"</span><span class="o">,</span> <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"978-1779501127"</span><span class="o">));</span>
+
+<span class="kt">var</span> <span class="n">booksByIsbn</span> <span class="o">=</span> <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"978-1779501127"</span><span class="o">,</span> <span class="n">watchmen</span><span class="o">);</span>
+
+<span class="kt">var</span> <span class="n">authorsById</span> <span class="o">=</span> <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"alan-moore"</span><span class="o">,</span> <span class="n">alanM</span><span class="o">,</span>
+                         <span class="s">"dave-gibbons"</span><span class="o">,</span> <span class="n">daveG</span><span class="o">);</span>
+
+<span class="kt">var</span> <span class="n">catalog</span> <span class="o">=</span> <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"items"</span><span class="o">,</span> <span class="s">"book"</span><span class="o">,</span>
+                     <span class="s">"booksByIsbn"</span><span class="o">,</span> <span class="n">booksByIsbn</span><span class="o">,</span>
+                     <span class="s">"authorsById"</span><span class="o">,</span> <span class="n">authorsById</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Like before, we are free to access any piece of information via its information path:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">var</span> <span class="n">informationPath</span> <span class="o">=</span> <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"booksByIsbn"</span><span class="o">,</span>
+                              <span class="s">"978-1779501127"</span><span class="o">,</span>
+                              <span class="s">"title"</span><span class="o">);</span>
+
+<span class="nc">DynamicAccess</span><span class="o">.</span><span class="na">getInAsString</span><span class="o">(</span><span class="n">catalog</span><span class="o">,</span> <span class="n">informationPath</span><span class="o">)</span>
+                  <span class="o">.</span><span class="na">toUpperCase</span><span class="o">();</span> <span class="c1">// "WATCHMEN"</span>
+</code></pre></div></div>
+
+<h1 id="typed-getters">Typed getters</h1>
+
+<p>We could move one step further and try to make it easier to specify the type of a value associated with a key, by making <strong>field names first-class citizens</strong> in our program.</p>
+
+<p>Let’s start with a non-nested key in a map or a record.</p>
+
+<p>We create a generic <code class="language-plaintext highlighter-rouge">Getter</code> class:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Getter</span> <span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">key</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="nf">Getter</span> <span class="o">(</span><span class="nc">String</span> <span class="n">k</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">key</span> <span class="o">=</span> <span class="n">k</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="no">T</span> <span class="nf">get</span> <span class="o">(</span><span class="nc">Object</span> <span class="n">o</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IllegalAccessException</span><span class="o">,</span> <span class="nc">NoSuchFieldException</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="o">(</span><span class="no">T</span><span class="o">)(</span><span class="nc">DynamicAccess</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">o</span><span class="o">,</span> <span class="n">key</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We can create a <strong>typed getter</strong> that contains both:</p>
+
+<ol>
+  <li>the name of the field</li>
+  <li>the type of its value.</li>
+</ol>
+
+<p>For instance, here is how we create a typed getter for the title of a book:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Getter</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="no">TITLE</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Getter</span><span class="o">(</span><span class="s">"title"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>And here is how we use the typed getter to access the field value:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">TITLE</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">watchmen</span><span class="o">);</span> <span class="c1">// "watchmen"</span>
+</code></pre></div></div>
+
+<p>The getter is typed, therefore we can access the value as a string without any casting:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">TITLE</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">watchmen</span><span class="o">).</span><span class="na">toUpperCase</span><span class="o">();</span> <span class="c1">// "WATCHMEN"</span>
+</code></pre></div></div>
+
+<p>We can extend the typed getter approach to nested keys:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">GetterIn</span> <span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">path</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="nf">GetterIn</span> <span class="o">(</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">path</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">path</span> <span class="o">=</span> <span class="n">path</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="no">T</span> <span class="nf">getIn</span> <span class="o">(</span><span class="nc">Object</span> <span class="n">o</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IllegalAccessException</span><span class="o">,</span> <span class="nc">NoSuchFieldException</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="o">(</span><span class="no">T</span><span class="o">)(</span><span class="nc">DynamicAccess</span><span class="o">.</span><span class="na">getIn</span><span class="o">(</span><span class="n">o</span><span class="o">,</span> <span class="n">path</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>And here is how we access a piece of information via its information path:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">var</span> <span class="n">informationPath</span> <span class="o">=</span> <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"booksByIsbn"</span><span class="o">,</span>
+                              <span class="s">"978-1779501127"</span><span class="o">,</span>
+                              <span class="s">"title"</span><span class="o">);</span>
+
+
+<span class="nc">GetterIn</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="no">NESTED_TITLE</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">GetterIn</span><span class="o">(</span><span class="n">informationPath</span><span class="o">);</span>
+<span class="no">NESTED_TITLE</span><span class="o">.</span><span class="na">getIn</span><span class="o">(</span><span class="n">library</span><span class="o">).</span><span class="na">toUpperCase</span><span class="o">();</span> <span class="c1">// "WATCHMEN"</span>
+</code></pre></div></div>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>Providing a <strong>dynamic data access</strong> in a <strong>statically-typed</strong> language like Java is challenging. When data is represented with classes or records, we need to use reflection and when data is represented with string maps, we loose the information about types.</p>
+
+<p>Maybe an approach like the typed getters, presented at the end of the article, could open the door to the Java community for a <strong>dynamic data access</strong> that doesn’t compromise <strong>type safety</strong>.</p>
+
+
+        </div>
+        <footer class="post-footer">
+          <div class="book-below">
+  <div style="float: left; width: 50%;">
+    <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
+      <div style="color:black; padding-left: 10px;">
+        Change the way you <b>think</b> about writing code.
+	      <div style="font-weight: bold;"> Start reading my book today! </div>
+        <br>
+        <ul>
+          <li>
+            Unlearn outdated <b>paradigms</b> and embrace the <b>flexibility</b> of a data-first approach with this accessible guide to data-oriented programming.
+          </li>
+
+        <li>
+        <b>Data-oriented Programming</b> is now available from Manning Publications. Learn how to implement the data-oriented paradigm in traditional object-oriented languages like Java, C# or JavaScript.
+        </li>
+
+        <li>
+          Powerful new <b>ideas</b> are presented through <i>conversations</i>, <i>code snippets</i>, <i>diagrams</i>, and even <i>songs</i> to help you quickly grok what’s great about DOP.
+        </li>
+        <li>
+          <b>Save 50%</b> on the cover price now through March 15. Use promo code mlsharvit2 during checkout. 
+        </li>
+
+
+
+        </ul>
+      </div>
+    </a>
+  </div>
+  <div style="float: left; width: 50%;">
+    <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
+      <img src="/assets/dop-book.png">
+    </a>
+  </div>
+  <div style="clear: both;">
+  </div>
+</div>
+
+            <div class="post-share">
+                <span class="post-share-title">Share:</span>
+                <a target="_blank"
+                    href="https://twitter.com/share?text=How+to+access+data+dynamically+in+Java+without+losing+type+safety&amp;url=https://blog.klipse.techjava/2021/03/28/dynamic-data-access-in-java.html">Twitter</a>
+                <a target="_blank"
+                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techjava/2021/03/28/dynamic-data-access-in-java.html">Facebook</a>
+            </div><!-- .share-post -->
+        </footer>
+    </article>
+    
+    <section class="newsletter-box inner">
+    <h2 class="newsletter-box-title">Subscribe to Yehonathan Sharvit newsletter</h2>
+    <p>Get the latest and greatest from Yehonathan Sharvit delivered straight to your inbox every week.</p>
+    <!-- Begin TinyLetter Signup Form -->
+    <div id="tinyletter_embed_signup">
+      <form class="validate gh-subscribe-form" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	      <label for="tlemail" class="screen-reader-text">Email Address</label>
+        <input type="email" value="" name="email" class="required email subscribe-email" placeholder="Your email address">
+	      <input type="hidden" value="1" name="embed"/>
+	      <input class="button" type="submit" value="Subscribe" />
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
+</section><!-- .widget -->
+
+    
+    <section class="read-next inner">
+        <h2 class="read-next-title">Read Next</h2>
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="March 15, 2021">March 15, 2021</time>
+                </div>
+                <h3 class="post-title"><a href="/clojure/2021/03/15/rich-hickey-concepts.html">The concepts behind Data-Oriented programming</a>
+                </h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/dop/'>Dop</a>
+                    
+                    
+                    
+                    <a href='/tag/clojure/'>Clojure</a>
+                    
+                    
+                    
+                    <a href='/tag/theory/'>Theory</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+        
+    </section><!-- .read-next -->
+
+    <!-- Create a sorted array of tags -->
+     
+    <section class="tagcloud inner">
+        <h2 class="tagcloud-title">Tags</h2>
+        <div class="tag-links">
+            
+            <a href='/tags/#algo'>algo</a>
+            
+            <a href='/tags/#brainfuck'>brainfuck</a>
+            
+            <a href='/tags/#c%2B%2B'>c++</a>
+            
+            <a href='/tags/#clojure'>clojure</a>
+            
+            <a href='/tags/#clojurescript'>clojurescript</a>
+            
+            <a href='/tags/#compiler'>compiler</a>
+            
+            <a href='/tags/#dop'>dop</a>
+            
+            <a href='/tags/#graph'>graph</a>
+            
+            <a href='/tags/#html'>html</a>
+            
+            <a href='/tags/#java'>java</a>
+            
+            <a href='/tags/#javascript'>javascript</a>
+            
+            <a href='/tags/#kids'>kids</a>
+            
+            <a href='/tags/#klipse'>klipse</a>
+            
+            <a href='/tags/#lambda-calculus'>lambda-calculus</a>
+            
+            <a href='/tags/#lambdacalculus'>lambdacalculus</a>
+            
+            <a href='/tags/#lisp'>lisp</a>
+            
+            <a href='/tags/#lua'>lua</a>
+            
+            <a href='/tags/#oblivion'>oblivion</a>
+            
+            <a href='/tags/#ocaml'>ocaml</a>
+            
+            <a href='/tags/#php'>php</a>
+            
+            <a href='/tags/#prolog'>prolog</a>
+            
+            <a href='/tags/#python'>python</a>
+            
+            <a href='/tags/#react'>react</a>
+            
+            <a href='/tags/#reagent'>reagent</a>
+            
+            <a href='/tags/#reasonml'>reasonml</a>
+            
+            <a href='/tags/#ruby'>ruby</a>
+            
+            <a href='/tags/#scheme'>scheme</a>
+            
+            <a href='/tags/#sql'>sql</a>
+            
+            <a href='/tags/#theory'>theory</a>
+            
+            <a href='/tags/#visualization'>visualization</a>
+            
+        </div><!-- .tag-links -->
+    </section><!-- .tagcloud -->
+</main><!-- .site-main -->
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js, [data-lang=klipse-javascript]',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?v=8.0.1"></script>
+
+
+
+
+
+                
+
+                
+                <footer id="colophon" class="site-footer">
+    <p class="site-info inner">
+        <a href="#">Yehonathan Sharvit</a> &copy; 2021.
+    </p>
+    <a id="back-to-top" class="back-to-top" href="#page">
+        <span class="icon-arrow-up" aria-hidden="true"></span>
+        <span class="screen-reader-text">Back to top</span>
+    </a>
+</footer><!-- .site-footer -->
+
+            </div><!-- .inner-wide -->
+        </div><!-- .site-content -->
+    </div><!-- .site -->
+
+    
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75651930-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-75651930-1', { 'anonymize_ip': true });
+  </script>
+
+    <!-- Javascript Assets -->
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/custom.js"></script>
+
+</body>
+
+</html>

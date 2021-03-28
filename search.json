@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "How to access data dynamically in Java without losing type safety",
+      "category" : "",
+      "tags"     : "java",
+      "url"      : "/java/2021/03/28/dynamic-data-access-in-java.html",
+      "date"     : "March 28, 2021"
+    } ,
+  
+    {
       "title"    : "The concepts behind Data-Oriented programming",
       "category" : "",
       "tags"     : "dop, clojure, theory",
