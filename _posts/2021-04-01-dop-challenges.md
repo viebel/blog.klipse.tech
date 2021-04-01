@@ -107,6 +107,7 @@ var libraryData = {
 
 What's the title of the book whose ISBN is "978-1779501127" in upper case?
 
+In this article, I am using [Lodash FP](https://github.com/lodash/lodash/wiki/FP-Guide) configured so that it never mutates data in place. Instead of mutating data in place, functions like `_.set()` create a new version.
 
 ~~~eval-js
 var informationPath = ["catalog", "booksByIsbn", "978-1779501127", "title"]; 
@@ -178,6 +179,8 @@ Here, the main benefits are the power of expression of `map` and `reduce` combin
 # Challenge #3: Add a piece of information
 
 **Challenge**: Write a function named `blockMember` that receives library data and an email address and returns a new version of library data **without altering the original version**, where the user with the given email is blocked.
+
+Remember that I am using a version of Lodash that, instead of mutating data in place, creates a new version.
 
 
 ~~~eval-js
