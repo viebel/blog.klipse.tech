@@ -1,0 +1,18 @@
+@startmindmap
+
+* Data related paradigms
+** Data-driven programming
+*** Data describes the behaviour 
+*** Increase code clarity
+** Data-oriented design
+*** Data layout in memory
+*** Increase perfomance
+
+left side
+
+** Data-oriented programming
+*** Data representation
+*** Reduce complexity
+
+
+@endminmap

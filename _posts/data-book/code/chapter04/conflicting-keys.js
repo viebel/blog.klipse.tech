@@ -10,7 +10,7 @@ function diffObjects(data1, data2) {
                           var res = diff(_.get(data1, k),
                                          _.get(data2, k));
                           if(res !== sentinel) {
-                              return _.set(acc, k, res);
+                              return _.set(acc, [k], res);
                           }
                           return acc;
                       },
