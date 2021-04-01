@@ -350,7 +350,7 @@ diff(libraryData, updatedLibraryData);
 ~~~
 
 ~~~eval-js
-diff(libraryData, libraryDataupdatedLibraryData);
+diff(libraryData, libraryData);
 ~~~
 
 When every piece of data in the system is represented with generic data structures, it is quite easy to compare recursively different data versions.
