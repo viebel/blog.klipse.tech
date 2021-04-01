@@ -1,8 +1,8 @@
 ---
 layout: post
-title: Data-Oriented programming challenges
+title: Data-Oriented programming simplicity illustrated by coding challenges
 description:  Data-Oriented programming challenges that illustrate the simplicity of Data-Oriented programming.
-date:   2021-04-01 04:38:15 +0200
+date:   2021-04-01 14:38:15 +0200
 categories: dop
 thumbnail: assets/klipse.png
 author: Yehonathan Sharvit
