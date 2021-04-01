@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Data-Oriented programming challenges",
+      "category" : "",
+      "tags"     : "dop, javascript",
+      "url"      : "/dop/2021/04/01/dop-challenges.html",
+      "date"     : "April 1, 2021"
+    } ,
+  
+    {
       "title"    : "How to access data dynamically in Java without losing type safety",
       "category" : "",
       "tags"     : "java",

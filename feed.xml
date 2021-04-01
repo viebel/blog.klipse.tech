@@ -1,4 +1,347 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-03-28T21:03:01+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker based in Israel. My passion is to make interesting things easy to understand.&quot;}</name></author><entry><title type="html">How to access data dynamically in Java without losing type safety</title><link href="/java/2021/03/28/dynamic-data-access-in-java.html" rel="alternate" type="text/html" title="How to access data dynamically in Java without losing type safety" /><published>2021-03-28T12:11:42+00:00</published><updated>2021-03-28T12:11:42+00:00</updated><id>/java/2021/03/28/dynamic-data-access-in-java</id><content type="html" xml:base="/java/2021/03/28/dynamic-data-access-in-java.html">&lt;p&gt;An interesting question in the context of information systems is:&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-04-01T16:57:52+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker based in Israel. My passion is to make interesting things easy to understand.&quot;}</name></author><entry><title type="html">Data-Oriented programming challenges</title><link href="/dop/2021/04/01/dop-challenges.html" rel="alternate" type="text/html" title="Data-Oriented programming challenges" /><published>2021-04-01T02:38:15+00:00</published><updated>2021-04-01T02:38:15+00:00</updated><id>/dop/2021/04/01/dop-challenges</id><content type="html" xml:base="/dop/2021/04/01/dop-challenges.html">&lt;p&gt;According to Data-Oriented programming, the best way to reduce complexity of information systems is to follow three basic principles:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Separate code from data&lt;/li&gt;
+  &lt;li&gt;Keep data immutable&lt;/li&gt;
+  &lt;li&gt;Represent data with generic data structures&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Here are a series of 6 short programming challenges and their solutions written in JavaScript according to the principles of Data-Oriented programming. The purpose is to illustrate the simplicity of Data-Oriented programming.&lt;/p&gt;
+
+&lt;p&gt;If you agree with DOP principles, please implement your solutions in the programming language of your choice, according to DOP principles. I’m sure you’ll enjoy!&lt;/p&gt;
+
+&lt;p&gt;If you disagree with one or more DOP principles, feel free to implement the solutions by breaking one or more principles, and explain why you think that your solution is simpler than the ones that I wrote.&lt;/p&gt;
+
+&lt;h1 id=&quot;rules&quot;&gt;Rules&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;You are allowed to choose any programming language&lt;/li&gt;
+  &lt;li&gt;You are allowed to use any third-party library&lt;/li&gt;
+  &lt;li&gt;You are allowed to use reflection&lt;/li&gt;
+  &lt;li&gt;In the context of the challenges, simplicity is more important than performances.&lt;/li&gt;
+  &lt;li&gt;Submit your code snippets as a pull request to the official book source code &lt;a href=&quot;https://github.com/viebel/data-oriented-programming&quot;&gt;Github repository&lt;/a&gt;, under the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;challenges&lt;/code&gt; folder&lt;/li&gt;
+  &lt;li&gt;In case you disagree with DOP, please add a few words as comments in your code that explain why you think that your solution is simpler than the ones that I wrote.&lt;/li&gt;
+  &lt;li&gt;Four copies of &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;amp;utm_medium=affiliate&amp;amp;utm_campaign=book_sharvit2_data_1_29_21&amp;amp;a_aid=viebel&amp;amp;a_bid=d5b546b7&quot;&gt;Data-Oriented programming&lt;/a&gt; will be given away among the folks that submit a correct solution to at least 4 of the challenges.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;data-model&quot;&gt;Data model&lt;/h1&gt;
+
+&lt;p&gt;Here is the library data model in an informal way:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/lms-data-mindmap.png&quot; alt=&quot;mindmap&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;More formally, here is a UML diagram that describes the relationships between the data entities of the library:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/lms-data-diagram.png&quot; alt=&quot;diagram&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Here is an example of library data in JavaScript that we are going to use through this article:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;var libraryData = {
+    &quot;name&quot;: &quot;The smallest library on earth&quot;,
+    &quot;address&quot;: &quot;Here and now&quot;,
+    &quot;catalog&quot;: {
+        &quot;booksByIsbn&quot;: {
+            &quot;978-1779501127&quot;: {
+                &quot;isbn&quot;: &quot;978-1779501127&quot;,
+                &quot;title&quot;: &quot;Watchmen&quot;,
+                &quot;publicationYear&quot;: 1987,
+                &quot;authorIds&quot;: [&quot;alan-moore&quot;,
+                              &quot;dave-gibbons&quot;],
+                &quot;bookItems&quot;: [
+                    {
+                        &quot;id&quot;: &quot;book-item-1&quot;,
+                        &quot;rackId&quot;: &quot;rack-17&quot;,
+                    },
+                    {
+                        &quot;id&quot;: &quot;book-item-2&quot;,
+                        &quot;rackId&quot;: &quot;rack-17&quot;,
+                    }
+                ]
+            }
+        },
+        &quot;authorsById&quot;: {
+            &quot;alan-moore&quot;: {
+                &quot;name&quot;: &quot;Alan Moore&quot;,
+                &quot;bookIsbns&quot;: [&quot;978-1779501127&quot;]
+            },
+            &quot;dave-gibbons&quot;: {
+                &quot;name&quot;: &quot;Dave Gibbons&quot;,
+                &quot;bookIsbns&quot;: [&quot;978-1779501127&quot;]
+            }
+        }
+    },
+  &quot;userManagement&quot;: {
+    &quot;librarians&quot;: {
+      &quot;franck@gmail.com&quot; : {
+        &quot;email&quot;: &quot;franck@gmail.com&quot;,
+        &quot;encryptedPassword&quot;: &quot;bXlwYXNzd29yZA==&quot;
+      }
+    },
+    &quot;members&quot;: {
+      &quot;samantha@gmail.com&quot;: {
+        &quot;email&quot;: &quot;samantha@gmail.com&quot;,
+        &quot;encryptedPassword&quot;: &quot;c2VjcmV0&quot;,
+        &quot;isBlocked&quot;: false,
+      }
+    }
+  }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;warm-up&quot;&gt;Warm up&lt;/h1&gt;
+
+&lt;p&gt;What’s the title of the book whose ISBN is “978-1779501127” in upper case?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;var informationPath = [&quot;catalog&quot;, &quot;booksByIsbn&quot;, &quot;978-1779501127&quot;, &quot;title&quot;]; 
+_.get(libraryData, informationPath).toUpperCase();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In Data-Oriented programming, each piece of information has an information path. As you’ll see through the upcoming challenges, this unusual approach has many benefits.&lt;/p&gt;
+
+&lt;h1 id=&quot;challenge-1-retrieve-a-piece-of-information&quot;&gt;Challenge #1: Retrieve a piece of information&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;Challenge ‍&lt;/strong&gt;: Write a function named &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;getBookProperty&lt;/code&gt; that receives library data and ISBN and a field name and returns the value of the field for the book with the given ISBN&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;function getBookProperty(libraryData, isbn, fieldName) {
+  var informationPath = [&quot;catalog&quot;, &quot;booksByIsbn&quot;, isbn, fieldName]; 
+  return _.get(libraryData, informationPath);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;getBookProperty(libraryData, &quot;978-1779501127&quot;, &quot;title&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In Data-Oriented programming, data fields are first-class citizens. We are free to create and combine field names dynamically in our program.&lt;/p&gt;
+
+&lt;h1 id=&quot;challenge-2-search-information&quot;&gt;Challenge #2: Search information&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;Challenge ‍&lt;/strong&gt;: Write a function named &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bookInfo&lt;/code&gt; that receives library data and a string and returns a JSON string that contains book information about the books whose title contains the given string, in a case insensitive way. Book information is made of: title, isbn, author full names.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Remark&lt;/strong&gt;: You are not allowed to extract author names from author ids. Assume that author ids are opaque strings.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;function authorNames(catalogData, book) {
+  return _.map(_.get(book, &quot;authorIds&quot;),
+               function(authorId) {
+    return _.get(catalogData, [&quot;authorsById&quot;, authorId, &quot;name&quot;]);
+    });
+}
+
+function bookInfo(catalogData, book) {
+  return  {
+    &quot;title&quot;: _.get(book, &quot;title&quot;),
+    &quot;isbn&quot;: _.get(book, &quot;isbn&quot;),
+    &quot;authorNames&quot;: authorNames(catalogData, book)
+  };
+}
+
+function searchBooksByTitle(libraryData, query) {
+  var catalogData = _.get(libraryData, &quot;catalog&quot;);
+  var allBooks = _.get(catalogData, &quot;booksByIsbn&quot;);
+  var matchingBooks = _.filter(allBooks, function(book) { 
+    return _.get(book, &quot;title&quot;).toLowerCase()
+      .includes(query.toLowerCase());
+  });
+  return JSON.stringify(_.map(matchingBooks, function(book) {
+    return bookInfo(catalogData, book);
+  }));
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;searchBooksByTitle(libraryData, &quot;watCH&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here, the main benefits are the power of expression of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;map&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;reduce&lt;/code&gt; combined with the freedom of creating on the fly a book info structure and serialize it for free.&lt;/p&gt;
+
+&lt;h1 id=&quot;challenge-3-add-a-piece-of-information&quot;&gt;Challenge #3: Add a piece of information&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;Challenge&lt;/strong&gt;: Write a function named &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;blockMember&lt;/code&gt; that receives library data and an email address and returns a new version of library data &lt;strong&gt;without altering the original version&lt;/strong&gt;, where the user with the given email is blocked.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;function blockMember(libraryData, email) {
+  var informationPath = [&quot;userManagement&quot;, &quot;members&quot;, email, &quot;isBlocked&quot;]; 
+  return _.set(libraryData, informationPath, true);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;var updatedLibraryData = blockMember(libraryData, &quot;samantha@gmail.com&quot;);
+
+var informationPath = [&quot;userManagement&quot;, &quot;members&quot;, &quot;samantha@gmail.com&quot;, &quot;isBlocked&quot;]; 
+[_.get(updatedLibraryData, informationPath), _.get(libraryData, informationPath)];
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In Data-Oriented programming, data is immutable. Functions like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_.set()_&lt;/code&gt; make it efficient (both in terms of memory and computation) to create modified versions of data.&lt;/p&gt;
+
+&lt;h1 id=&quot;challenge-4-rename-keys-in-a-data-entity&quot;&gt;Challenge #4: Rename keys in a data entity&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;Challenge&lt;/strong&gt;: Write a function named &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;renameKeys&lt;/code&gt; that receives a data entity and a key mappings and returns a new data entity, without altering the original entity, where the fields are renamed according to the key mappings&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;function renameKeys(map, keyMap) {
+  return _.reduce(keyMap,
+                  function(res, newKey, oldKey) {
+                    var value = _.get(map, oldKey);
+                    var resWithNewKey = _.set(res, newKey, value);
+                    var resWithoutOldKey = _.omit(resWithNewKey, oldKey);
+                    return resWithoutOldKey;
+                  },
+                  map);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;renameKeys&lt;/code&gt; works with author entities:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;var alanMoore = {
+  &quot;name&quot;: &quot;Alan Moore&quot;,
+  &quot;bookIsbns&quot;: [&quot;978-1779501127&quot;]
+};
+renameKeys(alanMoore, {&quot;bookIsbns&quot;: &quot;books&quot;}); 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;renameKeys&lt;/code&gt; works also with book item entities:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;var bookItem = {
+  &quot;id&quot;: &quot;book-item-1&quot;,
+  &quot;rackId&quot;: &quot;rack-17&quot;,
+  &quot;isLent&quot;: true
+};
+
+renameKeys(bookItem, {&quot;rackId&quot;: &quot;id&quot;,
+                     &quot;id&quot;: &quot;bookItemId&quot;}); 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In Data-Oriented programming, data entities are represented with generic data structures that can be manipulated with generic functions that work with any data entity.&lt;/p&gt;
+
+&lt;h1 id=&quot;challenge-5-merge-pieces-of-information&quot;&gt;Challenge #5: Merge pieces of information&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;Challenge&lt;/strong&gt;: Write a function named &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mergeAndSerialize&lt;/code&gt; that receives two pieces of book information, one from the database and one from an external service like &lt;a href=&quot;https://openlibrary.org/dev/docs/api/books&quot;&gt;Open Library Books API&lt;/a&gt; and returns a JSON string with information from both sources.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;var watchmenFromDB = {
+        &quot;isbn&quot;: &quot;978-1779501127&quot;,
+        &quot;title&quot;: &quot;Watchmen&quot;,
+        &quot;publicationYear&quot;: 1987,
+        &quot;authorIds&quot;: [&quot;alan-moore&quot;,
+                      &quot;dave-gibbons&quot;],
+        &quot;bookItems&quot;: [
+          {
+            &quot;id&quot;: &quot;book-item-1&quot;,
+            &quot;rackId&quot;: &quot;rack-17&quot;,
+            &quot;isLent&quot;: true
+          },
+          {
+            &quot;id&quot;: &quot;book-item-2&quot;,
+            &quot;rackId&quot;: &quot;rack-17&quot;,
+            &quot;isLent&quot;: false
+          }
+        ]
+      };
+
+var watchmenFromOpenLib = {
+  &quot;publishers&quot;: [
+    &quot;DC Comics&quot;
+  ],
+  &quot;number_of_pages&quot;: 334,
+  &quot;weight&quot;: &quot;1.4 pounds&quot;,
+  &quot;physical_format&quot;: &quot;Paperback&quot;,
+  &quot;subjects&quot;: [
+    &quot;Graphic Novels&quot;,
+    &quot;Comics &amp;amp; Graphic Novels&quot;,
+    &quot;Fiction&quot;,
+    &quot;Fantastic fiction&quot;
+  ],
+  &quot;isbn_13&quot;: [
+    &quot;9780930289232&quot;
+  ],
+  &quot;title&quot;: &quot;Watchmen&quot;,
+  &quot;isbn_10&quot;: [
+    &quot;0930289234&quot;
+  ],
+  &quot;publish_date&quot;: &quot;April 1, 1995&quot;,
+  &quot;physical_dimensions&quot;: &quot;10.1 x 6.6 x 0.8 inches&quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We simply merge the two maps:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;_.merge(watchmenFromDB, watchmenFromOpenLib);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And we JSON serialize the result:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;function mergeAndSerialize(a, b) {
+  return JSON.stringify(_.merge(a, b));
+}
+
+mergeAndSerialize(watchmenFromDB, watchmenFromOpenLib);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When we represent data with generic data structures, we benefit from many well defined functions like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;merge&lt;/code&gt;, implemented either in the programming language itself or in third-party libraries like `Lodash.js.&lt;/p&gt;
+
+&lt;h1 id=&quot;challenge-6-compare-versions-of-data&quot;&gt;Challenge #6: Compare versions of data&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;Challenge&lt;/strong&gt;: Write a function named &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;diff&lt;/code&gt; that receives two versions of library data and returns an object that contains the diff between the two versions, in the format of your choice.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;function diffObjects(data1, data2) {
+  var emptyObject = _.isArray(data1) ? [] : {};
+  if(data1 == data2) {
+    return emptyObject;
+  }
+  var keys = _.union(_.keys(data1), _.keys(data2));
+  return _.reduce(keys,
+                  function (acc, k) {
+    var res = diff(_.get(data1, k),
+                   _.get(data2, k));
+    if((_.isObject(res) &amp;amp;&amp;amp; _.isEmpty(res)) ||
+       (res == &quot;data-diff:no-diff&quot;)) {
+      return acc;
+    }
+    return _.set(acc, [k], res);
+  },
+                  emptyObject);
+}
+
+function diff(data1, data2) {
+  if(_.isObject(data1) &amp;amp;&amp;amp; _.isObject(data2)) {
+    return diffObjects(data1, data2);
+  }
+  if(data1 !== data2) {
+    return data2;
+  }
+  return &quot;data-diff:no-diff&quot;;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;diff(libraryData, updatedLibraryData);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;diff(libraryData, libraryDataupdatedLibraryData);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When every piece of data in the system is represented with generic data structures, it is quite easy to compare recursively different data versions.&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;Do you like 😃 DOP or do you hate 😡 it?&lt;/p&gt;
+
+&lt;p&gt;Anyway, it’s time to show off your coding skills 🧑‍💻!&lt;/p&gt;
+
+&lt;p&gt;Submit your code snippets as a pull request to the official book source code &lt;a href=&quot;https://github.com/viebel/data-oriented-programming&quot;&gt;Github repository&lt;/a&gt;, under the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;challenges&lt;/code&gt; folder.
+In case you disagree with DOP, please add a few words as comments in your code that explain why you think that your solution is simpler than the ones that I wrote.&lt;/p&gt;
+
+&lt;script src=&quot;https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)&quot;&gt;&lt;/script&gt;
+
+&lt;script&gt;
+var fp = _.noConflict();
+var _ = fp.convert({
+  // Specify capping iteratee arguments.
+  'cap': false,
+  // Specify currying.
+  'curry': false,
+  // Specify fixed arity.
+  'fixed': false,
+  // Specify immutable operations.
+  'immutable': true,
+  // Specify rearranging arguments.
+  'rearg': false
+});
+&lt;/script&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="dop" /><category term="dop" /><category term="javascript" /><summary type="html">According to Data-Oriented programming, the best way to reduce complexity of information systems is to follow three basic principles:</summary></entry><entry><title type="html">How to access data dynamically in Java without losing type safety</title><link href="/java/2021/03/28/dynamic-data-access-in-java.html" rel="alternate" type="text/html" title="How to access data dynamically in Java without losing type safety" /><published>2021-03-28T12:11:42+00:00</published><updated>2021-03-28T12:11:42+00:00</updated><id>/java/2021/03/28/dynamic-data-access-in-java</id><content type="html" xml:base="/java/2021/03/28/dynamic-data-access-in-java.html">&lt;p&gt;An interesting question in the context of information systems is:&lt;/p&gt;
 
 &lt;p&gt;To what extent &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;amp;utm_medium=affiliate&amp;amp;utm_campaign=book_sharvit2_data_1_29_21&amp;amp;a_aid=viebel&amp;amp;a_bid=d5b546b7&quot;&gt;Data-Oriented programming&lt;/a&gt; is applicable in a statically-typed language like Java?&lt;/p&gt;
 
@@ -1716,602 +2059,5 @@ var fp = _.noConflict();
 &lt;hr&gt;
 &lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
 &lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. &lt;a href=&quot;https://github.com/lodash/lodash/wiki/FP-Guide&quot; class=&quot;bare&quot;&gt;https://github.com/lodash/lodash/wiki/FP-Guide&lt;/a&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><category term="dop" /><summary type="html">This article is an excerpt from my book about Data-Oriented Programming. More excerpts are available on my blog.</summary></entry><entry><title type="html">Applying Git and Optimistic Concurrency Control principles to Data Oriented Programming</title><link href="/databook/2020/12/18/occ-do-git.html" rel="alternate" type="text/html" title="Applying Git and Optimistic Concurrency Control principles to Data Oriented Programming" /><published>2020-12-18T06:21:24+00:00</published><updated>2020-12-18T06:21:24+00:00</updated><id>/databook/2020/12/18/occ-do-git</id><content type="html" xml:base="/databook/2020/12/18/occ-do-git.html">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7&quot;&gt; book &lt;/a&gt; about &lt;b&gt;Data-Oriented Programming&lt;/b&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;So far in &lt;a href=&quot;/databook/2020/09/27/data-book-toc.html&quot;&gt;the book&lt;/a&gt;, we have seen how Data Oriented Programming (DO) deals with requests that &lt;strong&gt;query information&lt;/strong&gt; about the system, leveraging the representation of the whole system data as a &lt;strong&gt;single nested hash map&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In this chapter, we illustrate how DO deals with &lt;strong&gt;mutations&lt;/strong&gt;, i.e. requests that &lt;strong&gt;change&lt;/strong&gt; the &lt;strong&gt;system state&lt;/strong&gt;. Mutations are inherently more complex than queries, especially in a &lt;strong&gt;concurrent&lt;/strong&gt; system where mutations could conflict.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;DO reduces significantly the complexity of mutations, by constraining the hash map that represents the system data to be &lt;strong&gt;immutable&lt;/strong&gt;. We will see that in virtue of the immutability of the data, the code for a mutation is as &lt;strong&gt;efficient&lt;/strong&gt; as the code for a query and we benefit from the same &lt;strong&gt;power of expression&lt;/strong&gt; and &lt;strong&gt;flexibility&lt;/strong&gt; as with queries.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;DO manages concurrency using a lock free strategy called &lt;strong&gt;Optimistic Concurrency Control&lt;/strong&gt;, that leads to &lt;strong&gt;high throughput&lt;/strong&gt; of queries and mutations. The mutation logic is split into two distinct phases:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;The &lt;strong&gt;Calculation phase&lt;/strong&gt; where we &lt;strong&gt;compute&lt;/strong&gt; what would be the next state of the system if only this mutation were executed.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;The &lt;strong&gt;Commit phase&lt;/strong&gt; where we &lt;strong&gt;update&lt;/strong&gt; the state of the system taking into account possible &lt;strong&gt;concurrent&lt;/strong&gt; mutations.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The code in both phases is made &lt;strong&gt;efficient&lt;/strong&gt; in terms of &lt;strong&gt;memory&lt;/strong&gt; and &lt;strong&gt;computation&lt;/strong&gt; by ensuring that the data is &lt;strong&gt;immutable&lt;/strong&gt;: Instead of mutating data in place, we create a new version of the data, leveraging a &lt;strong&gt;structural sharing&lt;/strong&gt; algorithm.  As a consequence, the computation done in the Calculation phase is efficient and the comparison between two versions of the data for conflict resolution in the Commit phase is super fast.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;optimistic-concurrency-control&quot;&gt;Optimistic Concurrency Control&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-&lt;strong&gt;Optimistic Concurrency Control&lt;/strong&gt; with &lt;strong&gt;immutable&lt;/strong&gt; data is super &lt;strong&gt;efficient&lt;/strong&gt;.
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In DO, we manage different versions of the system data. At a specific point in time, the state of the system refers to a version of the system data. Each time a mutation is executed, we move forward the reference.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The data is &lt;strong&gt;immutable&lt;/strong&gt; but the state reference is &lt;strong&gt;mutable&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/chapter04/different-versions-t0.png&quot; alt=&quot;different versions t0&quot;&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/chapter04/different-versions-t1.png&quot; alt=&quot;different versions t1&quot;&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Updating the state of the system is done inside a &lt;strong&gt;commit&lt;/strong&gt; phase. The commit phase is responsible for &lt;strong&gt;reconciling concurrent mutations&lt;/strong&gt; when they don&amp;#8217;t conflict or &lt;strong&gt;aborting&lt;/strong&gt; the mutation.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/chapter04/mutation-flow-icons.png&quot; alt=&quot;mutation flow icons&quot;&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;structural-sharing&quot;&gt;Structural sharing&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Structural sharing allows to &lt;strong&gt;efficiently&lt;/strong&gt; create new versions of immutable data. In DO, we leverage &lt;strong&gt;structural sharing&lt;/strong&gt; in the &lt;strong&gt;calculation&lt;/strong&gt; phase of a &lt;strong&gt;mutation&lt;/strong&gt; to compute the next state of the system based of the current state of the system. Inside the calculation phase, we don&amp;#8217;t have to deal with any concurrency control: this is delayed to the commit phase. As a consequence, the code involved in the calculation phase of a mutation remains &lt;strong&gt;stateless&lt;/strong&gt; and is as simple as the code of a query.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Let&amp;#8217;s take a simple example from our library system: &lt;a href=&quot;#lib-data&quot;&gt;a library&lt;/a&gt; with no users and a catalog with a single book: Watchmen.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;lib-data&quot; class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var library = {
-    &amp;quot;name&amp;quot;: &amp;quot;The smallest library on earth&amp;quot;,
-    &amp;quot;address&amp;quot;: &amp;quot;Here and now&amp;quot;,
-    &amp;quot;catalog&amp;quot;: {
-        &amp;quot;booksByIsbn&amp;quot;: {
-            &amp;quot;978-1779501127&amp;quot;: {
-                &amp;quot;isbn&amp;quot;: &amp;quot;978-1779501127&amp;quot;,
-                &amp;quot;title&amp;quot;: &amp;quot;Watchmen&amp;quot;,
-                &amp;quot;publicationYear&amp;quot;: 1987,
-                &amp;quot;authorIds&amp;quot;: [&amp;quot;alan-moore&amp;quot;, &amp;quot;dave-gibbons&amp;quot;],
-                &amp;quot;bookItems&amp;quot;: [
-                    {
-                        &amp;quot;id&amp;quot;: &amp;quot;book-item-1&amp;quot;,
-                        &amp;quot;rackId&amp;quot;: &amp;quot;rack-17&amp;quot;,
-                        &amp;quot;isLent&amp;quot;: true
-                    }
-                ]
-            }
-        },
-        &amp;quot;authorsById&amp;quot;: {
-            &amp;quot;alan-moore&amp;quot;: {
-                &amp;quot;name&amp;quot;: &amp;quot;Alan Moore&amp;quot;,
-                &amp;quot;bookIsbns&amp;quot;: [&amp;quot;978-1779501127&amp;quot;]
-            },
-            &amp;quot;dave-gibbons&amp;quot;: {
-                &amp;quot;name&amp;quot;: &amp;quot;Dave Gibbons&amp;quot;,
-                &amp;quot;bookIsbns&amp;quot;: [&amp;quot;978-1779501127&amp;quot;]
-            }
-        }
-    },
-    &amp;quot;userManagement&amp;quot;: {
-        // omitted for now
-    }
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Imagine that we want to modify the value of a field in a book in the catalog, for instance the publication year of Watchmen.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;library-information&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/chapter04/library-data-new-version.png&quot; alt=&quot;library data new version&quot;&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The information path for Watchmen publication year is: &lt;code&gt;[&quot;catalog&quot;, &quot;booksByIsbn&quot;, &quot;978-1779501127&quot;, &quot;publicationYear&quot;]&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;We are going to use the &lt;strong&gt;immutable function&lt;/strong&gt; &lt;code&gt;_.set()&lt;/code&gt; provided by &lt;a href=&quot;/javascript/2020/11/26/lodash-fp.html&quot;&gt;Lodash&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;By default Lodash functions are not immutable. In order to use a immutable version of the functions, we need to use Lodash FP module (Functional Programming), as it is explained in the Lodash FP guide.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;. With this &lt;a href=&quot;#lodash-config&quot;&gt;piece of code&lt;/a&gt; the signature of the immutable functions is exactly the same as the mutable functions.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;lodash-config&quot; class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;_ = fp.convert({
-    &amp;quot;cap&amp;quot;: false,
-    &amp;quot;curry&amp;quot;: false,
-    &amp;quot;fixed&amp;quot;: false,
-    &amp;quot;immutable&amp;quot;: true,
-    &amp;quot;rearg&amp;quot;: false
-});&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Here is how we &lt;a href=&quot;#update-publication-year&quot;&gt;write code &lt;/a&gt; that creates a version of the library data where the publication year of Watchmen is updated to 1986, with the &lt;strong&gt;immutable function&lt;/strong&gt; &lt;code&gt;_.set()&lt;/code&gt; provided by Lodash.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;update-publication-year&quot; class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var nextLibrary = _.set(library, [&amp;quot;catalog&amp;quot;, &amp;quot;booksByIsbn&amp;quot;,
-                                  &amp;quot;978-1779501127&amp;quot;, &amp;quot;publicationYear&amp;quot;],
-                        1986);&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In the new version of the library, the publication year of Watchmen is 1986&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;_.get(nextLibrary, [&amp;quot;catalog&amp;quot;, &amp;quot;booksByIsbn&amp;quot;,
-                    &amp;quot;978-1779501127&amp;quot;, &amp;quot;publicationYear&amp;quot;]);&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;However in the previous version of the library, the publication year of Watchmen is still 1987&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;_.get(library, [&amp;quot;catalog&amp;quot;, &amp;quot;booksByIsbn&amp;quot;,
-                &amp;quot;978-1779501127&amp;quot;, &amp;quot;publicationYear&amp;quot;]);&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-A function is said to be &lt;strong&gt;immutable&lt;/strong&gt; when instead of mutating the data, it creates a &lt;strong&gt;new version&lt;/strong&gt; of the data without changing the data it receives. The immutable functions provided by Lodash are efficient because they use &lt;strong&gt;structural sharing&lt;/strong&gt;.
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Here is an illustration of how &lt;strong&gt;structural sharing&lt;/strong&gt; works.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;When you use an &lt;strong&gt;immutable function&lt;/strong&gt; to create a new version of the &lt;code&gt;Library&lt;/code&gt; where the publication year of Watchmen is set to 1986 (instead of 1987), it creates a fresh &lt;code&gt;Library&lt;/code&gt; hash map that &lt;strong&gt;recursively&lt;/strong&gt; uses the parts of the current &lt;code&gt;Library&lt;/code&gt; that are &lt;strong&gt;common&lt;/strong&gt; between the two versions instead of deeply copying them. This technique is called: &lt;strong&gt;structural sharing&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;structural-sharing-a&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/chapter04/structural-sharing.png&quot; alt=&quot;structural sharing&quot;&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The next version of the &lt;code&gt;Library&lt;/code&gt;, uses the same &lt;code&gt;UserManagement&lt;/code&gt; hash map as the old one. The &lt;code&gt;Catalog&lt;/code&gt; inside the next &lt;code&gt;Library&lt;/code&gt; uses the same &lt;code&gt;authorsById&lt;/code&gt; as the current &lt;code&gt;Catalog&lt;/code&gt;. The Watchmen &lt;code&gt;Book&lt;/code&gt; record inside the next &lt;code&gt;Catalog&lt;/code&gt; uses all the fields of the current &lt;code&gt;Book&lt;/code&gt; except for the &lt;code&gt;publicationYear&lt;/code&gt; field.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;As you can see by yourself, in &lt;code&gt;nextLibrary&lt;/code&gt; the &lt;code&gt;authorsById&lt;/code&gt; node is the exact same reference as in &lt;code&gt;library&lt;/code&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;_.get(nextLibrary, [&amp;quot;catalog&amp;quot;, &amp;quot;authorsById&amp;quot;]) == _.get(library, [&amp;quot;catalog&amp;quot;, &amp;quot;authorsById&amp;quot;])&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;We will see in a moment how we leverage this sharing of references to make the commit phase efficient.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-&lt;strong&gt;Structural sharing&lt;/strong&gt; provides an &lt;strong&gt;efficient&lt;/strong&gt; way (both &lt;strong&gt;memory&lt;/strong&gt; and &lt;strong&gt;computation&lt;/strong&gt;) to create a new version of the data by recursively sharing the parts that don&amp;#8217;t need to change.
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;persistent-data-structures&quot;&gt;Persistent data structures&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-&lt;strong&gt;Persistent data structures&lt;/strong&gt; ensure the immutability of the data at the &lt;strong&gt;level of the data structure&lt;/strong&gt; while immutable functions provide the immutability of the data at the level of the functions.
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The way data is organized inside persistent data structures make them &lt;strong&gt;more efficient&lt;/strong&gt; than immutable functions.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;There are &lt;strong&gt;libraries&lt;/strong&gt; providing persistent data structures in many languages: Immutable.js in JavaScript,&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_2&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_2&quot; title=&quot;View footnote.&quot;&gt;2&lt;/a&gt;]&lt;/sup&gt; Paguro in Java,&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_3&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_3&quot; title=&quot;View footnote.&quot;&gt;3&lt;/a&gt;]&lt;/sup&gt; Immutable Collections in C#,&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_4&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_4&quot; title=&quot;View footnote.&quot;&gt;4&lt;/a&gt;]&lt;/sup&gt; Pyrsistent in Python,&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_5&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_5&quot; title=&quot;View footnote.&quot;&gt;5&lt;/a&gt;]&lt;/sup&gt; and Hamster in Ruby.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_6&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_6&quot; title=&quot;View footnote.&quot;&gt;6&lt;/a&gt;]&lt;/sup&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The &lt;strong&gt;drawback&lt;/strong&gt; of persistent data structures is that they are not native which means that working with them require &lt;strong&gt;conversion&lt;/strong&gt; from native to persistent and from persistent to native.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;That&amp;#8217;s one of the reasons why I love Clojure: the native data structures of the language are immutable!&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;the-reconciliation-algorithm&quot;&gt;The reconciliation algorithm&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-In a production system, multiple mutations run concurrently. Before updating the state, we need to reconcile.
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;Reconciliation&lt;/strong&gt; between possible &lt;strong&gt;concurrent mutations&lt;/strong&gt; is quite similar to what could happen in git when you push your changes to a branch and you discover that meanwhile the branch has moved forward because another developer has pushed her code to the branch.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Like in git, there are &lt;a href=&quot;#occ-merge&quot;&gt;three possibilities to reconcile&lt;/a&gt; between possible concurrent mutations: fast forward, 3-way merge or abort.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;occ-merge&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/chapter04/occ-merge.png&quot; alt=&quot;occ merge&quot;&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;When the Commit phase of a mutation starts, we have &lt;a href=&quot;#three-versions&quot;&gt;3 versions of the system state&lt;/a&gt;:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;previous&lt;/code&gt; - the version on which the Calculation phase based its computation&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;current&lt;/code&gt; - the current version&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;next&lt;/code&gt; - the version returned by the Calculation phase&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div id=&quot;three-versions&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/chapter04/3-versions.png&quot; alt=&quot;3 versions&quot;&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;If we are in a situation where the &lt;strong&gt;current state is the same as the previous state&lt;/strong&gt;, it means that no mutations run concurrently. Therefore, like in git, we can safely &lt;strong&gt;fast forward&lt;/strong&gt; and update the state of the system with the next version.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;If the state has not remained the same, it means that mutations have run concurrently. We have to check for conflicts in a way similar to the &lt;strong&gt;3-way merge&lt;/strong&gt; used by git. The difference is that instead of comparing lines, we compare fields of the system hash map.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;We calculate the data diff between &lt;code&gt;previous&lt;/code&gt; and &lt;code&gt;next&lt;/code&gt; and between &lt;code&gt;previous&lt;/code&gt; and &lt;code&gt;current&lt;/code&gt;. If the two diffs are distinct, then there is no conflict between the mutations that have run concurrently. We can safely merge the changes from &lt;code&gt;previous&lt;/code&gt; to &lt;code&gt;next&lt;/code&gt; into &lt;code&gt;current&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;three-way-merge&quot; class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/uml/chapter04/3-way-merge.png&quot; alt=&quot;3 way merge&quot;&gt;
-&lt;/div&gt;
-&lt;div class=&quot;title&quot;&gt;Figure 1. In a 3-way merge, we calculate the diff between &lt;code&gt;previous&lt;/code&gt; and &lt;code&gt;next&lt;/code&gt; and we apply it to &lt;code&gt;current&lt;/code&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;And if there is a conflict, we abort the mutation.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-In a user facing system, conflicting concurrent mutations are fairly rare: that&amp;#8217;s why it&amp;#8217;s OK to abort and let the user run the mutation again.
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;the-implementation-of-the-commit-phase&quot;&gt;The implementation of the Commit phase&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The code for the Commit phase is made of 3 classes:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;System&lt;/code&gt;, a stateful class that implements the mutations&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;SystemData&lt;/code&gt; a singleton stateful class&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;SystemConsistency&lt;/code&gt;, a stateless class that provides conflict resolution logic&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Let&amp;#8217;s start with the &lt;code&gt;System&lt;/code&gt; class and how it &lt;a href=&quot;#add-member-mutation&quot;&gt;implements&lt;/a&gt; the &lt;code&gt;addMember&lt;/code&gt; mutation.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;add-member-mutation&quot; class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;class System {
-    addMember(member) {
-        var librarySnapshot = SystemData.get();
-        var nextLibary = Library.addMember(librarySnapshot, member);
-        SystemData.commit(librarySnapshot, nextLibrary);
-    }
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Here is the &lt;a href=&quot;#system-data&quot;&gt;code&lt;/a&gt; for the &lt;code&gt;SystemData&lt;/code&gt; class: It is the only stateful class in a DO system!&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;system-data&quot; class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;class SystemData {
-    systemData;
-
-    get() {
-        return this.systemData;
-    }
-
-    set(_systemData) {
-        this.systemData = _systemData;
-    }
-
-    commit(previous, next) {
-        this.systemData = SystemConsistency.reconcile(this.systemData,
-                                                      previous,
-                                                      next);
-    }
-}
-
-window.SystemData = SystemData;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;And how does &lt;code&gt;SystemConsistency&lt;/code&gt; do the reconciliation?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The &lt;code&gt;SystemConsistency&lt;/code&gt; &lt;a href=&quot;#consistency&quot;&gt;class&lt;/a&gt; starts the reconciliation process by comparing &lt;code&gt;previous&lt;/code&gt; and &lt;code&gt;current&lt;/code&gt;. If they are the same, then we fast-forward and return &lt;code&gt;next&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock hidden&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;class DataDiff {
-    static diffObjects(data1, data2) {
-        var emptyObject = _.isArray(data1) ? [] : {};
-        if(data1 == data2) {
-            return emptyObject;
-        }
-        var keys = _.union(_.keys(data1), _.keys(data2));
-        return _.reduce(keys,
-                        function (acc, k) {
-                            var res = DataDiff.diff(_.get(data1, k),
-                                                    _.get(data2, k));
-                            if((_.isObject(res) &amp;amp;&amp;amp; _.isEmpty(res)) ||
-                               (res == &amp;quot;data-diff:no-diff&amp;quot;)) {
-                                return acc;
-                            }
-                            return _.set(acc, k, res);
-                        },
-                        emptyObject);
-    }
-
-    static diff(data1, data2) {
-        if(_.isObject(data1) &amp;amp;&amp;amp; _.isObject(data2)) {
-            return DataDiff.diffObjects(data1, data2);
-        }
-        if(data1 !== data2) {
-            return data2;
-        }
-        return &amp;quot;data-diff:no-diff&amp;quot;;
-    }
-
-    static leaves(obj, prefix = &amp;#39;&amp;#39;) {
-        return _.reduce(obj,
-                        function(acc, v, k) {
-                            if (_.isObject(v)) {
-                                return _.concat(acc,
-                                                DataDiff.leaves(v,
-                                                                prefix + k + &amp;quot;.&amp;quot;))
-                            }
-                            return _.concat(acc, [prefix + k]);
-                        },
-                        []);
-    }
-    static isEmptyIntersection(delta1, delta2) {
-        return _.isEmpty(_.intersection(DataDiff.leaves(delta1),
-                                        DataDiff.leaves(delta2)));
-    }
-}
-
-window.DataDiff = DataDiff&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&quot;consistency&quot; class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;class SystemConsistency {
-    static threeWayMerge(current, previous, next) {
-        var previousToCurrent = DataDiff.diff(previous, current);
-        var previousToNext = DataDiff.diff(previous, next);
-        if(DataDiff.isEmptyIntersection(previousToCurrent, previousToNext)) {
-            return _.merge(current, previousToNext);
-        }
-        throw &amp;quot;Conflicting concurrent mutations.&amp;quot;;
-    }
-    static reconcile(current, previous, next) {
-        if(current == previous) {
-            // fast forward
-            return next;
-        }
-        return SystemConsistency.threeWayMerge(current,
-                                               previous,
-                                               next);
-    }
-}
-window.SystemConsistency = SystemConsistency;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The reconciliation algorithm relies on &lt;code&gt;DataDiff&lt;/code&gt; class that implements the computation of a data diff between two hash maps and the detection of empty intersection. The internals of the &lt;code&gt;DataDiff&lt;/code&gt; class are revealed in &lt;a href=&quot;/databook/2020/12/20/data-diff.html&quot;&gt;Computing the data diff between two hash maps&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Have you noticed that we compare &lt;code&gt;previous&lt;/code&gt; and &lt;code&gt;current&lt;/code&gt; by reference instead of comparing them recursively &lt;strong&gt;by value&lt;/strong&gt;? That&amp;#8217;s another &lt;strong&gt;benefit of immutable data&lt;/strong&gt;: when the data is not mutated, it is safe to &lt;strong&gt;compare references&lt;/strong&gt; and if they are the same, we know for sure that the data is the same.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Now, to the implementation of the 3-way merge algorithm.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;When &lt;code&gt;previous&lt;/code&gt; differs from &lt;code&gt;current&lt;/code&gt;, it means that concurrent mutations have run. In order to determine whether there is a conflict or not, we calculate the two diffs: &lt;code&gt;previousToCurrent&lt;/code&gt; and &lt;code&gt;previousToNext&lt;/code&gt;. If the intersection between the two diffs is empty, it means there is not conflict. We merge &lt;code&gt;previousToNext&lt;/code&gt; into &lt;code&gt;current&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You may have noticed that think the &lt;a href=&quot;#consistency&quot;&gt;code&lt;/a&gt; for the &lt;code&gt;Consistency&lt;/code&gt; class is &lt;strong&gt;not thread safe&lt;/strong&gt;! If there is a context switch between checking whether the system has changed in the &lt;code&gt;Consistency&lt;/code&gt; class and the updating of the state in &lt;code&gt;SystemData&lt;/code&gt; class, a mutation might override the changes of a previous mutation.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The code works fine in a single threaded environment like JavaScript where concurrency is handled via an &lt;strong&gt;event loop&lt;/strong&gt;. However in a &lt;strong&gt;multi threaded&lt;/strong&gt; environment, the code needs to be refined a bit and use atoms to be thread safe.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;some-examples&quot;&gt;Some examples&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Let&amp;#8217;s make the reconciliation algorithm more concrete by giving an example of a reconciliation between non-conflicting concurrent mutations.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;A mutation that updates the publication year of a book &lt;a href=&quot;#compatible-mutations&quot;&gt;will not conflict&lt;/a&gt; with a mutation that updates the title of the same book. A reconciliation will result in a system state where both the title and the publication year are updated.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;compatible-mutations&quot; class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var previous = library;
-var next = _.set(library,
-                [&amp;quot;catalog&amp;quot;, &amp;quot;booksByIsbn&amp;quot;, &amp;quot;978-1779501127&amp;quot;, &amp;quot;publicationYear&amp;quot;],
-                1986);
-var current = _.set(library,
-                    [&amp;quot;catalog&amp;quot;, &amp;quot;booksByIsbn&amp;quot;, &amp;quot;978-1779501127&amp;quot;, &amp;quot;title&amp;quot;],
-                    &amp;quot;The Watchmen&amp;quot;);&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The diff between &lt;code&gt;previous&lt;/code&gt; and &lt;code&gt;current&lt;/code&gt; is a nested map with &lt;a href=&quot;#diff-previous-current&quot;&gt;a single field&lt;/a&gt; that holds the updated title.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;diff-previous-current&quot; class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;DataDiff.diff(previous, current);&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;And the diff between &lt;code&gt;previous&lt;/code&gt; and &lt;code&gt;next&lt;/code&gt; is also made of a &lt;a href=&quot;#diff-previous-next&quot;&gt;single field&lt;/a&gt; for the updated publication year.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;diff-previous-next&quot; class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;DataDiff.diff(previous, next);&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Now you see clearly how the code detects that the two mutations don&amp;#8217;t conflict: the two nested maps have no leaf in common!&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The &lt;a href=&quot;#lib-data-reconciled&quot;&gt;result of the reconciliation&lt;/a&gt; is a library where both the title and the publication year are updated.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;lib-data-reconciled&quot; class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;_.get(SystemConsistency.reconcile(current, previous, next),
-     &amp;quot;catalog&amp;quot;);&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;And here is an example of conflicting mutations: Two mutations that update the publication year of the same book &lt;a href=&quot;#incompatible-mutations&quot;&gt;will conflict&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;incompatible-mutations&quot; class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var previous2 = library;
-var next2 = _.set(library,
-                 [&amp;quot;catalog&amp;quot;, &amp;quot;booksByIsbn&amp;quot;, &amp;quot;978-1779501127&amp;quot;, &amp;quot;publicationYear&amp;quot;],
-                 1984);
-var current2 = _.set(library,
-                    [&amp;quot;catalog&amp;quot;, &amp;quot;booksByIsbn&amp;quot;, &amp;quot;978-1779501127&amp;quot;, &amp;quot;publicationYear&amp;quot;],
-                    1986);&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Here the two diffs contain the same field.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;DataDiff.diff(previous2, current2);&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;DataDiff.diff(previous2, next2);&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In that case, the reconciliation will fail.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;wrapping-up&quot;&gt;Wrapping up&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In this chapter, we have explored how DO &lt;strong&gt;manages state&lt;/strong&gt; with &lt;strong&gt;Optimistic Concurrency Control&lt;/strong&gt;, where the mutation logic is split into Calculation and Commit phases.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;During the &lt;strong&gt;Calculation phase&lt;/strong&gt;, the data is manipulated with &lt;strong&gt;immutable functions&lt;/strong&gt; that leverage &lt;strong&gt;structural sharing&lt;/strong&gt; to create &lt;strong&gt;efficiently&lt;/strong&gt; (memory and computation) a &lt;strong&gt;new version&lt;/strong&gt; of the data where the data that is common between the two versions is shared.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;strong&gt;Conflict resolution&lt;/strong&gt; between &lt;strong&gt;concurrent mutations&lt;/strong&gt; occur in the &lt;strong&gt;Commit&lt;/strong&gt; phase. The code for the &lt;strong&gt;commit phase&lt;/strong&gt; is common to all the mutations. The code that implements conflict detection in the commit phase is efficient in virtue of &lt;strong&gt;structural sharing&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7&quot;&gt; book &lt;/a&gt; about &lt;b&gt;Data-Oriented Programming&lt;/b&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;script src='https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)'&gt;&lt;/script&gt;
-&lt;script&gt;
-var fp = _.noConflict();
-&lt;/script&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
-&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. &lt;a href=&quot;https://github.com/lodash/lodash/wiki/FP-Guide&quot; class=&quot;bare&quot;&gt;https://github.com/lodash/lodash/wiki/FP-Guide&lt;/a&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_2&quot;&gt;
-&lt;a href=&quot;#_footnoteref_2&quot;&gt;2&lt;/a&gt;. &lt;a href=&quot;https://immutable-js.github.io/immutable-js/&quot; class=&quot;bare&quot;&gt;https://immutable-js.github.io/immutable-js/&lt;/a&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_3&quot;&gt;
-&lt;a href=&quot;#_footnoteref_3&quot;&gt;3&lt;/a&gt;. &lt;a href=&quot;https://github.com/GlenKPeterson/Paguro&quot; class=&quot;bare&quot;&gt;https://github.com/GlenKPeterson/Paguro&lt;/a&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_4&quot;&gt;
-&lt;a href=&quot;#_footnoteref_4&quot;&gt;4&lt;/a&gt;. &lt;a href=&quot;https://docs.microsoft.com/en-us/archive/msdn-magazine/2017/march/net-framework-immutable-collections&quot; class=&quot;bare&quot;&gt;https://docs.microsoft.com/en-us/archive/msdn-magazine/2017/march/net-framework-immutable-collections&lt;/a&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_5&quot;&gt;
-&lt;a href=&quot;#_footnoteref_5&quot;&gt;5&lt;/a&gt;. &lt;a href=&quot;https://github.com/tobgu/pyrsistent&quot; class=&quot;bare&quot;&gt;https://github.com/tobgu/pyrsistent&lt;/a&gt;
-&lt;/div&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_6&quot;&gt;
-&lt;a href=&quot;#_footnoteref_6&quot;&gt;6&lt;/a&gt;. &lt;a href=&quot;https://github.com/hamstergem/hamster&quot; class=&quot;bare&quot;&gt;https://github.com/hamstergem/hamster&lt;/a&gt;
 &lt;/div&gt;
 &lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><category term="dop" /><summary type="html">This article is an excerpt from my book about Data-Oriented Programming. More excerpts are available on my blog.</summary></entry></feed>

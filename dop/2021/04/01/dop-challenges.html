@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+        <!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Data-Oriented programming challenges | Yehonathan Sharvit</title>
+<meta name="generator" content="Jekyll v4.2.0" />
+<meta property="og:title" content="Data-Oriented programming challenges" />
+<meta name="author" content="Yehonathan Sharvit" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Data-Oriented programming challenges that illustrate the simplicity of Data-Oriented programming." />
+<meta property="og:description" content="Data-Oriented programming challenges that illustrate the simplicity of Data-Oriented programming." />
+<meta property="og:site_name" content="Yehonathan Sharvit" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-04-01T02:38:15+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Data-Oriented programming challenges" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@Yehonathan Sharvit" />
+<script type="application/ld+json">
+{"url":"/dop/2021/04/01/dop-challenges.html","headline":"Data-Oriented programming challenges","dateModified":"2021-04-01T02:38:15+00:00","datePublished":"2021-04-01T02:38:15+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/dop/2021/04/01/dop-challenges.html"},"author":{"@type":"Person","name":"Yehonathan Sharvit"},"description":"Data-Oriented programming challenges that illustrate the simplicity of Data-Oriented programming.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+
+    <!-- Site Favicon -->
+    <link rel="shortcut icon" href="/assets/favicon2.png" type="image/png" />
+
+    <!-- Font Embed Code -->
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600,600i|Karla:400,400i,700,700i" rel="stylesheet">
+
+    <!-- CSS Styles -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+</head>
+
+
+
+<body class="layout-post">
+    <div id="page" class="site">
+        <header id="masthead" class="site-header">
+    <div class="site-header-wrap">
+        <div class="site-header-inside">
+
+            <div class="site-branding">
+                
+                <p class="profile">
+                    <a href="/">
+                        <img src="/assets/images/authorimage.jpg" alt="'s Picture"
+                            class="avatar" />
+                    </a>
+                </p>
+                <div class="site-identity">
+                    
+                    <h1 class="site-title">
+                        <a href="/">Yehonathan Sharvit</a>
+                    </h1>
+                    
+                    
+                    <p class="site-description">Developer. Author. Speaker.</p>
+                    
+                </div><!-- .site-identity -->
+                
+                <button id="menu-toggle" class="menu-toggle"><span class="screen-reader-text">Main Menu</span><span
+                        class="icon-menu" aria-hidden="true"></span></button>
+            </div><!-- .site-branding -->
+
+            <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+                <div class="site-nav-wrap">
+                    <div class="site-nav-inside">
+                    <ul class="menu">
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/">Blog</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/talks">Talks</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/about">About</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/contact">Contact</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/search">Search</a></li>
+                        
+                    </ul>
+                    <p class="social-links">
+    <a class="github-button" href="https://github.com/viebel/klipse" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    
+    <a href="https://twitter.com/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+</p>
+
+                    <div class="book-header">
+  <div>
+    Discover my book!
+  </div>
+  <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
+    <img src="/assets/dop-book.png">
+  </a>
+  <div>
+    50% DISCOUNT CODE: mlsharvit2
+  </div>
+</div>
+
+                    </div><!-- .site-nav-inside -->
+                </div><!-- .site-nav-wrap -->
+            </nav><!-- .site-navigation -->
+
+        </div><!-- .site-header-inside -->
+    </div><!-- .site-header-wrap -->
+</header><!-- .site-header -->
+
+        <div id="content" class="site-content fadeInDown delay_075s">
+            <div class="inner-wide">
+                <main id="main" class="site-main">
+
+    <article class="post-full inner">
+
+        <header class="post-header">
+            <h1 class="post-title">Data-Oriented programming challenges</h1>
+            <span class="post-meta">
+              <time class="post-date" datetime="2021-04-01">
+                April 1, 2021
+              </time>
+            </span>
+            
+            <span class="post-tags">
+                <a href="/tags/index.html#dop"
+                    rel="tag">dop</a>
+                <a href="/tags/index.html#javascript"
+                    rel="tag">javascript</a>
+                
+            </span>
+            
+        </header><!-- .post-header -->
+
+        <div class="post-content">
+            <p>According to Data-Oriented programming, the best way to reduce complexity of information systems is to follow three basic principles:</p>
+
+<ol>
+  <li>Separate code from data</li>
+  <li>Keep data immutable</li>
+  <li>Represent data with generic data structures</li>
+</ol>
+
+<p>Here are a series of 6 short programming challenges and their solutions written in JavaScript according to the principles of Data-Oriented programming. The purpose is to illustrate the simplicity of Data-Oriented programming.</p>
+
+<p>If you agree with DOP principles, please implement your solutions in the programming language of your choice, according to DOP principles. I’m sure you’ll enjoy!</p>
+
+<p>If you disagree with one or more DOP principles, feel free to implement the solutions by breaking one or more principles, and explain why you think that your solution is simpler than the ones that I wrote.</p>
+
+<h1 id="rules">Rules</h1>
+
+<ol>
+  <li>You are allowed to choose any programming language</li>
+  <li>You are allowed to use any third-party library</li>
+  <li>You are allowed to use reflection</li>
+  <li>In the context of the challenges, simplicity is more important than performances.</li>
+  <li>Submit your code snippets as a pull request to the official book source code <a href="https://github.com/viebel/data-oriented-programming">Github repository</a>, under the <code class="language-plaintext highlighter-rouge">challenges</code> folder</li>
+  <li>In case you disagree with DOP, please add a few words as comments in your code that explain why you think that your solution is simpler than the ones that I wrote.</li>
+  <li>Four copies of <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7">Data-Oriented programming</a> will be given away among the folks that submit a correct solution to at least 4 of the challenges.</li>
+</ol>
+
+<h1 id="data-model">Data model</h1>
+
+<p>Here is the library data model in an informal way:</p>
+
+<p><img src="/assets/lms-data-mindmap.png" alt="mindmap" /></p>
+
+<p>More formally, here is a UML diagram that describes the relationships between the data entities of the library:</p>
+
+<p><img src="/assets/lms-data-diagram.png" alt="diagram" /></p>
+
+<p>Here is an example of library data in JavaScript that we are going to use through this article:</p>
+
+<pre><code class="language-eval-js">var libraryData = {
+    "name": "The smallest library on earth",
+    "address": "Here and now",
+    "catalog": {
+        "booksByIsbn": {
+            "978-1779501127": {
+                "isbn": "978-1779501127",
+                "title": "Watchmen",
+                "publicationYear": 1987,
+                "authorIds": ["alan-moore",
+                              "dave-gibbons"],
+                "bookItems": [
+                    {
+                        "id": "book-item-1",
+                        "rackId": "rack-17",
+                    },
+                    {
+                        "id": "book-item-2",
+                        "rackId": "rack-17",
+                    }
+                ]
+            }
+        },
+        "authorsById": {
+            "alan-moore": {
+                "name": "Alan Moore",
+                "bookIsbns": ["978-1779501127"]
+            },
+            "dave-gibbons": {
+                "name": "Dave Gibbons",
+                "bookIsbns": ["978-1779501127"]
+            }
+        }
+    },
+  "userManagement": {
+    "librarians": {
+      "franck@gmail.com" : {
+        "email": "franck@gmail.com",
+        "encryptedPassword": "bXlwYXNzd29yZA=="
+      }
+    },
+    "members": {
+      "samantha@gmail.com": {
+        "email": "samantha@gmail.com",
+        "encryptedPassword": "c2VjcmV0",
+        "isBlocked": false,
+      }
+    }
+  }
+};
+</code></pre>
+
+<h1 id="warm-up">Warm up</h1>
+
+<p>What’s the title of the book whose ISBN is “978-1779501127” in upper case?</p>
+
+<pre><code class="language-eval-js">var informationPath = ["catalog", "booksByIsbn", "978-1779501127", "title"]; 
+_.get(libraryData, informationPath).toUpperCase();
+</code></pre>
+
+<p>In Data-Oriented programming, each piece of information has an information path. As you’ll see through the upcoming challenges, this unusual approach has many benefits.</p>
+
+<h1 id="challenge-1-retrieve-a-piece-of-information">Challenge #1: Retrieve a piece of information</h1>
+
+<p><strong>Challenge ‍</strong>: Write a function named <code class="language-plaintext highlighter-rouge">getBookProperty</code> that receives library data and ISBN and a field name and returns the value of the field for the book with the given ISBN</p>
+
+<pre><code class="language-eval-js">function getBookProperty(libraryData, isbn, fieldName) {
+  var informationPath = ["catalog", "booksByIsbn", isbn, fieldName]; 
+  return _.get(libraryData, informationPath);
+}
+</code></pre>
+
+<pre><code class="language-eval-js">getBookProperty(libraryData, "978-1779501127", "title");
+</code></pre>
+
+<p>In Data-Oriented programming, data fields are first-class citizens. We are free to create and combine field names dynamically in our program.</p>
+
+<h1 id="challenge-2-search-information">Challenge #2: Search information</h1>
+
+<p><strong>Challenge ‍</strong>: Write a function named <code class="language-plaintext highlighter-rouge">bookInfo</code> that receives library data and a string and returns a JSON string that contains book information about the books whose title contains the given string, in a case insensitive way. Book information is made of: title, isbn, author full names.</p>
+
+<p><strong>Remark</strong>: You are not allowed to extract author names from author ids. Assume that author ids are opaque strings.</p>
+
+<pre><code class="language-eval-js">function authorNames(catalogData, book) {
+  return _.map(_.get(book, "authorIds"),
+               function(authorId) {
+    return _.get(catalogData, ["authorsById", authorId, "name"]);
+    });
+}
+
+function bookInfo(catalogData, book) {
+  return  {
+    "title": _.get(book, "title"),
+    "isbn": _.get(book, "isbn"),
+    "authorNames": authorNames(catalogData, book)
+  };
+}
+
+function searchBooksByTitle(libraryData, query) {
+  var catalogData = _.get(libraryData, "catalog");
+  var allBooks = _.get(catalogData, "booksByIsbn");
+  var matchingBooks = _.filter(allBooks, function(book) { 
+    return _.get(book, "title").toLowerCase()
+      .includes(query.toLowerCase());
+  });
+  return JSON.stringify(_.map(matchingBooks, function(book) {
+    return bookInfo(catalogData, book);
+  }));
+}
+</code></pre>
+
+<pre><code class="language-eval-js">searchBooksByTitle(libraryData, "watCH");
+</code></pre>
+
+<p>Here, the main benefits are the power of expression of <code class="language-plaintext highlighter-rouge">map</code> and <code class="language-plaintext highlighter-rouge">reduce</code> combined with the freedom of creating on the fly a book info structure and serialize it for free.</p>
+
+<h1 id="challenge-3-add-a-piece-of-information">Challenge #3: Add a piece of information</h1>
+
+<p><strong>Challenge</strong>: Write a function named <code class="language-plaintext highlighter-rouge">blockMember</code> that receives library data and an email address and returns a new version of library data <strong>without altering the original version</strong>, where the user with the given email is blocked.</p>
+
+<pre><code class="language-eval-js">function blockMember(libraryData, email) {
+  var informationPath = ["userManagement", "members", email, "isBlocked"]; 
+  return _.set(libraryData, informationPath, true);
+}
+</code></pre>
+
+<pre><code class="language-eval-js">var updatedLibraryData = blockMember(libraryData, "samantha@gmail.com");
+
+var informationPath = ["userManagement", "members", "samantha@gmail.com", "isBlocked"]; 
+[_.get(updatedLibraryData, informationPath), _.get(libraryData, informationPath)];
+</code></pre>
+
+<p>In Data-Oriented programming, data is immutable. Functions like <code class="language-plaintext highlighter-rouge">_.set()_</code> make it efficient (both in terms of memory and computation) to create modified versions of data.</p>
+
+<h1 id="challenge-4-rename-keys-in-a-data-entity">Challenge #4: Rename keys in a data entity</h1>
+
+<p><strong>Challenge</strong>: Write a function named <code class="language-plaintext highlighter-rouge">renameKeys</code> that receives a data entity and a key mappings and returns a new data entity, without altering the original entity, where the fields are renamed according to the key mappings</p>
+
+<pre><code class="language-eval-js">function renameKeys(map, keyMap) {
+  return _.reduce(keyMap,
+                  function(res, newKey, oldKey) {
+                    var value = _.get(map, oldKey);
+                    var resWithNewKey = _.set(res, newKey, value);
+                    var resWithoutOldKey = _.omit(resWithNewKey, oldKey);
+                    return resWithoutOldKey;
+                  },
+                  map);
+}
+</code></pre>
+
+<p><code class="language-plaintext highlighter-rouge">renameKeys</code> works with author entities:</p>
+
+<pre><code class="language-eval-js">var alanMoore = {
+  "name": "Alan Moore",
+  "bookIsbns": ["978-1779501127"]
+};
+renameKeys(alanMoore, {"bookIsbns": "books"}); 
+</code></pre>
+
+<p><code class="language-plaintext highlighter-rouge">renameKeys</code> works also with book item entities:</p>
+
+<pre><code class="language-eval-js">var bookItem = {
+  "id": "book-item-1",
+  "rackId": "rack-17",
+  "isLent": true
+};
+
+renameKeys(bookItem, {"rackId": "id",
+                     "id": "bookItemId"}); 
+</code></pre>
+
+<p>In Data-Oriented programming, data entities are represented with generic data structures that can be manipulated with generic functions that work with any data entity.</p>
+
+<h1 id="challenge-5-merge-pieces-of-information">Challenge #5: Merge pieces of information</h1>
+
+<p><strong>Challenge</strong>: Write a function named <code class="language-plaintext highlighter-rouge">mergeAndSerialize</code> that receives two pieces of book information, one from the database and one from an external service like <a href="https://openlibrary.org/dev/docs/api/books">Open Library Books API</a> and returns a JSON string with information from both sources.</p>
+
+<pre><code class="language-eval-js">var watchmenFromDB = {
+        "isbn": "978-1779501127",
+        "title": "Watchmen",
+        "publicationYear": 1987,
+        "authorIds": ["alan-moore",
+                      "dave-gibbons"],
+        "bookItems": [
+          {
+            "id": "book-item-1",
+            "rackId": "rack-17",
+            "isLent": true
+          },
+          {
+            "id": "book-item-2",
+            "rackId": "rack-17",
+            "isLent": false
+          }
+        ]
+      };
+
+var watchmenFromOpenLib = {
+  "publishers": [
+    "DC Comics"
+  ],
+  "number_of_pages": 334,
+  "weight": "1.4 pounds",
+  "physical_format": "Paperback",
+  "subjects": [
+    "Graphic Novels",
+    "Comics &amp; Graphic Novels",
+    "Fiction",
+    "Fantastic fiction"
+  ],
+  "isbn_13": [
+    "9780930289232"
+  ],
+  "title": "Watchmen",
+  "isbn_10": [
+    "0930289234"
+  ],
+  "publish_date": "April 1, 1995",
+  "physical_dimensions": "10.1 x 6.6 x 0.8 inches"
+}
+</code></pre>
+
+<p>We simply merge the two maps:</p>
+
+<pre><code class="language-eval-js">_.merge(watchmenFromDB, watchmenFromOpenLib);
+</code></pre>
+
+<p>And we JSON serialize the result:</p>
+
+<pre><code class="language-eval-js">function mergeAndSerialize(a, b) {
+  return JSON.stringify(_.merge(a, b));
+}
+
+mergeAndSerialize(watchmenFromDB, watchmenFromOpenLib);
+</code></pre>
+
+<p>When we represent data with generic data structures, we benefit from many well defined functions like <code class="language-plaintext highlighter-rouge">merge</code>, implemented either in the programming language itself or in third-party libraries like `Lodash.js.</p>
+
+<h1 id="challenge-6-compare-versions-of-data">Challenge #6: Compare versions of data</h1>
+
+<p><strong>Challenge</strong>: Write a function named <code class="language-plaintext highlighter-rouge">diff</code> that receives two versions of library data and returns an object that contains the diff between the two versions, in the format of your choice.</p>
+
+<pre><code class="language-eval-js">function diffObjects(data1, data2) {
+  var emptyObject = _.isArray(data1) ? [] : {};
+  if(data1 == data2) {
+    return emptyObject;
+  }
+  var keys = _.union(_.keys(data1), _.keys(data2));
+  return _.reduce(keys,
+                  function (acc, k) {
+    var res = diff(_.get(data1, k),
+                   _.get(data2, k));
+    if((_.isObject(res) &amp;&amp; _.isEmpty(res)) ||
+       (res == "data-diff:no-diff")) {
+      return acc;
+    }
+    return _.set(acc, [k], res);
+  },
+                  emptyObject);
+}
+
+function diff(data1, data2) {
+  if(_.isObject(data1) &amp;&amp; _.isObject(data2)) {
+    return diffObjects(data1, data2);
+  }
+  if(data1 !== data2) {
+    return data2;
+  }
+  return "data-diff:no-diff";
+}
+</code></pre>
+
+<pre><code class="language-eval-js">diff(libraryData, updatedLibraryData);
+</code></pre>
+
+<pre><code class="language-eval-js">diff(libraryData, libraryDataupdatedLibraryData);
+</code></pre>
+
+<p>When every piece of data in the system is represented with generic data structures, it is quite easy to compare recursively different data versions.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>Do you like 😃 DOP or do you hate 😡 it?</p>
+
+<p>Anyway, it’s time to show off your coding skills 🧑‍💻!</p>
+
+<p>Submit your code snippets as a pull request to the official book source code <a href="https://github.com/viebel/data-oriented-programming">Github repository</a>, under the <code class="language-plaintext highlighter-rouge">challenges</code> folder.
+In case you disagree with DOP, please add a few words as comments in your code that explain why you think that your solution is simpler than the ones that I wrote.</p>
+
+<script src="https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)"></script>
+
+<script>
+var fp = _.noConflict();
+var _ = fp.convert({
+  // Specify capping iteratee arguments.
+  'cap': false,
+  // Specify currying.
+  'curry': false,
+  // Specify fixed arity.
+  'fixed': false,
+  // Specify immutable operations.
+  'immutable': true,
+  // Specify rearranging arguments.
+  'rearg': false
+});
+</script>
+
+
+        </div>
+        <footer class="post-footer">
+          <div class="book-below">
+  <div style="float: left; width: 50%;">
+    <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
+      <div style="color:black; padding-left: 10px;">
+        Change the way you <b>think</b> about writing code.
+	      <div style="font-weight: bold;"> Start reading my book today! </div>
+        <br>
+        <ul>
+          <li>
+            Unlearn outdated <b>paradigms</b> and embrace the <b>flexibility</b> of a data-first approach with this accessible guide to data-oriented programming.
+          </li>
+
+        <li>
+        <b>Data-oriented Programming</b> is now available from Manning Publications. Learn how to implement the data-oriented paradigm in traditional object-oriented languages like Java, C# or JavaScript.
+        </li>
+
+        <li>
+          Powerful new <b>ideas</b> are presented through <i>conversations</i>, <i>code snippets</i>, <i>diagrams</i>, and even <i>songs</i> to help you quickly grok what’s great about DOP.
+        </li>
+        <li>
+          <b>Save 50%</b> on the cover price now through March 15. Use promo code mlsharvit2 during checkout. 
+        </li>
+
+
+
+        </ul>
+      </div>
+    </a>
+  </div>
+  <div style="float: left; width: 50%;">
+    <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
+      <img src="/assets/dop-book.png">
+    </a>
+  </div>
+  <div style="clear: both;">
+  </div>
+</div>
+
+            <div class="post-share">
+                <span class="post-share-title">Share:</span>
+                <a target="_blank"
+                    href="https://twitter.com/share?text=Data-Oriented+programming+challenges&amp;url=https://blog.klipse.techdop/2021/04/01/dop-challenges.html">Twitter</a>
+                <a target="_blank"
+                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techdop/2021/04/01/dop-challenges.html">Facebook</a>
+            </div><!-- .share-post -->
+        </footer>
+    </article>
+    
+    <section class="newsletter-box inner">
+    <h2 class="newsletter-box-title">Subscribe to Yehonathan Sharvit newsletter</h2>
+    <p>Get the latest and greatest from Yehonathan Sharvit delivered straight to your inbox every week.</p>
+    <!-- Begin TinyLetter Signup Form -->
+    <div id="tinyletter_embed_signup">
+      <form class="validate gh-subscribe-form" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	      <label for="tlemail" class="screen-reader-text">Email Address</label>
+        <input type="email" value="" name="email" class="required email subscribe-email" placeholder="Your email address">
+	      <input type="hidden" value="1" name="embed"/>
+	      <input class="button" type="submit" value="Subscribe" />
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
+</section><!-- .widget -->
+
+    
+    <section class="read-next inner">
+        <h2 class="read-next-title">Read Next</h2>
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="March 28, 2021">March 28, 2021</time>
+                </div>
+                <h3 class="post-title"><a href="/java/2021/03/28/dynamic-data-access-in-java.html">How to access data dynamically in Java without losing type safety</a>
+                </h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/java/'>Java</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+        
+    </section><!-- .read-next -->
+
+    <!-- Create a sorted array of tags -->
+     
+    <section class="tagcloud inner">
+        <h2 class="tagcloud-title">Tags</h2>
+        <div class="tag-links">
+            
+            <a href='/tags/#algo'>algo</a>
+            
+            <a href='/tags/#brainfuck'>brainfuck</a>
+            
+            <a href='/tags/#c%2B%2B'>c++</a>
+            
+            <a href='/tags/#clojure'>clojure</a>
+            
+            <a href='/tags/#clojurescript'>clojurescript</a>
+            
+            <a href='/tags/#compiler'>compiler</a>
+            
+            <a href='/tags/#dop'>dop</a>
+            
+            <a href='/tags/#graph'>graph</a>
+            
+            <a href='/tags/#html'>html</a>
+            
+            <a href='/tags/#java'>java</a>
+            
+            <a href='/tags/#javascript'>javascript</a>
+            
+            <a href='/tags/#kids'>kids</a>
+            
+            <a href='/tags/#klipse'>klipse</a>
+            
+            <a href='/tags/#lambda-calculus'>lambda-calculus</a>
+            
+            <a href='/tags/#lambdacalculus'>lambdacalculus</a>
+            
+            <a href='/tags/#lisp'>lisp</a>
+            
+            <a href='/tags/#lua'>lua</a>
+            
+            <a href='/tags/#oblivion'>oblivion</a>
+            
+            <a href='/tags/#ocaml'>ocaml</a>
+            
+            <a href='/tags/#php'>php</a>
+            
+            <a href='/tags/#prolog'>prolog</a>
+            
+            <a href='/tags/#python'>python</a>
+            
+            <a href='/tags/#react'>react</a>
+            
+            <a href='/tags/#reagent'>reagent</a>
+            
+            <a href='/tags/#reasonml'>reasonml</a>
+            
+            <a href='/tags/#ruby'>ruby</a>
+            
+            <a href='/tags/#scheme'>scheme</a>
+            
+            <a href='/tags/#sql'>sql</a>
+            
+            <a href='/tags/#theory'>theory</a>
+            
+            <a href='/tags/#visualization'>visualization</a>
+            
+        </div><!-- .tag-links -->
+    </section><!-- .tagcloud -->
+</main><!-- .site-main -->
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js, [data-lang=klipse-javascript]',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?v=8.0.1"></script>
+
+
+
+
+
+                
+
+                
+                <footer id="colophon" class="site-footer">
+    <p class="site-info inner">
+        <a href="#">Yehonathan Sharvit</a> &copy; 2021.
+    </p>
+    <a id="back-to-top" class="back-to-top" href="#page">
+        <span class="icon-arrow-up" aria-hidden="true"></span>
+        <span class="screen-reader-text">Back to top</span>
+    </a>
+</footer><!-- .site-footer -->
+
+            </div><!-- .inner-wide -->
+        </div><!-- .site-content -->
+    </div><!-- .site -->
+
+    
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75651930-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-75651930-1', { 'anonymize_ip': true });
+  </script>
+
+    <!-- Javascript Assets -->
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/custom.js"></script>
+
+</body>
+
+</html>
