@@ -387,3 +387,21 @@ ul.archive-posts-list {
 .older-posts {
   right: 0;
 }
+
+.book-below {
+    margin-top: 5px;
+    background-color: $gray-lighter;
+    margin-top: 5px;
+    padding-right: 10px;
+    padding-top: 10px;
+}
+
+.separator {
+    background-color: $color-accent;
+    display: block;
+    content: "";
+    height: 1px;
+    margin-top: 0.45em;
+    margin-bottom: 0.45em;
+    width: 120px;
+}
