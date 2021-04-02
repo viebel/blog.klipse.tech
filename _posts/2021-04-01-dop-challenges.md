@@ -24,7 +24,7 @@ Here are a series of 6 short programming challenges and their solutions written 
 
 If you agree with DOP principles, please implement your solutions in the programming language of your choice, according to DOP principles. I'm sure you'll enjoy!
 
-If you disagree with one or more DOP principles, feel free to implement the solutions by breaking one or more principles, and explain why you think that your solution is simpler than the ones that I wrote.
+If you disagree with one or more DOP principles, feel free to implement the solutions by breaking one or more principles (e.g. use data types, classes or records instead of maps), and explain why you think that your solution is simpler than the ones that I wrote.
 
 
 # Rules
