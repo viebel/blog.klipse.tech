@@ -8,20 +8,22 @@
 
     
         <!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Structural sharing with 7 lines of JavaScript. | Yehonathan Sharvit</title>
+<title>La notion de mêmeté en programmation | Yehonathan Sharvit</title>
 <meta name="generator" content="Jekyll v4.2.0" />
-<meta property="og:title" content="Structural sharing with 7 lines of JavaScript." />
+<meta property="og:title" content="La notion de mêmeté en programmation" />
+<meta name="author" content="Yehonathan Sharvit" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="How to implement data immutability via Structural sharing in JavaScript in 7 lines of code. Path copying implementation in JavaScript." />
-<meta property="og:description" content="How to implement data immutability via Structural sharing in JavaScript in 7 lines of code. Path copying implementation in JavaScript." />
+<meta name="description" content="Un aspect fondamental de l’importance des manipulations de valeurs en programmation fonctionnelle." />
+<meta property="og:description" content="Un aspect fondamental de l’importance des manipulations de valeurs en programmation fonctionnelle." />
 <meta property="og:site_name" content="Yehonathan Sharvit" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2021-02-26T02:03:52+00:00" />
+<meta property="article:published_time" content="2021-04-18T15:04:28+00:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Structural sharing with 7 lines of JavaScript." />
+<meta property="twitter:title" content="La notion de mêmeté en programmation" />
 <meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@Yehonathan Sharvit" />
 <script type="application/ld+json">
-{"url":"/javascript/2021/02/26/structural-sharing-in-javascript.html","headline":"Structural sharing with 7 lines of JavaScript.","dateModified":"2021-02-26T02:03:52+00:00","datePublished":"2021-02-26T02:03:52+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/javascript/2021/02/26/structural-sharing-in-javascript.html"},"description":"How to implement data immutability via Structural sharing in JavaScript in 7 lines of code. Path copying implementation in JavaScript.","@context":"https://schema.org"}</script>
+{"url":"/dop/2021/04/18/memete-programmation.html","headline":"La notion de mêmeté en programmation","dateModified":"2021-04-18T15:04:28+00:00","datePublished":"2021-04-18T15:04:28+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/dop/2021/04/18/memete-programmation.html"},"author":{"@type":"Person","name":"Yehonathan Sharvit"},"description":"Un aspect fondamental de l’importance des manipulations de valeurs en programmation fonctionnelle.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     
@@ -153,215 +155,90 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
     <article class="post-full inner">
 
         <header class="post-header">
-            <h1 class="post-title">Structural sharing with 7 lines of JavaScript.</h1>
+            <h1 class="post-title">La notion de mêmeté en programmation</h1>
             <span class="post-meta">
-              <time class="post-date" datetime="2021-02-26">
-                February 26, 2021
+              <time class="post-date" datetime="2021-04-18">
+                April 18, 2021
               </time>
             </span>
             
             <span class="post-tags">
                 <a href="/tags/index.html#dop"
                     rel="tag">dop</a>
-                <a href="/tags/index.html#javascript"
-                    rel="tag">javascript</a>
+                <a href="/tags/index.html#maths"
+                    rel="tag">maths</a>
                 
             </span>
             
         </header><!-- .post-header -->
 
         <div class="post-content">
-            <h1 id="motivation">Motivation</h1>
+            <p>On parle souvent de l’importance d’écrire notre code en termes de fonctions pures qui, comme les fonctions mathématiques, n’ont pas d’effets de bords et retournent les mêmes valeurs pour les mêmes arguments. Dans cet article, je vous propose d’explorer un autre aspect fondamental de la différence entre la programmation fonctionnelle et la programmation orientée objet: la notion de mêmeté, c’est-à-dire: comment définit-on que deux “choses” sont les mêmes?</p>
 
-<p>When we build an application that embraces <strong>data immutability</strong>, we handle changes in data by creating a new version of data instead of mutating data in place, without compromising on performance. There are <a href="https://en.wikipedia.org/wiki/Persistent_data_structure">various techniques</a> to achieve data immutability in an efficient manner.</p>
+<h1 id="une-histoire-un-peu-bateau">Une histoire un peu bateau</h1>
 
-<p>JavaScript data manipulation libraries like <a href="https://ramdajs.com/">Ramda</a> and <a href="{ % post_url  2020-11-26-lodash-fp %}">Lodash FP</a> provide an interesting implementation of structural sharing via a technique called <a href="https://en.wikipedia.org/wiki/Persistent_data_structure#Path_copying">path copying</a>. The cool thing with path copying is that it works with <strong>native JavaScript objects</strong>.</p>
+<p>Connaissez-vous l’histoire du bateau de Thésée? Ce héros grec dont le bateau, selon la légende, aurait été préservé par les Athéniens durant des siècles: ils retiraient les planches usées du bateau et les remplaçaient jusq’au point où il ne restait plus aucune planche d’origine.</p>
 
-<p>After reading this article, you will:</p>
+<p>Se posa alors la question de savoir s’il s’agissait encore du même bateau ou bien si l’entretien en avait fait un tout autre bateau.</p>
 
-<ol>
-  <li>😄  Be part of the few <strong>lucky JavaScript developers</strong> that clearly understand what is structural sharing</li>
-  <li>💻  <strong>Implement</strong> structural sharing in a few lines of JavaScript code</li>
-  <li>⚠️ Be aware of the <strong>limitation</strong> of path copying</li>
-  <li>🤗  Be <strong>motivated</strong> to read my book about <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7">Data-Oriented programming</a></li>
-</ol>
+<p>Qu’en pensez-vous? Et surtout qu’est-ce que cela a à voir avec les maths et la programmation?</p>
 
-<p>Remark: This article assumes that you are already aware of the benefits of data immutability.</p>
+<p><img src="/assets/theseus.png" alt="ship" /></p>
 
-<h1 id="what-is-structural-sharing">What is structural sharing?</h1>
+<h1 id="la-mêmeté-en-maths">La mêmeté en maths</h1>
 
-<p><strong>Structural sharing</strong> provides an efficient way to share data between multiple versions of it, instead of copying the whole data.</p>
+<p>Commençons par les maths en nous posant une question similaire concernant le concept le plus fondamental des mathématiques: le concept d’ensemble.</p>
 
-<p>It’s kind of similar to the way <strong>git</strong> manages multiple versions of your source code: git doesn’t copy all the files on each commit. Instead, the files that are not changed by a commit are shared with previous commits.</p>
+<p>Prenons un ensemble avec trois éléments: les nombres 1, 2 et 3.</p>
 
-<p>The same strategy could be applied with data. Let’s take as an example a map that represents the data of a library in a library management system. In this map, we have 4 fields:</p>
+<p>Que se passe-t-il quand on remplace un nombre de cet ensemble, par exemple: le nombre 3 par le nombre 4?</p>
 
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">name</code>: a string for the name of the library</li>
-  <li><code class="language-plaintext highlighter-rouge">address</code>: a string for the address of the library</li>
-  <li><code class="language-plaintext highlighter-rouge">catalog</code>: a map with the book information</li>
-  <li><code class="language-plaintext highlighter-rouge">users</code>: a map for the user information</li>
-</ol>
+<p>Bien évidemment, nous obtenons un ensemble différent de l’ensemble d’origine!</p>
 
-<p>Here is an example of a tiny library, with two users and a single book:</p>
+<p>Maintenant imaginons que nous ayons un ensemble avec les nombres 1, 2 et 10. Que se passe-t-il quand on remplace 10 par 3? Et bien, me direz-vous nous obtenons un ensemble avec les nombres 1, 2 et 3.</p>
 
-<pre><code class="language-klipse-eval-js">var libraryData = {
-  "name": "The smallest library on earth",
-  "address": "Here and now",
-  "users": [
-    {"username": "user-1",
-     "password": "pass-1"}, 
-    {"username": "user-2",
-     "password": "pass-2"}
-  ],
-  "catalog": {
-    "books": [
-      {
-        "title": "Watchmen",
-        "publicationYear": 1986,
-        "authors": [
-          {
-            "firstName": "Alan",
-            "lastName": "Moore"
-          },
-          {
-            "firstName": "Dave",
-            "lastName": "Gibbons"
-          }
-        ]
-      }
-    ]
-  }
-}
-</code></pre>
+<p>Un ensemble avec les nombres 1, 2 et 3 comme celui de l’exemple précédent? S’agit-il du même ensemble ou bien d’un autre ensemble avec les mêmes éléments? Drôle de question, non?</p>
 
-<p>Suppose we want to create a version of the library where the <code class="language-plaintext highlighter-rouge">address</code> field is modified. We can achieve that by <strong>shallow copying</strong> the original library and modify the <code class="language-plaintext highlighter-rouge">address</code> field, using <code class="language-plaintext highlighter-rouge">Object.assign()</code>.</p>
+<p>Et bien pour les mathématiques, la réponse est formelle: deux ensembles ayant les mêmes éléments sont les mêmes! C’est l’un des axiomes de la théorie axiomatique des ensembles. Cet axiome porte même un joli nom: on l’appelle l’axiome de l’extensionnalité<sup id="fnref:extensionality" role="doc-noteref"><a href="#fn:extensionality" class="footnote">1</a></sup>.</p>
 
-<pre><code class="language-klipse-eval-js">function set(obj, key, val) {
-  var copy = Object.assign({}, obj);
-  copy[key] = val;
-  return copy;
-}
-</code></pre>
+<p>Selon les mathématiques donc, le bateau de Thésée n’est plus le même dès que l’on remplace une de ses planches.</p>
 
-<p>For fields whose values are strings, it works fine because <strong>strings are immutable</strong> in JavaScript. But what about fields whose values are maps? We don’t want changes made on one of version of the map to be reflected on the other versions of the map!</p>
+<h1 id="la-mêmeté-en-programmation">La mêmeté en programmation</h1>
 
-<p>Like in git, we don’t want changes in a commit to affect files in a previous commit!</p>
+<p>Passons à la programmation maintenant, si vous le voulez bien. Imaginons un produit vendu sur un site e-commerce, une jolie tasse à café, par exemple. Simplifions les choses et disons qu’une tasse ne possède que deux attributs: un descriptif et un prix. Que se passe-t-il quand on baisse le prix d’une tasse? S’agit-il de la même tasse ou bien d’une autre tasse?</p>
 
-<p>We could solve this challenge in a very naive way by <strong>deep copying</strong> the whole map when creating a new version of it. But of course, it would have a negative impact on the performance, both in terms of memory and CPU.</p>
+<p>Bien évidemment, il s’agit de la même tasse! En programmation, l’identité d’un objet ne se résume pas à la valeurs de ses attributs.</p>
 
-<p>Another approach is to <strong>prevent data from being changed</strong>. When data is immutable, we don’t need to protect ourselves from the threat we just mentioned. It is safe to do a shallow copy of the data because immutable data never changes.</p>
+<p>Selon la programmation donc, le bateau de Thésée reste le même, bien que toutes ses planches aient été remplacées.</p>
 
-<p>Data immutability could be guaranteed either by convention (and code reviews) or by the program itself. For example, JavaScript provides a way to prevent data from being changed, via <code class="language-plaintext highlighter-rouge">Object.freeze()</code>. Here is an implementation of a deep freeze, from <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze">MDN</a>:</p>
+<h1 id="la-programmation-fonctionnelle">La programmation fonctionnelle</h1>
 
-<pre><code class="language-klipse-eval-js">function deepFreeze(object) {
-  const propNames = Object.getOwnPropertyNames(object);
-  // Freeze properties before freezing self
-  for (const name of propNames) {
-    const value = object[name];
-    if (value &amp;&amp; typeof value === "object") {
-      deepFreeze(value);
-    }
-  }
-  return Object.freeze(object);
-}
-</code></pre>
+<p>Nous sommes ici au coeur d’une contradiction manifeste entre le monde de la programmation et le monde des mathématiques. Comme l’a si joliment écrit Bruce MacLennan en 1982<sup id="fnref:paper" role="doc-noteref"><a href="#fn:paper" class="footnote">2</a></sup>:</p>
 
-<p>That’s the essence of structural sharing:</p>
+<blockquote>
+  <p>Les mathématiques, c’est de la programmation orientée valeur.</p>
 
-<ol>
-  <li>Make sure data is <strong>immutable</strong></li>
-  <li>Create new version of data via <strong>shallow copying</strong></li>
-</ol>
+  <p>La programmation, c’est des mathématiques orientées objet.</p>
+</blockquote>
 
-<p>Here is a code snippet for a function called <code class="language-plaintext highlighter-rouge">set()</code> that implements structural sharing when the change occurs at the <strong>root of the map</strong>:</p>
+<p>Ce qu’il entend par un objet, c’est une entité ayant un ensemble d’attributs à un moment donné. Alors qu’une valeur est une entité qui ne change jamais.</p>
 
-<pre><code class="language-klipse-eval-js">function shallowCopy(o) {
-  if(Array.isArray(o)) {
-    return Object.assign([], o);
-  }
-  return Object.assign({}, o);
-}
+<p>La programmation fonctionnelle se propose de limiter l’impact de cette contradiction en réduisant au maximum les morceaux de codes qui manipulent des objets. La plupart de notre code en programmation fonctionnelle manipule des valeurs. Alors qu’en programmation orientée objet, la manipulation d’objets se répand un peu partout dans notre code.</p>
 
-function set(o, k, v) {
-  var copy = shallowCopy(o);
-  copy[k] = v;
-  return copy;
-}
-</code></pre>
+<h1 id="retour-à-thésée">Retour à Thésée</h1>
 
-<p>Creating a new version of data with a change at the root of a map is easy. Now, we are going to show how to handle changes at any nesting level in a map.</p>
+<p>Écrire un programme de nos jours représente parfois un défi aussi grand que trouver la sortie du labyrinthe de Dédale. Selon la légende, Thésée parvint à sortir du labyrinthe de Dédale grâce à une pelote de fil qu’Ariane lui avait fournit en entrant dans le labyrinthe. Et nous, programmeurs quel est notre file d’Ariane?</p>
 
-<h1 id="implementation-of-path-copying-in-javascript">Implementation of path copying in JavaScript</h1>
-
-<p>Suppose we want to update the password of a user and see how to apply <strong>recursively</strong> our structural sharing strategy:</p>
-
-<ol>
-  <li>Shallow copy <code class="language-plaintext highlighter-rouge">name</code>, <code class="language-plaintext highlighter-rouge">address</code> and <code class="language-plaintext highlighter-rouge">catalog</code>.</li>
-  <li>Use a modified version of <code class="language-plaintext highlighter-rouge">users</code>:
-    <ol>
-      <li>Shallow copy all users except <code class="language-plaintext highlighter-rouge">user-1</code></li>
-      <li>Use a modified version of <code class="language-plaintext highlighter-rouge">user-1</code>:
-        <ol>
-          <li>Shallow copy all the fields except <code class="language-plaintext highlighter-rouge">password</code></li>
-          <li>Modify <code class="language-plaintext highlighter-rouge">password</code></li>
-        </ol>
-      </li>
-    </ol>
-  </li>
-</ol>
-
-<p><img src="/assets/change-password.png" alt="change-password" /></p>
-
-<p>The code for it would look like this:</p>
-
-<pre><code class="language-klipse-eval-js">var nextUser = Object.assign({}, libraryData.users[1]);
-nextUser.password = "new-pass-2";
-var nextUsers = Object.assign([], libraryData.users);
-nextUsers[1] = nextUser;
-var nextLibraryData = Object.assign({}, libraryData);
-nextLibraryData.users = nextUsers;
-</code></pre>
-
-<p>And now, let’s generalize this approach with a recursive functions. As we promised in the article title, here is an implementation of structural sharing in <strong>7 lines of JavaScript code</strong>:</p>
-
-<pre><code class="language-klipse-eval-js">function setIn(m, [k, ...restOfPath], v) {
-  var modifiedNode = v;
-  if (restOfPath.length &gt; 0) {
-    modifiedNode = setIn(m[k], restOfPath, v);
-  }
-  return set(m, k, modifiedNode);
-}
-</code></pre>
-
-<p>Here is how we use <code class="language-plaintext highlighter-rouge">setIn</code> to modify the password of a user:</p>
-
-<pre><code class="language-klipse-eval-js">var libraryDataV1 = setIn(libraryData, ["users", 1, "password"], "new-pass-2");
-libraryDataV1.users[1].password
-</code></pre>
-
-<p>Of course, the previous version is left unchanged:</p>
-
-<pre><code class="language-klipse-eval-js">libraryData.users[1].password
-</code></pre>
-
-<h1 id="efficiency-of-structural-sharing">Efficiency of structural sharing</h1>
-
-<p>Path copying is <strong>usually efficient</strong> – both in terms of memory and computation – because most of the nodes in a nested map are copied by reference (shallow copy).</p>
-
-<p>For example, the catalog map (that could be a huge object) is shared between the original library data and the new version of library data. They both use the same reference.</p>
-
-<pre><code class="language-klipse-eval-js">libraryDataV1.catalog === libraryData.catalog
-</code></pre>
-
-<p>Path copying works fine with deeply nested data where at each nesting level we don’t have too many elements. When we have <strong>many elements at some level</strong>, shallow copying might be an issue. Suppose we have a million user in our system, copying a million references each time we update the password of a user is not acceptable.</p>
-
-<p>The same issue occurs with git if you have a folder with too many files.</p>
-
-<p>In my book about <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7">Data-Oriented programming</a>, I discuss techniques to overcome this limitation.</p>
-
-<p>The book illustrate in details the benefits of building a software system based upon data immutability.</p>
-
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:extensionality" role="doc-endnote">
+      <p>https://en.wikipedia.org/wiki/Axiom_of_extensionality <a href="#fnref:extensionality" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:paper" role="doc-endnote">
+      <p>Maclennan, Bruce. (1982). <a href="https://www.researchgate.net/publication/220177801_Values_and_Objects_in_Programming_Languages">Values and Objects in Programming Languages</a>. <a href="#fnref:paper" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
 
         </div>
         <footer class="post-footer">
@@ -369,9 +246,9 @@ libraryDataV1.users[1].password
             <div class="post-share">
                 <span class="post-share-title">Share:</span>
                 <a target="_blank"
-                    href="https://twitter.com/share?text=Structural+sharing+with+7+lines+of+JavaScript.&amp;url=https://blog.klipse.techjavascript/2021/02/26/structural-sharing-in-javascript.html">Twitter</a>
+                    href="https://twitter.com/share?text=La+notion+de+m%C3%AAmet%C3%A9+en+programmation&amp;url=https://blog.klipse.techdop/2021/04/18/memete-programmation.html">Twitter</a>
                 <a target="_blank"
-                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techjavascript/2021/02/26/structural-sharing-in-javascript.html">Facebook</a>
+                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techdop/2021/04/18/memete-programmation.html">Facebook</a>
             </div><!-- .share-post -->
         </footer>
     </article>
@@ -399,9 +276,9 @@ libraryDataV1.users[1].password
         <article class="post">
             <header class="post-header">
                 <div class="post-meta">
-                    <time class="published" datetime="February 16, 2021">February 16, 2021</time>
+                    <time class="published" datetime="April 1, 2021">April 1, 2021</time>
                 </div>
-                <h3 class="post-title"><a href="/visualization/2021/02/16/data-related-paradigms.html">Distinction between three data related programming paradigms.</a>
+                <h3 class="post-title"><a href="/dop/2021/04/01/dop-challenges.html">Data-Oriented programming simplicity illustrated by coding challenges</a>
                 </h3>
                 <p class="post-tags">
                     
@@ -411,7 +288,7 @@ libraryDataV1.users[1].password
                     
                     
                     
-                    <a href='/tag/theory/'>Theory</a>
+                    <a href='/tag/javascript/'>Javascript</a>
                     
                     
                     
@@ -419,28 +296,6 @@ libraryDataV1.users[1].password
             </header>
         </article>
         
-        
-        <article class="post">
-            <header class="post-header">
-                <div class="post-meta">
-                    <time class="published" datetime="March 5, 2021">March 5, 2021</time>
-                </div>
-                <h3 class="post-title"><a href="/java/2021/03/05/data-oriented-programming-in-java.html">Data-Oriented programming in Java</a></h3>
-                <p class="post-tags">
-                    
-                    
-                    
-                    <a href='/tag/dop/'>Dop</a>
-                    
-                    
-                    
-                    <a href='/tag/java/'>Java</a>
-                    
-                    
-                    
-                </p>
-            </header>
-        </article>
         
     </section><!-- .read-next -->
 
@@ -584,7 +439,7 @@ libraryDataV1.users[1].password
 
 
 
-<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?v=8.0.1"></script>
 
 
 

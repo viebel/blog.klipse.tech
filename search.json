@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "La notion de mêmeté en programmation",
+      "category" : "",
+      "tags"     : "dop, maths",
+      "url"      : "/dop/2021/04/18/memete-programmation.html",
+      "date"     : "April 18, 2021"
+    } ,
+  
+    {
       "title"    : "Data-Oriented programming simplicity illustrated by coding challenges",
       "category" : "",
       "tags"     : "dop, javascript",
