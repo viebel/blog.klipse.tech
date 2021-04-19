@@ -29,7 +29,9 @@ title: Home
     {% endif %}
     <div class="post-feed inner-wide">
         {% for post in paginator.posts %}
-            {% include postbox.html %}
+            {% if post.draft != true %}
+               {% include postbox.html %}
+            {% endif %}
         {% endfor %}
     </div>
 </div>
