@@ -213,7 +213,7 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
 
 <h1 id="la-programmation-fonctionnelle">La programmation fonctionnelle</h1>
 
-<p>Nous sommes ici au coeur d’une contradiction manifeste entre le monde de la programmation et le monde des mathématiques. Comme l’a si joliment écrit Bruce MacLennan en 1982<sup id="fnref:paper" role="doc-noteref"><a href="#fn:paper" class="footnote">2</a></sup>:</p>
+<p>Nous sommes ici au coeur d’une contradiction manifeste entre le monde de la programmation et le monde des mathématiques. Comme l’a si joliment écrit Bruce MacLennan dans son très bel article “Values and Objects in Programming Languages”, en 1982<sup id="fnref:paper" role="doc-noteref"><a href="#fn:paper" class="footnote">2</a></sup>:</p>
 
 <blockquote>
   <p>Les mathématiques, c’est de la programmation orientée valeur.</p>
@@ -221,13 +221,15 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
   <p>La programmation, c’est des mathématiques orientées objet.</p>
 </blockquote>
 
-<p>Ce qu’il entend par un objet, c’est une entité ayant un ensemble d’attributs à un moment donné. Alors qu’une valeur est une entité qui ne change jamais.</p>
+<p>Ce qu’il entend par un objet, c’est une entité ayant un ensemble d’attributs à un moment donné. Alors qu’une valeur est, par définition, une entité qui ne change jamais.</p>
 
-<p>La programmation fonctionnelle se propose de limiter l’impact de cette contradiction en réduisant au maximum les morceaux de codes qui manipulent des objets. La plupart de notre code en programmation fonctionnelle manipule des valeurs. Alors qu’en programmation orientée objet, la manipulation d’objets se répand un peu partout dans notre code.</p>
+<p>D’une certaine façon, on peut dire que les divergences fondamentales entre la programmation fonctionnelle et la programmation orientée objet tournent autour de la manipulation du curseur objet/valeur. La programmation fonctionnelle encourage le développeurs à activer le curseur vers les valeurs alors que la programmation orientée objet encourage les développeurs à activer le curseur vers les objets.</p>
+
+<p>Une des raisons pour lesquelles un programme écrit en programmation fonctionnelle est moins complexe qu’un programme orienté objet, c’est car comme on vient de le voir il est plus complexe de définir la mêmeté des objets que la mêmeté des valeurs.</p>
 
 <h1 id="retour-à-thésée">Retour à Thésée</h1>
 
-<p>Écrire un programme de nos jours représente parfois un défi aussi grand que trouver la sortie du labyrinthe de Dédale. Selon la légende, Thésée parvint à sortir du labyrinthe de Dédale grâce à une pelote de fil qu’Ariane lui avait fournit en entrant dans le labyrinthe. Et nous, programmeurs quel est notre file d’Ariane?</p>
+<p>Écrire un programme de nos jours représente parfois un défi aussi grand que trouver la sortie du labyrinthe de Dédale. Selon la légende, Thésée parvint à sortir du labyrinthe de Dédale grâce à une pelote de fil qu’Ariane lui avait fournit en entrant dans le labyrinthe. Je vous laisse méditer sur la question suivante: Pouvons-nous espérer que la programmation fonctionnelle représente le file d’Ariane qui nous permettra de nous sortir des dédales des programmes que nous écrivons?</p>
 
 <div class="footnotes" role="doc-endnotes">
   <ol>
@@ -235,7 +237,7 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
       <p>https://en.wikipedia.org/wiki/Axiom_of_extensionality <a href="#fnref:extensionality" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:paper" role="doc-endnote">
-      <p>Maclennan, Bruce. (1982). <a href="https://www.researchgate.net/publication/220177801_Values_and_Objects_in_Programming_Languages">Values and Objects in Programming Languages</a>. <a href="#fnref:paper" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>MacLennan, Bruce. (1982). <a href="https://www.researchgate.net/publication/220177801_Values_and_Objects_in_Programming_Languages">Values and Objects in Programming Languages</a>. <a href="#fnref:paper" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>

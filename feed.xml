@@ -1,4 +1,71 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-04-19T03:56:07+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker based in Israel. My passion is to make interesting things easy to understand.&quot;}</name></author><entry><title type="html">Data-Oriented programming simplicity illustrated by coding challenges</title><link href="/dop/2021/04/01/dop-challenges.html" rel="alternate" type="text/html" title="Data-Oriented programming simplicity illustrated by coding challenges" /><published>2021-04-01T12:38:15+00:00</published><updated>2021-04-01T12:38:15+00:00</updated><id>/dop/2021/04/01/dop-challenges</id><content type="html" xml:base="/dop/2021/04/01/dop-challenges.html">&lt;p&gt;According to Data-Oriented programming, the best way to reduce complexity of information systems is to follow three basic principles:&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-04-20T14:36:40+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker based in Israel. My passion is to make interesting things easy to understand.&quot;}</name></author><entry><title type="html">La notion de mêmeté en programmation</title><link href="/dop/2021/04/18/memete-programmation.html" rel="alternate" type="text/html" title="La notion de mêmeté en programmation" /><published>2021-04-18T15:04:28+00:00</published><updated>2021-04-18T15:04:28+00:00</updated><id>/dop/2021/04/18/memete-programmation</id><content type="html" xml:base="/dop/2021/04/18/memete-programmation.html">&lt;p&gt;On parle souvent de l’importance d’écrire notre code en termes de fonctions pures qui, comme les fonctions mathématiques, n’ont pas d’effets de bords et retournent les mêmes valeurs pour les mêmes arguments. Dans cet article, je vous propose d’explorer un autre aspect fondamental de la différence entre la programmation fonctionnelle et la programmation orientée objet: la notion de mêmeté, c’est-à-dire: comment définit-on que deux “choses” sont les mêmes?&lt;/p&gt;
+
+&lt;h1 id=&quot;une-histoire-un-peu-bateau&quot;&gt;Une histoire un peu bateau&lt;/h1&gt;
+
+&lt;p&gt;Connaissez-vous l’histoire du bateau de Thésée? Ce héros grec dont le bateau, selon la légende, aurait été préservé par les Athéniens durant des siècles: ils retiraient les planches usées du bateau et les remplaçaient jusq’au point où il ne restait plus aucune planche d’origine.&lt;/p&gt;
+
+&lt;p&gt;Se posa alors la question de savoir s’il s’agissait encore du même bateau ou bien si l’entretien en avait fait un tout autre bateau.&lt;/p&gt;
+
+&lt;p&gt;Qu’en pensez-vous? Et surtout qu’est-ce que cela a à voir avec les maths et la programmation?&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/theseus.png&quot; alt=&quot;ship&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;la-mêmeté-en-maths&quot;&gt;La mêmeté en maths&lt;/h1&gt;
+
+&lt;p&gt;Commençons par les maths en nous posant une question similaire concernant le concept le plus fondamental des mathématiques: le concept d’ensemble.&lt;/p&gt;
+
+&lt;p&gt;Prenons un ensemble avec trois éléments: les nombres 1, 2 et 3.&lt;/p&gt;
+
+&lt;p&gt;Que se passe-t-il quand on remplace un nombre de cet ensemble, par exemple: le nombre 3 par le nombre 4?&lt;/p&gt;
+
+&lt;p&gt;Bien évidemment, nous obtenons un ensemble différent de l’ensemble d’origine!&lt;/p&gt;
+
+&lt;p&gt;Maintenant imaginons que nous ayons un ensemble avec les nombres 1, 2 et 10. Que se passe-t-il quand on remplace 10 par 3? Et bien, me direz-vous nous obtenons un ensemble avec les nombres 1, 2 et 3.&lt;/p&gt;
+
+&lt;p&gt;Un ensemble avec les nombres 1, 2 et 3 comme celui de l’exemple précédent? S’agit-il du même ensemble ou bien d’un autre ensemble avec les mêmes éléments? Drôle de question, non?&lt;/p&gt;
+
+&lt;p&gt;Et bien pour les mathématiques, la réponse est formelle: deux ensembles ayant les mêmes éléments sont les mêmes! C’est l’un des axiomes de la théorie axiomatique des ensembles. Cet axiome porte même un joli nom: on l’appelle l’axiome de l’extensionnalité&lt;sup id=&quot;fnref:extensionality&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:extensionality&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p&gt;Selon les mathématiques donc, le bateau de Thésée n’est plus le même dès que l’on remplace une de ses planches.&lt;/p&gt;
+
+&lt;h1 id=&quot;la-mêmeté-en-programmation&quot;&gt;La mêmeté en programmation&lt;/h1&gt;
+
+&lt;p&gt;Passons à la programmation maintenant, si vous le voulez bien. Imaginons un produit vendu sur un site e-commerce, une jolie tasse à café, par exemple. Simplifions les choses et disons qu’une tasse ne possède que deux attributs: un descriptif et un prix. Que se passe-t-il quand on baisse le prix d’une tasse? S’agit-il de la même tasse ou bien d’une autre tasse?&lt;/p&gt;
+
+&lt;p&gt;Bien évidemment, il s’agit de la même tasse! En programmation, l’identité d’un objet ne se résume pas à la valeurs de ses attributs.&lt;/p&gt;
+
+&lt;p&gt;Selon la programmation donc, le bateau de Thésée reste le même, bien que toutes ses planches aient été remplacées.&lt;/p&gt;
+
+&lt;h1 id=&quot;la-programmation-fonctionnelle&quot;&gt;La programmation fonctionnelle&lt;/h1&gt;
+
+&lt;p&gt;Nous sommes ici au coeur d’une contradiction manifeste entre le monde de la programmation et le monde des mathématiques. Comme l’a si joliment écrit Bruce MacLennan dans son très bel article “Values and Objects in Programming Languages”, en 1982&lt;sup id=&quot;fnref:paper&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:paper&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Les mathématiques, c’est de la programmation orientée valeur.&lt;/p&gt;
+
+  &lt;p&gt;La programmation, c’est des mathématiques orientées objet.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Ce qu’il entend par un objet, c’est une entité ayant un ensemble d’attributs à un moment donné. Alors qu’une valeur est, par définition, une entité qui ne change jamais.&lt;/p&gt;
+
+&lt;p&gt;D’une certaine façon, on peut dire que les divergences fondamentales entre la programmation fonctionnelle et la programmation orientée objet tournent autour de la manipulation du curseur objet/valeur. La programmation fonctionnelle encourage le développeurs à activer le curseur vers les valeurs alors que la programmation orientée objet encourage les développeurs à activer le curseur vers les objets.&lt;/p&gt;
+
+&lt;p&gt;Une des raisons pour lesquelles un programme écrit en programmation fonctionnelle est moins complexe qu’un programme orienté objet, c’est car comme on vient de le voir il est plus complexe de définir la mêmeté des objets que la mêmeté des valeurs.&lt;/p&gt;
+
+&lt;h1 id=&quot;retour-à-thésée&quot;&gt;Retour à Thésée&lt;/h1&gt;
+
+&lt;p&gt;Écrire un programme de nos jours représente parfois un défi aussi grand que trouver la sortie du labyrinthe de Dédale. Selon la légende, Thésée parvint à sortir du labyrinthe de Dédale grâce à une pelote de fil qu’Ariane lui avait fournit en entrant dans le labyrinthe. Je vous laisse méditer sur la question suivante: Pouvons-nous espérer que la programmation fonctionnelle représente le file d’Ariane qui nous permettra de nous sortir des dédales des programmes que nous écrivons?&lt;/p&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:extensionality&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;https://en.wikipedia.org/wiki/Axiom_of_extensionality &lt;a href=&quot;#fnref:extensionality&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:paper&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;MacLennan, Bruce. (1982). &lt;a href=&quot;https://www.researchgate.net/publication/220177801_Values_and_Objects_in_Programming_Languages&quot;&gt;Values and Objects in Programming Languages&lt;/a&gt;. &lt;a href=&quot;#fnref:paper&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="dop" /><category term="dop" /><category term="maths" /><summary type="html">On parle souvent de l’importance d’écrire notre code en termes de fonctions pures qui, comme les fonctions mathématiques, n’ont pas d’effets de bords et retournent les mêmes valeurs pour les mêmes arguments. Dans cet article, je vous propose d’explorer un autre aspect fondamental de la différence entre la programmation fonctionnelle et la programmation orientée objet: la notion de mêmeté, c’est-à-dire: comment définit-on que deux “choses” sont les mêmes?</summary></entry><entry><title type="html">Data-Oriented programming simplicity illustrated by coding challenges</title><link href="/dop/2021/04/01/dop-challenges.html" rel="alternate" type="text/html" title="Data-Oriented programming simplicity illustrated by coding challenges" /><published>2021-04-01T12:38:15+00:00</published><updated>2021-04-01T12:38:15+00:00</updated><id>/dop/2021/04/01/dop-challenges</id><content type="html" xml:base="/dop/2021/04/01/dop-challenges.html">&lt;p&gt;According to Data-Oriented programming, the best way to reduce complexity of information systems is to follow three basic principles:&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;Separate code from data&lt;/li&gt;
@@ -1788,280 +1855,4 @@ print(factorial(5))
 
 &lt;p&gt;I hope some day &lt;em&gt;OO&lt;/em&gt; will join us&lt;/p&gt;
 
-&lt;p&gt;And the world will be as one&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="databook" /><category term="dop" /><summary type="html">Here is an adaptation of Imagine, by John Lennon to the context of Data-Oriented programming.</summary></entry><entry><title type="html">Computing the data diff between two hash maps</title><link href="/databook/2020/12/20/data-diff.html" rel="alternate" type="text/html" title="Computing the data diff between two hash maps" /><published>2020-12-20T00:15:29+00:00</published><updated>2020-12-20T00:15:29+00:00</updated><id>/databook/2020/12/20/data-diff</id><content type="html" xml:base="/databook/2020/12/20/data-diff.html">&lt;div id=&quot;preamble&quot;&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7&quot;&gt; book &lt;/a&gt; about &lt;b&gt;Data-Oriented Programming&lt;/b&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Our &lt;a href=&quot;/databook/2020/12/18/occ-do-git.html&quot;&gt;implementation&lt;/a&gt; of the 3-way merge resolution algorithm, where the system state is represented as a nested hash map, relies on the ability two compare two versions of the system state via the &lt;code&gt;DataDiff&lt;/code&gt; class that implements:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;The computation of a &lt;strong&gt;semantic diff&lt;/strong&gt; between two hash maps (a.k.a data diff)&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;The detection of &lt;strong&gt;empty intersection&lt;/strong&gt; between two hash maps&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The internals of the &lt;code&gt;DataDiff&lt;/code&gt; class are now revealed.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;the-data-diff-algorithm&quot;&gt;The data diff algorithm&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Computing a &lt;strong&gt;semantic diff&lt;/strong&gt; between two hash maps is the most challenging part of the reconciliation algorithm.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;But at the end of the day, it deals only with &lt;strong&gt;data manipulation&lt;/strong&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Let&amp;#8217;s define exactly what we mean by a semantic diff between two hash maps &lt;code&gt;a&lt;/code&gt; and &lt;code&gt;b&lt;/code&gt;:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The semantic diff between &lt;code&gt;a&lt;/code&gt; and &lt;code&gt;b&lt;/code&gt; is a hash map &lt;code&gt;d&lt;/code&gt; that contains all the nested fields of &lt;code&gt;b&lt;/code&gt; whose value differ from their value in &lt;code&gt;a&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;For instance,&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;DataDiff&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;diff&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;tok-nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;tok-nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-mf&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;tok-nx&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-mf&quot;&gt;3&lt;/span&gt;
-        &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;tok-p&quot;&gt;},&lt;/span&gt;
-    &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;tok-nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;tok-nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-mf&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;
-            &lt;span class=&quot;tok-nx&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-mf&quot;&gt;4&lt;/span&gt;
-        &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;should return&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;
-&lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;tok-nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;tok-nx&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-mf&quot;&gt;4&lt;/span&gt;
-    &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Our implementation uses &lt;strong&gt;immutable functions&lt;/strong&gt; from &lt;a href=&quot;/javascript/2020/11/26/lodash-fp.html&quot;&gt;Lodash&lt;/a&gt;. By default, Lodash functions are not immutable. In order to use a immutable version of the functions, we need to use Lodash FP module (Functional Programming), as it is explained in the Lodash FP guide.&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;. With this &lt;a href=&quot;#lodash-config&quot;&gt;piece of code&lt;/a&gt; the signature of the immutable functions is exactly the same as the mutable functions.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&quot;lodash-config&quot; class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;_ = fp.convert({
-    &amp;quot;cap&amp;quot;: false,
-    &amp;quot;curry&amp;quot;: false,
-    &amp;quot;fixed&amp;quot;: false,
-    &amp;quot;immutable&amp;quot;: true,
-    &amp;quot;rearg&amp;quot;: false
-});&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;And now to the implementation! The core of the code is inside &lt;code&gt;_.reduce()&lt;/code&gt; where we make the recursive call to &lt;code&gt;DataDiff.diff()&lt;/code&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;class DataDiff {
-    static diffObjects(data1, data2) {
-        var emptyObject = _.isArray(data1) ? [] : {};
-        if(data1 == data2) {
-            return emptyObject;
-        }
-        var keys = _.union(_.keys(data1), _.keys(data2));
-        return _.reduce(keys,
-                        function (acc, k) {
-                            var res = DataDiff.diff(_.get(data1, k),
-                                                    _.get(data2, k));
-                            if((_.isObject(res) &amp;amp;&amp;amp; _.isEmpty(res)) ||
-                               (res == &amp;quot;data-diff:no-diff&amp;quot;)) {
-                                return acc;
-                            }
-                            return _.set(acc, k, res);
-                        },
-                        emptyObject);
-    }
-
-    static diff(data1, data2) {
-        if(_.isObject(data1) &amp;amp;&amp;amp; _.isObject(data2)) {
-            return DataDiff.diffObjects(data1, data2);
-        }
-        if(data1 !== data2) {
-            return data2;
-        }
-        return &amp;quot;data-diff:no-diff&amp;quot;;
-    }
-}
-
-window.DataDiff = DataDiff&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;performance-of-calculating-semantic-diff&quot;&gt;Performance of calculating semantic diff&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;In the general case, calculating the semantic diff of two hash maps is not efficient as we have to go over all the leaves of both maps.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;But when the two maps are created via &lt;strong&gt;structural sharing&lt;/strong&gt; from the same map, the implementation in &lt;strong&gt;efficient&lt;/strong&gt; as most of the nodes are shared between the two hash maps.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-In DO, the versions of the system state are always created via structural sharing: that&amp;#8217;s why the code in the conflict resolution phase is efficient.
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;playing-with-data-diff&quot;&gt;Playing with data diff&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Even if you don&amp;#8217;t grasp all the details of the implementation, feel free to play with &lt;code&gt;DataDiff&lt;/code&gt; and see how it calculates the semantic diff between two hash maps.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var data1 = {
-    g: {
-        c: 3
-    },
-    x: 2,
-    y: {
-        z: 1
-    },
-    w: [5]
-}
-
-var data2 = {
-    g: {
-        c: 3
-    },
-    x: 2,
-    y: {
-        z: 2
-    },
-    w: [4]
-}
-
-DataDiff.diff(data1, data2);&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;intersection-of-maps&quot;&gt;Intersection of maps&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;code&gt;DataDiff&lt;/code&gt; also provides a &lt;code&gt;DataDiff.isEmptyIntersection()&lt;/code&gt; that we used in the &lt;a href=&quot;/databook/2020/12/18/occ-do-git.html&quot;&gt;reconciliation algorithm&lt;/a&gt; to detect a conflict.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;DataDiff.leaves = function(obj, prefix = &amp;#39;&amp;#39;) {
-    return _.reduce(obj,
-                    function(acc, v, k) {
-                        if (_.isObject(v)) {
-                            return _.concat(acc,
-                                            DataDiff.leaves(v,
-                                                            prefix + k + &amp;quot;.&amp;quot;))
-                        }
-                        return _.concat(acc, [prefix + k]);
-                    },
-                    []);
-}
-
-DataDiff.isEmptyIntersection = function(delta1, delta2) {
-    return _.isEmpty(_.intersection(DataDiff.leaves(delta1),
-                                    DataDiff.leaves(delta2)));
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Feel free to play with it also!&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var diff1 = {
-    g: {
-        c: 3
-    }
-}
-
-var diff2 = {
-    g: {
-        c: 4
-    }
-}
-
-DataDiff.isEmptyIntersection(diff1, diff2);&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var diff3 = {
-    g: {
-        c: 3
-    }
-}
-
-var diff4 = {
-    g: {
-        d: 4
-    }
-}
-
-DataDiff.isEmptyIntersection(diff3, diff4);&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div&gt;
-  &lt;p&gt;
-    This article is an excerpt from my &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7&quot;&gt; book &lt;/a&gt; about &lt;b&gt;Data-Oriented Programming&lt;/b&gt;.
-  &lt;/p&gt;
-
-  &lt;p&gt;
-    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
-  &lt;/p&gt;
-
-  &lt;br&gt;
-&lt;/div&gt;
-&lt;script src='https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)'&gt;&lt;/script&gt;
-&lt;script&gt;
-var fp = _.noConflict();
-&lt;/script&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&quot;footnotes&quot;&gt;
-&lt;hr&gt;
-&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
-&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. &lt;a href=&quot;https://github.com/lodash/lodash/wiki/FP-Guide&quot; class=&quot;bare&quot;&gt;https://github.com/lodash/lodash/wiki/FP-Guide&lt;/a&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><category term="dop" /><summary type="html">This article is an excerpt from my book about Data-Oriented Programming. More excerpts are available on my blog.</summary></entry></feed>
+&lt;p&gt;And the world will be as one&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="databook" /><category term="dop" /><summary type="html">Here is an adaptation of Imagine, by John Lennon to the context of Data-Oriented programming.</summary></entry></feed>
