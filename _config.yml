@@ -6,7 +6,7 @@ logo:
 # Author image is used in site sidebar and greetings in the home page hero text
 author:
   image: authorimage.jpg
-  greetings: Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker based in Israel. My passion is to make interesting things easy to understand.
+  greetings: Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.
 favicon: assets/favicon2.png
 baseurl: 
 production_url: https://blog.klipse.tech
