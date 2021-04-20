@@ -7,7 +7,6 @@ categories: dop
 thumbnail: assets/klipse.png
 author: Yehonathan Sharvit
 minified_plugin: true
-draft: true
 tags: [dop, maths]
 ---
 
@@ -52,19 +51,21 @@ Selon la programmation donc, le bateau de Thésée reste le même, bien que tout
 
 # La programmation fonctionnelle
 
-Nous sommes ici au coeur d'une contradiction manifeste entre le monde de la programmation et le monde des mathématiques. Comme l'a si joliment écrit Bruce MacLennan en 1982[^paper]:
+Nous sommes ici au coeur d'une contradiction manifeste entre le monde de la programmation et le monde des mathématiques. Comme l'a si joliment écrit Bruce MacLennan dans son très bel article "Values and Objects in Programming Languages", en 1982[^paper]:
 
 > Les mathématiques, c'est de la programmation orientée valeur.
 > 
 > La programmation, c'est des mathématiques orientées objet.
 
-Ce qu'il entend par un objet, c'est une entité ayant un ensemble d'attributs à un moment donné. Alors qu'une valeur est une entité qui ne change jamais.
+Ce qu'il entend par un objet, c'est une entité ayant un ensemble d'attributs à un moment donné. Alors qu'une valeur est, par définition, une entité qui ne change jamais.
 
-La programmation fonctionnelle se propose de limiter l'impact de cette contradiction en réduisant au maximum les morceaux de codes qui manipulent des objets. La plupart de notre code en programmation fonctionnelle manipule des valeurs. Alors qu'en programmation orientée objet, la manipulation d'objets se répand un peu partout dans notre code.
+D'une certaine façon, on peut dire que les divergences fondamentales entre la programmation fonctionnelle et la programmation orientée objet tournent autour de la manipulation du curseur objet/valeur. La programmation fonctionnelle encourage le développeurs à activer le curseur vers les valeurs alors que la programmation orientée objet encourage les développeurs à activer le curseur vers les objets.
+
+Une des raisons pour lesquelles un programme écrit en programmation fonctionnelle est moins complexe qu'un programme orienté objet, c'est car comme on vient de le voir il est plus complexe de définir la mêmeté des objets que la mêmeté des valeurs.
 
 # Retour à Thésée
 
-Écrire un programme de nos jours représente parfois un défi aussi grand que trouver la sortie du labyrinthe de Dédale. Selon la légende, Thésée parvint à sortir du labyrinthe de Dédale grâce à une pelote de fil qu'Ariane lui avait fournit en entrant dans le labyrinthe. Et nous, programmeurs quel est notre file d'Ariane? 
+Écrire un programme de nos jours représente parfois un défi aussi grand que trouver la sortie du labyrinthe de Dédale. Selon la légende, Thésée parvint à sortir du labyrinthe de Dédale grâce à une pelote de fil qu'Ariane lui avait fournit en entrant dans le labyrinthe. Je vous laisse méditer sur la question suivante: Pouvons-nous espérer que la programmation fonctionnelle représente le file d'Ariane qui nous permettra de nous sortir des dédales des programmes que nous écrivons? 
 
-[^paper]: Maclennan, Bruce. (1982). [Values and Objects in Programming Languages](https://www.researchgate.net/publication/220177801_Values_and_Objects_in_Programming_Languages).
+[^paper]: MacLennan, Bruce. (1982). [Values and Objects in Programming Languages](https://www.researchgate.net/publication/220177801_Values_and_Objects_in_Programming_Languages).
 [^extensionality]: https://en.wikipedia.org/wiki/Axiom_of_extensionality
