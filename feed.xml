@@ -1,4 +1,72 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-04-20T14:38:32+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><entry><title type="html">La notion de mêmeté en programmation</title><link href="/dop/2021/04/18/memete-programmation.html" rel="alternate" type="text/html" title="La notion de mêmeté en programmation" /><published>2021-04-18T15:04:28+00:00</published><updated>2021-04-18T15:04:28+00:00</updated><id>/dop/2021/04/18/memete-programmation</id><content type="html" xml:base="/dop/2021/04/18/memete-programmation.html">&lt;p&gt;On parle souvent de l’importance d’écrire notre code en termes de fonctions pures qui, comme les fonctions mathématiques, n’ont pas d’effets de bords et retournent les mêmes valeurs pour les mêmes arguments. Dans cet article, je vous propose d’explorer un autre aspect fondamental de la différence entre la programmation fonctionnelle et la programmation orientée objet: la notion de mêmeté, c’est-à-dire: comment définit-on que deux “choses” sont les mêmes?&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-04-21T05:45:38+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><entry><title type="html">On sameness in programming</title><link href="/dop/2021/04/21/sameness-in-programming.html" rel="alternate" type="text/html" title="On sameness in programming" /><published>2021-04-21T02:09:18+00:00</published><updated>2021-04-21T02:09:18+00:00</updated><id>/dop/2021/04/21/sameness-in-programming</id><content type="html" xml:base="/dop/2021/04/21/sameness-in-programming.html">&lt;p&gt;We often talk about the importance of writing our code in terms of pure functions which, like math functions, have no side effects and return the same values ​​for the same arguments. In this article, I propose to explore another fundamental aspect of the difference between functional programming and object-oriented programming: the notion of sameness, that is to say: how do we define that two “things” are the same?&lt;/p&gt;
+
+&lt;h1 id=&quot;ship-of-theseus&quot;&gt;Ship of Theseus&lt;/h1&gt;
+
+&lt;p&gt;Do you know the story about the ship of Theseus? This Greek hero whose ship, according to legend, was preserved by the Athenians for centuries: they removed the worn planks from the ship and replaced them until no original planks remained.&lt;/p&gt;
+
+&lt;p&gt;The question then arose as to whether it was still the same ship or whether the maintenance had made it a different ship.&lt;/p&gt;
+
+&lt;p&gt;What do you think? And most importantly what does that have to do with programming?&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/theseus.png&quot; alt=&quot;ship&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;sameness-in-math&quot;&gt;Sameness in math&lt;/h1&gt;
+
+&lt;p&gt;Let’s start by exploring the concept of sameness in math and ask ourselves a question similar to the ship of Theseus in the realm of sets.&lt;/p&gt;
+
+&lt;p&gt;Consider a set with three elements: the numbers 1, 2 and 3.&lt;/p&gt;
+
+&lt;p&gt;What happens when we replace a number from this set, for example: the number 3 by the number 4?&lt;/p&gt;
+
+&lt;p&gt;Obviously, we get a set than is not the same as the original set!&lt;/p&gt;
+
+&lt;p&gt;Now imagine that we have a set with the numbers 1, 2 and 10. What happens when we replace 10 with 3? Well, we get a set with the numbers 1, 2 and 3.&lt;/p&gt;
+
+&lt;p&gt;A set with the numbers 1, 2 and 3 like the one in the previous example? Is it the same set or another set with the same elements? Funny question, isn’t it?&lt;/p&gt;
+
+&lt;p&gt;For mathematics, the answer is formal: two sets having the same elements are the same! This is one of the axioms of axiomatic set theory. This axiom even has a pretty name: it is called the axiom of extensionality&lt;sup id=&quot;fnref:extensionality&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:extensionality&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p&gt;According to mathematics, therefore, the ship of Theseus is no longer the same as soon as one of its planks is replaced&lt;/p&gt;
+
+&lt;h1 id=&quot;sameness-in-programming&quot;&gt;Sameness in programming&lt;/h1&gt;
+
+&lt;p&gt;Let’s move on to programming now, if you don’t mind. Imagine a product sold on an e-commerce site, a pretty coffee mug, for instance. Let’s simplify it and say that a mug has only two attributes: a description and a price. What happens when you drop the price of a cup? Is this the same cup or is it a different cup?&lt;/p&gt;
+
+&lt;p&gt;Obviously, this is the same cup! In programming, the identity of an object is more than the values ​​of its attributes.&lt;/p&gt;
+
+&lt;p&gt;According to programming, therefore, the ship of Theseus remains the same, although all its planks have been replaced.&lt;/p&gt;
+
+&lt;h1 id=&quot;functional-programming&quot;&gt;Functional programming&lt;/h1&gt;
+
+&lt;p&gt;We are at the core of an obvious contradiction between the world of programming and the world of mathematics. As Bruce MacLennan so beautifully wrote in his beautiful article “Values ​​and Objects in Programming Languages”, in 1982&lt;sup id=&quot;fnref:paper&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:paper&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Math is value oriented programming.&lt;/p&gt;
+
+  &lt;p&gt;Programming is object-oriented mathematics.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;What he means by an object is an entity having a set of attributes at a given time. Whereas a value is, by definition, an entity that never changes.&lt;/p&gt;
+
+&lt;p&gt;In a way, it can be said that the fundamental divergences between functional programming and object-oriented programming revolve around the manipulation of the object/value cursor. Functional programming encourages developers to activate the cursor towards values ​​while object-oriented programming encourages developers to activate the cursor towards objects.&lt;/p&gt;
+
+&lt;p&gt;One of the reasons why a program written in functional programming is less complex than an object-oriented program is because, as we have just seen, it is more complex to define the sameness of objects than the sameness of values.&lt;/p&gt;
+
+&lt;h1 id=&quot;back-to-theseus&quot;&gt;Back to Theseus&lt;/h1&gt;
+
+&lt;p&gt;Writing a program these days is sometimes as much of a challenge as finding a way out of Daedalus’ Labyrinth. According to legend, Theseus managed to find his way out of the Labyrinth with the help of Ariadne’s thread.
+I am going to let you meditate on the following question: Could we consider functional programming as Ariadne’s thread that will allow us to find our way out of the maze of complexity created by our programs?&lt;/p&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:extensionality&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;https://en.wikipedia.org/wiki/Axiom_of_extensionality &lt;a href=&quot;#fnref:extensionality&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:paper&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;MacLennan, Bruce. (1982). &lt;a href=&quot;https://www.researchgate.net/publication/220177801_Values_and_Objects_in_Programming_Languages&quot;&gt;Values and Objects in Programming Languages&lt;/a&gt;. &lt;a href=&quot;#fnref:paper&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="dop" /><category term="dop" /><category term="maths" /><summary type="html">We often talk about the importance of writing our code in terms of pure functions which, like math functions, have no side effects and return the same values ​​for the same arguments. In this article, I propose to explore another fundamental aspect of the difference between functional programming and object-oriented programming: the notion of sameness, that is to say: how do we define that two “things” are the same?</summary></entry><entry><title type="html">La notion de mêmeté en programmation</title><link href="/dop/2021/04/18/memete-programmation.html" rel="alternate" type="text/html" title="La notion de mêmeté en programmation" /><published>2021-04-18T15:04:28+00:00</published><updated>2021-04-18T15:04:28+00:00</updated><id>/dop/2021/04/18/memete-programmation</id><content type="html" xml:base="/dop/2021/04/18/memete-programmation.html">&lt;p&gt;On parle souvent de l’importance d’écrire notre code en termes de fonctions pures qui, comme les fonctions mathématiques, n’ont pas d’effets de bords et retournent les mêmes valeurs pour les mêmes arguments. Dans cet article, je vous propose d’explorer un autre aspect fondamental de la différence entre la programmation fonctionnelle et la programmation orientée objet: la notion de mêmeté, c’est-à-dire: comment définit-on que deux “choses” sont les mêmes?&lt;/p&gt;
 
 &lt;h1 id=&quot;une-histoire-un-peu-bateau&quot;&gt;Une histoire un peu bateau&lt;/h1&gt;
 
@@ -1799,60 +1867,4 @@ print(factorial(5))
 
 &lt;p&gt;It’s super simple to integrate the &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse plugin&lt;/a&gt; on a blog post: check the instructions on &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse github repository&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;You can get some inspiration by &lt;a href=&quot;https://github.com/viebel/klipse#community&quot;&gt;the work of the Klipse community&lt;/a&gt;…&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="python" /><category term="klipse" /><category term="python" /><summary type="html">This blog post is about to show a new way of blogging about Python.</summary></entry><entry><title type="html">Imagine there’s no objects</title><link href="/databook/2021/02/07/imagine.html" rel="alternate" type="text/html" title="Imagine there’s no objects" /><published>2021-02-07T02:34:28+00:00</published><updated>2021-02-07T02:34:28+00:00</updated><id>/databook/2021/02/07/imagine</id><content type="html" xml:base="/databook/2021/02/07/imagine.html">&lt;p&gt;Here is an adaptation of &lt;em&gt;Imagine&lt;/em&gt;, by John Lennon to the context of &lt;strong&gt;Data-Oriented programming&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/EDRRbuWuUbQ&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-
-&lt;p&gt;Imagine there’s no &lt;em&gt;objects&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;It’s easy if you try&lt;/p&gt;
-
-&lt;p&gt;No &lt;em&gt;classes&lt;/em&gt; below us&lt;/p&gt;
-
-&lt;p&gt;Above us only &lt;em&gt;information&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Imagine all the entities being only &lt;em&gt;data&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;Imagine there’s no &lt;em&gt;mutation&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;It isn’t hard to do&lt;/p&gt;
-
-&lt;p&gt;Nothing to protect with a &lt;em&gt;mutex&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;And no &lt;em&gt;deadlock&lt;/em&gt; too&lt;/p&gt;
-
-&lt;p&gt;Imagine all the entities being only &lt;em&gt;data&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;You may say I’m a dreamer&lt;/p&gt;
-
-&lt;p&gt;But I’m not the only one&lt;/p&gt;
-
-&lt;p&gt;I hope some day &lt;em&gt;OO&lt;/em&gt; will join us&lt;/p&gt;
-
-&lt;p&gt;And the world will be as one&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;Imagine no &lt;em&gt;code&lt;/em&gt; is &lt;em&gt;locked&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;I wonder if you can&lt;/p&gt;
-
-&lt;p&gt;No need for &lt;em&gt;methods&lt;/em&gt; and &lt;em&gt;inheritance&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;A brotherhood of input and output&lt;/p&gt;
-
-&lt;p&gt;Imagine all the code being &lt;em&gt;pure functions&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;You may say I’m a dreamer&lt;/p&gt;
-
-&lt;p&gt;But I’m not the only one&lt;/p&gt;
-
-&lt;p&gt;I hope some day &lt;em&gt;OO&lt;/em&gt; will join us&lt;/p&gt;
-
-&lt;p&gt;And the world will be as one&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="databook" /><category term="dop" /><summary type="html">Here is an adaptation of Imagine, by John Lennon to the context of Data-Oriented programming.</summary></entry></feed>
+&lt;p&gt;You can get some inspiration by &lt;a href=&quot;https://github.com/viebel/klipse#community&quot;&gt;the work of the Klipse community&lt;/a&gt;…&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="python" /><category term="klipse" /><category term="python" /><summary type="html">This blog post is about to show a new way of blogging about Python.</summary></entry></feed>

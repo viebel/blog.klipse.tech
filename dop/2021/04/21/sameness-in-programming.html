@@ -8,22 +8,22 @@
 
     
         <!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>La notion de mêmeté en programmation | Yehonathan Sharvit</title>
+<title>On sameness in programming | Yehonathan Sharvit</title>
 <meta name="generator" content="Jekyll v4.2.0" />
-<meta property="og:title" content="La notion de mêmeté en programmation" />
+<meta property="og:title" content="On sameness in programming" />
 <meta name="author" content="Yehonathan Sharvit" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Un aspect fondamental de l’importance des manipulations de valeurs en programmation fonctionnelle." />
-<meta property="og:description" content="Un aspect fondamental de l’importance des manipulations de valeurs en programmation fonctionnelle." />
+<meta name="description" content="A fundamental aspect of the difference between functional programming and Object-Oriented programming" />
+<meta property="og:description" content="A fundamental aspect of the difference between functional programming and Object-Oriented programming" />
 <meta property="og:site_name" content="Yehonathan Sharvit" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2021-04-18T15:04:28+00:00" />
+<meta property="article:published_time" content="2021-04-21T02:09:18+00:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="La notion de mêmeté en programmation" />
+<meta property="twitter:title" content="On sameness in programming" />
 <meta name="twitter:site" content="@" />
 <meta name="twitter:creator" content="@Yehonathan Sharvit" />
 <script type="application/ld+json">
-{"url":"/dop/2021/04/18/memete-programmation.html","headline":"La notion de mêmeté en programmation","dateModified":"2021-04-18T15:04:28+00:00","datePublished":"2021-04-18T15:04:28+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/dop/2021/04/18/memete-programmation.html"},"author":{"@type":"Person","name":"Yehonathan Sharvit"},"description":"Un aspect fondamental de l’importance des manipulations de valeurs en programmation fonctionnelle.","@context":"https://schema.org"}</script>
+{"url":"/dop/2021/04/21/sameness-in-programming.html","headline":"On sameness in programming","dateModified":"2021-04-21T02:09:18+00:00","datePublished":"2021-04-21T02:09:18+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/dop/2021/04/21/sameness-in-programming.html"},"author":{"@type":"Person","name":"Yehonathan Sharvit"},"description":"A fundamental aspect of the difference between functional programming and Object-Oriented programming","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     
@@ -155,10 +155,10 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
     <article class="post-full inner">
 
         <header class="post-header">
-            <h1 class="post-title">La notion de mêmeté en programmation</h1>
+            <h1 class="post-title">On sameness in programming</h1>
             <span class="post-meta">
-              <time class="post-date" datetime="2021-04-18">
-                April 18, 2021
+              <time class="post-date" datetime="2021-04-21">
+                April 21, 2021
               </time>
             </span>
             
@@ -173,63 +173,64 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
         </header><!-- .post-header -->
 
         <div class="post-content">
-            <p>On parle souvent de l’importance d’écrire notre code en termes de fonctions pures qui, comme les fonctions mathématiques, n’ont pas d’effets de bords et retournent les mêmes valeurs pour les mêmes arguments. Dans cet article, je vous propose d’explorer un autre aspect fondamental de la différence entre la programmation fonctionnelle et la programmation orientée objet: la notion de mêmeté, c’est-à-dire: comment définit-on que deux “choses” sont les mêmes?</p>
+            <p>We often talk about the importance of writing our code in terms of pure functions which, like math functions, have no side effects and return the same values ​​for the same arguments. In this article, I propose to explore another fundamental aspect of the difference between functional programming and object-oriented programming: the notion of sameness, that is to say: how do we define that two “things” are the same?</p>
 
-<h1 id="une-histoire-un-peu-bateau">Une histoire un peu bateau</h1>
+<h1 id="ship-of-theseus">Ship of Theseus</h1>
 
-<p>Connaissez-vous l’histoire du bateau de Thésée? Ce héros grec dont le bateau, selon la légende, aurait été préservé par les Athéniens durant des siècles: ils retiraient les planches usées du bateau et les remplaçaient jusq’au point où il ne restait plus aucune planche d’origine.</p>
+<p>Do you know the story about the ship of Theseus? This Greek hero whose ship, according to legend, was preserved by the Athenians for centuries: they removed the worn planks from the ship and replaced them until no original planks remained.</p>
 
-<p>Se posa alors la question de savoir s’il s’agissait encore du même bateau ou bien si l’entretien en avait fait un tout autre bateau.</p>
+<p>The question then arose as to whether it was still the same ship or whether the maintenance had made it a different ship.</p>
 
-<p>Qu’en pensez-vous? Et surtout qu’est-ce que cela a à voir avec les maths et la programmation?</p>
+<p>What do you think? And most importantly what does that have to do with programming?</p>
 
 <p><img src="/assets/theseus.png" alt="ship" /></p>
 
-<h1 id="la-mêmeté-en-maths">La mêmeté en maths</h1>
+<h1 id="sameness-in-math">Sameness in math</h1>
 
-<p>Commençons par les maths en nous posant une question similaire concernant le concept le plus fondamental des mathématiques: le concept d’ensemble.</p>
+<p>Let’s start by exploring the concept of sameness in math and ask ourselves a question similar to the ship of Theseus in the realm of sets.</p>
 
-<p>Prenons un ensemble avec trois éléments: les nombres 1, 2 et 3.</p>
+<p>Consider a set with three elements: the numbers 1, 2 and 3.</p>
 
-<p>Que se passe-t-il quand on remplace un nombre de cet ensemble, par exemple: le nombre 3 par le nombre 4?</p>
+<p>What happens when we replace a number from this set, for example: the number 3 by the number 4?</p>
 
-<p>Bien évidemment, nous obtenons un ensemble différent de l’ensemble d’origine!</p>
+<p>Obviously, we get a set than is not the same as the original set!</p>
 
-<p>Maintenant imaginons que nous ayons un ensemble avec les nombres 1, 2 et 10. Que se passe-t-il quand on remplace 10 par 3? Et bien, me direz-vous nous obtenons un ensemble avec les nombres 1, 2 et 3.</p>
+<p>Now imagine that we have a set with the numbers 1, 2 and 10. What happens when we replace 10 with 3? Well, we get a set with the numbers 1, 2 and 3.</p>
 
-<p>Un ensemble avec les nombres 1, 2 et 3 comme celui de l’exemple précédent? S’agit-il du même ensemble ou bien d’un autre ensemble avec les mêmes éléments? Drôle de question, non?</p>
+<p>A set with the numbers 1, 2 and 3 like the one in the previous example? Is it the same set or another set with the same elements? Funny question, isn’t it?</p>
 
-<p>Et bien pour les mathématiques, la réponse est formelle: deux ensembles ayant les mêmes éléments sont les mêmes! C’est l’un des axiomes de la théorie axiomatique des ensembles. Cet axiome porte même un joli nom: on l’appelle l’axiome de l’extensionnalité<sup id="fnref:extensionality" role="doc-noteref"><a href="#fn:extensionality" class="footnote">1</a></sup>.</p>
+<p>For mathematics, the answer is formal: two sets having the same elements are the same! This is one of the axioms of axiomatic set theory. This axiom even has a pretty name: it is called the axiom of extensionality<sup id="fnref:extensionality" role="doc-noteref"><a href="#fn:extensionality" class="footnote">1</a></sup>.</p>
 
-<p>Selon les mathématiques donc, le bateau de Thésée n’est plus le même dès que l’on remplace une de ses planches.</p>
+<p>According to mathematics, therefore, the ship of Theseus is no longer the same as soon as one of its planks is replaced</p>
 
-<h1 id="la-mêmeté-en-programmation">La mêmeté en programmation</h1>
+<h1 id="sameness-in-programming">Sameness in programming</h1>
 
-<p>Passons à la programmation maintenant, si vous le voulez bien. Imaginons un produit vendu sur un site e-commerce, une jolie tasse à café, par exemple. Simplifions les choses et disons qu’une tasse ne possède que deux attributs: un descriptif et un prix. Que se passe-t-il quand on baisse le prix d’une tasse? S’agit-il de la même tasse ou bien d’une autre tasse?</p>
+<p>Let’s move on to programming now, if you don’t mind. Imagine a product sold on an e-commerce site, a pretty coffee mug, for instance. Let’s simplify it and say that a mug has only two attributes: a description and a price. What happens when you drop the price of a cup? Is this the same cup or is it a different cup?</p>
 
-<p>Bien évidemment, il s’agit de la même tasse! En programmation, l’identité d’un objet ne se résume pas à la valeurs de ses attributs.</p>
+<p>Obviously, this is the same cup! In programming, the identity of an object is more than the values ​​of its attributes.</p>
 
-<p>Selon la programmation donc, le bateau de Thésée reste le même, bien que toutes ses planches aient été remplacées.</p>
+<p>According to programming, therefore, the ship of Theseus remains the same, although all its planks have been replaced.</p>
 
-<h1 id="la-programmation-fonctionnelle">La programmation fonctionnelle</h1>
+<h1 id="functional-programming">Functional programming</h1>
 
-<p>Nous sommes ici au coeur d’une contradiction manifeste entre le monde de la programmation et le monde des mathématiques. Comme l’a si joliment écrit Bruce MacLennan dans son très bel article “Values and Objects in Programming Languages”, en 1982<sup id="fnref:paper" role="doc-noteref"><a href="#fn:paper" class="footnote">2</a></sup>:</p>
+<p>We are at the core of an obvious contradiction between the world of programming and the world of mathematics. As Bruce MacLennan so beautifully wrote in his beautiful article “Values ​​and Objects in Programming Languages”, in 1982<sup id="fnref:paper" role="doc-noteref"><a href="#fn:paper" class="footnote">2</a></sup>:</p>
 
 <blockquote>
-  <p>Les mathématiques, c’est de la programmation orientée valeur.</p>
+  <p>Math is value oriented programming.</p>
 
-  <p>La programmation, c’est des mathématiques orientées objet.</p>
+  <p>Programming is object-oriented mathematics.</p>
 </blockquote>
 
-<p>Ce qu’il entend par un objet, c’est une entité ayant un ensemble d’attributs à un moment donné. Alors qu’une valeur est, par définition, une entité qui ne change jamais.</p>
+<p>What he means by an object is an entity having a set of attributes at a given time. Whereas a value is, by definition, an entity that never changes.</p>
 
-<p>D’une certaine façon, on peut dire que les divergences fondamentales entre la programmation fonctionnelle et la programmation orientée objet tournent autour de la manipulation du curseur objet/valeur. La programmation fonctionnelle encourage le développeurs à activer le curseur vers les valeurs alors que la programmation orientée objet encourage les développeurs à activer le curseur vers les objets.</p>
+<p>In a way, it can be said that the fundamental divergences between functional programming and object-oriented programming revolve around the manipulation of the object/value cursor. Functional programming encourages developers to activate the cursor towards values ​​while object-oriented programming encourages developers to activate the cursor towards objects.</p>
 
-<p>Une des raisons pour lesquelles un programme écrit en programmation fonctionnelle est moins complexe qu’un programme orienté objet, c’est car comme on vient de le voir il est plus complexe de définir la mêmeté des objets que la mêmeté des valeurs.</p>
+<p>One of the reasons why a program written in functional programming is less complex than an object-oriented program is because, as we have just seen, it is more complex to define the sameness of objects than the sameness of values.</p>
 
-<h1 id="retour-à-thésée">Retour à Thésée</h1>
+<h1 id="back-to-theseus">Back to Theseus</h1>
 
-<p>Écrire un programme de nos jours représente parfois un défi aussi grand que trouver la sortie du labyrinthe de Dédale. Selon la légende, Thésée parvint à sortir du labyrinthe de Dédale grâce à une pelote de fil qu’Ariane lui avait fournit en entrant dans le labyrinthe. Je vous laisse méditer sur la question suivante: Pouvons-nous espérer que la programmation fonctionnelle représente le file d’Ariane qui nous permettra de nous sortir des dédales des programmes que nous écrivons?</p>
+<p>Writing a program these days is sometimes as much of a challenge as finding a way out of Daedalus’ Labyrinth. According to legend, Theseus managed to find his way out of the Labyrinth with the help of Ariadne’s thread.
+I am going to let you meditate on the following question: Could we consider functional programming as Ariadne’s thread that will allow us to find our way out of the maze of complexity created by our programs?</p>
 
 <div class="footnotes" role="doc-endnotes">
   <ol>
@@ -248,9 +249,9 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
             <div class="post-share">
                 <span class="post-share-title">Share:</span>
                 <a target="_blank"
-                    href="https://twitter.com/share?text=La+notion+de+m%C3%AAmet%C3%A9+en+programmation&amp;url=https://blog.klipse.techdop/2021/04/18/memete-programmation.html">Twitter</a>
+                    href="https://twitter.com/share?text=On+sameness+in+programming&amp;url=https://blog.klipse.techdop/2021/04/21/sameness-in-programming.html">Twitter</a>
                 <a target="_blank"
-                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techdop/2021/04/18/memete-programmation.html">Facebook</a>
+                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techdop/2021/04/21/sameness-in-programming.html">Facebook</a>
             </div><!-- .share-post -->
         </footer>
     </article>
@@ -278,33 +279,10 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
         <article class="post">
             <header class="post-header">
                 <div class="post-meta">
-                    <time class="published" datetime="April 1, 2021">April 1, 2021</time>
+                    <time class="published" datetime="April 18, 2021">April 18, 2021</time>
                 </div>
-                <h3 class="post-title"><a href="/dop/2021/04/01/dop-challenges.html">Data-Oriented programming simplicity illustrated by coding challenges</a>
+                <h3 class="post-title"><a href="/dop/2021/04/18/memete-programmation.html">La notion de mêmeté en programmation</a>
                 </h3>
-                <p class="post-tags">
-                    
-                    
-                    
-                    <a href='/tag/dop/'>Dop</a>
-                    
-                    
-                    
-                    <a href='/tag/javascript/'>Javascript</a>
-                    
-                    
-                    
-                </p>
-            </header>
-        </article>
-        
-        
-        <article class="post">
-            <header class="post-header">
-                <div class="post-meta">
-                    <time class="published" datetime="April 21, 2021">April 21, 2021</time>
-                </div>
-                <h3 class="post-title"><a href="/dop/2021/04/21/sameness-in-programming.html">On sameness in programming</a></h3>
                 <p class="post-tags">
                     
                     
@@ -320,6 +298,7 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
                 </p>
             </header>
         </article>
+        
         
     </section><!-- .read-next -->
 
