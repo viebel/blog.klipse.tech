@@ -2,7 +2,7 @@
 layout: post
 title: On sameness in programming
 description: A fundamental aspect of the difference between functional programming and Object-Oriented programming
-date:   2021-04-21 04:09:18 +0200
+date:   2021-04-22 12:09:18 +0200
 categories: dop
 thumbnail: assets/klipse.png
 author: Yehonathan Sharvit
