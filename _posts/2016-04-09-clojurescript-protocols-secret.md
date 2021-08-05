@@ -37,14 +37,14 @@ Let’s see the classical object oriented example of the animals’ cry:
 
 <iframe frameborder="0" width="100%" height="350px"
     src= 
-    "http://app.klipse.tech/?cljs_in=(defprotocol%20Animal%0A%20%20(cry%20%5Bthis%5D))%0A%0A(deftype%20Bird%20%5B%5D%0A%20%20Animal%0A%20%20(cry%20%5Bthis%5D%20%22Tweet%20tweet!%22))%0A%0A(deftype%20Dog%20%5B%5D%0A%20%20Animal%0A%20%20(cry%20%5Bthis%5D%20%22Woof%20woof!%22))%0A%0A(def%20Pluto%20(Dog.))%0A(def%20Tweety%20(Bird.))%0A%0A(map%20cry%20%5BPluto%20Tweety%5D)&eval_only=1">
+    "https://storage.googleapis.com/app.klipse.tech/index-dev.html?cljs_in=(defprotocol%20Animal%0A%20%20(cry%20%5Bthis%5D))%0A%0A(deftype%20Bird%20%5B%5D%0A%20%20Animal%0A%20%20(cry%20%5Bthis%5D%20%22Tweet%20tweet!%22))%0A%0A(deftype%20Dog%20%5B%5D%0A%20%20Animal%0A%20%20(cry%20%5Bthis%5D%20%22Woof%20woof!%22))%0A%0A(def%20Pluto%20(Dog.))%0A(def%20Tweety%20(Bird.))%0A%0A(map%20cry%20%5BPluto%20Tweety%5D)&eval_only=1">
 </iframe>
 
 Now, step by step, we will try to understand how the clojurescript compiler generates the protocol part in `javascript`. Let's go with our basic protocol. Use [KLIPSE][app-url]{:target="_blank"} to see the generated `javascript` code:
 
 <iframe frameborder="0" width="100%" height="350px"
     src= 
-    "http://app.klipse.tech/?cljs_in=(defprotocol%20Animal%0A%20%20(cry%20%5Bthis%5D))&js_only=true">
+    "https://storage.googleapis.com/app.klipse.tech/index-dev.html?cljs_in=(defprotocol%20Animal%0A%20%20(cry%20%5Bthis%5D))&js_only=true">
 </iframe>
 
 YES! this code seems very hard and incomprehensible! But don't worry, it is simpler than it looks!
@@ -75,7 +75,7 @@ Let's compile a `deftype` form to answer:
 
 <iframe frameborder="0" width="100%" height="350px"
     src= 
-    "http://app.klipse.tech/?cljs_in=(deftype%20Bird%20%5B%5D%0A%20%20Animal%0A%20%20(cry%20%5Bthis%5D%20%22Tweet%20tweet!%22))&js_only=true">
+    "https://storage.googleapis.com/app.klipse.tech/index-dev.html?cljs_in=(deftype%20Bird%20%5B%5D%0A%20%20Animal%0A%20%20(cry%20%5Bthis%5D%20%22Tweet%20tweet!%22))&js_only=true">
 </iframe>
 
 In the `Bird` prototype, the `cljs$user$Animal$cry$arity$1` match the implementation of the `cry` function from the `Animal` protocol. The `arity$1` part puts forward the number of arguments received by the `cry` function. Like this, your program knows which `cry` function to call. [This](http://app.klipse.tech/?cljs_in=(defprotocol%20Fly%0A%20%20(fly%20%5Bthis%5D)%0A%20%20(fly%20%5Bthis%20x%5D)%0A%20%20(fly%20%5Bthis%20x%20y%5D))&js_only=true) example speaks for itself.
@@ -105,7 +105,7 @@ In this step there is 2 possible cases, the first when `this$` is `null` and the
 
 <iframe frameborder="0" width="100%" height="300px"
     src= 
-    "http://app.klipse.tech/?cljs_in=(defprotocol%20Animal%0A%20%20(cry%20%5Bthis%5D))%0A%0A(cry%20%22hello!%22)&eval_only=1">
+    "https://storage.googleapis.com/app.klipse.tech/index-dev.html?cljs_in=(defprotocol%20Animal%0A%20%20(cry%20%5Bthis%5D))%0A%0A(cry%20%22hello!%22)&eval_only=1">
 </iframe>
 
 __What is going on here?__ `x__25043__auto__` is `null`, so `m__25044__auto__` is `null`, the code is looking for `cljs.user.cry["_"]` which is, of course, `null` so the browser throw an exception!
@@ -118,14 +118,14 @@ You will find the answer using the `extend-type` macro on type `default`! Let's 
 
 <iframe frameborder="0" width="100%" height="300px"
     src= 
-    "http://app.klipse.tech/?cljs_in=(defprotocol%20Animal%0A%20%20(cry%20%5Bthis%5D))%0A%0A(extend-type%20default%0A%20%20Animal%0A%20%20(cry%20%5Bthis%5D%20%22%3F%3F%3F%3F%3F%22))%0A%0A(cry%20%22hello!%22)&eval_only=1">
+    "https://storage.googleapis.com/app.klipse.tech/index-dev.html?cljs_in=(defprotocol%20Animal%0A%20%20(cry%20%5Bthis%5D))%0A%0A(extend-type%20default%0A%20%20Animal%0A%20%20(cry%20%5Bthis%5D%20%22%3F%3F%3F%3F%3F%22))%0A%0A(cry%20%22hello!%22)&eval_only=1">
 </iframe>
 
 In the current namespace, extend all clojure data type for it implements a default `cry` method of the `Animal` protocol. Let's see the transpiled code of the `extend-type` macro:
 
 <iframe frameborder="0" width="100%" height="300px"
     src= 
-    "http://app.klipse.tech/?cljs_in=(extend-type%20default%0A%20%20Animal%0A%20%20(cry%20%5Bthis%5D%20%22%3F%3F%3F%3F%3F%22))&js_only=1">
+    "https://storage.googleapis.com/app.klipse.tech/index-dev.html?cljs_in=(extend-type%20default%0A%20%20Animal%0A%20%20(cry%20%5Bthis%5D%20%22%3F%3F%3F%3F%3F%22))&js_only=1">
 </iframe>
 
 WOW! It seems that we found our `cljs.user.cry["_"]`!! Let's ask the question again:
@@ -137,7 +137,7 @@ __What is going on here?__ `x__25043__auto__` is `null`, so `m__25044__auto__` i
 
 <iframe frameborder="0" width="100%" height="300px"
     src= 
-    "http://app.klipse.tech/?cljs_in=(defprotocol%20Animal%0A%20%20(cry%20%5Bthis%5D))%0A%0A(deftype%20Bird%20%5B%5D%0A%20%20Animal)%0A%0A(cry%20(Bird.))&eval_only=1">
+    "https://storage.googleapis.com/app.klipse.tech/index-dev.html?cljs_in=(defprotocol%20Animal%0A%20%20(cry%20%5Bthis%5D))%0A%0A(deftype%20Bird%20%5B%5D%0A%20%20Animal)%0A%0A(cry%20(Bird.))&eval_only=1">
 </iframe>
 
 __What is going on here?__ `x__25043__auto__` is an `object`, so `m__25044__auto__` is `null` and it is the same logic as the first case.
@@ -160,7 +160,7 @@ In which case `m__25044__auto__` is not `null`? The response is very simple. Acc
 
 <iframe frameborder="0" width="100%" height="300px"
     src= 
-    "http://app.klipse.tech/?cljs_in=(defprotocol%20Animal%0A%20%20(cry%20%5Bthis%5D))%0A%0A(extend-type%20string%0A%20%20Animal%0A%20%20(cry%20%5Bthis%5D%20%22A%20string%20can%27t%20be%20an%20animal!!!%22))%0A%0A(cry%20%22hello%22)&js_only=1">
+    "https://storage.googleapis.com/app.klipse.tech/index-dev.html?cljs_in=(defprotocol%20Animal%0A%20%20(cry%20%5Bthis%5D))%0A%0A(extend-type%20string%0A%20%20Animal%0A%20%20(cry%20%5Bthis%5D%20%22A%20string%20can%27t%20be%20an%20animal!!!%22))%0A%0A(cry%20%22hello%22)&js_only=1">
 </iframe>
 
 Because you use `extend-type` not with `default` but with `string` type (or any another type), the compiler will add, to the protocol `Animal`, a property named `string` equals `true`. Additionally, the compiler will also add, to the `cry` object, a property named 'string' contains the implementation of the `cry` function from the `Animal` protocol for `string` objects as you can see in the transpiled `javascript` code:

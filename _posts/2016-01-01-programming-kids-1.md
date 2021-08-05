@@ -93,4 +93,3 @@ Send us a screenshot with your programs to [viebel@gmail.com](mailto:viebel@gmai
 Now, you are ready for [chapter 2]({% post_url 2016-06-18-programming-kids-2 %}).
 
 ---
-[app-url]: http://app.klipse.tech?blog=klipse

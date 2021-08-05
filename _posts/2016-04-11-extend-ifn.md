@@ -81,7 +81,7 @@ Let's see how the `clojurescript` compiler translates for the function `=` the t
 
 <iframe frameborder="0" width="100%" height="200px"
     src= 
-    "http://app.klipse.tech/?cljs_in=(%3D%201%202)%0A(apply%20%3D%20%5B1%202%203%5D)&js_only=1">
+    "https://storage.googleapis.com/app.klipse.tech/index-dev.html?cljs_in=(%3D%201%202)%0A(apply%20%3D%20%5B1%202%203%5D)&js_only=1">
 </iframe>
 
 So nice! All the function calls in `clojurescript` are routed to either `call` or `apply`.
@@ -98,7 +98,7 @@ Now, let's observe the transpiled `javascript` code for `extend-type` and `IFn`:
 
 <iframe frameborder="0" width="100%" height="470px"
     src= 
-    "http://app.klipse.tech/?cljs_in=(ns%20my.regexp)%0A%0A(extend-type%20js%2FRegExp%0A%20%20IFn%0A%20%20(-invoke%20%0A%20%20%20%20(%5Bmatch%20s%5D%20(re-find%20match%20s))))%0A%0A(%23%22clojure%22%20%22clojurescript%22)%0A&js_only=1">
+    "https://storage.googleapis.com/app.klipse.tech/index-dev.html?cljs_in=(ns%20my.regexp)%0A%0A(extend-type%20js%2FRegExp%0A%20%20IFn%0A%20%20(-invoke%20%0A%20%20%20%20(%5Bmatch%20s%5D%20(re-find%20match%20s))))%0A%0A(%23%22clojure%22%20%22clojurescript%22)%0A&js_only=1">
 </iframe>
 
 The compiler - not like for [regular protocols]({% post_url 2016-04-09-clojurescript-protocols-secret %}){:target="_blank"} - created code for `call` and `apply` into `RegExp` prototype.
