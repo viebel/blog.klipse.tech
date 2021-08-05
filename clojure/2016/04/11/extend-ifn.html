@@ -239,7 +239,7 @@ Let’s look at the <code class="language-plaintext highlighter-rouge">IFn</code
 
 <p>Let’s see how the <code class="language-plaintext highlighter-rouge">clojurescript</code> compiler translates for the function <code class="language-plaintext highlighter-rouge">=</code> the two kinds of function calls:</p>
 
-<iframe frameborder="0" width="100%" height="200px" src="http://app.klipse.tech/?cljs_in=(%3D%201%202)%0A(apply%20%3D%20%5B1%202%203%5D)&amp;js_only=1">
+<iframe frameborder="0" width="100%" height="200px" src="https://storage.googleapis.com/app.klipse.tech/index-dev.html?cljs_in=(%3D%201%202)%0A(apply%20%3D%20%5B1%202%203%5D)&amp;js_only=1">
 </iframe>
 
 <p>So nice! All the function calls in <code class="language-plaintext highlighter-rouge">clojurescript</code> are routed to either <code class="language-plaintext highlighter-rouge">call</code> or <code class="language-plaintext highlighter-rouge">apply</code>.</p>
@@ -253,7 +253,7 @@ Let’s look at the <code class="language-plaintext highlighter-rouge">IFn</code
 
 <p>Now, let’s observe the transpiled <code class="language-plaintext highlighter-rouge">javascript</code> code for <code class="language-plaintext highlighter-rouge">extend-type</code> and <code class="language-plaintext highlighter-rouge">IFn</code>:</p>
 
-<iframe frameborder="0" width="100%" height="470px" src="http://app.klipse.tech/?cljs_in=(ns%20my.regexp)%0A%0A(extend-type%20js%2FRegExp%0A%20%20IFn%0A%20%20(-invoke%20%0A%20%20%20%20(%5Bmatch%20s%5D%20(re-find%20match%20s))))%0A%0A(%23%22clojure%22%20%22clojurescript%22)%0A&amp;js_only=1">
+<iframe frameborder="0" width="100%" height="470px" src="https://storage.googleapis.com/app.klipse.tech/index-dev.html?cljs_in=(ns%20my.regexp)%0A%0A(extend-type%20js%2FRegExp%0A%20%20IFn%0A%20%20(-invoke%20%0A%20%20%20%20(%5Bmatch%20s%5D%20(re-find%20match%20s))))%0A%0A(%23%22clojure%22%20%22clojurescript%22)%0A&amp;js_only=1">
 </iframe>
 
 <p>The compiler - not like for <a href="/clojurescript/2016/04/09/clojurescript-protocols-secret.html" target="_blank">regular protocols</a> - created code for <code class="language-plaintext highlighter-rouge">call</code> and <code class="language-plaintext highlighter-rouge">apply</code> into <code class="language-plaintext highlighter-rouge">RegExp</code> prototype.</p>
