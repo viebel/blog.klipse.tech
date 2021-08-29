@@ -52,6 +52,7 @@
         selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
         selector_ocaml_to_reason: '.language-ocaml-to-reason',
         selector_reagent: '.language-reagent',
+        selector_golang: '.language-klipse-go',
     };
 {% if page.local_klipse %}
       klipse_settings.no_dynamic_script = true;
@@ -87,7 +88,7 @@
 <script src="http://localhost:5014/plugin/js/klipse_plugin.js"></script>
 {% else %}
 {% if page.minified_plugin  %}
-<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?v=8.0.1"></script>
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?the_version=7.11.2"></script>
 {% else %}
 <script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
 {% endif %}
