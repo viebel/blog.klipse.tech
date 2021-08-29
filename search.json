@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "A new way of blogging about Golang",
+      "category" : "",
+      "tags"     : "klipse, golang",
+      "url"      : "/golang/2021/08/29/blog-go.html",
+      "date"     : "August 29, 2021"
+    } ,
+  
+    {
       "title"    : "On sameness in programming",
       "category" : "",
       "tags"     : "dop, maths",

@@ -1,4 +1,172 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-05T01:05:39+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><entry><title type="html">On sameness in programming</title><link href="/dop/2021/04/22/sameness-in-programming.html" rel="alternate" type="text/html" title="On sameness in programming" /><published>2021-04-22T10:09:18+00:00</published><updated>2021-04-22T10:09:18+00:00</updated><id>/dop/2021/04/22/sameness-in-programming</id><content type="html" xml:base="/dop/2021/04/22/sameness-in-programming.html">&lt;p&gt;We often talk about the importance of writing our code in terms of pure functions which, like math functions, have no side effects and return the same values ​​for the same arguments. In this article, I propose to explore another fundamental aspect of the difference between functional programming and object-oriented programming: the notion of sameness, that is to say: how do we define that two “things” are the same?&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-29T09:07:39+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><entry><title type="html">A new way of blogging about Golang</title><link href="/golang/2021/08/29/blog-go.html" rel="alternate" type="text/html" title="A new way of blogging about Golang" /><published>2021-08-29T01:11:22+00:00</published><updated>2021-08-29T01:11:22+00:00</updated><id>/golang/2021/08/29/blog-go</id><content type="html" xml:base="/golang/2021/08/29/blog-go.html">&lt;p&gt;This blog post is about to show a new way of blogging about the &lt;a href=&quot;https://en.wikipedia.org/wiki/Go_(programming_language)&quot;&gt;Go&lt;/a&gt; programming language.&lt;/p&gt;
+
+&lt;p&gt;Look at a typical blog post or tutorial about any programming language: The article usually presents a couple of code snippets. As I see it, there are two pains with code snippets:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;they contain the input and the output but not the actual evaluation of the input&lt;/li&gt;
+  &lt;li&gt;it’s impossible for the reader to modify the output&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;the-forgotten-dream&quot;&gt;The forgotten dream&lt;/h1&gt;
+
+&lt;p&gt;A long time ago, all the developers had a common dream. The dream was about interactivity, liveness, evaluation…&lt;/p&gt;
+
+&lt;p&gt;But we put this dream aside - because the browser understands only &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;And after a while, we even forgot that we ever had this dream.&lt;/p&gt;
+
+&lt;p&gt;Still, there are some people that didn’t forget this dream, like Alan Kay:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Question: Well, look at Wikipedia — it’s a tremendous collaboration.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Alan Kay: It is, but go to the article on &lt;a href=&quot;https://en.wikipedia.org/wiki/Logo_(programming_language)&quot;&gt;Logo&lt;/a&gt;, can you write and execute Logo programs? Are there examples? No. The Wikipedia people didn’t even imagine that, in spite of the fact that they’re on a computer.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Here is the &lt;a href=&quot;http://www.drdobbs.com/architecture-and-design/interview-with-alan-kay/240003442?pgno=2&quot; target=&quot;_blank&quot;&gt;full interview of Alan Kay&lt;/a&gt;. (Thanks &lt;a href=&quot;https://twitter.com/fasihsignal&quot;&gt;@fasihsignal&lt;/a&gt; for bringing this quote to our awareness.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/gopher.png&quot; alt=&quot;dream&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;the-klipse-plugin&quot;&gt;The klipse plugin&lt;/h1&gt;
+
+&lt;p&gt;The klipse plugin is a small step toward this dream: it is a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt; tag that transforms static code snippets of an html page into live and interactive snippets:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Live&lt;/strong&gt;: The code is executed in your browser&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Interactive&lt;/strong&gt;: You can modify the code and it is evaluated as you type&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse&lt;/a&gt; is written in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ClojureScript&lt;/code&gt;,&lt;/p&gt;
+
+&lt;p&gt;The following languages are supported by &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse&lt;/a&gt; - in any modern browser (including mobile): Clojure, Ruby, JavaScript, Python, Scheme, Go, Jsx, Brainfuck, C++ and Lua.&lt;/p&gt;
+
+&lt;p&gt;In this article, we are going to demonstrate interactive &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Go&lt;/code&gt; code snippets that are evaluated by &lt;a href=&quot;https://github.com/traefik/yaegi&quot;&gt;Yaegi&lt;/a&gt; that was recently integrated in Klipse by &lt;a href=&quot;https://github.com/mliezun&quot;&gt;Miguel Liezun&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;klipsify-a-go-code-snippet&quot;&gt;Klipsify a Go code snippet&lt;/h1&gt;
+
+&lt;p&gt;Let’s have on this page a small static code snippet:&lt;/p&gt;
+
+&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;fmt&quot;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello World!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;(This blog is written with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jekyll&lt;/code&gt;: the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kramdown&lt;/code&gt; plugin helps a lot in beautifying the code snippets.)&lt;/p&gt;
+
+&lt;p&gt;And now, we are going to &lt;strong&gt;klipsify&lt;/strong&gt; this code snippet:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-go&quot;&gt;import &quot;fmt&quot;
+
+func main() {
+  fmt.Println(&quot;Hello World!&quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Feel free to edit the code above: it’s interactive =&amp;gt; it evaluates as you type.&lt;/p&gt;
+
+&lt;p&gt;All I had to do in order to &lt;strong&gt;klipsify&lt;/strong&gt; my code snippet, was to set the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;language-eval-go&lt;/code&gt; class (configurable) to the appropriate html element.&lt;/p&gt;
+
+&lt;p&gt;See it by yourself: here is the source of this page:&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;p&amp;gt;&lt;/span&gt;And now, we are going to &lt;span class=&quot;nt&quot;&gt;&amp;lt;strong&amp;gt;&lt;/span&gt;klipsify&lt;span class=&quot;nt&quot;&gt;&amp;lt;/strong&amp;gt;&lt;/span&gt; this code snippet:&lt;span class=&quot;nt&quot;&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;pre&amp;gt;&amp;lt;code&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;language-klipse-go&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+import &quot;fmt&quot;
+
+func main() {
+  fmt.Println(&quot;Hello World!&quot;)
+}
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;live-demo&quot;&gt;Live demo&lt;/h1&gt;
+
+&lt;p&gt;Before dealing about integration of the klipse plugin on a web page, let’s enjoy another klipse snippet for an implementation of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FizzBuzz&lt;/code&gt; in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Go&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-go&quot;&gt;import &quot;fmt&quot;
+
+func main() {
+    i := 1
+    for i &amp;lt;= 20 {
+        if (i % 3 == 0 &amp;amp;&amp;amp; i % 5 == 0) {
+            fmt.Println(&quot;Fizzbuzz&quot;)
+        } else if (i % 3 == 0) {
+            fmt.Println(&quot;Fizz&quot;)
+        } else if (i % 5 == 0) {
+            fmt.Println(&quot;Buzz&quot;)
+        } else {
+            fmt.Println(i)
+        }
+        i = i + 1
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Go ahead! modify the code snippet above, and it will evaluate as you type…&lt;/p&gt;
+
+&lt;h1 id=&quot;evaluating-a-gist&quot;&gt;Evaluating a gist&lt;/h1&gt;
+
+&lt;p&gt;We can also evaluate code from a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gist&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;For instance, we could evaluate &lt;a href=&quot;https://gist.github.com/viebel/d9320214d88352533d3f81d3ff960312&quot;&gt;this gist&lt;/a&gt; that calculates the factorial of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;103&lt;/code&gt;, leveraging big integers to avoid integer overflow:&lt;/p&gt;
+
+&lt;pre&gt;
+&lt;div class=&quot;language-klipse-go&quot; data-gist-id=&quot;viebel/d9320214d88352533d3f81d3ff960312&quot;&gt;&lt;/div&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;Again, feel free to modify the code…&lt;/p&gt;
+
+&lt;h1 id=&quot;integration&quot;&gt;Integration&lt;/h1&gt;
+
+&lt;p&gt;All you need to do in order to integrate the klipse plugin to your blog (or any other web page), is to add this &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JavaScript&lt;/code&gt; tag to your web page:&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stylesheet&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text/css&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://app.klipse.tech/css/codemirror.css&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;script&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;klipse_settings&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;selector_go&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;.language-klipse-go&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// css selector for the html elements you want to klipsify&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://app.klipse.tech/plugin_prod/js/klipse_plugin.min.js&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;By the way, this is exactly what we did on the page that you are currently reading.&lt;/p&gt;
+
+&lt;h1 id=&quot;other-languages&quot;&gt;Other languages&lt;/h1&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse plugin&lt;/a&gt; is designed as a platform that could support any language that has a client-side evaluator, by writing modules to the Klipse plugin. Currently, there are modules available for the following languages:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;JavaScript: &lt;a href=&quot;http://blog.klipse.tech/javascript/2016/06/20/blog-javascript.html&quot;&gt;A new way of blogging about JavaScript&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Clojure[Script]: &lt;a href=&quot;http://blog.klipse.tech/clojure/2016/06/07/klipse-plugin-tuto.html&quot;&gt;How to klipsify a clojure[script] blog post&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Python: &lt;a href=&quot;http://blog.klipse.tech/python/2017/01/04/python-turtle-fractal.html&quot;&gt;The python turtle in the browser&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Brainfuck: &lt;a href=&quot;http://blog.klipse.tech/brainfuck/2016/12/17/brainfuck.html&quot;&gt;Brainfuck for dummies&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Scheme: &lt;a href=&quot;http://blog.klipse.tech/scheme/2016/09/11/scheme-tutorial-1.html&quot;&gt;Interactive overview of Scheme’s semantics&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;Go ahead!&lt;/p&gt;
+
+&lt;p&gt;Write your own blog post with interactive snippets in your preferred language.&lt;/p&gt;
+
+&lt;p&gt;It’s super simple to integrate the &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse plugin&lt;/a&gt; on a blog bost: check the instructions on &lt;a href=&quot;https://github.com/viebel/klipse&quot;&gt;Klipse github repository&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can get inspired by &lt;a href=&quot;https://github.com/viebel/klipse#community&quot;&gt;the work of the Klipse community&lt;/a&gt;…&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="golang" /><category term="klipse" /><category term="golang" /><summary type="html">This blog post is about to show a new way of blogging about the Go programming language.</summary></entry><entry><title type="html">On sameness in programming</title><link href="/dop/2021/04/22/sameness-in-programming.html" rel="alternate" type="text/html" title="On sameness in programming" /><published>2021-04-22T10:09:18+00:00</published><updated>2021-04-22T10:09:18+00:00</updated><id>/dop/2021/04/22/sameness-in-programming</id><content type="html" xml:base="/dop/2021/04/22/sameness-in-programming.html">&lt;p&gt;We often talk about the importance of writing our code in terms of pure functions which, like math functions, have no side effects and return the same values ​​for the same arguments. In this article, I propose to explore another fundamental aspect of the difference between functional programming and object-oriented programming: the notion of sameness, that is to say: how do we define that two “things” are the same?&lt;/p&gt;
 
 &lt;h1 id=&quot;ship-of-theseus&quot;&gt;Ship of Theseus&lt;/h1&gt;
 
@@ -1709,75 +1877,4 @@ libraryDataV1.users[1].password
 &lt;/div&gt;
 
 &lt;script type=&quot;text/javascript&quot; async=&quot;&quot; src=&quot;https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.18.0/cytoscape.min.js&quot;&gt;
-&lt;/script&gt;</content><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><category term="visualization" /><category term="visualization" /><category term="clojure" /><category term="graph" /><summary type="html">Playground for visualizing graphs using Cytoscape.js in Clojure.</summary></entry><entry><title type="html">Distinction between three data related programming paradigms.</title><link href="/visualization/2021/02/16/data-related-paradigms.html" rel="alternate" type="text/html" title="Distinction between three data related programming paradigms." /><published>2021-02-16T14:11:22+00:00</published><updated>2021-02-16T14:11:22+00:00</updated><id>/visualization/2021/02/16/data-related-paradigms</id><content type="html" xml:base="/visualization/2021/02/16/data-related-paradigms.html">&lt;p&gt;&lt;strong&gt;Data-oriented programming&lt;/strong&gt; is not a new concept. It is a paradigm that is applied by developers from different programming languages in order to reduce the complexity of the systems they build.&lt;/p&gt;
-
-&lt;p&gt;The purpose of my book &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;amp;utm_medium=affiliate&amp;amp;utm_campaign=book_sharvit2_data_1_29_21&amp;amp;a_aid=viebel&amp;amp;a_bid=d5b546b7&quot;&gt;Data-oriented programming&lt;/a&gt; is to explore the principles underlying this paradigm and to illustrate their benefits in the context of a software system.&lt;/p&gt;
-
-&lt;p&gt;The present article describes the distinction between &lt;strong&gt;Data-oriented programming&lt;/strong&gt; and two other programming paradigms whose name contain the term &lt;em&gt;data&lt;/em&gt;: &lt;strong&gt;Data-oriented design&lt;/strong&gt; and &lt;strong&gt;Data-driven programming&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Each paradigm has a its own objective and pursues it by focusing on a different aspect of data.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/data-love.jpg&quot; alt=&quot;data&quot; /&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;There are only two hard things in Computer Science: cache invalidation and naming things. (&lt;em&gt;Phil Karlton&lt;/em&gt;)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;data-oriented-design&quot;&gt;Data-oriented design&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;Data-oriented design&lt;/strong&gt; is a program optimization approach motivated by efficient usage of the CPU cache, used mostly in video game development.&lt;/p&gt;
-
-&lt;p&gt;The approach is to focus on the &lt;strong&gt;data layout&lt;/strong&gt;, separating and sorting fields according to when they are needed, and to think about transformations of data.&lt;/p&gt;
-
-&lt;p&gt;In this context, what’s important is how the data &lt;strong&gt;resides in memory&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;The objective of this paradigm is to &lt;strong&gt;improve the performance&lt;/strong&gt; of the system.&lt;/p&gt;
-
-&lt;h2 id=&quot;data-driven-programming&quot;&gt;Data-driven programming&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;Data-driven programming&lt;/strong&gt; is the idea that you create &lt;strong&gt;domain specific languages&lt;/strong&gt; (DSLs) which are made out of &lt;strong&gt;descriptive data&lt;/strong&gt;. It is a branch of declarative programming.&lt;/p&gt;
-
-&lt;p&gt;In this context, what’s important is to describe the &lt;strong&gt;behaviour of a program&lt;/strong&gt; in terms of data.&lt;/p&gt;
-
-&lt;p&gt;The objective of this paradigm is to &lt;strong&gt;increase code clarity&lt;/strong&gt; and to &lt;strong&gt;reduce the risk of bugs&lt;/strong&gt; related to mistakes in the implementation of the expected behaviour of the program.&lt;/p&gt;
-
-&lt;h2 id=&quot;data-oriented-programming&quot;&gt;Data-oriented programming&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;Data-oriented programming&lt;/strong&gt; is a paradigm that treats data of the system as a &lt;strong&gt;first-class citizen&lt;/strong&gt;. Data is represented by &lt;strong&gt;generic immutable data structures&lt;/strong&gt; (like maps and vectors) that are manipulated by &lt;strong&gt;general purpose functions&lt;/strong&gt; (like map, filter, select, group, sort …).&lt;/p&gt;
-
-&lt;p&gt;In this context, what’s important is the &lt;strong&gt;representation of data&lt;/strong&gt; by the program.&lt;/p&gt;
-
-&lt;p&gt;The objective of this paradigm is to &lt;strong&gt;reduce the complexity&lt;/strong&gt; of the system.&lt;/p&gt;
-
-&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
-
-&lt;p&gt;Before we conclude, I’d like to mention that there is a draft &lt;a href=&quot;https://en.wikipedia.org/wiki/Draft:Data-oriented_programming&quot;&gt;Wikipedia article&lt;/a&gt; about Data-Oriented programming. You are welcome to contribute to the article.&lt;/p&gt;
-
-&lt;p&gt;We saw that the three data-related  paradigms have different objectives and each of them pursues its objective by focusing on a different aspect of data inside a program.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Paradigm&lt;/th&gt;
-      &lt;th&gt;Objective&lt;/th&gt;
-      &lt;th&gt;Data&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Data-oriented design&lt;/td&gt;
-      &lt;td&gt;Increase performance&lt;/td&gt;
-      &lt;td&gt;Data layout&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Data-driven programming&lt;/td&gt;
-      &lt;td&gt;Increase clarity&lt;/td&gt;
-      &lt;td&gt;Behaviour described by data&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Data-oriented programming&lt;/td&gt;
-      &lt;td&gt;Reduce complexity&lt;/td&gt;
-      &lt;td&gt;Data representation&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;</content><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><category term="visualization" /><category term="dop" /><category term="theory" /><summary type="html">Data-oriented programming is not a new concept. It is a paradigm that is applied by developers from different programming languages in order to reduce the complexity of the systems they build.</summary></entry></feed>
+&lt;/script&gt;</content><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><category term="visualization" /><category term="visualization" /><category term="clojure" /><category term="graph" /><summary type="html">Playground for visualizing graphs using Cytoscape.js in Clojure.</summary></entry></feed>
