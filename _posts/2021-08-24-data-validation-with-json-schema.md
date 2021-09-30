@@ -12,9 +12,13 @@ tags: [javascript]
 
 According to the principles of [Data-Oriented Programming](https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7), we should represent data with **generic** and **immutable** data structures, like immutable hash maps and immutable vectors. At first sight, it might seem that it means to *live in the wild* and not validate that data is conformed to an expected schema.
 
-In fact, it is possible -- and advised -- to maintain a data schema in Data-Oriented Programming. The major insight of Data-Oriented Programming regarding data validation is that **data schema** should be **separated** from **data representation**.
+In fact, it is possible -- and advised -- to maintain a data schema in Data-Oriented Programming. For instance, in Clojure, we handle data validation with tools like [clojure.spec] or [malli].
+
+The major insight of this kind of data validation is that **data schema** should be **separated** from **data representation**.
 
 > We should separate data schema from data representation.
+
+The purpose of this article is to illustrate how to implement Clojure approach of data validation in other programming languages using JSON schema.
 
 This article is made of 4 parts:
 
@@ -68,10 +72,20 @@ A couple of remarks regarding the syntax of this JSON schema:
 
 ## Data validation against a schema
 
-In order to check whether a piece of data conforms to a data schema, we use a *data validation library*. For instance, using [Ajv JSON schema validator](https://ajv.js.org/), we validate a piece of data using the `validate` function.
+In order to check whether a piece of data conforms to a data schema, we use a **data validation library** for our preferred programming language. 
 
+| Language   | Data validation Library | 
+| ---------- | --------------- | 
+| JavaScript | [Ajv](https://github.com/ajv-validator/ajv)             | 
+| Clojure    | [jinx](https://github.com/juxt/jinx)
+| Java       | [Snow](https://github.com/ssilverman/snowy-json)           |
+| C#         | [JSON.net Schema](https://www.newtonsoft.com/jsonschema) |
+| Python     | [jschon](https://github.com/marksparkza/jschon)         |
+| Ruby       | [JSONSchemer](https://github.com/davishmcclurg/json_schemer)    |
 
-As you might expect, when a piece of data is valid, `validate` returns `true`:
+The complete list of data validation libraries is available [here](http://json-schema.org/implementations.html).
+
+For instance, in JavaScript, using [Ajv JSON schema validator](https://ajv.js.org/), we validate a piece of data using the `validate` function. As you might expect, when a piece of data is valid, `validate` returns `true`:
 
 ~~~klipse-eval-js
 var ajv = new Ajv({allErrors: true}); 
