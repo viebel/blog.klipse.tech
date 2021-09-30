@@ -173,11 +173,15 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
         <div class="post-content">
             <p>According to the principles of <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7">Data-Oriented Programming</a>, we should represent data with <strong>generic</strong> and <strong>immutable</strong> data structures, like immutable hash maps and immutable vectors. At first sight, it might seem that it means to <em>live in the wild</em> and not validate that data is conformed to an expected schema.</p>
 
-<p>In fact, it is possible – and advised – to maintain a data schema in Data-Oriented Programming. The major insight of Data-Oriented Programming regarding data validation is that <strong>data schema</strong> should be <strong>separated</strong> from <strong>data representation</strong>.</p>
+<p>In fact, it is possible – and advised – to maintain a data schema in Data-Oriented Programming. For instance, in Clojure, we handle data validation with tools like [clojure.spec] or [malli].</p>
+
+<p>The major insight of this kind of data validation is that <strong>data schema</strong> should be <strong>separated</strong> from <strong>data representation</strong>.</p>
 
 <blockquote>
   <p>We should separate data schema from data representation.</p>
 </blockquote>
+
+<p>The purpose of this article is to illustrate how to implement Clojure approach of data validation in other programming languages using JSON schema.</p>
 
 <p>This article is made of 4 parts:</p>
 
@@ -235,9 +239,46 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
 
 <h2 id="data-validation-against-a-schema">Data validation against a schema</h2>
 
-<p>In order to check whether a piece of data conforms to a data schema, we use a <em>data validation library</em>. For instance, using <a href="https://ajv.js.org/">Ajv JSON schema validator</a>, we validate a piece of data using the <code class="language-plaintext highlighter-rouge">validate</code> function.</p>
+<p>In order to check whether a piece of data conforms to a data schema, we use a <strong>data validation library</strong> for our preferred programming language.</p>
 
-<p>As you might expect, when a piece of data is valid, <code class="language-plaintext highlighter-rouge">validate</code> returns <code class="language-plaintext highlighter-rouge">true</code>:</p>
+<table>
+  <thead>
+    <tr>
+      <th>Language</th>
+      <th>Data validation Library</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>JavaScript</td>
+      <td><a href="https://github.com/ajv-validator/ajv">Ajv</a></td>
+    </tr>
+    <tr>
+      <td>Clojure</td>
+      <td><a href="https://github.com/juxt/jinx">jinx</a></td>
+    </tr>
+    <tr>
+      <td>Java</td>
+      <td><a href="https://github.com/ssilverman/snowy-json">Snow</a></td>
+    </tr>
+    <tr>
+      <td>C#</td>
+      <td><a href="https://www.newtonsoft.com/jsonschema">JSON.net Schema</a></td>
+    </tr>
+    <tr>
+      <td>Python</td>
+      <td><a href="https://github.com/marksparkza/jschon">jschon</a></td>
+    </tr>
+    <tr>
+      <td>Ruby</td>
+      <td><a href="https://github.com/davishmcclurg/json_schemer">JSONSchemer</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The complete list of data validation libraries is available <a href="http://json-schema.org/implementations.html">here</a>.</p>
+
+<p>For instance, in JavaScript, using <a href="https://ajv.js.org/">Ajv JSON schema validator</a>, we validate a piece of data using the <code class="language-plaintext highlighter-rouge">validate</code> function. As you might expect, when a piece of data is valid, <code class="language-plaintext highlighter-rouge">validate</code> returns <code class="language-plaintext highlighter-rouge">true</code>:</p>
 
 <pre><code class="language-klipse-eval-js">var ajv = new Ajv({allErrors: true}); 
 

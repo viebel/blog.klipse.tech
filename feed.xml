@@ -1,10 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-30T03:15:42+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><entry><title type="html">Data validation with JSON schema</title><link href="/javascript/2021/09/30/data-validation-with-json-schema.html" rel="alternate" type="text/html" title="Data validation with JSON schema" /><published>2021-09-30T00:15:28+00:00</published><updated>2021-09-30T00:15:28+00:00</updated><id>/javascript/2021/09/30/data-validation-with-json-schema</id><content type="html" xml:base="/javascript/2021/09/30/data-validation-with-json-schema.html">&lt;p&gt;According to the principles of &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;amp;utm_medium=affiliate&amp;amp;utm_campaign=book_sharvit2_data_1_29_21&amp;amp;a_aid=viebel&amp;amp;a_bid=d5b546b7&quot;&gt;Data-Oriented Programming&lt;/a&gt;, we should represent data with &lt;strong&gt;generic&lt;/strong&gt; and &lt;strong&gt;immutable&lt;/strong&gt; data structures, like immutable hash maps and immutable vectors. At first sight, it might seem that it means to &lt;em&gt;live in the wild&lt;/em&gt; and not validate that data is conformed to an expected schema.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-30T04:25:14+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><entry><title type="html">Data validation with JSON schema</title><link href="/javascript/2021/09/30/data-validation-with-json-schema.html" rel="alternate" type="text/html" title="Data validation with JSON schema" /><published>2021-09-30T00:15:28+00:00</published><updated>2021-09-30T00:15:28+00:00</updated><id>/javascript/2021/09/30/data-validation-with-json-schema</id><content type="html" xml:base="/javascript/2021/09/30/data-validation-with-json-schema.html">&lt;p&gt;According to the principles of &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;amp;utm_medium=affiliate&amp;amp;utm_campaign=book_sharvit2_data_1_29_21&amp;amp;a_aid=viebel&amp;amp;a_bid=d5b546b7&quot;&gt;Data-Oriented Programming&lt;/a&gt;, we should represent data with &lt;strong&gt;generic&lt;/strong&gt; and &lt;strong&gt;immutable&lt;/strong&gt; data structures, like immutable hash maps and immutable vectors. At first sight, it might seem that it means to &lt;em&gt;live in the wild&lt;/em&gt; and not validate that data is conformed to an expected schema.&lt;/p&gt;
 
-&lt;p&gt;In fact, it is possible – and advised – to maintain a data schema in Data-Oriented Programming. The major insight of Data-Oriented Programming regarding data validation is that &lt;strong&gt;data schema&lt;/strong&gt; should be &lt;strong&gt;separated&lt;/strong&gt; from &lt;strong&gt;data representation&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;In fact, it is possible – and advised – to maintain a data schema in Data-Oriented Programming. For instance, in Clojure, we handle data validation with tools like [clojure.spec] or [malli].&lt;/p&gt;
+
+&lt;p&gt;The major insight of this kind of data validation is that &lt;strong&gt;data schema&lt;/strong&gt; should be &lt;strong&gt;separated&lt;/strong&gt; from &lt;strong&gt;data representation&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;We should separate data schema from data representation.&lt;/p&gt;
 &lt;/blockquote&gt;
+
+&lt;p&gt;The purpose of this article is to illustrate how to implement Clojure approach of data validation in other programming languages using JSON schema.&lt;/p&gt;
 
 &lt;p&gt;This article is made of 4 parts:&lt;/p&gt;
 
@@ -62,9 +66,46 @@
 
 &lt;h2 id=&quot;data-validation-against-a-schema&quot;&gt;Data validation against a schema&lt;/h2&gt;
 
-&lt;p&gt;In order to check whether a piece of data conforms to a data schema, we use a &lt;em&gt;data validation library&lt;/em&gt;. For instance, using &lt;a href=&quot;https://ajv.js.org/&quot;&gt;Ajv JSON schema validator&lt;/a&gt;, we validate a piece of data using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;validate&lt;/code&gt; function.&lt;/p&gt;
+&lt;p&gt;In order to check whether a piece of data conforms to a data schema, we use a &lt;strong&gt;data validation library&lt;/strong&gt; for our preferred programming language.&lt;/p&gt;
 
-&lt;p&gt;As you might expect, when a piece of data is valid, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;validate&lt;/code&gt; returns &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;true&lt;/code&gt;:&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Language&lt;/th&gt;
+      &lt;th&gt;Data validation Library&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;JavaScript&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://github.com/ajv-validator/ajv&quot;&gt;Ajv&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Clojure&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://github.com/juxt/jinx&quot;&gt;jinx&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Java&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://github.com/ssilverman/snowy-json&quot;&gt;Snow&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;C#&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://www.newtonsoft.com/jsonschema&quot;&gt;JSON.net Schema&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Python&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://github.com/marksparkza/jschon&quot;&gt;jschon&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Ruby&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://github.com/davishmcclurg/json_schemer&quot;&gt;JSONSchemer&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;The complete list of data validation libraries is available &lt;a href=&quot;http://json-schema.org/implementations.html&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;For instance, in JavaScript, using &lt;a href=&quot;https://ajv.js.org/&quot;&gt;Ajv JSON schema validator&lt;/a&gt;, we validate a piece of data using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;validate&lt;/code&gt; function. As you might expect, when a piece of data is valid, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;validate&lt;/code&gt; returns &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;true&lt;/code&gt;:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var ajv = new Ajv({allErrors: true}); 
 
