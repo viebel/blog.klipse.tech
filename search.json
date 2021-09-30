@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Data validation with JSON schema",
+      "category" : "",
+      "tags"     : "javascript",
+      "url"      : "/javascript/2021/09/30/data-validation-with-json-schema.html",
+      "date"     : "September 30, 2021"
+    } ,
+  
+    {
       "title"    : "A new way of blogging about Golang",
       "category" : "",
       "tags"     : "klipse, golang",

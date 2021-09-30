@@ -1,4 +1,393 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-08-29T09:07:39+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><entry><title type="html">A new way of blogging about Golang</title><link href="/golang/2021/08/29/blog-go.html" rel="alternate" type="text/html" title="A new way of blogging about Golang" /><published>2021-08-29T01:11:22+00:00</published><updated>2021-08-29T01:11:22+00:00</updated><id>/golang/2021/08/29/blog-go</id><content type="html" xml:base="/golang/2021/08/29/blog-go.html">&lt;p&gt;This blog post is about to show a new way of blogging about the &lt;a href=&quot;https://en.wikipedia.org/wiki/Go_(programming_language)&quot;&gt;Go&lt;/a&gt; programming language.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-30T03:15:42+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><entry><title type="html">Data validation with JSON schema</title><link href="/javascript/2021/09/30/data-validation-with-json-schema.html" rel="alternate" type="text/html" title="Data validation with JSON schema" /><published>2021-09-30T00:15:28+00:00</published><updated>2021-09-30T00:15:28+00:00</updated><id>/javascript/2021/09/30/data-validation-with-json-schema</id><content type="html" xml:base="/javascript/2021/09/30/data-validation-with-json-schema.html">&lt;p&gt;According to the principles of &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;amp;utm_medium=affiliate&amp;amp;utm_campaign=book_sharvit2_data_1_29_21&amp;amp;a_aid=viebel&amp;amp;a_bid=d5b546b7&quot;&gt;Data-Oriented Programming&lt;/a&gt;, we should represent data with &lt;strong&gt;generic&lt;/strong&gt; and &lt;strong&gt;immutable&lt;/strong&gt; data structures, like immutable hash maps and immutable vectors. At first sight, it might seem that it means to &lt;em&gt;live in the wild&lt;/em&gt; and not validate that data is conformed to an expected schema.&lt;/p&gt;
+
+&lt;p&gt;In fact, it is possible – and advised – to maintain a data schema in Data-Oriented Programming. The major insight of Data-Oriented Programming regarding data validation is that &lt;strong&gt;data schema&lt;/strong&gt; should be &lt;strong&gt;separated&lt;/strong&gt; from &lt;strong&gt;data representation&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;We should separate data schema from data representation.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This article is made of 4 parts:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;How to express a data schema using &lt;strong&gt;JSON schema&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;How to &lt;strong&gt;validate&lt;/strong&gt; data against a JSON schema&lt;/li&gt;
+  &lt;li&gt;The &lt;strong&gt;benefits&lt;/strong&gt; of separating between data schema and data representation&lt;/li&gt;
+  &lt;li&gt;The &lt;strong&gt;costs&lt;/strong&gt; of separating between data schema and data representation&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This article is an interactive version of the article published on &lt;a href=&quot;https://javascript.works-hub.com/learn/data-validation-without-objects-78fcc&quot;&gt;JavaScript Works&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/freedom-2.jpg&quot; alt=&quot;Freedom&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;json-schema&quot;&gt;JSON schema&lt;/h2&gt;
+
+&lt;p&gt;Think about handling a request in a library management system for the addition of an author to the system. To keep things simple, imagine that such a request contains only basic information about the author:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Their first name&lt;/li&gt;
+  &lt;li&gt;Their last name&lt;/li&gt;
+  &lt;li&gt;Optionally, the number of books they have written&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;In Data-Oriented Programming, we represent the request data in our program as a string map that is expected to have three fields:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firstName&lt;/code&gt; - a string&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lastName&lt;/code&gt; - a string&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;books&lt;/code&gt; - a number (optional)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Using &lt;a href=&quot;https://json-schema.org/&quot;&gt;JSON schema&lt;/a&gt;, we represent the data schema of the request with the following map:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var addAuthorRequestSchema = {
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;required&quot;: [&quot;firstName&quot;, &quot;lastName&quot;], 
+  &quot;properties&quot;: {
+    &quot;firstName&quot;: {&quot;type&quot;: &quot;string&quot;},
+    &quot;lastName&quot;: {&quot;type&quot;: &quot;string&quot;},
+    &quot;books&quot;: {&quot;type&quot;: &quot;integer&quot;}
+  }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A couple of remarks regarding the syntax of this JSON schema:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Data is expected to be a map (in JSON, a map is called an object)&lt;/li&gt;
+  &lt;li&gt;Only &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firstName&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lastName&lt;/code&gt; fields are required&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firstName&lt;/code&gt; must be a string&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lastName&lt;/code&gt; must be a string&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;books&lt;/code&gt; must be an integer (when it is provided)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;data-validation-against-a-schema&quot;&gt;Data validation against a schema&lt;/h2&gt;
+
+&lt;p&gt;In order to check whether a piece of data conforms to a data schema, we use a &lt;em&gt;data validation library&lt;/em&gt;. For instance, using &lt;a href=&quot;https://ajv.js.org/&quot;&gt;Ajv JSON schema validator&lt;/a&gt;, we validate a piece of data using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;validate&lt;/code&gt; function.&lt;/p&gt;
+
+&lt;p&gt;As you might expect, when a piece of data is valid, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;validate&lt;/code&gt; returns &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;true&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var ajv = new Ajv({allErrors: true}); 
+
+var validAuthorData = {
+  firstName: &quot;Isaac&quot;,
+  lastName: &quot;Asimov&quot;,
+  books: 500
+};
+
+ajv.validate(addAuthorRequestSchema, validAuthorData); 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When a piece of data is invalid (e.g. using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lastNam&lt;/code&gt; instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lastName&lt;/code&gt;), &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;validate&lt;/code&gt; returns &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;false&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var invalidAuthorData = {
+  firstName: &quot;Isaac&quot;,
+  lastNam: &quot;Asimov&quot;,
+  books: &quot;five hundred&quot;
+};
+
+ajv.validate(addAuthorRequestSchema, invalidAuthorData);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When a piece of data is invalid, we can easily get details about data validation failures in a human readable format:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var invalidAuthorData = {
+  firstName: &quot;Isaac&quot;,
+  lastNam: &quot;Asimov&quot;,
+  books: &quot;five hundred&quot;
+};
+
+ajv.validate(addAuthorRequestSchema, invalidAuthorData);
+ajv.errorsText(ajv.errors);
+// &quot;data should have required property 'lastName', data.books should be number&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A couple of remarks regarding validation with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ajv&lt;/code&gt;:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;By default, Ajv stores only the first data validation error. We use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;allErrors: true&lt;/code&gt; to store all errors.&lt;/li&gt;
+  &lt;li&gt;Data validation errors are stored internally as an array. In order to get a human readable string, we use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;errorsText&lt;/code&gt; function.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;the-benefits-of-separating-between-data-schema-and-data-representation&quot;&gt;The benefits of separating between data schema and data representation&lt;/h2&gt;
+
+&lt;p&gt;When we separate data schema from data representation in our programs, our programs benefit from:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Freedom&lt;/strong&gt; to choose what data should be validated&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Optional&lt;/strong&gt; fields&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Advanced&lt;/strong&gt; data validation conditions&lt;/li&gt;
+  &lt;li&gt;Automatic generation of data model &lt;strong&gt;visualization&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;Automatic generation of &lt;strong&gt;unit tests&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;benefit-1-freedom-to-choose-what-data-should-be-validated&quot;&gt;Benefit #1: Freedom to choose what data should be validated&lt;/h3&gt;
+
+&lt;p&gt;When data schema is separated from data representation we are free to instantiate data without specifying its expected shape. Such a &lt;em&gt;freedom&lt;/em&gt; is useful in various situations. For example:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;We want to experiment with code quickly&lt;/li&gt;
+  &lt;li&gt;Data has already been validated&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;rapid-prototyping&quot;&gt;Rapid prototyping&lt;/h4&gt;
+
+&lt;p&gt;In classic Object-Oriented Programming and in some statically typed Functional Programming, each and every piece of data must have a predefined shape (either a class or a data type). During the &lt;strong&gt;exploration phase&lt;/strong&gt; of coding, where we don’t know yet what is the exact shape of our data, being forced to update the type definition each time we update our data model &lt;em&gt;slows us down&lt;/em&gt;. In Data-Oriented Programming, we can develop at a &lt;em&gt;fast pace&lt;/em&gt; during the exploration phase, by &lt;strong&gt;delaying&lt;/strong&gt; the data schema definition to a later phase.&lt;/p&gt;
+
+&lt;h4 id=&quot;code-refactoring&quot;&gt;Code refactoring&lt;/h4&gt;
+
+&lt;p&gt;One common refactoring pattern is the &lt;strong&gt;split phase refactoring&lt;/strong&gt; where you basically split a single large function into multiple smaller functions, with a private scope. Those functions are called with data that has already been validated by the large function. In Data-Oriented Programming, we are free to not specify the shape of the arguments of the inner functions, relying on the data validation that has already occurred.&lt;/p&gt;
+
+&lt;p&gt;Suppose we want to display some information about an author, like their full name and whether they are considered as prolific or not.&lt;/p&gt;
+
+&lt;p&gt;First, we define the data schema for the author data:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var authorSchema = {
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;required&quot;: [&quot;firstName&quot;, &quot;lastName&quot;],
+  &quot;properties&quot;: {
+    &quot;firstName&quot;: {&quot;type&quot;: &quot;string&quot;},
+    &quot;lastName&quot;: {&quot;type&quot;: &quot;string&quot;},
+    &quot;books&quot;: {&quot;type&quot;: &quot;integer&quot;}
+  }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then, we write a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;displayAuthorInfo&lt;/code&gt; function that first check whether data is valid and then displays the information about he author:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function displayAuthorInfo(authorData) {
+  if(!ajv.validate(authorSchema, authorData)) {
+    throw &quot;displayAuthorInfo called with invalid data&quot;;
+  };
+  console.log(&quot;Author full name is: &quot;, authorData.firstName + &quot; &quot; + authorData.lastName);
+  if(authorData.books == null) {
+    console.log(&quot;Author has not written any book&quot;);
+  } else {
+    if (authorData.books &amp;gt; 100) {
+      console.log(&quot;Author is prolific&quot;);
+    } else {
+      console.log(&quot;Author is not prolific&quot;);
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Notice that the first thing we do inside the body of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;displayAuthorInfo&lt;/code&gt; is to validate that the argument passed to the function is valid.&lt;/p&gt;
+
+&lt;p&gt;Now, let’s apply the split phase refactoring pattern to this simplistic example and split the body of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;displayAuthorInfo&lt;/code&gt; in two inner functions:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;displayFullName&lt;/code&gt;: Display the author full name&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;displayProlificity&lt;/code&gt;: Display whether the author is prolific or not&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;
+function displayFullName(authorData) {
+  console.log(&quot;Author full name is: &quot;, authorData.firstName + &quot; &quot; + authorData.lastName);
+}
+
+function displayProlificity(authorData) {
+  if(authorData.books == null) {
+    console.log(&quot;Author has not written any book&quot;);
+  } else {
+    if (authorData.books &amp;gt; 100) {
+      console.log(&quot;Author is prolific&quot;);
+    } else {
+      console.log(&quot;Author is not prolific&quot;);
+    }
+  }
+}
+
+function displayAuthorInfo(authorData) {
+  if(!ajv.validate(authorSchema, authorData)) {
+    throw &quot;displayAuthorInfo called with invalid data&quot;;
+  };
+  displayFullName(authorData);
+  displayProlificity(authorData);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Having the data schema separated from the data representation allows us not to specify a data schema for the arguments of the inner functions &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;displayFullName&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;displayProlificity&lt;/code&gt;. It makes the refactoring process a bit &lt;em&gt;smoother&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;In some cases, the inner functions are more complicated and it makes sense to specify a data schema for their arguments. Data-Oriented Programming gives us the freedom to choose!&lt;/p&gt;
+
+&lt;h3 id=&quot;benefit-2-optional-fields&quot;&gt;Benefit #2: Optional fields&lt;/h3&gt;
+
+&lt;p&gt;In Object-Oriented Programming, allowing a class member to be &lt;em&gt;optional&lt;/em&gt; is not easy. For instance, in Java one needs a special construct like the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Optional&lt;/code&gt; class &lt;a href=&quot;https://www.oracle.com/technical-resources/articles/java/java8-optional.html&quot;&gt;introduced in Java 8&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In Data-Oriented Programming, it is natural to declare a field as optional in a map. In fact in JSON schema, &lt;strong&gt;by default&lt;/strong&gt; every field is optional. In order to make a field non-optional, we have to include its name in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;required&lt;/code&gt; array as for instance in the author schema in the following code snippet where only &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firstName&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lastName&lt;/code&gt; are required while &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;books&lt;/code&gt; is optional.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var authorSchema = {
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;required&quot;: [&quot;firstName&quot;, &quot;lastName&quot;], // `books` is not included in `required`, as it is an optional field
+  &quot;properties&quot;: {
+    &quot;firstName&quot;: {&quot;type&quot;: &quot;string&quot;},
+    &quot;lastName&quot;: {&quot;type&quot;: &quot;string&quot;},
+    &quot;books&quot;: {&quot;type&quot;: &quot;integer&quot;} // when present, `books` must be an integer
+  }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let’s illustrate how the validation function deals with optional fields: A map without a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;books&lt;/code&gt; field is considered to be valid:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var authorDataNoBooks = {
+  &quot;firstName&quot;: &quot;Yehonathan&quot;,
+  &quot;lastName&quot;: &quot;Sharvit&quot;
+};
+
+ajv.validate(authorSchema, authorDataNoBooks) // true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;However, a map with a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;books&lt;/code&gt; field where the value is not an interger is considered to be invalid:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var authorDataInvalidBooks = {
+  &quot;firstName&quot;: &quot;Albert&quot;,
+  &quot;lastName&quot;: &quot;Einstein&quot;,
+  &quot;books&quot;: &quot;Five&quot;
+};
+
+ajv.validate(authorSchema, authorDataInvalidBooks) // false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;benefit-3-advanced-data-validation-conditions&quot;&gt;Benefit #3: Advanced data validation conditions&lt;/h3&gt;
+
+&lt;p&gt;In Data-Oriented Programming, data validation occurs at &lt;strong&gt;run time&lt;/strong&gt;. It allows us to define data validation conditions that go beyond the &lt;strong&gt;type&lt;/strong&gt; of a field. For instance, we might want to make sure that a field is not only a string but a string with a maximal number of characters or a number comprised in a range of numbers.&lt;/p&gt;
+
+&lt;p&gt;For instance, here is a JSON schema that expects &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firstName&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lastName&lt;/code&gt; to be strings of less than 100 characters and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;books&lt;/code&gt; to be a number between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;10,000&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var authorComplexSchema = {
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;required&quot;: [&quot;firstName&quot;, &quot;lastName&quot;],
+  &quot;properties&quot;: {
+    &quot;firstName&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;maxLength&quot;: 100
+    },
+    &quot;lastName&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;maxLength&quot;: 100
+    },
+    &quot;books&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;maximum&quot;: 10000
+    }
+  }
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;JSON schema supports many other advanced data validation conditions, like regular expression validation for string fields or number fields that should be a multiple of a given number.&lt;/p&gt;
+
+&lt;h3 id=&quot;benefit-4-automatic-generation-of-data-model-visualization&quot;&gt;Benefit #4: Automatic generation of data model visualization&lt;/h3&gt;
+
+&lt;p&gt;When the data schema is defined as data, we can leverage tools that generate data model visualization: with tools like &lt;a href=&quot;https://navneethg.github.io/jsonschemaviewer/&quot;&gt;JSON Schema Viewer&lt;/a&gt; and &lt;a href=&quot;https://github.com/metosin/malli&quot;&gt;Malli&lt;/a&gt; we can generate a UML diagram out of a JSON schema. For instance, the following JSON schema defines the shape of a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bookList&lt;/code&gt; field that is an array of books where each book is a map.&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;object&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;required&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;firstName&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;lastName&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;properties&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;firstName&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;string&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;lastName&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;string&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;bookList&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;array&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;items&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;object&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;properties&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;string&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;publicationYear&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;integer&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The tools we just mentioned can generate the following UML diagram from the JSON schema:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/author-schema.png&quot; alt=&quot;author schema&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;benefit-5-automatic-generation-of-unit-tests&quot;&gt;Benefit #5: Automatic generation of unit tests&lt;/h3&gt;
+
+&lt;p&gt;An interesting way to leverage data schema for function arguments is to automatically generate unit tests. Let’s change a bit the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;displayAuthorInfo&lt;/code&gt; function into a function called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;calculateAuthorInfo&lt;/code&gt; that – instead of displaying the author info – returns the author info as a string.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function calculateAuthorInfo(authorData) {
+  if(!ajv.validate(authorSchema, authorData)) {
+    throw &quot;calculateAuthorInfo called with invalid data&quot;;
+  };
+  var fullName = &quot;Author full name is: &quot; + authorData.firstName + &quot; &quot; + authorData.lastName;
+  var prolificity = &quot;&quot;;
+  if(authorData.books == null) {
+    prolificity = &quot;Author has not written any book&quot;;
+  } else {
+    if (authorData.books &amp;gt; 100) {
+      prolificity = &quot;Author is prolific&quot;;
+    } else {
+      prolificity = &quot;Author is not prolific&quot;;
+    }
+  }
+  return fullName + &quot;\n&quot; + prolificity;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We are going to generate a unit test for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;calculateAuthorInfo&lt;/code&gt; by generating random input data that conforms to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;authorSchema&lt;/code&gt;. For that purpose, we use a library like &lt;a href=&quot;https://github.com/json-schema-faker/json-schema-faker&quot;&gt;JSON Schema Faker&lt;/a&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;JSONSchemaFaker(authorSchema)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then we call &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;calculateAuthorInfo&lt;/code&gt; with the random data:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;calculateAuthorInfo(JSONSchemaFaker(authorSchema))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Depending on what the function does, we might expect different things. In the case of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;calculateAuthorInfo&lt;/code&gt;, we expect the output to be a string that starts with the word &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Author&lt;/code&gt;. Let’s create a schema for the return value of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;calculateAuthorInfo&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var calculateAuthorInfoReturnValueSchema = {
+&quot;type&quot;: &quot;string&quot;,
+&quot;pattern&quot;: &quot;Author.*&quot;
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here is the code of our unit test:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var res = calculateAuthorInfo(JSONSchemaFaker(authorSchema));
+ajv.validate(calculateAuthorInfoReturnValueSchema, res)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;the-costs-of-separating-between-data-schema-and-data-representation&quot;&gt;The costs of separating between data schema and data representation&lt;/h2&gt;
+
+&lt;p&gt;There is no such thing as a free lunch. Separating between data schema and data representation comes at a cost:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;em&gt;Loose connection&lt;/em&gt; between data and its schema&lt;/li&gt;
+  &lt;li&gt;Light &lt;em&gt;performance&lt;/em&gt; hit&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;cost-1-loose-connection-between-data-and-its-schema&quot;&gt;Cost #1: Loose connection between data and its schema&lt;/h3&gt;
+
+&lt;p&gt;By definition, when we separate between data schema and data representation, the connection between data and its schema is &lt;strong&gt;looser&lt;/strong&gt; that when we represent data with classes. Moreover, the schema definition language (e.g. JSON schema) is not part of the programming language. It is up to the developer to decide where data validation is &lt;strong&gt;necessary&lt;/strong&gt; and where it is &lt;strong&gt;superfluous&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;As the idiom says, with great &lt;strong&gt;power&lt;/strong&gt; comes great &lt;strong&gt;responsibility&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;cost-2-light-performance-hit&quot;&gt;Cost #2: Light performance hit&lt;/h3&gt;
+
+&lt;p&gt;As we mentioned earlier, there exist implementations of JSON schema validation in most programming languages. When data validation occurs at &lt;strong&gt;run time&lt;/strong&gt; it takes some time to run the data validation while in Object-Oriented programming, data validation occurs usually at &lt;strong&gt;compile time&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;This drawback is &lt;strong&gt;mitigated&lt;/strong&gt; by the fact that even in Object-Oriented programming some parts of the data validation occur at run time. For instance, the conversion of a request JSON payload into an object occurs at run time. Moreover, in Data-Oriented Programming, it is quite common to have some data validation parts enabled only during &lt;strong&gt;development&lt;/strong&gt; and to disable them when the system runs in &lt;strong&gt;production&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;As a consequence, the performance hit is not significant.&lt;/p&gt;
+
+&lt;h2 id=&quot;wrapping-up&quot;&gt;Wrapping up&lt;/h2&gt;
+
+&lt;p&gt;In &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;amp;utm_medium=affiliate&amp;amp;utm_campaign=book_sharvit2_data_1_29_21&amp;amp;a_aid=viebel&amp;amp;a_bid=d5b546b7&quot;&gt;Data-Oriented Programming&lt;/a&gt;, data is represented with immutable generic data structures. When additional information about the shape of the data is required, we are free to define a data schema (e.g. in JSON Schema).&lt;/p&gt;
+
+&lt;p&gt;Keeping the data schema separate from the data representation leaves the developer free to decide where and when data should be validated. Moreover, data validation occurs at run-time. As a consequence, we can express data validation conditions that go beyond the static data types (e.g. the string length).&lt;/p&gt;
+
+&lt;p&gt;However, with great power comes great responsibility and it’s up to the developer to decide to validate data.&lt;/p&gt;
+
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js&quot; integrity=&quot;sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww==&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/ajv/6.12.6/ajv.bundle.js&quot; integrity=&quot;sha512-km2o1mynU1nR0HonrYrI0TA+QvRMtONwnfA/nl15hnd/WyjZ/FLV7NROHAbzzSjHxIeQPfiJRUSUzevO2Ut0Ng==&quot; crossorigin=&quot;anonymous&quot; referrerpolicy=&quot;no-referrer&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/json-schema-faker/0.5.0-rc9/json-schema-faker.min.js&quot; integrity=&quot;sha512-MigyB2SaiNKRt1O7yhf1CbLSUnhIopQfQQfzt4N8+JFa4cBizE+OxsfPy+rUUw5sQ2WootqG1kxHS1pvjcsPyA==&quot; crossorigin=&quot;anonymous&quot; referrerpolicy=&quot;no-referrer&quot;&gt;&lt;/script&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="javascript" /><category term="javascript" /><summary type="html">According to the principles of Data-Oriented Programming, we should represent data with generic and immutable data structures, like immutable hash maps and immutable vectors. At first sight, it might seem that it means to live in the wild and not validate that data is conformed to an expected schema.</summary></entry><entry><title type="html">A new way of blogging about Golang</title><link href="/golang/2021/08/29/blog-go.html" rel="alternate" type="text/html" title="A new way of blogging about Golang" /><published>2021-08-29T01:11:22+00:00</published><updated>2021-08-29T01:11:22+00:00</updated><id>/golang/2021/08/29/blog-go</id><content type="html" xml:base="/golang/2021/08/29/blog-go.html">&lt;p&gt;This blog post is about to show a new way of blogging about the &lt;a href=&quot;https://en.wikipedia.org/wiki/Go_(programming_language)&quot;&gt;Go&lt;/a&gt; programming language.&lt;/p&gt;
 
 &lt;p&gt;Look at a typical blog post or tutorial about any programming language: The article usually presents a couple of code snippets. As I see it, there are two pains with code snippets:&lt;/p&gt;
 
@@ -1791,90 +2180,4 @@ libraryDataV1.users[1].password
 
 &lt;p&gt;In my book about &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;amp;utm_medium=affiliate&amp;amp;utm_campaign=book_sharvit2_data_1_29_21&amp;amp;a_aid=viebel&amp;amp;a_bid=d5b546b7&quot;&gt;Data-Oriented programming&lt;/a&gt;, I discuss techniques to overcome this limitation.&lt;/p&gt;
 
-&lt;p&gt;The book illustrate in details the benefits of building a software system based upon data immutability.&lt;/p&gt;</content><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><category term="javascript" /><category term="dop" /><category term="javascript" /><summary type="html">Motivation</summary></entry><entry><title type="html">Graph visualization playground with Cytoscape.</title><link href="/visualization/2021/02/16/graph-playground-cytoscape.html" rel="alternate" type="text/html" title="Graph visualization playground with Cytoscape." /><published>2021-02-16T14:11:22+00:00</published><updated>2021-02-16T14:11:22+00:00</updated><id>/visualization/2021/02/16/graph-playground-cytoscape</id><content type="html" xml:base="/visualization/2021/02/16/graph-playground-cytoscape.html">&lt;p&gt;Playground for visualizing graphs using &lt;a href=&quot;https://js.cytoscape.org/&quot;&gt;Cytoscape.js&lt;/a&gt; in Clojure.&lt;/p&gt;
-
-&lt;p&gt;We define the default graph options:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(def ^:dynamic *default-graph-options* 
-  {:style [{:selector &quot;node&quot;
-  :style {:background-color &quot;#666&quot;
-        :label &quot;data(label)&quot;}}
-    {:selector &quot;edge&quot;
-      :style {&quot;width&quot; 2
-        :line-color &quot;#ccc&quot;
-        :target-arrow-color &quot;#ccc&quot;
-        :curve-style &quot;bezier&quot;
-        :target-arrow-shape &quot;triangle&quot;
-        :label &quot;data(label)&quot;}}]
-  :layout {:name &quot;circle&quot;}
-  :userZoomingEnabled false
-  :userPanningEnabled false
-  :boxSelectionEnabled false}) 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;A function that renders the graph specified by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;elements&lt;/code&gt; on the container whose id is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;container-id&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(defn cytoscape-clj [elements container-id]
-  (js/cytoscape
-   (clj-&amp;gt;js (merge *default-graph-options*
-                   {:container (js/document.getElementById container-id)
-                    :elements elements})))
-  nil)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Let’s render a graph with some nodes and edges:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt; (def elements [{:data {:id &quot;a&quot;}}
-               {:data {:id &quot;b&quot;}}
-               {:data {:id &quot;c&quot;}}
-               {:data {:id &quot;d&quot;}}
-               {:data {:id &quot;e&quot;}}
-               {:data {:id &quot;ab&quot; :source &quot;a&quot; :target &quot;b&quot;}}
-               {:data {:id &quot;ad&quot; :source &quot;a&quot; :target &quot;d&quot;}}
-               {:data {:id &quot;be&quot; :source &quot;b&quot; :target &quot;e&quot;}}
-               {:data {:id &quot;cb&quot; :source &quot;c&quot; :target &quot;b&quot;}}
-               {:data {:id &quot;de&quot; :source &quot;d&quot; :target &quot;e&quot;}}])
- (cytoscape-clj elements &quot;graph-2&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;div id=&quot;graph-2&quot; style=&quot;width: 100%; height: 200px; background-color: white;&quot;&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Now we write functions that create edges and nodes for a fully-connected graph:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(defn edge [a b] {:data {:source a :target b}})
-(defn connect-all [ids]
-  (for [a ids
-        b ids
-        :when (&amp;lt; a b)]
-    (edge a b)))
-
-(defn nodes [ids]
-  (for [id ids]
-    {:data {:id id}}))
-
-(defn elements [ids]
-  (concat (nodes ids)
-          (connect-all ids)))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We render a fully-connected directed graph with 6 nodes:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(cytoscape-clj (elements (range 6)) &quot;graph-3&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;div id=&quot;graph-3&quot; style=&quot;width: 100%; height: 200px; background-color: white;&quot;&gt;
-&lt;/div&gt;
-
-&lt;p&gt;We render a fully-connected undirected graph with 6 nodes:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse&quot;&gt;(binding [*default-graph-options* (assoc-in *default-graph-options*
-            [:style 1 :style :target-arrow-shape] nil)]
-            (cytoscape-clj (elements (range 6)) &quot;graph-4&quot;))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;div id=&quot;graph-4&quot; style=&quot;width: 100%; height: 200px; background-color: white;&quot;&gt;
-&lt;/div&gt;
-
-&lt;script type=&quot;text/javascript&quot; async=&quot;&quot; src=&quot;https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.18.0/cytoscape.min.js&quot;&gt;
-&lt;/script&gt;</content><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><category term="visualization" /><category term="visualization" /><category term="clojure" /><category term="graph" /><summary type="html">Playground for visualizing graphs using Cytoscape.js in Clojure.</summary></entry></feed>
+&lt;p&gt;The book illustrate in details the benefits of building a software system based upon data immutability.&lt;/p&gt;</content><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><category term="javascript" /><category term="dop" /><category term="javascript" /><summary type="html">Motivation</summary></entry></feed>

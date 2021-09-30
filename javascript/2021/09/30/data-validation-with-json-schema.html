@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+        <!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Data validation with JSON schema | Yehonathan Sharvit</title>
+<meta name="generator" content="Jekyll v4.2.0" />
+<meta property="og:title" content="Data validation with JSON schema" />
+<meta name="author" content="Yehonathan Sharvit" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="How to represent data schema with JSON schema. Benefits of separating data schema from data representation in Data-Oriented Programming." />
+<meta property="og:description" content="How to represent data schema with JSON schema. Benefits of separating data schema from data representation in Data-Oriented Programming." />
+<meta property="og:site_name" content="Yehonathan Sharvit" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-09-30T00:15:28+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Data validation with JSON schema" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@Yehonathan Sharvit" />
+<script type="application/ld+json">
+{"url":"/javascript/2021/09/30/data-validation-with-json-schema.html","headline":"Data validation with JSON schema","dateModified":"2021-09-30T00:15:28+00:00","datePublished":"2021-09-30T00:15:28+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/javascript/2021/09/30/data-validation-with-json-schema.html"},"author":{"@type":"Person","name":"Yehonathan Sharvit"},"description":"How to represent data schema with JSON schema. Benefits of separating data schema from data representation in Data-Oriented Programming.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+
+    <!-- Site Favicon -->
+    <link rel="shortcut icon" href="/assets/favicon2.png" type="image/png" />
+
+    <!-- Font Embed Code -->
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600,600i|Karla:400,400i,700,700i" rel="stylesheet">
+
+    <!-- CSS Styles -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+</head>
+
+
+
+<body class="layout-post">
+    <div id="page" class="site">
+        <header id="masthead" class="site-header">
+    <div class="site-header-wrap">
+        <div class="site-header-inside">
+
+            <div class="site-branding">
+                
+                <p class="profile">
+                    <a href="/">
+                        <img src="/assets/images/authorimage.jpg" alt="'s Picture"
+                            class="avatar" />
+                    </a>
+                </p>
+                <div class="site-identity">
+                    
+                    <h1 class="site-title">
+                        <a href="/">Yehonathan Sharvit</a>
+                    </h1>
+                    
+                    
+                    <p class="site-description">Developer. Author. Speaker.</p>
+                    
+                </div><!-- .site-identity -->
+                
+                <button id="menu-toggle" class="menu-toggle"><span class="screen-reader-text">Main Menu</span><span
+                        class="icon-menu" aria-hidden="true"></span></button>
+            </div><!-- .site-branding -->
+
+            <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+                <div class="site-nav-wrap">
+                    <div class="site-nav-inside">
+                    <ul class="menu">
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/">Blog</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/talks">Talks</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/about">About</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/contact">Contact</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/search">Search</a></li>
+                        
+                    </ul>
+                    <p class="social-links">
+    <a class="github-button" href="https://github.com/viebel/klipse" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    
+    <a href="https://twitter.com/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+</p>
+
+                    <div class="book-header">
+  <div>
+    Discover my book!
+  </div>
+  <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
+    <img src="/assets/dop-book.png">
+  </a>
+  <div>
+    DISCOUNT CODE: sharvit39
+  </div>
+</div>
+
+                    </div><!-- .site-nav-inside -->
+                </div><!-- .site-nav-wrap -->
+            </nav><!-- .site-navigation -->
+
+        </div><!-- .site-header-inside -->
+    </div><!-- .site-header-wrap -->
+</header><!-- .site-header -->
+
+        <div id="content" class="site-content fadeInDown delay_075s">
+            <div class="inner-wide">
+                <main id="main" class="site-main">
+
+    <article class="post-full inner">
+
+        <header class="post-header">
+            <h1 class="post-title">Data validation with JSON schema</h1>
+            <span class="post-meta">
+              <time class="post-date" datetime="2021-09-30">
+                September 30, 2021
+              </time>
+            </span>
+            
+            <span class="post-tags">
+                <a href="/tags/index.html#javascript"
+                    rel="tag">javascript</a>
+                
+            </span>
+            
+        </header><!-- .post-header -->
+
+        <div class="post-content">
+            <p>According to the principles of <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7">Data-Oriented Programming</a>, we should represent data with <strong>generic</strong> and <strong>immutable</strong> data structures, like immutable hash maps and immutable vectors. At first sight, it might seem that it means to <em>live in the wild</em> and not validate that data is conformed to an expected schema.</p>
+
+<p>In fact, it is possible – and advised – to maintain a data schema in Data-Oriented Programming. The major insight of Data-Oriented Programming regarding data validation is that <strong>data schema</strong> should be <strong>separated</strong> from <strong>data representation</strong>.</p>
+
+<blockquote>
+  <p>We should separate data schema from data representation.</p>
+</blockquote>
+
+<p>This article is made of 4 parts:</p>
+
+<ol>
+  <li>How to express a data schema using <strong>JSON schema</strong></li>
+  <li>How to <strong>validate</strong> data against a JSON schema</li>
+  <li>The <strong>benefits</strong> of separating between data schema and data representation</li>
+  <li>The <strong>costs</strong> of separating between data schema and data representation</li>
+</ol>
+
+<p>This article is an interactive version of the article published on <a href="https://javascript.works-hub.com/learn/data-validation-without-objects-78fcc">JavaScript Works</a>.</p>
+
+<p><img src="/assets/freedom-2.jpg" alt="Freedom" /></p>
+
+<h2 id="json-schema">JSON schema</h2>
+
+<p>Think about handling a request in a library management system for the addition of an author to the system. To keep things simple, imagine that such a request contains only basic information about the author:</p>
+
+<ol>
+  <li>Their first name</li>
+  <li>Their last name</li>
+  <li>Optionally, the number of books they have written</li>
+</ol>
+
+<p>In Data-Oriented Programming, we represent the request data in our program as a string map that is expected to have three fields:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">firstName</code> - a string</li>
+  <li><code class="language-plaintext highlighter-rouge">lastName</code> - a string</li>
+  <li><code class="language-plaintext highlighter-rouge">books</code> - a number (optional)</li>
+</ol>
+
+<p>Using <a href="https://json-schema.org/">JSON schema</a>, we represent the data schema of the request with the following map:</p>
+
+<pre><code class="language-klipse-eval-js">var addAuthorRequestSchema = {
+  "type": "object",
+  "required": ["firstName", "lastName"], 
+  "properties": {
+    "firstName": {"type": "string"},
+    "lastName": {"type": "string"},
+    "books": {"type": "integer"}
+  }
+};
+</code></pre>
+
+<p>A couple of remarks regarding the syntax of this JSON schema:</p>
+
+<ol>
+  <li>Data is expected to be a map (in JSON, a map is called an object)</li>
+  <li>Only <code class="language-plaintext highlighter-rouge">firstName</code> and <code class="language-plaintext highlighter-rouge">lastName</code> fields are required</li>
+  <li><code class="language-plaintext highlighter-rouge">firstName</code> must be a string</li>
+  <li><code class="language-plaintext highlighter-rouge">lastName</code> must be a string</li>
+  <li><code class="language-plaintext highlighter-rouge">books</code> must be an integer (when it is provided)</li>
+</ol>
+
+<h2 id="data-validation-against-a-schema">Data validation against a schema</h2>
+
+<p>In order to check whether a piece of data conforms to a data schema, we use a <em>data validation library</em>. For instance, using <a href="https://ajv.js.org/">Ajv JSON schema validator</a>, we validate a piece of data using the <code class="language-plaintext highlighter-rouge">validate</code> function.</p>
+
+<p>As you might expect, when a piece of data is valid, <code class="language-plaintext highlighter-rouge">validate</code> returns <code class="language-plaintext highlighter-rouge">true</code>:</p>
+
+<pre><code class="language-klipse-eval-js">var ajv = new Ajv({allErrors: true}); 
+
+var validAuthorData = {
+  firstName: "Isaac",
+  lastName: "Asimov",
+  books: 500
+};
+
+ajv.validate(addAuthorRequestSchema, validAuthorData); 
+</code></pre>
+
+<p>When a piece of data is invalid (e.g. using <code class="language-plaintext highlighter-rouge">lastNam</code> instead of <code class="language-plaintext highlighter-rouge">lastName</code>), <code class="language-plaintext highlighter-rouge">validate</code> returns <code class="language-plaintext highlighter-rouge">false</code>:</p>
+
+<pre><code class="language-klipse-eval-js">var invalidAuthorData = {
+  firstName: "Isaac",
+  lastNam: "Asimov",
+  books: "five hundred"
+};
+
+ajv.validate(addAuthorRequestSchema, invalidAuthorData);
+</code></pre>
+
+<p>When a piece of data is invalid, we can easily get details about data validation failures in a human readable format:</p>
+
+<pre><code class="language-klipse-eval-js">var invalidAuthorData = {
+  firstName: "Isaac",
+  lastNam: "Asimov",
+  books: "five hundred"
+};
+
+ajv.validate(addAuthorRequestSchema, invalidAuthorData);
+ajv.errorsText(ajv.errors);
+// "data should have required property 'lastName', data.books should be number"
+</code></pre>
+
+<p>A couple of remarks regarding validation with <code class="language-plaintext highlighter-rouge">Ajv</code>:</p>
+
+<ol>
+  <li>By default, Ajv stores only the first data validation error. We use <code class="language-plaintext highlighter-rouge">allErrors: true</code> to store all errors.</li>
+  <li>Data validation errors are stored internally as an array. In order to get a human readable string, we use <code class="language-plaintext highlighter-rouge">errorsText</code> function.</li>
+</ol>
+
+<h2 id="the-benefits-of-separating-between-data-schema-and-data-representation">The benefits of separating between data schema and data representation</h2>
+
+<p>When we separate data schema from data representation in our programs, our programs benefit from:</p>
+
+<ol>
+  <li><strong>Freedom</strong> to choose what data should be validated</li>
+  <li><strong>Optional</strong> fields</li>
+  <li><strong>Advanced</strong> data validation conditions</li>
+  <li>Automatic generation of data model <strong>visualization</strong></li>
+  <li>Automatic generation of <strong>unit tests</strong></li>
+</ol>
+
+<h3 id="benefit-1-freedom-to-choose-what-data-should-be-validated">Benefit #1: Freedom to choose what data should be validated</h3>
+
+<p>When data schema is separated from data representation we are free to instantiate data without specifying its expected shape. Such a <em>freedom</em> is useful in various situations. For example:</p>
+
+<ol>
+  <li>We want to experiment with code quickly</li>
+  <li>Data has already been validated</li>
+</ol>
+
+<h4 id="rapid-prototyping">Rapid prototyping</h4>
+
+<p>In classic Object-Oriented Programming and in some statically typed Functional Programming, each and every piece of data must have a predefined shape (either a class or a data type). During the <strong>exploration phase</strong> of coding, where we don’t know yet what is the exact shape of our data, being forced to update the type definition each time we update our data model <em>slows us down</em>. In Data-Oriented Programming, we can develop at a <em>fast pace</em> during the exploration phase, by <strong>delaying</strong> the data schema definition to a later phase.</p>
+
+<h4 id="code-refactoring">Code refactoring</h4>
+
+<p>One common refactoring pattern is the <strong>split phase refactoring</strong> where you basically split a single large function into multiple smaller functions, with a private scope. Those functions are called with data that has already been validated by the large function. In Data-Oriented Programming, we are free to not specify the shape of the arguments of the inner functions, relying on the data validation that has already occurred.</p>
+
+<p>Suppose we want to display some information about an author, like their full name and whether they are considered as prolific or not.</p>
+
+<p>First, we define the data schema for the author data:</p>
+
+<pre><code class="language-klipse-eval-js">var authorSchema = {
+  "type": "object",
+  "required": ["firstName", "lastName"],
+  "properties": {
+    "firstName": {"type": "string"},
+    "lastName": {"type": "string"},
+    "books": {"type": "integer"}
+  }
+};
+</code></pre>
+
+<p>Then, we write a <code class="language-plaintext highlighter-rouge">displayAuthorInfo</code> function that first check whether data is valid and then displays the information about he author:</p>
+
+<pre><code class="language-klipse-eval-js">function displayAuthorInfo(authorData) {
+  if(!ajv.validate(authorSchema, authorData)) {
+    throw "displayAuthorInfo called with invalid data";
+  };
+  console.log("Author full name is: ", authorData.firstName + " " + authorData.lastName);
+  if(authorData.books == null) {
+    console.log("Author has not written any book");
+  } else {
+    if (authorData.books &gt; 100) {
+      console.log("Author is prolific");
+    } else {
+      console.log("Author is not prolific");
+    }
+  }
+}
+</code></pre>
+
+<p>Notice that the first thing we do inside the body of <code class="language-plaintext highlighter-rouge">displayAuthorInfo</code> is to validate that the argument passed to the function is valid.</p>
+
+<p>Now, let’s apply the split phase refactoring pattern to this simplistic example and split the body of <code class="language-plaintext highlighter-rouge">displayAuthorInfo</code> in two inner functions:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">displayFullName</code>: Display the author full name</li>
+  <li><code class="language-plaintext highlighter-rouge">displayProlificity</code>: Display whether the author is prolific or not</li>
+</ol>
+
+<pre><code class="language-klipse-eval-js">
+function displayFullName(authorData) {
+  console.log("Author full name is: ", authorData.firstName + " " + authorData.lastName);
+}
+
+function displayProlificity(authorData) {
+  if(authorData.books == null) {
+    console.log("Author has not written any book");
+  } else {
+    if (authorData.books &gt; 100) {
+      console.log("Author is prolific");
+    } else {
+      console.log("Author is not prolific");
+    }
+  }
+}
+
+function displayAuthorInfo(authorData) {
+  if(!ajv.validate(authorSchema, authorData)) {
+    throw "displayAuthorInfo called with invalid data";
+  };
+  displayFullName(authorData);
+  displayProlificity(authorData);
+}
+</code></pre>
+
+<p>Having the data schema separated from the data representation allows us not to specify a data schema for the arguments of the inner functions <code class="language-plaintext highlighter-rouge">displayFullName</code> and <code class="language-plaintext highlighter-rouge">displayProlificity</code>. It makes the refactoring process a bit <em>smoother</em>.</p>
+
+<p>In some cases, the inner functions are more complicated and it makes sense to specify a data schema for their arguments. Data-Oriented Programming gives us the freedom to choose!</p>
+
+<h3 id="benefit-2-optional-fields">Benefit #2: Optional fields</h3>
+
+<p>In Object-Oriented Programming, allowing a class member to be <em>optional</em> is not easy. For instance, in Java one needs a special construct like the <code class="language-plaintext highlighter-rouge">Optional</code> class <a href="https://www.oracle.com/technical-resources/articles/java/java8-optional.html">introduced in Java 8</a>.</p>
+
+<p>In Data-Oriented Programming, it is natural to declare a field as optional in a map. In fact in JSON schema, <strong>by default</strong> every field is optional. In order to make a field non-optional, we have to include its name in the <code class="language-plaintext highlighter-rouge">required</code> array as for instance in the author schema in the following code snippet where only <code class="language-plaintext highlighter-rouge">firstName</code> and <code class="language-plaintext highlighter-rouge">lastName</code> are required while <code class="language-plaintext highlighter-rouge">books</code> is optional.</p>
+
+<pre><code class="language-klipse-eval-js">var authorSchema = {
+  "type": "object",
+  "required": ["firstName", "lastName"], // `books` is not included in `required`, as it is an optional field
+  "properties": {
+    "firstName": {"type": "string"},
+    "lastName": {"type": "string"},
+    "books": {"type": "integer"} // when present, `books` must be an integer
+  }
+};
+</code></pre>
+
+<p>Let’s illustrate how the validation function deals with optional fields: A map without a <code class="language-plaintext highlighter-rouge">books</code> field is considered to be valid:</p>
+
+<pre><code class="language-klipse-eval-js">var authorDataNoBooks = {
+  "firstName": "Yehonathan",
+  "lastName": "Sharvit"
+};
+
+ajv.validate(authorSchema, authorDataNoBooks) // true
+</code></pre>
+
+<p>However, a map with a <code class="language-plaintext highlighter-rouge">books</code> field where the value is not an interger is considered to be invalid:</p>
+
+<pre><code class="language-klipse-eval-js">var authorDataInvalidBooks = {
+  "firstName": "Albert",
+  "lastName": "Einstein",
+  "books": "Five"
+};
+
+ajv.validate(authorSchema, authorDataInvalidBooks) // false
+</code></pre>
+
+<h3 id="benefit-3-advanced-data-validation-conditions">Benefit #3: Advanced data validation conditions</h3>
+
+<p>In Data-Oriented Programming, data validation occurs at <strong>run time</strong>. It allows us to define data validation conditions that go beyond the <strong>type</strong> of a field. For instance, we might want to make sure that a field is not only a string but a string with a maximal number of characters or a number comprised in a range of numbers.</p>
+
+<p>For instance, here is a JSON schema that expects <code class="language-plaintext highlighter-rouge">firstName</code> and <code class="language-plaintext highlighter-rouge">lastName</code> to be strings of less than 100 characters and <code class="language-plaintext highlighter-rouge">books</code> to be a number between <code class="language-plaintext highlighter-rouge">0</code> and <code class="language-plaintext highlighter-rouge">10,000</code>:</p>
+
+<pre><code class="language-klipse-eval-js">var authorComplexSchema = {
+  "type": "object",
+  "required": ["firstName", "lastName"],
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "lastName": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "books": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10000
+    }
+  }
+};
+</code></pre>
+
+<p>JSON schema supports many other advanced data validation conditions, like regular expression validation for string fields or number fields that should be a multiple of a given number.</p>
+
+<h3 id="benefit-4-automatic-generation-of-data-model-visualization">Benefit #4: Automatic generation of data model visualization</h3>
+
+<p>When the data schema is defined as data, we can leverage tools that generate data model visualization: with tools like <a href="https://navneethg.github.io/jsonschemaviewer/">JSON Schema Viewer</a> and <a href="https://github.com/metosin/malli">Malli</a> we can generate a UML diagram out of a JSON schema. For instance, the following JSON schema defines the shape of a <code class="language-plaintext highlighter-rouge">bookList</code> field that is an array of books where each book is a map.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"firstName"</span><span class="p">,</span><span class="w"> </span><span class="s2">"lastName"</span><span class="p">],</span><span class="w">
+  </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">},</span><span class="w">
+    </span><span class="nl">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">},</span><span class="w">
+    </span><span class="nl">"bookList"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"array"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">},</span><span class="w">
+          </span><span class="nl">"publicationYear"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"integer"</span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The tools we just mentioned can generate the following UML diagram from the JSON schema:</p>
+
+<p><img src="/assets/author-schema.png" alt="author schema" /></p>
+
+<h3 id="benefit-5-automatic-generation-of-unit-tests">Benefit #5: Automatic generation of unit tests</h3>
+
+<p>An interesting way to leverage data schema for function arguments is to automatically generate unit tests. Let’s change a bit the <code class="language-plaintext highlighter-rouge">displayAuthorInfo</code> function into a function called <code class="language-plaintext highlighter-rouge">calculateAuthorInfo</code> that – instead of displaying the author info – returns the author info as a string.</p>
+
+<pre><code class="language-klipse-eval-js">function calculateAuthorInfo(authorData) {
+  if(!ajv.validate(authorSchema, authorData)) {
+    throw "calculateAuthorInfo called with invalid data";
+  };
+  var fullName = "Author full name is: " + authorData.firstName + " " + authorData.lastName;
+  var prolificity = "";
+  if(authorData.books == null) {
+    prolificity = "Author has not written any book";
+  } else {
+    if (authorData.books &gt; 100) {
+      prolificity = "Author is prolific";
+    } else {
+      prolificity = "Author is not prolific";
+    }
+  }
+  return fullName + "\n" + prolificity;
+}
+</code></pre>
+
+<p>We are going to generate a unit test for <code class="language-plaintext highlighter-rouge">calculateAuthorInfo</code> by generating random input data that conforms to <code class="language-plaintext highlighter-rouge">authorSchema</code>. For that purpose, we use a library like <a href="https://github.com/json-schema-faker/json-schema-faker">JSON Schema Faker</a>.</p>
+
+<pre><code class="language-klipse-eval-js">JSONSchemaFaker(authorSchema)
+</code></pre>
+
+<p>Then we call <code class="language-plaintext highlighter-rouge">calculateAuthorInfo</code> with the random data:</p>
+
+<pre><code class="language-klipse-eval-js">calculateAuthorInfo(JSONSchemaFaker(authorSchema))
+</code></pre>
+
+<p>Depending on what the function does, we might expect different things. In the case of <code class="language-plaintext highlighter-rouge">calculateAuthorInfo</code>, we expect the output to be a string that starts with the word <code class="language-plaintext highlighter-rouge">Author</code>. Let’s create a schema for the return value of <code class="language-plaintext highlighter-rouge">calculateAuthorInfo</code>:</p>
+
+<pre><code class="language-klipse-eval-js">var calculateAuthorInfoReturnValueSchema = {
+"type": "string",
+"pattern": "Author.*"
+};
+</code></pre>
+
+<p>Here is the code of our unit test:</p>
+
+<pre><code class="language-klipse-eval-js">var res = calculateAuthorInfo(JSONSchemaFaker(authorSchema));
+ajv.validate(calculateAuthorInfoReturnValueSchema, res)
+</code></pre>
+
+<h2 id="the-costs-of-separating-between-data-schema-and-data-representation">The costs of separating between data schema and data representation</h2>
+
+<p>There is no such thing as a free lunch. Separating between data schema and data representation comes at a cost:</p>
+
+<ol>
+  <li><em>Loose connection</em> between data and its schema</li>
+  <li>Light <em>performance</em> hit</li>
+</ol>
+
+<h3 id="cost-1-loose-connection-between-data-and-its-schema">Cost #1: Loose connection between data and its schema</h3>
+
+<p>By definition, when we separate between data schema and data representation, the connection between data and its schema is <strong>looser</strong> that when we represent data with classes. Moreover, the schema definition language (e.g. JSON schema) is not part of the programming language. It is up to the developer to decide where data validation is <strong>necessary</strong> and where it is <strong>superfluous</strong>.</p>
+
+<p>As the idiom says, with great <strong>power</strong> comes great <strong>responsibility</strong>.</p>
+
+<h3 id="cost-2-light-performance-hit">Cost #2: Light performance hit</h3>
+
+<p>As we mentioned earlier, there exist implementations of JSON schema validation in most programming languages. When data validation occurs at <strong>run time</strong> it takes some time to run the data validation while in Object-Oriented programming, data validation occurs usually at <strong>compile time</strong>.</p>
+
+<p>This drawback is <strong>mitigated</strong> by the fact that even in Object-Oriented programming some parts of the data validation occur at run time. For instance, the conversion of a request JSON payload into an object occurs at run time. Moreover, in Data-Oriented Programming, it is quite common to have some data validation parts enabled only during <strong>development</strong> and to disable them when the system runs in <strong>production</strong>.</p>
+
+<p>As a consequence, the performance hit is not significant.</p>
+
+<h2 id="wrapping-up">Wrapping up</h2>
+
+<p>In <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7">Data-Oriented Programming</a>, data is represented with immutable generic data structures. When additional information about the shape of the data is required, we are free to define a data schema (e.g. in JSON Schema).</p>
+
+<p>Keeping the data schema separate from the data representation leaves the developer free to decide where and when data should be validated. Moreover, data validation occurs at run-time. As a consequence, we can express data validation conditions that go beyond the static data types (e.g. the string length).</p>
+
+<p>However, with great power comes great responsibility and it’s up to the developer to decide to validate data.</p>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js" integrity="sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww==" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ajv/6.12.6/ajv.bundle.js" integrity="sha512-km2o1mynU1nR0HonrYrI0TA+QvRMtONwnfA/nl15hnd/WyjZ/FLV7NROHAbzzSjHxIeQPfiJRUSUzevO2Ut0Ng==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/json-schema-faker/0.5.0-rc9/json-schema-faker.min.js" integrity="sha512-MigyB2SaiNKRt1O7yhf1CbLSUnhIopQfQQfzt4N8+JFa4cBizE+OxsfPy+rUUw5sQ2WootqG1kxHS1pvjcsPyA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+        </div>
+        <footer class="post-footer">
+            <div class="separator"></div>
+            <div class="post-share">
+                <span class="post-share-title">Share:</span>
+                <a target="_blank"
+                    href="https://twitter.com/share?text=Data+validation+with+JSON+schema&amp;url=https://blog.klipse.techjavascript/2021/09/30/data-validation-with-json-schema.html">Twitter</a>
+                <a target="_blank"
+                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techjavascript/2021/09/30/data-validation-with-json-schema.html">Facebook</a>
+            </div><!-- .share-post -->
+        </footer>
+    </article>
+
+    
+    <section class="newsletter-box inner">
+    <h2 class="newsletter-box-title">Subscribe to Yehonathan Sharvit newsletter</h2>
+    <p>Get the latest and greatest from Yehonathan Sharvit delivered straight to your inbox every week.</p>
+    <!-- Begin TinyLetter Signup Form -->
+    <div id="tinyletter_embed_signup">
+      <form class="validate gh-subscribe-form" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	      <label for="tlemail" class="screen-reader-text">Email Address</label>
+        <input type="email" value="" name="email" class="required email subscribe-email" placeholder="Your email address">
+	      <input type="hidden" value="1" name="embed"/>
+	      <input class="button" type="submit" value="Subscribe" />
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
+</section><!-- .widget -->
+
+    
+    <section class="read-next inner">
+        <h2 class="read-next-title">Read Next</h2>
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="August 29, 2021">August 29, 2021</time>
+                </div>
+                <h3 class="post-title"><a href="/golang/2021/08/29/blog-go.html">A new way of blogging about Golang</a>
+                </h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/klipse/'>Klipse</a>
+                    
+                    
+                    
+                    <a href='/tag/golang/'>Golang</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+        
+    </section><!-- .read-next -->
+
+    <!-- Create a sorted array of tags -->
+     
+    <section class="tagcloud inner">
+        <h2 class="tagcloud-title">Tags</h2>
+        <div class="tag-links">
+            
+            <a href='/tags/#algo'>algo</a>
+            
+            <a href='/tags/#brainfuck'>brainfuck</a>
+            
+            <a href='/tags/#c%2B%2B'>c++</a>
+            
+            <a href='/tags/#clojure'>clojure</a>
+            
+            <a href='/tags/#clojurescript'>clojurescript</a>
+            
+            <a href='/tags/#compiler'>compiler</a>
+            
+            <a href='/tags/#dop'>dop</a>
+            
+            <a href='/tags/#golang'>golang</a>
+            
+            <a href='/tags/#graph'>graph</a>
+            
+            <a href='/tags/#html'>html</a>
+            
+            <a href='/tags/#java'>java</a>
+            
+            <a href='/tags/#javascript'>javascript</a>
+            
+            <a href='/tags/#kids'>kids</a>
+            
+            <a href='/tags/#klipse'>klipse</a>
+            
+            <a href='/tags/#lambda-calculus'>lambda-calculus</a>
+            
+            <a href='/tags/#lambdacalculus'>lambdacalculus</a>
+            
+            <a href='/tags/#lisp'>lisp</a>
+            
+            <a href='/tags/#lua'>lua</a>
+            
+            <a href='/tags/#maths'>maths</a>
+            
+            <a href='/tags/#oblivion'>oblivion</a>
+            
+            <a href='/tags/#ocaml'>ocaml</a>
+            
+            <a href='/tags/#php'>php</a>
+            
+            <a href='/tags/#prolog'>prolog</a>
+            
+            <a href='/tags/#python'>python</a>
+            
+            <a href='/tags/#react'>react</a>
+            
+            <a href='/tags/#reagent'>reagent</a>
+            
+            <a href='/tags/#reasonml'>reasonml</a>
+            
+            <a href='/tags/#ruby'>ruby</a>
+            
+            <a href='/tags/#scheme'>scheme</a>
+            
+            <a href='/tags/#sql'>sql</a>
+            
+            <a href='/tags/#theory'>theory</a>
+            
+            <a href='/tags/#visualization'>visualization</a>
+            
+        </div><!-- .tag-links -->
+    </section><!-- .tagcloud -->
+</main><!-- .site-main -->
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js, [data-lang=klipse-javascript]',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+        selector_golang: '.language-klipse-go',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?the_version=7.11.2"></script>
+
+
+
+
+
+                
+
+                
+                <footer id="colophon" class="site-footer">
+    <p class="site-info inner">
+        <a href="#">Yehonathan Sharvit</a> &copy; 2021.
+    </p>
+    <a id="back-to-top" class="back-to-top" href="#page">
+        <span class="icon-arrow-up" aria-hidden="true"></span>
+        <span class="screen-reader-text">Back to top</span>
+    </a>
+</footer><!-- .site-footer -->
+
+            </div><!-- .inner-wide -->
+        </div><!-- .site-content -->
+    </div><!-- .site -->
+
+    
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75651930-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-75651930-1', { 'anonymize_ip': true });
+  </script>
+
+    <!-- Javascript Assets -->
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/custom.js"></script>
+
+</body>
+
+</html>
