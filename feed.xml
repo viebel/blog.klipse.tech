@@ -1,4 +1,379 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-30T04:25:14+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><entry><title type="html">Data validation with JSON schema</title><link href="/javascript/2021/09/30/data-validation-with-json-schema.html" rel="alternate" type="text/html" title="Data validation with JSON schema" /><published>2021-09-30T00:15:28+00:00</published><updated>2021-09-30T00:15:28+00:00</updated><id>/javascript/2021/09/30/data-validation-with-json-schema</id><content type="html" xml:base="/javascript/2021/09/30/data-validation-with-json-schema.html">&lt;p&gt;According to the principles of &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;amp;utm_medium=affiliate&amp;amp;utm_campaign=book_sharvit2_data_1_29_21&amp;amp;a_aid=viebel&amp;amp;a_bid=d5b546b7&quot;&gt;Data-Oriented Programming&lt;/a&gt;, we should represent data with &lt;strong&gt;generic&lt;/strong&gt; and &lt;strong&gt;immutable&lt;/strong&gt; data structures, like immutable hash maps and immutable vectors. At first sight, it might seem that it means to &lt;em&gt;live in the wild&lt;/em&gt; and not validate that data is conformed to an expected schema.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-10-02T22:29:50+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><entry><title type="html">Polymorphism without objects via multimethods</title><link href="/javascript/2021/10/02/multimethod.html" rel="alternate" type="text/html" title="Polymorphism without objects via multimethods" /><published>2021-10-02T20:12:21+00:00</published><updated>2021-10-02T20:12:21+00:00</updated><id>/javascript/2021/10/02/multimethod</id><content type="html" xml:base="/javascript/2021/10/02/multimethod.html">&lt;p&gt;&lt;strong&gt;Object-Oriented Programming&lt;/strong&gt; is well known for allowing different classes to be called with the same interface, via a mechanism called &lt;strong&gt;polymorphism&lt;/strong&gt;. It may seem that the only way to have polymorphism in a program is with objects. In fact, as we are going to see in this article it is possible to have &lt;strong&gt;polymorphism without objects&lt;/strong&gt; via &lt;strong&gt;multimethods&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Moreover, multimethods provide more advanced polymorphism than OOP polymorphism as they support cases where the chosen implementation depends on several argument types (multiple dispatch) and even on the dynamic value of the arguments (dynamic dispatch).&lt;/p&gt;
+
+&lt;p&gt;This article covers:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Mimicking objects with multimethods (Single dispatch)&lt;/li&gt;
+  &lt;li&gt;Multimethods where implementations depend on several argument types (Multiple dispatch)&lt;/li&gt;
+  &lt;li&gt;Multimethods where implementations depend dynamically on several arguments (Dynamic dispatch)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;the-essence-of-polymorphism&quot;&gt;The essence of polymorphism&lt;/h1&gt;
+
+&lt;p&gt;In OOP, &lt;strong&gt;polymorphism&lt;/strong&gt; is about defining an &lt;strong&gt;interface&lt;/strong&gt; and having &lt;strong&gt;different classes&lt;/strong&gt; that implement the same interface in different ways.&lt;/p&gt;
+
+&lt;p&gt;Let’s illustrate polymorphism with an adaptation of the classic OOP polymorphism example: animal greetings. Let’s say that our animals are &lt;strong&gt;anthropomorphic&lt;/strong&gt; and each of them has its own way to greet, by emitting its preferred sound and telling its name.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Anthropomorphism&lt;/em&gt; is our first word that comes from the Greek: it comes from the Greek &lt;em&gt;ánthrōpos&lt;/em&gt; that means &lt;em&gt;human&lt;/em&gt; and &lt;em&gt;morphē&lt;/em&gt; that means &lt;em&gt;form&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;In fact, it’s our second word that comes from the Greek. The first one was &lt;em&gt;polymorphism&lt;/em&gt; coming from the Greek &lt;em&gt;polús&lt;/em&gt; that means &lt;em&gt;many&lt;/em&gt; and &lt;em&gt;morphē&lt;/em&gt; that means &lt;em&gt;form&lt;/em&gt;. Polymorphism is the ability of different objects to implement in different ways the same method.&lt;/p&gt;
+
+&lt;p&gt;In Java, for instance, we’d define a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IAnimal&lt;/code&gt; interface with a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greet&lt;/code&gt; method and each animal class would implement &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greet&lt;/code&gt; in its own way, like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IAnimal&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;greet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Dog&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IAnimal&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;greet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Woof woof! My name is &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;animal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Cat&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IAnimal&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;greet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Meow! I am &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;animal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Cow&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IAnimal&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;greet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Moo! Call me &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;animal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, let’s ask ourselves: what is the &lt;strong&gt;fundamental&lt;/strong&gt; difference between OOP polymorphism and a &lt;strong&gt;naive switch statement&lt;/strong&gt;?&lt;/p&gt;
+
+&lt;p&gt;Let me tell you what I mean by a naive switch statement. We could, as &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;amp;utm_medium=affiliate&amp;amp;utm_campaign=book_sharvit2_data_1_29_21&amp;amp;a_aid=viebel&amp;amp;a_bid=d5b546b7&quot;&gt;Data-Oriented programming&lt;/a&gt; recommends, represent an animal with a &lt;strong&gt;map&lt;/strong&gt; having two &lt;strong&gt;fields&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;name&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;type&lt;/code&gt; and call a different piece of code depending on the value of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;type&lt;/code&gt;, like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function greet(animal) {
+switch (animal.type) {
+case &quot;dog&quot;:
+console.log(&quot;Woof Woof! My name is: &quot; + animal.name);
+break;
+case &quot;cat&quot;:
+console.log(&quot;Meow! I am: &quot; + animal.name);
+break;
+case &quot;cow&quot;:
+console.log(&quot;Moo! Call me &quot; + animal.name);
+break;
+};
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It makes me think that we have not yet met our animals. For no further due, here are our heroes: Fido, Milo and Clarabelle.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var myDog = {
+&quot;type&quot;: &quot;dog&quot;,
+&quot;name&quot;: &quot;Fido&quot;
+};
+var myCat = {
+&quot;type&quot;: &quot;cat&quot;,
+&quot;name&quot;: &quot;Milo&quot;
+};
+var myCow = {
+&quot;type&quot;: &quot;cow&quot;,
+&quot;name&quot;: &quot;Clarabelle&quot;
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The first difference between &lt;strong&gt;OOP polymorphism&lt;/strong&gt; and our &lt;strong&gt;switch statement&lt;/strong&gt; is that, if we pass an invalid map to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greet&lt;/code&gt; function, bad things will happen.&lt;/p&gt;
+
+&lt;p&gt;We could easily fix that by validating input data using &lt;a href=&quot;/javascript/2021/09/30/data-validation-with-json-schema.html&quot;&gt;JSON Schema&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Another drawback of the switch statement approach is that when you want to &lt;strong&gt;modify&lt;/strong&gt; the implementation of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greet&lt;/code&gt; for a specific animal, you have to change the code that deals with all the animals, While in the OOP approach, we have to change only a specific animal class.&lt;/p&gt;
+
+&lt;p&gt;This could also be easily fixed by having a &lt;strong&gt;separate function&lt;/strong&gt; for each animal, like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function greetDog(animal) {
+console.log(&quot;Woof Woof! My name is: &quot; + animal.name);
+}
+function greetCat(animal) {
+console.log(&quot;Meow! I am: &quot; + animal.name);
+}
+function greetCow(animal) {
+console.log(&quot;Moo! Call me &quot; + animal.name);
+}
+function greet(animal) {
+switch (animal.type) {
+case &quot;dog&quot;:
+greetDog(animal);
+break;
+case &quot;cat&quot;:
+greetCat(animal);
+break;
+case &quot;cow&quot;:
+greetCow(animal);
+break;
+};
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But what if you want to &lt;strong&gt;extend&lt;/strong&gt; the functionality of greet and add a new animal?&lt;/p&gt;
+
+&lt;p&gt;Now, we got to the &lt;strong&gt;essence&lt;/strong&gt; of polymorphism! With a switch statement, we cannot add a new animal without modifying the original code, while in OOP we can add a new class without having to modify the original code.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The main benefit of polymorphism is that it makes the code easily extensible.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Now, I have a surprise for you: We don’t need objects to make our code easily extensible. This is what we call: &lt;strong&gt;polymorphism without objects&lt;/strong&gt;. And it is possible with &lt;strong&gt;multimethods&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;multimethods-with-single-dispatch&quot;&gt;Multimethods with single dispatch&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;Multimethod&lt;/strong&gt; is a software construct that provides &lt;strong&gt;polymorphism&lt;/strong&gt; without the need for objects.&lt;/p&gt;
+
+&lt;p&gt;Multimethods are made of two pieces:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;A &lt;strong&gt;dispatch function&lt;/strong&gt; that emits a &lt;strong&gt;dispatched value&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;A set of &lt;strong&gt;methods&lt;/strong&gt; that provide an &lt;strong&gt;implementation&lt;/strong&gt; for each dispatched value.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;A dispatch function is similar to an interface in the sense that it defines the way the function needs to be called. But it goes beyond that as it also dispatches a value that differentiates between the different implementations.&lt;/p&gt;
+
+&lt;p&gt;Let me show illustrate how I would implement the animal greeting capabilities using a multimethod called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greet&lt;/code&gt;. We need a dispatch function and 3 methods. Let’s call the dispatch function &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greetDispatch&lt;/code&gt;: it dispatches the animal type, either &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;dog&quot;&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;cat&quot;&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;cow&quot;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;And each dispatch value is handled by a specific method:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;dog&quot;&lt;/code&gt; by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greetDog&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;cat&quot;&lt;/code&gt; by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greetCat&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;cow&quot;&lt;/code&gt; by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greetCow&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/multimethod-animal.png&quot; alt=&quot;multi-single-dispatch&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In the diagram, there is an arrow between animal and the methods in addition to the arrow between animal and the dispatch function because the arguments of a multimethod are passed to the dispatch function and to the methods.&lt;/p&gt;
+
+&lt;p&gt;For now, our multimethod receives a single argument. But in the next section, it will receive several arguments.&lt;/p&gt;
+
+&lt;p&gt;Let’s see how a multimethod looks like in terms of code.&lt;/p&gt;
+
+&lt;p&gt;We start with the dispatch function &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greetDispatch&lt;/code&gt;: it defines the signature of the multimethod and emits the type of the animal as the dispatched value:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function greetDispatch(animal) {
+return animal.type;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, we need a method for each dispatch value. In our case, we’ll have &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greetDog&lt;/code&gt; for dogs, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greetCat&lt;/code&gt; for cats and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greetCow&lt;/code&gt; for cows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function greetDog(animal) {
+console.log(&quot;Woof woof! My name is &quot; + animal.name);
+}
+function greetCat(animal) {
+console.log(&quot;Meow! I am &quot; + animal.name);
+}
+function greetCow(animal) {
+console.log(&quot;Moo! Call me &quot; + animal.name);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;In the context of multimethods, a method is a function that provides an implementation for a dispatch value.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;On the one hand we have the greet dispatch function and on the other hand we have the different greet implementations. How do you &lt;strong&gt;wire&lt;/strong&gt; everything together?&lt;/p&gt;
+
+&lt;p&gt;For that, we need a library. For instance, in JavaScript using a library named &lt;a href=&quot;https://github.com/caderek/arrows/tree/master/packages/multimethod&quot;&gt;arrows/multimethod&lt;/a&gt;, we call &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;multi&lt;/code&gt; to create a multimethod and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;method&lt;/code&gt; to create a method:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var greet = multi(
+greetDispatch,
+method(&quot;dog&quot;, greetDog),
+method(&quot;cat&quot;, greetCat),
+method(&quot;cow&quot;, greetCow)
+);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The names of the dispatch function and the methods are not really important. But I like to follow a simple &lt;strong&gt;naming convention&lt;/strong&gt;: use the name of the multimethod as a &lt;strong&gt;prefix&lt;/strong&gt; for the dispatch function and the methods and have the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Dispatch&lt;/code&gt; &lt;strong&gt;suffix&lt;/strong&gt; for the dispatch function and a specific &lt;strong&gt;suffix&lt;/strong&gt; for each method.&lt;/p&gt;
+
+&lt;p&gt;Under the hood, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;arrows/multimethod&lt;/code&gt; library maintains a &lt;strong&gt;hash map&lt;/strong&gt;, where the keys are the values emitted by the dispatch function and the values are the methods. When you call method, the library adds an entry to the hash map and when you call the multimethod it queries the hash map to find the implementation that corresponds to the dispatch value.&lt;/p&gt;
+
+&lt;p&gt;In terms of usage, we call a multimethod as a regular function:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;greet(myCow);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;multimethods-with-multiple-dispatch&quot;&gt;Multimethods with multiple dispatch&lt;/h1&gt;
+
+&lt;p&gt;So far, we have mimicked OOP by having as a dispatch value the type of the multimethod argument. But if you think again about the flow of a multimethod, you will discover something interesting: in fact the dispatch function could emit any value.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/multimethod.png&quot; alt=&quot;multi&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;For instance, we could emit the type of two arguments!&lt;/p&gt;
+
+&lt;p&gt;Imagine that our animals are &lt;strong&gt;polyglot&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Polyglot&lt;/em&gt; comes from the Greek &lt;em&gt;polús&lt;/em&gt; meaning &lt;em&gt;much&lt;/em&gt; and &lt;em&gt;glôssa&lt;/em&gt; meaning &lt;em&gt;language&lt;/em&gt;. A polyglot is a person speaking many languages.&lt;/p&gt;
+
+&lt;p&gt;Let’s say our animals speak English and French.&lt;/p&gt;
+
+&lt;p&gt;We represent a language like we represent an animal, with a map having two fields: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;type&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;name&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var french = {
+&quot;type&quot;: &quot;fr&quot;,
+&quot;name&quot;: &quot;Français&quot;
+};
+var english = {
+&quot;type&quot;: &quot;en&quot;,
+&quot;name&quot;: &quot;English&quot;
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, let’s write the code for the &lt;strong&gt;dispatch function&lt;/strong&gt; and the &lt;strong&gt;methods&lt;/strong&gt; for our polyglot animals. Let’s call our multimethod: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greetLang&lt;/code&gt;. We have:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;one dispatch function&lt;/li&gt;
+  &lt;li&gt;6 methods: 3 animals (dog, cat, cow) times 2 languages (en, fr).&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;But before the implementation I’d like to draw a flow diagram. It will help me to make things crystal clear.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/multimethod-animal-polyglot.png&quot; alt=&quot;multi-single-dispatch&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I omitted the arrow between the arguments and the methods in order to keep the diagram readable. Otherwise there would be too many arrows.&lt;/p&gt;
+
+&lt;p&gt;The dispatch function is going to return an array with two elements: the type of the animal and the type of the language:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function greetLangDispatch(animal, language) {
+return [animal.type, language.type];
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The order of the elements in the array It doesn’t matter but it needs to be consistent with the wiring of the methods.&lt;/p&gt;
+
+&lt;p&gt;Now, let’s implement the 6 methods:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function greetLangDogEn(animal, language) {
+console.log(&quot;Woof woof! My name is &quot; + animal.name + &quot; and I speak &quot; +
+language.name);
+}
+function greetLangDogFr(animal, language) {
+console.log(&quot;Ouaf Ouaf! Mon nom est &quot; + animal.name + &quot; et je parle &quot; +
+language.name);
+}
+function greetLangCatEn(animal, language) {
+console.log(&quot;Meow! I am &quot; + animal.name + &quot; and I speak &quot; + language.name);
+}
+function greetLangCatFr(animal, language) {
+console.log(&quot;Miaou! Je m'appelle &quot; + animal.name + &quot; et je parle &quot; + language.name);
+}
+function greetLangCowEn(animal, language) {
+console.log(&quot;Moo! Call me &quot; + animal.name + &quot; and I speak &quot; + language.name);
+}
+function greetLangCowFr(animal, language) {
+console.log(&quot;Meuh! Appelle moi &quot; + animal.name + &quot; et je parle &quot; + language.name);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Take a closer look at the code for the methods that deal with French and tell me if you are surprised to see “Ouaf Ouaf”
+instead of “Woof Woof” for dogs, “Miaou” instead of “Meow” for cats and “Meuh” instead of “Moo” for cows. I find it funny that that animal &lt;strong&gt;onomatopoeia&lt;/strong&gt; are different in French than in English!&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Onomatopoeia&lt;/em&gt; comes also from the Greek: &lt;em&gt;ónoma&lt;/em&gt; means &lt;em&gt;name&lt;/em&gt; and &lt;em&gt;poiéō&lt;/em&gt; means &lt;em&gt;to produce&lt;/em&gt;. It is the property of words that sound like what they represent. For instance, Woof, Meow and Moo.&lt;/p&gt;
+
+&lt;p&gt;Anyway, after we have defined our &lt;strong&gt;dispatch function&lt;/strong&gt; and our &lt;strong&gt;methods&lt;/strong&gt;, we need to &lt;strong&gt;wire&lt;/strong&gt; them altogether in a multimethod, like we did with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greet&lt;/code&gt;. The only difference that the dispatch values are arrays of strings instead of strings:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var greetLang = multi(
+  greetLangDispatch,
+  method([&quot;dog&quot;, &quot;en&quot;], greetLangDogEn),
+  method([&quot;dog&quot;, &quot;fr&quot;], greetLangDogFr),
+  method([&quot;cat&quot;, &quot;en&quot;], greetLangCatEn),
+  method([&quot;cat&quot;, &quot;fr&quot;], greetLangCatFr),
+  method([&quot;cow&quot;, &quot;en&quot;], greetLangCowEn),
+  method([&quot;cow&quot;, &quot;fr&quot;], greetLangCowFr)
+);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Multiple dispatch&lt;/strong&gt; is when a dispatch function emits a value that depends on more than one argument.&lt;/p&gt;
+
+&lt;p&gt;Let’s see our multimethod in action and ask our dog &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Fido&lt;/code&gt; to greet in French:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;greetLang(myDog, french);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;multimethods-with-dynamic-dispatch&quot;&gt;Multimethods with dynamic dispatch&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;Dynamic dispatch&lt;/strong&gt; is when the dispatch function of a multimethod returns a value that goes &lt;strong&gt;beyond the static type&lt;/strong&gt; of its arguments, like for instance a number or a boolean.&lt;/p&gt;
+
+&lt;p&gt;Imagine that instead of being polyglot our animals would suffer from &lt;strong&gt;dysmakrylexia&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Dysmakrylexia&lt;/em&gt; comes from the Greek &lt;em&gt;dus&lt;/em&gt; expressing the idea of &lt;em&gt;difficulty&lt;/em&gt;, &lt;em&gt;makrýs&lt;/em&gt; meaning &lt;em&gt;long&lt;/em&gt; and &lt;em&gt;léxis&lt;/em&gt; that means &lt;em&gt;diction&lt;/em&gt;. Therefore, dysmakrilexia is a difficulty to pronounce long words.&lt;/p&gt;
+
+&lt;p&gt;It’s not a real word, I invented it for the purpose of this article!&lt;/p&gt;
+
+&lt;p&gt;Let’s say that when their name has more than 5 letters an animal is not able to tell it.&lt;/p&gt;
+
+&lt;p&gt;Let’s call our multimethod &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dysGreet&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/multimethod-dys.png&quot; alt=&quot;multi-single-dispatch&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Its dispatch function returns an array with two elements: the animal type and a boolean about whether the name is long or not:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function dysGreetDispatch(animal) {
+var hasLongName = animal.name.length &amp;gt; 5;
+return [animal.type, hasLongName];
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And here are the methods:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function dysGreetDogShort(animal) {
+console.log(&quot;Woof woof! My name is &quot; + animal.name);
+}
+function dysGreetDogLong(animal) {
+console.log(&quot;Woof woof!&quot;);
+}
+function dysGreetCatShort(animal) {
+console.log(&quot;Meow! I am &quot; + animal.name);
+}
+function dysGreetCatLong(animal) {
+console.log(&quot;Meow!&quot;);
+}
+function dysGreetCowShort(animal) {
+console.log(&quot;Moo! Call me &quot; + animal.name);
+}
+function dysGreetCowLong(animal) {
+console.log(&quot;Moo!&quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As surprising as it may sound, wiring a multimethod with dynamic dispatch is as simple as wiring a multimethod with static dispatch:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var dysGreet = multi(
+dysGreetDispatch,
+method([&quot;dog&quot;, false], dysGreetDogShort),
+method([&quot;dog&quot;, true], dysGreetDogLong),
+method([&quot;cat&quot;, false], dysGreetCatShort),
+method([&quot;cat&quot;, true], dysGreetCatLong),
+method([&quot;cow&quot;, false], dysGreetCowShort),
+method([&quot;cow&quot;, true], dysGreetCowLong)
+);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And now, if we ask Clarabelle to greet, she omits her name:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;dysGreet(myCow)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;multimethods-in-other-languages&quot;&gt;Multimethods in other languages&lt;/h1&gt;
+
+&lt;p&gt;Multimethods are available in many languages, beside JavaScript. In Common LISP and Clojure, they are part of the language. In Python, there is a library called &lt;a href=&quot;https://github.com/weissjeffm/multimethods&quot;&gt;multimethods&lt;/a&gt; and in Ruby there is &lt;a href=&quot;https://github.com/psantacl/ruby-multimethods&quot;&gt;Ruby multimethods&lt;/a&gt;. Both work quite like JavaScript arrows/multimethod.&lt;/p&gt;
+
+&lt;p&gt;In Java, there is the &lt;a href=&quot;http://igm.univ-mlv.fr/~forax/works/jmmf/&quot;&gt;Java Multimethod Framework&lt;/a&gt; and C# supports multimethods natively via the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dynamic&lt;/code&gt; keyword. However, in both cases, it works only with static data types and not with generic data structures. Also, dynamic dispatch is not supported.&lt;/p&gt;
+
+&lt;h1 id=&quot;wrapping-up&quot;&gt;Wrapping up&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;Multimethods&lt;/strong&gt; make it possible to benefit from &lt;strong&gt;polymorphism&lt;/strong&gt; when &lt;strong&gt;data&lt;/strong&gt; is represented with &lt;strong&gt;generic maps&lt;/strong&gt;. Multimethods are made of a &lt;strong&gt;dispatch function&lt;/strong&gt; that emits a dispatch value and &lt;strong&gt;methods&lt;/strong&gt; that provide implementations for the dispatch values.&lt;/p&gt;
+
+&lt;p&gt;In the simplest case (&lt;strong&gt;single dispatch&lt;/strong&gt;), the multimethod receives a single map that contains a type field and the dispatch function of the multimethod emits the value of the type field. In more advanced cases (&lt;strong&gt;multiple dispatch&lt;/strong&gt; and &lt;strong&gt;dynamic dispatch&lt;/strong&gt;), the dispatch function emits an arbitrary value that depends on several arguments.&lt;/p&gt;
+
+&lt;script src=&quot;https://viebel.github.io/klipse/repo/js/multimethod.js&quot;&gt;&lt;/script&gt;
+
+&lt;script&gt;var {multi, method, fromMulti} = window.multimethod;&lt;/script&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="javascript" /><category term="javascript" /><summary type="html">Object-Oriented Programming is well known for allowing different classes to be called with the same interface, via a mechanism called polymorphism. It may seem that the only way to have polymorphism in a program is with objects. In fact, as we are going to see in this article it is possible to have polymorphism without objects via multimethods.</summary></entry><entry><title type="html">Data validation with JSON schema</title><link href="/javascript/2021/09/30/data-validation-with-json-schema.html" rel="alternate" type="text/html" title="Data validation with JSON schema" /><published>2021-09-30T00:15:28+00:00</published><updated>2021-09-30T00:15:28+00:00</updated><id>/javascript/2021/09/30/data-validation-with-json-schema</id><content type="html" xml:base="/javascript/2021/09/30/data-validation-with-json-schema.html">&lt;p&gt;According to the principles of &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;amp;utm_medium=affiliate&amp;amp;utm_campaign=book_sharvit2_data_1_29_21&amp;amp;a_aid=viebel&amp;amp;a_bid=d5b546b7&quot;&gt;Data-Oriented Programming&lt;/a&gt;, we should represent data with &lt;strong&gt;generic&lt;/strong&gt; and &lt;strong&gt;immutable&lt;/strong&gt; data structures, like immutable hash maps and immutable vectors. At first sight, it might seem that it means to &lt;em&gt;live in the wild&lt;/em&gt; and not validate that data is conformed to an expected schema.&lt;/p&gt;
 
 &lt;p&gt;In fact, it is possible – and advised – to maintain a data schema in Data-Oriented Programming. For instance, in Clojure, we handle data validation with tools like [clojure.spec] or [malli].&lt;/p&gt;
 
@@ -2032,193 +2407,4 @@ Let’s do the same inside and communicate via data (e.g. hash maps).&lt;/p&gt;
 
 &lt;p&gt;Principles #1 and #2 feel quite natural to Java developers (especially with the addition of Java records). However, Principle #3 feels much less natural.&lt;/p&gt;
 
-&lt;p&gt;I hope that by having illustrated the benefits of a dynamic data approach, I have motivated a bit the Java community. Now it’s time for Java experts to take it from there and discover (&lt;em&gt;hopefully in the near future&lt;/em&gt;) what is the best way to embrace &lt;strong&gt;Data-Oriented programming in Java&lt;/strong&gt;.&lt;/p&gt;</content><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><category term="java" /><category term="dop" /><category term="java" /><summary type="html">The principles of Data-Oriented programming</summary></entry><entry><title type="html">Structural sharing with 7 lines of JavaScript.</title><link href="/javascript/2021/02/26/structural-sharing-in-javascript.html" rel="alternate" type="text/html" title="Structural sharing with 7 lines of JavaScript." /><published>2021-02-26T02:03:52+00:00</published><updated>2021-02-26T02:03:52+00:00</updated><id>/javascript/2021/02/26/structural-sharing-in-javascript</id><content type="html" xml:base="/javascript/2021/02/26/structural-sharing-in-javascript.html">&lt;h1 id=&quot;motivation&quot;&gt;Motivation&lt;/h1&gt;
-
-&lt;p&gt;When we build an application that embraces &lt;strong&gt;data immutability&lt;/strong&gt;, we handle changes in data by creating a new version of data instead of mutating data in place, without compromising on performance. There are &lt;a href=&quot;https://en.wikipedia.org/wiki/Persistent_data_structure&quot;&gt;various techniques&lt;/a&gt; to achieve data immutability in an efficient manner.&lt;/p&gt;
-
-&lt;p&gt;JavaScript data manipulation libraries like &lt;a href=&quot;https://ramdajs.com/&quot;&gt;Ramda&lt;/a&gt; and &lt;a href=&quot;{ % post_url  2020-11-26-lodash-fp %}&quot;&gt;Lodash FP&lt;/a&gt; provide an interesting implementation of structural sharing via a technique called &lt;a href=&quot;https://en.wikipedia.org/wiki/Persistent_data_structure#Path_copying&quot;&gt;path copying&lt;/a&gt;. The cool thing with path copying is that it works with &lt;strong&gt;native JavaScript objects&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;After reading this article, you will:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;😄  Be part of the few &lt;strong&gt;lucky JavaScript developers&lt;/strong&gt; that clearly understand what is structural sharing&lt;/li&gt;
-  &lt;li&gt;💻  &lt;strong&gt;Implement&lt;/strong&gt; structural sharing in a few lines of JavaScript code&lt;/li&gt;
-  &lt;li&gt;⚠️ Be aware of the &lt;strong&gt;limitation&lt;/strong&gt; of path copying&lt;/li&gt;
-  &lt;li&gt;🤗  Be &lt;strong&gt;motivated&lt;/strong&gt; to read my book about &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;amp;utm_medium=affiliate&amp;amp;utm_campaign=book_sharvit2_data_1_29_21&amp;amp;a_aid=viebel&amp;amp;a_bid=d5b546b7&quot;&gt;Data-Oriented programming&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Remark: This article assumes that you are already aware of the benefits of data immutability.&lt;/p&gt;
-
-&lt;h1 id=&quot;what-is-structural-sharing&quot;&gt;What is structural sharing?&lt;/h1&gt;
-
-&lt;p&gt;&lt;strong&gt;Structural sharing&lt;/strong&gt; provides an efficient way to share data between multiple versions of it, instead of copying the whole data.&lt;/p&gt;
-
-&lt;p&gt;It’s kind of similar to the way &lt;strong&gt;git&lt;/strong&gt; manages multiple versions of your source code: git doesn’t copy all the files on each commit. Instead, the files that are not changed by a commit are shared with previous commits.&lt;/p&gt;
-
-&lt;p&gt;The same strategy could be applied with data. Let’s take as an example a map that represents the data of a library in a library management system. In this map, we have 4 fields:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;name&lt;/code&gt;: a string for the name of the library&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;address&lt;/code&gt;: a string for the address of the library&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;catalog&lt;/code&gt;: a map with the book information&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;users&lt;/code&gt;: a map for the user information&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Here is an example of a tiny library, with two users and a single book:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var libraryData = {
-  &quot;name&quot;: &quot;The smallest library on earth&quot;,
-  &quot;address&quot;: &quot;Here and now&quot;,
-  &quot;users&quot;: [
-    {&quot;username&quot;: &quot;user-1&quot;,
-     &quot;password&quot;: &quot;pass-1&quot;}, 
-    {&quot;username&quot;: &quot;user-2&quot;,
-     &quot;password&quot;: &quot;pass-2&quot;}
-  ],
-  &quot;catalog&quot;: {
-    &quot;books&quot;: [
-      {
-        &quot;title&quot;: &quot;Watchmen&quot;,
-        &quot;publicationYear&quot;: 1986,
-        &quot;authors&quot;: [
-          {
-            &quot;firstName&quot;: &quot;Alan&quot;,
-            &quot;lastName&quot;: &quot;Moore&quot;
-          },
-          {
-            &quot;firstName&quot;: &quot;Dave&quot;,
-            &quot;lastName&quot;: &quot;Gibbons&quot;
-          }
-        ]
-      }
-    ]
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Suppose we want to create a version of the library where the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;address&lt;/code&gt; field is modified. We can achieve that by &lt;strong&gt;shallow copying&lt;/strong&gt; the original library and modify the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;address&lt;/code&gt; field, using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Object.assign()&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function set(obj, key, val) {
-  var copy = Object.assign({}, obj);
-  copy[key] = val;
-  return copy;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;For fields whose values are strings, it works fine because &lt;strong&gt;strings are immutable&lt;/strong&gt; in JavaScript. But what about fields whose values are maps? We don’t want changes made on one of version of the map to be reflected on the other versions of the map!&lt;/p&gt;
-
-&lt;p&gt;Like in git, we don’t want changes in a commit to affect files in a previous commit!&lt;/p&gt;
-
-&lt;p&gt;We could solve this challenge in a very naive way by &lt;strong&gt;deep copying&lt;/strong&gt; the whole map when creating a new version of it. But of course, it would have a negative impact on the performance, both in terms of memory and CPU.&lt;/p&gt;
-
-&lt;p&gt;Another approach is to &lt;strong&gt;prevent data from being changed&lt;/strong&gt;. When data is immutable, we don’t need to protect ourselves from the threat we just mentioned. It is safe to do a shallow copy of the data because immutable data never changes.&lt;/p&gt;
-
-&lt;p&gt;Data immutability could be guaranteed either by convention (and code reviews) or by the program itself. For example, JavaScript provides a way to prevent data from being changed, via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Object.freeze()&lt;/code&gt;. Here is an implementation of a deep freeze, from &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze&quot;&gt;MDN&lt;/a&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function deepFreeze(object) {
-  const propNames = Object.getOwnPropertyNames(object);
-  // Freeze properties before freezing self
-  for (const name of propNames) {
-    const value = object[name];
-    if (value &amp;amp;&amp;amp; typeof value === &quot;object&quot;) {
-      deepFreeze(value);
-    }
-  }
-  return Object.freeze(object);
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;That’s the essence of structural sharing:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Make sure data is &lt;strong&gt;immutable&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;Create new version of data via &lt;strong&gt;shallow copying&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Here is a code snippet for a function called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;set()&lt;/code&gt; that implements structural sharing when the change occurs at the &lt;strong&gt;root of the map&lt;/strong&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function shallowCopy(o) {
-  if(Array.isArray(o)) {
-    return Object.assign([], o);
-  }
-  return Object.assign({}, o);
-}
-
-function set(o, k, v) {
-  var copy = shallowCopy(o);
-  copy[k] = v;
-  return copy;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Creating a new version of data with a change at the root of a map is easy. Now, we are going to show how to handle changes at any nesting level in a map.&lt;/p&gt;
-
-&lt;h1 id=&quot;implementation-of-path-copying-in-javascript&quot;&gt;Implementation of path copying in JavaScript&lt;/h1&gt;
-
-&lt;p&gt;Suppose we want to update the password of a user and see how to apply &lt;strong&gt;recursively&lt;/strong&gt; our structural sharing strategy:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Shallow copy &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;name&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;address&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;catalog&lt;/code&gt;.&lt;/li&gt;
-  &lt;li&gt;Use a modified version of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;users&lt;/code&gt;:
-    &lt;ol&gt;
-      &lt;li&gt;Shallow copy all users except &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;user-1&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;Use a modified version of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;user-1&lt;/code&gt;:
-        &lt;ol&gt;
-          &lt;li&gt;Shallow copy all the fields except &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;password&lt;/code&gt;&lt;/li&gt;
-          &lt;li&gt;Modify &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;password&lt;/code&gt;&lt;/li&gt;
-        &lt;/ol&gt;
-      &lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/change-password.png&quot; alt=&quot;change-password&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The code for it would look like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var nextUser = Object.assign({}, libraryData.users[1]);
-nextUser.password = &quot;new-pass-2&quot;;
-var nextUsers = Object.assign([], libraryData.users);
-nextUsers[1] = nextUser;
-var nextLibraryData = Object.assign({}, libraryData);
-nextLibraryData.users = nextUsers;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And now, let’s generalize this approach with a recursive functions. As we promised in the article title, here is an implementation of structural sharing in &lt;strong&gt;7 lines of JavaScript code&lt;/strong&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function setIn(m, [k, ...restOfPath], v) {
-  var modifiedNode = v;
-  if (restOfPath.length &amp;gt; 0) {
-    modifiedNode = setIn(m[k], restOfPath, v);
-  }
-  return set(m, k, modifiedNode);
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Here is how we use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;setIn&lt;/code&gt; to modify the password of a user:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var libraryDataV1 = setIn(libraryData, [&quot;users&quot;, 1, &quot;password&quot;], &quot;new-pass-2&quot;);
-libraryDataV1.users[1].password
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Of course, the previous version is left unchanged:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;libraryData.users[1].password
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&quot;efficiency-of-structural-sharing&quot;&gt;Efficiency of structural sharing&lt;/h1&gt;
-
-&lt;p&gt;Path copying is &lt;strong&gt;usually efficient&lt;/strong&gt; – both in terms of memory and computation – because most of the nodes in a nested map are copied by reference (shallow copy).&lt;/p&gt;
-
-&lt;p&gt;For example, the catalog map (that could be a huge object) is shared between the original library data and the new version of library data. They both use the same reference.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;libraryDataV1.catalog === libraryData.catalog
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Path copying works fine with deeply nested data where at each nesting level we don’t have too many elements. When we have &lt;strong&gt;many elements at some level&lt;/strong&gt;, shallow copying might be an issue. Suppose we have a million user in our system, copying a million references each time we update the password of a user is not acceptable.&lt;/p&gt;
-
-&lt;p&gt;The same issue occurs with git if you have a folder with too many files.&lt;/p&gt;
-
-&lt;p&gt;In my book about &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;amp;utm_medium=affiliate&amp;amp;utm_campaign=book_sharvit2_data_1_29_21&amp;amp;a_aid=viebel&amp;amp;a_bid=d5b546b7&quot;&gt;Data-Oriented programming&lt;/a&gt;, I discuss techniques to overcome this limitation.&lt;/p&gt;
-
-&lt;p&gt;The book illustrate in details the benefits of building a software system based upon data immutability.&lt;/p&gt;</content><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><category term="javascript" /><category term="dop" /><category term="javascript" /><summary type="html">Motivation</summary></entry></feed>
+&lt;p&gt;I hope that by having illustrated the benefits of a dynamic data approach, I have motivated a bit the Java community. Now it’s time for Java experts to take it from there and discover (&lt;em&gt;hopefully in the near future&lt;/em&gt;) what is the best way to embrace &lt;strong&gt;Data-Oriented programming in Java&lt;/strong&gt;.&lt;/p&gt;</content><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><category term="java" /><category term="dop" /><category term="java" /><summary type="html">The principles of Data-Oriented programming</summary></entry></feed>

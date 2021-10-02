@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+        <!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Polymorphism without objects via multimethods | Yehonathan Sharvit</title>
+<meta name="generator" content="Jekyll v4.2.0" />
+<meta property="og:title" content="Polymorphism without objects via multimethods" />
+<meta name="author" content="Yehonathan Sharvit" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Multimethod tutorial. Single dispatch and multiple dispatch." />
+<meta property="og:description" content="Multimethod tutorial. Single dispatch and multiple dispatch." />
+<meta property="og:site_name" content="Yehonathan Sharvit" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-10-02T20:12:21+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Polymorphism without objects via multimethods" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@Yehonathan Sharvit" />
+<script type="application/ld+json">
+{"url":"/javascript/2021/10/02/multimethod.html","headline":"Polymorphism without objects via multimethods","dateModified":"2021-10-02T20:12:21+00:00","datePublished":"2021-10-02T20:12:21+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/javascript/2021/10/02/multimethod.html"},"author":{"@type":"Person","name":"Yehonathan Sharvit"},"description":"Multimethod tutorial. Single dispatch and multiple dispatch.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+
+    <!-- Site Favicon -->
+    <link rel="shortcut icon" href="/assets/favicon2.png" type="image/png" />
+
+    <!-- Font Embed Code -->
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600,600i|Karla:400,400i,700,700i" rel="stylesheet">
+
+    <!-- CSS Styles -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+</head>
+
+
+
+<body class="layout-post">
+    <div id="page" class="site">
+        <header id="masthead" class="site-header">
+    <div class="site-header-wrap">
+        <div class="site-header-inside">
+
+            <div class="site-branding">
+                
+                <p class="profile">
+                    <a href="/">
+                        <img src="/assets/images/authorimage.jpg" alt="'s Picture"
+                            class="avatar" />
+                    </a>
+                </p>
+                <div class="site-identity">
+                    
+                    <h1 class="site-title">
+                        <a href="/">Yehonathan Sharvit</a>
+                    </h1>
+                    
+                    
+                    <p class="site-description">Developer. Author. Speaker.</p>
+                    
+                </div><!-- .site-identity -->
+                
+                <button id="menu-toggle" class="menu-toggle"><span class="screen-reader-text">Main Menu</span><span
+                        class="icon-menu" aria-hidden="true"></span></button>
+            </div><!-- .site-branding -->
+
+            <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+                <div class="site-nav-wrap">
+                    <div class="site-nav-inside">
+                    <ul class="menu">
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/">Blog</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/talks">Talks</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/about">About</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/contact">Contact</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/search">Search</a></li>
+                        
+                    </ul>
+                    <p class="social-links">
+    <a class="github-button" href="https://github.com/viebel/klipse" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    
+    <a href="https://twitter.com/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+</p>
+
+                    <div class="book-header">
+  <div>
+    Discover my book!
+  </div>
+  <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
+    <img src="/assets/dop-book.png">
+  </a>
+  <div>
+    DISCOUNT CODE: sharvit39
+  </div>
+</div>
+
+                    </div><!-- .site-nav-inside -->
+                </div><!-- .site-nav-wrap -->
+            </nav><!-- .site-navigation -->
+
+        </div><!-- .site-header-inside -->
+    </div><!-- .site-header-wrap -->
+</header><!-- .site-header -->
+
+        <div id="content" class="site-content fadeInDown delay_075s">
+            <div class="inner-wide">
+                <main id="main" class="site-main">
+
+    <article class="post-full inner">
+
+        <header class="post-header">
+            <h1 class="post-title">Polymorphism without objects via multimethods</h1>
+            <span class="post-meta">
+              <time class="post-date" datetime="2021-10-02">
+                October 2, 2021
+              </time>
+            </span>
+            
+            <span class="post-tags">
+                <a href="/tags/index.html#javascript"
+                    rel="tag">javascript</a>
+                
+            </span>
+            
+        </header><!-- .post-header -->
+
+        <div class="post-content">
+            <p><strong>Object-Oriented Programming</strong> is well known for allowing different classes to be called with the same interface, via a mechanism called <strong>polymorphism</strong>. It may seem that the only way to have polymorphism in a program is with objects. In fact, as we are going to see in this article it is possible to have <strong>polymorphism without objects</strong> via <strong>multimethods</strong>.</p>
+
+<p>Moreover, multimethods provide more advanced polymorphism than OOP polymorphism as they support cases where the chosen implementation depends on several argument types (multiple dispatch) and even on the dynamic value of the arguments (dynamic dispatch).</p>
+
+<p>This article covers:</p>
+
+<ol>
+  <li>Mimicking objects with multimethods (Single dispatch)</li>
+  <li>Multimethods where implementations depend on several argument types (Multiple dispatch)</li>
+  <li>Multimethods where implementations depend dynamically on several arguments (Dynamic dispatch)</li>
+</ol>
+
+<h1 id="the-essence-of-polymorphism">The essence of polymorphism</h1>
+
+<p>In OOP, <strong>polymorphism</strong> is about defining an <strong>interface</strong> and having <strong>different classes</strong> that implement the same interface in different ways.</p>
+
+<p>Let’s illustrate polymorphism with an adaptation of the classic OOP polymorphism example: animal greetings. Let’s say that our animals are <strong>anthropomorphic</strong> and each of them has its own way to greet, by emitting its preferred sound and telling its name.</p>
+
+<p><em>Anthropomorphism</em> is our first word that comes from the Greek: it comes from the Greek <em>ánthrōpos</em> that means <em>human</em> and <em>morphē</em> that means <em>form</em>.</p>
+
+<p>In fact, it’s our second word that comes from the Greek. The first one was <em>polymorphism</em> coming from the Greek <em>polús</em> that means <em>many</em> and <em>morphē</em> that means <em>form</em>. Polymorphism is the ability of different objects to implement in different ways the same method.</p>
+
+<p>In Java, for instance, we’d define a <code class="language-plaintext highlighter-rouge">IAnimal</code> interface with a <code class="language-plaintext highlighter-rouge">greet</code> method and each animal class would implement <code class="language-plaintext highlighter-rouge">greet</code> in its own way, like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">interface</span> <span class="nc">IAnimal</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">greet</span><span class="o">();</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">implements</span> <span class="nc">IAnimal</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">greet</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Woof woof! My name is "</span> <span class="o">+</span> <span class="n">animal</span><span class="o">.</span><span class="na">name</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">Cat</span> <span class="kd">implements</span> <span class="nc">IAnimal</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">greet</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Meow! I am "</span> <span class="o">+</span> <span class="n">animal</span><span class="o">.</span><span class="na">name</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">Cow</span> <span class="kd">implements</span> <span class="nc">IAnimal</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">greet</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Moo! Call me "</span> <span class="o">+</span> <span class="n">animal</span><span class="o">.</span><span class="na">name</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now, let’s ask ourselves: what is the <strong>fundamental</strong> difference between OOP polymorphism and a <strong>naive switch statement</strong>?</p>
+
+<p>Let me tell you what I mean by a naive switch statement. We could, as <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7">Data-Oriented programming</a> recommends, represent an animal with a <strong>map</strong> having two <strong>fields</strong> <code class="language-plaintext highlighter-rouge">name</code> and <code class="language-plaintext highlighter-rouge">type</code> and call a different piece of code depending on the value of <code class="language-plaintext highlighter-rouge">type</code>, like this:</p>
+
+<pre><code class="language-klipse-eval-js">function greet(animal) {
+switch (animal.type) {
+case "dog":
+console.log("Woof Woof! My name is: " + animal.name);
+break;
+case "cat":
+console.log("Meow! I am: " + animal.name);
+break;
+case "cow":
+console.log("Moo! Call me " + animal.name);
+break;
+};
+}
+</code></pre>
+
+<p>It makes me think that we have not yet met our animals. For no further due, here are our heroes: Fido, Milo and Clarabelle.</p>
+
+<pre><code class="language-klipse-eval-js">var myDog = {
+"type": "dog",
+"name": "Fido"
+};
+var myCat = {
+"type": "cat",
+"name": "Milo"
+};
+var myCow = {
+"type": "cow",
+"name": "Clarabelle"
+};
+</code></pre>
+
+<p>The first difference between <strong>OOP polymorphism</strong> and our <strong>switch statement</strong> is that, if we pass an invalid map to the <code class="language-plaintext highlighter-rouge">greet</code> function, bad things will happen.</p>
+
+<p>We could easily fix that by validating input data using <a href="/javascript/2021/09/30/data-validation-with-json-schema.html">JSON Schema</a></p>
+
+<p>Another drawback of the switch statement approach is that when you want to <strong>modify</strong> the implementation of <code class="language-plaintext highlighter-rouge">greet</code> for a specific animal, you have to change the code that deals with all the animals, While in the OOP approach, we have to change only a specific animal class.</p>
+
+<p>This could also be easily fixed by having a <strong>separate function</strong> for each animal, like this:</p>
+
+<pre><code class="language-klipse-eval-js">function greetDog(animal) {
+console.log("Woof Woof! My name is: " + animal.name);
+}
+function greetCat(animal) {
+console.log("Meow! I am: " + animal.name);
+}
+function greetCow(animal) {
+console.log("Moo! Call me " + animal.name);
+}
+function greet(animal) {
+switch (animal.type) {
+case "dog":
+greetDog(animal);
+break;
+case "cat":
+greetCat(animal);
+break;
+case "cow":
+greetCow(animal);
+break;
+};
+}
+</code></pre>
+
+<p>But what if you want to <strong>extend</strong> the functionality of greet and add a new animal?</p>
+
+<p>Now, we got to the <strong>essence</strong> of polymorphism! With a switch statement, we cannot add a new animal without modifying the original code, while in OOP we can add a new class without having to modify the original code.</p>
+
+<blockquote>
+  <p>The main benefit of polymorphism is that it makes the code easily extensible.</p>
+</blockquote>
+
+<p>Now, I have a surprise for you: We don’t need objects to make our code easily extensible. This is what we call: <strong>polymorphism without objects</strong>. And it is possible with <strong>multimethods</strong>.</p>
+
+<h1 id="multimethods-with-single-dispatch">Multimethods with single dispatch</h1>
+
+<p><strong>Multimethod</strong> is a software construct that provides <strong>polymorphism</strong> without the need for objects.</p>
+
+<p>Multimethods are made of two pieces:</p>
+
+<ol>
+  <li>A <strong>dispatch function</strong> that emits a <strong>dispatched value</strong></li>
+  <li>A set of <strong>methods</strong> that provide an <strong>implementation</strong> for each dispatched value.</li>
+</ol>
+
+<p>A dispatch function is similar to an interface in the sense that it defines the way the function needs to be called. But it goes beyond that as it also dispatches a value that differentiates between the different implementations.</p>
+
+<p>Let me show illustrate how I would implement the animal greeting capabilities using a multimethod called <code class="language-plaintext highlighter-rouge">greet</code>. We need a dispatch function and 3 methods. Let’s call the dispatch function <code class="language-plaintext highlighter-rouge">greetDispatch</code>: it dispatches the animal type, either <code class="language-plaintext highlighter-rouge">"dog"</code>, <code class="language-plaintext highlighter-rouge">"cat"</code> or <code class="language-plaintext highlighter-rouge">"cow"</code>.</p>
+
+<p>And each dispatch value is handled by a specific method:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">"dog"</code> by <code class="language-plaintext highlighter-rouge">greetDog</code></li>
+  <li><code class="language-plaintext highlighter-rouge">"cat"</code> by <code class="language-plaintext highlighter-rouge">greetCat</code></li>
+  <li><code class="language-plaintext highlighter-rouge">"cow"</code> by <code class="language-plaintext highlighter-rouge">greetCow</code>.</li>
+</ul>
+
+<p><img src="/assets/multimethod-animal.png" alt="multi-single-dispatch" /></p>
+
+<p>In the diagram, there is an arrow between animal and the methods in addition to the arrow between animal and the dispatch function because the arguments of a multimethod are passed to the dispatch function and to the methods.</p>
+
+<p>For now, our multimethod receives a single argument. But in the next section, it will receive several arguments.</p>
+
+<p>Let’s see how a multimethod looks like in terms of code.</p>
+
+<p>We start with the dispatch function <code class="language-plaintext highlighter-rouge">greetDispatch</code>: it defines the signature of the multimethod and emits the type of the animal as the dispatched value:</p>
+
+<pre><code class="language-klipse-eval-js">function greetDispatch(animal) {
+return animal.type;
+}
+</code></pre>
+
+<p>Now, we need a method for each dispatch value. In our case, we’ll have <code class="language-plaintext highlighter-rouge">greetDog</code> for dogs, <code class="language-plaintext highlighter-rouge">greetCat</code> for cats and <code class="language-plaintext highlighter-rouge">greetCow</code> for cows:</p>
+
+<pre><code class="language-klipse-eval-js">function greetDog(animal) {
+console.log("Woof woof! My name is " + animal.name);
+}
+function greetCat(animal) {
+console.log("Meow! I am " + animal.name);
+}
+function greetCow(animal) {
+console.log("Moo! Call me " + animal.name);
+}
+</code></pre>
+
+<blockquote>
+  <p>In the context of multimethods, a method is a function that provides an implementation for a dispatch value.</p>
+</blockquote>
+
+<p>On the one hand we have the greet dispatch function and on the other hand we have the different greet implementations. How do you <strong>wire</strong> everything together?</p>
+
+<p>For that, we need a library. For instance, in JavaScript using a library named <a href="https://github.com/caderek/arrows/tree/master/packages/multimethod">arrows/multimethod</a>, we call <code class="language-plaintext highlighter-rouge">multi</code> to create a multimethod and <code class="language-plaintext highlighter-rouge">method</code> to create a method:</p>
+
+<pre><code class="language-klipse-eval-js">var greet = multi(
+greetDispatch,
+method("dog", greetDog),
+method("cat", greetCat),
+method("cow", greetCow)
+);
+</code></pre>
+
+<p>The names of the dispatch function and the methods are not really important. But I like to follow a simple <strong>naming convention</strong>: use the name of the multimethod as a <strong>prefix</strong> for the dispatch function and the methods and have the <code class="language-plaintext highlighter-rouge">Dispatch</code> <strong>suffix</strong> for the dispatch function and a specific <strong>suffix</strong> for each method.</p>
+
+<p>Under the hood, the <code class="language-plaintext highlighter-rouge">arrows/multimethod</code> library maintains a <strong>hash map</strong>, where the keys are the values emitted by the dispatch function and the values are the methods. When you call method, the library adds an entry to the hash map and when you call the multimethod it queries the hash map to find the implementation that corresponds to the dispatch value.</p>
+
+<p>In terms of usage, we call a multimethod as a regular function:</p>
+
+<pre><code class="language-klipse-eval-js">greet(myCow);
+</code></pre>
+
+<h1 id="multimethods-with-multiple-dispatch">Multimethods with multiple dispatch</h1>
+
+<p>So far, we have mimicked OOP by having as a dispatch value the type of the multimethod argument. But if you think again about the flow of a multimethod, you will discover something interesting: in fact the dispatch function could emit any value.</p>
+
+<p><img src="/assets/multimethod.png" alt="multi" /></p>
+
+<p>For instance, we could emit the type of two arguments!</p>
+
+<p>Imagine that our animals are <strong>polyglot</strong>.</p>
+
+<p><em>Polyglot</em> comes from the Greek <em>polús</em> meaning <em>much</em> and <em>glôssa</em> meaning <em>language</em>. A polyglot is a person speaking many languages.</p>
+
+<p>Let’s say our animals speak English and French.</p>
+
+<p>We represent a language like we represent an animal, with a map having two fields: <code class="language-plaintext highlighter-rouge">type</code> and <code class="language-plaintext highlighter-rouge">name</code>.</p>
+
+<pre><code class="language-klipse-eval-js">var french = {
+"type": "fr",
+"name": "Français"
+};
+var english = {
+"type": "en",
+"name": "English"
+};
+</code></pre>
+
+<p>Now, let’s write the code for the <strong>dispatch function</strong> and the <strong>methods</strong> for our polyglot animals. Let’s call our multimethod: <code class="language-plaintext highlighter-rouge">greetLang</code>. We have:</p>
+
+<ol>
+  <li>one dispatch function</li>
+  <li>6 methods: 3 animals (dog, cat, cow) times 2 languages (en, fr).</li>
+</ol>
+
+<p>But before the implementation I’d like to draw a flow diagram. It will help me to make things crystal clear.</p>
+
+<p><img src="/assets/multimethod-animal-polyglot.png" alt="multi-single-dispatch" /></p>
+
+<p>I omitted the arrow between the arguments and the methods in order to keep the diagram readable. Otherwise there would be too many arrows.</p>
+
+<p>The dispatch function is going to return an array with two elements: the type of the animal and the type of the language:</p>
+
+<pre><code class="language-klipse-eval-js">function greetLangDispatch(animal, language) {
+return [animal.type, language.type];
+};
+</code></pre>
+
+<p>The order of the elements in the array It doesn’t matter but it needs to be consistent with the wiring of the methods.</p>
+
+<p>Now, let’s implement the 6 methods:</p>
+
+<pre><code class="language-klipse-eval-js">function greetLangDogEn(animal, language) {
+console.log("Woof woof! My name is " + animal.name + " and I speak " +
+language.name);
+}
+function greetLangDogFr(animal, language) {
+console.log("Ouaf Ouaf! Mon nom est " + animal.name + " et je parle " +
+language.name);
+}
+function greetLangCatEn(animal, language) {
+console.log("Meow! I am " + animal.name + " and I speak " + language.name);
+}
+function greetLangCatFr(animal, language) {
+console.log("Miaou! Je m'appelle " + animal.name + " et je parle " + language.name);
+}
+function greetLangCowEn(animal, language) {
+console.log("Moo! Call me " + animal.name + " and I speak " + language.name);
+}
+function greetLangCowFr(animal, language) {
+console.log("Meuh! Appelle moi " + animal.name + " et je parle " + language.name);
+}
+</code></pre>
+
+<p>Take a closer look at the code for the methods that deal with French and tell me if you are surprised to see “Ouaf Ouaf”
+instead of “Woof Woof” for dogs, “Miaou” instead of “Meow” for cats and “Meuh” instead of “Moo” for cows. I find it funny that that animal <strong>onomatopoeia</strong> are different in French than in English!</p>
+
+<p><em>Onomatopoeia</em> comes also from the Greek: <em>ónoma</em> means <em>name</em> and <em>poiéō</em> means <em>to produce</em>. It is the property of words that sound like what they represent. For instance, Woof, Meow and Moo.</p>
+
+<p>Anyway, after we have defined our <strong>dispatch function</strong> and our <strong>methods</strong>, we need to <strong>wire</strong> them altogether in a multimethod, like we did with <code class="language-plaintext highlighter-rouge">greet</code>. The only difference that the dispatch values are arrays of strings instead of strings:</p>
+
+<pre><code class="language-klipse-eval-js">var greetLang = multi(
+  greetLangDispatch,
+  method(["dog", "en"], greetLangDogEn),
+  method(["dog", "fr"], greetLangDogFr),
+  method(["cat", "en"], greetLangCatEn),
+  method(["cat", "fr"], greetLangCatFr),
+  method(["cow", "en"], greetLangCowEn),
+  method(["cow", "fr"], greetLangCowFr)
+);
+</code></pre>
+
+<p><strong>Multiple dispatch</strong> is when a dispatch function emits a value that depends on more than one argument.</p>
+
+<p>Let’s see our multimethod in action and ask our dog <code class="language-plaintext highlighter-rouge">Fido</code> to greet in French:</p>
+
+<pre><code class="language-klipse-eval-js">greetLang(myDog, french);
+</code></pre>
+
+<h1 id="multimethods-with-dynamic-dispatch">Multimethods with dynamic dispatch</h1>
+
+<p><strong>Dynamic dispatch</strong> is when the dispatch function of a multimethod returns a value that goes <strong>beyond the static type</strong> of its arguments, like for instance a number or a boolean.</p>
+
+<p>Imagine that instead of being polyglot our animals would suffer from <strong>dysmakrylexia</strong>.</p>
+
+<p><em>Dysmakrylexia</em> comes from the Greek <em>dus</em> expressing the idea of <em>difficulty</em>, <em>makrýs</em> meaning <em>long</em> and <em>léxis</em> that means <em>diction</em>. Therefore, dysmakrilexia is a difficulty to pronounce long words.</p>
+
+<p>It’s not a real word, I invented it for the purpose of this article!</p>
+
+<p>Let’s say that when their name has more than 5 letters an animal is not able to tell it.</p>
+
+<p>Let’s call our multimethod <code class="language-plaintext highlighter-rouge">dysGreet</code>.</p>
+
+<p><img src="/assets/multimethod-dys.png" alt="multi-single-dispatch" /></p>
+
+<p>Its dispatch function returns an array with two elements: the animal type and a boolean about whether the name is long or not:</p>
+
+<pre><code class="language-klipse-eval-js">function dysGreetDispatch(animal) {
+var hasLongName = animal.name.length &gt; 5;
+return [animal.type, hasLongName];
+};
+</code></pre>
+
+<p>And here are the methods:</p>
+
+<pre><code class="language-klipse-eval-js">function dysGreetDogShort(animal) {
+console.log("Woof woof! My name is " + animal.name);
+}
+function dysGreetDogLong(animal) {
+console.log("Woof woof!");
+}
+function dysGreetCatShort(animal) {
+console.log("Meow! I am " + animal.name);
+}
+function dysGreetCatLong(animal) {
+console.log("Meow!");
+}
+function dysGreetCowShort(animal) {
+console.log("Moo! Call me " + animal.name);
+}
+function dysGreetCowLong(animal) {
+console.log("Moo!");
+}
+</code></pre>
+
+<p>As surprising as it may sound, wiring a multimethod with dynamic dispatch is as simple as wiring a multimethod with static dispatch:</p>
+
+<pre><code class="language-klipse-eval-js">var dysGreet = multi(
+dysGreetDispatch,
+method(["dog", false], dysGreetDogShort),
+method(["dog", true], dysGreetDogLong),
+method(["cat", false], dysGreetCatShort),
+method(["cat", true], dysGreetCatLong),
+method(["cow", false], dysGreetCowShort),
+method(["cow", true], dysGreetCowLong)
+);
+</code></pre>
+
+<p>And now, if we ask Clarabelle to greet, she omits her name:</p>
+
+<pre><code class="language-klipse-eval-js">dysGreet(myCow)
+</code></pre>
+
+<h1 id="multimethods-in-other-languages">Multimethods in other languages</h1>
+
+<p>Multimethods are available in many languages, beside JavaScript. In Common LISP and Clojure, they are part of the language. In Python, there is a library called <a href="https://github.com/weissjeffm/multimethods">multimethods</a> and in Ruby there is <a href="https://github.com/psantacl/ruby-multimethods">Ruby multimethods</a>. Both work quite like JavaScript arrows/multimethod.</p>
+
+<p>In Java, there is the <a href="http://igm.univ-mlv.fr/~forax/works/jmmf/">Java Multimethod Framework</a> and C# supports multimethods natively via the <code class="language-plaintext highlighter-rouge">dynamic</code> keyword. However, in both cases, it works only with static data types and not with generic data structures. Also, dynamic dispatch is not supported.</p>
+
+<h1 id="wrapping-up">Wrapping up</h1>
+
+<p><strong>Multimethods</strong> make it possible to benefit from <strong>polymorphism</strong> when <strong>data</strong> is represented with <strong>generic maps</strong>. Multimethods are made of a <strong>dispatch function</strong> that emits a dispatch value and <strong>methods</strong> that provide implementations for the dispatch values.</p>
+
+<p>In the simplest case (<strong>single dispatch</strong>), the multimethod receives a single map that contains a type field and the dispatch function of the multimethod emits the value of the type field. In more advanced cases (<strong>multiple dispatch</strong> and <strong>dynamic dispatch</strong>), the dispatch function emits an arbitrary value that depends on several arguments.</p>
+
+<script src="https://viebel.github.io/klipse/repo/js/multimethod.js"></script>
+
+<script>var {multi, method, fromMulti} = window.multimethod;</script>
+
+
+        </div>
+        <footer class="post-footer">
+            <div class="separator"></div>
+            <div class="post-share">
+                <span class="post-share-title">Share:</span>
+                <a target="_blank"
+                    href="https://twitter.com/share?text=Polymorphism+without+objects+via+multimethods&amp;url=https://blog.klipse.techjavascript/2021/10/02/multimethod.html">Twitter</a>
+                <a target="_blank"
+                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techjavascript/2021/10/02/multimethod.html">Facebook</a>
+            </div><!-- .share-post -->
+        </footer>
+    </article>
+
+    
+    <section class="newsletter-box inner">
+    <h2 class="newsletter-box-title">Subscribe to Yehonathan Sharvit newsletter</h2>
+    <p>Get the latest and greatest from Yehonathan Sharvit delivered straight to your inbox every week.</p>
+    <!-- Begin TinyLetter Signup Form -->
+    <div id="tinyletter_embed_signup">
+      <form class="validate gh-subscribe-form" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	      <label for="tlemail" class="screen-reader-text">Email Address</label>
+        <input type="email" value="" name="email" class="required email subscribe-email" placeholder="Your email address">
+	      <input type="hidden" value="1" name="embed"/>
+	      <input class="button" type="submit" value="Subscribe" />
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
+</section><!-- .widget -->
+
+    
+    <section class="read-next inner">
+        <h2 class="read-next-title">Read Next</h2>
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="September 30, 2021">September 30, 2021</time>
+                </div>
+                <h3 class="post-title"><a href="/javascript/2021/09/30/data-validation-with-json-schema.html">Data validation with JSON schema</a>
+                </h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/javascript/'>Javascript</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+        
+    </section><!-- .read-next -->
+
+    <!-- Create a sorted array of tags -->
+     
+    <section class="tagcloud inner">
+        <h2 class="tagcloud-title">Tags</h2>
+        <div class="tag-links">
+            
+            <a href='/tags/#algo'>algo</a>
+            
+            <a href='/tags/#brainfuck'>brainfuck</a>
+            
+            <a href='/tags/#c%2B%2B'>c++</a>
+            
+            <a href='/tags/#clojure'>clojure</a>
+            
+            <a href='/tags/#clojurescript'>clojurescript</a>
+            
+            <a href='/tags/#compiler'>compiler</a>
+            
+            <a href='/tags/#dop'>dop</a>
+            
+            <a href='/tags/#golang'>golang</a>
+            
+            <a href='/tags/#graph'>graph</a>
+            
+            <a href='/tags/#html'>html</a>
+            
+            <a href='/tags/#java'>java</a>
+            
+            <a href='/tags/#javascript'>javascript</a>
+            
+            <a href='/tags/#kids'>kids</a>
+            
+            <a href='/tags/#klipse'>klipse</a>
+            
+            <a href='/tags/#lambda-calculus'>lambda-calculus</a>
+            
+            <a href='/tags/#lambdacalculus'>lambdacalculus</a>
+            
+            <a href='/tags/#lisp'>lisp</a>
+            
+            <a href='/tags/#lua'>lua</a>
+            
+            <a href='/tags/#maths'>maths</a>
+            
+            <a href='/tags/#oblivion'>oblivion</a>
+            
+            <a href='/tags/#ocaml'>ocaml</a>
+            
+            <a href='/tags/#php'>php</a>
+            
+            <a href='/tags/#prolog'>prolog</a>
+            
+            <a href='/tags/#python'>python</a>
+            
+            <a href='/tags/#react'>react</a>
+            
+            <a href='/tags/#reagent'>reagent</a>
+            
+            <a href='/tags/#reasonml'>reasonml</a>
+            
+            <a href='/tags/#ruby'>ruby</a>
+            
+            <a href='/tags/#scheme'>scheme</a>
+            
+            <a href='/tags/#sql'>sql</a>
+            
+            <a href='/tags/#theory'>theory</a>
+            
+            <a href='/tags/#visualization'>visualization</a>
+            
+        </div><!-- .tag-links -->
+    </section><!-- .tagcloud -->
+</main><!-- .site-main -->
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js, [data-lang=klipse-javascript]',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+        selector_golang: '.language-klipse-go',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?the_version=7.11.2"></script>
+
+
+
+
+
+                
+
+                
+                <footer id="colophon" class="site-footer">
+    <p class="site-info inner">
+        <a href="#">Yehonathan Sharvit</a> &copy; 2021.
+    </p>
+    <a id="back-to-top" class="back-to-top" href="#page">
+        <span class="icon-arrow-up" aria-hidden="true"></span>
+        <span class="screen-reader-text">Back to top</span>
+    </a>
+</footer><!-- .site-footer -->
+
+            </div><!-- .inner-wide -->
+        </div><!-- .site-content -->
+    </div><!-- .site -->
+
+    
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75651930-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-75651930-1', { 'anonymize_ip': true });
+  </script>
+
+    <!-- Javascript Assets -->
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/custom.js"></script>
+
+</body>
+
+</html>
