@@ -76,7 +76,9 @@ break;
 }
 ~~~
 
-It makes me think that we have not yet met our animals. For no further due, here are our heroes: Fido, Milo and Clarabelle.
+It makes me think that we have not yet met our animals. For no further due, I am happy to present our heroes: Fido, Milo and Clarabelle.
+
+![Fido](/assets/fido-milo-clarabelle.jpg)
 
 ~~~klipse-eval-js
 var myDog = {
