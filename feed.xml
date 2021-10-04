@@ -1,4 +1,403 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-10-03T05:04:57+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><entry><title type="html">Polymorphism without objects via multimethods</title><link href="/javascript/2021/10/02/multimethod.html" rel="alternate" type="text/html" title="Polymorphism without objects via multimethods" /><published>2021-10-02T20:12:21+00:00</published><updated>2021-10-02T20:12:21+00:00</updated><id>/javascript/2021/10/02/multimethod</id><content type="html" xml:base="/javascript/2021/10/02/multimethod.html">&lt;p&gt;&lt;strong&gt;Object-Oriented Programming&lt;/strong&gt; is well known for allowing different classes to be called with the same interface, via a mechanism called &lt;strong&gt;polymorphism&lt;/strong&gt;. It may seem that the only way to have polymorphism in a program is with objects. In fact, as we are going to see in this article it is possible to have &lt;strong&gt;polymorphism without objects&lt;/strong&gt; via &lt;strong&gt;multimethods&lt;/strong&gt;.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-10-04T03:04:16+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><entry><title type="html">Polymorphism without objects via multimethods</title><link href="/javascript/2021/10/03/multimethod.html" rel="alternate" type="text/html" title="Polymorphism without objects via multimethods" /><published>2021-10-03T23:54:21+00:00</published><updated>2021-10-03T23:54:21+00:00</updated><id>/javascript/2021/10/03/multimethod</id><content type="html" xml:base="/javascript/2021/10/03/multimethod.html">&lt;p&gt;&lt;strong&gt;Object-Oriented Programming&lt;/strong&gt; is well known for allowing different classes to be called with the same interface, via a mechanism called &lt;strong&gt;polymorphism&lt;/strong&gt;. It may seem that the only way to have polymorphism in a program is with objects. In fact, as we are going to see in this article it is possible to have &lt;strong&gt;polymorphism without objects&lt;/strong&gt; via &lt;strong&gt;multimethods&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Moreover, multimethods provide more advanced polymorphism than OOP polymorphism as they support cases where the chosen implementation depends on several argument types (multiple dispatch) and even on the dynamic value of the arguments (dynamic dispatch).&lt;/p&gt;
+
+&lt;p&gt;This article covers:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Mimicking objects with multimethods (Single dispatch)&lt;/li&gt;
+  &lt;li&gt;Multimethods where implementations depend on several argument types (Multiple dispatch)&lt;/li&gt;
+  &lt;li&gt;Multimethods where implementations depend dynamically on several arguments (Dynamic dispatch)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;the-essence-of-polymorphism&quot;&gt;The essence of polymorphism&lt;/h1&gt;
+
+&lt;p&gt;In OOP, &lt;strong&gt;polymorphism&lt;/strong&gt; is about defining an &lt;strong&gt;interface&lt;/strong&gt; and having &lt;strong&gt;different classes&lt;/strong&gt; that implement the same interface in different ways.&lt;/p&gt;
+
+&lt;p&gt;Let’s illustrate polymorphism with an adaptation of the classic OOP polymorphism example: animal greetings. Let’s say that our animals are &lt;strong&gt;anthropomorphic&lt;/strong&gt; and each of them has its own way to greet, by emitting its preferred sound and telling its name.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Anthropomorphism&lt;/em&gt; is our first word that comes from the Greek: it comes from the Greek &lt;em&gt;ánthrōpos&lt;/em&gt; that means &lt;em&gt;human&lt;/em&gt; and &lt;em&gt;morphē&lt;/em&gt; that means &lt;em&gt;form&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;In fact, it’s our second word that comes from the Greek. The first one was &lt;em&gt;polymorphism&lt;/em&gt; coming from the Greek &lt;em&gt;polús&lt;/em&gt; that means &lt;em&gt;many&lt;/em&gt; and &lt;em&gt;morphē&lt;/em&gt; that means &lt;em&gt;form&lt;/em&gt;. Polymorphism is the ability of different objects to implement in different ways the same method.&lt;/p&gt;
+
+&lt;p&gt;In Java, for instance, we’d define a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IAnimal&lt;/code&gt; interface with a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greet&lt;/code&gt; method and each animal class would implement &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greet&lt;/code&gt; in its own way, like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IAnimal&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;greet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Dog&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IAnimal&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;greet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Woof woof! My name is &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;animal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Cat&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IAnimal&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;greet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Meow! I am &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;animal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Cow&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IAnimal&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;greet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Moo! Call me &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;animal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, let’s ask ourselves: what is the &lt;strong&gt;fundamental&lt;/strong&gt; difference between OOP polymorphism and a &lt;strong&gt;naive switch statement&lt;/strong&gt;?&lt;/p&gt;
+
+&lt;p&gt;Let me tell you what I mean by a naive switch statement. We could, as &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;amp;utm_medium=affiliate&amp;amp;utm_campaign=book_sharvit2_data_1_29_21&amp;amp;a_aid=viebel&amp;amp;a_bid=d5b546b7&quot;&gt;Data-Oriented programming&lt;/a&gt; recommends, represent an animal with a &lt;strong&gt;map&lt;/strong&gt; having two &lt;strong&gt;fields&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;name&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;type&lt;/code&gt; and call a different piece of code depending on the value of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;type&lt;/code&gt;, like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function greet(animal) {
+switch (animal.type) {
+case &quot;dog&quot;:
+console.log(&quot;Woof Woof! My name is: &quot; + animal.name);
+break;
+case &quot;cat&quot;:
+console.log(&quot;Meow! I am: &quot; + animal.name);
+break;
+case &quot;cow&quot;:
+console.log(&quot;Moo! Call me &quot; + animal.name);
+break;
+};
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It makes me think that we have not yet met our animals. For no further due, I am happy to present our heroes: Fido, Milo and Clarabelle.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/fido-milo-clarabelle.jpg&quot; alt=&quot;Fido&quot; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var myDog = {
+&quot;type&quot;: &quot;dog&quot;,
+&quot;name&quot;: &quot;Fido&quot;
+};
+var myCat = {
+&quot;type&quot;: &quot;cat&quot;,
+&quot;name&quot;: &quot;Milo&quot;
+};
+var myCow = {
+&quot;type&quot;: &quot;cow&quot;,
+&quot;name&quot;: &quot;Clarabelle&quot;
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The first difference between &lt;strong&gt;OOP polymorphism&lt;/strong&gt; and our &lt;strong&gt;switch statement&lt;/strong&gt; is that, if we pass an invalid map to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greet&lt;/code&gt; function, bad things will happen.&lt;/p&gt;
+
+&lt;p&gt;We could easily fix that by validating input data using &lt;a href=&quot;/javascript/2021/09/30/data-validation-with-json-schema.html&quot;&gt;JSON Schema&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Another drawback of the switch statement approach is that when you want to &lt;strong&gt;modify&lt;/strong&gt; the implementation of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greet&lt;/code&gt; for a specific animal, you have to change the code that deals with all the animals, While in the OOP approach, we have to change only a specific animal class.&lt;/p&gt;
+
+&lt;p&gt;This could also be easily fixed by having a &lt;strong&gt;separate function&lt;/strong&gt; for each animal, like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function greetDog(animal) {
+console.log(&quot;Woof Woof! My name is: &quot; + animal.name);
+}
+function greetCat(animal) {
+console.log(&quot;Meow! I am: &quot; + animal.name);
+}
+function greetCow(animal) {
+console.log(&quot;Moo! Call me &quot; + animal.name);
+}
+function greet(animal) {
+switch (animal.type) {
+case &quot;dog&quot;:
+greetDog(animal);
+break;
+case &quot;cat&quot;:
+greetCat(animal);
+break;
+case &quot;cow&quot;:
+greetCow(animal);
+break;
+};
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But what if you want to &lt;strong&gt;extend&lt;/strong&gt; the functionality of greet and add a new animal?&lt;/p&gt;
+
+&lt;p&gt;Now, we got to the &lt;strong&gt;essence&lt;/strong&gt; of polymorphism! With a switch statement, we cannot add a new animal without modifying the original code, while in OOP we can add a new class without having to modify the original code.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The main benefit of polymorphism is that it makes the code easily extensible.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Now, I have a surprise for you: We don’t need objects to make our code easily extensible. This is what we call: &lt;strong&gt;polymorphism without objects&lt;/strong&gt;. And it is possible with &lt;strong&gt;multimethods&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;multimethods-with-single-dispatch&quot;&gt;Multimethods with single dispatch&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;Multimethod&lt;/strong&gt; is a software construct that provides &lt;strong&gt;polymorphism&lt;/strong&gt; without the need for objects.&lt;/p&gt;
+
+&lt;p&gt;Multimethods are made of two pieces:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;A &lt;strong&gt;dispatch function&lt;/strong&gt; that emits a &lt;strong&gt;dispatched value&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;A set of &lt;strong&gt;methods&lt;/strong&gt; that provide an &lt;strong&gt;implementation&lt;/strong&gt; for each dispatched value.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;A dispatch function is similar to an interface in the sense that it defines the way the function needs to be called. But it goes beyond that as it also dispatches a value that differentiates between the different implementations.&lt;/p&gt;
+
+&lt;p&gt;Let me show illustrate how I would implement the animal greeting capabilities using a multimethod called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greet&lt;/code&gt;. We need a dispatch function and 3 methods. Let’s call the dispatch function &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greetDispatch&lt;/code&gt;: it dispatches the animal type, either &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;dog&quot;&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;cat&quot;&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;cow&quot;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;And each dispatch value is handled by a specific method:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;dog&quot;&lt;/code&gt; by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greetDog&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;cat&quot;&lt;/code&gt; by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greetCat&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;cow&quot;&lt;/code&gt; by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greetCow&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/multimethod-animal.png&quot; alt=&quot;multi-single-dispatch&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In the diagram, there is an arrow between animal and the methods in addition to the arrow between animal and the dispatch function because the arguments of a multimethod are passed to the dispatch function and to the methods.&lt;/p&gt;
+
+&lt;p&gt;For now, our multimethod receives a single argument. But in the next section, it will receive several arguments.&lt;/p&gt;
+
+&lt;p&gt;Let’s see how a multimethod looks like in terms of code. For that, we need a library. For instance, in JavaScript using a library named &lt;a href=&quot;https://github.com/caderek/arrows/tree/master/packages/multimethod&quot;&gt;arrows/multimethod&lt;/a&gt;, we call &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;multi&lt;/code&gt; to create a multimethod and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;method&lt;/code&gt; to create a method.&lt;/p&gt;
+
+&lt;p&gt;We start the definition of a multimethod by declaring its &lt;strong&gt;dispatch function&lt;/strong&gt;. In our case, the dispatch function emits the type of the animal as the dispatched value:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var greet = multi(animal =&amp;gt; animal.type);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then, we need a method for each dispatch value. In our case, we’ll have &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greetDog&lt;/code&gt; for dogs, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greetCat&lt;/code&gt; for cats and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greetCow&lt;/code&gt; for cows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function greetDog(animal) {
+console.log(&quot;Woof woof! My name is &quot; + animal.name);
+}
+greet = method(&quot;dog&quot;, greetDog)(greet);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function greetCat(animal) {
+console.log(&quot;Meow! I am &quot; + animal.name);
+}
+greet = method(&quot;cat&quot;, greetCat)(greet);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function greetCow(animal) {
+console.log(&quot;Moo! Call me &quot; + animal.name);
+}
+greet = method(&quot;cow&quot;, greetCow)(greet);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It is important to notice that each method declaration could live in its own file. That’s how multimethods provide &lt;strong&gt;extensibility&lt;/strong&gt;: We are free to add new methods without having to modify the original implementation.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Method declarations are decoupled from the multimethod initialization&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Under the hood, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;arrows/multimethod&lt;/code&gt; library maintains a &lt;strong&gt;hash map&lt;/strong&gt;, where the keys correspond to the values emitted by the dispatch function and the values are the methods. When you call the multimethod, the library queries the hash map to find the implementation that corresponds to the dispatched value.&lt;/p&gt;
+
+&lt;p&gt;In terms of usage, we call a multimethod as a regular function:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;greet(myCow);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And if by mistake we pass an animal that doesn’t have a corresponding method, we get a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NoMethodError&lt;/code&gt; exception:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var myHorse = {
+&quot;type&quot;: &quot;horse&quot;,
+&quot;name&quot;: &quot;Horace&quot;
+};
+greet(myHorse);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Unless you can declare a &lt;strong&gt;default method&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function defaultGreet(animal) {
+    console.log(&quot;My name is &quot; + animal.name);
+}
+greet = method(defaultGreet)(greet);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now our horse can greet:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;greet(myHorse);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;multimethods-with-multiple-dispatch&quot;&gt;Multimethods with multiple dispatch&lt;/h1&gt;
+
+&lt;p&gt;So far, we have mimicked OOP by having as a dispatch value the type of the multimethod argument. But if you think again about the flow of a multimethod, you will discover something interesting: in fact the dispatch function could emit any value.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/multimethod.png&quot; alt=&quot;multi&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;For instance, we could emit the type of two arguments!&lt;/p&gt;
+
+&lt;p&gt;Imagine that our animals are &lt;strong&gt;polyglot&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Polyglot&lt;/em&gt; comes from the Greek &lt;em&gt;polús&lt;/em&gt; meaning &lt;em&gt;much&lt;/em&gt; and &lt;em&gt;glôssa&lt;/em&gt; meaning &lt;em&gt;language&lt;/em&gt;. A polyglot is a person speaking many languages.&lt;/p&gt;
+
+&lt;p&gt;Let’s say our animals speak English and French.&lt;/p&gt;
+
+&lt;p&gt;We represent a language like we represent an animal, with a map having two fields: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;type&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;name&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var french = {
+&quot;type&quot;: &quot;fr&quot;,
+&quot;name&quot;: &quot;Français&quot;
+};
+var english = {
+&quot;type&quot;: &quot;en&quot;,
+&quot;name&quot;: &quot;English&quot;
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, let’s write the code for the &lt;strong&gt;dispatch function&lt;/strong&gt; and the &lt;strong&gt;methods&lt;/strong&gt; for our polyglot animals. Let’s call our multimethod: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;greetLang&lt;/code&gt;. We have:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;one dispatch function&lt;/li&gt;
+  &lt;li&gt;6 methods: 3 animals (dog, cat, cow) times 2 languages (en, fr).&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;But before the implementation I’d like to draw a flow diagram. It will help me to make things crystal clear.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/multimethod-animal-polyglot.png&quot; alt=&quot;multi-single-dispatch&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I omitted the arrow between the arguments and the methods in order to keep the diagram readable. Otherwise there would be too many arrows.&lt;/p&gt;
+
+&lt;p&gt;The dispatch function is going to return an array with two elements: the type of the animal and the type of the language:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var greetLang = multi((animal, language) =&amp;gt; [animal.type, language.type]);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;A dispatch function could emit any value. It gives us more flexibility than with OOP polymorphism&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The order of the elements in the array It doesn’t matter but it needs to be consistent with the wiring of the methods.&lt;/p&gt;
+
+&lt;p&gt;Now, let’s implement the 6 methods:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function greetLangDogEn(animal, language) {
+console.log(&quot;Woof woof! My name is &quot; + animal.name + &quot; and I speak &quot; +
+language.name);
+}
+greetLang = method([&quot;dog&quot;, &quot;en&quot;], greetLangDogEn)(greetLang);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function greetLangDogFr(animal, language) {
+console.log(&quot;Ouaf Ouaf! Mon nom est &quot; + animal.name + &quot; et je parle &quot; +
+language.name);
+}
+greetLang = method([&quot;dog&quot;, &quot;fr&quot;], greetLangDogFr)(greetLang);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function greetLangCatEn(animal, language) {
+console.log(&quot;Meow! I am &quot; + animal.name + &quot; and I speak &quot; + language.name);
+}
+greetLang = method([&quot;cat&quot;, &quot;en&quot;], greetLangCatEn)(greetLang);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function greetLangCatFr(animal, language) {
+console.log(&quot;Miaou! Je m'appelle &quot; + animal.name + &quot; et je parle &quot; + language.name);
+}
+greetLang = method([&quot;cat&quot;, &quot;fr&quot;], greetLangCatFr)(greetLang);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function greetLangCowEn(animal, language) {
+console.log(&quot;Moo! Call me &quot; + animal.name + &quot; and I speak &quot; + language.name);
+}
+greetLang = method([&quot;cow&quot;, &quot;en&quot;], greetLangCowEn)(greetLang);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function greetLangCowFr(animal, language) {
+console.log(&quot;Meuh! Appelle moi &quot; + animal.name + &quot; et je parle &quot; + language.name);
+}
+greetLang = method([&quot;cow&quot;, &quot;fr&quot;], greetLangCowFr)(greetLang);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Take a closer look at the code for the methods that deal with French and tell me if you are surprised to see “Ouaf Ouaf”
+instead of “Woof Woof” for dogs, “Miaou” instead of “Meow” for cats and “Meuh” instead of “Moo” for cows. I find it funny that that animal &lt;strong&gt;onomatopoeia&lt;/strong&gt; are different in French than in English!&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Onomatopoeia&lt;/em&gt; comes also from the Greek: &lt;em&gt;ónoma&lt;/em&gt; means &lt;em&gt;name&lt;/em&gt; and &lt;em&gt;poiéō&lt;/em&gt; means &lt;em&gt;to produce&lt;/em&gt;. It is the property of words that sound like what they represent. For instance, Woof, Meow and Moo.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Multiple dispatch&lt;/strong&gt; is when a dispatch function emits a value that depends on more than one argument.&lt;/p&gt;
+
+&lt;p&gt;Let’s see our multimethod in action and ask our dog &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Fido&lt;/code&gt; to greet in French:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;greetLang(myDog, french);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;multimethods-with-dynamic-dispatch&quot;&gt;Multimethods with dynamic dispatch&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;Dynamic dispatch&lt;/strong&gt; is when the dispatch function of a multimethod returns a value that goes &lt;strong&gt;beyond the static type&lt;/strong&gt; of its arguments, like for instance a number or a boolean.&lt;/p&gt;
+
+&lt;p&gt;Imagine that instead of being polyglot our animals would suffer from &lt;strong&gt;dysmakrylexia&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Dysmakrylexia&lt;/em&gt; comes from the Greek &lt;em&gt;dus&lt;/em&gt; expressing the idea of &lt;em&gt;difficulty&lt;/em&gt;, &lt;em&gt;makrýs&lt;/em&gt; meaning &lt;em&gt;long&lt;/em&gt; and &lt;em&gt;léxis&lt;/em&gt; that means &lt;em&gt;diction&lt;/em&gt;. Therefore, dysmakrilexia is a difficulty to pronounce long words.&lt;/p&gt;
+
+&lt;p&gt;It’s not a real word, I invented it for the purpose of this article!&lt;/p&gt;
+
+&lt;p&gt;Let’s say that when their name has more than 5 letters an animal is not able to tell it.&lt;/p&gt;
+
+&lt;p&gt;Let’s call our multimethod &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dysGreet&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/multimethod-dys.png&quot; alt=&quot;multi-single-dispatch&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Its dispatch function returns an array with two elements: the animal type and a boolean about whether the name is long or not:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var dysGreet = multi(animal =&amp;gt; [animal.type, animal.name.length &amp;gt; 5]);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And here are the methods:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function dysGreetDogShort(animal) {
+console.log(&quot;Woof woof! My name is &quot; + animal.name);
+}
+dysGreet = method([&quot;dog&quot;, false], dysGreetDogShort)(dysGreet);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function dysGreetDogLong(animal) {
+console.log(&quot;Woof woof!&quot;);
+}
+dysGreet = method([&quot;dog&quot;, true], dysGreetDogLong)(dysGreet);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function dysGreetCatShort(animal) {
+console.log(&quot;Meow! I am &quot; + animal.name);
+}
+dysGreet = method([&quot;cat&quot;, false], dysGreetCatShort)(dysGreet);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function dysGreetCatLong(animal) {
+console.log(&quot;Meow!&quot;);
+}
+dysGreet = method([&quot;cat&quot;, true], dysGreetCatLong)(dysGreet);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function dysGreetCowShort(animal) {
+console.log(&quot;Moo! Call me &quot; + animal.name);
+}
+dysGreet = method([&quot;cow&quot;, false], dysGreetCowShort)(dysGreet);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;function dysGreetCowLong(animal) {
+console.log(&quot;Moo!&quot;);
+}
+dysGreet = method([&quot;cow&quot;, true], dysGreetCowLong)(dysGreet);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And now, if we ask Clarabelle to greet, she omits her name:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;dysGreet(myCow)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;multimethods-in-other-languages&quot;&gt;Multimethods in other languages&lt;/h1&gt;
+
+&lt;p&gt;Multimethods are available in many languages, beside JavaScript. In Common LISP and Clojure, they are part of the language. In Python, there is a library called &lt;a href=&quot;https://github.com/weissjeffm/multimethods&quot;&gt;multimethods&lt;/a&gt; and in Ruby there is &lt;a href=&quot;https://github.com/psantacl/ruby-multimethods&quot;&gt;Ruby multimethods&lt;/a&gt;. Both work quite like JavaScript arrows/multimethod.&lt;/p&gt;
+
+&lt;p&gt;In Java, there is the &lt;a href=&quot;http://igm.univ-mlv.fr/~forax/works/jmmf/&quot;&gt;Java Multimethod Framework&lt;/a&gt; and C# supports multimethods natively via the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dynamic&lt;/code&gt; keyword. However, in both cases, it works only with static data types and not with generic data structures. Also, dynamic dispatch is not supported.&lt;/p&gt;
+
+&lt;h1 id=&quot;wrapping-up&quot;&gt;Wrapping up&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;Multimethods&lt;/strong&gt; make it possible to benefit from &lt;strong&gt;polymorphism&lt;/strong&gt; when &lt;strong&gt;data&lt;/strong&gt; is represented with &lt;strong&gt;generic maps&lt;/strong&gt;. Multimethods are made of a &lt;strong&gt;dispatch function&lt;/strong&gt; that emits a dispatch value and &lt;strong&gt;methods&lt;/strong&gt; that provide implementations for the dispatch values.&lt;/p&gt;
+
+&lt;p&gt;In the simplest case (&lt;strong&gt;single dispatch&lt;/strong&gt;), the multimethod receives a single map that contains a type field and the dispatch function of the multimethod emits the value of the type field. In more advanced cases (&lt;strong&gt;multiple dispatch&lt;/strong&gt; and &lt;strong&gt;dynamic dispatch&lt;/strong&gt;), the dispatch function emits an arbitrary value that depends on several arguments.&lt;/p&gt;
+
+&lt;script src=&quot;https://viebel.github.io/klipse/repo/js/multimethod.js&quot;&gt;&lt;/script&gt;
+
+&lt;script&gt;var {multi, method, fromMulti} = window.multimethod;&lt;/script&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="javascript" /><category term="javascript" /><summary type="html">Object-Oriented Programming is well known for allowing different classes to be called with the same interface, via a mechanism called polymorphism. It may seem that the only way to have polymorphism in a program is with objects. In fact, as we are going to see in this article it is possible to have polymorphism without objects via multimethods.</summary></entry><entry><title type="html">Polymorphism without objects via multimethods</title><link href="/javascript/2021/10/02/multimethod.html" rel="alternate" type="text/html" title="Polymorphism without objects via multimethods" /><published>2021-10-02T20:12:21+00:00</published><updated>2021-10-02T20:12:21+00:00</updated><id>/javascript/2021/10/02/multimethod</id><content type="html" xml:base="/javascript/2021/10/02/multimethod.html">&lt;p&gt;&lt;strong&gt;Object-Oriented Programming&lt;/strong&gt; is well known for allowing different classes to be called with the same interface, via a mechanism called &lt;strong&gt;polymorphism&lt;/strong&gt;. It may seem that the only way to have polymorphism in a program is with objects. In fact, as we are going to see in this article it is possible to have &lt;strong&gt;polymorphism without objects&lt;/strong&gt; via &lt;strong&gt;multimethods&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;This article has been revised and improved. The revised version is available &lt;a href=&quot;/javascript/2021/10/03/multimethod.html&quot;&gt;here&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;Moreover, multimethods provide more advanced polymorphism than OOP polymorphism as they support cases where the chosen implementation depends on several argument types (multiple dispatch) and even on the dynamic value of the arguments (dynamic dispatch).&lt;/p&gt;
 
@@ -2067,346 +2466,4 @@ Let’s do the same inside and communicate via data (e.g. hash maps).&lt;/p&gt;
   &lt;li&gt;What are the fundamental differences between Clojure and Object-Oriented programming?&lt;/li&gt;
   &lt;li&gt;What are the fundamental differences between Clojure and functional Oriented programming?&lt;/li&gt;
   &lt;li&gt;What are the main benefits of Data-Oriented programming as evangelised by Clojure when building information systems?&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><category term="clojure" /><category term="dop" /><category term="clojure" /><category term="theory" /><summary type="html">Here are 9 fundamental general concepts about programming.</summary></entry><entry><title type="html">Data-Oriented programming in Java</title><link href="/java/2021/03/05/data-oriented-programming-in-java.html" rel="alternate" type="text/html" title="Data-Oriented programming in Java" /><published>2021-03-05T04:03:52+00:00</published><updated>2021-03-05T04:03:52+00:00</updated><id>/java/2021/03/05/data-oriented-programming-in-java</id><content type="html" xml:base="/java/2021/03/05/data-oriented-programming-in-java.html">&lt;h1 id=&quot;the-principles-of-data-oriented-programming&quot;&gt;The principles of Data-Oriented programming&lt;/h1&gt;
-
-&lt;p&gt;The purpose of Data-Oriented programming (DOP) is to &lt;strong&gt;reduce the complexity&lt;/strong&gt; of software systems, by promoting the treatment of data as a first-class citizen.&lt;/p&gt;
-
-&lt;p&gt;Concretely, it comes down to the application of 3 principles:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Code is &lt;strong&gt;separated&lt;/strong&gt; from data&lt;/li&gt;
-  &lt;li&gt;Data is &lt;strong&gt;immutable&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;Data access is &lt;strong&gt;flexible&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Those principles are not new: They have been adopted in one way or another by the Java community over the years through various design patterns (e.g. &lt;a href=&quot;https://en.wikipedia.org/wiki/Entity_component_system&quot;&gt;Entity component system&lt;/a&gt;) and smart libraries that leverage Java annotations (e.g. Project Lombok).&lt;/p&gt;
-
-&lt;p&gt;However, I believe that the combination of those 3 principles makes &lt;strong&gt;a whole that is greater that the sum of its parts&lt;/strong&gt;, in the sense that software systems built on top of DOP principles tend to be less complex. In my book &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;amp;utm_medium=affiliate&amp;amp;utm_campaign=book_sharvit2_data_1_29_21&amp;amp;a_aid=viebel&amp;amp;a_bid=d5b546b7&quot;&gt;Data-Oriented programming&lt;/a&gt;, I am exploring in greater details how to apply the principles of DOP in the context of a &lt;strong&gt;production software system&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;In the present article, I am going to illustrate how to apply the principles of DOP in Java.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/dop-in-java.png&quot; alt=&quot;Data-Oriented Programming in Java&quot; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;separating-code-from-data-in-java&quot;&gt;Separating code from data in Java&lt;/h1&gt;
-
-&lt;p&gt;Suppose we want to build a library management system with the following requirements:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Two kinds of &lt;em&gt;users&lt;/em&gt;: library members and librarians&lt;/li&gt;
-  &lt;li&gt;Users &lt;em&gt;log in&lt;/em&gt; to the system via email and password.&lt;/li&gt;
-  &lt;li&gt;Members can &lt;em&gt;borrow&lt;/em&gt; books&lt;/li&gt;
-  &lt;li&gt;Members and librarians can &lt;em&gt;search&lt;/em&gt; books by title or by author&lt;/li&gt;
-  &lt;li&gt;Librarians can &lt;em&gt;block&lt;/em&gt; and &lt;em&gt;unblock&lt;/em&gt; members (e.g. when they are late in returning a book)&lt;/li&gt;
-  &lt;li&gt;Librarians can &lt;em&gt;list the books&lt;/em&gt; currently lent by a member&lt;/li&gt;
-  &lt;li&gt;There could be &lt;em&gt;several copies&lt;/em&gt; of a book&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;A possible (naive) classic Java design for such a system would be made of the following classes:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Library&lt;/code&gt;: The central part for which the system is designed&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Book&lt;/code&gt;: A book&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BookItem&lt;/code&gt;: A book can have multiple copies, each copy is considered as a book item&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BookLending&lt;/code&gt;: When a book is lent, a book lending object is created&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Member&lt;/code&gt;: A member of the library&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Librarian&lt;/code&gt;: A librarian&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;User&lt;/code&gt;: A base class for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Librarian&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Member&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Catalog&lt;/code&gt;: Contains list of books&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Author&lt;/code&gt;: A book author&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;A possible class diagram (eluding the details about members and methods) would be something like this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/lms-uml-diagram.png&quot; alt=&quot;Library management class diagram&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Of course, a Java expert would probably comes up with a smarter design, leveraging some smart &lt;strong&gt;design patterns&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Now, I’d like to illustrate how the application of DOP Principle #1 naturally leads to a simpler design, without involving any design patterns. We are going to split each class of our system in two classes:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;A code class with &lt;strong&gt;static methods&lt;/strong&gt; only&lt;/li&gt;
-  &lt;li&gt;A data class with &lt;strong&gt;members&lt;/strong&gt; only&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;The result is a diagram made of two disjoint diagrams:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;Data classes on the left&lt;/li&gt;
-  &lt;li&gt;Code classes on the right&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/lms-separate-code-from-data.png&quot; alt=&quot;Separating code from data&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Don’t you agree that the resulting diagram is less complex than the previous one?&lt;/p&gt;
-
-&lt;p&gt;The cool think is that applying Principle #1 doesn’t require being a Java expert. Of course, the combination of smart design patterns and DOP Principle #1 would lead to an even better design.&lt;/p&gt;
-
-&lt;h1 id=&quot;how-to-represent-immutable-data-in-java&quot;&gt;How to represent immutable data in Java&lt;/h1&gt;
-
-&lt;p&gt;The benefits of applying DOP Principle #2 about &lt;strong&gt;data immutability&lt;/strong&gt; in Java have been widely discussed. Basically, it comes down to:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Thread safety&lt;/li&gt;
-  &lt;li&gt;Absence of hidden side-effects&lt;/li&gt;
-  &lt;li&gt;Ease of caching&lt;/li&gt;
-  &lt;li&gt;Prevention of identity mutation&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The interesting question is: How do we represent immutable data in Java. There are mainly, three approaches:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Immutable classes (boilerplate code avoided via Java annotations)&lt;/li&gt;
-  &lt;li&gt;Data records (available since Java 14)&lt;/li&gt;
-  &lt;li&gt;Persistent hash maps&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;representing-data-with-immutable-classes&quot;&gt;Representing data with immutable classes&lt;/h2&gt;
-
-&lt;p&gt;Immutable classes, have no methods and the members cannot be modified.&lt;/p&gt;
-
-&lt;p&gt;Writing manually for each immutable class of our system the appropriate constructors, getters, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;equals()&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hashCode()&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;toString()&lt;/code&gt; involves lot of boilerplate code. We could avoid the boilerplate code using a Java annotation like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@value&lt;/code&gt; annotation from &lt;a href=&quot;https://projectlombok.org/features/Value&quot;&gt;Project Lombok&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Here is how we could represent the catalog data of our library management system using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@value&lt;/code&gt; annotation:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@value&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AuthorData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bookIds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;nd&quot;&gt;@value&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BookData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;isbn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;publicationYear&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;authorIds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;nd&quot;&gt;@value&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CatalogData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; 
-    &lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BookData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;booksByIsbn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AuthorData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;authorByIds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;As an example, here is how we would instantiate data of a catalog with a single book: Watchmen.&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;watchmen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BookData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Watchmen&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                            &lt;span class=&quot;s&quot;&gt;&quot;978-1779501127&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                            &lt;span class=&quot;mi&quot;&gt;1987&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                            &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;alan-moore&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;dave-gibbons&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alanM&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AuthorData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Alan Moore&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;978-1779501127&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;daveG&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AuthorData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Dave Gibbons&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;978-1779501127&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;booksByIsbn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;978-1779501127&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;watchmen&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;authorsById&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;alan-moore&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alanM&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                         &lt;span class=&quot;s&quot;&gt;&quot;dave-gibbons&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;daveG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;catalog&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CatalogData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;books&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;booksByIsbn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;authorsById&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;And we display in upper case the id of the first author of Watchmen like this:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;catalog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;booksByIsbn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;978-1779501127&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toUpperCase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// &quot;ALAN-MOORE&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;representing-data-with-records&quot;&gt;Representing data with records&lt;/h2&gt;
-
-&lt;p&gt;Java language maintainers acknowledge the need to provide immutable data representation at the language level. Java 14 introduced the concept of a record that provides a first-class means for modelling data-only aggregates.&lt;/p&gt;
-
-&lt;p&gt;Here is how our data model would look like with records:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;record&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;AuthorData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                          &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bookIds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;record&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;BookData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                        &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;isbn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                        &lt;span class=&quot;nc&quot;&gt;Integer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;publicationYear&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                        &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;authorIds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;record&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;CatalogData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; 
-                           &lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BookData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;booksByIsbn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                           &lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AuthorData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;authorByIds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Records are instantiated like immutable classes:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;watchmen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BookData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Watchmen&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                            &lt;span class=&quot;s&quot;&gt;&quot;978-1779501127&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                            &lt;span class=&quot;mi&quot;&gt;1987&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                            &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;alan-moore&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;dave-gibbons&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alanM&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AuthorData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Alan Moore&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;978-1779501127&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;daveG&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AuthorData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Dave Gibbons&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;978-1779501127&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;booksByIsbn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;978-1779501127&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;watchmen&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;authorsById&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;alan-moore&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alanM&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                         &lt;span class=&quot;s&quot;&gt;&quot;dave-gibbons&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;daveG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;catalog&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CatalogData&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;books&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;booksByIsbn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;authorsById&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;And we display in upper case the id of the first author of Watchmen like this:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;catalog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;booksByIsbn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;978-1779501127&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toUpperCase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// &quot;ALAN-MOORE&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Read more about Java records in this &lt;a href=&quot;https://blogs.oracle.com/javamagazine/records-come-to-java&quot;&gt;article&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;persistent-string-maps&quot;&gt;Persistent string maps&lt;/h2&gt;
-
-&lt;p&gt;Now comes the esoteric part that might cause you to feel uncomfortable as a Java developer.&lt;/p&gt;
-
-&lt;p&gt;Instead of representing data with a layout that is statically defined in our code base, we could represent data with hash maps without specifying data layout at all.&lt;/p&gt;
-
-&lt;p&gt;The advantage of this approach is that it makes data access and data manipulation flexible. Of course, it has to trade off &lt;strong&gt;flexibility&lt;/strong&gt; for &lt;strong&gt;type safety&lt;/strong&gt;. My purpose here is not to convince you that this is the way you should represent data in Java. My humble purpose is to suggest that a &lt;strong&gt;dynamic approach&lt;/strong&gt; to data is applicable in Java. Hopefully, it will motivate Java experts to explore if it makes sense to promote the dynamic data approach in Java.&lt;/p&gt;
-
-&lt;p&gt;Let’s see first how we could instantiate our catalog data using native Java immutable string maps and lists:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;watchmen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Watchmen&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                      &lt;span class=&quot;s&quot;&gt;&quot;isbn&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;978-1779501127&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                      &lt;span class=&quot;s&quot;&gt;&quot;publicationYear&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1987&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                      &lt;span class=&quot;s&quot;&gt;&quot;authorIds&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;alan-moore&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;dave-gibbons&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alanM&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Alan Moore&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                      &lt;span class=&quot;s&quot;&gt;&quot;bookIds&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;978-1779501127&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;daveG&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Dave Gibbons&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                         &lt;span class=&quot;s&quot;&gt;&quot;bookIds&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;978-1779501127&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;booksByIsbn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;978-1779501127&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;watchmen&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;authorsById&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;alan-moore&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alanM&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                         &lt;span class=&quot;s&quot;&gt;&quot;dave-gibbons&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;daveG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;catalog&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;items&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;book&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                     &lt;span class=&quot;s&quot;&gt;&quot;booksByIsbn&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;booksByIsbn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                     &lt;span class=&quot;s&quot;&gt;&quot;authorsById&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;authorsById&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;The limitation of Java immutable maps is that we cannot update them efficiently. Creating a new version of the catalog data (e.g. updating the publication year of a book) would require to copy the whole map. Fortunately, there is this computer science thing called &lt;strong&gt;persistent data structures&lt;/strong&gt; that makes it possible to update immutable data structures &lt;strong&gt;efficiently&lt;/strong&gt; both in terms of memory and computation.&lt;/p&gt;
-
-&lt;p&gt;There is a Java library named &lt;a href=&quot;https://github.com/GlenKPeterson/Paguro&quot;&gt;Paguro&lt;/a&gt; that provides efficient persistent data structures in Java.&lt;/p&gt;
-
-&lt;p&gt;Instantiating our catalog with Paguro is a bit more verbose as we have to wrap key-values pairs in maps with tuples:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;watchmen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Watchmen&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                   &lt;span class=&quot;n&quot;&gt;tup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;isbn&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;978-1779501127&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                   &lt;span class=&quot;n&quot;&gt;tup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;publicationYear&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1987&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                   &lt;span class=&quot;n&quot;&gt;tup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;authorIds&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;alan-moore&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;dave-gibbons&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)));&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alanM&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Alan Moore&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;tup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;bookIds&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;978-1779501127&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)));&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;daveG&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Dave Gibbons&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                      &lt;span class=&quot;n&quot;&gt;tup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;bookIds&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;978-1779501127&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)));&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;booksByIsbn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;978-1779501127&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;watchmen&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;authorsById&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;alan-moore&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alanM&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                      &lt;span class=&quot;n&quot;&gt;tup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;dave-gibbons&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;daveG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;catalog&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;items&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;book&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                  &lt;span class=&quot;n&quot;&gt;tup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;booksByIsbn&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;booksByIsbn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-                  &lt;span class=&quot;n&quot;&gt;tup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;authorsById&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;authorsById&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;With string maps (both Paguro and Java), we cannot easily access nested data in our catalog:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;catalog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;booksByIsbn&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;978-1779501127j&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;authorIds&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toUpperCase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// throws an exception&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;The problem is that inside the catalog map, we have values of different types:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;items&lt;/code&gt; is a string&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;booksByIsbn&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;authorByIds&lt;/code&gt; are maps&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;In order to be able to access the value associated with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;booksByIsbn&lt;/code&gt; as a map, we have to do a static cast:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;booksByIsbn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;catalog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;booksByIsbn&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;booksByIsbn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;978-1779501127&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// returns a map&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;And we have to do it multiple times until we get to the value we are interested in:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
- &lt;span class=&quot;o&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;)&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;catalog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;booksByIsbn&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;978-1779501127&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
- &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;authorIds&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
- &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toUpperCase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// &quot;ALAN-MOORE&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;I told you it would be esoteric!&lt;/p&gt;
-
-&lt;p&gt;We could alleviate a bit the awkwardness of this approach by adding getter methods in our map for each type of value (similar to Apache Wicket &lt;a href=&quot;https://ci.apache.org/projects/wicket/apidocs/9.x/org/apache/wicket/util/value/ValueMap.html&quot;&gt;value maps&lt;/a&gt;). Then it would look a bit less awkward to access a value in a nested map, as the casting is hidden in the getter:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;catalog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getAsMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;booksByIsbn&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getAsMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;978-1779501127&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getAsList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;authorIds&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getAsString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toUpperCase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// &quot;ALAN-MOORE&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;We could move one step further and implement nested value getters (similar to &lt;a href=&quot;https://clojuredocs.org/clojure.core/get-in&quot;&gt;get-in&lt;/a&gt; in Clojure or &lt;a href=&quot;https://lodash.com/docs/4.17.15#get&quot;&gt;Lodash get&lt;/a&gt; in JavaScript). Then, we could access a nested value in a very concise way:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;catalog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getInAsString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;booksByIsbn&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                          &lt;span class=&quot;s&quot;&gt;&quot;978-1779501127&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                          &lt;span class=&quot;s&quot;&gt;&quot;authorIds&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                          &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getUpperCase&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// &quot;ALAN_MOORE&quot;&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Let me conclude this article by mentioning &lt;strong&gt;potential benefits&lt;/strong&gt; that the dynamic data approach would provide if it is adopted by the Java community.&lt;/p&gt;
-
-&lt;h1 id=&quot;potential-benefits-of-a-dynamic-data-approach&quot;&gt;Potential benefits of a dynamic data approach&lt;/h1&gt;
-&lt;h2 id=&quot;weak-dependency-between-code-and-data&quot;&gt;Weak dependency between code and data&lt;/h2&gt;
-
-&lt;p&gt;When a piece of code manipulates data represented in a generic way it doesn’t have to include the class that defines the layout of the data. The only information that is required is the name of the fields to be manipulated.&lt;/p&gt;
-
-&lt;h2 id=&quot;information-path&quot;&gt;Information path&lt;/h2&gt;
-
-&lt;p&gt;When we represent the whole data of the system in a generic way, each piece of information of the system is accessible via its information bath: A list of keys and indexes that describe the path to the information.&lt;/p&gt;
-
-&lt;h2 id=&quot;serialization-without-reflection&quot;&gt;Serialization without reflection&lt;/h2&gt;
-
-&lt;p&gt;When data is represented with hash maps and lists, we can serialize it (e.g. JSON serialization) in a natural way without using reflection or any custom annotation.&lt;/p&gt;
-
-&lt;h2 id=&quot;manipulate-data-with-general-purpose-functions&quot;&gt;Manipulate data with general-purpose functions&lt;/h2&gt;
-
-&lt;p&gt;When data is represented in a generic way, we are free to manipulate it with a rich set of general-purpose functions. Let me mention two quick examples:&lt;/p&gt;
-
-&lt;h3 id=&quot;rename-keys&quot;&gt;Rename keys&lt;/h3&gt;
-
-&lt;p&gt;Suppose we want to send book information over the wire with a slight modification: the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;title&lt;/code&gt; field should be renamed to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bookTitle&lt;/code&gt;. In a non-dynamic approach to data, we would have to create another class &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BookWithBookTitle&lt;/code&gt; (it would be hard to come up with a good name!).&lt;/p&gt;
-
-&lt;p&gt;In a dynamic data approach, we could write a general purpose function &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;renameKey()&lt;/code&gt;. The cool thing is that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;renameKey()&lt;/code&gt; wouldn’t be coupled to book data. As a consequence, we could use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;renameKey()&lt;/code&gt; to rename the field of author data.&lt;/p&gt;
-
-&lt;h3 id=&quot;merge-data&quot;&gt;Merge data&lt;/h3&gt;
-
-&lt;p&gt;Suppose, we’d like to enrich book information with data from Amazon and GoodReads. In a non-dynamic approach we’d probably need to create classes or records for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AmazonBookInfo&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;GoodReadsBookInfo&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;EnrichedBookInfo&lt;/code&gt;. Anyway, we’d have to write custom code that merges information from Amazon and GoodReads.&lt;/p&gt;
-
-&lt;p&gt;In a dynamic data approach, we could leverage a general purpose &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;merge&lt;/code&gt; function that works on an arbitrary map.&lt;/p&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-
-&lt;p&gt;This article suggested that it would be possible to apply the principles of Data-Oriented programming in Java.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Code is &lt;strong&gt;separated&lt;/strong&gt; code from data&lt;/li&gt;
-  &lt;li&gt;Data is &lt;strong&gt;immutable&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;Data access is &lt;strong&gt;flexible&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Principles #1 and #2 feel quite natural to Java developers (especially with the addition of Java records). However, Principle #3 feels much less natural.&lt;/p&gt;
-
-&lt;p&gt;I hope that by having illustrated the benefits of a dynamic data approach, I have motivated a bit the Java community. Now it’s time for Java experts to take it from there and discover (&lt;em&gt;hopefully in the near future&lt;/em&gt;) what is the best way to embrace &lt;strong&gt;Data-Oriented programming in Java&lt;/strong&gt;.&lt;/p&gt;</content><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><category term="java" /><category term="dop" /><category term="java" /><summary type="html">The principles of Data-Oriented programming</summary></entry></feed>
+&lt;/ol&gt;</content><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><category term="clojure" /><category term="dop" /><category term="clojure" /><category term="theory" /><summary type="html">Here are 9 fundamental general concepts about programming.</summary></entry></feed>
