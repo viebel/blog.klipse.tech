@@ -2,7 +2,7 @@
 layout: post
 title: Polymorphism without objects via multimethods
 description: Multimethod tutorial. Single dispatch and multiple dispatch.
-date:   2021-10-02 22:12:21 +0200
+date:   2021-10-04 01:54:21 +0200
 categories: javascript
 thumbnail: assets/klipse.png
 author: Yehonathan Sharvit
@@ -10,10 +10,7 @@ minified_plugin: true
 tags: [javascript]
 ---
 
-
 **Object-Oriented Programming** is well known for allowing different classes to be called with the same interface, via a mechanism called **polymorphism**. It may seem that the only way to have polymorphism in a program is with objects. In fact, as we are going to see in this article it is possible to have **polymorphism without objects** via **multimethods**.
-
-*This article has been revised and improved. The revised version is available [here]({% post_url 2021-10-04-multimethod %})*
 
 Moreover, multimethods provide more advanced polymorphism than OOP polymorphism as they support cases where the chosen implementation depends on several argument types (multiple dispatch) and even on the dynamic value of the arguments (dynamic dispatch).
 
@@ -165,53 +162,73 @@ In the diagram, there is an arrow between animal and the methods in addition to 
 
 For now, our multimethod receives a single argument. But in the next section, it will receive several arguments.
 
-Let's see how a multimethod looks like in terms of code.
+Let's see how a multimethod looks like in terms of code. For that, we need a library. For instance, in JavaScript using a library named [arrows/multimethod](https://github.com/caderek/arrows/tree/master/packages/multimethod), we call `multi` to create a multimethod and `method` to create a method.
 
-We start with the dispatch function `greetDispatch`: it defines the signature of the multimethod and emits the type of the animal as the dispatched value:
+We start the definition of a multimethod by declaring its **dispatch function**. In our case, the dispatch function emits the type of the animal as the dispatched value:
 
 ~~~klipse-eval-js
-function greetDispatch(animal) {
-return animal.type;
-}
+var greet = multi(animal => animal.type);
 ~~~
 
-Now, we need a method for each dispatch value. In our case, we’ll have `greetDog` for dogs, `greetCat` for cats and `greetCow` for cows:
+Then, we need a method for each dispatch value. In our case, we’ll have `greetDog` for dogs, `greetCat` for cats and `greetCow` for cows:
 
 ~~~klipse-eval-js
 function greetDog(animal) {
 console.log("Woof woof! My name is " + animal.name);
 }
+greet = method("dog", greetDog)(greet);
+~~~
+
+~~~klipse-eval-js
 function greetCat(animal) {
 console.log("Meow! I am " + animal.name);
 }
+greet = method("cat", greetCat)(greet);
+~~~
+
+~~~klipse-eval-js
 function greetCow(animal) {
 console.log("Moo! Call me " + animal.name);
 }
+greet = method("cow", greetCow)(greet);
 ~~~
 
-> In the context of multimethods, a method is a function that provides an implementation for a dispatch value.
 
-On the one hand we have the greet dispatch function and on the other hand we have the different greet implementations. How do you **wire** everything together?
+It is important to notice that each method declaration could live in its own file. That's how multimethods provide **extensibility**: We are free to add new methods without having to modify the original implementation.
 
-For that, we need a library. For instance, in JavaScript using a library named [arrows/multimethod](https://github.com/caderek/arrows/tree/master/packages/multimethod), we call `multi` to create a multimethod and `method` to create a method:
+> Method declarations are decoupled from the multimethod initialization
 
-~~~klipse-eval-js
-var greet = multi(
-greetDispatch,
-method("dog", greetDog),
-method("cat", greetCat),
-method("cow", greetCow)
-);
-~~~
-
-The names of the dispatch function and the methods are not really important. But I like to follow a simple **naming convention**: use the name of the multimethod as a **prefix** for the dispatch function and the methods and have the `Dispatch` **suffix** for the dispatch function and a specific **suffix** for each method.
-
-Under the hood, the `arrows/multimethod` library maintains a **hash map**, where the keys are the values emitted by the dispatch function and the values are the methods. When you call method, the library adds an entry to the hash map and when you call the multimethod it queries the hash map to find the implementation that corresponds to the dispatch value.
+Under the hood, the `arrows/multimethod` library maintains a **hash map**, where the keys correspond to the values emitted by the dispatch function and the values are the methods. When you call the multimethod, the library queries the hash map to find the implementation that corresponds to the dispatched value.
 
 In terms of usage, we call a multimethod as a regular function:
 
 ~~~klipse-eval-js
 greet(myCow);
+~~~
+
+And if by mistake we pass an animal that doesn't have a corresponding method, we get a `NoMethodError` exception:
+
+~~~klipse-eval-js
+var myHorse = {
+"type": "horse",
+"name": "Horace"
+};
+greet(myHorse);
+~~~
+
+Unless you can declare a **default method**:
+
+~~~klipse-eval-js
+function defaultGreet(animal) {
+    console.log("My name is " + animal.name);
+}
+greet = method(defaultGreet)(greet);
+~~~
+
+Now our horse can greet:
+
+~~~klipse-eval-js
+greet(myHorse);
 ~~~
 
 # Multimethods with multiple dispatch
@@ -256,10 +273,11 @@ The dispatch function is going to return an array with two elements: the type of
 
 
 ~~~klipse-eval-js
-function greetLangDispatch(animal, language) {
-return [animal.type, language.type];
-};
+var greetLang = multi((animal, language) => [animal.type, language.type]);
 ~~~
+
+
+> A dispatch function could emit any value. It gives us more flexibility than with OOP polymorphism
 
 The order of the elements in the array It doesn’t matter but it needs to be consistent with the wiring of the methods.
 
@@ -270,42 +288,51 @@ function greetLangDogEn(animal, language) {
 console.log("Woof woof! My name is " + animal.name + " and I speak " +
 language.name);
 }
+greetLang = method(["dog", "en"], greetLangDogEn)(greetLang);
+~~~
+
+~~~klipse-eval-js
 function greetLangDogFr(animal, language) {
 console.log("Ouaf Ouaf! Mon nom est " + animal.name + " et je parle " +
 language.name);
 }
+greetLang = method(["dog", "fr"], greetLangDogFr)(greetLang);
+~~~
+
+~~~klipse-eval-js
 function greetLangCatEn(animal, language) {
 console.log("Meow! I am " + animal.name + " and I speak " + language.name);
 }
+greetLang = method(["cat", "en"], greetLangCatEn)(greetLang);
+~~~
+
+~~~klipse-eval-js
 function greetLangCatFr(animal, language) {
 console.log("Miaou! Je m'appelle " + animal.name + " et je parle " + language.name);
 }
+greetLang = method(["cat", "fr"], greetLangCatFr)(greetLang);
+~~~
+
+~~~klipse-eval-js
 function greetLangCowEn(animal, language) {
 console.log("Moo! Call me " + animal.name + " and I speak " + language.name);
 }
+greetLang = method(["cow", "en"], greetLangCowEn)(greetLang);
+~~~
+
+~~~klipse-eval-js
 function greetLangCowFr(animal, language) {
 console.log("Meuh! Appelle moi " + animal.name + " et je parle " + language.name);
 }
+greetLang = method(["cow", "fr"], greetLangCowFr)(greetLang);
 ~~~
+
 
 Take a closer look at the code for the methods that deal with French and tell me if you are surprised to see "Ouaf Ouaf"
 instead of "Woof Woof" for dogs, "Miaou" instead of "Meow" for cats and "Meuh" instead of "Moo" for cows. I find it funny that that animal **onomatopoeia** are different in French than in English!
 
 *Onomatopoeia* comes also from the Greek: *ónoma* means *name* and *poiéō* means *to produce*. It is the property of words that sound like what they represent. For instance, Woof, Meow and Moo.
 
-Anyway, after we have defined our **dispatch function** and our **methods**, we need to **wire** them altogether in a multimethod, like we did with `greet`. The only difference that the dispatch values are arrays of strings instead of strings:
-
-~~~klipse-eval-js
-var greetLang = multi(
-  greetLangDispatch,
-  method(["dog", "en"], greetLangDogEn),
-  method(["dog", "fr"], greetLangDogFr),
-  method(["cat", "en"], greetLangCatEn),
-  method(["cat", "fr"], greetLangCatFr),
-  method(["cow", "en"], greetLangCowEn),
-  method(["cow", "fr"], greetLangCowFr)
-);
-~~~
 
 **Multiple dispatch** is when a dispatch function emits a value that depends on more than one argument.
 
@@ -334,10 +361,7 @@ Let’s call our multimethod `dysGreet`.
 Its dispatch function returns an array with two elements: the animal type and a boolean about whether the name is long or not:
 
 ~~~klipse-eval-js
-function dysGreetDispatch(animal) {
-var hasLongName = animal.name.length > 5;
-return [animal.type, hasLongName];
-};
+var dysGreet = multi(animal => [animal.type, animal.name.length > 5]);
 ~~~
 
 
@@ -347,36 +371,44 @@ And here are the methods:
 function dysGreetDogShort(animal) {
 console.log("Woof woof! My name is " + animal.name);
 }
+dysGreet = method(["dog", false], dysGreetDogShort)(dysGreet);
+~~~
+
+~~~klipse-eval-js
 function dysGreetDogLong(animal) {
 console.log("Woof woof!");
 }
+dysGreet = method(["dog", true], dysGreetDogLong)(dysGreet);
+~~~
+
+~~~klipse-eval-js
 function dysGreetCatShort(animal) {
 console.log("Meow! I am " + animal.name);
 }
+dysGreet = method(["cat", false], dysGreetCatShort)(dysGreet);
+~~~
+
+~~~klipse-eval-js
 function dysGreetCatLong(animal) {
 console.log("Meow!");
 }
+dysGreet = method(["cat", true], dysGreetCatLong)(dysGreet);
+~~~
+
+~~~klipse-eval-js
 function dysGreetCowShort(animal) {
 console.log("Moo! Call me " + animal.name);
 }
+dysGreet = method(["cow", false], dysGreetCowShort)(dysGreet);
+~~~
+
+~~~klipse-eval-js
 function dysGreetCowLong(animal) {
 console.log("Moo!");
 }
+dysGreet = method(["cow", true], dysGreetCowLong)(dysGreet);
 ~~~
 
-As surprising as it may sound, wiring a multimethod with dynamic dispatch is as simple as wiring a multimethod with static dispatch:
-
-~~~klipse-eval-js
-var dysGreet = multi(
-dysGreetDispatch,
-method(["dog", false], dysGreetDogShort),
-method(["dog", true], dysGreetDogLong),
-method(["cat", false], dysGreetCatShort),
-method(["cat", true], dysGreetCatLong),
-method(["cow", false], dysGreetCowShort),
-method(["cow", true], dysGreetCowLong)
-);
-~~~
 
 And now, if we ask Clarabelle to greet, she omits her name:
 
