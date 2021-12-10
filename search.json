@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Data-Oriented Programming: A link in the chain of programming paradigms",
+      "category" : "d",
+      "tags"     : "dop",
+      "url"      : "/databook/2021/12/10/data-book-chap1-part2.html",
+      "date"     : "December 10, 2021"
+    } ,
+  
+    {
       "title"    : "Polymorphism without objects via multimethods",
       "category" : "",
       "tags"     : "javascript",
@@ -261,14 +269,6 @@
       "category" : "d",
       "tags"     : "dop",
       "url"      : "/databook/2020/09/25/data-book-chap1-part3.html",
-      "date"     : "September 25, 2020"
-    } ,
-  
-    {
-      "title"    : "The complexity of Object Oriented Programming: A bit of UML",
-      "category" : "d",
-      "tags"     : "",
-      "url"      : "/databook/2020/09/25/data-book-chap1-part2.html",
       "date"     : "September 25, 2020"
     } ,
   

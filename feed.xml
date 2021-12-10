@@ -1,4 +1,212 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-10-04T03:04:16+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><entry><title type="html">Polymorphism without objects via multimethods</title><link href="/javascript/2021/10/03/multimethod.html" rel="alternate" type="text/html" title="Polymorphism without objects via multimethods" /><published>2021-10-03T23:54:21+00:00</published><updated>2021-10-03T23:54:21+00:00</updated><id>/javascript/2021/10/03/multimethod</id><content type="html" xml:base="/javascript/2021/10/03/multimethod.html">&lt;p&gt;&lt;strong&gt;Object-Oriented Programming&lt;/strong&gt; is well known for allowing different classes to be called with the same interface, via a mechanism called &lt;strong&gt;polymorphism&lt;/strong&gt;. It may seem that the only way to have polymorphism in a program is with objects. In fact, as we are going to see in this article it is possible to have &lt;strong&gt;polymorphism without objects&lt;/strong&gt; via &lt;strong&gt;multimethods&lt;/strong&gt;.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-12-10T07:53:19+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><entry><title type="html">Data-Oriented Programming: A link in the chain of programming paradigms</title><link href="/databook/2021/12/10/data-book-chap1-part2.html" rel="alternate" type="text/html" title="Data-Oriented Programming: A link in the chain of programming paradigms" /><published>2021-12-10T04:45:32+00:00</published><updated>2021-12-10T04:45:32+00:00</updated><id>/databook/2021/12/10/data-book-chap1-part2</id><content type="html" xml:base="/databook/2021/12/10/data-book-chap1-part2.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7&quot;&gt; book &lt;/a&gt; about &lt;b&gt;Data-Oriented Programming&lt;/b&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Data-Oriented Programming is not an invention. It has its &lt;strong&gt;origins&lt;/strong&gt; in the 1950s and the invention of LISP and is based on a set of &lt;strong&gt;best practices&lt;/strong&gt; that can be found in both Functional Programming and Object-Oriented Programming. However, this paradigm has only been applicable in production systems at scale since the 2010s and the implementation of &lt;strong&gt;efficient&lt;/strong&gt; peristent data structures.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This article traces the major &lt;strong&gt;ideas&lt;/strong&gt; and &lt;strong&gt;discoveries&lt;/strong&gt; which, over the years, have allowed the emergence of DOP.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;timeline&quot;&gt;Timeline&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/dop-timeline.png&quot; alt=&quot;dop timeline&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;1958-lisp&quot;&gt;1958: LISP&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In LISP, John McCarthy has the ingenious idea to represent &lt;strong&gt;data&lt;/strong&gt; as &lt;strong&gt;generic immutable lists&lt;/strong&gt; and to invent a language that makes it very &lt;strong&gt;natural&lt;/strong&gt; to create lists and to access any part of a list. That&amp;#8217;s the reason why LISP stands for LISt Processing.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In as sense, LISP lists are the ancestors of JavaScript object literals. The idea that it makes sense to represent data with generic data structures (DOP Principle #2) definitely comes from LISP.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The main limitation of LISP lists is that when we update a list, we need to create a new version of it by cloning it and it has a negative impact on &lt;strong&gt;performances&lt;/strong&gt; both in terms of CPU and memory.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;1981-values-and-objects&quot;&gt;1981: Values and Objects&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In a beautiful, short and easy-to-read paper named &lt;a href=&quot;https://www.researchgate.net/publication/220177801_Values_and_Objects_in_Programming_Languages&quot;&gt;Values and Objects in Programming Languages&lt;/a&gt;, Bruce MacLennan clarifies the distinction between &lt;strong&gt;values&lt;/strong&gt; and &lt;strong&gt;objects&lt;/strong&gt;. In a nutshell:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Values are &lt;strong&gt;timeless&lt;/strong&gt; abstractions for which the concepts of &lt;strong&gt;updating&lt;/strong&gt;, &lt;strong&gt;sharing&lt;/strong&gt; and &lt;strong&gt;instantiation&lt;/strong&gt; have no meaning. For instance, numbers are values.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Objects exist in &lt;strong&gt;time&lt;/strong&gt; and hence can be &lt;strong&gt;created&lt;/strong&gt;, &lt;strong&gt;destroyed&lt;/strong&gt;, &lt;strong&gt;copied&lt;/strong&gt;, &lt;strong&gt;shared&lt;/strong&gt; and &lt;strong&gt;updated&lt;/strong&gt;. For instance, an employee in a human resource software system is an object.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The meaning of the term &lt;em&gt;object&lt;/em&gt; in this paper is not exactly the same as in the context of Object-Oriented Programming.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The author explains why it&amp;#8217;s much simpler to write code that deals with values than code that deals with objects.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This paper has been a source of inspiration for Data-Oriented Programming as it encourages us to implement our systems in such a way that most of our code deals with values.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;2000-ideal-hash-trees&quot;&gt;2000: Ideal Hash Trees&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Phil Bagwell invented a data structure called Hash Array Mapped Trie (HAMT). In his paper &lt;a href=&quot;https://lampwww.epfl.ch/papers/idealhashtrees.pdf&quot;&gt;Ideal Hash trees&lt;/a&gt;, he used HAMT to implement hash maps with nearly ideal characteristics both in terms of &lt;strong&gt;computation&lt;/strong&gt; and &lt;strong&gt;memory&lt;/strong&gt; usage.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;HAMT and Ideal hash trees are the foundation of &lt;strong&gt;efficient persistent data structures&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;2006-out-of-the-tar-pit&quot;&gt;2006: Out of the Tar Pit&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In &lt;a href=&quot;https://www.semanticscholar.org/paper/Out-of-the-Tar-Pit-Moseley-Marks/41dc590506528e9f9d7650c235b718014836a39d&quot;&gt;Out of the Tar Pit&lt;/a&gt;, Ben Moseley and Peter Marks claim that &lt;strong&gt;complexity&lt;/strong&gt; is the single major difficulty in the development of large-scale software systems. In the context of their paper, complexity means what make a system &lt;strong&gt;hard to understand&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The main insight of the authors is that most of the complexity of software systems in not essential but &lt;strong&gt;accidental&lt;/strong&gt;: the complexity doesn&amp;#8217;t come from the problem we have to solve but from the software constructs we use to solve the problem. They suggest various ways to &lt;strong&gt;reduce complexity&lt;/strong&gt; of software systems.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In a sense, Data-Oriented Programming is a way to get us out of the tar pit.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;2007-clojure&quot;&gt;2007: Clojure&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Rich Hickey, an &lt;strong&gt;Object-Oriented&lt;/strong&gt; Programming expert, invented &lt;strong&gt;Clojure&lt;/strong&gt; to make it easier to develop information systems at scale. Rich Hickey likes to summarize Clojure core value with the phrase: &lt;strong&gt;&quot;Just use maps!&quot;&lt;/strong&gt;. By maps, he means &lt;strong&gt;immutable&lt;/strong&gt; maps to be manipulated &lt;strong&gt;efficiently&lt;/strong&gt; by &lt;strong&gt;generic&lt;/strong&gt; functions. Those maps were implemented using the data structures presented by Phil Bagwell in &quot;Ideal Hash Trees&quot;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Clojure has been the main source of inspiration for Data-Oriented Programming. In a sense, Data-Oriented Programming is a formalization of the underlying principles of Clojure and how to apply them in other programming languages.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;2009-immutability-for-all&quot;&gt;2009: Immutability for all&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Clojure&amp;#8217;s &lt;strong&gt;efficient&lt;/strong&gt; implementation of &lt;strong&gt;persistent data structures&lt;/strong&gt; has been attractive for developers from other programming langauges. In 2009, there were ported to Scala. Over the years, they have been &lt;strong&gt;ported&lt;/strong&gt; to other &lt;strong&gt;programming languages&lt;/strong&gt; either by organizations (like Facebook for Immutable.js) or by individual contributors (like Glen Peterson for Paguro in Java).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Nowadays, DOP is applicable in virtually any programming language!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;dop-principles-as-best-practices&quot;&gt;DOP principles as best practices&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The &lt;a href=&quot;/databook/2020/09/29/do-principles.html&quot;&gt;principles of Data-Oriented programming are not new&lt;/a&gt;. They come from &lt;strong&gt;best practices&lt;/strong&gt; that are well-known among software developers from various programming languages. The &lt;em&gt;innovation&lt;/em&gt; of Data-Oriented programming is the combination of those principles into a cohesive whole.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In this section, we put each one of the 4 DOP principles into its broader scope.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;principle-1-separate-code-from-data&quot;&gt;Principle #1: Separate code from data&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Separating code from data used to be the main point of &lt;strong&gt;tension&lt;/strong&gt; between &lt;strong&gt;Object-Oriented&lt;/strong&gt; Programming (OOP) and &lt;strong&gt;Functional&lt;/strong&gt; Programming (FP). Traditionally, in OOP we &lt;strong&gt;encapsulate&lt;/strong&gt; data together with code in &lt;strong&gt;stateful&lt;/strong&gt; objects, while in FP we write &lt;strong&gt;stateless&lt;/strong&gt; functions that receive data they manipulate as an &lt;strong&gt;explicit&lt;/strong&gt; argument.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This tension has been reduced over the years as it is possible in FP to write stateful functions with data encapsulated in their &lt;a href=&quot;https://en.wikipedia.org/wiki/Scope_computer_science&quot;&gt;lexical scope&lt;/a&gt;. Moreover, OOP languages like Java and C# have added support for &lt;strong&gt;anonymous functions&lt;/strong&gt; (lambdas).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;principle-2-represent-data-with-generic-data-structures&quot;&gt;Principle #2: Represent data with generic data structures&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;One of the main innovation of &lt;strong&gt;JavaScript&lt;/strong&gt; when it was released in December 1995 was the &lt;strong&gt;easiness&lt;/strong&gt; to create and manipulate hash maps via &lt;strong&gt;object literals&lt;/strong&gt;. The increasing &lt;strong&gt;popularity&lt;/strong&gt; of JavaScript over the years as a language used everywhere (frontend, backend, desktop) has influenced the developer community to represent data with hash maps when possible. It feels more natural in &lt;strong&gt;dynamically-typed&lt;/strong&gt; programming languages, it is applicable also in &lt;strong&gt;statically-typed&lt;/strong&gt; programming languages.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;principle-3-data-is-immutable&quot;&gt;Principle #3: Data is immutable&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Data immutability is considered as a best practice as it makes the behaviour of our program more &lt;strong&gt;predictable&lt;/strong&gt;. For instance, in &lt;a href=&quot;https://www.oreilly.com/library/view/effective-java/9780134686097&quot;&gt;Effective Java&lt;/a&gt;, Joshua Block mentions &quot;Minimize mutability&quot; as one of Java best practices.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;There is a famous quote from Alan Kay - who is considered by many as the inventor of Object-Oriented Programming - about the value of immutability:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The last thing you wanted any programmer to do is mess with internal state even if presented figuratively. Instead, the objects should be presented as site of higher level behaviors more appropriate for use as dynamic components. (&amp;#8230;&amp;#8203;) It is unfortunate that much of what is called &quot;object-oriented programming&quot; today is simply old style programming with fancier constructs. Many programs are loaded with &quot;assignment-style&quot; operations now done by more expensive attached procedures.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Unfortunately, until 2007 and the implementation of efficient persistent data structures in Clojure, immutability was not applicable for production applications at scale.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Nowadays, efficient persistent data structures are available in most programming languages.&lt;/p&gt;
+&lt;/div&gt;
+&lt;table class=&quot;tableblock frame-all grid-all stretch&quot;&gt;
+&lt;colgroup&gt;
+&lt;col style=&quot;width: 50%;&quot;&gt;
+&lt;col style=&quot;width: 50%;&quot;&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Language&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Library&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Java&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;a href=&quot;https://github.com/GlenKPeterson/Paguro&quot;&gt;Paguro&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;C#&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;a href=&quot;https://docs.microsoft.com/en-us/archive/msdn-magazine/2017/march/net-framework-immutable-collections&quot;&gt;Provided by the language&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;JavaScript&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;a href=&quot;https://immutable-js.com/&quot;&gt;Immutable.js&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Python&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;a href=&quot;https://github.com/tobgu/pyrsistent&quot;&gt;Pyrsistent&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Ruby&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;a href=&quot;https://github.com/hamstergem/hamster&quot;&gt;Hamster&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In addition to that, many languages provide support for &lt;strong&gt;read-only&lt;/strong&gt; objects natively. Java added  &lt;a href=&quot;https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/lang/Record.html&quot;&gt;record classes&lt;/a&gt; in Java 14. C# introduced a &lt;code&gt;record&lt;/code&gt; type in C# 9. There is a (&lt;a href=&quot;https://github.com/tc39/proposal-record-tuple)&quot;&gt;ECMAScript proposal) for supporting immutable records and tuples in JavaScript . Python 3.7 introduced https://docs.python.org/3/library/dataclasses.html[Immutable data classes&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;principle-4-separate-data-schema-from-data-representation&quot;&gt;Principle #4: Separate data schema from data representation&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;One of the more virulent &lt;strong&gt;critics&lt;/strong&gt; against dynamically-typed programming languages used to be related to the lack of data validation. The answer that dynamically-typed languages used to give to this critics was that you trade data &lt;strong&gt;safety&lt;/strong&gt; for data &lt;strong&gt;flexibility&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Since the development of &lt;strong&gt;data schema&lt;/strong&gt; languages like &lt;a href=&quot;https://json-schema.org/&quot;&gt;JSON schema&lt;/a&gt;, it is natural to validate data even when data is represented as hash maps.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;wrapping-up&quot;&gt;Wrapping up&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In this article, we have explored the &lt;strong&gt;ideas&lt;/strong&gt; that inspired Data-Oriented Programming and the &lt;strong&gt;discoveries&lt;/strong&gt; that made it applicable in production systems at &lt;strong&gt;scale&lt;/strong&gt; in most programming languages.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><category term="dop" /><summary type="html">This article is an excerpt from my book about Data-Oriented Programming. More excerpts are available on my blog.</summary></entry><entry><title type="html">Polymorphism without objects via multimethods</title><link href="/javascript/2021/10/03/multimethod.html" rel="alternate" type="text/html" title="Polymorphism without objects via multimethods" /><published>2021-10-03T23:54:21+00:00</published><updated>2021-10-03T23:54:21+00:00</updated><id>/javascript/2021/10/03/multimethod</id><content type="html" xml:base="/javascript/2021/10/03/multimethod.html">&lt;p&gt;&lt;strong&gt;Object-Oriented Programming&lt;/strong&gt; is well known for allowing different classes to be called with the same interface, via a mechanism called &lt;strong&gt;polymorphism&lt;/strong&gt;. It may seem that the only way to have polymorphism in a program is with objects. In fact, as we are going to see in this article it is possible to have &lt;strong&gt;polymorphism without objects&lt;/strong&gt; via &lt;strong&gt;multimethods&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;Moreover, multimethods provide more advanced polymorphism than OOP polymorphism as they support cases where the chosen implementation depends on several argument types (multiple dispatch) and even on the dynamic value of the arguments (dynamic dispatch).&lt;/p&gt;
 
@@ -2252,218 +2460,4 @@ var _ = fp.convert({
 
 &lt;p&gt;Providing a &lt;strong&gt;dynamic data access&lt;/strong&gt; in a &lt;strong&gt;statically-typed&lt;/strong&gt; language like Java is challenging. When data is represented with classes or records, we need to use reflection and when data is represented with string maps, we loose the information about types.&lt;/p&gt;
 
-&lt;p&gt;Maybe an approach like the typed getters, presented at the end of the article, could open the door to the Java community for a &lt;strong&gt;dynamic data access&lt;/strong&gt; that doesn’t compromise &lt;strong&gt;type safety&lt;/strong&gt;.&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="java" /><category term="java" /><summary type="html">An interesting question in the context of information systems is:</summary></entry><entry><title type="html">The concepts behind Data-Oriented programming</title><link href="/clojure/2021/03/15/rich-hickey-concepts.html" rel="alternate" type="text/html" title="The concepts behind Data-Oriented programming" /><published>2021-03-15T04:03:52+00:00</published><updated>2021-03-15T04:03:52+00:00</updated><id>/clojure/2021/03/15/rich-hickey-concepts</id><content type="html" xml:base="/clojure/2021/03/15/rich-hickey-concepts.html">&lt;p&gt;Here are 9 fundamental general concepts about programming.&lt;/p&gt;
-
-&lt;p&gt;In my opinion, &lt;strong&gt;Data-Oriented programming&lt;/strong&gt; as a language-agnostic paradigm is founded on a certain understanding (interpretation?) of those concepts.&lt;/p&gt;
-
-&lt;p&gt;My understanding of those concepts has been highly influenced by &lt;strong&gt;Rich Hickey&lt;/strong&gt;’s talks where he shares his unique approach to &lt;strong&gt;effective information systems&lt;/strong&gt; and the rationale behind &lt;strong&gt;Clojure&lt;/strong&gt; as a &lt;strong&gt;Data-Oriented&lt;/strong&gt; programming language.&lt;/p&gt;
-
-&lt;p&gt;This glossary is my attempt to make Data-Oriented programming better understood in the global community of developers and explains how DOP differs from Object-Oriented programming and functional programming.&lt;/p&gt;
-
-&lt;p&gt;The concepts are presented in alphabetical order.&lt;/p&gt;
-
-&lt;h2 id=&quot;1-abstraction&quot;&gt;1. Abstraction&lt;/h2&gt;
-&lt;h3 id=&quot;definition&quot;&gt;Definition&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Abstraction&lt;/strong&gt; is about drawing from a set of &lt;strong&gt;exemplars&lt;/strong&gt; some &lt;strong&gt;essential&lt;/strong&gt; thing.&lt;/p&gt;
-
-&lt;h3 id=&quot;example&quot;&gt;Example&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Relational algebra&lt;/strong&gt; is an example of &lt;strong&gt;data abstraction&lt;/strong&gt;. Modelling data as relations gives us lot of power:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;We express advanced data manipulation operations with well-defined relational algebra operators&lt;/li&gt;
-  &lt;li&gt;An implementation of relational algebra operators is applicable to all exemplars of data.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;in-clojure&quot;&gt;In Clojure&lt;/h3&gt;
-&lt;p&gt;Representing data with &lt;strong&gt;maps&lt;/strong&gt; (“just use maps”) is a &lt;strong&gt;data abstraction&lt;/strong&gt;. The only required knowledge in order to access data is the field name, represented with a generic entity (e.g. a string or a keyword).&lt;/p&gt;
-
-&lt;p&gt;Moreover, there is a well-defined algebra of maps  applicable to any data represented with maps.&lt;/p&gt;
-
-&lt;h3 id=&quot;see-also&quot;&gt;See also&lt;/h3&gt;
-&lt;p&gt;Concretion&lt;/p&gt;
-
-&lt;h2 id=&quot;2-concretion&quot;&gt;2. Concretion&lt;/h2&gt;
-&lt;h3 id=&quot;definition-1&quot;&gt;Definition&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;Concretion&lt;/strong&gt; is when in order to use something we need a &lt;strong&gt;concrete&lt;/strong&gt; knowledge about the thing.&lt;/p&gt;
-
-&lt;h3 id=&quot;example-1&quot;&gt;Example&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Dependency_inversion_principle&quot;&gt;Dependency Inversion Principle&lt;/a&gt;: Entities must depend on &lt;strong&gt;abstractions&lt;/strong&gt;, not on &lt;strong&gt;concretions&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;The common way to apply DIP to Object-Oriented programming is that when a class depends on another class, it should not depend on concrete instances of the other class. Rather, it should depend on an &lt;strong&gt;abstract interface&lt;/strong&gt; implemented by that class.&lt;/p&gt;
-
-&lt;p&gt;A more abstract way to handle dependency between entities is to invoke code by &lt;strong&gt;sending a message&lt;/strong&gt; to an object. The only required knowledge is the name of the message, represented with a generic entity (e.g. a string).&lt;/p&gt;
-
-&lt;h3 id=&quot;in-clojure-1&quot;&gt;In Clojure&lt;/h3&gt;
-
-&lt;p&gt;In a sense, Clojure idiom &lt;em&gt;just use maps&lt;/em&gt; is an application of the Dependency Inversion Principle to &lt;strong&gt;data&lt;/strong&gt;. Representing data with a data class or a data record is a &lt;strong&gt;concretion&lt;/strong&gt;: The only way to access data is via the class methods or record members.&lt;/p&gt;
-
-&lt;p&gt;When we access data through the methods of an interface, it’s a bit less concrete. But still, we can access data only through the methods defined in the interface.&lt;/p&gt;
-
-&lt;p&gt;A more abstract (less concrete) way to represent data is with generic maps. In order to access data in a map, the only required knowledge is the field name, represented with generic entities like strings (or Clojure keywords).&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt; &lt;/th&gt;
-      &lt;th&gt;Code&lt;/th&gt;
-      &lt;th&gt;Data&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Concrete&lt;/td&gt;
-      &lt;td&gt;Concrete class&lt;/td&gt;
-      &lt;td&gt;Concrete record&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Less concrete&lt;/td&gt;
-      &lt;td&gt;Abstract class&lt;/td&gt;
-      &lt;td&gt;Abstract class with getters&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Most abstract&lt;/td&gt;
-      &lt;td&gt;Message passing&lt;/td&gt;
-      &lt;td&gt;Generic map&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;see-also-1&quot;&gt;See also&lt;/h3&gt;
-&lt;p&gt;Abstraction&lt;/p&gt;
-
-&lt;h2 id=&quot;3-identity&quot;&gt;3. Identity&lt;/h2&gt;
-&lt;h3 id=&quot;definition-2&quot;&gt;Definition&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;Identity&lt;/strong&gt; is a &lt;strong&gt;stable&lt;/strong&gt; logical entity that humans or programs associate with a series of different &lt;strong&gt;values&lt;/strong&gt; over &lt;strong&gt;time&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;An identity is not the same as a name.&lt;/p&gt;
-
-&lt;h3 id=&quot;example-2&quot;&gt;Example&lt;/h3&gt;
-
-&lt;div class=&quot;language-clojure highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yehonathan&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;atom&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yehonathan-state-on-march-2021&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-     &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;:age&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;42&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;;; No kidding!&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;:firstName&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Yehonathan&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;:lastName&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Sharvit&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset!&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yehonathan&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yehonathan-state-on-march-2021&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Let’s describe exactly what happens in this code snippet in terms of name, identity, state and value:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;yehonathan&lt;/code&gt; is a name that refers to an identity&lt;/li&gt;
-  &lt;li&gt;The identity is represented as an &lt;a href=&quot;https://clojuredocs.org/clojure.core/atom&quot;&gt;atom&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;The map with the fields &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;age=42&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firstName=&quot;Yehonathan&quot;&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lastName=&quot;Sharvit&quot;&lt;/code&gt; is a value&lt;/li&gt;
-  &lt;li&gt;After calling &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(reset! yehonathan ...)&lt;/code&gt;, the state of the identity referred by the name &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;yehonathan&lt;/code&gt; is the map with the fields &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;age=42&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firstName=&quot;Yehonathan&quot;&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lastName=&quot;Sharvit&quot;&lt;/code&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;see-also-2&quot;&gt;See also&lt;/h3&gt;
-&lt;p&gt;State, Value&lt;/p&gt;
-
-&lt;h2 id=&quot;4-information&quot;&gt;4. Information&lt;/h2&gt;
-&lt;h3 id=&quot;definition-3&quot;&gt;Definition&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Information&lt;/strong&gt; is what you &lt;strong&gt;know&lt;/strong&gt; about something that happened in the &lt;strong&gt;world&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Information is inherently &lt;strong&gt;sparse&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Information is &lt;strong&gt;open&lt;/strong&gt; in the sense that it could contain pieces that you don’t care about in some context.&lt;/p&gt;
-
-&lt;p&gt;Information &lt;strong&gt;accretes&lt;/strong&gt;, it just keeps accumulating.&lt;/p&gt;
-
-&lt;p&gt;The best way to grapple information is by using names.&lt;/p&gt;
-
-&lt;h2 id=&quot;5-loose-coupling&quot;&gt;5. Loose coupling&lt;/h2&gt;
-&lt;h3 id=&quot;definition-4&quot;&gt;Definition&lt;/h3&gt;
-
-&lt;p&gt;A system is &lt;strong&gt;loosely coupled&lt;/strong&gt; when its components have little knowledge of the internals of other components.&lt;/p&gt;
-
-&lt;p&gt;Components A is loosely coupled with component B if A communicates with B without &lt;strong&gt;concrete knowledge&lt;/strong&gt; about the internals of B.&lt;/p&gt;
-
-&lt;h3 id=&quot;example-3&quot;&gt;Example&lt;/h3&gt;
-
-&lt;p&gt;Web services that communicate via JSON are loosely coupled.&lt;/p&gt;
-
-&lt;h3 id=&quot;in-clojure-2&quot;&gt;In Clojure&lt;/h3&gt;
-
-&lt;p&gt;In Clojure, inside a program we “&lt;strong&gt;just use maps&lt;/strong&gt;” to communicate. This is based on the principle that
-“we should program the &lt;strong&gt;insides&lt;/strong&gt; of our systems like we program the &lt;strong&gt;outsides&lt;/strong&gt;”.
-Outside, we have loose coupling everywhere: over the wire we communicate via data (e.g. JSON).
-Let’s do the same inside and communicate via data (e.g. hash maps).&lt;/p&gt;
-
-&lt;p&gt;Compare that with functions that receive a record (or a data class) as an argument. In order to call those functions, we need to import the definition of the record. That’s not loose coupling!&lt;/p&gt;
-
-&lt;h3 id=&quot;see-also-3&quot;&gt;See also&lt;/h3&gt;
-
-&lt;p&gt;Abstraction, Concretion&lt;/p&gt;
-
-&lt;h2 id=&quot;6-maybe&quot;&gt;6. Maybe&lt;/h2&gt;
-&lt;h3 id=&quot;definition-5&quot;&gt;Definition&lt;/h3&gt;
-&lt;p&gt;Nothing is of type &lt;em&gt;maybe&lt;/em&gt; something.&lt;/p&gt;
-
-&lt;p&gt;Maybe is a property of the aggregate not of the field.&lt;/p&gt;
-
-&lt;h3 id=&quot;example-4&quot;&gt;Example&lt;/h3&gt;
-&lt;p&gt;It makes no sense to say that the type of the social security number of a person is &lt;em&gt;maybe&lt;/em&gt; a string.&lt;/p&gt;
-
-&lt;p&gt;What makes sense is to say: in this map (that aggregates data about a person), the social security number is maybe a string (it could also be absent from the map).&lt;/p&gt;
-
-&lt;p&gt;Even more precise: this function receives as an argument a map where the social security number is maybe a string.&lt;/p&gt;
-
-&lt;h2 id=&quot;7-names&quot;&gt;7. Names&lt;/h2&gt;
-&lt;h3 id=&quot;definition-6&quot;&gt;Definition&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Names&lt;/strong&gt; are a fundamental property of information. However, in statically-typed languages, names compile away. There exist at compile time but not a run time.&lt;/p&gt;
-
-&lt;p&gt;At run time, a field cannot be access &lt;strong&gt;dynamically&lt;/strong&gt; by its name. In order to access data, we are required to import the definition of the class that contains the data.&lt;/p&gt;
-
-&lt;h3 id=&quot;in-clojure-3&quot;&gt;In Clojure&lt;/h3&gt;
-&lt;p&gt;In a map, field names are first-class.&lt;/p&gt;
-
-&lt;h3 id=&quot;see-also-4&quot;&gt;See also&lt;/h3&gt;
-
-&lt;p&gt;Concretion, Loose-coupling&lt;/p&gt;
-
-&lt;h2 id=&quot;8-state&quot;&gt;8. State&lt;/h2&gt;
-&lt;h3 id=&quot;definition-7&quot;&gt;Definition&lt;/h3&gt;
-&lt;p&gt;The &lt;strong&gt;state&lt;/strong&gt; of an identity is the value &lt;strong&gt;currently&lt;/strong&gt; associated with this identity.&lt;/p&gt;
-
-&lt;p&gt;State never changes. At different times, different values are associated with an identity. We say that an identity can be in different states at different times.&lt;/p&gt;
-
-&lt;p&gt;An identity is not a state. An identity has a state at any point in time.&lt;/p&gt;
-
-&lt;h3 id=&quot;see-also-5&quot;&gt;See also&lt;/h3&gt;
-&lt;p&gt;Identity, Value&lt;/p&gt;
-
-&lt;h2 id=&quot;9-value&quot;&gt;9. Value&lt;/h2&gt;
-&lt;h3 id=&quot;definition-8&quot;&gt;Definition&lt;/h3&gt;
-&lt;p&gt;A &lt;strong&gt;value&lt;/strong&gt; is something that doesn’t change. A value is inherently &lt;strong&gt;immutable&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Values are part of the world, not part of our programs or our mental models.&lt;/p&gt;
-
-&lt;h3 id=&quot;example-5&quot;&gt;Example&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;In all programming languages, numbers are values.&lt;/li&gt;
-  &lt;li&gt;In most programming languages, strings are values.&lt;/li&gt;
-  &lt;li&gt;In functional programming languages, data collections are values.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;see-also-6&quot;&gt;See also&lt;/h3&gt;
-
-&lt;p&gt;Identity, State&lt;/p&gt;
-
-&lt;h3 id=&quot;in-clojure-4&quot;&gt;In Clojure&lt;/h3&gt;
-&lt;p&gt;In Clojure, every piece of data is a value: numbers, strings, maps, vectors, sets, lists.&lt;/p&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-
-&lt;p&gt;I’ll leave you with the following questions:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;What are the fundamental differences between Clojure and Object-Oriented programming?&lt;/li&gt;
-  &lt;li&gt;What are the fundamental differences between Clojure and functional Oriented programming?&lt;/li&gt;
-  &lt;li&gt;What are the main benefits of Data-Oriented programming as evangelised by Clojure when building information systems?&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><category term="clojure" /><category term="dop" /><category term="clojure" /><category term="theory" /><summary type="html">Here are 9 fundamental general concepts about programming.</summary></entry></feed>
+&lt;p&gt;Maybe an approach like the typed getters, presented at the end of the article, could open the door to the Java community for a &lt;strong&gt;dynamic data access&lt;/strong&gt; that doesn’t compromise &lt;strong&gt;type safety&lt;/strong&gt;.&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="java" /><category term="java" /><summary type="html">An interesting question in the context of information systems is:</summary></entry></feed>
