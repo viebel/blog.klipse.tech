@@ -5,7 +5,7 @@ description: Distinction between three data related programming paradigms. Data-
 date:   2021-02-16 16:11:22 +0200
 categories: visualization
 thumbnail: assets/klipse.png
-featured: true
+featured: false
 featured_image: /assets/data-love.jpg
 tags: [dop, theory]
 ---
