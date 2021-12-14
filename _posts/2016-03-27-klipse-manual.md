@@ -25,7 +25,7 @@ KLIPSE configuration is done with the url parameters:
 * `js_only=1` - display only `input` and `js` boxes
 * `eval_only=1` - display only `input`, `eval` and `print` boxes
 * `static-fns=true` - eval and transpile js code with [static dispatch](https://github.com/clojure/clojurescript/wiki/Compiler-Options#static-fns)
-* `external-libs` - array of external libs to resolve the namespace dependencies. Here is an [example with the gadjett library](http://app.klipse.tech/?cljs_in.gist=viebel/56695ae0360b8692255cc84115d37c6b&external-libs=[https://raw.githubusercontent.com/viebel/gadjett/master/src/]).
+* `external-libs` - array of external libs to resolve the namespace dependencies. Here is an [example with the gadjett library](http://app.klipse.tech/?cljs_in.gist=viebel/56695ae0360b8692255cc84115d37c6b&external-libs=["https://raw.githubusercontent.com/viebel/gadjett/master/src/"]). Each lib name must me wrapped in double quotes.
 * `verbose` - (default false) passed to bootstraped `eval` and `compile` functions as `:verbose` opts
 * `cache-buster` - (default false) when true the namespaces are loaded with a cache buster
 * `max-eval-duration` - (default 1000) max number of 1000 seconds the code is allowed to run synchronously before being interrupted.
