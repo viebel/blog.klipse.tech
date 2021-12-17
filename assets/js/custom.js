@@ -55,7 +55,7 @@
 
   function isMobile() {
     if ( $menuToggle.is(':hidden') ) {
-      mobile = false;
+      mobile = true;
     } else {
       mobile = true;
     }
