@@ -19,7 +19,7 @@
     isMobile();
 
     // Responsive video embeds
-    $('.post-content').fitVids();
+    //$('.post-content').fitVids();
 
     // Menu on small screens
     $menuToggle.on('click', function(e){
