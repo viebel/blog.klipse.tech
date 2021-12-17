@@ -19,7 +19,7 @@
     isMobile();
 
     // Responsive video embeds
-    //$('.post-content').fitVids();
+    $('.post-content').fitVids();
 
     // Menu on small screens
     $menuToggle.on('click', function(e){
@@ -55,7 +55,7 @@
 
   function isMobile() {
     if ( $menuToggle.is(':hidden') ) {
-      mobile = false;
+      mobile = true;
     } else {
       mobile = true;
     }
