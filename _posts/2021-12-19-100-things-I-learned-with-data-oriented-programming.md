@@ -25,7 +25,7 @@ tags: [dop, theory]
 1. Checking book sales could be addictive.
 1. Making a good Table of Contents is crucial as it is the first part of the book potential readers will encounter.
 1. Making a good Table of Contents is hard as you need to figure out what you really want to talk about.
-1. The Table of Contents might evolve a bit as you write the book.
+1. The Table of Contents might evolve a bit as you write your book.
 1. You should resist the temptation to write the first chapter before the Table of Contents is ready.
 1. It's not necessary to write chapters in order. But it's easier.
 1. Never assume that your readers will read the next chapter only because they have enjoyed the previous chapter.
@@ -64,11 +64,11 @@ tags: [dop, theory]
 1. Finding a good book subtitle is even harder.
 1. You need to be very careful not to hurt the sensitivity of any of your readers.
 1. Having your book featured on HackerNews home page do not mean selling lots of copies. 
-1. Twitter is a great medium to share ideas from a book.
+1. Twitter is a great medium to share ideas from your book.
 1. Writing a book could sometimes take you to flow.
 1. My real motivation for writing a book was neither to be famous nor to be rich. It only wanted to accomplish a child's dream.
-1. It's hard to find your writing style.
-1. Once you have found the your writing style, the writing flows.
+1. It's hard to find your voice.
+1. Once you have found the your voice, the writing flows much better.
 1. Usually readers stop reading after reading the middle of the book. If you want them to read the second half of your book, you need to find a way to hook them.
 1. A possible way to hook your readers is to tell a story.
 1. Inspiration is not linear. It's OK to stop writing for a couple of hours.
@@ -84,7 +84,7 @@ tags: [dop, theory]
 1. Rewriting a chapter from scratch because you forgot to save your work could be a blessing as writing from scratch might lead to a material of higher quality.
 1. Writing in a coffee shop makes me feel like a famous author, but in fact I am much more productive at home.
 1. Writing a preface - after the whole manuscript is ready - is really a pleasure!
-1. You should think about the way your contents is appear on the paper. Use headlines, highlights, call outs and diagrams to make sure it doesn't look boring.
+1. You should think about the way your contents is going to appear on the paper. Use headlines, highlights, call outs and diagrams to make sure it doesn't look boring.
 1. Resist the temptation to impress your readers with "cool stuff" if you think it might confuse them.
 1. Working on your book is a good reason to wake up early. Sometimes, before sunrise (even in summer!). 
 1. Include at least 2 or 3 diagrams in every chapter. It makes the material fun to read and easier to grasp.
