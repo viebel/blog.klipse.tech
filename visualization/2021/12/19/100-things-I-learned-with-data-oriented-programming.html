@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+        <!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>A hundred things I learned writing my first technical book “Data-Oriented Programming” | Yehonathan Sharvit</title>
+<meta name="generator" content="Jekyll v4.2.0" />
+<meta property="og:title" content="A hundred things I learned writing my first technical book “Data-Oriented Programming”" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A hundred things I learned writing my first technical book “Data-Oriented Programming”" />
+<meta property="og:description" content="A hundred things I learned writing my first technical book “Data-Oriented Programming”" />
+<meta property="og:site_name" content="Yehonathan Sharvit" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-12-19T04:01:22+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="A hundred things I learned writing my first technical book “Data-Oriented Programming”" />
+<meta name="twitter:site" content="@" />
+<script type="application/ld+json">
+{"url":"/visualization/2021/12/19/100-things-I-learned-with-data-oriented-programming.html","headline":"A hundred things I learned writing my first technical book “Data-Oriented Programming”","dateModified":"2021-12-19T04:01:22+00:00","datePublished":"2021-12-19T04:01:22+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/visualization/2021/12/19/100-things-I-learned-with-data-oriented-programming.html"},"description":"A hundred things I learned writing my first technical book “Data-Oriented Programming”","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+
+    <!-- Site Favicon -->
+    <link rel="shortcut icon" href="/assets/favicon2.png" type="image/png" />
+
+    <!-- Font Embed Code -->
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600,600i|Karla:400,400i,700,700i" rel="stylesheet">
+
+    <!-- CSS Styles -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+</head>
+
+
+
+<body class="layout-post">
+    <div id="page" class="site">
+        <header id="masthead" class="site-header">
+    <div class="site-header-wrap">
+        <div class="site-header-inside">
+
+            <div class="site-branding">
+                
+                <p class="profile">
+                    <a href="/">
+                        <img src="/assets/images/authorimage.jpg" alt="'s Picture"
+                            class="avatar" />
+                    </a>
+                </p>
+                <div class="site-identity">
+                    
+                    <h1 class="site-title">
+                        <a href="/">Yehonathan Sharvit</a>
+                    </h1>
+                    
+                    
+                    <p class="site-description">Developer. Author. Speaker.</p>
+                    
+                </div><!-- .site-identity -->
+                
+                <button id="menu-toggle" class="menu-toggle"><span class="screen-reader-text">Main Menu</span><span
+                        class="icon-menu" aria-hidden="true"></span></button>
+            </div><!-- .site-branding -->
+
+            <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+                <div class="site-nav-wrap">
+                    <div class="site-nav-inside">
+                    <ul class="menu">
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/">Blog</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/talks">Talks</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/about">About</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/contact">Contact</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/search">Search</a></li>
+                        
+                    </ul>
+                    <p class="social-links">
+    <a class="github-button" href="https://github.com/viebel/klipse" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    
+    <a href="https://twitter.com/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+</p>
+
+                    <div class="book-header">
+  <div>
+    Discover my book!
+  </div>
+  <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
+    <img src="/assets/dop-book.png">
+  </a>
+  <div>
+    DISCOUNT CODE: sharvit39
+  </div>
+</div>
+
+                    </div><!-- .site-nav-inside -->
+                </div><!-- .site-nav-wrap -->
+            </nav><!-- .site-navigation -->
+
+        </div><!-- .site-header-inside -->
+    </div><!-- .site-header-wrap -->
+</header><!-- .site-header -->
+
+        <div id="content" class="site-content fadeInDown delay_075s">
+            <div class="inner-wide">
+                <main id="main" class="site-main">
+
+    <article class="post-full inner">
+
+        <header class="post-header">
+            <h1 class="post-title">A hundred things I learned writing my first technical book "Data-Oriented Programming"</h1>
+            <span class="post-meta">
+              <time class="post-date" datetime="2021-12-19">
+                December 19, 2021
+              </time>
+            </span>
+            
+            <span class="post-tags">
+                <a href="/tags/index.html#dop"
+                    rel="tag">dop</a>
+                <a href="/tags/index.html#theory"
+                    rel="tag">theory</a>
+                
+            </span>
+            
+        </header><!-- .post-header -->
+
+        <div class="post-content">
+            <p>https://twitter.com/threadapalooza
+https://twitter.com/dan_abramov/status/1470613731071696896</p>
+
+<ol>
+  <li>Writing a technical book is much harder than writing blog posts.</li>
+  <li>Writing my first technical book without a publisher would have been a MISSION: IMPOSSIBLE!</li>
+  <li>Front matter is the last part an author writes.</li>
+  <li>Each piece of the book content must be clear and interesting. Each part, each chapter, each section, each paragraph, each sentence.</li>
+  <li>A possible way to make things clear is go from concrete to abstract.</li>
+  <li>A possible way to make things interesting is to teach the material as a story.</li>
+  <li>The “why” is more important than the “what”.</li>
+  <li>The “what” is more important than the “how”.</li>
+  <li>An average writer makes the reader think the author is smart. A good writer makes the reader think the reader is smart.</li>
+  <li>A technical book is written for MQRs (Minimal Qualified Readers). It allows the author to assume what knowledge the reader already have.</li>
+  <li>When writing a story, things should be not be left abstract. For instance, instead of having a character drinking a coffee at a bar it’s better to have them drinking an espresso at the french coffee shop of the 42nd street.</li>
+  <li>Checking book sales could be addictive.</li>
+  <li>People on Reddit could feel hurt by opinions that take them out of their comfort zone.</li>
+  <li>On Reddit, when people feel hurt, they could become violent.</li>
+  <li>Making a good Table of Contents is crucial as it is the first part of the book potential readers will encounter.</li>
+  <li>Making a good Table of Contents is hard as you need to figure out what you really want to talk about.</li>
+  <li>Table of Contents might evolve as you write the book.</li>
+  <li>Before writing a chapter, you should formulate to yourself what is the main objective of the chapter.</li>
+  <li>If a chapter has two main objectives, it’s a sign that you should split it into two chapters.</li>
+  <li>Before writing a chapter, you should write a chapter plan.</li>
+  <li>A possible way to make things interesting is to use examples.</li>
+  <li>A possible way to make things clear is to use examples with increasing level of difficulty.</li>
+  <li>Do not hesitate to highlight sentences that convey an important message.</li>
+  <li>When you start to write a technical book involves a descent amount of research even if you consider yourself as an expert in the field.</li>
+  <li>Finding attractive but accurate titles to book chapters is an art.</li>
+  <li>You can learn a lot from a failed attempt to write a book, provided that you put your ago aside.</li>
+  <li>You cannot write a Wikipedia article about the topic of your book until it is mentioned by other sources.</li>
+  <li>AsciiDoc rocks!</li>
+  <li>PlantUML rocks!</li>
+  <li>NeoVim rocks!</li>
+  <li>It makes lot of sense to use a source control software for your manuscript.</li>
+  <li>You need to be very careful not to hurt the sensitivity of any of your readers.</li>
+  <li>A good technical reviewer is an asset.</li>
+  <li>A good publisher is your partner.</li>
+  <li>You could make more dollars per copy by self-publishing but you’d probably sell much less copies.</li>
+  <li>Asking early feedback from external reviewers is a great idea!</li>
+  <li>Releasing an early version of the book is super-useful.</li>
+  <li>Finding a good book title is hard.</li>
+  <li>Finding a good book subtitle is even harder.</li>
+  <li>Having your book featured on HackerNews home page do not mean selling lots of copies.</li>
+  <li>Twitter is a great medium to share ideas from a book.</li>
+  <li>If you are lucky, writing a book could sometimes take you to flow.</li>
+  <li>My real motivation for writing a book was neither to be famous nor to be rich. It only wanted to accomplish a child’s dream.</li>
+  <li>It’s hard to find your writing style.</li>
+  <li>Once you have found the your writing style, the writing flows.</li>
+  <li>It’s OK to stop writing for a couple of weeks.</li>
+  <li>Do not bury the lead.</li>
+  <li>Be open to critics - even when they hurt your ego.</li>
+  <li>The more you write, the more you like it.</li>
+  <li>It’s safe to assume that every developer can read JavaScript.</li>
+  <li>It’s a great feeling to mention the work of other authors.</li>
+  <li>You should make sure that each and every code snippet - that appears in your book - runs as expected.</li>
+  <li>Invoking “it’s so obvious I don’t need to explain it” is not an acceptable argument.</li>
+  <li>Writing your teaching materials as a dialogue between an expert and a novice is a very useful process in order to figure out what questions your materials might raise in your reader’s mind.</li>
+  <li>Rewriting a chapter from scratch because you forgot to save your work could be a blessing as it might lead to a material of higher quality.</li>
+  <li>Writing in a coffee shop makes me feel as an author from a movie, but in fact I am more productive at home.</li>
+  <li>Writing a preface - after the whole manuscript is ready - is really fun!</li>
+  <li>Include at least 2 or 3 diagrams in every chapter. It makes the material more fun to read and easier to grasp.</li>
+  <li>Draw your diagrams on a sheet of paper before using a drawing software.</li>
+  <li>When a section is more difficult to read that the others, let your readers know about it.</li>
+  <li>Asking a friend or a colleague to read your work in progress is not a productive idea.</li>
+  <li>When you are blocked in the middle of a chapter, it might be a sign that you need to rethink the chapter.</li>
+  <li>Adapting parts of your book to blog posts could be a good idea. But you need to resist the temptation of copy-pasting verbatim.</li>
+  <li>If feels great when someone with 50K followers tweets about the fun he had reading your book.</li>
+  <li>Writing an appendix is much easier than writing a chapter.</li>
+  <li>Throwing away some (good) ideas is sometimes necessary. Not easy but necessary.</li>
+  <li>Using humour in a technical book is possible. Hopefully, it’s appreciated.</li>
+  <li>You should write the chapter introduction after all the other parts of the chapter are written.</li>
+  <li></li>
+  <li>Writing a hundred things you learned from writing a book is not as difficult as it may seem.</li>
+</ol>
+
+        </div>
+        <footer class="post-footer">
+            <div class="separator"></div>
+            <div class="post-share">
+                <span class="post-share-title">Share:</span>
+                <a target="_blank"
+                    href="https://twitter.com/share?text=A+hundred+things+I+learned+writing+my+first+technical+book+%22Data-Oriented+Programming%22&amp;url=https://blog.klipse.techvisualization/2021/12/19/100-things-I-learned-with-data-oriented-programming.html">Twitter</a>
+                <a target="_blank"
+                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techvisualization/2021/12/19/100-things-I-learned-with-data-oriented-programming.html">Facebook</a>
+            </div><!-- .share-post -->
+        </footer>
+    </article>
+
+    
+    <section class="newsletter-box inner">
+    <h2 class="newsletter-box-title">Subscribe to Yehonathan Sharvit newsletter</h2>
+    <p>Get the latest and greatest from Yehonathan Sharvit delivered straight to your inbox every week.</p>
+    <!-- Begin TinyLetter Signup Form -->
+    <div id="tinyletter_embed_signup">
+      <form class="validate gh-subscribe-form" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	      <label for="tlemail" class="screen-reader-text">Email Address</label>
+        <input type="email" value="" name="email" class="required email subscribe-email" placeholder="Your email address">
+	      <input type="hidden" value="1" name="embed"/>
+	      <input class="button" type="submit" value="Subscribe" />
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
+</section><!-- .widget -->
+
+    
+    <section class="read-next inner">
+        <h2 class="read-next-title">Read Next</h2>
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="December 10, 2021">December 10, 2021</time>
+                </div>
+                <h3 class="post-title"><a href="/databook/2021/12/10/dop-link.html">Data-Oriented Programming: A link in the chain of programming paradigms</a>
+                </h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/dop/'>Dop</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+        
+    </section><!-- .read-next -->
+
+    <!-- Create a sorted array of tags -->
+     
+    <section class="tagcloud inner">
+        <h2 class="tagcloud-title">Tags</h2>
+        <div class="tag-links">
+            
+            <a href='/tags/#algo'>algo</a>
+            
+            <a href='/tags/#brainfuck'>brainfuck</a>
+            
+            <a href='/tags/#c%2B%2B'>c++</a>
+            
+            <a href='/tags/#clojure'>clojure</a>
+            
+            <a href='/tags/#clojurescript'>clojurescript</a>
+            
+            <a href='/tags/#compiler'>compiler</a>
+            
+            <a href='/tags/#dop'>dop</a>
+            
+            <a href='/tags/#golang'>golang</a>
+            
+            <a href='/tags/#graph'>graph</a>
+            
+            <a href='/tags/#html'>html</a>
+            
+            <a href='/tags/#java'>java</a>
+            
+            <a href='/tags/#javascript'>javascript</a>
+            
+            <a href='/tags/#kids'>kids</a>
+            
+            <a href='/tags/#klipse'>klipse</a>
+            
+            <a href='/tags/#lambda-calculus'>lambda-calculus</a>
+            
+            <a href='/tags/#lambdacalculus'>lambdacalculus</a>
+            
+            <a href='/tags/#lisp'>lisp</a>
+            
+            <a href='/tags/#lua'>lua</a>
+            
+            <a href='/tags/#maths'>maths</a>
+            
+            <a href='/tags/#oblivion'>oblivion</a>
+            
+            <a href='/tags/#ocaml'>ocaml</a>
+            
+            <a href='/tags/#php'>php</a>
+            
+            <a href='/tags/#prolog'>prolog</a>
+            
+            <a href='/tags/#python'>python</a>
+            
+            <a href='/tags/#react'>react</a>
+            
+            <a href='/tags/#reagent'>reagent</a>
+            
+            <a href='/tags/#reasonml'>reasonml</a>
+            
+            <a href='/tags/#ruby'>ruby</a>
+            
+            <a href='/tags/#scheme'>scheme</a>
+            
+            <a href='/tags/#sql'>sql</a>
+            
+            <a href='/tags/#theory'>theory</a>
+            
+            <a href='/tags/#visualization'>visualization</a>
+            
+        </div><!-- .tag-links -->
+    </section><!-- .tagcloud -->
+</main><!-- .site-main -->
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js, [data-lang=klipse-javascript]',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+        selector_golang: '.language-klipse-go',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+
+
+
+
+
+                
+
+                
+                <footer id="colophon" class="site-footer">
+    <p class="site-info inner">
+        <a href="#">Yehonathan Sharvit</a> &copy; 2021.
+    </p>
+    <a id="back-to-top" class="back-to-top" href="#page">
+        <span class="icon-arrow-up" aria-hidden="true"></span>
+        <span class="screen-reader-text">Back to top</span>
+    </a>
+</footer><!-- .site-footer -->
+
+            </div><!-- .inner-wide -->
+        </div><!-- .site-content -->
+    </div><!-- .site -->
+
+    
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75651930-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-75651930-1', { 'anonymize_ip': true });
+  </script>
+
+    <!-- Javascript Assets -->
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/plugins.js"></script>
+    <script src="/assets/js/custom.js"></script>
+
+</body>
+
+</html>

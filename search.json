@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "A hundred things I learned writing my first technical book &quot;Data-Oriented Programming&quot;",
+      "category" : "",
+      "tags"     : "dop, theory",
+      "url"      : "/visualization/2021/12/19/100-things-I-learned-with-data-oriented-programming.html",
+      "date"     : "December 19, 2021"
+    } ,
+  
+    {
       "title"    : "Data-Oriented Programming: A link in the chain of programming paradigms",
       "category" : "d",
       "tags"     : "dop",
