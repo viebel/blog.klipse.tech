@@ -15,7 +15,7 @@
 {% include databook-intro.html %}
 ++++
 
-Data-Oriented Programming is not an invention. It has its *origins* in the 1950s and the invention of LISP and is based on a set of *best practices* that can be found in both Functional Programming and Object-Oriented Programming. However, this paradigm has only been applicable in production systems at scale since the 2010s and the implementation of *efficient* peristent data structures.
+Data-Oriented Programming is not an invention. It has its *origins* in the 1950s and the invention of LISP and is based on a set of *best practices* that can be found in both Functional Programming and Object-Oriented Programming. However, this paradigm has only been applicable in production systems at scale since the 2010s and the implementation of *efficient* persistent data structures.
 
 This article traces the major *ideas* and *discoveries* which, over the years, have allowed the emergence of DOP.
 
@@ -68,7 +68,7 @@ Clojure has been the main source of inspiration for Data-Oriented Programming. I
 
 ==== 2009: Immutability for all
 
-Clojure's *efficient* implementation of *persistent data structures* has been attractive for developers from other programming langauges. In 2009, there were ported to Scala. Over the years, they have been *ported* to other *programming languages* either by organizations (like Facebook for Immutable.js) or by individual contributors (like Glen Peterson for Paguro in Java). 
+Clojure's *efficient* implementation of *persistent data structures* has been attractive for developers from other programming languages. In 2009, there were ported to Scala. Over the years, they have been *ported* to other *programming languages* either by organizations (like Facebook for Immutable.js) or by individual contributors (like Glen Peterson for Paguro in Java). 
 
 Nowadays, DOP is applicable in virtually any programming language!
 
