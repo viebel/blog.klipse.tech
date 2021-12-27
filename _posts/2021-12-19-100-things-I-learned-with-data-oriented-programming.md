@@ -39,7 +39,7 @@ tags: [dop, theory]
 1. It's OK to engage in writing a technical book without mastering every topic you want to cover in your book.
 1. Writing technical book involves a descent amount of research even if you consider yourself as an expert in the field.
 1. Finding attractive but accurate titles to book chapters is an art.
-1. You can learn a lot from a failed attempt to write a book, provided that you put your ago aside.
+1. You can learn a lot from a failed attempt to write a book, provided that you put your ego aside.
 1. If you try to write a Wikipedia article about the topic of your book before it is mentioned by other sources, it will be rejected.
 1. It's possible to write a technical book while keeping your day job as a programmer, provided that you are willing to wake up early or sleep late.
 1. Writing a technical book takes between a year and two.
