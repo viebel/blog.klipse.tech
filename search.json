@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Reading the present moment",
+      "category" : "d",
+      "tags"     : "dop",
+      "url"      : "/databook/2022/01/17/reading-the-present-moment.html",
+      "date"     : "January 17, 2022"
+    } ,
+  
+    {
       "title"    : "A hundred things I learned writing my first technical book &quot;Data-Oriented Programming&quot;",
       "category" : "",
       "tags"     : "dop, theory",

@@ -1,4 +1,350 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-12-28T02:19:16+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><entry><title type="html">A hundred things I learned writing my first technical book “Data-Oriented Programming”</title><link href="/book/2021/12/19/100-things-I-learned-with-data-oriented-programming.html" rel="alternate" type="text/html" title="A hundred things I learned writing my first technical book “Data-Oriented Programming”" /><published>2021-12-19T04:01:22+00:00</published><updated>2021-12-19T04:01:22+00:00</updated><id>/book/2021/12/19/100-things-I-learned-with-data-oriented-programming</id><content type="html" xml:base="/book/2021/12/19/100-things-I-learned-with-data-oriented-programming.html">&lt;ol&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-01-17T02:13:36+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><entry><title type="html">Reading the present moment</title><link href="/databook/2022/01/17/reading-the-present-moment.html" rel="alternate" type="text/html" title="Reading the present moment" /><published>2022-01-16T23:45:32+00:00</published><updated>2022-01-16T23:45:32+00:00</updated><id>/databook/2022/01/17/reading-the-present-moment</id><content type="html" xml:base="/databook/2022/01/17/reading-the-present-moment.html">&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;em&gt;This is an experiment I am doing about introducing a bit of self-referential stuff in  Chapter 13 of &quot;Data-Oriented Programming.&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;em&gt;I was inspired by the &quot;Gödel, Escher, Bach&quot; masterpiece. Not sure yet, if it will make it into the official version of the book though.&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;em&gt;Throughout the book, Joe&amp;#8201;&amp;#8212;&amp;#8201;an senior Clojure developer&amp;#8201;&amp;#8212;&amp;#8201;reveals the secrets of Data-Oriented Programming to Theo and Dave&amp;#8201;&amp;#8212;&amp;#8201;two fellow developers&amp;#8201;&amp;#8212;&amp;#8201;excited about this new paradigm.&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;em&gt;In Chapter 13, Dave tests a piece of code he wrote using as a example the book &quot;Data-Oriented Programming&quot; written by your servant.&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;tok-kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;yehonathan&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;name&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;Yehonathan Sharvit&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;bookIsbns&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;9781617298578&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;tok-p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;tok-nx&quot;&gt;Author&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;myName&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;yehonathan&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;html&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;tok-c1&quot;&gt;// → &amp;quot;&amp;lt;i&amp;gt;Yehonathan Sharvit&amp;lt;/i&amp;gt;&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;em&gt;And that&amp;#8217;s how the self-referential fun begins&amp;#8230;&amp;#8203;&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;em&gt;Please read this article on a device with a wide screen, like a desktop or a tablet. I don&amp;#8217;t think it renders well on a mobile phone.&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When Theo comes to Dave&amp;#8217;s desk to review his implementation of the &quot;list of authors&quot; feature, he asks him about the author that appears in the test of &lt;code&gt;Author.myName&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: Who is Yehonathan Sharvit?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: I don&amp;#8217;t really know. The name appeared when I googled for &quot;Data-Oriented Programming&quot; yesterday. He wrote a book on the topic. I thought it would be cool to use its ISBN in my test.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: Does his book present DOP in a similar way to what Joe taught us?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: I don&amp;#8217;t know. I guess I&amp;#8217;ll discover when I receive the print book I ordered.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A few days later, Dave walks to Theo&amp;#8217;s cube holding a package. Dave opens the package and they take a look at the cover together.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: Wow, that&amp;#8217;s-- that&amp;#8217;s&amp;#8230;&amp;#8203; odd. The woman on the cover - she&amp;#8217;s so familiar. I could swear she&amp;#8217;s the girl my grandparents knew from this Greek island called Santorini. My grandparents were born there, speak often of their childhood friend and have a photo of her. But how could a girl from their little island wind up on the cover of this book?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: That&amp;#8217;s so cool!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dave opens the book with Theo looking over his shoulder. They scan the table of contents.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: It looks like this books covers all the same topics Joe taught us.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: This is great!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dave leafs through a few random sections. Hi attention is caught by a bit of dialog.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Theo, this is so strange!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: What?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: The characters in Sharvit&amp;#8217;s book have the same names as ours!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: Let me see&amp;#8230;&amp;#8203;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Theo turns to a page from the first chapter. He and Dave read this passage side by side.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sidebarblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;Data-Oriented Programming: Chapter 1&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: Hey Dave! How&amp;#8217;s it going?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Today? Not great. I&amp;#8217;m trying to fix a bug in my code! I can&amp;#8217;t understand why the state of my objects always changes. I&amp;#8217;ll figure it out though, I&amp;#8217;m sure. How&amp;#8217;s your day going?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: I just finished the design of a system for a new customer.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Cool! Would it be OK for me to see it? I&amp;#8217;m trying to improve my design skills.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: Sure! I have the diagram on my desk. We can take a look now if you like.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: I remember this situation. It was around a year ago just a few weeks after I had joined Albatross.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Theo&amp;#8217;s face turns pale.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: I don&amp;#8217;t feel well.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Theo gets up to splash cold water on his face. When he comes back, still pale, but in better control of his emotions, he tries to remember the situation described in the first chapter of the book.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: Was it when I showed you my design for Klafim prototype?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Exactly! I was quite impressed by your class hierachy diagrams.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: Oh no! Don&amp;#8217;t remind me of that time. The long hours of work on such a complex OOP system gave me nightmares.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: I remember it as a fun period. Every week I was learning a new technology: GraphQL, Elasticsearch, DataDog, Bigtable, Spring, Express&amp;#8230;&amp;#8203;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: Luckily, I met Joe a few days later.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Apropos Joe, you never told me  exactly how you met him.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: Well now you&amp;#8217;ll know everything. The meeting is told quite accurately at the beginning of Chapter 2.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dave reads a few lines in the beginning of Chapter 2.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sidebarblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;Data-Oriented Programming: Chapter 2&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The next morning, Theo asks on Hacker News and on Reddit for ways to reduce system complexity and build flexible systems. Some folks mention using different programming languages, others talk about advanced design patterns. Finally, Theo&amp;#8217;s attention gets captured by a comment from a user named Joe who mentions &quot;Data-Oriented programming&quot; and claims that its main goal is to reduce system complexity. Theo has never heard this term before. Out of curiosity he decides to contact Joe by email.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;What a coincidence! Joe lives in San Francisco too. Theo invites him to a meeting in his office.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Joe is a 40-year old developer. He&amp;#8217;d been a Java developer for nearly decade before adopting Clojure around 7 years ago.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When Theo tells Joe about the Library Management System he designed and built, and about his struggles to adapt to changing requirements, Joe is not surprised.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: The book doesn&amp;#8217;t say if it was on Hacker News or on Reddit that Joe you exchanged with Joe.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: I remember it very well: It was on Reddit. In the &quot;r/clojure&quot; community.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;While they talk, Dave leafs through the pages of the book, when he comes across a curious passage from Chapter 15&amp;#8230;&amp;#8203;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sidebarblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;Data-Oriented Programming: Chapter 15&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: I get that. But what happens if the code of the function modifies the data that we are writing. Will we write the original data to the file, or the modified data?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: I&amp;#8217;ll let you think about that while I get a cup of coffee at the &lt;strong&gt;museum&lt;/strong&gt; coffee shop. Would you like one?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Yes, an espresso please.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: I have a weird sensation of &lt;em&gt;déjà lu&lt;/em&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Me too.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Do you know what &lt;em&gt;déjà lu&lt;/em&gt; means?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: No. But it sounds like it&amp;#8217;s related to déjà vu.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dave and Theo sit quietly, pondering the meaning of &quot;déjà lu&quot; and the bigger puzzle of this weird book.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: That&amp;#8217;s it! I think I got the hang of it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dave shows Theo the result from Google translate with the &quot;Detect language&quot; option activated.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: In French, &quot;déjà lu&quot; means &quot;already read&quot;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: Do you think that the author is French?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Probably. That would explain some odd turns of phrases I&amp;#8217;ve noticed here and there in the way the characters express themselves.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: But of course! At least we have found a point on which we are not identical to the characters in this book.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Anyway, A &lt;em&gt;déjà lu&lt;/em&gt; must be when you live a situation that you have already read in a book.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: But I don&amp;#8217;t think we&amp;#8217;ve ever been together at a museum!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Me neither. Could this book be telling not only the past but also the future?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: A future that we will already know when it will happen since we are now reading it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dave and Theo together:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&amp;#8201;&amp;#8212;&amp;#8201;A déjà lu!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: This book tells our past and our future. I wonder if it also tells our present.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: What chapter do you think we would be at the moment?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Let&amp;#8217;s see. At the end of Chapter 12, there&amp;#8217;s a beautiful drawing of the JSON schema cheatsheet we made together last week. It means, that we should now be in Chapter 13.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dave slowly turns the pages of the book, until he finds the line that tells the present moment.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sidebarblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;Data-Oriented Programming: Chapter 13&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: This book tells our past and our future. I wonder if it also tells our present.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: What chapter do you think we would be at the moment?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Let&amp;#8217;s see. At the end of Chapter 12, there&amp;#8217;s a beautiful drawing of the JSON schema cheatsheet we made together last week. It means, that we should now be in Chapter 13.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dave slowly turns the pages of the book, until he finds the line that tells the present moment.&lt;/p&gt;
+&lt;/div&gt;
+&lt;table class=&quot;tableblock frame-all grid-all stretch&quot;&gt;
+&lt;colgroup&gt;
+&lt;col style=&quot;width: 100%;&quot;&gt;
+&lt;/colgroup&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;div class=&quot;content&quot;&gt;&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;Data-Oriented Programming: Chapter 13&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: This book tells our past and our future. I wonder if it also tells our present.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: What chapter do you think we would be at the moment?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Let&amp;#8217;s see. At the end of Chapter 12, there&amp;#8217;s a beautiful drawing of the JSON schema cheatsheet we made together last week. It means, that we should now be in Chapter 13.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dave slowly turns the pages of the book, until he finds the line that tells the present moment.&lt;/p&gt;
+&lt;/div&gt;
+&lt;table class=&quot;tableblock frame-none grid-all stretch&quot;&gt;
+&lt;colgroup&gt;
+&lt;col style=&quot;width: 9.0909%;&quot;&gt;
+&lt;col style=&quot;width: 90.9091%;&quot;&gt;
+&lt;/colgroup&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;div class=&quot;content&quot;&gt;&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;Data-Oriented Programming: Chapter 13&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: This book tells our past and our future. I wonder if it also tells our present.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: What chapter do you think we would be at the moment?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Let&amp;#8217;s see. At the end of Chapter 12, there&amp;#8217;s a beautiful drawing of the JSON schema cheatsheet we made together last week. It means, that we should now be in Chapter 13.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dave slowly turns the pages of the book, until he finds the line that tells the present moment.&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: Dave! This is freaking me out! I think we should close this book immediately and forget all about it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: I can&amp;#8217;t. I&amp;#8217;m too curious to discover my future.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: You&amp;#8217;ll have to do it without me. Joe told us many times we should never mess up with the state of a system.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Wait! It&amp;#8217;s true that Joe taught us the merits of immutability. But that only concerns the past state of a system. He never said we didn&amp;#8217;t have the right to mutate our future!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: You mean that reading beyond Chapter 13 won&amp;#8217;t necessarily lock us in a predefined scenario?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: I hope so!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Hoping to stay in control of their destiny, Theo and Dave start reading Chapter 14 of &quot;Data-Oriented Programming&quot;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;em&gt;Please share your thoughts about this self-referential stuff on Twitter.&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;em&gt;Did you enjoy this self-referential stuff in Chapter 13?&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;em&gt;Do you think it&amp;#8217;s a good idea to include this self-referential stuff in the book?&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;em&gt;How would you make it better?&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><category term="dop" /><summary type="html">This is an experiment I am doing about introducing a bit of self-referential stuff in Chapter 13 of &quot;Data-Oriented Programming.</summary></entry><entry><title type="html">A hundred things I learned writing my first technical book “Data-Oriented Programming”</title><link href="/book/2021/12/19/100-things-I-learned-with-data-oriented-programming.html" rel="alternate" type="text/html" title="A hundred things I learned writing my first technical book “Data-Oriented Programming”" /><published>2021-12-19T04:01:22+00:00</published><updated>2021-12-19T04:01:22+00:00</updated><id>/book/2021/12/19/100-things-I-learned-with-data-oriented-programming</id><content type="html" xml:base="/book/2021/12/19/100-things-I-learned-with-data-oriented-programming.html">&lt;ol&gt;
   &lt;li&gt;Writing a technical book is much harder than writing blog posts.&lt;/li&gt;
   &lt;li&gt;Writing a blog post is like running a sprint while writing a book is like running a marathon.&lt;/li&gt;
   &lt;li&gt;Writing my first technical book without a publisher would have been a MISSION: IMPOSSIBLE!&lt;/li&gt;
@@ -1884,351 +2230,4 @@ I am going to let you meditate on the following question: Could we consider func
       &lt;p&gt;MacLennan, Bruce. (1982). &lt;a href=&quot;https://www.researchgate.net/publication/220177801_Values_and_Objects_in_Programming_Languages&quot;&gt;Values and Objects in Programming Languages&lt;/a&gt;. &lt;a href=&quot;#fnref:paper&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="dop" /><category term="dop" /><category term="maths" /><summary type="html">On parle souvent de l’importance d’écrire notre code en termes de fonctions pures qui, comme les fonctions mathématiques, n’ont pas d’effets de bords et retournent les mêmes valeurs pour les mêmes arguments. Dans cet article, je vous propose d’explorer un autre aspect fondamental de la différence entre la programmation fonctionnelle et la programmation orientée objet: la notion de mêmeté, c’est-à-dire: comment définit-on que deux “choses” sont les mêmes?</summary></entry><entry><title type="html">Data-Oriented programming simplicity illustrated by coding challenges</title><link href="/dop/2021/04/01/dop-challenges.html" rel="alternate" type="text/html" title="Data-Oriented programming simplicity illustrated by coding challenges" /><published>2021-04-01T12:38:15+00:00</published><updated>2021-04-01T12:38:15+00:00</updated><id>/dop/2021/04/01/dop-challenges</id><content type="html" xml:base="/dop/2021/04/01/dop-challenges.html">&lt;p&gt;According to Data-Oriented programming, the best way to reduce complexity of information systems is to follow three basic principles:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Separate code from data&lt;/li&gt;
-  &lt;li&gt;Keep data immutable&lt;/li&gt;
-  &lt;li&gt;Represent data with generic data structures&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Here are a series of 6 short programming challenges and their solutions written in JavaScript according to the principles of Data-Oriented programming. The purpose is to illustrate the simplicity of Data-Oriented programming.&lt;/p&gt;
-
-&lt;p&gt;If you agree with DOP principles, please implement your solutions in the programming language of your choice, according to DOP principles. I’m sure you’ll enjoy!&lt;/p&gt;
-
-&lt;p&gt;If you disagree with one or more DOP principles, feel free to implement the solutions by breaking one or more principles (e.g. use data types, classes or records instead of maps), and explain why you think that your solution is simpler than the ones that I wrote.&lt;/p&gt;
-
-&lt;h1 id=&quot;rules&quot;&gt;Rules&lt;/h1&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;You are allowed to choose any programming language&lt;/li&gt;
-  &lt;li&gt;You are allowed to use any third-party library&lt;/li&gt;
-  &lt;li&gt;You are allowed to use reflection&lt;/li&gt;
-  &lt;li&gt;In the context of the challenges, simplicity is more important than performances.&lt;/li&gt;
-  &lt;li&gt;Submit your code snippets as a pull request to the official book source code &lt;a href=&quot;https://github.com/viebel/data-oriented-programming&quot;&gt;Github repository&lt;/a&gt;, under the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;challenges&lt;/code&gt; folder&lt;/li&gt;
-  &lt;li&gt;In case you disagree with DOP, please add a few words as comments in your code that explain why you think that your solution is simpler than the ones that I wrote.&lt;/li&gt;
-  &lt;li&gt;Four copies of &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;amp;utm_medium=affiliate&amp;amp;utm_campaign=book_sharvit2_data_1_29_21&amp;amp;a_aid=viebel&amp;amp;a_bid=d5b546b7&quot;&gt;Data-Oriented programming&lt;/a&gt; will be given away among the folks that submit a correct solution to at least 4 of the challenges.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;data-model&quot;&gt;Data model&lt;/h1&gt;
-
-&lt;p&gt;Here is the library data model in an informal way:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/lms-data-mindmap.png&quot; alt=&quot;mindmap&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;More formally, here is a UML diagram that describes the relationships between the data entities of the library:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/lms-data-diagram.png&quot; alt=&quot;diagram&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Here is an example of library data in JavaScript that we are going to use through this article:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;var libraryData = {
-    &quot;name&quot;: &quot;The smallest library on earth&quot;,
-    &quot;address&quot;: &quot;Here and now&quot;,
-    &quot;catalog&quot;: {
-        &quot;booksByIsbn&quot;: {
-            &quot;978-1779501127&quot;: {
-                &quot;isbn&quot;: &quot;978-1779501127&quot;,
-                &quot;title&quot;: &quot;Watchmen&quot;,
-                &quot;publicationYear&quot;: 1987,
-                &quot;authorIds&quot;: [&quot;alan-moore&quot;,
-                              &quot;dave-gibbons&quot;],
-                &quot;bookItems&quot;: [
-                    {
-                        &quot;id&quot;: &quot;book-item-1&quot;,
-                        &quot;rackId&quot;: &quot;rack-17&quot;,
-                    },
-                    {
-                        &quot;id&quot;: &quot;book-item-2&quot;,
-                        &quot;rackId&quot;: &quot;rack-17&quot;,
-                    }
-                ]
-            }
-        },
-        &quot;authorsById&quot;: {
-            &quot;alan-moore&quot;: {
-                &quot;name&quot;: &quot;Alan Moore&quot;,
-                &quot;bookIsbns&quot;: [&quot;978-1779501127&quot;]
-            },
-            &quot;dave-gibbons&quot;: {
-                &quot;name&quot;: &quot;Dave Gibbons&quot;,
-                &quot;bookIsbns&quot;: [&quot;978-1779501127&quot;]
-            }
-        }
-    },
-  &quot;userManagement&quot;: {
-    &quot;librarians&quot;: {
-      &quot;franck@gmail.com&quot; : {
-        &quot;email&quot;: &quot;franck@gmail.com&quot;,
-        &quot;encryptedPassword&quot;: &quot;bXlwYXNzd29yZA==&quot;
-      }
-    },
-    &quot;members&quot;: {
-      &quot;samantha@gmail.com&quot;: {
-        &quot;email&quot;: &quot;samantha@gmail.com&quot;,
-        &quot;encryptedPassword&quot;: &quot;c2VjcmV0&quot;,
-        &quot;isBlocked&quot;: false,
-      }
-    }
-  }
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&quot;warm-up&quot;&gt;Warm up&lt;/h1&gt;
-
-&lt;p&gt;What’s the title of the book whose ISBN is “978-1779501127” in upper case?&lt;/p&gt;
-
-&lt;p&gt;In this article, I am using &lt;a href=&quot;https://github.com/lodash/lodash/wiki/FP-Guide&quot;&gt;Lodash FP&lt;/a&gt; configured so that it never mutates data in place. Instead of mutating data in place, functions like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_.set()&lt;/code&gt; create a new version.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;var informationPath = [&quot;catalog&quot;, &quot;booksByIsbn&quot;, &quot;978-1779501127&quot;, &quot;title&quot;]; 
-_.get(libraryData, informationPath).toUpperCase();
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In Data-Oriented programming, each piece of information has an information path. As you’ll see through the upcoming challenges, this unusual approach has many benefits.&lt;/p&gt;
-
-&lt;h1 id=&quot;challenge-1-retrieve-a-piece-of-information&quot;&gt;Challenge #1: Retrieve a piece of information&lt;/h1&gt;
-
-&lt;p&gt;&lt;strong&gt;Challenge ‍&lt;/strong&gt;: Write a function named &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;getBookProperty&lt;/code&gt; that receives library data and ISBN and a field name and returns the value of the field for the book with the given ISBN&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;function getBookProperty(libraryData, isbn, fieldName) {
-  var informationPath = [&quot;catalog&quot;, &quot;booksByIsbn&quot;, isbn, fieldName]; 
-  return _.get(libraryData, informationPath);
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;getBookProperty(libraryData, &quot;978-1779501127&quot;, &quot;title&quot;);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In Data-Oriented programming, data fields are first-class citizens. We are free to create and combine field names dynamically in our program.&lt;/p&gt;
-
-&lt;h1 id=&quot;challenge-2-search-information&quot;&gt;Challenge #2: Search information&lt;/h1&gt;
-
-&lt;p&gt;&lt;strong&gt;Challenge ‍&lt;/strong&gt;: Write a function named &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bookInfo&lt;/code&gt; that receives library data and a string and returns a JSON string that contains book information about the books whose title contains the given string, in a case insensitive way. Book information is made of: title, isbn, author full names.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Remark&lt;/strong&gt;: You are not allowed to extract author names from author ids. Assume that author ids are opaque strings.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;function authorNames(catalogData, book) {
-  return _.map(_.get(book, &quot;authorIds&quot;),
-               function(authorId) {
-    return _.get(catalogData, [&quot;authorsById&quot;, authorId, &quot;name&quot;]);
-    });
-}
-
-function bookInfo(catalogData, book) {
-  return  {
-    &quot;title&quot;: _.get(book, &quot;title&quot;),
-    &quot;isbn&quot;: _.get(book, &quot;isbn&quot;),
-    &quot;authorNames&quot;: authorNames(catalogData, book)
-  };
-}
-
-function searchBooksByTitle(libraryData, query) {
-  var catalogData = _.get(libraryData, &quot;catalog&quot;);
-  var allBooks = _.get(catalogData, &quot;booksByIsbn&quot;);
-  var matchingBooks = _.filter(allBooks, function(book) { 
-    return _.get(book, &quot;title&quot;).toLowerCase()
-      .includes(query.toLowerCase());
-  });
-  return JSON.stringify(_.map(matchingBooks, function(book) {
-    return bookInfo(catalogData, book);
-  }));
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;searchBooksByTitle(libraryData, &quot;watCH&quot;);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Here, the main benefits are the power of expression of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;map&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;reduce&lt;/code&gt; combined with the freedom of creating on the fly a book info structure and serialize it for free.&lt;/p&gt;
-
-&lt;h1 id=&quot;challenge-3-add-a-piece-of-information&quot;&gt;Challenge #3: Add a piece of information&lt;/h1&gt;
-
-&lt;p&gt;&lt;strong&gt;Challenge&lt;/strong&gt;: Write a function named &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;blockMember&lt;/code&gt; that receives library data and an email address and returns a new version of library data &lt;strong&gt;without altering the original version&lt;/strong&gt;, where the user with the given email is blocked.&lt;/p&gt;
-
-&lt;p&gt;Remember that I am using a version of Lodash that, instead of mutating data in place, creates a new version.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;function blockMember(libraryData, email) {
-  var informationPath = [&quot;userManagement&quot;, &quot;members&quot;, email, &quot;isBlocked&quot;]; 
-  return _.set(libraryData, informationPath, true);
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;var updatedLibraryData = blockMember(libraryData, &quot;samantha@gmail.com&quot;);
-
-var informationPath = [&quot;userManagement&quot;, &quot;members&quot;, &quot;samantha@gmail.com&quot;, &quot;isBlocked&quot;]; 
-[_.get(updatedLibraryData, informationPath), _.get(libraryData, informationPath)];
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In Data-Oriented programming, data is immutable. Functions like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_.set()_&lt;/code&gt; make it efficient (both in terms of memory and computation) to create modified versions of data.&lt;/p&gt;
-
-&lt;h1 id=&quot;challenge-4-rename-keys-in-a-data-entity&quot;&gt;Challenge #4: Rename keys in a data entity&lt;/h1&gt;
-
-&lt;p&gt;&lt;strong&gt;Challenge&lt;/strong&gt;: Write a function named &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;renameKeys&lt;/code&gt; that receives a data entity and a key mappings and returns a new data entity, without altering the original entity, where the fields are renamed according to the key mappings&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;function renameKeys(map, keyMap) {
-  return _.reduce(keyMap,
-                  function(res, newKey, oldKey) {
-                    var value = _.get(map, oldKey);
-                    var resWithNewKey = _.set(res, newKey, value);
-                    var resWithoutOldKey = _.omit(resWithNewKey, oldKey);
-                    return resWithoutOldKey;
-                  },
-                  map);
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;renameKeys&lt;/code&gt; works with author entities:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;var alanMoore = {
-  &quot;name&quot;: &quot;Alan Moore&quot;,
-  &quot;bookIsbns&quot;: [&quot;978-1779501127&quot;]
-};
-renameKeys(alanMoore, {&quot;bookIsbns&quot;: &quot;books&quot;}); 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;renameKeys&lt;/code&gt; works also with book item entities:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;var bookItem = {
-  &quot;id&quot;: &quot;book-item-1&quot;,
-  &quot;rackId&quot;: &quot;rack-17&quot;,
-  &quot;isLent&quot;: true
-};
-
-renameKeys(bookItem, {&quot;rackId&quot;: &quot;id&quot;,
-                     &quot;id&quot;: &quot;bookItemId&quot;}); 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In Data-Oriented programming, data entities are represented with generic data structures that can be manipulated with generic functions that work with any data entity.&lt;/p&gt;
-
-&lt;h1 id=&quot;challenge-5-merge-pieces-of-information&quot;&gt;Challenge #5: Merge pieces of information&lt;/h1&gt;
-
-&lt;p&gt;&lt;strong&gt;Challenge&lt;/strong&gt;: Write a function named &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mergeAndSerialize&lt;/code&gt; that receives two pieces of book information, one from the database and one from an external service like &lt;a href=&quot;https://openlibrary.org/dev/docs/api/books&quot;&gt;Open Library Books API&lt;/a&gt; and returns a JSON string with information from both sources.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;var watchmenFromDB = {
-        &quot;isbn&quot;: &quot;978-1779501127&quot;,
-        &quot;title&quot;: &quot;Watchmen&quot;,
-        &quot;publicationYear&quot;: 1987,
-        &quot;authorIds&quot;: [&quot;alan-moore&quot;,
-                      &quot;dave-gibbons&quot;],
-        &quot;bookItems&quot;: [
-          {
-            &quot;id&quot;: &quot;book-item-1&quot;,
-            &quot;rackId&quot;: &quot;rack-17&quot;,
-            &quot;isLent&quot;: true
-          },
-          {
-            &quot;id&quot;: &quot;book-item-2&quot;,
-            &quot;rackId&quot;: &quot;rack-17&quot;,
-            &quot;isLent&quot;: false
-          }
-        ]
-      };
-
-var watchmenFromOpenLib = {
-  &quot;publishers&quot;: [
-    &quot;DC Comics&quot;
-  ],
-  &quot;number_of_pages&quot;: 334,
-  &quot;weight&quot;: &quot;1.4 pounds&quot;,
-  &quot;physical_format&quot;: &quot;Paperback&quot;,
-  &quot;subjects&quot;: [
-    &quot;Graphic Novels&quot;,
-    &quot;Comics &amp;amp; Graphic Novels&quot;,
-    &quot;Fiction&quot;,
-    &quot;Fantastic fiction&quot;
-  ],
-  &quot;isbn_13&quot;: [
-    &quot;9780930289232&quot;
-  ],
-  &quot;title&quot;: &quot;Watchmen&quot;,
-  &quot;isbn_10&quot;: [
-    &quot;0930289234&quot;
-  ],
-  &quot;publish_date&quot;: &quot;April 1, 1995&quot;,
-  &quot;physical_dimensions&quot;: &quot;10.1 x 6.6 x 0.8 inches&quot;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;We simply merge the two maps:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;_.merge(watchmenFromDB, watchmenFromOpenLib);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And we JSON serialize the result:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;function mergeAndSerialize(a, b) {
-  return JSON.stringify(_.merge(a, b));
-}
-
-mergeAndSerialize(watchmenFromDB, watchmenFromOpenLib);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;When we represent data with generic data structures, we benefit from many well defined functions like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;merge&lt;/code&gt;, implemented either in the programming language itself or in third-party libraries like `Lodash.js.&lt;/p&gt;
-
-&lt;h1 id=&quot;challenge-6-compare-versions-of-data&quot;&gt;Challenge #6: Compare versions of data&lt;/h1&gt;
-
-&lt;p&gt;&lt;strong&gt;Challenge&lt;/strong&gt;: Write a function named &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;diff&lt;/code&gt; that receives two versions of library data and returns an object that contains the diff between the two versions, in the format of your choice.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;function diffObjects(data1, data2) {
-  var emptyObject = _.isArray(data1) ? [] : {};
-  if(data1 == data2) {
-    return emptyObject;
-  }
-  var keys = _.union(_.keys(data1), _.keys(data2));
-  return _.reduce(keys,
-                  function (acc, k) {
-    var res = diff(_.get(data1, k),
-                   _.get(data2, k));
-    if((_.isObject(res) &amp;amp;&amp;amp; _.isEmpty(res)) ||
-       (res == &quot;data-diff:no-diff&quot;)) {
-      return acc;
-    }
-    return _.set(acc, [k], res);
-  },
-                  emptyObject);
-}
-
-function diff(data1, data2) {
-  if(_.isObject(data1) &amp;amp;&amp;amp; _.isObject(data2)) {
-    return diffObjects(data1, data2);
-  }
-  if(data1 !== data2) {
-    return data2;
-  }
-  return &quot;data-diff:no-diff&quot;;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;diff(libraryData, updatedLibraryData);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-eval-js&quot;&gt;diff(libraryData, libraryData);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;When every piece of data in the system is represented with generic data structures, it is quite easy to compare recursively different data versions.&lt;/p&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-
-&lt;p&gt;Do you like 😃 DOP or do you hate 😡 it?&lt;/p&gt;
-
-&lt;p&gt;Anyway, it’s time to show off your coding skills 🧑‍💻!&lt;/p&gt;
-
-&lt;p&gt;Submit your code snippets as a pull request to the official book source code &lt;a href=&quot;https://github.com/viebel/data-oriented-programming&quot;&gt;Github repository&lt;/a&gt;, under the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;challenges&lt;/code&gt; folder.
-In case you disagree with DOP, please add a few words as comments in your code that explain why you think that your solution is simpler than the ones that I wrote.&lt;/p&gt;
-
-&lt;script src=&quot;https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)&quot;&gt;&lt;/script&gt;
-
-&lt;script&gt;
-var fp = _.noConflict();
-var _ = fp.convert({
-  // Specify capping iteratee arguments.
-  'cap': false,
-  // Specify currying.
-  'curry': false,
-  // Specify fixed arity.
-  'fixed': false,
-  // Specify immutable operations.
-  'immutable': true,
-  // Specify rearranging arguments.
-  'rearg': false
-});
-&lt;/script&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="dop" /><category term="dop" /><category term="javascript" /><summary type="html">According to Data-Oriented programming, the best way to reduce complexity of information systems is to follow three basic principles:</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="dop" /><category term="dop" /><category term="maths" /><summary type="html">On parle souvent de l’importance d’écrire notre code en termes de fonctions pures qui, comme les fonctions mathématiques, n’ont pas d’effets de bords et retournent les mêmes valeurs pour les mêmes arguments. Dans cet article, je vous propose d’explorer un autre aspect fondamental de la différence entre la programmation fonctionnelle et la programmation orientée objet: la notion de mêmeté, c’est-à-dire: comment définit-on que deux “choses” sont les mêmes?</summary></entry></feed>
