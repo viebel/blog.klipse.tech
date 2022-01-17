@@ -12,9 +12,9 @@
 
 __This is an experiment I am doing about introducing a bit of self-referential stuff in  Chapter 13 of "Data-Oriented Programming.__
 
-__I was inspired by the "Gödel, Escher, Bach" masterpiece. Not sure yet, if it will make it into the official version of the book though.__
+__I was inspired by the "Gödel, Escher, Bach" masterpiece. Not sure yet, if it will make it into the official version of the book though. It depends on your feedback.__
 
-__Throughout the book, Joe -- an senior Clojure developer -- reveals the secrets of Data-Oriented Programming to Theo and Dave -- two fellow developers -- excited about this new paradigm.__
+__Throughout the book, Joe -- a senior Clojure developer -- reveals the secrets of Data-Oriented Programming to Theo and Dave -- two fellow developers -- who get quite excited about this new paradigm.__
 
 __In Chapter 13, Dave tests a piece of code he wrote using as a example the book "Data-Oriented Programming" written by your servant.__
 
