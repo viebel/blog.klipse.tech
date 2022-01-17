@@ -210,7 +210,7 @@ include::text/abyme.txt[]
 Hoping to stay in control of their destiny, Theo and Dave start reading Chapter 14 of "Data-Oriented Programming".
 
 
-__Please share your thoughts about this self-referential stuff on Twitter.__
+__Please share your thoughts about this self-referential stuff by replying to this https://twitter.com/viebel/status/1482899756791836674[tweet].__
 
 __Did you enjoy this self-referential stuff in Chapter 13?__
 
