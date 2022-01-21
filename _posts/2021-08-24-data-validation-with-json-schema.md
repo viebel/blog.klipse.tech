@@ -18,7 +18,7 @@ The major difference between this kind of data validation and the way data is va
 
 > We should separate data schema from data representation.
 
-The purpose of this article is to to explain the rationale behind this data validation approach.
+The purpose of this article is to explain the rationale behind this data validation approach.
 
 This article is made of 4 parts:
 
