@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Data validation with JSON schema
-description:  How to represent data schema with JSON schema. Benefits of separating data schema from data representation in Data-Oriented Programming.
+title: Data validation with JSON Schema
+description:  How to represent data schema with JSON Schema. Benefits of separating data schema from data representation in Data-Oriented Programming.
 date:   2021-09-30 02:15:28 +0200
 categories: javascript
 thumbnail: assets/klipse.png
@@ -18,12 +18,12 @@ The major insight of this kind of data validation is that **data schema** should
 
 > We should separate data schema from data representation.
 
-The purpose of this article is to illustrate how to implement Clojure approach of data validation in other programming languages using JSON schema.
+The purpose of this article is to illustrate how to implement Clojure approach of data validation in other programming languages using JSON Schema.
 
 This article is made of 4 parts:
 
-1. How to express a data schema using **JSON schema**
-1. How to **validate** data against a JSON schema
+1. How to express a data schema using **JSON Schema**
+1. How to **validate** data against a JSON Schema
 1. The **benefits** of separating between data schema and data representation
 1. The **costs** of separating between data schema and data representation
 
@@ -31,7 +31,7 @@ This article is an interactive version of the article published on [JavaScript W
 
 ![Freedom](/assets/freedom-2.jpg)
 
-## JSON schema
+## JSON Schema
 
 
 Think about handling a request in a library management system for the addition of an author to the system. To keep things simple, imagine that such a request contains only basic information about the author: 
@@ -48,7 +48,7 @@ In Data-Oriented Programming, we represent the request data in our program as a 
 1. `books` - a number (optional)
 
 
-Using [JSON schema](https://json-schema.org/), we represent the data schema of the request with the following map:
+Using [JSON Schema](https://json-schema.org/), we represent the data schema of the request with the following map:
 
 ~~~klipse-eval-js
 var addAuthorRequestSchema = {
@@ -62,7 +62,7 @@ var addAuthorRequestSchema = {
 };
 ~~~
 
-A couple of remarks regarding the syntax of this JSON schema:
+A couple of remarks regarding the syntax of this JSON Schema:
 
 1. Data is expected to be a map (in JSON, a map is called an object)
 1. Only `firstName` and `lastName` fields are required
@@ -85,7 +85,7 @@ In order to check whether a piece of data conforms to a data schema, we use a **
 
 The complete list of data validation libraries is available [here](http://json-schema.org/implementations.html).
 
-For instance, in JavaScript, using [Ajv JSON schema validator](https://ajv.js.org/), we validate a piece of data using the `validate` function. As you might expect, when a piece of data is valid, `validate` returns `true`:
+For instance, in JavaScript, using [Ajv JSON Schema validator](https://ajv.js.org/), we validate a piece of data using the `validate` function. As you might expect, when a piece of data is valid, `validate` returns `true`:
 
 ~~~klipse-eval-js
 var ajv = new Ajv({allErrors: true}); 
@@ -124,7 +124,6 @@ var invalidAuthorData = {
 
 ajv.validate(addAuthorRequestSchema, invalidAuthorData);
 ajv.errorsText(ajv.errors);
-// "data should have required property 'lastName', data.books should be number"
 ~~~
 
 A couple of remarks regarding validation with `Ajv`:
@@ -241,7 +240,7 @@ In some cases, the inner functions are more complicated and it makes sense to sp
 
 In Object-Oriented Programming, allowing a class member to be *optional* is not easy. For instance, in Java one needs a special construct like the `Optional` class [introduced in Java 8](https://www.oracle.com/technical-resources/articles/java/java8-optional.html).
 
-In Data-Oriented Programming, it is natural to declare a field as optional in a map. In fact in JSON schema, **by default** every field is optional. In order to make a field non-optional, we have to include its name in the `required` array as for instance in the author schema in the following code snippet where only `firstName` and `lastName` are required while `books` is optional. 
+In Data-Oriented Programming, it is natural to declare a field as optional in a map. In fact in JSON Schema, **by default** every field is optional. In order to make a field non-optional, we have to include its name in the `required` array as for instance in the author schema in the following code snippet where only `firstName` and `lastName` are required while `books` is optional. 
 
 ~~~klipse-eval-js
 var authorSchema = {
@@ -264,7 +263,7 @@ var authorDataNoBooks = {
   "lastName": "Sharvit"
 };
 
-ajv.validate(authorSchema, authorDataNoBooks) // true
+ajv.validate(authorSchema, authorDataNoBooks) 
 ~~~
 
 However, a map with a `books` field where the value is not an interger is considered to be invalid:
@@ -277,14 +276,14 @@ var authorDataInvalidBooks = {
   "books": "Five"
 };
 
-ajv.validate(authorSchema, authorDataInvalidBooks) // false
+ajv.validate(authorSchema, authorDataInvalidBooks)
 ~~~
 
 ### Benefit #3: Advanced data validation conditions
 
 In Data-Oriented Programming, data validation occurs at **run time**. It allows us to define data validation conditions that go beyond the **type** of a field. For instance, we might want to make sure that a field is not only a string but a string with a maximal number of characters or a number comprised in a range of numbers.
 
-For instance, here is a JSON schema that expects `firstName` and `lastName` to be strings of less than 100 characters and `books` to be a number between `0` and `10,000`:
+For instance, here is a JSON Schema that expects `firstName` and `lastName` to be strings of less than 100 characters and `books` to be a number between `0` and `10,000`:
 
 ~~~klipse-eval-js
 var authorComplexSchema = {
@@ -309,12 +308,12 @@ var authorComplexSchema = {
 ~~~
 
 
-JSON schema supports many other advanced data validation conditions, like regular expression validation for string fields or number fields that should be a multiple of a given number.
+JSON Schema supports many other advanced data validation conditions, like regular expression validation for string fields or number fields that should be a multiple of a given number.
 
 
 ### Benefit #4: Automatic generation of data model visualization
 
-When the data schema is defined as data, we can leverage tools that generate data model visualization: with tools like [JSON Schema Viewer](https://navneethg.github.io/jsonschemaviewer/) and [Malli](https://github.com/metosin/malli) we can generate a UML diagram out of a JSON schema. For instance, the following JSON schema defines the shape of a `bookList` field that is an array of books where each book is a map. 
+When the data schema is defined as data, we can leverage tools that generate data model visualization: with tools like [JSON Schema Viewer](https://navneethg.github.io/jsonschemaviewer/) and [Malli](https://github.com/metosin/malli) we can generate a UML diagram out of a JSON Schema. For instance, the following JSON Schema defines the shape of a `bookList` field that is an array of books where each book is a map. 
 
 ~~~json
 {
@@ -337,7 +336,7 @@ When the data schema is defined as data, we can leverage tools that generate dat
 }
 ~~~
 
-The tools we just mentioned can generate the following UML diagram from the JSON schema:
+The tools we just mentioned can generate the following UML diagram from the JSON Schema:
 
 ![author schema](/assets/author-schema.png)
 
@@ -406,14 +405,14 @@ There is no such thing as a free lunch. Separating between data schema and data 
 
 ### Cost #1: Loose connection between data and its schema
 
-By definition, when we separate between data schema and data representation, the connection between data and its schema is **looser** that when we represent data with classes. Moreover, the schema definition language (e.g. JSON schema) is not part of the programming language. It is up to the developer to decide where data validation is **necessary** and where it is **superfluous**.
+By definition, when we separate between data schema and data representation, the connection between data and its schema is **looser** that when we represent data with classes. Moreover, the schema definition language (e.g. JSON Schema) is not part of the programming language. It is up to the developer to decide where data validation is **necessary** and where it is **superfluous**.
 
 As the idiom says, with great **power** comes great **responsibility**.
 
 
 ### Cost #2: Light performance hit
 
-As we mentioned earlier, there exist implementations of JSON schema validation in most programming languages. When data validation occurs at **run time** it takes some time to run the data validation while in Object-Oriented programming, data validation occurs usually at **compile time**.
+As we mentioned earlier, there exist implementations of JSON Schema validation in most programming languages. When data validation occurs at **run time** it takes some time to run the data validation while in Object-Oriented programming, data validation occurs usually at **compile time**.
 
 This drawback is **mitigated** by the fact that even in Object-Oriented programming some parts of the data validation occur at run time. For instance, the conversion of a request JSON payload into an object occurs at run time. Moreover, in Data-Oriented Programming, it is quite common to have some data validation parts enabled only during **development** and to disable them when the system runs in **production**.
 
