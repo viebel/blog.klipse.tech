@@ -171,17 +171,17 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
         </header><!-- .post-header -->
 
         <div class="post-content">
-            <p>According to the principles of <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7">Data-Oriented Programming</a>, we should represent data with <strong>generic</strong> and <strong>immutable</strong> data structures, like immutable hash maps and immutable vectors. At first sight, it might seem that it means to <em>live in the wild</em> and not validate that data is conformed to an expected schema.</p>
+            <p>According to the principles of <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7">Data-Oriented Programming</a>, we should represent data with <strong>generic</strong> and <strong>immutable</strong> data structures, like immutable hash maps and immutable vectors. At first sight, it might seem that it means to <em>live in the wild</em>.</p>
 
-<p>In fact, it is possible – and advised – to maintain a data schema in Data-Oriented Programming. For instance, in Clojure, we handle data validation with tools like [clojure.spec] or [malli].</p>
+<p>In fact, it is possible – and advised – to maintain a data schema in Data-Oriented Programming.</p>
 
-<p>The major insight of this kind of data validation is that <strong>data schema</strong> should be <strong>separated</strong> from <strong>data representation</strong>.</p>
+<p>The major difference between this kind of data validation and the way data is validated with static types is that <strong>data schema</strong> should be <strong>separated</strong> from <strong>data representation</strong>.</p>
 
 <blockquote>
   <p>We should separate data schema from data representation.</p>
 </blockquote>
 
-<p>The purpose of this article is to illustrate how to implement Clojure approach of data validation in other programming languages using JSON Schema.</p>
+<p>The purpose of this article is to to explain the rationale behind this data validation approach.</p>
 
 <p>This article is made of 4 parts:</p>
 
@@ -594,7 +594,7 @@ ajv.validate(calculateAuthorInfoReturnValueSchema, res)
 
 <p>Keeping the data schema separate from the data representation leaves the developer free to decide where and when data should be validated. Moreover, data validation occurs at run-time. As a consequence, we can express data validation conditions that go beyond the static data types (e.g. the string length).</p>
 
-<p>However, with great power comes great responsibility and it’s up to the developer to decide to validate data.</p>
+<p>However, as the idiom says, with great power comes great responsibility. It’s up to the developer to decide what data should be validated.</p>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js" integrity="sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww==" crossorigin="anonymous"></script>
 
