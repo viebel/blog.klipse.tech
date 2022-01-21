@@ -10,15 +10,15 @@ minified_plugin: true
 tags: [javascript]
 ---
 
-According to the principles of [Data-Oriented Programming](https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7), we should represent data with **generic** and **immutable** data structures, like immutable hash maps and immutable vectors. At first sight, it might seem that it means to *live in the wild* and not validate that data is conformed to an expected schema.
+According to the principles of [Data-Oriented Programming](https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7), we should represent data with **generic** and **immutable** data structures, like immutable hash maps and immutable vectors. At first sight, it might seem that it means to *live in the wild*.
 
-In fact, it is possible -- and advised -- to maintain a data schema in Data-Oriented Programming. For instance, in Clojure, we handle data validation with tools like [clojure.spec] or [malli].
+In fact, it is possible -- and advised -- to maintain a data schema in Data-Oriented Programming. 
 
-The major insight of this kind of data validation is that **data schema** should be **separated** from **data representation**.
+The major difference between this kind of data validation and the way data is validated with static types is that **data schema** should be **separated** from **data representation**.
 
 > We should separate data schema from data representation.
 
-The purpose of this article is to illustrate how to implement Clojure approach of data validation in other programming languages using JSON Schema.
+The purpose of this article is to to explain the rationale behind this data validation approach.
 
 This article is made of 4 parts:
 
@@ -425,7 +425,7 @@ In [Data-Oriented Programming](https://www.manning.com/books/data-oriented-progr
 
 Keeping the data schema separate from the data representation leaves the developer free to decide where and when data should be validated. Moreover, data validation occurs at run-time. As a consequence, we can express data validation conditions that go beyond the static data types (e.g. the string length). 
 
-However, with great power comes great responsibility and it's up to the developer to decide to validate data.
+However, as the idiom says, with great power comes great responsibility. It's up to the developer to decide what data should be validated.
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js" integrity="sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww==" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ajv/6.12.6/ajv.bundle.js" integrity="sha512-km2o1mynU1nR0HonrYrI0TA+QvRMtONwnfA/nl15hnd/WyjZ/FLV7NROHAbzzSjHxIeQPfiJRUSUzevO2Ut0Ng==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
