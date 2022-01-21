@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-01-17T09:47:03+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><entry><title type="html">Reading the present moment</title><link href="/databook/2022/01/17/reading-the-present-moment.html" rel="alternate" type="text/html" title="Reading the present moment" /><published>2022-01-16T23:45:32+00:00</published><updated>2022-01-16T23:45:32+00:00</updated><id>/databook/2022/01/17/reading-the-present-moment</id><content type="html" xml:base="/databook/2022/01/17/reading-the-present-moment.html">&lt;div class=&quot;paragraph&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-01-21T06:29:26+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I'm a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><entry><title type="html">Reading the present moment</title><link href="/databook/2022/01/17/reading-the-present-moment.html" rel="alternate" type="text/html" title="Reading the present moment" /><published>2022-01-16T23:45:32+00:00</published><updated>2022-01-16T23:45:32+00:00</updated><id>/databook/2022/01/17/reading-the-present-moment</id><content type="html" xml:base="/databook/2022/01/17/reading-the-present-moment.html">&lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&lt;em&gt;This is an experiment I am doing about introducing a bit of self-referential stuff in  Chapter 13 of &quot;Data-Oriented Programming.&lt;/em&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -1429,7 +1429,7 @@ method([&quot;cow&quot;, true], dysGreetCowLong)
 
 &lt;script src=&quot;https://viebel.github.io/klipse/repo/js/multimethod.js&quot;&gt;&lt;/script&gt;
 
-&lt;script&gt;var {multi, method, fromMulti} = window.multimethod;&lt;/script&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="javascript" /><category term="javascript" /><summary type="html">Object-Oriented Programming is well known for allowing different classes to be called with the same interface, via a mechanism called polymorphism. It may seem that the only way to have polymorphism in a program is with objects. In fact, as we are going to see in this article it is possible to have polymorphism without objects via multimethods.</summary></entry><entry><title type="html">Data validation with JSON schema</title><link href="/javascript/2021/09/30/data-validation-with-json-schema.html" rel="alternate" type="text/html" title="Data validation with JSON schema" /><published>2021-09-30T00:15:28+00:00</published><updated>2021-09-30T00:15:28+00:00</updated><id>/javascript/2021/09/30/data-validation-with-json-schema</id><content type="html" xml:base="/javascript/2021/09/30/data-validation-with-json-schema.html">&lt;p&gt;According to the principles of &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;amp;utm_medium=affiliate&amp;amp;utm_campaign=book_sharvit2_data_1_29_21&amp;amp;a_aid=viebel&amp;amp;a_bid=d5b546b7&quot;&gt;Data-Oriented Programming&lt;/a&gt;, we should represent data with &lt;strong&gt;generic&lt;/strong&gt; and &lt;strong&gt;immutable&lt;/strong&gt; data structures, like immutable hash maps and immutable vectors. At first sight, it might seem that it means to &lt;em&gt;live in the wild&lt;/em&gt; and not validate that data is conformed to an expected schema.&lt;/p&gt;
+&lt;script&gt;var {multi, method, fromMulti} = window.multimethod;&lt;/script&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="javascript" /><category term="javascript" /><summary type="html">Object-Oriented Programming is well known for allowing different classes to be called with the same interface, via a mechanism called polymorphism. It may seem that the only way to have polymorphism in a program is with objects. In fact, as we are going to see in this article it is possible to have polymorphism without objects via multimethods.</summary></entry><entry><title type="html">Data validation with JSON Schema</title><link href="/javascript/2021/09/30/data-validation-with-json-schema.html" rel="alternate" type="text/html" title="Data validation with JSON Schema" /><published>2021-09-30T00:15:28+00:00</published><updated>2021-09-30T00:15:28+00:00</updated><id>/javascript/2021/09/30/data-validation-with-json-schema</id><content type="html" xml:base="/javascript/2021/09/30/data-validation-with-json-schema.html">&lt;p&gt;According to the principles of &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;amp;utm_medium=affiliate&amp;amp;utm_campaign=book_sharvit2_data_1_29_21&amp;amp;a_aid=viebel&amp;amp;a_bid=d5b546b7&quot;&gt;Data-Oriented Programming&lt;/a&gt;, we should represent data with &lt;strong&gt;generic&lt;/strong&gt; and &lt;strong&gt;immutable&lt;/strong&gt; data structures, like immutable hash maps and immutable vectors. At first sight, it might seem that it means to &lt;em&gt;live in the wild&lt;/em&gt; and not validate that data is conformed to an expected schema.&lt;/p&gt;
 
 &lt;p&gt;In fact, it is possible – and advised – to maintain a data schema in Data-Oriented Programming. For instance, in Clojure, we handle data validation with tools like [clojure.spec] or [malli].&lt;/p&gt;
 
@@ -1439,13 +1439,13 @@ method([&quot;cow&quot;, true], dysGreetCowLong)
   &lt;p&gt;We should separate data schema from data representation.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;The purpose of this article is to illustrate how to implement Clojure approach of data validation in other programming languages using JSON schema.&lt;/p&gt;
+&lt;p&gt;The purpose of this article is to illustrate how to implement Clojure approach of data validation in other programming languages using JSON Schema.&lt;/p&gt;
 
 &lt;p&gt;This article is made of 4 parts:&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;How to express a data schema using &lt;strong&gt;JSON schema&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;How to &lt;strong&gt;validate&lt;/strong&gt; data against a JSON schema&lt;/li&gt;
+  &lt;li&gt;How to express a data schema using &lt;strong&gt;JSON Schema&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;How to &lt;strong&gt;validate&lt;/strong&gt; data against a JSON Schema&lt;/li&gt;
   &lt;li&gt;The &lt;strong&gt;benefits&lt;/strong&gt; of separating between data schema and data representation&lt;/li&gt;
   &lt;li&gt;The &lt;strong&gt;costs&lt;/strong&gt; of separating between data schema and data representation&lt;/li&gt;
 &lt;/ol&gt;
@@ -1454,7 +1454,7 @@ method([&quot;cow&quot;, true], dysGreetCowLong)
 
 &lt;p&gt;&lt;img src=&quot;/assets/freedom-2.jpg&quot; alt=&quot;Freedom&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;json-schema&quot;&gt;JSON schema&lt;/h2&gt;
+&lt;h2 id=&quot;json-schema&quot;&gt;JSON Schema&lt;/h2&gt;
 
 &lt;p&gt;Think about handling a request in a library management system for the addition of an author to the system. To keep things simple, imagine that such a request contains only basic information about the author:&lt;/p&gt;
 
@@ -1472,7 +1472,7 @@ method([&quot;cow&quot;, true], dysGreetCowLong)
   &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;books&lt;/code&gt; - a number (optional)&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;Using &lt;a href=&quot;https://json-schema.org/&quot;&gt;JSON schema&lt;/a&gt;, we represent the data schema of the request with the following map:&lt;/p&gt;
+&lt;p&gt;Using &lt;a href=&quot;https://json-schema.org/&quot;&gt;JSON Schema&lt;/a&gt;, we represent the data schema of the request with the following map:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var addAuthorRequestSchema = {
   &quot;type&quot;: &quot;object&quot;,
@@ -1485,7 +1485,7 @@ method([&quot;cow&quot;, true], dysGreetCowLong)
 };
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;A couple of remarks regarding the syntax of this JSON schema:&lt;/p&gt;
+&lt;p&gt;A couple of remarks regarding the syntax of this JSON Schema:&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;Data is expected to be a map (in JSON, a map is called an object)&lt;/li&gt;
@@ -1536,7 +1536,7 @@ method([&quot;cow&quot;, true], dysGreetCowLong)
 
 &lt;p&gt;The complete list of data validation libraries is available &lt;a href=&quot;http://json-schema.org/implementations.html&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;For instance, in JavaScript, using &lt;a href=&quot;https://ajv.js.org/&quot;&gt;Ajv JSON schema validator&lt;/a&gt;, we validate a piece of data using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;validate&lt;/code&gt; function. As you might expect, when a piece of data is valid, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;validate&lt;/code&gt; returns &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;true&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;For instance, in JavaScript, using &lt;a href=&quot;https://ajv.js.org/&quot;&gt;Ajv JSON Schema validator&lt;/a&gt;, we validate a piece of data using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;validate&lt;/code&gt; function. As you might expect, when a piece of data is valid, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;validate&lt;/code&gt; returns &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;true&lt;/code&gt;:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var ajv = new Ajv({allErrors: true}); 
 
@@ -1570,7 +1570,6 @@ ajv.validate(addAuthorRequestSchema, invalidAuthorData);
 
 ajv.validate(addAuthorRequestSchema, invalidAuthorData);
 ajv.errorsText(ajv.errors);
-// &quot;data should have required property 'lastName', data.books should be number&quot;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;A couple of remarks regarding validation with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ajv&lt;/code&gt;:&lt;/p&gt;
@@ -1686,7 +1685,7 @@ function displayAuthorInfo(authorData) {
 
 &lt;p&gt;In Object-Oriented Programming, allowing a class member to be &lt;em&gt;optional&lt;/em&gt; is not easy. For instance, in Java one needs a special construct like the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Optional&lt;/code&gt; class &lt;a href=&quot;https://www.oracle.com/technical-resources/articles/java/java8-optional.html&quot;&gt;introduced in Java 8&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;In Data-Oriented Programming, it is natural to declare a field as optional in a map. In fact in JSON schema, &lt;strong&gt;by default&lt;/strong&gt; every field is optional. In order to make a field non-optional, we have to include its name in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;required&lt;/code&gt; array as for instance in the author schema in the following code snippet where only &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firstName&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lastName&lt;/code&gt; are required while &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;books&lt;/code&gt; is optional.&lt;/p&gt;
+&lt;p&gt;In Data-Oriented Programming, it is natural to declare a field as optional in a map. In fact in JSON Schema, &lt;strong&gt;by default&lt;/strong&gt; every field is optional. In order to make a field non-optional, we have to include its name in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;required&lt;/code&gt; array as for instance in the author schema in the following code snippet where only &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firstName&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lastName&lt;/code&gt; are required while &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;books&lt;/code&gt; is optional.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var authorSchema = {
   &quot;type&quot;: &quot;object&quot;,
@@ -1706,7 +1705,7 @@ function displayAuthorInfo(authorData) {
   &quot;lastName&quot;: &quot;Sharvit&quot;
 };
 
-ajv.validate(authorSchema, authorDataNoBooks) // true
+ajv.validate(authorSchema, authorDataNoBooks) 
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;However, a map with a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;books&lt;/code&gt; field where the value is not an interger is considered to be invalid:&lt;/p&gt;
@@ -1717,14 +1716,14 @@ ajv.validate(authorSchema, authorDataNoBooks) // true
   &quot;books&quot;: &quot;Five&quot;
 };
 
-ajv.validate(authorSchema, authorDataInvalidBooks) // false
+ajv.validate(authorSchema, authorDataInvalidBooks)
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id=&quot;benefit-3-advanced-data-validation-conditions&quot;&gt;Benefit #3: Advanced data validation conditions&lt;/h3&gt;
 
 &lt;p&gt;In Data-Oriented Programming, data validation occurs at &lt;strong&gt;run time&lt;/strong&gt;. It allows us to define data validation conditions that go beyond the &lt;strong&gt;type&lt;/strong&gt; of a field. For instance, we might want to make sure that a field is not only a string but a string with a maximal number of characters or a number comprised in a range of numbers.&lt;/p&gt;
 
-&lt;p&gt;For instance, here is a JSON schema that expects &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firstName&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lastName&lt;/code&gt; to be strings of less than 100 characters and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;books&lt;/code&gt; to be a number between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;10,000&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;For instance, here is a JSON Schema that expects &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;firstName&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lastName&lt;/code&gt; to be strings of less than 100 characters and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;books&lt;/code&gt; to be a number between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;10,000&lt;/code&gt;:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-klipse-eval-js&quot;&gt;var authorComplexSchema = {
   &quot;type&quot;: &quot;object&quot;,
@@ -1747,11 +1746,11 @@ ajv.validate(authorSchema, authorDataInvalidBooks) // false
 };
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;JSON schema supports many other advanced data validation conditions, like regular expression validation for string fields or number fields that should be a multiple of a given number.&lt;/p&gt;
+&lt;p&gt;JSON Schema supports many other advanced data validation conditions, like regular expression validation for string fields or number fields that should be a multiple of a given number.&lt;/p&gt;
 
 &lt;h3 id=&quot;benefit-4-automatic-generation-of-data-model-visualization&quot;&gt;Benefit #4: Automatic generation of data model visualization&lt;/h3&gt;
 
-&lt;p&gt;When the data schema is defined as data, we can leverage tools that generate data model visualization: with tools like &lt;a href=&quot;https://navneethg.github.io/jsonschemaviewer/&quot;&gt;JSON Schema Viewer&lt;/a&gt; and &lt;a href=&quot;https://github.com/metosin/malli&quot;&gt;Malli&lt;/a&gt; we can generate a UML diagram out of a JSON schema. For instance, the following JSON schema defines the shape of a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bookList&lt;/code&gt; field that is an array of books where each book is a map.&lt;/p&gt;
+&lt;p&gt;When the data schema is defined as data, we can leverage tools that generate data model visualization: with tools like &lt;a href=&quot;https://navneethg.github.io/jsonschemaviewer/&quot;&gt;JSON Schema Viewer&lt;/a&gt; and &lt;a href=&quot;https://github.com/metosin/malli&quot;&gt;Malli&lt;/a&gt; we can generate a UML diagram out of a JSON Schema. For instance, the following JSON Schema defines the shape of a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bookList&lt;/code&gt; field that is an array of books where each book is a map.&lt;/p&gt;
 
 &lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
   &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;object&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
@@ -1773,7 +1772,7 @@ ajv.validate(authorSchema, authorDataInvalidBooks) // false
 &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;The tools we just mentioned can generate the following UML diagram from the JSON schema:&lt;/p&gt;
+&lt;p&gt;The tools we just mentioned can generate the following UML diagram from the JSON Schema:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/author-schema.png&quot; alt=&quot;author schema&quot; /&gt;&lt;/p&gt;
 
@@ -1835,13 +1834,13 @@ ajv.validate(calculateAuthorInfoReturnValueSchema, res)
 
 &lt;h3 id=&quot;cost-1-loose-connection-between-data-and-its-schema&quot;&gt;Cost #1: Loose connection between data and its schema&lt;/h3&gt;
 
-&lt;p&gt;By definition, when we separate between data schema and data representation, the connection between data and its schema is &lt;strong&gt;looser&lt;/strong&gt; that when we represent data with classes. Moreover, the schema definition language (e.g. JSON schema) is not part of the programming language. It is up to the developer to decide where data validation is &lt;strong&gt;necessary&lt;/strong&gt; and where it is &lt;strong&gt;superfluous&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;By definition, when we separate between data schema and data representation, the connection between data and its schema is &lt;strong&gt;looser&lt;/strong&gt; that when we represent data with classes. Moreover, the schema definition language (e.g. JSON Schema) is not part of the programming language. It is up to the developer to decide where data validation is &lt;strong&gt;necessary&lt;/strong&gt; and where it is &lt;strong&gt;superfluous&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;As the idiom says, with great &lt;strong&gt;power&lt;/strong&gt; comes great &lt;strong&gt;responsibility&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;h3 id=&quot;cost-2-light-performance-hit&quot;&gt;Cost #2: Light performance hit&lt;/h3&gt;
 
-&lt;p&gt;As we mentioned earlier, there exist implementations of JSON schema validation in most programming languages. When data validation occurs at &lt;strong&gt;run time&lt;/strong&gt; it takes some time to run the data validation while in Object-Oriented programming, data validation occurs usually at &lt;strong&gt;compile time&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;As we mentioned earlier, there exist implementations of JSON Schema validation in most programming languages. When data validation occurs at &lt;strong&gt;run time&lt;/strong&gt; it takes some time to run the data validation while in Object-Oriented programming, data validation occurs usually at &lt;strong&gt;compile time&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;This drawback is &lt;strong&gt;mitigated&lt;/strong&gt; by the fact that even in Object-Oriented programming some parts of the data validation occur at run time. For instance, the conversion of a request JSON payload into an object occurs at run time. Moreover, in Data-Oriented Programming, it is quite common to have some data validation parts enabled only during &lt;strong&gt;development&lt;/strong&gt; and to disable them when the system runs in &lt;strong&gt;production&lt;/strong&gt;.&lt;/p&gt;
 

@@ -8,22 +8,22 @@
 
     
         <!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Data validation with JSON schema | Yehonathan Sharvit</title>
+<title>Data validation with JSON Schema | Yehonathan Sharvit</title>
 <meta name="generator" content="Jekyll v4.2.0" />
-<meta property="og:title" content="Data validation with JSON schema" />
+<meta property="og:title" content="Data validation with JSON Schema" />
 <meta name="author" content="Yehonathan Sharvit" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="How to represent data schema with JSON schema. Benefits of separating data schema from data representation in Data-Oriented Programming." />
-<meta property="og:description" content="How to represent data schema with JSON schema. Benefits of separating data schema from data representation in Data-Oriented Programming." />
+<meta name="description" content="How to represent data schema with JSON Schema. Benefits of separating data schema from data representation in Data-Oriented Programming." />
+<meta property="og:description" content="How to represent data schema with JSON Schema. Benefits of separating data schema from data representation in Data-Oriented Programming." />
 <meta property="og:site_name" content="Yehonathan Sharvit" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-09-30T00:15:28+00:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Data validation with JSON schema" />
+<meta property="twitter:title" content="Data validation with JSON Schema" />
 <meta name="twitter:site" content="@" />
 <meta name="twitter:creator" content="@Yehonathan Sharvit" />
 <script type="application/ld+json">
-{"url":"/javascript/2021/09/30/data-validation-with-json-schema.html","headline":"Data validation with JSON schema","dateModified":"2021-09-30T00:15:28+00:00","datePublished":"2021-09-30T00:15:28+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/javascript/2021/09/30/data-validation-with-json-schema.html"},"author":{"@type":"Person","name":"Yehonathan Sharvit"},"description":"How to represent data schema with JSON schema. Benefits of separating data schema from data representation in Data-Oriented Programming.","@context":"https://schema.org"}</script>
+{"url":"/javascript/2021/09/30/data-validation-with-json-schema.html","headline":"Data validation with JSON Schema","dateModified":"2021-09-30T00:15:28+00:00","datePublished":"2021-09-30T00:15:28+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/javascript/2021/09/30/data-validation-with-json-schema.html"},"author":{"@type":"Person","name":"Yehonathan Sharvit"},"description":"How to represent data schema with JSON Schema. Benefits of separating data schema from data representation in Data-Oriented Programming.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     
@@ -155,7 +155,7 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
     <article class="post-full inner">
 
         <header class="post-header">
-            <h1 class="post-title">Data validation with JSON schema</h1>
+            <h1 class="post-title">Data validation with JSON Schema</h1>
             <span class="post-meta">
               <time class="post-date" datetime="2021-09-30">
                 September 30, 2021
@@ -181,13 +181,13 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
   <p>We should separate data schema from data representation.</p>
 </blockquote>
 
-<p>The purpose of this article is to illustrate how to implement Clojure approach of data validation in other programming languages using JSON schema.</p>
+<p>The purpose of this article is to illustrate how to implement Clojure approach of data validation in other programming languages using JSON Schema.</p>
 
 <p>This article is made of 4 parts:</p>
 
 <ol>
-  <li>How to express a data schema using <strong>JSON schema</strong></li>
-  <li>How to <strong>validate</strong> data against a JSON schema</li>
+  <li>How to express a data schema using <strong>JSON Schema</strong></li>
+  <li>How to <strong>validate</strong> data against a JSON Schema</li>
   <li>The <strong>benefits</strong> of separating between data schema and data representation</li>
   <li>The <strong>costs</strong> of separating between data schema and data representation</li>
 </ol>
@@ -196,7 +196,7 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
 
 <p><img src="/assets/freedom-2.jpg" alt="Freedom" /></p>
 
-<h2 id="json-schema">JSON schema</h2>
+<h2 id="json-schema">JSON Schema</h2>
 
 <p>Think about handling a request in a library management system for the addition of an author to the system. To keep things simple, imagine that such a request contains only basic information about the author:</p>
 
@@ -214,7 +214,7 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
   <li><code class="language-plaintext highlighter-rouge">books</code> - a number (optional)</li>
 </ol>
 
-<p>Using <a href="https://json-schema.org/">JSON schema</a>, we represent the data schema of the request with the following map:</p>
+<p>Using <a href="https://json-schema.org/">JSON Schema</a>, we represent the data schema of the request with the following map:</p>
 
 <pre><code class="language-klipse-eval-js">var addAuthorRequestSchema = {
   "type": "object",
@@ -227,7 +227,7 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
 };
 </code></pre>
 
-<p>A couple of remarks regarding the syntax of this JSON schema:</p>
+<p>A couple of remarks regarding the syntax of this JSON Schema:</p>
 
 <ol>
   <li>Data is expected to be a map (in JSON, a map is called an object)</li>
@@ -278,7 +278,7 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
 
 <p>The complete list of data validation libraries is available <a href="http://json-schema.org/implementations.html">here</a>.</p>
 
-<p>For instance, in JavaScript, using <a href="https://ajv.js.org/">Ajv JSON schema validator</a>, we validate a piece of data using the <code class="language-plaintext highlighter-rouge">validate</code> function. As you might expect, when a piece of data is valid, <code class="language-plaintext highlighter-rouge">validate</code> returns <code class="language-plaintext highlighter-rouge">true</code>:</p>
+<p>For instance, in JavaScript, using <a href="https://ajv.js.org/">Ajv JSON Schema validator</a>, we validate a piece of data using the <code class="language-plaintext highlighter-rouge">validate</code> function. As you might expect, when a piece of data is valid, <code class="language-plaintext highlighter-rouge">validate</code> returns <code class="language-plaintext highlighter-rouge">true</code>:</p>
 
 <pre><code class="language-klipse-eval-js">var ajv = new Ajv({allErrors: true}); 
 
@@ -312,7 +312,6 @@ ajv.validate(addAuthorRequestSchema, invalidAuthorData);
 
 ajv.validate(addAuthorRequestSchema, invalidAuthorData);
 ajv.errorsText(ajv.errors);
-// "data should have required property 'lastName', data.books should be number"
 </code></pre>
 
 <p>A couple of remarks regarding validation with <code class="language-plaintext highlighter-rouge">Ajv</code>:</p>
@@ -428,7 +427,7 @@ function displayAuthorInfo(authorData) {
 
 <p>In Object-Oriented Programming, allowing a class member to be <em>optional</em> is not easy. For instance, in Java one needs a special construct like the <code class="language-plaintext highlighter-rouge">Optional</code> class <a href="https://www.oracle.com/technical-resources/articles/java/java8-optional.html">introduced in Java 8</a>.</p>
 
-<p>In Data-Oriented Programming, it is natural to declare a field as optional in a map. In fact in JSON schema, <strong>by default</strong> every field is optional. In order to make a field non-optional, we have to include its name in the <code class="language-plaintext highlighter-rouge">required</code> array as for instance in the author schema in the following code snippet where only <code class="language-plaintext highlighter-rouge">firstName</code> and <code class="language-plaintext highlighter-rouge">lastName</code> are required while <code class="language-plaintext highlighter-rouge">books</code> is optional.</p>
+<p>In Data-Oriented Programming, it is natural to declare a field as optional in a map. In fact in JSON Schema, <strong>by default</strong> every field is optional. In order to make a field non-optional, we have to include its name in the <code class="language-plaintext highlighter-rouge">required</code> array as for instance in the author schema in the following code snippet where only <code class="language-plaintext highlighter-rouge">firstName</code> and <code class="language-plaintext highlighter-rouge">lastName</code> are required while <code class="language-plaintext highlighter-rouge">books</code> is optional.</p>
 
 <pre><code class="language-klipse-eval-js">var authorSchema = {
   "type": "object",
@@ -448,7 +447,7 @@ function displayAuthorInfo(authorData) {
   "lastName": "Sharvit"
 };
 
-ajv.validate(authorSchema, authorDataNoBooks) // true
+ajv.validate(authorSchema, authorDataNoBooks) 
 </code></pre>
 
 <p>However, a map with a <code class="language-plaintext highlighter-rouge">books</code> field where the value is not an interger is considered to be invalid:</p>
@@ -459,14 +458,14 @@ ajv.validate(authorSchema, authorDataNoBooks) // true
   "books": "Five"
 };
 
-ajv.validate(authorSchema, authorDataInvalidBooks) // false
+ajv.validate(authorSchema, authorDataInvalidBooks)
 </code></pre>
 
 <h3 id="benefit-3-advanced-data-validation-conditions">Benefit #3: Advanced data validation conditions</h3>
 
 <p>In Data-Oriented Programming, data validation occurs at <strong>run time</strong>. It allows us to define data validation conditions that go beyond the <strong>type</strong> of a field. For instance, we might want to make sure that a field is not only a string but a string with a maximal number of characters or a number comprised in a range of numbers.</p>
 
-<p>For instance, here is a JSON schema that expects <code class="language-plaintext highlighter-rouge">firstName</code> and <code class="language-plaintext highlighter-rouge">lastName</code> to be strings of less than 100 characters and <code class="language-plaintext highlighter-rouge">books</code> to be a number between <code class="language-plaintext highlighter-rouge">0</code> and <code class="language-plaintext highlighter-rouge">10,000</code>:</p>
+<p>For instance, here is a JSON Schema that expects <code class="language-plaintext highlighter-rouge">firstName</code> and <code class="language-plaintext highlighter-rouge">lastName</code> to be strings of less than 100 characters and <code class="language-plaintext highlighter-rouge">books</code> to be a number between <code class="language-plaintext highlighter-rouge">0</code> and <code class="language-plaintext highlighter-rouge">10,000</code>:</p>
 
 <pre><code class="language-klipse-eval-js">var authorComplexSchema = {
   "type": "object",
@@ -489,11 +488,11 @@ ajv.validate(authorSchema, authorDataInvalidBooks) // false
 };
 </code></pre>
 
-<p>JSON schema supports many other advanced data validation conditions, like regular expression validation for string fields or number fields that should be a multiple of a given number.</p>
+<p>JSON Schema supports many other advanced data validation conditions, like regular expression validation for string fields or number fields that should be a multiple of a given number.</p>
 
 <h3 id="benefit-4-automatic-generation-of-data-model-visualization">Benefit #4: Automatic generation of data model visualization</h3>
 
-<p>When the data schema is defined as data, we can leverage tools that generate data model visualization: with tools like <a href="https://navneethg.github.io/jsonschemaviewer/">JSON Schema Viewer</a> and <a href="https://github.com/metosin/malli">Malli</a> we can generate a UML diagram out of a JSON schema. For instance, the following JSON schema defines the shape of a <code class="language-plaintext highlighter-rouge">bookList</code> field that is an array of books where each book is a map.</p>
+<p>When the data schema is defined as data, we can leverage tools that generate data model visualization: with tools like <a href="https://navneethg.github.io/jsonschemaviewer/">JSON Schema Viewer</a> and <a href="https://github.com/metosin/malli">Malli</a> we can generate a UML diagram out of a JSON Schema. For instance, the following JSON Schema defines the shape of a <code class="language-plaintext highlighter-rouge">bookList</code> field that is an array of books where each book is a map.</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
@@ -515,7 +514,7 @@ ajv.validate(authorSchema, authorDataInvalidBooks) // false
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
-<p>The tools we just mentioned can generate the following UML diagram from the JSON schema:</p>
+<p>The tools we just mentioned can generate the following UML diagram from the JSON Schema:</p>
 
 <p><img src="/assets/author-schema.png" alt="author schema" /></p>
 
@@ -577,13 +576,13 @@ ajv.validate(calculateAuthorInfoReturnValueSchema, res)
 
 <h3 id="cost-1-loose-connection-between-data-and-its-schema">Cost #1: Loose connection between data and its schema</h3>
 
-<p>By definition, when we separate between data schema and data representation, the connection between data and its schema is <strong>looser</strong> that when we represent data with classes. Moreover, the schema definition language (e.g. JSON schema) is not part of the programming language. It is up to the developer to decide where data validation is <strong>necessary</strong> and where it is <strong>superfluous</strong>.</p>
+<p>By definition, when we separate between data schema and data representation, the connection between data and its schema is <strong>looser</strong> that when we represent data with classes. Moreover, the schema definition language (e.g. JSON Schema) is not part of the programming language. It is up to the developer to decide where data validation is <strong>necessary</strong> and where it is <strong>superfluous</strong>.</p>
 
 <p>As the idiom says, with great <strong>power</strong> comes great <strong>responsibility</strong>.</p>
 
 <h3 id="cost-2-light-performance-hit">Cost #2: Light performance hit</h3>
 
-<p>As we mentioned earlier, there exist implementations of JSON schema validation in most programming languages. When data validation occurs at <strong>run time</strong> it takes some time to run the data validation while in Object-Oriented programming, data validation occurs usually at <strong>compile time</strong>.</p>
+<p>As we mentioned earlier, there exist implementations of JSON Schema validation in most programming languages. When data validation occurs at <strong>run time</strong> it takes some time to run the data validation while in Object-Oriented programming, data validation occurs usually at <strong>compile time</strong>.</p>
 
 <p>This drawback is <strong>mitigated</strong> by the fact that even in Object-Oriented programming some parts of the data validation occur at run time. For instance, the conversion of a request JSON payload into an object occurs at run time. Moreover, in Data-Oriented Programming, it is quite common to have some data validation parts enabled only during <strong>development</strong> and to disable them when the system runs in <strong>production</strong>.</p>
 
@@ -610,7 +609,7 @@ ajv.validate(calculateAuthorInfoReturnValueSchema, res)
             <div class="post-share">
                 <span class="post-share-title">Share:</span>
                 <a target="_blank"
-                    href="https://twitter.com/share?text=Data+validation+with+JSON+schema&amp;url=https://blog.klipse.techjavascript/2021/09/30/data-validation-with-json-schema.html">Twitter</a>
+                    href="https://twitter.com/share?text=Data+validation+with+JSON+Schema&amp;url=https://blog.klipse.techjavascript/2021/09/30/data-validation-with-json-schema.html">Twitter</a>
                 <a target="_blank"
                     href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techjavascript/2021/09/30/data-validation-with-json-schema.html">Facebook</a>
             </div><!-- .share-post -->
