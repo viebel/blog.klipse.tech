@@ -15,7 +15,7 @@ tinyletter_url: https://tinyletter.com/klipse
 ga_analytics: UA-75651930-1
 # Contact form setings
 email: viebel@gmail.com
-contact_page_description: I am available for giving talks and workshops about Data-Oriented programming and Clojure.
+contact_page_description: I am available remotely for mentoring developers, giving tech talks and conducting workshops about Data-Oriented Programming and Clojure. Let's be in touch!
 thankyou_page_description: Your message has been successfully sent. We will contact you very soon!
 
 formspree_id: xwkwjvne 
