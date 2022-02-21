@@ -1,0 +1,23 @@
+---
+layout: default
+title: Testimonials
+---
+
+<div class="post-feed inner">
+  <div class="post-feed-title">Testimonials </div>
+  <div class="col-md-8 col-md-offset-2">
+    <div id="testimonials-carousel" class="carousel carousel-fade" data-ride="carousel"><!-- data-ride="carousel" causes auto play -->
+      <div class="text-center">
+        {% for testimonial in site.data.testimonials %}
+        <p class="item"> <!--TARGET FIRST ITEM -->
+          <blockquote>
+          <p>{{ testimonial.review }}</p>
+          <footer>{{ testimonial.person }}</footer>
+          </blockquote>
+        </p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+

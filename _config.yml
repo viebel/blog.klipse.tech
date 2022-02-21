@@ -35,6 +35,8 @@ navigation:
     url: /contact
   - text: Search
     url: /search
+  - text: Testimonials
+    url: /testimonials
 
 # Required Plugins
 plugins_dir:
