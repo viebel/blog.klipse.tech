@@ -4,8 +4,6 @@
 :page-guid: F3112EEC-3EC1-4757-BD6D-970AEA98D87B
 :page-thumbnail: assets/klipse.png
 :page-categories: databook
-:page-booktitle: Chapter 2, Part 1
-:page-bookorder: 02_01
 :page-liquid:
 :page-author: Yehonathan Sharvit
 :page-date:   2020-10-02 09:31:24 +0200

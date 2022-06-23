@@ -1,0 +1,19 @@
+@startuml
+
+!include SkinParamClass.iuml
+
+Author --* "*" Book
+
+class Author {
+  + firstName: String
+  + lastName: String
+  + bookList: <Book>
+}
+
+class Book {
+  + title : String
+  + publicationYear: Int
+}
+
+
+@enduml
