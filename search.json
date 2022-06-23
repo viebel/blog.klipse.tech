@@ -1,6 +1,46 @@
 [
   
     {
+      "title"    : "Separate data schema from data representation",
+      "category" : "d",
+      "tags"     : "dop",
+      "url"      : "/databook/2022/06/22/data-validation.html",
+      "date"     : "June 22, 2022"
+    } ,
+  
+    {
+      "title"    : "Data is immutable",
+      "category" : "d",
+      "tags"     : "dop",
+      "url"      : "/databook/2022/06/22/immutable-data.html",
+      "date"     : "June 22, 2022"
+    } ,
+  
+    {
+      "title"    : "Represent data with generic data structures",
+      "category" : "d",
+      "tags"     : "dop",
+      "url"      : "/databook/2022/06/22/generic-data-structures.html",
+      "date"     : "June 22, 2022"
+    } ,
+  
+    {
+      "title"    : "Separate code from data",
+      "category" : "d",
+      "tags"     : "dop",
+      "url"      : "/databook/2022/06/22/separate-code-from-data.html",
+      "date"     : "June 22, 2022"
+    } ,
+  
+    {
+      "title"    : "Principles of Data-Oriented Programming",
+      "category" : "d",
+      "tags"     : "dop",
+      "url"      : "/dop/2022/06/22/principles-of-dop.html",
+      "date"     : "June 22, 2022"
+    } ,
+  
+    {
       "title"    : "Reading the present moment",
       "category" : "d",
       "tags"     : "dop",
@@ -234,9 +274,9 @@
   
     {
       "title"    : "Principles of Data Oriented Programming",
-      "category" : "d",
+      "category" : "",
       "tags"     : "dop",
-      "url"      : "/databook/2020/09/29/do-principles.html",
+      "url"      : "/2020/09/29/do-principles.html",
       "date"     : "September 29, 2020"
     } ,
   

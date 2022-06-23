@@ -8,22 +8,22 @@
 
     
         <!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Principles of Data Oriented Programming | Yehonathan Sharvit</title>
+<title>Data is immutable | Yehonathan Sharvit</title>
 <meta name="generator" content="Jekyll v4.2.0" />
-<meta property="og:title" content="Principles of Data Oriented Programming" />
+<meta property="og:title" content="Data is immutable" />
 <meta name="author" content="Yehonathan Sharvit" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Data Oriented Programming in a nutshell. Benefits and drawbacks of data oriented programming. DO vs OOP. DO vs FP." />
-<meta property="og:description" content="Data Oriented Programming in a nutshell. Benefits and drawbacks of data oriented programming. DO vs OOP. DO vs FP." />
+<meta name="description" content="Benefits and costs of immutable data." />
+<meta property="og:description" content="Benefits and costs of immutable data." />
 <meta property="og:site_name" content="Yehonathan Sharvit" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2020-09-29T03:31:24+00:00" />
+<meta property="article:published_time" content="2022-06-22T02:34:24+00:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Principles of Data Oriented Programming" />
+<meta property="twitter:title" content="Data is immutable" />
 <meta name="twitter:site" content="@" />
 <meta name="twitter:creator" content="@Yehonathan Sharvit" />
 <script type="application/ld+json">
-{"url":"/databook/2020/09/29/do-principles.html","headline":"Principles of Data Oriented Programming","dateModified":"2020-09-29T03:31:24+00:00","datePublished":"2020-09-29T03:31:24+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/databook/2020/09/29/do-principles.html"},"author":{"@type":"Person","name":"Yehonathan Sharvit"},"description":"Data Oriented Programming in a nutshell. Benefits and drawbacks of data oriented programming. DO vs OOP. DO vs FP.","@context":"https://schema.org"}</script>
+{"url":"/databook/2022/06/22/immutable-data.html","headline":"Data is immutable","dateModified":"2022-06-22T02:34:24+00:00","datePublished":"2022-06-22T02:34:24+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/databook/2022/06/22/immutable-data.html"},"author":{"@type":"Person","name":"Yehonathan Sharvit"},"description":"Benefits and costs of immutable data.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     
@@ -159,10 +159,10 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
     <article class="post-full inner">
 
         <header class="post-header">
-            <h1 class="post-title">Principles of Data Oriented Programming</h1>
+            <h1 class="post-title">Data is immutable</h1>
             <span class="post-meta">
-              <time class="post-date" datetime="2020-09-29">
-                September 29, 2020
+              <time class="post-date" datetime="2022-06-22">
+                June 22, 2022
               </time>
             </span>
             
@@ -175,59 +175,10 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
         </header><!-- .post-header -->
 
         <div class="post-content">
-            <div>
-  <p>
-    This article is an excerpt from my <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7"> book </a> about <b>Data-Oriented Programming</b>.
-  </p>
-
-  <p>
-    More excerpts are available on my <a href="/data-oriented-programming-book.html">blog</a>.
-  </p>
-
-  <br>
-</div>
+            <div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>This chapter is an attempt to illustrate what are the core principles of Data Oriented Programming as I understand them.
-It is highly influenced by my programming experience in Clojure, but I believe that those principles are language agnostic.</p>
-</div>
-<div class="paragraph">
-<p>One could adhere to them in an Object Oriented (OO) language like Java or C# and one could break them
-in a Functional Programming (FP) language like Ocaml, Haskell, JavaScript (or even in Clojure).</p>
-</div>
-<div class="paragraph">
-<p>In fact, in this chapter, I am going to illustrate how those principles could be applied or broken
-in JavaScript, a programming language that supports both FP and OOP.</p>
-</div>
-<div class="paragraph">
-<p>The principles of Data Oriented (DO) Programming are:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><a href="/databook/2020/10/02/separate-code-data.html">Separate code from data</a></p>
-</li>
-<li>
-<p><a href="/databook/2020/10/02/generic-data-structures.html">Model entities with generic data structures</a></p>
-</li>
-<li>
-<p><a href="/databook/2020/10/02/immutable-data.html">Data is immutable</a></p>
-</li>
-<li>
-<p><a href="/databook/2020/10/02/data-comparable-value.html">Data is comparable by value</a></p>
-</li>
-<li>
-<p><a href="/databook/2020/10/03/data-literal.html">Data has a literal representation</a></p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Each principle is explored in a separate article.</p>
-</div>
-<div class="paragraph">
-<p>I encourage you to start your exploration from <a href="/databook/2020/10/02/separate-code-data.html">Principle #1: Separate code from data</a>.</p>
-</div>
-<div class="paragraph">
-<p>Enjoy!</p>
+<p>With data separated from code and represented with generic data structures, how are changes to the data managed? DOP is very strict on this question. Mutation of data is not allowed! In DOP, changes to data are accomplished by creating new versions of the data. The <em>reference</em> to a variable may be changed so that it refers to a new version of the data, but the <em>value</em> of the data itself must never change.</p>
 </div>
 <div>
   <p>
@@ -240,15 +191,295 @@ in JavaScript, a programming language that supports both FP and OOP.</p>
 
   <br>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/immutable/4.0.0/immutable.min.js"></script>
+<div class="paragraph">
+<p>This article is an exploration of the third principle of Data-Oriented Programming. The other principles of DOP are explored here:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="/databook/2022/06/22/separate-code-from-data.html">Principle #1</a>: Separating code (behavior) from data.</p>
+</li>
+<li>
+<p><a href="/databook/2022/06/22/generic-data-structures.html">Principle #2</a>: Representing data with generic data structures.</p>
+</li>
+<li>
+<p><a href="/databook/2022/06/22/immutable-data.html">Principle #3</a>: Treating data as immutable.</p>
+</li>
+<li>
+<p><a href="/databook/2022/06/22/data-validation.html">Principle #4</a>: Separating data schema from data representation.</p>
+</li>
+</ul>
+</div>
+<div class="quoteblock">
+<blockquote>
+<em>Principle #3</em>&#8201;&#8212;&#8201;Data is immutable.
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="illustration-of-principle-3">Illustration of Principle #3</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Think about the number 42. What happens to 42 when you add 1 to it? Does it become 43? No, 42 stays 42 forever! Now, put 42 inside an object: <code>{num: 42}</code>. What happens to the object when you add 1 to 42? Does it become 43? It depends on the programming language.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>In Clojure, a programming language that embraces data immutability, the value of the <code>num</code> field stays <code>42</code> forever, no matter what.</p>
+</li>
+<li>
+<p>In many programming languages, the value of the <code>num</code> field becomes <code>43</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For instance, in JavaScript, mutating the field of a map referred by two variables has an impact on both variables. The following listing demonstrates this.</p>
+</div>
+<div id="mutating-data-klipse-js" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var myData = {num: 42};
+var yourData = myData;
+
+yourData.num = yourData.num + 1;
+console.log(myData.num);
+// → 43</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, <code>myData.num</code> equals <code>43</code>. According to DOP, however, data should never change! Instead of mutating data, a new version of it is created. A naive (and inefficient) way to create a new version of a data is to clone it before modifying it. For instance, in the following listing, there is a function that changes the value of a field inside an object by cloning the object via <code>Object.assign</code>, provided natively by JavaScript. When <code>changeValue</code> is called on <code>myData</code>, <code>myData</code> is not affected; <code>myData.num</code> remains <code>42</code>. This is the essence of data immutability!</p>
+</div>
+<div id="cloning-klipse-js" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>function changeValue(obj, k, v) {
+  var res = Object.assign({}, obj);
+  res[k] = v;
+  return res;
+}
+
+var myData = {num: 42};
+var yourData = changeValue(myData, &quot;num&quot;, myData.num + 1);
+console.log(myData.num);
+// → 42</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Embracing immutability in an efficient way, both in terms of computation and memory, requires a third-party library like Immutable.js (<a href="https://immutable-js.com/" class="bare">https://immutable-js.com/</a>), which provides an efficient implementation of persistent data structures (a.k.a. immutable data structures). In most programming languages, there exist libraries that provide an efficient implementation of persistent data structures.</p>
+</div>
+<div class="paragraph">
+<p>With <code>Immutable.js</code>, JavaScript native maps and arrays are not used, but rather, immutable maps and immutable lists instantiated via <code>Immutable.Map</code> and <code>Immutable.List</code>. An element of a map is accessed using the <code>get</code> method. A new version of the map is created when a field is modified with the <code>set</code> method.</p>
+</div>
+<div class="paragraph">
+<p>Here is how to create and manipulate immutable data efficiently with a third-party library. In the output, <code>yourData.get("num")</code> is <code>43</code>, but <code>myData.get("num")</code> remains <code>42</code>.</p>
+</div>
+<div id="immutable-js-klipse-js" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var myData = Immutable.Map({num: 42})
+var yourData = myData.set(&quot;num&quot;, 43);
+console.log(yourData.get(&quot;num&quot;));
+// → 43
+console.log(myData.get(&quot;num&quot;));
+// → 42</code></pre>
+</div>
+</div>
+<div class="quoteblock">
+<blockquote>
+When data is immutable, instead of mutating data, a new version of it is created.
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="benefits-of-principle-3">Benefits of Principle #3</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When programs are constrained from mutating data, we derive benefit in numerous ways. The following sections detail these benefits:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Data access to all with confidence</p>
+</li>
+<li>
+<p>Predictable code behavior</p>
+</li>
+<li>
+<p>Fast equality checks</p>
+</li>
+<li>
+<p>Concurrency safety for free</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="benefit-1-data-access-to-all-with-confidence">Benefit #1: Data access to all with confidence</h3>
+<div class="paragraph">
+<p>According to Principle #1 (separate code from data), data access is transparent. Any function is allowed to access any piece of data. Without data immutability, we must be careful when passing data as an argument to a function. We can either make sure the function does not mutate the data or clone the data before it is passed to the function. When adhering to data immutability, none of this is required.</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+When data is immutable, it can be passed to any function with confidence because data never changes.
+</blockquote>
+</div>
+</div>
+<div class="sect2">
+<h3 id="benefit-2-predictable-code-behavior">Benefit #2: Predictable code behavior</h3>
+<div class="paragraph">
+<p>As an illustration of what is meant by <em>predictable</em>, here is an example of an <em>unpredictable</em> piece of code that does not adhere to data immutability. Take a look at the piece of asynchronous JavaScript code in the following listing. When data is mutable, the behavior of asynchronous code is not predictable.</p>
+</div>
+<div id="async-js" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var myData = {num: 42};
+setTimeout(function (data){
+  console.log(data.num);
+}, 1000, myData);
+myData.num = 0;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The value of <code>data.num</code> inside the timeout callback is not predictable. It depends on whether the data is modified by another piece of code during the 1,000 ms of the timeout. However, with immutable data, it is guaranteed that data never changes and that <code>data.num</code> is always <code>42</code> inside the callback.</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+When data is immutable, the behavior of code that manipulates data is predictable.
+</blockquote>
+</div>
+</div>
+<div class="sect2">
+<h3 id="benefit-3-fast-equality-checks">Benefit #3: Fast equality checks</h3>
+<div class="paragraph">
+<p>With UI frameworks like React.js, there are frequent checks to see what portion of the UI data has been modified since the previous rendering cycle. Portions that did not change are not rendered again. In fact, in a typical frontend application, most of the UI data is left unchanged between subsequent rendering cycles.</p>
+</div>
+<div class="paragraph">
+<p>In a React application that does not adhere to data immutability, it is necessary to check every (nested) part of the UI data. However, in a React application that follows data immutability, it is possible to optimize the comparison of the data for the case where data is not modified. Indeed, when the object address is the same, then it is certain that the data did not change.</p>
+</div>
+<div class="paragraph">
+<p>Comparing object addresses is much faster than comparing all the fields. In Part 1 of my book, fast equality checks are used to reconcile between concurrent mutations in a highly scalable production system.</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+Immutable data enables fast equality checks by comparing data by reference.
+</blockquote>
+</div>
+</div>
+<div class="sect2">
+<h3 id="benefit-4-free-concurrency-safety">Benefit #4: Free concurrency safety</h3>
+<div class="paragraph">
+<p>In a multi-threaded environment, concurrency safety mechanisms (e.g., mutexes) are often used to prevent the data in thread <code>A</code> from being modified while it is accessed in thread <code>B</code>. In addition to the slight performance hit they cause, concurrency safety mechanisms impose a mental burden that makes code writing and reading much more difficult.</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+Adherence to data immutability eliminates the need for a concurrency mechanism. The data you have in hand never changes!
+</blockquote>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cost-for-principle-3">Cost for Principle #3</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As with the previous principles, applying Principle #3 comes at a price. The following sections look at these costs:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Performance hit</p>
+</li>
+<li>
+<p>Required library for persistent data structures</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="cost-1-performance-hit">Cost #1: Performance hit</h3>
+<div class="paragraph">
+<p>As mentioned earlier, there exist implementations of persistent data structures in most programming languages. But even the most efficient implementation is a bit slower than the in-place mutation of the data. In most applications, the performance hit and the additional memory consumption involved in using immutable data structures is not significant. But this is something to keep in mind.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cost-2-required-library-for-persistent-data-structures">Cost #2: Required library for persistent data structures</h3>
+<div class="paragraph">
+<p>In a language like Clojure, the native data structures of the language are immutable. However, in most programming languages, adhering to data immutability requires the inclusion a third-party library that provides an implementation of persistent data structures.</p>
+</div>
+<div class="paragraph">
+<p>The fact that the data structures are not native to the language means that it is difficult (if not impossible) to enforce the usage of immutable data across the board. Also, when integrating with third-party libraries (e.g., a chart library), persistent data structures must be converted into equivalent native data structures.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="summary-of-principle-3">Summary of Principle #3</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>DOP considers data as a value that never changes. Adherence to this principle results in code that is predictable even in a multi-threaded environment, and equality checks are fast. However, a non-negligible mind shift is required, and in most programming languages, a third-party library is needed to provide an efficient implementation of persistent data structures.</p>
+</div>
+<div class="paragraph">
+<p><strong>DOP Principle #3: Data is immutable</strong></p>
+</div>
+<div class="paragraph">
+<p>To adhere to this principle, data is represented with immutable structures.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/uml/chapter00/do-principle-3-immutable-data.png" alt="do principle 3 immutable data">
+</div>
+</div>
+<div class="paragraph">
+<p>Benefits include</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Data access to all with confidence</p>
+</li>
+<li>
+<p>Predictable code behavior</p>
+</li>
+<li>
+<p>Fast equality checks</p>
+</li>
+<li>
+<p>Concurrency safety for free</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The cost for implementing Principle #3 includes</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A performance hit</p>
+</li>
+<li>
+<p>Required library for persistent data structures</p>
+</li>
+</ul>
+</div>
+<div>
+  <p>
+    This article is an excerpt from my <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7"> book </a> about <b>Data-Oriented Programming</b>.
+  </p>
+
+  <p>
+    More excerpts are available on my <a href="/data-oriented-programming-book.html">blog</a>.
+  </p>
+
+  <br>
+</div>
+</div>
+</div>
         </div>
         <footer class="post-footer">
             <div class="separator"></div>
             <div class="post-share">
                 <span class="post-share-title">Share:</span>
                 <a target="_blank"
-                    href="https://twitter.com/share?text=Principles+of+Data+Oriented+Programming&amp;url=https://blog.klipse.techdatabook/2020/09/29/do-principles.html">Twitter</a>
+                    href="https://twitter.com/share?text=Data+is+immutable&amp;url=https://blog.klipse.techdatabook/2022/06/22/immutable-data.html">Twitter</a>
                 <a target="_blank"
-                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techdatabook/2020/09/29/do-principles.html">Facebook</a>
+                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techdatabook/2022/06/22/immutable-data.html">Facebook</a>
             </div><!-- .share-post -->
         </footer>
     </article>
@@ -276,9 +507,9 @@ in JavaScript, a programming language that supports both FP and OOP.</p>
         <article class="post">
             <header class="post-header">
                 <div class="post-meta">
-                    <time class="published" datetime="September 27, 2020">September 27, 2020</time>
+                    <time class="published" datetime="June 22, 2022">June 22, 2022</time>
                 </div>
-                <h3 class="post-title"><a href="/databook/2020/09/27/data-book-toc.html">Data Oriented Programming: Table of Contents</a>
+                <h3 class="post-title"><a href="/databook/2022/06/22/generic-data-structures.html">Represent data with generic data structures</a>
                 </h3>
                 <p class="post-tags">
                     
@@ -296,9 +527,9 @@ in JavaScript, a programming language that supports both FP and OOP.</p>
         <article class="post">
             <header class="post-header">
                 <div class="post-meta">
-                    <time class="published" datetime="October 2, 2020">October 2, 2020</time>
+                    <time class="published" datetime="June 22, 2022">June 22, 2022</time>
                 </div>
-                <h3 class="post-title"><a href="/databook/2020/10/02/generic-data-structures.html">DO Principle #2: Model entities with generic data structures</a></h3>
+                <h3 class="post-title"><a href="/dop/2022/06/22/principles-of-dop.html">Principles of Data-Oriented Programming</a></h3>
                 <p class="post-tags">
                     
                     

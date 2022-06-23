@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+        <!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Separate data schema from data representation | Yehonathan Sharvit</title>
+<meta name="generator" content="Jekyll v4.2.0" />
+<meta property="og:title" content="Separate data schema from data representation" />
+<meta name="author" content="Yehonathan Sharvit" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Principles of Data-Oriented Programming. Benefits and costs of Data-Oriented Programming. DOP vs OOP. DOP vs FP." />
+<meta property="og:description" content="Principles of Data-Oriented Programming. Benefits and costs of Data-Oriented Programming. DOP vs OOP. DOP vs FP." />
+<meta property="og:site_name" content="Yehonathan Sharvit" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-06-22T02:35:24+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Separate data schema from data representation" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@Yehonathan Sharvit" />
+<script type="application/ld+json">
+{"url":"/databook/2022/06/22/data-validation.html","headline":"Separate data schema from data representation","dateModified":"2022-06-22T02:35:24+00:00","datePublished":"2022-06-22T02:35:24+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/databook/2022/06/22/data-validation.html"},"author":{"@type":"Person","name":"Yehonathan Sharvit"},"description":"Principles of Data-Oriented Programming. Benefits and costs of Data-Oriented Programming. DOP vs OOP. DOP vs FP.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+
+    <!-- Site Favicon -->
+    <link rel="shortcut icon" href="/assets/favicon2.png" type="image/png" />
+
+    <!-- Font Embed Code -->
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600,600i|Karla:400,400i,700,700i" rel="stylesheet">
+
+    <!-- CSS Styles -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+</head>
+
+
+
+<body class="layout-post">
+    <div id="page" class="site">
+        <header id="masthead" class="site-header">
+    <div class="site-header-wrap">
+        <div class="site-header-inside">
+
+            <div class="site-branding">
+                
+                <p class="profile">
+                    <a href="/">
+                        <img src="/assets/images/authorimage.jpg" alt="'s Picture"
+                            class="avatar" />
+                    </a>
+                </p>
+                <div class="site-identity">
+                    
+                    <h1 class="site-title">
+                        <a href="/">Yehonathan Sharvit</a>
+                    </h1>
+                    
+                    
+                    <p class="site-description">Developer. Author. Speaker.</p>
+                    
+                </div><!-- .site-identity -->
+                
+                <button id="menu-toggle" class="menu-toggle"><span class="screen-reader-text">Main Menu</span><span
+                        class="icon-menu" aria-hidden="true"></span></button>
+            </div><!-- .site-branding -->
+
+            <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+                <div class="site-nav-wrap">
+                    <div class="site-nav-inside">
+                    <ul class="menu">
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/">Blog</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/talks">Talks</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/about">About</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/contact">Contact</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/search">Search</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/testimonials">Testimonials</a></li>
+                        
+                    </ul>
+                    <p class="social-links">
+    <a class="github-button" href="https://github.com/viebel/klipse" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    
+    <a href="https://twitter.com/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+</p>
+
+                    <div class="book-header">
+  <div>
+    Discover my book!
+  </div>
+  <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
+    <img src="/assets/dop-book.png">
+  </a>
+  <div>
+    DISCOUNT CODE: sharvit39
+  </div>
+</div>
+
+                    </div><!-- .site-nav-inside -->
+                </div><!-- .site-nav-wrap -->
+            </nav><!-- .site-navigation -->
+
+        </div><!-- .site-header-inside -->
+    </div><!-- .site-header-wrap -->
+</header><!-- .site-header -->
+
+        <div id="content" class="site-content fadeInDown delay_075s">
+            <div class="inner-wide">
+                <main id="main" class="site-main">
+
+    <article class="post-full inner">
+
+        <header class="post-header">
+            <h1 class="post-title">Separate data schema from data representation</h1>
+            <span class="post-meta">
+              <time class="post-date" datetime="2022-06-22">
+                June 22, 2022
+              </time>
+            </span>
+            
+            <span class="post-tags">
+                <a href="/tags/index.html#dop"
+                    rel="tag">dop</a>
+                
+            </span>
+            
+        </header><!-- .post-header -->
+
+        <div class="post-content">
+            <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>With data separated from code and represented with generic and immutable data structures, now comes the question of how do we express the shape of the data? In DOP, the expected shape is expressed as a data schema that is kept separated from the data itself. The main benefit of Principle #4 is that it allows developers to decide which pieces of data should have a schema and which pieces of data should not.</p>
+</div>
+<div>
+  <p>
+    This article is an excerpt from my <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7"> book </a> about <b>Data-Oriented Programming</b>.
+  </p>
+
+  <p>
+    More excerpts are available on my <a href="/data-oriented-programming-book.html">blog</a>.
+  </p>
+
+  <br>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ajv/6.12.6/ajv.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js" integrity="sha256-8E6QUcFg1KTnpEU8TFGhpTGHw5fJqB9vCms3OhAYLqw=" crossorigin="anonymous"></script>
+<script>
+window.ajv = new Ajv();
+</script>
+<div class="paragraph">
+<p>This article is an exploration of the fourth principle of Data-Oriented Programming. The other principles of DOP are explored here:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="/databook/2022/06/22/separate-code-from-data.html">Principle #1</a>: Separating code (behavior) from data.</p>
+</li>
+<li>
+<p><a href="/databook/2022/06/22/generic-data-structures.html">Principle #2</a>: Representing data with generic data structures.</p>
+</li>
+<li>
+<p><a href="/databook/2022/06/22/immutable-data.html">Principle #3</a>: Treating data as immutable.</p>
+</li>
+<li>
+<p><a href="/databook/2022/06/22/data-validation.html">Principle #4</a>: Separating data schema from data representation.</p>
+</li>
+</ul>
+</div>
+<div class="quoteblock">
+<blockquote>
+<em>Principle #4</em>&#8201;&#8212;&#8201;Separate data schema from data representation.
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="illustration-of-principle-4">Illustration of Principle #4</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Think about handling a request for the addition of an author to the system. To keep things simple, imagine that such a request contains only basic information about the author: their first name and last name and, optionally, the number of books they have written. As seen in Principle #2 (represent data with generic data structures), in DOP, request data is represented as a string map, where the map is expected to have three fields:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>firstName</code>&#8201;&#8212;&#8201;a string</p>
+</li>
+<li>
+<p><code>lastName</code>&#8201;&#8212;&#8201;a string</p>
+</li>
+<li>
+<p><code>books</code>&#8201;&#8212;&#8201;a number (optional)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In DOP, the expected shape of data is represented as data that is kept separate from the request data. For instance, JSON schema (<a href="https://json-schema.org/" class="bare">https://json-schema.org/</a>) can represent the data schema of the request with a map. The following listing provides an example.</p>
+</div>
+<div id="add-author-request-schema-klipse-js" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var addAuthorRequestSchema = {
+  &quot;type&quot;: &quot;object&quot;, // <b class="conum">(1)</b>
+  &quot;required&quot;: [&quot;firstName&quot;, &quot;lastName&quot;], // <b class="conum">(2)</b>
+  &quot;properties&quot;: {
+    &quot;firstName&quot;: {&quot;type&quot;: &quot;string&quot;}, // <b class="conum">(3)</b>
+    &quot;lastName&quot;: {&quot;type&quot;: &quot;string&quot;}, // <b class="conum">(4)</b>
+    &quot;books&quot;: {&quot;type&quot;: &quot;integer&quot;} // <b class="conum">(5)</b>
+  }
+};</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>Data is expected to be a map (in JSON, a map is called an object).</p>
+</li>
+<li>
+<p>Only <code>firstName</code> and <code>lastName</code> fields are required.</p>
+</li>
+<li>
+<p><code>firstName</code> must be a string.</p>
+</li>
+<li>
+<p><code>lastName</code> must be a string.</p>
+</li>
+<li>
+<p><code>books</code> must be a number (when it is provided).</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>A data validation library is used to check whether a piece of data conforms to a data schema. For instance, we could use Ajv JSON schema validator (<a href="https://ajv.js.org/" class="bare">https://ajv.js.org/</a>) to validate data with the <code>validate</code> function that returns <code>true</code> when data is valid and <code>false</code> when data is invalid. The following listing shows this approach.</p>
+</div>
+<div id="check-data-validity-klipse-js" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var validAuthorData = {
+  firstName: &quot;Isaac&quot;,
+  lastName: &quot;Asimov&quot;,
+  books: 500
+};
+
+ajv.validate(addAuthorRequestSchema, 
+  validAuthorData); //  <b class="conum">(1)</b>
+// → true
+
+var invalidAuthorData = {
+  firstName: &quot;Isaac&quot;,
+  lastNam: &quot;Asimov&quot;,
+  books: &quot;five hundred&quot;
+};
+
+ajv.validate(addAuthorRequestSchema, 
+  invalidAuthorData); // <b class="conum">(2)</b>
+// → false</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>Data is valid.</p>
+</li>
+<li>
+<p>Data has <code>lastNam</code> instead of <code>lastName</code>, and <code>books</code> is a string instead of a number.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>When data is invalid, the details about data validation failures are available in a human readable format. The next listing shows this approach.</p>
+</div>
+<div id="data-validation-errors-klipse-js" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var invalidAuthorData = {
+  firstName: &quot;Isaac&quot;,
+  lastNam: &quot;Asimov&quot;,
+  books: &quot;five hundred&quot;
+};
+
+var ajv = new Ajv({allErrors: true}); // <b class="conum">(1)</b>
+ajv.validate(addAuthorRequestSchema, invalidAuthorData);
+ajv.errorsText(ajv.errors); // &lt;2&gt; 
+// → &quot;data should have required property &#39;lastName&#39;,
+// →  data.books should be number&quot;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>By default, Ajv stores only the first data validation error. Set <code>allErrors: true</code> to store all errors.</p>
+</li>
+<li>
+<p>Data validation errors are stored internally as an array. In order to get a human readable string, use the <code>errorsText</code> function.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="benefits-of-principle-4">Benefits of Principle #4</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Separation of data schema from data representation provides numerous benefits. The following sections describe these benefits in detail:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Freedom to choose what data should be validated</p>
+</li>
+<li>
+<p>Optional fields</p>
+</li>
+<li>
+<p>Advanced data validation conditions</p>
+</li>
+<li>
+<p>Automatic generation of data model visualization</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="benefit-1-freedom-to-choose-what-data-should-be-validated">Benefit #1: Freedom to choose what data should be validated</h3>
+<div class="paragraph">
+<p>When data schema is separated from data representation, we can instantiate data without specifying its expected shape. Such freedom is useful in various situations. For example,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Rapid prototyping or experimentation</p>
+</li>
+<li>
+<p>Code refactoring and data validation</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Consider rapid prototyping. In classic OOP, we need to instantiate every piece of data through a class. During the exploration phase of coding, when the final shape of our data is not yet known, being forced to update the class definition each time the data model changes slows us down. DOP enables a faster pace during the exploration phase by delaying the data schema definition to a later phase.</p>
+</div>
+<div class="paragraph">
+<p>One common refactoring pattern is split phase refactoring (<a href="https://refactoring.com/catalog/splitPhase.html" class="bare">https://refactoring.com/catalog/splitPhase.html</a>), where a single large function is split into multiple smaller functions with private scope. We call these functions, with data that has already been validated by the larger function. In DOP, it is not necessary to specify the shape of the arguments of the inner functions, relying on the data validation that has already occurred.</p>
+</div>
+<div class="paragraph">
+<p>Consider how to display some information about an author, such as their full name and whether they are considered prolific. Using the code shown earlier to illustrate Principle #2 to calculate the full name and the prolificity level of the author, one might come up with a <code>displayAuthorInfo</code> function as the following listing shows.</p>
+</div>
+<div id="author-info-klipse-js" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>class NameCalculation {
+  static fullName(data) {
+    return data.firstName + &quot; &quot; + data.lastName;
+  }
+}
+
+class AuthorRating {
+  static isProlific (data) {
+    return data.books &gt; 100;
+  }
+}
+
+var authorSchema = {
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;required&quot;: [&quot;firstName&quot;, &quot;lastName&quot;],
+  &quot;properties&quot;: {
+    &quot;firstName&quot;: {&quot;type&quot;: &quot;string&quot;},
+    &quot;lastName&quot;: {&quot;type&quot;: &quot;string&quot;},
+    &quot;books&quot;: {&quot;type&quot;: &quot;integer&quot;}
+  }
+};
+
+function displayAuthorInfo(authorData) {
+  if(!ajv.validate(authorSchema, authorData)) {
+    throw &quot;displayAuthorInfo called with invalid data&quot;;
+  };
+  console.log(&quot;Author full name is: &quot;,
+    NameCalculation.fullName(authorData));
+  if(authorData.books == null) {
+    console.log(&quot;Author has not written any book&quot;);
+  } else {
+    if (AuthorRating.isProlific(authorData)) {
+      console.log(&quot;Author is prolific&quot;);
+    } else {
+      console.log(&quot;Author is not prolific&quot;);
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that the first thing done inside the body of <code>displayAuthorInfo</code> is to validate that the argument passed to the function. Now, apply the split phase refactoring pattern to this simple example and split the body of <code>displayAuthorInfo</code> into two inner functions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>displayFullName</code> displays the author&#8217;s full name.</p>
+</li>
+<li>
+<p><code>displayProlificity</code> displays whether the author is prolific or not.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The next listing shows the resulting code.</p>
+</div>
+<div id="author-info-refactored-klipse-js" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>function displayFullName(authorData) {
+  console.log(&quot;Author full name is: &quot;, 
+    NameCalculation.fullName(authorData));
+}
+
+function displayProlificity(authorData) {
+  if(authorData.books == null) {
+    console.log(&quot;Author has not written any book&quot;);
+  } else {
+    if (AuthorRating.isProlific(authorData)) {
+      console.log(&quot;Author is prolific&quot;);
+    } else {
+      console.log(&quot;Author is not prolific&quot;);
+    }
+  }
+}
+
+function displayAuthorInfo(authorData) {
+  if(!ajv.validate(authorSchema, authorData)) {
+    throw &quot;displayAuthorInfo called with invalid data&quot;;
+  };
+  displayFullName(authorData);
+  displayProlificity(authorData);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Having the data schema separated from data representation eliminates the need to specify a data schema for the arguments of the inner functions <code>displayFullName</code> and <code>displayProlificity</code>. It makes the refactoring process a bit smoother. In some cases, the inner functions are more complicated, and it makes sense to specify a data schema for their arguments. DOP gives us the freedom to choose!</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="benefit-2-optional-fields">Benefit #2: Optional fields</h3>
+<div class="paragraph">
+<p>In OOP, allowing a class member to be optional is not easy. For instance, in Java one needs a special construct like the <code>Optional</code> class introduced in Java 8 (<a href="http://mng.bz/4jWa" class="bare">http://mng.bz/4jWa</a>). In DOP, it is natural to declare a field as optional in a map. In fact, in JSON Schema, by default, every field is optional.</p>
+</div>
+<div class="paragraph">
+<p>In order to make a field not optional, its name must be included in the <code>required</code> array as, for instance, in the author schema in the following listing, where only <code>firstName</code> and <code>lastName</code> are required, and <code>books</code> is optional. Notice that when an optional field is defined in a map, its value is validated against the schema.</p>
+</div>
+<div id="author-schema-klipse-js" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var authorSchema = {
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;required&quot;: [&quot;firstName&quot;, &quot;lastName&quot;], // <b class="conum">(1)</b>
+  &quot;properties&quot;: {
+    &quot;firstName&quot;: {&quot;type&quot;: &quot;string&quot;},
+    &quot;lastName&quot;: {&quot;type&quot;: &quot;string&quot;},
+    &quot;books&quot;: {&quot;type&quot;: &quot;number&quot;} // <b class="conum">(2)</b>
+  }
+};</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p><code>books</code> is not included in <code>required</code> as it is an optional field.</p>
+</li>
+<li>
+<p>When present, <code>books</code> must be a number.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s illustrate how the validation function deals with optional fields. A map without a <code>books</code> field is considered to be valid:</p>
+</div>
+<div id="author-no-books-klipse-js" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var authorDataNoBooks = {
+  &quot;firstName&quot;: &quot;Yehonathan&quot;,
+  &quot;lastName&quot;: &quot;Sharvit&quot;
+};
+
+ajv.validate(authorSchema, authorDataNoBooks); // <b class="conum">(1)</b>
+// → true </code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>The validation passes as <code>books</code> is an optional field.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Alternatively, a map with a <code>books</code> field, where the value is not a number, is considered to be invalid:</p>
+</div>
+<div id="author-invalid-books-klipse-js" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var authorDataInvalidBooks = {
+  &quot;firstName&quot;: &quot;Albert&quot;,
+  &quot;lastName&quot;: &quot;Einstein&quot;,
+  &quot;books&quot;: &quot;Five&quot;
+};
+
+ajv.validate(authorSchema, authorDataInvalidBooks); // <b class="conum">(1)</b>
+// → false </code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<ol>
+<li>
+<p>The validation fails as <code>books</code> is not a number.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="benefit-3-advanced-data-validation-conditions">Benefit #3: Advanced data validation conditions</h3>
+<div class="paragraph">
+<p>In DOP, data validation occurs at run time. It allows the definition of data validation conditions that go beyond the type of a field. For example, validating that a field is not only a string, but a string with a maximal number of characters or a number comprised in a range of numbers as well.</p>
+</div>
+<div class="paragraph">
+<p>JSON Schema supports many other advanced data validation conditions such as regular expression validation for string fields or number fields that should be a multiple of a given number. The author schema in the following listing expects <code>firstName</code> and <code>lastName</code> to be strings of less than 100 characters, and <code>books</code> to be a number between 0 and 10,000.</p>
+</div>
+<div id="author-schema-complex-klipse-js" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var authorComplexSchema = {
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;required&quot;: [&quot;firstName&quot;, &quot;lastName&quot;],
+  &quot;properties&quot;: {
+    &quot;firstName&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;maxLength&quot;: 100
+    },
+    &quot;lastName&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;maxLength&quot;: 100
+    },
+    &quot;books&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;maximum&quot;: 10000
+    }
+  }
+};</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="benefit-4-automatic-generation-of-data-model-visualization">Benefit #4: Automatic generation of data model visualization</h3>
+<div class="paragraph">
+<p>With the data schema defined as data, we can use several tools to generate data model visualizations. With tools like JSON Schema Viewer (<a href="https://navneethg.github.io/jsonschemaviewer/" class="bare">https://navneethg.github.io/jsonschemaviewer/</a>) and Malli (<a href="https://github.com/metosin/malli" class="bare">https://github.com/metosin/malli</a>), a UML diagram can be generated from a JSON schema.</p>
+</div>
+<div class="paragraph">
+<p>For instance, the JSON schema in the following listing defines the shape of a <code>bookList</code> field, which is an array of books where each book is a map, and in the following figure, it is visualized as a UML diagram. These tools generate the UML diagram from the JSON schema.</p>
+</div>
+<div id="author-schema-visualize" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="json"><span></span><span class="tok-p">{</span>
+  <span class="tok-nt">&quot;type&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;object&quot;</span><span class="tok-p">,</span>
+  <span class="tok-nt">&quot;required&quot;</span><span class="tok-p">:</span> <span class="tok-p">[</span><span class="tok-s2">&quot;firstName&quot;</span><span class="tok-p">,</span> <span class="tok-s2">&quot;lastName&quot;</span><span class="tok-p">],</span>
+  <span class="tok-nt">&quot;properties&quot;</span><span class="tok-p">:</span> <span class="tok-p">{</span>
+    <span class="tok-nt">&quot;firstName&quot;</span><span class="tok-p">:</span> <span class="tok-p">{</span><span class="tok-nt">&quot;type&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;string&quot;</span><span class="tok-p">},</span>
+    <span class="tok-nt">&quot;lastName&quot;</span><span class="tok-p">:</span> <span class="tok-p">{</span><span class="tok-nt">&quot;type&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;string&quot;</span><span class="tok-p">},</span>
+    <span class="tok-nt">&quot;bookList&quot;</span><span class="tok-p">:</span> <span class="tok-p">{</span>
+      <span class="tok-nt">&quot;type&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;array&quot;</span><span class="tok-p">,</span>
+      <span class="tok-nt">&quot;items&quot;</span><span class="tok-p">:</span> <span class="tok-p">{</span>
+        <span class="tok-nt">&quot;type&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;object&quot;</span><span class="tok-p">,</span>
+        <span class="tok-nt">&quot;properties&quot;</span><span class="tok-p">:</span> <span class="tok-p">{</span>
+          <span class="tok-nt">&quot;title&quot;</span><span class="tok-p">:</span> <span class="tok-p">{</span><span class="tok-nt">&quot;type&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;string&quot;</span><span class="tok-p">},</span>
+          <span class="tok-nt">&quot;publicationYear&quot;</span><span class="tok-p">:</span> <span class="tok-p">{</span><span class="tok-nt">&quot;type&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;integer&quot;</span><span class="tok-p">}</span>
+        <span class="tok-p">}</span>
+      <span class="tok-p">}</span>
+    <span class="tok-p">}</span>
+  <span class="tok-p">}</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div id="author-schema-uml" class="imageblock">
+<div class="content">
+<img src="/uml/chapter00/author-schema.png" alt="author schema">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cost-for-principle-4">Cost for Principle #4</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Applying Principle #4 comes with a price. The following sections look at these costs:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Weak connection between data and its schema</p>
+</li>
+<li>
+<p>Small performance hit</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="cost-1-weak-connection-between-data-and-its-schema">Cost #1: Weak connection between data and its schema</h3>
+<div class="paragraph">
+<p>By definition, when data schema and data representation are separated, the connection between data and its schema is weaker that when data is represented with classes. Moreover, the schema definition language (e.g., JSON Schema) is not part of the programming language. It is up to the developer to decide where data validation is necessary and where it is superfluous. As the idiom says, with great power comes great responsibility.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cost-2-light-performance-hit">Cost #2: Light performance hit</h3>
+<div class="paragraph">
+<p>As mentioned earlier, there exist implementations of JSON schema validation in most programming languages. In DOP, data validation occurs at run time, and it takes some time to run the data validation. In OOP, data validation occurs usually at compile time.</p>
+</div>
+<div class="paragraph">
+<p>This drawback is mitigated by the fact that, even in OOP, some parts of data validation occur at run time. For instance, the conversion of a request JSON payload into an object occurs at run time. Moreover, in DOP, it is quite common to have some data validation parts enabled only during development and to disable them when the system runs in production. As a consequence, this performance hit is not significant.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="summary-of-principle-4">Summary of Principle #4</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In DOP, data is represented with immutable generic data structures. When additional information about the shape of the data is required, a data schema can be defined (e.g., using JSON Schema). Keeping the data schema separate from the data representation gives us the freedom to decide where data should be validated.</p>
+</div>
+<div class="paragraph">
+<p>Moreover, data validation occurs at run time. As a consequence, data validation conditions that go beyond the static data types (e.g., the string length) can be expressed. However, with great power comes great responsibility, and it is up to the developer to remember to validate data.</p>
+</div>
+<div class="paragraph">
+<p><strong>DOP Principle #4: Separate between data schema and data representation</strong></p>
+</div>
+<div class="paragraph">
+<p>To adhere to this principle, separate between data schema and data representation.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/uml/chapter00/do-principle-4-schema.png" alt="do principle 4 schema">
+</div>
+</div>
+<div class="paragraph">
+<p>Benefits include</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Freedom to choose what data should be validated</p>
+</li>
+<li>
+<p>Optional fields</p>
+</li>
+<li>
+<p>Advanced data validation conditions</p>
+</li>
+<li>
+<p>Automatic generation of data model visualization</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The cost for implementing Principle #4 includes</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Weak connection between data and its schema</p>
+</li>
+<li>
+<p>A small performance hit</p>
+</li>
+</ul>
+</div>
+<div>
+  <p>
+    This article is an excerpt from my <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7"> book </a> about <b>Data-Oriented Programming</b>.
+  </p>
+
+  <p>
+    More excerpts are available on my <a href="/data-oriented-programming-book.html">blog</a>.
+  </p>
+
+  <br>
+</div>
+</div>
+</div>
+        </div>
+        <footer class="post-footer">
+            <div class="separator"></div>
+            <div class="post-share">
+                <span class="post-share-title">Share:</span>
+                <a target="_blank"
+                    href="https://twitter.com/share?text=Separate+data+schema+from+data+representation&amp;url=https://blog.klipse.techdatabook/2022/06/22/data-validation.html">Twitter</a>
+                <a target="_blank"
+                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techdatabook/2022/06/22/data-validation.html">Facebook</a>
+            </div><!-- .share-post -->
+        </footer>
+    </article>
+
+    
+    <section class="newsletter-box inner">
+    <h2 class="newsletter-box-title">Subscribe to Yehonathan Sharvit newsletter</h2>
+    <p>Get the latest and greatest from Yehonathan Sharvit delivered straight to your inbox every week.</p>
+    <!-- Begin TinyLetter Signup Form -->
+    <div id="tinyletter_embed_signup">
+      <form class="validate gh-subscribe-form" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	      <label for="tlemail" class="screen-reader-text">Email Address</label>
+        <input type="email" value="" name="email" class="required email subscribe-email" placeholder="Your email address">
+	      <input type="hidden" value="1" name="embed"/>
+	      <input class="button" type="submit" value="Subscribe" />
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
+</section><!-- .widget -->
+
+    
+    <section class="read-next inner">
+        <h2 class="read-next-title">Read Next</h2>
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="January 17, 2022">January 17, 2022</time>
+                </div>
+                <h3 class="post-title"><a href="/databook/2022/01/17/reading-the-present-moment.html">Reading the present moment</a>
+                </h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/dop/'>Dop</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="June 22, 2022">June 22, 2022</time>
+                </div>
+                <h3 class="post-title"><a href="/databook/2022/06/22/generic-data-structures.html">Represent data with generic data structures</a></h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/dop/'>Dop</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+    </section><!-- .read-next -->
+
+    <!-- Create a sorted array of tags -->
+     
+    <section class="tagcloud inner">
+        <h2 class="tagcloud-title">Tags</h2>
+        <div class="tag-links">
+            
+            <a href='/tags/#algo'>algo</a>
+            
+            <a href='/tags/#brainfuck'>brainfuck</a>
+            
+            <a href='/tags/#c%2B%2B'>c++</a>
+            
+            <a href='/tags/#clojure'>clojure</a>
+            
+            <a href='/tags/#clojurescript'>clojurescript</a>
+            
+            <a href='/tags/#compiler'>compiler</a>
+            
+            <a href='/tags/#dop'>dop</a>
+            
+            <a href='/tags/#golang'>golang</a>
+            
+            <a href='/tags/#graph'>graph</a>
+            
+            <a href='/tags/#html'>html</a>
+            
+            <a href='/tags/#java'>java</a>
+            
+            <a href='/tags/#javascript'>javascript</a>
+            
+            <a href='/tags/#kids'>kids</a>
+            
+            <a href='/tags/#klipse'>klipse</a>
+            
+            <a href='/tags/#lambda-calculus'>lambda-calculus</a>
+            
+            <a href='/tags/#lambdacalculus'>lambdacalculus</a>
+            
+            <a href='/tags/#lisp'>lisp</a>
+            
+            <a href='/tags/#lua'>lua</a>
+            
+            <a href='/tags/#maths'>maths</a>
+            
+            <a href='/tags/#oblivion'>oblivion</a>
+            
+            <a href='/tags/#ocaml'>ocaml</a>
+            
+            <a href='/tags/#php'>php</a>
+            
+            <a href='/tags/#prolog'>prolog</a>
+            
+            <a href='/tags/#python'>python</a>
+            
+            <a href='/tags/#react'>react</a>
+            
+            <a href='/tags/#reagent'>reagent</a>
+            
+            <a href='/tags/#reasonml'>reasonml</a>
+            
+            <a href='/tags/#ruby'>ruby</a>
+            
+            <a href='/tags/#scheme'>scheme</a>
+            
+            <a href='/tags/#sql'>sql</a>
+            
+            <a href='/tags/#theory'>theory</a>
+            
+            <a href='/tags/#visualization'>visualization</a>
+            
+        </div><!-- .tag-links -->
+    </section><!-- .tagcloud -->
+</main><!-- .site-main -->
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js, [data-lang=klipse-javascript]',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+        selector_golang: '.language-klipse-go',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+
+
+
+
+
+                
+
+                
+                <footer id="colophon" class="site-footer">
+    <p class="site-info inner">
+        <a href="#">Yehonathan Sharvit</a> &copy; 2022.
+    </p>
+    <a id="back-to-top" class="back-to-top" href="#page">
+        <span class="icon-arrow-up" aria-hidden="true"></span>
+        <span class="screen-reader-text">Back to top</span>
+    </a>
+</footer><!-- .site-footer -->
+
+            </div><!-- .inner-wide -->
+        </div><!-- .site-content -->
+    </div><!-- .site -->
+
+    
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75651930-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-75651930-1', { 'anonymize_ip': true });
+  </script>
+
+    <!-- Javascript Assets -->
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/plugins.js"></script>
+    <script src="/assets/js/custom.js"></script>
+
+</body>
+
+</html>

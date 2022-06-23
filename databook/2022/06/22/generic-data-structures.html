@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+        <!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Represent data with generic data structures | Yehonathan Sharvit</title>
+<meta name="generator" content="Jekyll v4.2.0" />
+<meta property="og:title" content="Represent data with generic data structures" />
+<meta name="author" content="Yehonathan Sharvit" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Benefits and costs of representing data with generic data structures." />
+<meta property="og:description" content="Benefits and costs of representing data with generic data structures." />
+<meta property="og:site_name" content="Yehonathan Sharvit" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-06-22T02:33:24+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Represent data with generic data structures" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@Yehonathan Sharvit" />
+<script type="application/ld+json">
+{"url":"/databook/2022/06/22/generic-data-structures.html","headline":"Represent data with generic data structures","dateModified":"2022-06-22T02:33:24+00:00","datePublished":"2022-06-22T02:33:24+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/databook/2022/06/22/generic-data-structures.html"},"author":{"@type":"Person","name":"Yehonathan Sharvit"},"description":"Benefits and costs of representing data with generic data structures.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+
+    <!-- Site Favicon -->
+    <link rel="shortcut icon" href="/assets/favicon2.png" type="image/png" />
+
+    <!-- Font Embed Code -->
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600,600i|Karla:400,400i,700,700i" rel="stylesheet">
+
+    <!-- CSS Styles -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+</head>
+
+
+
+<body class="layout-post">
+    <div id="page" class="site">
+        <header id="masthead" class="site-header">
+    <div class="site-header-wrap">
+        <div class="site-header-inside">
+
+            <div class="site-branding">
+                
+                <p class="profile">
+                    <a href="/">
+                        <img src="/assets/images/authorimage.jpg" alt="'s Picture"
+                            class="avatar" />
+                    </a>
+                </p>
+                <div class="site-identity">
+                    
+                    <h1 class="site-title">
+                        <a href="/">Yehonathan Sharvit</a>
+                    </h1>
+                    
+                    
+                    <p class="site-description">Developer. Author. Speaker.</p>
+                    
+                </div><!-- .site-identity -->
+                
+                <button id="menu-toggle" class="menu-toggle"><span class="screen-reader-text">Main Menu</span><span
+                        class="icon-menu" aria-hidden="true"></span></button>
+            </div><!-- .site-branding -->
+
+            <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+                <div class="site-nav-wrap">
+                    <div class="site-nav-inside">
+                    <ul class="menu">
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/">Blog</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/talks">Talks</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/about">About</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/contact">Contact</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/search">Search</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/testimonials">Testimonials</a></li>
+                        
+                    </ul>
+                    <p class="social-links">
+    <a class="github-button" href="https://github.com/viebel/klipse" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    
+    <a href="https://twitter.com/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+</p>
+
+                    <div class="book-header">
+  <div>
+    Discover my book!
+  </div>
+  <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
+    <img src="/assets/dop-book.png">
+  </a>
+  <div>
+    DISCOUNT CODE: sharvit39
+  </div>
+</div>
+
+                    </div><!-- .site-nav-inside -->
+                </div><!-- .site-nav-wrap -->
+            </nav><!-- .site-navigation -->
+
+        </div><!-- .site-header-inside -->
+    </div><!-- .site-header-wrap -->
+</header><!-- .site-header -->
+
+        <div id="content" class="site-content fadeInDown delay_075s">
+            <div class="inner-wide">
+                <main id="main" class="site-main">
+
+    <article class="post-full inner">
+
+        <header class="post-header">
+            <h1 class="post-title">Represent data with generic data structures</h1>
+            <span class="post-meta">
+              <time class="post-date" datetime="2022-06-22">
+                June 22, 2022
+              </time>
+            </span>
+            
+            <span class="post-tags">
+                <a href="/tags/index.html#dop"
+                    rel="tag">dop</a>
+                
+            </span>
+            
+        </header><!-- .post-header -->
+
+        <div class="post-content">
+            <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>When adhering to <a href="/databook/2022/06/22/separate-code-from-data.html">Principle #1 of DOP</a>, code is separated from data. DOP is not opinionated about the programming constructs to use for organizing the code, but it has a lot to say about how the data should be represented. This is the theme of Principle #2.</p>
+</div>
+<div class="paragraph">
+<p>The most common generic data structures are maps (a.k.a. dictionaries) and arrays (or lists). But other generic data structures (e.g., sets, trees, and queues) can be used as well. Principle #2 does not deal with the mutability or the immutability of the data. That is the theme of Principle #3.</p>
+</div>
+<div>
+  <p>
+    This article is an excerpt from my <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7"> book </a> about <b>Data-Oriented Programming</b>.
+  </p>
+
+  <p>
+    More excerpts are available on my <a href="/data-oriented-programming-book.html">blog</a>.
+  </p>
+
+  <br>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js" integrity="sha256-8E6QUcFg1KTnpEU8TFGhpTGHw5fJqB9vCms3OhAYLqw=" crossorigin="anonymous"></script>
+<div class="paragraph">
+<p>This article is an exploration of the second principle of Data-Oriented Programming. The other principles of DOP are explored here:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="/databook/2022/06/22/separate-code-from-data.html">Principle #1</a>: Separating code (behavior) from data.</p>
+</li>
+<li>
+<p><a href="/databook/2022/06/22/generic-data-structures.html">Principle #2</a>: Representing data with generic data structures.</p>
+</li>
+<li>
+<p><a href="/databook/2022/06/22/immutable-data.html">Principle #3</a>: Treating data as immutable.</p>
+</li>
+<li>
+<p><a href="/databook/2022/06/22/data-validation.html">Principle #4</a>: Separating data schema from data representation.</p>
+</li>
+</ul>
+</div>
+<div class="quoteblock">
+<blockquote>
+<em>Principle #2</em>&#8201;&#8212;&#8201;Represent application data with generic data structures.
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="illustration-of-principle-2">Illustration of Principle #2</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In DOP, data is represented with generic data structures (like maps and arrays) instead of instantiating data via specific classes. In fact, most of the data entities that appear in a typical application can be represented with maps and arrays (or lists). But there exist other generic data structures (e.g., sets, lists, queues, etc.) that might be required in some use cases. Let&#8217;s look at the same simple example we used to illustrate <a href="/databook/2022/06/22/separate-code-from-data.html">Principle #1</a> (data that represents an author).</p>
+</div>
+<div class="paragraph">
+<p>An author is a data entity with a <code>firstName</code>, a <code>lastName</code>, and the number of <code>books</code> they have written. Principle #2 is broken when we use a specific class to represent an author as this listing reveals.</p>
+</div>
+<div id="break-2-oop-klipse-js" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>class AuthorData {
+  constructor(firstName, lastName, books) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.books = books;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Principle #2 is followed when using a map (a dictionary or an associative array) as a generic data structure that represents an author. The following listing illustrates how we can follow this principle in OOP.</p>
+</div>
+<div id="follow-2-oop-klipse-js" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>function createAuthorData(firstName, lastName, books) {
+  var data = new Map;
+  data.firstName = firstName;
+  data.lastName = lastName;
+  data.books = books;
+  return data;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In a language like JavaScript, we can also instantiate a map via a data literal, which is a bit more convenient. The following listing shows an example.</p>
+</div>
+<div id="follow-2-literal-klipse-js" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>function createAuthorData(firstName, lastName, books) {
+  return {
+    firstName: firstName,
+    lastName: lastName,
+    books: books
+  };
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="benefits-of-principle-2">Benefits of Principle #2</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Using generic data structures to represent data has multiple benefits. We cover these benefits in greater detail in the following sections:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The ability to use generic functions that are not limited to our specific use case</p>
+</li>
+<li>
+<p>A flexible data model</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="using-functions-that-are-not-limited-to-a-specific-use-case">Using functions that are not limited to a specific use case</h3>
+<div class="paragraph">
+<p>Using generic data structures to represent data makes it possible to manipulate data with a rich set of functions that are available on those data structures natively in our programming language. Additionally, third-party libraries also provide more of these functions. For instance, JavaScript natively provides some basic functions on maps and arrays, and third-party libraries like Lodash (<a href="https://lodash.com/" class="bare">https://lodash.com/</a>) extend the functionality with even more functions. There is a famous quote by Alan Perlis that summarizes this benefit:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>It is better to have 100 functions operate on one data structure than to have 10 functions operate on 10 data structures.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>When an author is represented as a map, the author can be serialized into JSON using <code>JSON.stringify()</code>, which is part of JavaScript. The following listing provides an example.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var data = createAuthorData(&quot;Isaac&quot;, &quot;Asimov&quot;, 500);
+JSON.stringify(data);
+// → &quot;{\&quot;firstName\&quot;:\&quot;Isaac\&quot;,\&quot;lastName\&quot;:\&quot;Asimov\&quot;,\&quot;books\&quot;:500}&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Serializing author data without the number of books can be accomplished via Lodash&#8217;s <code>_.pick()</code> function. The following listing uses <code>_.pick()</code> to create an object with a subset of keys.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var data = createAuthorData(&quot;Isaac&quot;, &quot;Asimov&quot;, 500);
+var dataWithoutBooks = _.pick(data, [&quot;firstName&quot;, &quot;lastName&quot;]);
+JSON.stringify(dataWithoutBooks);
+// → &quot;{\&quot;firstName\&quot;:\&quot;Isaac\&quot;,\&quot;lastName\&quot;:\&quot;Asimov\&quot;}&quot;</code></pre>
+</div>
+</div>
+<div class="quoteblock">
+<blockquote>
+When adhering to Principle #2, a rich set of functionality is available for data manipulation.
+</blockquote>
+</div>
+</div>
+<div class="sect2">
+<h3 id="flexible-data-model">Flexible data model</h3>
+<div class="paragraph">
+<p>When using generic data structures, the data model is flexible, and data is not forced into a specific shape. Data can be created with no predefined shape, and its shape can be modified at will.</p>
+</div>
+<div class="paragraph">
+<p>In classic OOP, when <em>not</em> adhering to Principle #2, each piece of data is instantiated via a class and must follow a rigid shape. When a slightly different data shape is needed, a new class must be defined. Take, for example, <code>AuthorData</code>, a class that represents an author entity made of three fields: <code>firstName</code>, <code>lastName</code>, and <code>books</code>. Suppose that you want to add a field called <code>fullName</code> with the full name of the author. If we fail to adhere to Principle #2, a new class <code>AuthorDataWithFullName</code> must be defined. However, when using generic data structures, fields can be added to (or removed from) a map <em>on the fly</em> as the following listing shows.</p>
+</div>
+<div id="fly-klipse-js" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var data = createAuthorData(&quot;Isaac&quot;, &quot;Asimov&quot;, 500);
+data.fullName = &quot;Isaac Asimov&quot;;</code></pre>
+</div>
+</div>
+<div class="quoteblock">
+<blockquote>
+Working with a flexible data model is particularly useful in applications where the shape of the data tends to be dynamic (e.g., web apps and web services).
+</blockquote>
+</div>
+<div class="paragraph">
+<p>Part 1 of my book explores in detail the benefits of a flexible data model in real-world applications. Next, let&#8217;s explore the cost for adhering to Principle #2.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cost-for-principle-2">Cost for Principle #2</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As with any programming principle, using this principle comes with its own set of trade-offs. The price paid for representing data with generic data structures is as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>There is a slight performance hit.</p>
+</li>
+<li>
+<p>No data schema is required.</p>
+</li>
+<li>
+<p>No compile-time check that the data is valid is necessary.</p>
+</li>
+<li>
+<p>In some statically typed languages, type casting is needed.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="cost-1-performance-hit">Cost #1: Performance hit</h3>
+<div class="paragraph">
+<p>When specific classes are used to instantiate data, retrieving the value of a class member is fast because the compiler knows how the data will look and can do many optimizations. With generic data structures, it is harder to optimize, so retrieving the value associated to a key in a map, for example, is a bit slower that retrieving the value of a class member. Similarly, setting the value of an arbitrary key in a map is a bit slower that setting the value of a class member. In most programming languages, this performance hit is not significant, but it is something to keep in mind.</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+Retrieving and storing the value associated to an arbitrary key from a map is a bit slower than with a class member.
+</blockquote>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cost-2-no-data-schema">Cost #2: No data schema</h3>
+<div class="paragraph">
+<p>When data is instantiated from a class, the information about the data shape is in the class definition. Every piece of data has an associated data shape. The existence of data schema at a class level is useful for developers and for IDEs because</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Developers can easily discover the expected data shape.</p>
+</li>
+<li>
+<p>IDEs provide features like field name autocompletion.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When data is represented with generic data structures, the data schema is not part of the data representation. As a consequence, some pieces of data might have an associated data schema and other pieces of data do not (see Principle #4).</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+When generic data structures are used to store data, the data shape is not part of the data representation.
+</blockquote>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cost-3-no-compile-time-check-that-the-data-is-valid">Cost #3: No compile-time check that the data is valid</h3>
+<div class="paragraph">
+<p>Look again at the <code>fullName</code> function in the following listing, which was created to explore Principle #1. This function receives the data it manipulates as an argument.</p>
+</div>
+<div id="fullname-klipse-js" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>function fullName(data) {
+  return data.firstName + &quot; &quot; + data.lastName;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When data is passed to <code>fullName</code> that does not conform to the shape <code>fullName</code> expects, an error occurs at run time. With generic data structures, mistyping the field storing the first name (e.g., <code>fistName</code> instead of <code>firstName</code>) does not result in a compile-time error or an exception. Rather, <code>firstName</code> is mysteriously omitted from the result. The following listing shows this unexpected behavior.</p>
+</div>
+<div id="weird-behavior-klipse-js" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>fullName({fistName: &quot;Issac&quot;, lastName: &quot;Asimov&quot;});
+// → &quot;undefined Asimov&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When we instantiate data via classes with a rigid data shape, this type of error is caught at compile time. This drawback is mitigated by the application of Principle #4 that deals with data validation.</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+When data is represented with generic data structures, data shape errors are caught only at run time.
+</blockquote>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cost-4-the-need-for-explicit-type-casting">Cost #4: The need for explicit type casting</h3>
+<div class="paragraph">
+<p>In some statically typed languages, explicit type casting is needed. This section takes a look at explicit type casting in Java and at dynamic fields in C#.</p>
+</div>
+<div class="paragraph">
+<p>In a statically typed language like Java, author data can be represented as a map whose keys are of type <code>string</code> and whose values are of types <code>Object</code>. For example, in Java, author data is represented by a <code>Map&lt;String, Object&gt;</code> as the following listing illustrates.</p>
+</div>
+<div id="author-data-java" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span></span><span class="tok-kd">var</span> <span class="tok-n">asimov</span> <span class="tok-o">=</span> <span class="tok-k">new</span> <span class="tok-n">HashMap</span><span class="tok-o">&lt;</span><span class="tok-n">String</span><span class="tok-p">,</span> <span class="tok-n">Object</span><span class="tok-o">&gt;</span><span class="tok-p">();</span>
+
+<span class="tok-n">asimov</span><span class="tok-p">.</span><span class="tok-na">put</span><span class="tok-p">(</span><span class="tok-s">&quot;firstName&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;Isaac&quot;</span><span class="tok-p">);</span>
+<span class="tok-n">asimov</span><span class="tok-p">.</span><span class="tok-na">put</span><span class="tok-p">(</span><span class="tok-s">&quot;lastName&quot;</span><span class="tok-p">,</span> <span class="tok-s">&quot;Asimov&quot;</span><span class="tok-p">);</span>
+<span class="tok-n">asimov</span><span class="tok-p">.</span><span class="tok-na">put</span><span class="tok-p">(</span><span class="tok-s">&quot;books&quot;</span><span class="tok-p">,</span> <span class="tok-mi">500</span><span class="tok-p">);</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Because the information about the exact type of the field values is not available at compile time, when accessing a field, an explicit type cast is required. For instance, in order to check whether an author is prolific, the value of the <code>books</code> field must be type cast to an integer as this listing shows.</p>
+</div>
+<div id="is-prolific-java" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="java"><span></span><span class="tok-kd">class</span> <span class="tok-nc">AuthorRating</span> <span class="tok-p">{</span>
+  <span class="tok-kd">static</span> <span class="tok-kt">boolean</span> <span class="tok-nf">isProlific</span> <span class="tok-p">(</span><span class="tok-n">Map</span><span class="tok-o">&lt;</span><span class="tok-n">String</span><span class="tok-p">,</span> <span class="tok-n">Object</span><span class="tok-o">&gt;</span> <span class="tok-n">data</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-k">return</span> <span class="tok-p">(</span><span class="tok-kt">int</span><span class="tok-p">)</span><span class="tok-n">data</span><span class="tok-p">.</span><span class="tok-na">get</span><span class="tok-p">(</span><span class="tok-s">&quot;books&quot;</span><span class="tok-p">)</span> <span class="tok-o">&gt;</span> <span class="tok-mi">100</span><span class="tok-p">;</span>
+  <span class="tok-p">}</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Some Java JSON serialization libraries like Gson (<a href="https://github.com/google/gson" class="bare">https://github.com/google/gson</a>) support serialization of maps of type <code>Map&lt;String, Object&gt;</code>, without requiring the user to do any type casting. All the magic happens behind the scenes!</p>
+</div>
+<div class="paragraph">
+<p>C# supports a dynamic data type called <code>dynamic</code> (see <a href="http://mng.bz/voqJ" class="bare">http://mng.bz/voqJ</a>), which allows type checking to occur at run time. Using this feature, author data is represented as a dictionary, where the keys are of type <code>string</code>, and the values are of type <code>dynamic</code>. The next listing provides this representation.</p>
+</div>
+<div id="author-data-cs" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="csharp"><span></span><span class="tok-kt">var</span> <span class="tok-n">asimov</span> <span class="tok-p">=</span> <span class="tok-k">new</span> <span class="tok-n">Dictionary</span><span class="tok-p">&lt;</span><span class="tok-kt">string</span><span class="tok-p">,</span> <span class="tok-kt">dynamic</span><span class="tok-p">&gt;();</span>
+<span class="tok-n">asimov</span><span class="tok-p">[</span><span class="tok-s">&quot;name&quot;</span><span class="tok-p">]</span> <span class="tok-p">=</span> <span class="tok-s">&quot;Isaac Asimov&quot;</span><span class="tok-p">;</span>
+<span class="tok-n">asimov</span><span class="tok-p">[</span><span class="tok-s">&quot;books&quot;</span><span class="tok-p">]</span> <span class="tok-p">=</span>  <span class="tok-m">500</span><span class="tok-p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The information about the exact type of the field values is resolved at run time. When accessing a field, no type cast is required. For instance, when checking whether an author is prolific, the <code>books</code> field can be accessed as though it were declared as an integer as in this listing.</p>
+</div>
+<div id="is-prolific-cs" class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="csharp"><span></span><span class="tok-k">class</span> <span class="tok-nc">AuthorRating</span> <span class="tok-p">{</span>
+  <span class="tok-k">public</span> <span class="tok-k">static</span> <span class="tok-kt">bool</span> <span class="tok-nf">isProlific</span> <span class="tok-p">(</span><span class="tok-n">Dictionary</span><span class="tok-p">&lt;</span><span class="tok-n">String</span><span class="tok-p">,</span> <span class="tok-kt">dynamic</span><span class="tok-p">&gt;</span> <span class="tok-n">data</span><span class="tok-p">)</span> <span class="tok-p">{</span>
+    <span class="tok-k">return</span> <span class="tok-n">data</span><span class="tok-p">[</span><span class="tok-s">&quot;books&quot;</span><span class="tok-p">]</span> <span class="tok-p">&gt;</span> <span class="tok-m">100</span><span class="tok-p">;</span>
+  <span class="tok-p">}</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="summary">Summary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>DOP uses generic data structures to represent data. This might cause a (small) performance hit and impose the need to manually document the shape of data because the compiler cannot validate it statically. Adherence to this principle enables the manipulation of data with a rich set of generic functions (provided by the language and by third-party libraries). Additionally, our data model is flexible. At this point, the data can be either mutable or immutable. The <a href="/databook/2022/06/22/immutable-data.html">next principle</a> illustrates the value of immutability.</p>
+</div>
+<div class="paragraph">
+<p><strong>DOP Principle #2: Represent data with generic data structures</strong></p>
+</div>
+<div class="paragraph">
+<p>To comply to this principle, we represent application data with generic data structures, mostly maps and arrays (or lists). The following figure provides a diagram as a visual representation of this principle.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="/uml/chapter00/do-principle-2-generic-data.png" alt="do principle 2 generic data">
+</div>
+</div>
+<div class="paragraph">
+<p>Benefits include</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Using generic functions that are not limited to our specific use case</p>
+</li>
+<li>
+<p>A flexible data model</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The cost for implementing this principle includes</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>There is a slight performance hit.</p>
+</li>
+<li>
+<p>No data schema is required.</p>
+</li>
+<li>
+<p>No compile time check that the data is valid is necessary.</p>
+</li>
+<li>
+<p>In some statically typed languages, explicit type casting is needed.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+        </div>
+        <footer class="post-footer">
+            <div class="separator"></div>
+            <div class="post-share">
+                <span class="post-share-title">Share:</span>
+                <a target="_blank"
+                    href="https://twitter.com/share?text=Represent+data+with+generic+data+structures&amp;url=https://blog.klipse.techdatabook/2022/06/22/generic-data-structures.html">Twitter</a>
+                <a target="_blank"
+                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techdatabook/2022/06/22/generic-data-structures.html">Facebook</a>
+            </div><!-- .share-post -->
+        </footer>
+    </article>
+
+    
+    <section class="newsletter-box inner">
+    <h2 class="newsletter-box-title">Subscribe to Yehonathan Sharvit newsletter</h2>
+    <p>Get the latest and greatest from Yehonathan Sharvit delivered straight to your inbox every week.</p>
+    <!-- Begin TinyLetter Signup Form -->
+    <div id="tinyletter_embed_signup">
+      <form class="validate gh-subscribe-form" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	      <label for="tlemail" class="screen-reader-text">Email Address</label>
+        <input type="email" value="" name="email" class="required email subscribe-email" placeholder="Your email address">
+	      <input type="hidden" value="1" name="embed"/>
+	      <input class="button" type="submit" value="Subscribe" />
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
+</section><!-- .widget -->
+
+    
+    <section class="read-next inner">
+        <h2 class="read-next-title">Read Next</h2>
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="June 22, 2022">June 22, 2022</time>
+                </div>
+                <h3 class="post-title"><a href="/databook/2022/06/22/data-validation.html">Separate data schema from data representation</a>
+                </h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/dop/'>Dop</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="June 22, 2022">June 22, 2022</time>
+                </div>
+                <h3 class="post-title"><a href="/databook/2022/06/22/immutable-data.html">Data is immutable</a></h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/dop/'>Dop</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+    </section><!-- .read-next -->
+
+    <!-- Create a sorted array of tags -->
+     
+    <section class="tagcloud inner">
+        <h2 class="tagcloud-title">Tags</h2>
+        <div class="tag-links">
+            
+            <a href='/tags/#algo'>algo</a>
+            
+            <a href='/tags/#brainfuck'>brainfuck</a>
+            
+            <a href='/tags/#c%2B%2B'>c++</a>
+            
+            <a href='/tags/#clojure'>clojure</a>
+            
+            <a href='/tags/#clojurescript'>clojurescript</a>
+            
+            <a href='/tags/#compiler'>compiler</a>
+            
+            <a href='/tags/#dop'>dop</a>
+            
+            <a href='/tags/#golang'>golang</a>
+            
+            <a href='/tags/#graph'>graph</a>
+            
+            <a href='/tags/#html'>html</a>
+            
+            <a href='/tags/#java'>java</a>
+            
+            <a href='/tags/#javascript'>javascript</a>
+            
+            <a href='/tags/#kids'>kids</a>
+            
+            <a href='/tags/#klipse'>klipse</a>
+            
+            <a href='/tags/#lambda-calculus'>lambda-calculus</a>
+            
+            <a href='/tags/#lambdacalculus'>lambdacalculus</a>
+            
+            <a href='/tags/#lisp'>lisp</a>
+            
+            <a href='/tags/#lua'>lua</a>
+            
+            <a href='/tags/#maths'>maths</a>
+            
+            <a href='/tags/#oblivion'>oblivion</a>
+            
+            <a href='/tags/#ocaml'>ocaml</a>
+            
+            <a href='/tags/#php'>php</a>
+            
+            <a href='/tags/#prolog'>prolog</a>
+            
+            <a href='/tags/#python'>python</a>
+            
+            <a href='/tags/#react'>react</a>
+            
+            <a href='/tags/#reagent'>reagent</a>
+            
+            <a href='/tags/#reasonml'>reasonml</a>
+            
+            <a href='/tags/#ruby'>ruby</a>
+            
+            <a href='/tags/#scheme'>scheme</a>
+            
+            <a href='/tags/#sql'>sql</a>
+            
+            <a href='/tags/#theory'>theory</a>
+            
+            <a href='/tags/#visualization'>visualization</a>
+            
+        </div><!-- .tag-links -->
+    </section><!-- .tagcloud -->
+</main><!-- .site-main -->
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js, [data-lang=klipse-javascript]',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+        selector_golang: '.language-klipse-go',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+
+
+
+
+
+                
+
+                
+                <footer id="colophon" class="site-footer">
+    <p class="site-info inner">
+        <a href="#">Yehonathan Sharvit</a> &copy; 2022.
+    </p>
+    <a id="back-to-top" class="back-to-top" href="#page">
+        <span class="icon-arrow-up" aria-hidden="true"></span>
+        <span class="screen-reader-text">Back to top</span>
+    </a>
+</footer><!-- .site-footer -->
+
+            </div><!-- .inner-wide -->
+        </div><!-- .site-content -->
+    </div><!-- .site -->
+
+    
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75651930-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-75651930-1', { 'anonymize_ip': true });
+  </script>
+
+    <!-- Javascript Assets -->
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/plugins.js"></script>
+    <script src="/assets/js/custom.js"></script>
+
+</body>
+
+</html>
