@@ -7,23 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     
-        <!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Interactive Business Report with Google Charts | Yehonathan Sharvit</title>
-<meta name="generator" content="Jekyll v4.2.0" />
-<meta property="og:title" content="Interactive Business Report with Google Charts" />
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Data-Oriented programming coding challenges | Yehonathan Sharvit</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Data-Oriented programming coding challenges" />
 <meta name="author" content="Yehonathan Sharvit" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Interactive Business Report with Google Charts" />
-<meta property="og:description" content="Interactive Business Report with Google Charts" />
+<meta name="description" content="Data-Oriented programming challenges that illustrate the simplicity of Data-Oriented programming." />
+<meta property="og:description" content="Data-Oriented programming challenges that illustrate the simplicity of Data-Oriented programming." />
 <meta property="og:site_name" content="Yehonathan Sharvit" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2017-03-15T23:42:44+00:00" />
+<meta property="article:published_time" content="2021-04-02T14:38:15+02:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Interactive Business Report with Google Charts" />
+<meta property="twitter:title" content="Data-Oriented programming coding challenges" />
 <meta name="twitter:site" content="@" />
 <meta name="twitter:creator" content="@Yehonathan Sharvit" />
 <script type="application/ld+json">
-{"url":"/data/2017/03/15/google-charts.html","headline":"Interactive Business Report with Google Charts","dateModified":"2017-03-15T23:42:44+00:00","datePublished":"2017-03-15T23:42:44+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/data/2017/03/15/google-charts.html"},"author":{"@type":"Person","name":"Yehonathan Sharvit"},"description":"Interactive Business Report with Google Charts","@context":"https://schema.org"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yehonathan Sharvit"},"dateModified":"2021-04-02T14:38:15+02:00","datePublished":"2021-04-02T14:38:15+02:00","description":"Data-Oriented programming challenges that illustrate the simplicity of Data-Oriented programming.","headline":"Data-Oriented programming coding challenges","mainEntityOfPage":{"@type":"WebPage","@id":"/dop/2021/04/02/dop-challenges-without-solutions.html"},"url":"/dop/2021/04/02/dop-challenges-without-solutions.html"}</script>
 <!-- End Jekyll SEO tag -->
 
     
@@ -159,120 +159,285 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
     <article class="post-full inner">
 
         <header class="post-header">
-            <h1 class="post-title">Interactive Business Report with Google Charts</h1>
+            <h1 class="post-title">Data-Oriented programming coding challenges</h1>
             <span class="post-meta">
-              <time class="post-date" datetime="2017-03-15">
-                March 15, 2017
+              <time class="post-date" datetime="2021-04-02">
+                April 2, 2021
               </time>
+            </span>
+            
+            <span class="post-tags">
+                <a href="/tags/index.html#dop"
+                    rel="tag">dop</a>
+                <a href="/tags/index.html#javascript"
+                    rel="tag">javascript</a>
+                
             </span>
             
         </header><!-- .post-header -->
 
         <div class="post-content">
-            <h2 id="introduction">Introduction</h2>
+            <p>Here are a series of 5 short programming challenges in JavaScript.</p>
 
-<p>This article demonstrates how to create an interactive business report with data visualization widgets using <a href="https://github.com/viebel/klipse">Klipse</a>.</p>
+<h1 id="data-model">Data model</h1>
 
-<p>Usually, there are two types of data-driven reports:</p>
+<p>Here is the library data model in an informal way:</p>
 
-<ul>
-  <li>advanced reports written by Software Developers</li>
-  <li>Static reports written by Business Analysts with <em>static</em> screen shorts of the charts - generated in Excel for instance</li>
-  <li>Live reports written by Business Analysts hosted on data platforms like Jupyter</li>
-</ul>
+<p><img src="/assets/lms-data-mindmap.png" alt="mindmap" /></p>
 
-<p><a href="https://github.com/viebel/klipse">Klipse</a> allows the author of a business report to get the full power of the javascript visualization libraries without requiring any help from a Software developer.</p>
+<p>More formally, here is a UML diagram that describes the relationships between the data entities of the library:</p>
 
-<p>For instance, in this article we will show how a Business Analyst can create interactive google charts widgets - simply by providing the specifications of the chart as a JSON object with threes keys:</p>
+<p><img src="/assets/lms-data-diagram.png" alt="diagram" /></p>
 
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">data</code>: the data of the chart as an array</li>
-  <li><code class="language-plaintext highlighter-rouge">options</code>: the options of the chart as a map.</li>
-  <li><code class="language-plaintext highlighter-rouge">chartType</code>: the Google chart type e.g. “Table”, “ComboChart”, “AreaChart” etc…</li>
-</ul>
+<p>Here is an example of library data in JavaScript that we are going to use through this article:</p>
 
-<h2 id="coffee-production-in-the-world">Coffee Production in the World</h2>
-
-<p>In this article, we use <a href="https://developers.google.com/chart/interactive/docs/">Google Charts</a> to visualize the coffee production in the world.</p>
-
-<p>Here is the data that we are going to use in this article: The production of coffee in million of cups by year and by country.</p>
-
-<p>The format of the data is a JSON array (in the future, we will support more formats like CSV and data coming from an HTTP endpoint).</p>
-
-<pre><code class="language-klipse-eval-js" data-async-code="true">
-window.coffeeData = [
-    ['Year', 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda', 'Average'],
-    ['2012',  165,      938,         522,             998,           450,      614.6],
-    ['2013',  135,      1120,        599,             1268,          288,      682],
-    ['2014',  157,      1167,        587,             807,           397,      623],
-    ['2015',  139,      1110,        615,             968,           215,      609.4],
-    ['2016',  136,      691,         629,             1026,          366,      569.6]
-  ]
+<pre><code class="language-eval-js">var libraryData = {
+    "name": "The smallest library on earth",
+    "address": "Here and now",
+    "catalog": {
+        "booksByIsbn": {
+            "978-1779501127": {
+                "isbn": "978-1779501127",
+                "title": "Watchmen",
+                "publicationYear": 1987,
+                "authorIds": ["alan-moore",
+                              "dave-gibbons"],
+                "bookItems": [
+                    {
+                        "id": "book-item-1",
+                        "rackId": "rack-17",
+                    },
+                    {
+                        "id": "book-item-2",
+                        "rackId": "rack-17",
+                    }
+                ]
+            }
+        },
+        "authorsById": {
+            "alan-moore": {
+                "name": "Alan Moore",
+                "bookIsbns": ["978-1779501127"]
+            },
+            "dave-gibbons": {
+                "name": "Dave Gibbons",
+                "bookIsbns": ["978-1779501127"]
+            }
+        }
+    },
+  "userManagement": {
+    "librarians": {
+      "franck@gmail.com" : {
+        "email": "franck@gmail.com",
+        "encryptedPassword": "bXlwYXNzd29yZA=="
+      }
+    },
+    "members": {
+      "samantha@gmail.com": {
+        "email": "samantha@gmail.com",
+        "encryptedPassword": "c2VjcmV0",
+        "isBlocked": false,
+      }
+    }
+  }
+};
 </code></pre>
 
-<p>When the reader modifies the data, the charts are updated immediately (give it a try)…</p>
+<h1 id="warm-up">Warm up</h1>
 
-<h1 id="data-table">Data Table</h1>
+<p>What’s the title of the book whose ISBN is “978-1779501127” in upper case?</p>
 
-<p>First, let’s look at the data in a sortable data table - using a <a href="https://developers.google.com/chart/interactive/docs/gallery/table">Table chart</a>:</p>
+<p>I suggest you use <a href="https://github.com/lodash/lodash/wiki/FP-Guide">Lodash FP</a>.</p>
 
-<pre><code class="language-google-chart" data-loop-msec="1000">
-{
-  dataTable: coffeeData,
-  options: {
-    showRowNumber: true,
-    width: '100%', 
-    height: '100%'
-  },
-  chartType: "Table"
-}
+<p>Here’s an example:</p>
 
+<pre><code class="language-eval-js">var informationPath = ["catalog", "booksByIsbn", "978-1779501127", "title"]; 
+_.get(libraryData, informationPath).toUpperCase();
 </code></pre>
 
-<h1 id="combo-chart">Combo Chart</h1>
+<h1 id="challenge-1-retrieve-a-piece-of-information">Challenge #1: Retrieve a piece of information</h1>
 
-<p>Now, let’s visualize the data with a <a href="https://developers.google.com/chart/interactive/docs/gallery/table">Combo chart</a>:</p>
+<p><strong>Challenge ‍</strong>: Write a function named <code class="language-plaintext highlighter-rouge">getBookProperty</code> that receives library data and ISBN and a field name and returns the value of the field for the book with the given ISBN</p>
 
-<p>(Feel free to modify the options - the chart will re-draw itself immediately…)</p>
-
-<pre><code class="language-google-chart" data-loop-msec="1000">
-{
-  dataTable: coffeeData,
-  options: {
-    title : 'Annual Coffee Production by Country',
-    legend: {position: 'top', maxLines: 3},	
-    vAxis: {title: 'Million of Cups'},
-    hAxis: {title: 'Year'},
-    seriesType: 'bars',
-	height: 500,
-    series: {5: {type: 'line'}}
-  },
-  chartType: "ComboChart"
-}
-</code></pre>
-
-<h1 id="area-chart">Area Chart</h1>
-
-<p>Let’s see if we get more interesting insights when we visualize the data as an <a href="https://developers.google.com/chart/interactive/docs/gallery/areachart">Area chart</a>:</p>
-
-<p>(Again, feel free to modify the options - the chart will re-draw itself immediately…)</p>
-
-<pre><code class="language-google-chart" data-loop-msec="1000">
-{
-  dataTable: coffeeData,
-  options: {
-    title : 'Annual Coffee Production by country',
-    hAxis: {title: 'Year'},
-    legend: {position: 'top', maxLines: 3},
-    vAxis: {minValue: 0, title: "Million of Cups"}
-  },
-  chartType: "AreaChart"
+<pre><code class="language-eval-js">function getBookProperty(libraryData, isbn, fieldName) {
+   // Write your code here
 }
 </code></pre>
 
-<h2 id="conclusion">Conclusion</h2>
+<pre><code class="language-eval-js">getBookProperty(libraryData, "978-1779501127", "title") === "Watchmen"
+</code></pre>
 
-<p>Let us know what you think about this interactive charts in the comments below…</p>
+<h1 id="challenge-2-search-information">Challenge #2: Search information</h1>
+
+<p><strong>Challenge ‍</strong>: Write a function named <code class="language-plaintext highlighter-rouge">bookInfo</code> that receives library data and a string and returns a JSON string that contains book information about the books whose title contains the given string, in a case insensitive way. Book information is made of: title, isbn, author full names.</p>
+
+<p><strong>Remark</strong>: You are not allowed to extract author names from author ids. Assume that author ids are opaque strings.</p>
+
+<pre><code class="language-eval-js">function searchBooksByTitle(libraryData, query) {
+   // Write your code here
+}
+</code></pre>
+
+<pre><code class="language-eval-js">function searchBooksByTitleJSON(libraryData, query) {
+  return JSON.stringify(searchBooksByTitle(libraryData, query));
+}
+</code></pre>
+
+<pre><code class="language-eval-js">var expected = [
+   {
+    "authorNames":  [
+      "Alan Moore",
+      "Dave Gibbons",
+    ],
+    "isbn": "978-1779501127",
+    "title": "Watchmen",
+  },
+]
+_.isEqual(searchBooksByTitle(libraryData, "watCH"), expected)
+</code></pre>
+
+<h1 id="challenge-3-add-a-piece-of-information">Challenge #3: Add a piece of information</h1>
+
+<p><strong>Challenge</strong>: Write a function named <code class="language-plaintext highlighter-rouge">blockMember</code> that receives library data and an email address and returns a new version of library data <strong>without altering the original version</strong>, where the user with the given email is blocked.</p>
+
+<p>Remember that we are using a version of Lodash that, instead of mutating data in place, creates a new version.</p>
+
+<pre><code class="language-eval-js">function blockMember(libraryData, email) {
+   // Write your code here
+}
+</code></pre>
+
+<pre><code class="language-eval-js">var informationPath = ["userManagement", "members", "samantha@gmail.com", "isBlocked"]; 
+_.get(updatedLibraryData, informationPath) == true
+</code></pre>
+
+<pre><code class="language-eval-js">_.get(libraryData, informationPath) === false
+</code></pre>
+
+<p>In Data-Oriented programming, data is immutable. Functions like <code class="language-plaintext highlighter-rouge">_.set()_</code> make it efficient (both in terms of memory and computation) to create modified versions of data.</p>
+
+<h1 id="challenge-4-rename-keys-in-a-data-entity">Challenge #4: Rename keys in a data entity</h1>
+
+<p><strong>Challenge</strong>: Write a function named <code class="language-plaintext highlighter-rouge">renameKeys</code> that receives a data entity and a key mappings and returns a new data entity, without altering the original entity, where the fields are renamed according to the key mappings</p>
+
+<pre><code class="language-eval-js">function renameKeys(map, keyMap) {
+   // Write your code here
+}
+</code></pre>
+
+<p><code class="language-plaintext highlighter-rouge">renameKeys</code> works with author entities:</p>
+
+<pre><code class="language-eval-js">var alanMoore = {
+  "name": "Alan Moore",
+  "bookIsbns": ["978-1779501127"]
+};
+
+var expected = {
+   "name": "Alan Moore",
+  "books": [
+    "978-1779501127",
+  ],
+}
+
+_.isEqual(renameKeys(alanMoore, {"bookIsbns": "books"}), expected)
+</code></pre>
+
+<p><code class="language-plaintext highlighter-rouge">renameKeys</code> should also works also with book item entities:</p>
+
+<pre><code class="language-eval-js">var bookItem = {
+  "id": "book-item-1",
+  "rackId": "rack-17",
+  "isLent": true
+};
+
+var expected = {
+  "bookItemId": "book-item-1",
+  "isLent": true,
+};
+
+_.isEqual(
+renameKeys(bookItem, {"rackId": "id",
+                      "id": "bookItemId"}),
+  expected)
+</code></pre>
+
+<p>In Data-Oriented programming, data entities are represented with generic data structures that can be manipulated with generic functions that work with any data entity.</p>
+
+<h1 id="challenge-5-merge-pieces-of-information">Challenge #5: Merge pieces of information</h1>
+
+<p><strong>Challenge</strong>: Write a function named <code class="language-plaintext highlighter-rouge">mergeAndSerialize</code> that receives two pieces of book information, one from the database and one from an external service like <a href="https://openlibrary.org/dev/docs/api/books">Open Library Books API</a> and returns a JSON string with information from both sources.</p>
+
+<pre><code class="language-eval-js">var watchmenFromDB = {
+        "isbn": "978-1779501127",
+        "title": "Watchmen",
+        "publicationYear": 1987,
+        "authorIds": ["alan-moore",
+                      "dave-gibbons"],
+        "bookItems": [
+          {
+            "id": "book-item-1",
+            "rackId": "rack-17",
+            "isLent": true
+          },
+          {
+            "id": "book-item-2",
+            "rackId": "rack-17",
+            "isLent": false
+          }
+        ]
+      };
+
+var watchmenFromOpenLib = {
+  "publishers": [
+    "DC Comics"
+  ],
+  "number_of_pages": 334,
+  "weight": "1.4 pounds",
+  "physical_format": "Paperback",
+  "subjects": [
+    "Graphic Novels",
+    "Comics &amp; Graphic Novels",
+    "Fiction",
+    "Fantastic fiction"
+  ],
+  "isbn_13": [
+    "9780930289232"
+  ],
+  "title": "Watchmen",
+  "isbn_10": [
+    "0930289234"
+  ],
+  "publish_date": "April 1, 1995",
+  "physical_dimensions": "10.1 x 6.6 x 0.8 inches"
+}
+</code></pre>
+
+<pre><code class="language-eval-js">function mergeAndSerialize(a, b) {
+   // Write your code here
+}
+
+mergeAndSerialize(watchmenFromDB, watchmenFromOpenLib);
+</code></pre>
+
+<p>When we represent data with generic data structures, we benefit from many well defined functions like <code class="language-plaintext highlighter-rouge">merge</code>, implemented either in the programming language itself or in third-party libraries like `Lodash.js.</p>
+
+<script src="https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)"></script>
+
+<script>
+var fp = _.noConflict();
+var _ = fp.convert({
+  // Specify capping iteratee arguments.
+  'cap': false,
+  // Specify currying.
+  'curry': false,
+  // Specify fixed arity.
+  'fixed': false,
+  // Specify immutable operations.
+  'immutable': true,
+  // Specify rearranging arguments.
+  'rearg': false
+});
+</script>
 
 
         </div>
@@ -281,9 +446,9 @@ window.coffeeData = [
             <div class="post-share">
                 <span class="post-share-title">Share:</span>
                 <a target="_blank"
-                    href="https://twitter.com/share?text=Interactive+Business+Report+with+Google+Charts&amp;url=https://blog.klipse.techdata/2017/03/15/google-charts.html">Twitter</a>
+                    href="https://twitter.com/share?text=Data-Oriented+programming+coding+challenges&amp;url=https://blog.klipse.techdop/2021/04/02/dop-challenges-without-solutions.html">Twitter</a>
                 <a target="_blank"
-                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techdata/2017/03/15/google-charts.html">Facebook</a>
+                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techdop/2021/04/02/dop-challenges-without-solutions.html">Facebook</a>
             </div><!-- .share-post -->
         </footer>
     </article>
@@ -311,11 +476,21 @@ window.coffeeData = [
         <article class="post">
             <header class="post-header">
                 <div class="post-meta">
-                    <time class="published" datetime="March 14, 2017">March 14, 2017</time>
+                    <time class="published" datetime="April 1, 2021">April 1, 2021</time>
                 </div>
-                <h3 class="post-title"><a href="/klipse/2017/03/14/secured-eval.html">KLIPSE secured mode</a>
+                <h3 class="post-title"><a href="/dop/2021/04/01/dop-challenges.html">Data-Oriented programming simplicity illustrated by coding challenges</a>
                 </h3>
                 <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/dop/'>Dop</a>
+                    
+                    
+                    
+                    <a href='/tag/javascript/'>Javascript</a>
+                    
+                    
                     
                 </p>
             </header>
@@ -325,10 +500,20 @@ window.coffeeData = [
         <article class="post">
             <header class="post-header">
                 <div class="post-meta">
-                    <time class="published" datetime="March 17, 2017">March 17, 2017</time>
+                    <time class="published" datetime="April 18, 2021">April 18, 2021</time>
                 </div>
-                <h3 class="post-title"><a href="/data/2017/03/17/data-driven-documents-google-charts.html">A new way of writing Data Driven Documents with Klipse and Google Charts</a></h3>
+                <h3 class="post-title"><a href="/dop/2021/04/18/memete-programmation.html">La notion de mêmeté en programmation</a></h3>
                 <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/dop/'>Dop</a>
+                    
+                    
+                    
+                    <a href='/tag/maths/'>Maths</a>
+                    
+                    
                     
                 </p>
             </header>
@@ -479,7 +664,7 @@ window.coffeeData = [
 
 
 
-<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?the_version=7.11.2"></script>
 
 
 
@@ -490,7 +675,7 @@ window.coffeeData = [
                 
                 <footer id="colophon" class="site-footer">
     <p class="site-info inner">
-        <a href="#">Yehonathan Sharvit</a> &copy; 2022.
+        <a href="#">Yehonathan Sharvit</a> &copy; 2023.
     </p>
     <a id="back-to-top" class="back-to-top" href="#page">
         <span class="icon-arrow-up" aria-hidden="true"></span>

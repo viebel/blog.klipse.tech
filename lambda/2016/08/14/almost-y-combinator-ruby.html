@@ -7,23 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     
-        <!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Clojure Macros Tutorial - part 2: how not to write macros | Yehonathan Sharvit</title>
-<meta name="generator" content="Jekyll v4.2.0" />
-<meta property="og:title" content="Clojure Macros Tutorial - part 2: how not to write macros" />
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Recursions without names: Introduction to the Y combinator in ruby | Yehonathan Sharvit</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Recursions without names: Introduction to the Y combinator in ruby" />
 <meta name="author" content="Yehonathan Sharvit" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="clojure macros clojurescript tutorial klipse naive dummies macros for dummies" />
-<meta property="og:description" content="clojure macros clojurescript tutorial klipse naive dummies macros for dummies" />
+<meta name="description" content="Recursions without names: Introduction to the Y combinator in ruby" />
+<meta property="og:description" content="Recursions without names: Introduction to the Y combinator in ruby" />
 <meta property="og:site_name" content="Yehonathan Sharvit" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2016-05-04T23:14:22+00:00" />
+<meta property="article:published_time" content="2016-08-14T01:22:53+02:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Clojure Macros Tutorial - part 2: how not to write macros" />
+<meta property="twitter:title" content="Recursions without names: Introduction to the Y combinator in ruby" />
 <meta name="twitter:site" content="@" />
 <meta name="twitter:creator" content="@Yehonathan Sharvit" />
 <script type="application/ld+json">
-{"url":"/clojure/2016/05/04/macro-tutorial-2.html","headline":"Clojure Macros Tutorial - part 2: how not to write macros","dateModified":"2016-05-04T23:14:22+00:00","datePublished":"2016-05-04T23:14:22+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/clojure/2016/05/04/macro-tutorial-2.html"},"author":{"@type":"Person","name":"Yehonathan Sharvit"},"description":"clojure macros clojurescript tutorial klipse naive dummies macros for dummies","@context":"https://schema.org"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yehonathan Sharvit"},"dateModified":"2016-08-14T01:22:53+02:00","datePublished":"2016-08-14T01:22:53+02:00","description":"Recursions without names: Introduction to the Y combinator in ruby","headline":"Recursions without names: Introduction to the Y combinator in ruby","mainEntityOfPage":{"@type":"WebPage","@id":"/lambda/2016/08/14/almost-y-combinator-ruby.html"},"url":"/lambda/2016/08/14/almost-y-combinator-ruby.html"}</script>
 <!-- End Jekyll SEO tag -->
 
     
@@ -159,227 +159,171 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
     <article class="post-full inner">
 
         <header class="post-header">
-            <h1 class="post-title">Clojure Macros Tutorial - part 2: how not to write macros</h1>
+            <h1 class="post-title">Recursions without names: Introduction to the Y combinator in ruby</h1>
             <span class="post-meta">
-              <time class="post-date" datetime="2016-05-04">
-                May 4, 2016
+              <time class="post-date" datetime="2016-08-14">
+                August 14, 2016
               </time>
             </span>
             
             <span class="post-tags">
-                <a href="/tags/index.html#clojure"
-                    rel="tag">clojure</a>
+                <a href="/tags/index.html#lambda-calculus"
+                    rel="tag">lambda-calculus</a>
+                <a href="/tags/index.html#ruby"
+                    rel="tag">ruby</a>
                 
             </span>
             
         </header><!-- .post-header -->
 
         <div class="post-content">
-            <p>After having understood the <a href="/clojure/2016/05/01/macro-tutorial-1.html" target="_blank">fundamental difference between functions and macros</a>, we are now ready to write our first macro.</p>
+            <p>This is an introductory article to the <a href="https://en.wikipedia.org/wiki/Fixed-point_combinator">Y combinator</a> from <code class="language-plaintext highlighter-rouge">lambda-calculus</code>. But we won’t mention the <code class="language-plaintext highlighter-rouge">Y combinator</code> in this article.</p>
 
-<p>In this article, we want to write macros without the help of idiomatic tools that <code class="language-plaintext highlighter-rouge">clojure</code> provides for writing macros (syntax quote, unquote, <code class="language-plaintext highlighter-rouge">gensym</code> etc…). The purpose of this article it to let you understand why those powerful tools are mandatory, by experiencing how it feels to write a macro without those tools.</p>
-
-<p>We will train ourselves with a simple macro that we use a lot for our blog posts: the <code class="language-plaintext highlighter-rouge">disp</code> macro.</p>
-
-<p>Kind of <a href="https://en.wikipedia.org/wiki/Eating_your_own_dog_food" target="_blank">eating our own dog food</a>…</p>
-
-<p><img src="/assets/dog.jpg" alt="Dog" /></p>
-
-<h3 id="definition-of-the-disp-macro">Definition of the <code class="language-plaintext highlighter-rouge">disp</code> macro</h3>
-
-<p>The <code class="language-plaintext highlighter-rouge">disp</code> macro receives expressions and returns a string with the expressions and their respective evaluations.</p>
-
-<p>For instance:</p>
-
-<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nf">disp</span><span class="w"> </span><span class="p">(</span><span class="nb">map</span><span class="w"> </span><span class="nb">inc</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="p">])</span><span class="w"> </span><span class="p">(</span><span class="nb">str</span><span class="w"> </span><span class="s">"hello"</span><span class="w"> </span><span class="s">" "</span><span class="w"> </span><span class="s">"world"</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nb">true?</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span><span class="w"> 
-</span><span class="c1">; (map inc [1 2 3]) =&gt; (2 3 4)</span><span class="w">
-</span><span class="c1">; (str "hello" " " "world") =&gt; "hello world"</span><span class="w">
-</span><span class="c1">; (true? 1) =&gt; false</span><span class="w">
-</span></code></pre></div></div>
-
-<p>In this article, for the sake of simplicity, we will limit ourselves to the case of a single expression.</p>
-
-<p>Let’s start coding!</p>
-
-<p>There are three parts in the <code class="language-plaintext highlighter-rouge">disp</code> macro:</p>
+<p>This article is the first one of a serie about the Y combinator in <code class="language-plaintext highlighter-rouge">ruby</code>:</p>
 
 <ol>
-  <li>expression quoting (keeping is at it is)</li>
-  <li>expression evaluation (evaluating it)</li>
-  <li>concatenation of the quoting and the evaluation</li>
+  <li><a href="/lambda/2016/08/14/almost-y-combinator-ruby.html">Recursions without names: Introduction to the Y combinator in ruby</a></li>
+  <li><a href="/lambda/2016/08/10/pure-y-combinator-ruby.html">The Y combinator in ruby</a></li>
+  <li><a href="/lambda/2016/08/14/y-combinator-app-ruby.html">Y combinator real life application: recursive memoization in ruby</a></li>
 </ol>
 
-<h1 id="playground">Playground</h1>
+<p>In this article, we are going to show how to write recursive functions in <code class="language-plaintext highlighter-rouge">ruby</code> without giving names to any function.</p>
 
-<p>This namespace is going to be our playground for dealing with macros:</p>
+<p>(If you are curious to see it in other languages, there is <a href="/lambda/2016/08/07/almost-y-combinator.html">a version of the code</a> in <code class="language-plaintext highlighter-rouge">clojure</code> and <code class="language-plaintext highlighter-rouge">javascript</code>.)</p>
 
-<pre><code class="language-klipse">(ns my.repl$macros)
+<p>At first glance, it seems impossible: how could we refer to something that we are currently defining without using its name?</p>
+
+<p><img src="/assets/escher_hand.jpg" alt="Escher" /></p>
+
+<p>All the code snippets of this page are <strong>live</strong> and <strong>interactive</strong> powered by the <a href="https://github.com/viebel/klipse">klipse plugin</a>:</p>
+
+<ol>
+  <li><strong>Live</strong>: The code is executed in your browser</li>
+  <li><strong>Interactive</strong>: You can modify the code and it is evaluated as you type</li>
+</ol>
+
+<h2 id="begin-with-the-end-in-mind">Begin with the end in mind</h2>
+
+<p>The end result of this article is the recursive implementation of the <code class="language-plaintext highlighter-rouge">factorial</code> function without using neither names nor loops.</p>
+
+<p>Here is the code:</p>
+
+<pre><code class="language-klipse-eval-ruby">-&gt;(f){
+  f[f]
+  }[-&gt;(func){
+    -&gt;(n) { n == 0 ? 1 : n * func[func][n-1]}
+    }][19]
 </code></pre>
 
-<p>(If you wonder why we have to append <code class="language-plaintext highlighter-rouge">$macros</code> to the namespace and to reference the fully-qualified macro with self-hosted <code class="language-plaintext highlighter-rouge">clojurescript</code>, read <a href="/clojure/2016/03/26/messing-with-macros.html" target="_blank">Messing with Macros at the REPL</a>.)</p>
+<p>As you can check, no mention of any names.</p>
 
-<h3 id="how-to-quote-inside-a-macro">How to quote inside a macro</h3>
+<p>At first, it feels like magic.</p>
 
-<p>First, we need to understand how to quote an expression inside a macro.
-Let’s try to write a macro that receives an expression and return it, quoted.</p>
+<p>Now, we are going to show the 4 step process that leads to this wonderful piece of code.</p>
 
-<pre><code class="language-klipse">(defmacro my-quote [form]
-  (quote form))
+<p>(We were inspired by this <a href="http://mvanier.livejournal.com/2897.html">long but awesome article</a> by <a href="http://users.cms.caltech.edu/~mvanier/">Mike Vanier</a>.)</p>
+
+<h2 id="the-process">The process</h2>
+
+<h1 id="step-0-recursive-function">Step 0: recursive function</h1>
+
+<p>Let’s start with the recursive implementation of <code class="language-plaintext highlighter-rouge">factorial</code>:</p>
+
+<pre><code class="language-klipse-eval-ruby">$factorial = -&gt;(n) {
+  (n === 0) ? 1 : n * $factorial[n - 1]
+    }
+$factorial[10]
 </code></pre>
 
-<p>It doesn’t work.</p>
+<h1 id="step-1-simple-generator">Step 1: simple generator</h1>
 
-<pre><code class="language-klipse">  (my.repl/my-quote (map inc [1 2 3]))
+<p>Let’s write a function that is a generator of the <code class="language-plaintext highlighter-rouge">factorial</code> function:</p>
+
+<pre><code class="language-klipse-eval-ruby">$factorial_gen = -&gt;(f) {
+  -&gt;(n) {(n === 0) ? 1 : n * f[n - 1]}
+    }
+nil
 </code></pre>
 
-<p>The reason is that - as you can see with <code class="language-plaintext highlighter-rouge">macroexpand-1</code> - <code class="language-plaintext highlighter-rouge">(quote form)</code> is <code class="language-plaintext highlighter-rouge">form</code>.</p>
+<p>One one hand, <code class="language-plaintext highlighter-rouge">factorial_gen</code> is not recursive.</p>
 
-<pre><code class="language-klipse">  (macroexpand-1 '(my.repl/my-quote (map inc [1 2 3])))
+<p>On the other hand, <code class="language-plaintext highlighter-rouge">factorial_gen</code> is not the <code class="language-plaintext highlighter-rouge">factorial</code> function.</p>
+
+<p>But the interesting thing is that if we pass <code class="language-plaintext highlighter-rouge">factorial</code> to <code class="language-plaintext highlighter-rouge">factorial_gen</code> it returns the <code class="language-plaintext highlighter-rouge">factorial</code> function:</p>
+
+<pre><code class="language-klipse-eval-ruby">$factorial_gen[$factorial][19]
 </code></pre>
 
-<p>Let’s try to state explicitly what is the requirement for the <code class="language-plaintext highlighter-rouge">my-quote</code> macro: We need to return an expression that when it is evaluated, it becomes <code class="language-plaintext highlighter-rouge">(map inc [1 2 3])</code>. The expression that fits this definition is <code class="language-plaintext highlighter-rouge">(quote (map inc [1 2 3]))</code>. In other words, it is a list whose first element is the symbol <code class="language-plaintext highlighter-rouge">quote</code> and its second element is <code class="language-plaintext highlighter-rouge">(map inc [1 2 3])</code>.</p>
+<p>Before going on reading make sure you understand why it is true that:</p>
 
-<p>Now, try to update the klipse above with your correct implementation for the <code class="language-plaintext highlighter-rouge">my-quote</code> macro.</p>
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">$factorial_gen[factorial]</code> is equivalent to <code class="language-plaintext highlighter-rouge">$factorial</code></p>
+</blockquote>
 
-<p>(Even on your mobile device, it works: just wait 3 seconds and your code is automatically evaluated.)</p>
+<h1 id="step-2-weird-generator">Step 2: weird generator</h1>
 
-<p>If you cannot make it after a couple of trials, you can read my solution below…
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-Give it another try, before surrending…
-<br />
-<br />
-:)
-<br />
-<br />
-;)
-<br />
-<br />
-<br />
-<br />
-<br /></p>
+<p>Now, we are going to do something very weird: instead of using <code class="language-plaintext highlighter-rouge">func</code>, we are going to use <code class="language-plaintext highlighter-rouge">(func func)</code>. Like this:</p>
 
-<p>Here is my solution:</p>
-
-<pre><code class="language-klipse">(defmacro my-quote-fixed [form]
-  (list 'quote form))
+<pre><code class="language-klipse-eval-ruby">$factorial_weird = -&gt;(f) {
+  -&gt;(n) {(n === 0) ? 1 : n * f[f][n - 1]}
+    }
+nil
 </code></pre>
 
-<p>Now, it works:</p>
+<p>The funny thing now is that if we apply <code class="language-plaintext highlighter-rouge">factorial_weird</code> to itself we get the <code class="language-plaintext highlighter-rouge">factorial</code> function:</p>
 
-<pre><code class="language-klipse">  (my.repl/my-quote-fixed (map inc [1 2 3]))
+<pre><code class="language-klipse-eval-ruby">$factorial_weird[$factorial_weird][19]
 </code></pre>
 
-<h4 id="how-to-concatenate-evaluations-inside-a-macro">How to concatenate evaluations inside a macro</h4>
+<p>Before going on reading make sure you understand why it is true that:</p>
 
-<p>Now, we have to figure out how to concatenate evaluations inside a macro. I hope that the following example will clarify what I mean by that.</p>
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">$factorial_weird[factorial_weird]</code> is equivalent to <code class="language-plaintext highlighter-rouge">factorial</code></p>
+</blockquote>
 
-<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nf">concat-evaluations</span><span class="w"> </span><span class="s">"hello"</span><span class="w"> </span><span class="p">(</span><span class="nb">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="p">))</span><span class="w">
-</span><span class="c1">;"hello 3"</span><span class="w">
-</span></code></pre></div></div>
+<h1 id="step-3-recursion-without-names">Step 3: Recursion without names</h1>
 
-<p>Let’s give it a try:</p>
+<p>Now, let’s write down the application of <code class="language-plaintext highlighter-rouge">factorial_weird</code> to itself, using the body of <code class="language-plaintext highlighter-rouge">factorial_weird</code> instead of its name:</p>
 
-<pre><code class="language-klipse">(defmacro concat-evaluations [a b]
-  (str a " " b))
+<pre><code class="language-klipse-eval-ruby">$factorial_no_names = -&gt;(f) {
+      -&gt;(n) {(n === 0) ? 1 : n * f[f][n - 1]}
+        }[-&gt;(f) {
+      -&gt;(n) {(n === 0) ? 1 : n * f[f][n - 1]}
+        }]
+$factorial_no_names[19]
 </code></pre>
 
-<p>It seems to work:</p>
+<p>And we got a recursive implementation of <code class="language-plaintext highlighter-rouge">factorial</code> without using any names!</p>
 
-<pre><code class="language-klipse">  (my.repl/concat-evaluations "hello" "world")
+<p>We gave it a name just for the convenience of using it.</p>
+
+<p>As you can check, this is a completely valid implementation of <code class="language-plaintext highlighter-rouge">factorial</code>:</p>
+
+<pre><code class="language-klipse-eval-ruby">(1..11).map(&amp;$factorial_no_names).to_a
 </code></pre>
 
-<p>But in reality, it fails:</p>
+<p>Do you understand why this is equivalent to the code we shown in the beginning of the article?</p>
 
-<pre><code class="language-klipse">  (my.repl/concat-evaluations "hello" (+ 1 2))
+<pre><code class="language-klipse-eval-ruby">-&gt;(f){
+  f[f]
+  }[-&gt;(func){
+    -&gt;(n) { n == 0 ? 1 : n * func[func][n-1]}
+    }][19]
 </code></pre>
 
-<p>It fails because inside the macro, the value of <code class="language-plaintext highlighter-rouge">b</code> is <code class="language-plaintext highlighter-rouge">(+ 1 2)</code>, so the <code class="language-plaintext highlighter-rouge">str</code> function appends <code class="language-plaintext highlighter-rouge">(+ 1 2)</code> to “hello”.
-Like for <code class="language-plaintext highlighter-rouge">my-quote</code>, the idea is to return an expression that when evaluated it becomes <code class="language-plaintext highlighter-rouge">(str "hello" " " 3)</code>.</p>
+<p>Can you write your own implementation of other recursive functions without names?</p>
 
-<p>Try to find a solution of your own.</p>
+<p>Share in the comments your implementation for:</p>
 
-<p>My solution is:</p>
+<ul>
+  <li>Fibonacci</li>
+  <li>Quicksort</li>
+  <li>max</li>
+  <li>min</li>
+  <li>…</li>
+</ul>
 
-<pre><code class="language-klipse">(defmacro concat-evaluations-fixed [a b]
-  (list 'str a " " b))
-</code></pre>
-
-<p>And it works:</p>
-
-<pre><code class="language-klipse">  (my.repl/concat-evaluations-fixed "hello" (+ 1 2))
-</code></pre>
-
-<p>If you are curious, you can take a look at the expansion of the macro:</p>
-
-<pre><code class="language-klipse">  (macroexpand-1 '(my.repl/concat-evaluations-fixed "hello" (+ 1 2)))
-</code></pre>
-
-<h3 id="implementation-of-the-disp-macro">Implementation of the <code class="language-plaintext highlighter-rouge">disp</code> macro</h3>
-
-<p>Now we are ready to implement the <code class="language-plaintext highlighter-rouge">disp</code> macro, by assembling our building blocks:</p>
-
-<pre><code class="language-klipse">(defmacro disp [form]
-  (list 'str (list 'quote form) " =&gt; " form))
-</code></pre>
-
-<pre><code class="language-klipse">  (my.repl/disp (map inc [1 2 3]))
-</code></pre>
-
-<pre><code class="language-klipse">  (macroexpand-1 '(my.repl/disp (map inc [1 2 3])))
-</code></pre>
-
-<p>Really simple right?</p>
-
-<h3 id="issues">Issues</h3>
-<p>There are a couple of issues with our naive implementation:</p>
-
-<p>A. It’s really complicated to write macros this way: almost everything has to be embedded into a expression that begins with <code class="language-plaintext highlighter-rouge">list</code>.</p>
-
-<p>B. The code generated by the macro doesn’t look like the code of the macro: in the generated code, <code class="language-plaintext highlighter-rouge">list</code> doesn’t occur at all!</p>
-
-<p>C. What happens if you  define local variables inside a macro? They might conflict with the variables defined in the scope of the macro caller. Here is an illustration of this issue:</p>
-
-<pre><code class="language-klipse">(defmacro concat-evaluations-sep [a b]
-  (list 'let ['sep ": "]
-          (list 'str a 'sep b)))
-</code></pre>
-
-<pre><code class="language-klipse">  (my.repl/concat-evaluations-sep "hello" (map inc [100 2 3]))
-</code></pre>
-
-<p>So far so good…</p>
-
-<p>But now??!?</p>
-
-<pre><code class="language-klipse">(def sep 100)
-(my.repl/concat-evaluations-sep "hello" (map inc [sep 2 3]))
-</code></pre>
-
-<pre><code class="language-klipse">  (macroexpand-1 '(my.repl/concat-evaluations-sep "hello" (map inc [sep 2 3])))
-</code></pre>
-
-<p>D. Your macro will behave completely crazy when it is called inside a namespace where one of the functions that you use in the code of the macro is overriden.</p>
-
-<p>Here is an example:</p>
-
-<iframe frameborder="0" width="100%" height="300px" src="https://storage.googleapis.com/app.klipse.tech/index-dev.html?cljs_in=(ns%20my.repl%24macros)%0A%0A(defmacro%20disp%20%5Bform%5D%0A%20%20(list%20'str%20(list%20'quote%20form)%20%22%20%3D%3E%20%22%20form))%0A%0A(ns%20my.ns)%0A(defn%20str%20%5B%26%20args%5D%20%22hacked!%22)%0A%0A%5B%0A%20%20(macroexpand-1%20'(my.repl%2Fdisp%20(map%20inc%20%5B1%202%203%5D)))%0A%20%20(my.repl%2Fdisp%20(map%20inc%20%5B1%202%203%5D))%0A%5D%0A&amp;eval_only=1">
-</iframe>
-
-<h3 id="next-steps">Next steps</h3>
-
-<p>The 4 issues mentioned above are solved elegantly in <code class="language-plaintext highlighter-rouge">clojure</code> with the idiomatic tools I mentioned in the introduction.
-Here is a <a href="/clojure/2016/05/05/macro-tutorial-3.html" target="_blank">presentation of syntax quote</a>.</p>
-
-<p>After reading this article, you should be able to re-write the <code class="language-plaintext highlighter-rouge">disp</code> macro, idiomatically.</p>
-
-<p>Please share your best implementations in the comments below.</p>
-
-<p>Clojure rocks!</p>
+<p>In our <a href="/lambda/2016/08/10/pure-y-combinator-ruby.html">next article</a>, we are going to show the Y combinator in action in <code class="language-plaintext highlighter-rouge">ruby</code>.</p>
 
 
         </div>
@@ -388,9 +332,9 @@ Here is a <a href="/clojure/2016/05/05/macro-tutorial-3.html" target="_blank">pr
             <div class="post-share">
                 <span class="post-share-title">Share:</span>
                 <a target="_blank"
-                    href="https://twitter.com/share?text=Clojure+Macros+Tutorial+-+part+2%3A+how+not+to+write+macros&amp;url=https://blog.klipse.techclojure/2016/05/04/macro-tutorial-2.html">Twitter</a>
+                    href="https://twitter.com/share?text=Recursions+without+names%3A+Introduction+to+the+Y+combinator+in+ruby&amp;url=https://blog.klipse.techlambda/2016/08/14/almost-y-combinator-ruby.html">Twitter</a>
                 <a target="_blank"
-                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techclojure/2016/05/04/macro-tutorial-2.html">Facebook</a>
+                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techlambda/2016/08/14/almost-y-combinator-ruby.html">Facebook</a>
             </div><!-- .share-post -->
         </footer>
     </article>
@@ -418,15 +362,19 @@ Here is a <a href="/clojure/2016/05/05/macro-tutorial-3.html" target="_blank">pr
         <article class="post">
             <header class="post-header">
                 <div class="post-meta">
-                    <time class="published" datetime="May 3, 2016">May 3, 2016</time>
+                    <time class="published" datetime="August 10, 2016">August 10, 2016</time>
                 </div>
-                <h3 class="post-title"><a href="/clojure/2016/05/03/programming-kids-1.html">Chapter 1: What is computer programming?</a>
+                <h3 class="post-title"><a href="/lambda/2016/08/10/y-combinator-app-javascript.html">Y combinator real life application: recursive memoization in javascript</a>
                 </h3>
                 <p class="post-tags">
                     
                     
                     
-                    <a href='/tag/kids/'>Kids</a>
+                    <a href='/tag/javascript/'>Javascript</a>
+                    
+                    
+                    
+                    <a href='/tag/lambdacalculus/'>Lambdacalculus</a>
                     
                     
                     
@@ -438,14 +386,18 @@ Here is a <a href="/clojure/2016/05/05/macro-tutorial-3.html" target="_blank">pr
         <article class="post">
             <header class="post-header">
                 <div class="post-meta">
-                    <time class="published" datetime="May 5, 2016">May 5, 2016</time>
+                    <time class="published" datetime="August 14, 2016">August 14, 2016</time>
                 </div>
-                <h3 class="post-title"><a href="/clojure/2016/05/05/macro-tutorial-3.html">Clojure Macros Tutorial - part 3: Syntax Quote (aka Backtick) in Clojure</a></h3>
+                <h3 class="post-title"><a href="/lambda/2016/08/14/y-combinator-app-ruby.html">Y combinator real life application: recursive memoization in ruby</a></h3>
                 <p class="post-tags">
                     
                     
                     
-                    <a href='/tag/clojure/'>Clojure</a>
+                    <a href='/tag/ruby/'>Ruby</a>
+                    
+                    
+                    
+                    <a href='/tag/lambdacalculus/'>Lambdacalculus</a>
                     
                     
                     
@@ -598,7 +550,7 @@ Here is a <a href="/clojure/2016/05/05/macro-tutorial-3.html" target="_blank">pr
 
 
 
-<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?the_version=7.11.2"></script>
 
 
 
@@ -609,7 +561,7 @@ Here is a <a href="/clojure/2016/05/05/macro-tutorial-3.html" target="_blank">pr
                 
                 <footer id="colophon" class="site-footer">
     <p class="site-info inner">
-        <a href="#">Yehonathan Sharvit</a> &copy; 2022.
+        <a href="#">Yehonathan Sharvit</a> &copy; 2023.
     </p>
     <a id="back-to-top" class="back-to-top" href="#page">
         <span class="icon-arrow-up" aria-hidden="true"></span>

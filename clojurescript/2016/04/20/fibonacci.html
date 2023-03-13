@@ -7,23 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     
-        <!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>In javascript, setTimeout is forced to be &gt;= 4 msec | Yehonathan Sharvit</title>
-<meta name="generator" content="Jekyll v4.2.0" />
-<meta property="og:title" content="In javascript, setTimeout is forced to be &gt;= 4 msec" />
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>3 ways to generate Lazy Fibonacci sequences in Clojure | Yehonathan Sharvit</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="3 ways to generate Lazy Fibonacci sequences in Clojure" />
 <meta name="author" content="Yehonathan Sharvit" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="In javascript, setTimeout is forced to be &gt;= 4 msec. 0 delay timer. postMessage. asynchronous." />
-<meta property="og:description" content="In javascript, setTimeout is forced to be &gt;= 4 msec. 0 delay timer. postMessage. asynchronous." />
+<meta name="description" content="How to write Lazy Fibonacci in Clojure. share code clojure with KLIPSE. macros with klipse. lazy sequences fibonacci." />
+<meta property="og:description" content="How to write Lazy Fibonacci in Clojure. share code clojure with KLIPSE. macros with klipse. lazy sequences fibonacci." />
 <meta property="og:site_name" content="Yehonathan Sharvit" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2016-10-31T23:12:54+00:00" />
+<meta property="article:published_time" content="2016-04-20T01:28:14+02:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="In javascript, setTimeout is forced to be &gt;= 4 msec" />
+<meta property="twitter:title" content="3 ways to generate Lazy Fibonacci sequences in Clojure" />
 <meta name="twitter:site" content="@" />
 <meta name="twitter:creator" content="@Yehonathan Sharvit" />
 <script type="application/ld+json">
-{"url":"/javascript/2016/10/31/setTimeout-0msec.html","headline":"In javascript, setTimeout is forced to be &gt;= 4 msec","dateModified":"2016-10-31T23:12:54+00:00","datePublished":"2016-10-31T23:12:54+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/javascript/2016/10/31/setTimeout-0msec.html"},"author":{"@type":"Person","name":"Yehonathan Sharvit"},"description":"In javascript, setTimeout is forced to be &gt;= 4 msec. 0 delay timer. postMessage. asynchronous.","@context":"https://schema.org"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yehonathan Sharvit"},"dateModified":"2016-04-20T01:28:14+02:00","datePublished":"2016-04-20T01:28:14+02:00","description":"How to write Lazy Fibonacci in Clojure. share code clojure with KLIPSE. macros with klipse. lazy sequences fibonacci.","headline":"3 ways to generate Lazy Fibonacci sequences in Clojure","mainEntityOfPage":{"@type":"WebPage","@id":"/clojurescript/2016/04/20/fibonacci.html"},"url":"/clojurescript/2016/04/20/fibonacci.html"}</script>
 <!-- End Jekyll SEO tag -->
 
     
@@ -159,135 +159,136 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
     <article class="post-full inner">
 
         <header class="post-header">
-            <h1 class="post-title">In javascript, setTimeout is forced to be >= 4 msec</h1>
+            <h1 class="post-title">3 ways to generate Lazy Fibonacci sequences in Clojure</h1>
             <span class="post-meta">
-              <time class="post-date" datetime="2016-10-31">
-                October 31, 2016
+              <time class="post-date" datetime="2016-04-20">
+                April 20, 2016
               </time>
             </span>
             
             <span class="post-tags">
-                <a href="/tags/index.html#javascript"
-                    rel="tag">javascript</a>
+                <a href="/tags/index.html#clojure"
+                    rel="tag">clojure</a>
                 
             </span>
             
         </header><!-- .post-header -->
 
         <div class="post-content">
-            <p>Javascript is a language full of surprises: there are the <code class="language-plaintext highlighter-rouge">good parts</code> and the <code class="language-plaintext highlighter-rouge">bad parts</code>. Today, I discovered that <code class="language-plaintext highlighter-rouge">setTimeout</code> featured a minimal delay of 4 msec.</p>
+            <p>Generating the Fibonacci sequence is a good exercise to illustrate the concept of lazy sequences in <code class="language-plaintext highlighter-rouge">Clojure</code>.
+In this article, we will present 3 ways to create a lazy Fibonacci sequence:</p>
 
-<p>This is well documented in <a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setTimeout#Reasons_for_delays_longer_than_specified">Reasons for delays longer than specified</a>.</p>
+<ul>
+  <li>lazy-seq</li>
+  <li>lazy-cat</li>
+  <li>iterate</li>
+</ul>
 
-<p>But I wonder, how many experienced javascript developers are aware of this weird behaviour.</p>
+<p>We will also demonstrate two interesting features of <a href="http://app.klipse.tech?blog=klipse&amp;static-fns=true&amp;js_only=1" target="_blank">KLIPSE</a>:</p>
 
-<p>What about you?</p>
+<ul>
+  <li>how to share code with KLIPSE</li>
+  <li>macros usage in KLIPSE</li>
+</ul>
 
-<p>Did you know that the minimal delay of <code class="language-plaintext highlighter-rouge">setTimeout</code> was 4 msec?</p>
+<h3 id="math-and-history">Math and History</h3>
 
-<p>In this article, we are going to:</p>
+<p>In mathematics, the Fibonacci numbers or Fibonacci sequence are the numbers in the following integer sequence:</p>
 
-<ol>
-  <li>demonstrate the 4 sec delay added by the browser when one uses a <code class="language-plaintext highlighter-rouge">setTimeout</code> with 0 delay.</li>
-  <li>demonstrate how to write 0-delay timers using <code class="language-plaintext highlighter-rouge">postMessage</code>.</li>
-</ol>
+<blockquote>
+  <p>1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181 6765 10946 17711 28657 46368 75025 121393 196418 317811 514229 …</p>
+</blockquote>
 
-<p><img src="/assets/stopwatch.jpg" alt="Stop" /></p>
+<p>or (often, in modern usage):</p>
 
-<h1 id="code-example">Code example</h1>
+<blockquote>
+  <p>0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181 6765 10946 17711 28657 46368 75025 121393 196418 317811 514229 …</p>
+</blockquote>
 
-<p>All the code snippets of this page are <strong>live</strong> and <strong>interactive</strong> powered by the <a href="https://github.com/viebel/klipse">klipse plugin</a>:</p>
+<p>The first two numbers in the Fibonacci sequence are either 1 and 1, or 0 and 1, and each subsequent number is the sum of the previous two.</p>
 
-<ol>
-  <li><strong>Live</strong>: The code is executed in your browser</li>
-  <li><strong>Interactive</strong>: You can modify the code and it is evaluated after 3 seconds of inactivity of if you press <code class="language-plaintext highlighter-rouge">Ctrl-Enter</code> inside the code snippet.</li>
-</ol>
+<p>The Fibonacci sequence is named after Italian mathematician Leonardo of Pisa, known as Fibonacci. His 1202 book Liber Abaci introduced the sequence to Western European mathematics, although the sequence had been described earlier as Virahanka numbers in Indian mathematics.</p>
 
-<h1 id="the-4-msec-delay-in-action">The 4 msec delay in action</h1>
+<p><img src="/assets/fibonacci.jpg" alt="Secret" /></p>
 
-<p>Here is the  code that demonstrates the 4-msec delay - calling <code class="language-plaintext highlighter-rouge">setTimeout</code> recursively 100 times with a <code class="language-plaintext highlighter-rouge">0</code> delay.</p>
+<h3 id="fibonacci-with-lazy-seq">Fibonacci with <code class="language-plaintext highlighter-rouge">lazy-seq</code></h3>
 
-<p>As you can see by yourslef, the execution time for 100 iterations is around 400 msec.</p>
+<p>Here is the doc for <code class="language-plaintext highlighter-rouge">lazy-seq</code>:</p>
 
-<p>You might need to reevaluate the snippet - for some reason the first evaluation takes much more time.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(lazy-seq &amp; body)
+Takes a body of expressions that returns an ISeq or nil, and yields
+a Seqable object that will invoke the body only the first time seq
+is called, and will cache the result and return it on all subsequent
+seq calls. See also - realized?
+</code></pre></div></div>
 
-<p>Press <code class="language-plaintext highlighter-rouge">Ctrl-Enter</code> inside the code snippet or modify the code and wait for 3 seconds…</p>
+<p>Let’s do Fibonacci with <code class="language-plaintext highlighter-rouge">lazy-seq</code>:</p>
 
-<pre><code class="language-klipse-eval-js" data-async-code="true">
-function bar(iterations) {
-  if(iterations === 0) {
-    console.log("done in: " + (new Date() - startTimeout)+ " msec")
-  }
-  else {
-  setTimeout(bar, 0, iterations - 1);
-  }
-  }
+<pre><code class="language-klipse">(def fib-seq-seq
+  ((fn fib [a b] 
+       (lazy-seq (cons a (fib b (+ a b)))))
+     0 1))
 
-startTimeout = new Date();
-console.log("Start");
-bar(100);
+(take 30 fib-seq-seq)
 </code></pre>
 
-<p>Amazing. No?</p>
+<p>Now, imagine you are very proud of your code and you’d like to share it by email, on twitter or on Clojurians Slack. How would you do that?</p>
 
-<h1 id="the-solution-for-fast-timeouts">The solution for fast timeouts</h1>
+<ul>
+  <li>The common option is to copy/paste it =&gt; no indentation and colors</li>
+  <li>A more elegant way is to create a github gist =&gt; indentation, colors but the code is <strong>static</strong></li>
+  <li>Another way is to share your klipse =&gt; indentation, colors and the code is <strong>dynamic</strong> and <strong>editable</strong></li>
+</ul>
 
-<p>If we want to have a <code class="language-plaintext highlighter-rouge">0 msec</code> timer, we have to use <code class="language-plaintext highlighter-rouge">postMessage</code>.</p>
+<p>In order to share your klipse, you press <code class="language-plaintext highlighter-rouge">Ctrl-S</code> (<code class="language-plaintext highlighter-rouge">S</code> is for share or save) and the url of a klipse with your code (something like http://app.klipse.tech?cljs_in=….) will be displayed in an alert box and in the browser console.</p>
 
-<p>So, let’s do it and take the following code from <a href="https://dbaron.org/log/20100309-faster-timeouts">setTimeout with a shorter delay</a>.</p>
+<p>Go ahead! Give it a try in the Klipse box above that contains the <code class="language-plaintext highlighter-rouge">lazy-seq</code> implementation of the Fibonacci sequence.</p>
 
-<p><code class="language-plaintext highlighter-rouge">setZeroTimeout</code> takes a single argument: the callback function that is going to be called with 0 delay - but asynchronously.</p>
+<h3 id="fibonacci-with-lazy-cat">Fibonacci with <code class="language-plaintext highlighter-rouge">lazy-cat</code></h3>
 
-<pre><code class="language-klipse-eval-js">(function() {
-    var timeouts = [];
-    var messageName = "zero-timeout-message";
+<p>Here is the doc for <code class="language-plaintext highlighter-rouge">lazy-cat</code>:</p>
 
-    function setZeroTimeout(fn) {
-        timeouts.push(fn);
-        window.postMessage(messageName, "*");
-    }
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(lazy-cat &amp; colls)
 
-    function handleMessage(event) {
-        if (event.source == window &amp;&amp; event.data == messageName) {
-            event.stopPropagation();
-            if (timeouts.length &gt; 0) {
-                var fn = timeouts.shift();
-                fn();
-            }
-        }
-    }
-    window.addEventListener("message", handleMessage, true);
-    window.setZeroTimeout = setZeroTimeout;
-})();
+Expands to code which yields a lazy sequence of the concatenation
+of the supplied colls.  Each coll expr is not evaluated until it is
+needed. 
+
+(lazy-cat xs ys zs) === (concat (lazy-seq xs) (lazy-seq ys) (lazy-seq zs))
+</code></pre></div></div>
+
+<p>Now, we’ll do Fibonacci with <code class="language-plaintext highlighter-rouge">lazy-cat</code>:</p>
+
+<pre><code class="language-klipse">(def fib-seq-cat
+  (lazy-cat [0 1] (map + (rest fib-seq-cat) fib-seq-cat)))
+
+(take 30 fib-seq-cat)
 </code></pre>
 
-<p>And now, let’s see it in action - in my browser, it takes around 17 msec for 100 iterations.</p>
+<p>If you prefer this version, don’t hesitate share it! <code class="language-plaintext highlighter-rouge">Ctrl-S</code> is your friend…</p>
 
-<p>Again, you might need to reevaluate the snippet - as the first evaluation takes much more time.</p>
+<h3 id="fibonacci-with-iterate">Fibonacci with <code class="language-plaintext highlighter-rouge">iterate</code></h3>
 
-<p>Press <code class="language-plaintext highlighter-rouge">Ctrl-Enter</code> inside the code snippet or modify the code and wait for 3 seconds…</p>
+<p>Here is the doc for <code class="language-plaintext highlighter-rouge">iterate</code>:</p>
 
-<pre><code class="language-klipse-eval-js" data-async-code="true">
-function runBaz(iterations) {
-  function baz() {
-    if(--iterations === 0) {
-      console.log("done in: " + (new Date() - startZeroTimeout) + " msec")
-    }
-    else {
-      setZeroTimeout(baz);
-    }
-  }
-  baz();
-}
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(iterate f x)
+Returns a lazy sequence of x, (f x), (f (f x)) etc...
+f must be free of side-effects
+</code></pre></div></div>
 
-startZeroTimeout = new Date();
-console.log("OK");
-runBaz(100);
+<p>Now, Fibonacci with <code class="language-plaintext highlighter-rouge">iterate</code>:</p>
+
+<pre><code class="language-klipse">(def fib-seq-iterate
+  (map first (iterate 
+                 (fn [[a b]] [b (+ a b)]) [0 1])))
+
+(take 30 fib-seq-iterate)
 </code></pre>
 
-<p>By the way, what do you think about the interactive code snippets powered by <a href="https://github.com/viebel/klipse">KLIPSE</a>?</p>
+<p>Do you have another interesting Fibonacci sequence implementation? Feel free to share your klipse in the comments below…</p>
 
-<p>You might what to give a star on <a href="https://github.com/viebel/klipse">Github</a>…</p>
+<p>Clojure rocks!</p>
+
 
         </div>
         <footer class="post-footer">
@@ -295,9 +296,9 @@ runBaz(100);
             <div class="post-share">
                 <span class="post-share-title">Share:</span>
                 <a target="_blank"
-                    href="https://twitter.com/share?text=In+javascript%2C+setTimeout+is+forced+to+be+%3E%3D+4+msec&amp;url=https://blog.klipse.techjavascript/2016/10/31/setTimeout-0msec.html">Twitter</a>
+                    href="https://twitter.com/share?text=3+ways+to+generate+Lazy+Fibonacci+sequences+in+Clojure&amp;url=https://blog.klipse.techclojurescript/2016/04/20/fibonacci.html">Twitter</a>
                 <a target="_blank"
-                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techjavascript/2016/10/31/setTimeout-0msec.html">Facebook</a>
+                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techclojurescript/2016/04/20/fibonacci.html">Facebook</a>
             </div><!-- .share-post -->
         </footer>
     </article>
@@ -325,15 +326,15 @@ runBaz(100);
         <article class="post">
             <header class="post-header">
                 <div class="post-meta">
-                    <time class="published" datetime="October 31, 2016">October 31, 2016</time>
+                    <time class="published" datetime="April 14, 2016">April 14, 2016</time>
                 </div>
-                <h3 class="post-title"><a href="/javascript/2016/10/31/setIntervalX.html">setInterval with limited number of iterations</a>
+                <h3 class="post-title"><a href="/clojurescript/2016/04/14/static-fns.html">Deep into clojurescript function call mechanisms: static vs. dynamic dispatch</a>
                 </h3>
                 <p class="post-tags">
                     
                     
                     
-                    <a href='/tag/javascript/'>Javascript</a>
+                    <a href='/tag/clojurescript/'>Clojurescript</a>
                     
                     
                     
@@ -345,14 +346,14 @@ runBaz(100);
         <article class="post">
             <header class="post-header">
                 <div class="post-meta">
-                    <time class="published" datetime="November 7, 2016">November 7, 2016</time>
+                    <time class="published" datetime="April 25, 2016">April 25, 2016</time>
                 </div>
-                <h3 class="post-title"><a href="/javascript/2016/11/07/best-sql-tutorial.html">An interactive way of writing SQL tutorials</a></h3>
+                <h3 class="post-title"><a href="/clojurescript/2016/04/25/records-wacky-maps.html">In Clojure, records are wacky maps</a></h3>
                 <p class="post-tags">
                     
                     
                     
-                    <a href='/tag/sql/'>Sql</a>
+                    <a href='/tag/clojure/'>Clojure</a>
                     
                     
                     
@@ -492,9 +493,6 @@ runBaz(100);
 
 
 
-   window.klipse_settings.eval_idle_msec =
-3000;
-
 
 
 
@@ -508,7 +506,7 @@ runBaz(100);
 
 
 
-<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?the_version=7.11.2"></script>
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
 
 
 
@@ -519,7 +517,7 @@ runBaz(100);
                 
                 <footer id="colophon" class="site-footer">
     <p class="site-info inner">
-        <a href="#">Yehonathan Sharvit</a> &copy; 2022.
+        <a href="#">Yehonathan Sharvit</a> &copy; 2023.
     </p>
     <a id="back-to-top" class="back-to-top" href="#page">
         <span class="icon-arrow-up" aria-hidden="true"></span>

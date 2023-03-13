@@ -68,8 +68,8 @@
       "title"    : "Polymorphism without objects via multimethods",
       "category" : "",
       "tags"     : "javascript",
-      "url"      : "/javascript/2021/10/03/multimethod.html",
-      "date"     : "October 3, 2021"
+      "url"      : "/javascript/2021/10/04/multimethod.html",
+      "date"     : "October 4, 2021"
     } ,
   
     {
@@ -118,6 +118,14 @@
       "tags"     : "dop, maths",
       "url"      : "/dop/2021/04/18/memete-programmation.html",
       "date"     : "April 18, 2021"
+    } ,
+  
+    {
+      "title"    : "Data-Oriented programming coding challenges",
+      "category" : "",
+      "tags"     : "dop, javascript",
+      "url"      : "/dop/2021/04/02/dop-challenges-without-solutions.html",
+      "date"     : "April 2, 2021"
     } ,
   
     {
@@ -580,8 +588,8 @@
       "title"    : "Fiverr demo: Funnel Visualization",
       "category" : "",
       "tags"     : "",
-      "url"      : "/data/2017/04/26/fiverr-demo.html",
-      "date"     : "April 26, 2017"
+      "url"      : "/data/2017/04/27/fiverr-demo.html",
+      "date"     : "April 27, 2017"
     } ,
   
     {
@@ -660,8 +668,8 @@
       "title"    : "Interactive Business Report with Google Charts",
       "category" : "",
       "tags"     : "",
-      "url"      : "/data/2017/03/15/google-charts.html",
-      "date"     : "March 15, 2017"
+      "url"      : "/data/2017/03/16/google-charts.html",
+      "date"     : "March 16, 2017"
     } ,
   
     {
@@ -836,16 +844,16 @@
       "title"    : "In javascript, setTimeout is forced to be &gt;= 4 msec",
       "category" : "",
       "tags"     : "javascript",
-      "url"      : "/javascript/2016/10/31/setTimeout-0msec.html",
-      "date"     : "October 31, 2016"
+      "url"      : "/javascript/2016/11/01/setTimeout-0msec.html",
+      "date"     : "November 1, 2016"
     } ,
   
     {
       "title"    : "setInterval with limited number of iterations",
       "category" : "",
       "tags"     : "javascript",
-      "url"      : "/javascript/2016/10/31/setIntervalX.html",
-      "date"     : "October 31, 2016"
+      "url"      : "/javascript/2016/11/01/setIntervalX.html",
+      "date"     : "November 1, 2016"
     } ,
   
     {
@@ -1012,8 +1020,8 @@
       "title"    : "Recursions without names: Introduction to the Y combinator in ruby",
       "category" : "",
       "tags"     : "lambda-calculus, ruby",
-      "url"      : "/lambda/2016/08/13/almost-y-combinator-ruby.html",
-      "date"     : "August 13, 2016"
+      "url"      : "/lambda/2016/08/14/almost-y-combinator-ruby.html",
+      "date"     : "August 14, 2016"
     } ,
   
     {
@@ -1220,8 +1228,8 @@
       "title"    : "Clojure Macros Tutorial - part 2: how not to write macros",
       "category" : "",
       "tags"     : "clojure",
-      "url"      : "/clojure/2016/05/04/macro-tutorial-2.html",
-      "date"     : "May 4, 2016"
+      "url"      : "/clojure/2016/05/05/macro-tutorial-2.html",
+      "date"     : "May 5, 2016"
     } ,
   
     {
@@ -1260,16 +1268,16 @@
       "title"    : "3 ways to generate Lazy Fibonacci sequences in Clojure",
       "category" : "",
       "tags"     : "clojure",
-      "url"      : "/clojurescript/2016/04/19/fibonacci.html",
-      "date"     : "April 19, 2016"
+      "url"      : "/clojurescript/2016/04/20/fibonacci.html",
+      "date"     : "April 20, 2016"
     } ,
   
     {
       "title"    : "Deep into clojurescript function call mechanisms: static vs. dynamic dispatch",
       "category" : "",
       "tags"     : "clojurescript",
-      "url"      : "/clojurescript/2016/04/13/static-fns.html",
-      "date"     : "April 13, 2016"
+      "url"      : "/clojurescript/2016/04/14/static-fns.html",
+      "date"     : "April 14, 2016"
     } ,
   
     {

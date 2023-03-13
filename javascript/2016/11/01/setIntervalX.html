@@ -7,23 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     
-        <!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>3 ways to generate Lazy Fibonacci sequences in Clojure | Yehonathan Sharvit</title>
-<meta name="generator" content="Jekyll v4.2.0" />
-<meta property="og:title" content="3 ways to generate Lazy Fibonacci sequences in Clojure" />
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>setInterval with limited number of iterations | Yehonathan Sharvit</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="setInterval with limited number of iterations" />
 <meta name="author" content="Yehonathan Sharvit" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="How to write Lazy Fibonacci in Clojure. share code clojure with KLIPSE. macros with klipse. lazy sequences fibonacci." />
-<meta property="og:description" content="How to write Lazy Fibonacci in Clojure. share code clojure with KLIPSE. macros with klipse. lazy sequences fibonacci." />
+<meta name="description" content="setInterval with limited number of iterations" />
+<meta property="og:description" content="setInterval with limited number of iterations" />
 <meta property="og:site_name" content="Yehonathan Sharvit" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2016-04-19T23:28:14+00:00" />
+<meta property="article:published_time" content="2016-11-01T00:12:54+01:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="3 ways to generate Lazy Fibonacci sequences in Clojure" />
+<meta property="twitter:title" content="setInterval with limited number of iterations" />
 <meta name="twitter:site" content="@" />
 <meta name="twitter:creator" content="@Yehonathan Sharvit" />
 <script type="application/ld+json">
-{"url":"/clojurescript/2016/04/19/fibonacci.html","headline":"3 ways to generate Lazy Fibonacci sequences in Clojure","dateModified":"2016-04-19T23:28:14+00:00","datePublished":"2016-04-19T23:28:14+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/clojurescript/2016/04/19/fibonacci.html"},"author":{"@type":"Person","name":"Yehonathan Sharvit"},"description":"How to write Lazy Fibonacci in Clojure. share code clojure with KLIPSE. macros with klipse. lazy sequences fibonacci.","@context":"https://schema.org"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yehonathan Sharvit"},"dateModified":"2016-11-01T00:12:54+01:00","datePublished":"2016-11-01T00:12:54+01:00","description":"setInterval with limited number of iterations","headline":"setInterval with limited number of iterations","mainEntityOfPage":{"@type":"WebPage","@id":"/javascript/2016/11/01/setIntervalX.html"},"url":"/javascript/2016/11/01/setIntervalX.html"}</script>
 <!-- End Jekyll SEO tag -->
 
     
@@ -159,135 +159,56 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
     <article class="post-full inner">
 
         <header class="post-header">
-            <h1 class="post-title">3 ways to generate Lazy Fibonacci sequences in Clojure</h1>
+            <h1 class="post-title">setInterval with limited number of iterations</h1>
             <span class="post-meta">
-              <time class="post-date" datetime="2016-04-19">
-                April 19, 2016
+              <time class="post-date" datetime="2016-11-01">
+                November 1, 2016
               </time>
             </span>
             
             <span class="post-tags">
-                <a href="/tags/index.html#clojure"
-                    rel="tag">clojure</a>
+                <a href="/tags/index.html#javascript"
+                    rel="tag">javascript</a>
                 
             </span>
             
         </header><!-- .post-header -->
 
         <div class="post-content">
-            <p>Generating the Fibonacci sequence is a good exercise to illustrate the concept of lazy sequences in <code class="language-plaintext highlighter-rouge">Clojure</code>.
-In this article, we will present 3 ways to create a lazy Fibonacci sequence:</p>
-
-<ul>
-  <li>lazy-seq</li>
-  <li>lazy-cat</li>
-  <li>iterate</li>
-</ul>
-
-<p>We will also demonstrate two interesting features of <a href="http://app.klipse.tech?blog=klipse&amp;static-fns=true&amp;js_only=1" target="_blank">KLIPSE</a>:</p>
-
-<ul>
-  <li>how to share code with KLIPSE</li>
-  <li>macros usage in KLIPSE</li>
-</ul>
-
-<h3 id="math-and-history">Math and History</h3>
-
-<p>In mathematics, the Fibonacci numbers or Fibonacci sequence are the numbers in the following integer sequence:</p>
-
-<blockquote>
-  <p>1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181 6765 10946 17711 28657 46368 75025 121393 196418 317811 514229 …</p>
-</blockquote>
-
-<p>or (often, in modern usage):</p>
-
-<blockquote>
-  <p>0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181 6765 10946 17711 28657 46368 75025 121393 196418 317811 514229 …</p>
-</blockquote>
-
-<p>The first two numbers in the Fibonacci sequence are either 1 and 1, or 0 and 1, and each subsequent number is the sum of the previous two.</p>
-
-<p>The Fibonacci sequence is named after Italian mathematician Leonardo of Pisa, known as Fibonacci. His 1202 book Liber Abaci introduced the sequence to Western European mathematics, although the sequence had been described earlier as Virahanka numbers in Indian mathematics.</p>
-
-<p><img src="/assets/fibonacci.jpg" alt="Secret" /></p>
-
-<h3 id="fibonacci-with-lazy-seq">Fibonacci with <code class="language-plaintext highlighter-rouge">lazy-seq</code></h3>
-
-<p>Here is the doc for <code class="language-plaintext highlighter-rouge">lazy-seq</code>:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(lazy-seq &amp; body)
-Takes a body of expressions that returns an ISeq or nil, and yields
-a Seqable object that will invoke the body only the first time seq
-is called, and will cache the result and return it on all subsequent
-seq calls. See also - realized?
-</code></pre></div></div>
-
-<p>Let’s do Fibonacci with <code class="language-plaintext highlighter-rouge">lazy-seq</code>:</p>
-
-<pre><code class="language-klipse">(def fib-seq-seq
-  ((fn fib [a b] 
-       (lazy-seq (cons a (fib b (+ a b)))))
-     0 1))
-
-(take 30 fib-seq-seq)
+            <pre><code class="language-klipse-eval-js">function printInterval (txt) {
+  document.getElementById("interval").innerText = txt;
+}
 </code></pre>
 
-<p>Now, imagine you are very proud of your code and you’d like to share it by email, on twitter or on Clojurians Slack. How would you do that?</p>
+<pre><div class="language-klipse-eval-js">
+setIntervalX = function (callback, delay, repetitions, onCompleted) {
+  var x = 0;
+  var intervalID = window.setInterval(function () {
+    callback();
+    if (++x === repetitions) {
+      window.clearInterval(intervalID);
+      if(onCompleted) {
+        onCompleted();
+      }
+    }
+  }, delay);
+}
 
-<ul>
-  <li>The common option is to copy/paste it =&gt; no indentation and colors</li>
-  <li>A more elegant way is to create a github gist =&gt; indentation, colors but the code is <strong>static</strong></li>
-  <li>Another way is to share your klipse =&gt; indentation, colors and the code is <strong>dynamic</strong> and <strong>editable</strong></li>
-</ul>
 
-<p>In order to share your klipse, you press <code class="language-plaintext highlighter-rouge">Ctrl-S</code> (<code class="language-plaintext highlighter-rouge">S</code> is for share or save) and the url of a klipse with your code (something like http://app.klipse.tech?cljs_in=….) will be displayed in an alert box and in the browser console.</p>
+let startInterval = new Date();
+printInterval("Start");
 
-<p>Go ahead! Give it a try in the Klipse box above that contains the <code class="language-plaintext highlighter-rouge">lazy-seq</code> implementation of the Fibonacci sequence.</p>
+setIntervalX(function(){},
+             0,
+             100,
+             function() {
+  printInterval("done in: " + (new Date() - startInterval) + " msec");
+});
+</div><div id="interval">Empty</div></pre>
 
-<h3 id="fibonacci-with-lazy-cat">Fibonacci with <code class="language-plaintext highlighter-rouge">lazy-cat</code></h3>
+<h1 id="conclusion">Conclusion</h1>
 
-<p>Here is the doc for <code class="language-plaintext highlighter-rouge">lazy-cat</code>:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(lazy-cat &amp; colls)
-
-Expands to code which yields a lazy sequence of the concatenation
-of the supplied colls.  Each coll expr is not evaluated until it is
-needed. 
-
-(lazy-cat xs ys zs) === (concat (lazy-seq xs) (lazy-seq ys) (lazy-seq zs))
-</code></pre></div></div>
-
-<p>Now, we’ll do Fibonacci with <code class="language-plaintext highlighter-rouge">lazy-cat</code>:</p>
-
-<pre><code class="language-klipse">(def fib-seq-cat
-  (lazy-cat [0 1] (map + (rest fib-seq-cat) fib-seq-cat)))
-
-(take 30 fib-seq-cat)
-</code></pre>
-
-<p>If you prefer this version, don’t hesitate share it! <code class="language-plaintext highlighter-rouge">Ctrl-S</code> is your friend…</p>
-
-<h3 id="fibonacci-with-iterate">Fibonacci with <code class="language-plaintext highlighter-rouge">iterate</code></h3>
-
-<p>Here is the doc for <code class="language-plaintext highlighter-rouge">iterate</code>:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(iterate f x)
-Returns a lazy sequence of x, (f x), (f (f x)) etc...
-f must be free of side-effects
-</code></pre></div></div>
-
-<p>Now, Fibonacci with <code class="language-plaintext highlighter-rouge">iterate</code>:</p>
-
-<pre><code class="language-klipse">(def fib-seq-iterate
-  (map first (iterate 
-                 (fn [[a b]] [b (+ a b)]) [0 1])))
-
-(take 30 fib-seq-iterate)
-</code></pre>
-
-<p>Do you have another interesting Fibonacci sequence implementation? Feel free to share your klipse in the comments below…</p>
-
-<p>Clojure rocks!</p>
+<p>What do you think about the interactive code snippets powered by <a href="https://github.com/viebel/klipse">KLIPSE</a>?</p>
 
 
         </div>
@@ -296,9 +217,9 @@ f must be free of side-effects
             <div class="post-share">
                 <span class="post-share-title">Share:</span>
                 <a target="_blank"
-                    href="https://twitter.com/share?text=3+ways+to+generate+Lazy+Fibonacci+sequences+in+Clojure&amp;url=https://blog.klipse.techclojurescript/2016/04/19/fibonacci.html">Twitter</a>
+                    href="https://twitter.com/share?text=setInterval+with+limited+number+of+iterations&amp;url=https://blog.klipse.techjavascript/2016/11/01/setIntervalX.html">Twitter</a>
                 <a target="_blank"
-                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techclojurescript/2016/04/19/fibonacci.html">Facebook</a>
+                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techjavascript/2016/11/01/setIntervalX.html">Facebook</a>
             </div><!-- .share-post -->
         </footer>
     </article>
@@ -326,15 +247,15 @@ f must be free of side-effects
         <article class="post">
             <header class="post-header">
                 <div class="post-meta">
-                    <time class="published" datetime="April 13, 2016">April 13, 2016</time>
+                    <time class="published" datetime="October 25, 2016">October 25, 2016</time>
                 </div>
-                <h3 class="post-title"><a href="/clojurescript/2016/04/13/static-fns.html">Deep into clojurescript function call mechanisms: static vs. dynamic dispatch</a>
+                <h3 class="post-title"><a href="/clojure/2016/10/25/core-match.html">Core.match interactive tutorial</a>
                 </h3>
                 <p class="post-tags">
                     
                     
                     
-                    <a href='/tag/clojurescript/'>Clojurescript</a>
+                    <a href='/tag/clojure/'>Clojure</a>
                     
                     
                     
@@ -346,14 +267,14 @@ f must be free of side-effects
         <article class="post">
             <header class="post-header">
                 <div class="post-meta">
-                    <time class="published" datetime="April 25, 2016">April 25, 2016</time>
+                    <time class="published" datetime="November 1, 2016">November 1, 2016</time>
                 </div>
-                <h3 class="post-title"><a href="/clojurescript/2016/04/25/records-wacky-maps.html">In Clojure, records are wacky maps</a></h3>
+                <h3 class="post-title"><a href="/javascript/2016/11/01/setTimeout-0msec.html">In javascript, setTimeout is forced to be >= 4 msec</a></h3>
                 <p class="post-tags">
                     
                     
                     
-                    <a href='/tag/clojure/'>Clojure</a>
+                    <a href='/tag/javascript/'>Javascript</a>
                     
                     
                     
@@ -493,6 +414,9 @@ f must be free of side-effects
 
 
 
+   window.klipse_settings.eval_idle_msec =
+5000;
+
 
 
 
@@ -506,7 +430,7 @@ f must be free of side-effects
 
 
 
-<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?the_version=7.11.2"></script>
 
 
 
@@ -517,7 +441,7 @@ f must be free of side-effects
                 
                 <footer id="colophon" class="site-footer">
     <p class="site-info inner">
-        <a href="#">Yehonathan Sharvit</a> &copy; 2022.
+        <a href="#">Yehonathan Sharvit</a> &copy; 2023.
     </p>
     <a id="back-to-top" class="back-to-top" href="#page">
         <span class="icon-arrow-up" aria-hidden="true"></span>

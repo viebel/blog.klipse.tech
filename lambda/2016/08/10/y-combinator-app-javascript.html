@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     
-        <!-- Begin Jekyll SEO tag v2.7.1 -->
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Y combinator real life application: recursive memoization in javascript | Yehonathan Sharvit</title>
-<meta name="generator" content="Jekyll v4.2.0" />
+<meta name="generator" content="Jekyll v3.9.3" />
 <meta property="og:title" content="Y combinator real life application: recursive memoization in javascript" />
 <meta name="author" content="Yehonathan Sharvit" />
 <meta property="og:locale" content="en_US" />
@@ -17,13 +17,13 @@
 <meta property="og:description" content="Y combinator real life application: recursive memoization in javascript" />
 <meta property="og:site_name" content="Yehonathan Sharvit" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2016-08-10T17:17:22+00:00" />
+<meta property="article:published_time" content="2016-08-10T19:17:22+02:00" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Y combinator real life application: recursive memoization in javascript" />
 <meta name="twitter:site" content="@" />
 <meta name="twitter:creator" content="@Yehonathan Sharvit" />
 <script type="application/ld+json">
-{"url":"/lambda/2016/08/10/y-combinator-app-javascript.html","headline":"Y combinator real life application: recursive memoization in javascript","dateModified":"2016-08-10T17:17:22+00:00","datePublished":"2016-08-10T17:17:22+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/lambda/2016/08/10/y-combinator-app-javascript.html"},"author":{"@type":"Person","name":"Yehonathan Sharvit"},"description":"Y combinator real life application: recursive memoization in javascript","@context":"https://schema.org"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yehonathan Sharvit"},"dateModified":"2016-08-10T19:17:22+02:00","datePublished":"2016-08-10T19:17:22+02:00","description":"Y combinator real life application: recursive memoization in javascript","headline":"Y combinator real life application: recursive memoization in javascript","mainEntityOfPage":{"@type":"WebPage","@id":"/lambda/2016/08/10/y-combinator-app-javascript.html"},"url":"/lambda/2016/08/10/y-combinator-app-javascript.html"}</script>
 <!-- End Jekyll SEO tag -->
 
     
@@ -312,7 +312,7 @@ window.function_calls
   (n &lt; 2) ? 1 : fib(n - 1) + fib(n - 2)
 </code></pre>
 
-<p>There are a couple of <a href="/clojurescript/2016/04/19/fibonacci.html">effective implementations</a> for the Fibonacci sequence without using recursion.</p>
+<p>There are a couple of <a href="/clojurescript/2016/04/20/fibonacci.html">effective implementations</a> for the Fibonacci sequence without using recursion.</p>
 
 <p>Using our <code class="language-plaintext highlighter-rouge">Ymemo</code> combinator, one can write an effective recursive implementation if the Fibonnaci sequence:</p>
 
@@ -414,9 +414,9 @@ fib_memo = Ymemo(fib_gen);
         <article class="post">
             <header class="post-header">
                 <div class="post-meta">
-                    <time class="published" datetime="August 13, 2016">August 13, 2016</time>
+                    <time class="published" datetime="August 14, 2016">August 14, 2016</time>
                 </div>
-                <h3 class="post-title"><a href="/lambda/2016/08/13/almost-y-combinator-ruby.html">Recursions without names: Introduction to the Y combinator in ruby</a></h3>
+                <h3 class="post-title"><a href="/lambda/2016/08/14/almost-y-combinator-ruby.html">Recursions without names: Introduction to the Y combinator in ruby</a></h3>
                 <p class="post-tags">
                     
                     
@@ -589,7 +589,7 @@ fib_memo = Ymemo(fib_gen);
                 
                 <footer id="colophon" class="site-footer">
     <p class="site-info inner">
-        <a href="#">Yehonathan Sharvit</a> &copy; 2022.
+        <a href="#">Yehonathan Sharvit</a> &copy; 2023.
     </p>
     <a id="back-to-top" class="back-to-top" href="#page">
         <span class="icon-arrow-up" aria-hidden="true"></span>

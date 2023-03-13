@@ -7,23 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     
-        <!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>setInterval with limited number of iterations | Yehonathan Sharvit</title>
-<meta name="generator" content="Jekyll v4.2.0" />
-<meta property="og:title" content="setInterval with limited number of iterations" />
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>In javascript, setTimeout is forced to be &gt;= 4 msec | Yehonathan Sharvit</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="In javascript, setTimeout is forced to be &gt;= 4 msec" />
 <meta name="author" content="Yehonathan Sharvit" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="setInterval with limited number of iterations" />
-<meta property="og:description" content="setInterval with limited number of iterations" />
+<meta name="description" content="In javascript, setTimeout is forced to be &gt;= 4 msec. 0 delay timer. postMessage. asynchronous." />
+<meta property="og:description" content="In javascript, setTimeout is forced to be &gt;= 4 msec. 0 delay timer. postMessage. asynchronous." />
 <meta property="og:site_name" content="Yehonathan Sharvit" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2016-10-31T23:12:54+00:00" />
+<meta property="article:published_time" content="2016-11-01T00:12:54+01:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="setInterval with limited number of iterations" />
+<meta property="twitter:title" content="In javascript, setTimeout is forced to be &gt;= 4 msec" />
 <meta name="twitter:site" content="@" />
 <meta name="twitter:creator" content="@Yehonathan Sharvit" />
 <script type="application/ld+json">
-{"url":"/javascript/2016/10/31/setIntervalX.html","headline":"setInterval with limited number of iterations","dateModified":"2016-10-31T23:12:54+00:00","datePublished":"2016-10-31T23:12:54+00:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/javascript/2016/10/31/setIntervalX.html"},"author":{"@type":"Person","name":"Yehonathan Sharvit"},"description":"setInterval with limited number of iterations","@context":"https://schema.org"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yehonathan Sharvit"},"dateModified":"2016-11-01T00:12:54+01:00","datePublished":"2016-11-01T00:12:54+01:00","description":"In javascript, setTimeout is forced to be &gt;= 4 msec. 0 delay timer. postMessage. asynchronous.","headline":"In javascript, setTimeout is forced to be &gt;= 4 msec","mainEntityOfPage":{"@type":"WebPage","@id":"/javascript/2016/11/01/setTimeout-0msec.html"},"url":"/javascript/2016/11/01/setTimeout-0msec.html"}</script>
 <!-- End Jekyll SEO tag -->
 
     
@@ -159,10 +159,10 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
     <article class="post-full inner">
 
         <header class="post-header">
-            <h1 class="post-title">setInterval with limited number of iterations</h1>
+            <h1 class="post-title">In javascript, setTimeout is forced to be >= 4 msec</h1>
             <span class="post-meta">
-              <time class="post-date" datetime="2016-10-31">
-                October 31, 2016
+              <time class="post-date" datetime="2016-11-01">
+                November 1, 2016
               </time>
             </span>
             
@@ -175,41 +175,119 @@ License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL
         </header><!-- .post-header -->
 
         <div class="post-content">
-            <pre><code class="language-klipse-eval-js">function printInterval (txt) {
-  document.getElementById("interval").innerText = txt;
-}
+            <p>Javascript is a language full of surprises: there are the <code class="language-plaintext highlighter-rouge">good parts</code> and the <code class="language-plaintext highlighter-rouge">bad parts</code>. Today, I discovered that <code class="language-plaintext highlighter-rouge">setTimeout</code> featured a minimal delay of 4 msec.</p>
+
+<p>This is well documented in <a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setTimeout#Reasons_for_delays_longer_than_specified">Reasons for delays longer than specified</a>.</p>
+
+<p>But I wonder, how many experienced javascript developers are aware of this weird behaviour.</p>
+
+<p>What about you?</p>
+
+<p>Did you know that the minimal delay of <code class="language-plaintext highlighter-rouge">setTimeout</code> was 4 msec?</p>
+
+<p>In this article, we are going to:</p>
+
+<ol>
+  <li>demonstrate the 4 sec delay added by the browser when one uses a <code class="language-plaintext highlighter-rouge">setTimeout</code> with 0 delay.</li>
+  <li>demonstrate how to write 0-delay timers using <code class="language-plaintext highlighter-rouge">postMessage</code>.</li>
+</ol>
+
+<p><img src="/assets/stopwatch.jpg" alt="Stop" /></p>
+
+<h1 id="code-example">Code example</h1>
+
+<p>All the code snippets of this page are <strong>live</strong> and <strong>interactive</strong> powered by the <a href="https://github.com/viebel/klipse">klipse plugin</a>:</p>
+
+<ol>
+  <li><strong>Live</strong>: The code is executed in your browser</li>
+  <li><strong>Interactive</strong>: You can modify the code and it is evaluated after 3 seconds of inactivity of if you press <code class="language-plaintext highlighter-rouge">Ctrl-Enter</code> inside the code snippet.</li>
+</ol>
+
+<h1 id="the-4-msec-delay-in-action">The 4 msec delay in action</h1>
+
+<p>Here is the  code that demonstrates the 4-msec delay - calling <code class="language-plaintext highlighter-rouge">setTimeout</code> recursively 100 times with a <code class="language-plaintext highlighter-rouge">0</code> delay.</p>
+
+<p>As you can see by yourslef, the execution time for 100 iterations is around 400 msec.</p>
+
+<p>You might need to reevaluate the snippet - for some reason the first evaluation takes much more time.</p>
+
+<p>Press <code class="language-plaintext highlighter-rouge">Ctrl-Enter</code> inside the code snippet or modify the code and wait for 3 seconds…</p>
+
+<pre><code class="language-klipse-eval-js" data-async-code="true">
+function bar(iterations) {
+  if(iterations === 0) {
+    console.log("done in: " + (new Date() - startTimeout)+ " msec")
+  }
+  else {
+  setTimeout(bar, 0, iterations - 1);
+  }
+  }
+
+startTimeout = new Date();
+console.log("Start");
+bar(100);
 </code></pre>
 
-<pre><div class="language-klipse-eval-js">
-setIntervalX = function (callback, delay, repetitions, onCompleted) {
-  var x = 0;
-  var intervalID = window.setInterval(function () {
-    callback();
-    if (++x === repetitions) {
-      window.clearInterval(intervalID);
-      if(onCompleted) {
-        onCompleted();
-      }
+<p>Amazing. No?</p>
+
+<h1 id="the-solution-for-fast-timeouts">The solution for fast timeouts</h1>
+
+<p>If we want to have a <code class="language-plaintext highlighter-rouge">0 msec</code> timer, we have to use <code class="language-plaintext highlighter-rouge">postMessage</code>.</p>
+
+<p>So, let’s do it and take the following code from <a href="https://dbaron.org/log/20100309-faster-timeouts">setTimeout with a shorter delay</a>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">setZeroTimeout</code> takes a single argument: the callback function that is going to be called with 0 delay - but asynchronously.</p>
+
+<pre><code class="language-klipse-eval-js">(function() {
+    var timeouts = [];
+    var messageName = "zero-timeout-message";
+
+    function setZeroTimeout(fn) {
+        timeouts.push(fn);
+        window.postMessage(messageName, "*");
     }
-  }, delay);
+
+    function handleMessage(event) {
+        if (event.source == window &amp;&amp; event.data == messageName) {
+            event.stopPropagation();
+            if (timeouts.length &gt; 0) {
+                var fn = timeouts.shift();
+                fn();
+            }
+        }
+    }
+    window.addEventListener("message", handleMessage, true);
+    window.setZeroTimeout = setZeroTimeout;
+})();
+</code></pre>
+
+<p>And now, let’s see it in action - in my browser, it takes around 17 msec for 100 iterations.</p>
+
+<p>Again, you might need to reevaluate the snippet - as the first evaluation takes much more time.</p>
+
+<p>Press <code class="language-plaintext highlighter-rouge">Ctrl-Enter</code> inside the code snippet or modify the code and wait for 3 seconds…</p>
+
+<pre><code class="language-klipse-eval-js" data-async-code="true">
+function runBaz(iterations) {
+  function baz() {
+    if(--iterations === 0) {
+      console.log("done in: " + (new Date() - startZeroTimeout) + " msec")
+    }
+    else {
+      setZeroTimeout(baz);
+    }
+  }
+  baz();
 }
 
+startZeroTimeout = new Date();
+console.log("OK");
+runBaz(100);
+</code></pre>
 
-let startInterval = new Date();
-printInterval("Start");
+<p>By the way, what do you think about the interactive code snippets powered by <a href="https://github.com/viebel/klipse">KLIPSE</a>?</p>
 
-setIntervalX(function(){},
-             0,
-             100,
-             function() {
-  printInterval("done in: " + (new Date() - startInterval) + " msec");
-});
-</div><div id="interval">Empty</div></pre>
-
-<h1 id="conclusion">Conclusion</h1>
-
-<p>What do you think about the interactive code snippets powered by <a href="https://github.com/viebel/klipse">KLIPSE</a>?</p>
-
+<p>You might what to give a star on <a href="https://github.com/viebel/klipse">Github</a>…</p>
 
         </div>
         <footer class="post-footer">
@@ -217,9 +295,9 @@ setIntervalX(function(){},
             <div class="post-share">
                 <span class="post-share-title">Share:</span>
                 <a target="_blank"
-                    href="https://twitter.com/share?text=setInterval+with+limited+number+of+iterations&amp;url=https://blog.klipse.techjavascript/2016/10/31/setIntervalX.html">Twitter</a>
+                    href="https://twitter.com/share?text=In+javascript%2C+setTimeout+is+forced+to+be+%3E%3D+4+msec&amp;url=https://blog.klipse.techjavascript/2016/11/01/setTimeout-0msec.html">Twitter</a>
                 <a target="_blank"
-                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techjavascript/2016/10/31/setIntervalX.html">Facebook</a>
+                    href="https://www.facebook.com/sharer/sharer.php?u=https://blog.klipse.techjavascript/2016/11/01/setTimeout-0msec.html">Facebook</a>
             </div><!-- .share-post -->
         </footer>
     </article>
@@ -247,15 +325,15 @@ setIntervalX(function(){},
         <article class="post">
             <header class="post-header">
                 <div class="post-meta">
-                    <time class="published" datetime="October 25, 2016">October 25, 2016</time>
+                    <time class="published" datetime="November 1, 2016">November 1, 2016</time>
                 </div>
-                <h3 class="post-title"><a href="/clojure/2016/10/25/core-match.html">Core.match interactive tutorial</a>
+                <h3 class="post-title"><a href="/javascript/2016/11/01/setIntervalX.html">setInterval with limited number of iterations</a>
                 </h3>
                 <p class="post-tags">
                     
                     
                     
-                    <a href='/tag/clojure/'>Clojure</a>
+                    <a href='/tag/javascript/'>Javascript</a>
                     
                     
                     
@@ -267,14 +345,14 @@ setIntervalX(function(){},
         <article class="post">
             <header class="post-header">
                 <div class="post-meta">
-                    <time class="published" datetime="October 31, 2016">October 31, 2016</time>
+                    <time class="published" datetime="November 7, 2016">November 7, 2016</time>
                 </div>
-                <h3 class="post-title"><a href="/javascript/2016/10/31/setTimeout-0msec.html">In javascript, setTimeout is forced to be >= 4 msec</a></h3>
+                <h3 class="post-title"><a href="/javascript/2016/11/07/best-sql-tutorial.html">An interactive way of writing SQL tutorials</a></h3>
                 <p class="post-tags">
                     
                     
                     
-                    <a href='/tag/javascript/'>Javascript</a>
+                    <a href='/tag/sql/'>Sql</a>
                     
                     
                     
@@ -415,7 +493,7 @@ setIntervalX(function(){},
 
 
    window.klipse_settings.eval_idle_msec =
-5000;
+3000;
 
 
 
@@ -441,7 +519,7 @@ setIntervalX(function(){},
                 
                 <footer id="colophon" class="site-footer">
     <p class="site-info inner">
-        <a href="#">Yehonathan Sharvit</a> &copy; 2022.
+        <a href="#">Yehonathan Sharvit</a> &copy; 2023.
     </p>
     <a id="back-to-top" class="back-to-top" href="#page">
         <span class="icon-arrow-up" aria-hidden="true"></span>
