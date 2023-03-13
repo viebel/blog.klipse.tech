@@ -5,7 +5,7 @@ gem 'jekyll'
 gem 'coderay'
 gem 'pygments.rb'
 gem 'rake-jekyll'
-gem "github-pages"
+gem 'github-pages', '>= 228'
 
 group :jekyll_plugins do
   gem 'jekyll-feed'
