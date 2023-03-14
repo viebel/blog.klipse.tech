@@ -97,7 +97,7 @@ _.get(libraryData, informationPath).toUpperCase();
 
 ~~~eval-js
 function getBookProperty(libraryData, isbn, fieldName) {
-   // Write your code here
+   // Write your code here using _.get
 }
 ~~~
 
@@ -115,7 +115,7 @@ getBookProperty(libraryData, "978-1779501127", "title") === "Watchmen"
 
 ~~~eval-js
 function searchBooksByTitle(libraryData, query) {
-   // Write your code here
+   // Write your code here using _.get, _.map and _.filter
 }
 ~~~
 
@@ -148,7 +148,7 @@ Remember that we are using a version of Lodash that, instead of mutating data in
 
 ~~~eval-js
 function blockMember(libraryData, email) {
-   // Write your code here
+   // Write your code here using _.set
 }
 ~~~
 
@@ -169,7 +169,7 @@ In Data-Oriented programming, data is immutable. Functions like `_.set()_` make 
 
 ~~~eval-js
 function renameKeys(map, keyMap) {
-   // Write your code here
+   // Write your code here using _.get, _.set, _.omit and _.reduce
 }
 ~~~
 
@@ -265,7 +265,7 @@ var watchmenFromOpenLib = {
 
 ~~~eval-js
 function mergeAndSerialize(a, b) {
-   // Write your code here
+   // Write your code here using _.merge
 }
 
 mergeAndSerialize(watchmenFromDB, watchmenFromOpenLib);
