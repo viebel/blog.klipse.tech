@@ -260,7 +260,7 @@ _.get(libraryData, informationPath).toUpperCase();
 <p><strong>Challenge ‍</strong>: Write a function named <code class="language-plaintext highlighter-rouge">getBookProperty</code> that receives library data and ISBN and a field name and returns the value of the field for the book with the given ISBN</p>
 
 <pre><code class="language-eval-js">function getBookProperty(libraryData, isbn, fieldName) {
-   // Write your code here
+   // Write your code here using _.get
 }
 </code></pre>
 
@@ -274,7 +274,7 @@ _.get(libraryData, informationPath).toUpperCase();
 <p><strong>Remark</strong>: You are not allowed to extract author names from author ids. Assume that author ids are opaque strings.</p>
 
 <pre><code class="language-eval-js">function searchBooksByTitle(libraryData, query) {
-   // Write your code here
+   // Write your code here using _.get, _.map and _.filter
 }
 </code></pre>
 
@@ -303,7 +303,7 @@ _.isEqual(searchBooksByTitle(libraryData, "watCH"), expected)
 <p>Remember that we are using a version of Lodash that, instead of mutating data in place, creates a new version.</p>
 
 <pre><code class="language-eval-js">function blockMember(libraryData, email) {
-   // Write your code here
+   // Write your code here using _.set
 }
 </code></pre>
 
@@ -321,7 +321,7 @@ _.get(updatedLibraryData, informationPath) == true
 <p><strong>Challenge</strong>: Write a function named <code class="language-plaintext highlighter-rouge">renameKeys</code> that receives a data entity and a key mappings and returns a new data entity, without altering the original entity, where the fields are renamed according to the key mappings</p>
 
 <pre><code class="language-eval-js">function renameKeys(map, keyMap) {
-   // Write your code here
+   // Write your code here using _.get, _.set, _.omit and _.reduce
 }
 </code></pre>
 
@@ -413,7 +413,7 @@ var watchmenFromOpenLib = {
 </code></pre>
 
 <pre><code class="language-eval-js">function mergeAndSerialize(a, b) {
-   // Write your code here
+   // Write your code here using _.merge
 }
 
 mergeAndSerialize(watchmenFromDB, watchmenFromOpenLib);
