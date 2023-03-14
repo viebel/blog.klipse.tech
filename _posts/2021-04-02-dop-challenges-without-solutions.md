@@ -81,7 +81,8 @@ var libraryData = {
 
 What's the title of the book whose ISBN is "978-1779501127" in upper case?
 
-I suggest you use [Lodash FP](https://github.com/lodash/lodash/wiki/FP-Guide). 
+I suggest you use Lodash with its FP flavour [Lodash FP](https://github.com/lodash/lodash/wiki/FP-Guide). Here's the [documentation](2021-04-02-dop-challenges-without-solutions.md
+) of the Lodash libray.
 
 Here's an example: 
 
