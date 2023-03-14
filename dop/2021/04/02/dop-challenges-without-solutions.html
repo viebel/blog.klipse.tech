@@ -307,7 +307,9 @@ _.isEqual(searchBooksByTitle(libraryData, "watCH"), expected)
 }
 </code></pre>
 
-<pre><code class="language-eval-js">var informationPath = ["userManagement", "members", "samantha@gmail.com", "isBlocked"]; 
+<pre><code class="language-eval-js">var updatedLibraryData = blockMember(libraryData, "samantha@gmail.com");
+
+var informationPath = ["userManagement", "members", "samantha@gmail.com", "isBlocked"]; 
 _.get(updatedLibraryData, informationPath) == true
 </code></pre>
 
