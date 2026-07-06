@@ -10,7 +10,7 @@ author: Yehonathan Sharvit
 tags: [aboulafia, math, permutations, pancake, zaks]
 ---
 
-*Second article in [the series]({% post_url 2026-07-06-aboulafia-Tserouf-first-permutation-algorithm %}). In the [first part]({% post_url 2026-07-06-aboulafia-Tserouf-first-permutation-algorithm %}) we saw that Aboulafia's Tserouf is a recursive algorithm for permutations, driven by one simple rule — send the first letter to the end, and repeat at every scale. Here is the part that still gives me chills — the same order was rediscovered in 1984, through a completely different door.*
+*Second article in [the series]({% post_url 2026-07-06-aboulafia-tserouf-first-permutation-algorithm %}). In the [first part]({% post_url 2026-07-06-aboulafia-tserouf-first-permutation-algorithm %}) we saw that Aboulafia's Tserouf is a recursive algorithm for permutations, driven by one simple rule — send the first letter to the end, and repeat at every scale. Here is the part that still gives me chills — the same order was rediscovered in 1984, through a completely different door.*
 
 ## Bill Gates's only paper
 
