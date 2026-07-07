@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Aboulafia and the formula Bill Gates studied"
+title:  "An elegant formulation inspired by the one and only paper Bill Gates ever wrote"
 description: "Aboulafia's ordering of the permutations is the very order Shimon Zaks generated in 1984 by reversing suffixes — keeping the head fixed and flipping the tail. The mirror of that move, prefix reversal, is the subject of Bill Gates's only scientific paper."
 date:   2026-07-06 10:00:00 +0200
 categories: aboulafia
@@ -10,7 +10,7 @@ author: Yehonathan Sharvit
 tags: [aboulafia, math, permutations, pancake, zaks]
 ---
 
-*Second article in [the series]({% post_url 2026-07-06-aboulafia-tserouf-first-permutation-algorithm %}). In the [first part]({% post_url 2026-07-06-aboulafia-tserouf-first-permutation-algorithm %}) we saw that Aboulafia's Tserouf is a recursive algorithm for permutations, driven by one simple rule — send the first letter to the end, and repeat at every scale. Here is the part that still gives me chills — the same order was rediscovered in 1984, through a completely different door.*
+*Second article in [the series]({% post_url 2026-07-06-a-13th-century-enumeration-algorithm-ignored-for-700-years %}). In the [first part]({% post_url 2026-07-06-a-13th-century-enumeration-algorithm-ignored-for-700-years %}) we saw that Aboulafia's Tserouf is a recursive algorithm for permutations, driven by one simple rule — send the first letter to the end, and repeat at every scale. Here is the part that still gives me chills — the same order was rediscovered in 1984, through a completely different door.*
 
 ## Bill Gates's only paper
 
@@ -89,4 +89,4 @@ I did not realize it during the call, but that same ranking and unranking is exa
 
 You might think any systematic ordering of permutations is as good as any other. It is not. The specific order Aboulafia chose has mathematical properties that other systematic orderings of the same permutations simply do not have.
 
-To see them, you have to **draw** the order. When you do, it stops being a list and becomes an object of startling beauty. That is [the next article]({% post_url 2026-07-06-the-caustics-of-the-aboulafia-graph %}).
+To see them, you have to **draw** the order. When you do, it stops being a list and becomes an object of startling beauty. That is [the next article]({% post_url 2026-07-06-too-big-to-draw-but-yet-drawable %}).

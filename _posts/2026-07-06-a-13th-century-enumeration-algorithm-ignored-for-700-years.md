@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Aboulafia's Tserouf: an algorithm hidden in a 13th-century meditation"
+title:  "A 13th-Century Enumeration Algorithm, Ignored for 700 Years"
 description: "In Or ha-Sekhel, the Kabbalist Abraham Aboulafia prescribes a systematic way to run through every arrangement of the letters of a word. With only two or three simple rules, he describes what we would now call a recursive algorithm for generating permutations."
 date:   2026-07-06 09:00:00 +0200
 categories: aboulafia
@@ -82,4 +82,4 @@ The ringers found their order in the bell tower; Aboulafia found his in a spritu
 
 So Aboulafia gave a genuine recursive algorithm for permutations. That alone would be a fine historical note. But there is much more.
 
-His exact ordering turns out to coincide with an algorithm published in 1984 by the mathematician Shimon Zaks — reached through an entirely different door, and built on a move that a young Bill Gates studied in his only scientific paper. That is [the next article]({% post_url 2026-07-06-aboulafia-and-the-formula-bill-gates-studied %}). And when you *draw* Aboulafia's order, something happens that no one expects — [that is where the series is heading]({% post_url 2026-07-06-the-caustics-of-the-aboulafia-graph %}).
+His exact ordering turns out to coincide with an algorithm published in 1984 by the mathematician Shimon Zaks — reached through an entirely different door, and built on a move that a young Bill Gates studied in his only scientific paper. That is [the next article]({% post_url 2026-07-06-an-elegant-formulation-inspired-by-bill-gates %}). And when you *draw* Aboulafia's order, something happens that no one expects — [that is where the series is heading]({% post_url 2026-07-06-too-big-to-draw-but-yet-drawable %}).

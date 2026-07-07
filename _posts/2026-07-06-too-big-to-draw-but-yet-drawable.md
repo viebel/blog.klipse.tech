@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "The caustics of the Aboulafia graph"
+title:  "Too big to draw, but yet drawable"
 description: "Place the permutations on a circle in Aboulafia's order, join each word to its reversal, and — once there are too many to draw and you sample at random — luminous curves appear: caustics, the same phenomenon as the bright cusp of light at the bottom of a coffee cup."
 date:   2026-07-06 11:00:00 +0200
 categories: aboulafia
@@ -10,11 +10,11 @@ author: Yehonathan Sharvit
 tags: [aboulafia, math, caustics, generative, visualization]
 ---
 
-*Third article in [the series]({% post_url 2026-07-06-aboulafia-tserouf-first-permutation-algorithm %}). We have seen that [Aboulafia's tserouf]({% post_url 2026-07-06-aboulafia-and-the-formula-bill-gates-studied %}) is a precise ordering of all the permutations of a word. Now let us draw it.*
+*Third article in [the series]({% post_url 2026-07-06-a-13th-century-enumeration-algorithm-ignored-for-700-years %}). We have seen that [Aboulafia's tserouf]({% post_url 2026-07-06-an-elegant-formulation-inspired-by-bill-gates %}) is a precise ordering of all the permutations of a word. Now let us draw it.*
 
 ## How to draw a permutation space
 
-Take all the arrangements of `n` letters — all `n!` of them — and place them, in Aboulafia's order, as points evenly spaced around a circle. This is only possible because [Zaks's ranking and unranking]({% post_url 2026-07-06-aboulafia-and-the-formula-bill-gates-studied %}) is **recursive in `n`, not in `n!`**: to find where a given word belongs on the circle, we run a short recursion over its `n` letters — we never have to walk through the astronomical list. Then join each word to its **reversal**, the same word read back to front. Those are the only chords that matter: drawing them is enough to reveal the whole structure.
+Take all the arrangements of `n` letters — all `n!` of them — and place them, in Aboulafia's order, as points evenly spaced around a circle. This is only possible because [Zaks's ranking and unranking]({% post_url 2026-07-06-an-elegant-formulation-inspired-by-bill-gates %}) is **recursive in `n`, not in `n!`**: to find where a given word belongs on the circle, we run a short recursion over its `n` letters — we never have to walk through the astronomical list. Then join each word to its **reversal**, the same word read back to front. Those are the only chords that matter: drawing them is enough to reveal the whole structure.
 
 Watch what happens as `n` climbs. Up to six letters the picture is still a sparse tangle of chords — you can almost count them.
 
@@ -48,7 +48,7 @@ The chords do not spread evenly. They pile up along smooth, glowing curves — t
 
 *The Tserouf of 42 letters. Its **1.41 × 10⁵¹** permutations could never be drawn — this is just **870,000** of its chords, taken at random.*
 
-And you can fall into it. Because [Zaks's ranking and unranking functions]({% post_url 2026-07-06-aboulafia-and-the-formula-bill-gates-studied %}) let you jump straight to any position without visiting the others, you can zoom in — here **985×** — and the same rings return, finer and finer:
+And you can fall into it. Because [Zaks's ranking and unranking functions]({% post_url 2026-07-06-an-elegant-formulation-inspired-by-bill-gates %}) let you jump straight to any position without visiting the others, you can zoom in — here **985×** — and the same rings return, finer and finer:
 
 <p align="center"><img src="/assets/tserouf_42_z985.png" alt="985× zoom into the 42-letter Tserouf" style="width:92%;max-width:820px;background:#0b0b0f;border-radius:8px;box-sizing:border-box;padding:52px"></p>
 
@@ -58,4 +58,4 @@ A strict rule — order the words, join each to its reversal — sampled blindly
 
 Moreover, the symmetry of the figure grows with the number of letters and it is the symmetry of a **mandala** and a **kaleidoscope**.
 
-There is a precise mathematical reason for that, which is [the final article]({% post_url 2026-07-06-why-the-aboulafia-graph-is-a-mandala %}).
+There is a precise mathematical reason for that, which is [the final article]({% post_url 2026-07-06-a-wheel-the-same-forwards-and-backwards %}).
