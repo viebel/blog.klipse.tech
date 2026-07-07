@@ -55,10 +55,18 @@ The **corolla of a flower** — its ring of petals — repeats one petal `n` tim
 
 Cultural, optical, biological — three utterly different worlds, and the same group `Dₙ` underneath all of them. One is tempted to see in dihedral symmetry something like a **meta-law of organisation**: the form that matter and mind alike fall into whenever they order themselves around a still centre — in a crystal, a petal, a rose window, a mandala. The Aboulafia graph simply adds one more member to that family, grown not from matter but from the permutations of letters.
 
-## A wheel, the same forwards and backwards
+## A wheel, the same front and back
 
-The *Sefer Yetzirah*, the ancient book at the root of this whole tradition, speaks of the **galgal** (גלגל) — the **wheel** — and describes it as *panim v'aḥor* (פנים ואחור), **"front and back."** I read this as a wheel that is *the same forwards and backwards.*
+The *Sefer Yetzirah*, the ancient book at the root of this whole tradition, speaks of the **galgal** — the **wheel** — and of *panim v'aḥor*, a phrase usually translated **"forwards and backwards."**
 
-That single phrase is dihedral symmetry, stated in two words. The **wheel** is the rotation. **"Front and back" — the same either way** — is the reflection, the two faces of the *dihedron*. And the mathematics echoes the words exactly: the recipe of reversals behind the wheel is a *palindrome*, a sequence that reads the same *panim v'aḥor* — and that palindrome is precisely the mirror. Aboulafia's letter-wheel, turned and reversed, is a dihedral object; and the graph proves it, letter for letter, `n` copies to the turn.
+And here our theorem says something precise. *Panim* means *face*; *aḥor* means *back*. The dihedral reflection we proved is exactly the flip that exchanges the two faces of the wheel — the two faces of the *dihedron*. So the wheel is not only the same *forwards and backwards* in the ordinary, directional sense: it is literally the same **front and back**. What tradition rendered loosely as a direction, the mathematics restores to the letter — a wheel whose face and back are one and the same.
+
+The **wheel** is the rotation; **front and back, the same either way,** is the reflection. And the words echo the mathematics once more: the recipe of reversals behind the wheel is a *palindrome*, a sequence that reads the same in either direction — and that palindrome is precisely the mirror. Aboulafia's letter-wheel, turned and reversed, is a dihedral object; and the graph proves it, letter for letter, `n` copies to the turn.
+
+The two languages even close on the same word. *Dihedral* means *two faces* — from the Greek *di-*, two, and *hedra*, face. And *panim v'aḥor* — *face and back* — is two faces as well. It is as if the *Sefer Yetzirah*, in that single phrase, had already named a **dihedral** symmetry: a symmetry of two faces, a front and a back that turn out to be one.
 
 A 13th-century Kabbalist set out to turn the letters until ordinary meaning dissolved. Seven hundred years later, drawn on a circle, his wheel comes back to us in the shape of a mandala, a kaleidoscope, a flower — the same forwards and backwards. Perhaps that shape is what he was turning toward all along.
+
+---
+
+<p style="font-size:0.85em;color:#999">Images © 2026 Yehonathan Sharvit. Free to share with credit and a link.</p>

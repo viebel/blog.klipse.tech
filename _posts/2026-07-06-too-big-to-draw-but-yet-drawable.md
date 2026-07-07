@@ -64,3 +64,7 @@ A strict rule — order the words, join each to its reversal — sampled blindly
 Moreover, the symmetry of the figure grows with the number of letters and it is the symmetry of a **mandala** and a **kaleidoscope**.
 
 There is a precise mathematical reason for that, which is [the final article]({% post_url 2026-07-06-a-wheel-the-same-forwards-and-backwards %}).
+
+---
+
+<p style="font-size:0.85em;color:#999">Images © 2026 Yehonathan Sharvit. Free to share with credit and a link.</p>
