@@ -1,0 +1,31 @@
+@startuml
+Member       --> User
+
+Librarian    --> User
+Librarian    ..> Member
+
+
+
+class User {
+  - id : String
+  - email : String
+  - password : String
+  + Bool login()
+}
+
+class Member {
+  + Bool isBlocked()
+  + Bool returnBook(bookLending: BookLending)
+  + BookLending checkout(bookItem: BookItem)
+}
+
+class Librarian {
+  + Bool blockMember(member: Member)
+  + Bool UnblockMember(member: Member)
+  + BookItem addBookItem(bookItem: BookItem)
+  + List<BookLending> getBookLendingsOfMember(member: Member)
+}
+
+
+
+@enduml

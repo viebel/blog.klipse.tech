@@ -1,0 +1,18 @@
+@startuml
+
+Library      *-- Catalog
+Library      *-r- "*" Member
+
+class Catalog {
+  + List<Book> search(searchCriteria, queryStr)
+  + BookItem addBookItem(librarian: Librarian, bookItem: BookItem)
+}
+
+
+class Library {
+  - name : String
+  - address : String
+}
+
+
+@enduml

@@ -1,0 +1,11 @@
+skinparam object {
+ ArrowColor DarkOliveGreen
+ BackgroundColor White
+ BorderColor CornflowerBlue
+}
+
+skinparam class {
+ ArrowColor DarkOliveGreen
+ BackgroundColor White
+ BorderColor CornflowerBlue
+}

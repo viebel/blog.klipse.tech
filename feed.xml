@@ -1,0 +1,2594 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2026-07-07T23:47:28+00:00</updated><id>/feed.xml</id><title type="html">Yehonathan Sharvit</title><subtitle>Developer. Author. Speaker.</subtitle><author><name>{&quot;image&quot;=&gt;&quot;authorimage.jpg&quot;, &quot;greetings&quot;=&gt;&quot;Hi there! My name is Yehonathan Sharvit. I&apos;m a software developer, author and speaker. My passion is to make interesting things easy to understand. I hope you will enjoy the articles.&quot;}</name></author><entry><title type="html">A Wheel, the Same Forwards and Backwards</title><link href="/aboulafia/2026/07/06/a-wheel-the-same-forwards-and-backwards.html" rel="alternate" type="text/html" title="A Wheel, the Same Forwards and Backwards" /><published>2026-07-06T10:00:00+00:00</published><updated>2026-07-06T10:00:00+00:00</updated><id>/aboulafia/2026/07/06/a-wheel-the-same-forwards-and-backwards</id><content type="html" xml:base="/aboulafia/2026/07/06/a-wheel-the-same-forwards-and-backwards.html">&lt;div style=&quot;margin:0 0 2em;padding:.7em 1em;border:1px solid #e6e2d8;border-radius:8px;background:#faf8f3;font-size:0.9em&quot;&gt;
+&lt;span style=&quot;color:#a08d6a;text-transform:uppercase;letter-spacing:.07em;font-size:0.78em&quot;&gt;Aboulafia&apos;s Tserouf · Part 4 of 4&lt;/span&gt;&lt;br /&gt;
+← Previous: &lt;a href=&quot;/aboulafia/2026/07/06/too-big-to-draw-but-yet-drawable.html&quot;&gt;Too big to draw, but yet drawable&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;em&gt;Final article in &lt;a href=&quot;/aboulafia/2026/07/06/a-13th-century-enumeration-algorithm-ignored-for-700-years.html&quot;&gt;the series&lt;/a&gt;. We &lt;a href=&quot;/aboulafia/2026/07/06/too-big-to-draw-but-yet-drawable.html&quot;&gt;drew Aboulafia’s order&lt;/a&gt; and watched a striking symmetry appear. That symmetry has a precise name.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;the-symmetry-of-a-polygon&quot;&gt;The symmetry of a polygon&lt;/h2&gt;
+
+&lt;p&gt;Take a regular polygon with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; sides — an equilateral triangle, a square, a regular pentagon, and so on. Ask: in how many ways can you pick it up and set it back down so that it looks exactly the same? You can &lt;strong&gt;rotate&lt;/strong&gt; it, by any multiple of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;360°/n&lt;/code&gt; — that is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; rotations. And you can &lt;strong&gt;flip&lt;/strong&gt; it over across an axis of mirror symmetry — a regular &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt;-gon has exactly &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; such axes. Altogether, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2n&lt;/code&gt; motions leave it unchanged.&lt;/p&gt;
+
+&lt;figure style=&quot;margin:1.8em 0;text-align:center&quot;&gt;&lt;img src=&quot;/assets/heptagon-symmetries.svg&quot; alt=&quot;The 14 symmetries of a regular heptagon&quot; style=&quot;width:62%;max-width:380px&quot; /&gt;&lt;figcaption style=&quot;font-size:0.9em;color:#888;margin-top:.5em&quot;&gt;A regular heptagon (n = 7): 7 rotations and 7 reflections — its 7 mirror axes dashed — 14 motions in all that keep every distance between the vertices unchanged. That is the dihedral group D₇.&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;That collection of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2n&lt;/code&gt; symmetries is a mathematical object in its own right, called the &lt;strong&gt;dihedral group&lt;/strong&gt;, written &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Dₙ&lt;/code&gt;. It is &lt;em&gt;the&lt;/em&gt; symmetry of the regular &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt;-sided polygon: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; rotations and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; reflections.&lt;/p&gt;
+
+&lt;p&gt;The name is worth unpacking. &lt;strong&gt;Dihedral&lt;/strong&gt; comes from the Greek &lt;em&gt;di-&lt;/em&gt;, “two”, and &lt;em&gt;hedra&lt;/em&gt;, “seat” or “face”. A &lt;em&gt;dihedron&lt;/em&gt; is a figure with two faces — think of a flat polygon as an infinitely thin solid, with a front face and a back face. The dihedral group is the group of symmetries of that two-faced figure. Keep that “front and back” in mind; we will meet it again.&lt;/p&gt;
+
+&lt;h2 id=&quot;why-the-aboulafia-graph-has-exactly-this-symmetry&quot;&gt;Why the Aboulafia graph has exactly this symmetry&lt;/h2&gt;
+
+&lt;p&gt;Recall how the graph is built: the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n!&lt;/code&gt; words sit on a circle in Aboulafia’s order, and each is joined to its reversal. In a paper with &lt;strong&gt;Or-Hai Benjo&lt;/strong&gt;, we prove that this figure has exactly the dihedral symmetry &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Dₙ&lt;/code&gt; — and the two generators fall straight out of Zaks’s recursive recipe.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The rotation — the wheel turns.&lt;/strong&gt; The &lt;a href=&quot;/aboulafia/2026/07/06/an-elegant-formulation-inspired-by-bill-gates.html&quot;&gt;recursion&lt;/a&gt; cuts the order into &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; identical blocks, each a copy of the order for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n−1&lt;/code&gt; letters, whose starting points are the successive powers &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;id, ρ, ρ², …, ρⁿ⁻¹&lt;/code&gt; of a single &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt;-fold cyclic step &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ρ&lt;/code&gt;. Applying &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ρ&lt;/code&gt; sends every block to the next — it turns the whole wheel by one block, exactly &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;360°/n&lt;/code&gt;. There are the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; rotations.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The reflection — the palindrome.&lt;/strong&gt; The recipe of reversals that builds the order is a &lt;strong&gt;palindrome&lt;/strong&gt;: it reads the same forwards and backwards. And because every reversal undoes itself, walking the cycle from the other end simply reverses the whole sequence of words — a mirror. There is the reflection.&lt;/p&gt;
+
+&lt;p&gt;A rotation of order &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; and a mirror: together they generate &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Dₙ&lt;/code&gt;. The harder half of our paper then shows these two are the &lt;em&gt;only&lt;/em&gt; symmetries — the Aboulafia graph has &lt;em&gt;exactly&lt;/em&gt; the symmetry of the regular &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt;-gon, no more and no less.&lt;/p&gt;
+
+&lt;p&gt;You can see it directly — count the repeated motifs around the rim, and notice that each motif is itself mirror-symmetric:&lt;/p&gt;
+
+&lt;figure style=&quot;margin:1.8em 0;text-align:center&quot;&gt;&lt;img src=&quot;/assets/tserouf_13_blue.png&quot; alt=&quot;Aboulafia graph of 13 letters, with 13-fold dihedral symmetry&quot; style=&quot;width:88%;max-width:760px;background:#000;border-radius:8px;box-sizing:border-box;padding:40px&quot; /&gt;&lt;figcaption style=&quot;font-size:0.9em;color:#888;margin-top:.5em&quot;&gt;13 letters — 13 copies of one motif around the wheel, each with its own mirror axis (`D₁₃`).&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;figure style=&quot;margin:1.8em 0;text-align:center&quot;&gt;&lt;img src=&quot;/assets/tserouf_22_z1_plum.png&quot; alt=&quot;Aboulafia graph of 22 letters, with 22-fold dihedral symmetry&quot; style=&quot;width:88%;max-width:760px;background:#000;border-radius:8px;box-sizing:border-box;padding:40px&quot; /&gt;&lt;figcaption style=&quot;font-size:0.9em;color:#888;margin-top:.5em&quot;&gt;22 letters — the number of letters of the Hebrew alphabet — 22 mirror-symmetric copies around the centre (`D₂₂`).&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;the-same-law-mandala-kaleidoscope-flower&quot;&gt;The same law: mandala, kaleidoscope, flower&lt;/h2&gt;
+
+&lt;p&gt;Dihedral symmetry is not exotic. It is one of the most common shapes the world reaches for whenever it arranges parts around a centre.&lt;/p&gt;
+
+&lt;p&gt;A &lt;strong&gt;mandala&lt;/strong&gt; — from the Sanskrit &lt;em&gt;maṇḍala&lt;/em&gt;, simply “circle” or “disk” — is built, in Buddhist and Hindu traditions, on rotations and reflections about a centre. Its structure is dihedral.&lt;/p&gt;
+
+&lt;p&gt;A &lt;strong&gt;kaleidoscope&lt;/strong&gt; — coined in 1817 from the Greek &lt;em&gt;kalos&lt;/em&gt; (“beautiful”), &lt;em&gt;eidos&lt;/em&gt; (“form”) and &lt;em&gt;skopein&lt;/em&gt; (“to look at”): “the seeing of beautiful forms” — produces its images with mirrors, reflecting a small pattern again and again around a centre. Its images are dihedral by construction.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;corolla of a flower&lt;/strong&gt; — its ring of petals — repeats one petal &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; times around the centre, each petal a mirror of its neighbours. Dihedral again.&lt;/p&gt;
+
+&lt;p&gt;Cultural, optical, biological — three utterly different worlds, and the same group &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Dₙ&lt;/code&gt; underneath all of them. One is tempted to see in dihedral symmetry something like a &lt;strong&gt;meta-law of organisation&lt;/strong&gt;: the form that matter and mind alike fall into whenever they order themselves around a still centre — in a crystal, a petal, a rose window, a mandala. The Aboulafia graph simply adds one more member to that family, grown not from matter but from the permutations of letters.&lt;/p&gt;
+
+&lt;h2 id=&quot;a-wheel-the-same-front-and-back&quot;&gt;A wheel, the same front and back&lt;/h2&gt;
+
+&lt;p&gt;The &lt;em&gt;Sefer Yetzirah&lt;/em&gt;, the ancient book at the root of this whole tradition, speaks of the &lt;strong&gt;galgal&lt;/strong&gt; — the &lt;strong&gt;wheel&lt;/strong&gt; — and of &lt;em&gt;panim v’aḥor&lt;/em&gt;, a phrase usually translated &lt;strong&gt;“forwards and backwards.”&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;And here our theorem says something precise. &lt;em&gt;Panim&lt;/em&gt; means &lt;em&gt;face&lt;/em&gt;; &lt;em&gt;aḥor&lt;/em&gt; means &lt;em&gt;back&lt;/em&gt;. The dihedral reflection we proved is exactly the flip that exchanges the two faces of the wheel — the two faces of the &lt;em&gt;dihedron&lt;/em&gt;. So the wheel is not only the same &lt;em&gt;forwards and backwards&lt;/em&gt; in the ordinary, directional sense: it is literally the same &lt;strong&gt;front and back&lt;/strong&gt;. What tradition rendered loosely as a direction, the mathematics restores to the letter — a wheel whose face and back are one and the same.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;wheel&lt;/strong&gt; is the rotation; &lt;strong&gt;front and back, the same either way,&lt;/strong&gt; is the reflection. And the words echo the mathematics once more: the recipe of reversals behind the wheel is a &lt;em&gt;palindrome&lt;/em&gt;, a sequence that reads the same in either direction — and that palindrome is precisely the mirror. Aboulafia’s letter-wheel, turned and reversed, is a dihedral object; and the graph proves it, letter for letter, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; copies to the turn.&lt;/p&gt;
+
+&lt;p&gt;The two languages even close on the same word. &lt;em&gt;Dihedral&lt;/em&gt; means &lt;em&gt;two faces&lt;/em&gt; — from the Greek &lt;em&gt;di-&lt;/em&gt;, two, and &lt;em&gt;hedra&lt;/em&gt;, face. And &lt;em&gt;panim v’aḥor&lt;/em&gt; — &lt;em&gt;face and back&lt;/em&gt; — is two faces as well. It is as if the &lt;em&gt;Sefer Yetzirah&lt;/em&gt;, in that single phrase, had already named a &lt;strong&gt;dihedral&lt;/strong&gt; symmetry: a symmetry of two faces, a front and a back that turn out to be one.&lt;/p&gt;
+
+&lt;p&gt;A 13th-century Kabbalist set out to turn the letters until ordinary meaning dissolved. Seven hundred years later, drawn on a circle, his wheel comes back to us in the shape of a mandala, a kaleidoscope, a flower — the same forwards and backwards. Perhaps that shape is what he was turning toward all along.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p style=&quot;font-size:0.85em;color:#999&quot;&gt;Images © 2026 Yehonathan Sharvit. Free to share with credit and a link.&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="aboulafia" /><category term="aboulafia" /><category term="math" /><category term="symmetry" /><summary type="html">Aboulafia&apos;s Tserouf · Part 4 of 4 ← Previous: Too big to draw, but yet drawable</summary></entry><entry><title type="html">Too big to draw, but yet drawable</title><link href="/aboulafia/2026/07/06/too-big-to-draw-but-yet-drawable.html" rel="alternate" type="text/html" title="Too big to draw, but yet drawable" /><published>2026-07-06T09:00:00+00:00</published><updated>2026-07-06T09:00:00+00:00</updated><id>/aboulafia/2026/07/06/too-big-to-draw-but-yet-drawable</id><content type="html" xml:base="/aboulafia/2026/07/06/too-big-to-draw-but-yet-drawable.html">&lt;div style=&quot;margin:0 0 2em;padding:.7em 1em;border:1px solid #e6e2d8;border-radius:8px;background:#faf8f3;font-size:0.9em&quot;&gt;
+&lt;span style=&quot;color:#a08d6a;text-transform:uppercase;letter-spacing:.07em;font-size:0.78em&quot;&gt;Aboulafia&apos;s Tserouf · Part 3 of 4&lt;/span&gt;&lt;br /&gt;
+← Previous: &lt;a href=&quot;/aboulafia/2026/07/06/an-elegant-formulation-inspired-by-bill-gates.html&quot;&gt;An elegant formulation, inspired by Bill Gates&lt;/a&gt; &amp;nbsp;·&amp;nbsp; Next: &lt;a href=&quot;/aboulafia/2026/07/06/a-wheel-the-same-forwards-and-backwards.html&quot;&gt;A wheel, the same forwards and backwards&lt;/a&gt; →
+&lt;/div&gt;
+
+&lt;p&gt;&lt;em&gt;Third article in &lt;a href=&quot;/aboulafia/2026/07/06/a-13th-century-enumeration-algorithm-ignored-for-700-years.html&quot;&gt;the series&lt;/a&gt;. We have seen that &lt;a href=&quot;/aboulafia/2026/07/06/an-elegant-formulation-inspired-by-bill-gates.html&quot;&gt;Aboulafia’s tserouf&lt;/a&gt; is a precise ordering of all the permutations of a word. Now let us draw it.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;how-to-draw-a-permutation-space&quot;&gt;How to draw a permutation space&lt;/h2&gt;
+
+&lt;p&gt;Take all the arrangements of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; letters — all &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n!&lt;/code&gt; of them — and place them, in Aboulafia’s order, as points evenly spaced around a circle. This is only possible because &lt;a href=&quot;/aboulafia/2026/07/06/an-elegant-formulation-inspired-by-bill-gates.html&quot;&gt;Zaks’s ranking and unranking&lt;/a&gt; is &lt;strong&gt;recursive in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt;, not in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n!&lt;/code&gt;&lt;/strong&gt;: to find where a given word belongs on the circle, we run a short recursion over its &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; letters — we never have to walk through the astronomical list. Then join each word to its &lt;strong&gt;reversal&lt;/strong&gt;, the same word read back to front. Those are the only chords that matter: drawing them is enough to reveal the whole structure.&lt;/p&gt;
+
+&lt;p&gt;Watch what happens as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; climbs. Up to six letters the picture is still a sparse tangle of chords — you can almost count them.&lt;/p&gt;
+
+&lt;figure style=&quot;margin:1.8em 0;text-align:center&quot;&gt;&lt;img src=&quot;/assets/zaks-svg_n4.png&quot; alt=&quot;Aboulafia graph for 4 letters&quot; style=&quot;width:70%;max-width:520px;background:#0b0b0f;border-radius:8px&quot; /&gt;&lt;figcaption style=&quot;font-size:0.9em;color:#888;margin-top:.5em&quot;&gt;4 letters&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;figure style=&quot;margin:1.8em 0;text-align:center&quot;&gt;&lt;img src=&quot;/assets/zaks-svg_n5.png&quot; alt=&quot;Aboulafia graph for 5 letters&quot; style=&quot;width:70%;max-width:520px;background:#0b0b0f;border-radius:8px&quot; /&gt;&lt;figcaption style=&quot;font-size:0.9em;color:#888;margin-top:.5em&quot;&gt;5 letters&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;figure style=&quot;margin:1.8em 0;text-align:center&quot;&gt;&lt;img src=&quot;/assets/zaks-svg_n6.png&quot; alt=&quot;Aboulafia graph for 6 letters&quot; style=&quot;width:70%;max-width:520px;background:#0b0b0f;border-radius:8px&quot; /&gt;&lt;figcaption style=&quot;font-size:0.9em;color:#888;margin-top:.5em&quot;&gt;6 letters&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;But &lt;strong&gt;at seven letters the magic begins&lt;/strong&gt;: the chords start to organise themselves, all on their own, into a dense, luminous, structured web. New patterns starts to emerge.&lt;/p&gt;
+
+&lt;figure style=&quot;margin:1.8em 0;text-align:center&quot;&gt;&lt;img src=&quot;/assets/zaks-svg_n7.png&quot; alt=&quot;Aboulafia graph for 7 letters&quot; style=&quot;width:70%;max-width:520px;background:#0b0b0f;border-radius:8px&quot; /&gt;&lt;figcaption style=&quot;font-size:0.9em;color:#888;margin-top:.5em&quot;&gt;7 letters&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;too-big-to-draw-yet-drawable&quot;&gt;Too big to draw yet drawable&lt;/h2&gt;
+
+&lt;p&gt;The trouble is that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n!&lt;/code&gt; grows ferociously. At ten letters there are already 3,628,800 arrangements. At sixty letters there are more of them than there are atoms in the observable universe. You cannot draw them all — not even close.&lt;/p&gt;
+
+&lt;p&gt;So instead you &lt;strong&gt;sample&lt;/strong&gt;: pick a few hundred thousand arrangements at random, draw each one’s chord to its reversal, and let them accumulate.&lt;/p&gt;
+
+&lt;p&gt;This is doable since Zak’s formula is so simple!&lt;/p&gt;
+
+&lt;p&gt;You would expect a grey mush. The opposite happens.&lt;/p&gt;
+
+&lt;h2 id=&quot;caustics&quot;&gt;Caustics&lt;/h2&gt;
+
+&lt;p&gt;The chords do not spread evenly. They pile up along smooth, glowing curves — the same phenomenon as the bright cusp of light at the bottom of a coffee cup, where reflected rays bunch together. Mathematicians call such a curve a &lt;strong&gt;caustic&lt;/strong&gt;: the place where a whole family of lines crowds onto a single envelope, and light gathers. The picture is not drawn — it is &lt;em&gt;revealed&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-tserouf-of-42-letters&quot;&gt;The Tserouf of 42 letters&lt;/h2&gt;
+
+&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;/assets/tserouf_42.png&quot; alt=&quot;The Tserouf of 42 letters — 870,000 random chords&quot; style=&quot;width:92%;max-width:820px;background:#0b0b0f;border-radius:8px;box-sizing:border-box;padding:52px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;The Tserouf of 42 letters. Its &lt;strong&gt;1.41 × 10⁵¹&lt;/strong&gt; permutations could never be drawn — this is just &lt;strong&gt;870,000&lt;/strong&gt; of its chords, taken at random.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;And you can fall into it. Because &lt;a href=&quot;/aboulafia/2026/07/06/an-elegant-formulation-inspired-by-bill-gates.html&quot;&gt;Zaks’s ranking and unranking functions&lt;/a&gt; let you jump straight to any position without visiting the others, you can zoom in — here &lt;strong&gt;985×&lt;/strong&gt; — and the same rings return, finer and finer:&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;/assets/tserouf_42_z985.png&quot; alt=&quot;985× zoom into the 42-letter Tserouf&quot; style=&quot;width:92%;max-width:820px;background:#0b0b0f;border-radius:8px;box-sizing:border-box;padding:52px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;A 985× zoom into the very same figure — the caustics repeat at every scale.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;A strict rule — order the words, join each to its reversal — sampled blindly, and out of the randomness rises this. It is a living illustration of what Henri Atlan called the space between crystal and smoke, and of Jacques Monod’s chance and necessity: the apparent chaos is harmonious.&lt;/p&gt;
+
+&lt;p&gt;Moreover, the symmetry of the figure grows with the number of letters and it is the symmetry of a &lt;strong&gt;mandala&lt;/strong&gt; and a &lt;strong&gt;kaleidoscope&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;There is a precise mathematical reason for that, which is &lt;a href=&quot;/aboulafia/2026/07/06/a-wheel-the-same-forwards-and-backwards.html&quot;&gt;the final article&lt;/a&gt;.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p style=&quot;font-size:0.85em;color:#999&quot;&gt;Images © 2026 Yehonathan Sharvit. Free to share with credit and a link.&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="aboulafia" /><category term="aboulafia" /><category term="math" /><category term="caustics" /><category term="generative" /><category term="visualization" /><summary type="html">Aboulafia&apos;s Tserouf · Part 3 of 4 ← Previous: An elegant formulation, inspired by Bill Gates &amp;nbsp;·&amp;nbsp; Next: A wheel, the same forwards and backwards →</summary></entry><entry><title type="html">An elegant formulation inspired by the one and only paper Bill Gates ever wrote</title><link href="/aboulafia/2026/07/06/an-elegant-formulation-inspired-by-bill-gates.html" rel="alternate" type="text/html" title="An elegant formulation inspired by the one and only paper Bill Gates ever wrote" /><published>2026-07-06T08:00:00+00:00</published><updated>2026-07-06T08:00:00+00:00</updated><id>/aboulafia/2026/07/06/an-elegant-formulation-inspired-by-bill-gates</id><content type="html" xml:base="/aboulafia/2026/07/06/an-elegant-formulation-inspired-by-bill-gates.html">&lt;div style=&quot;margin:0 0 2em;padding:.7em 1em;border:1px solid #e6e2d8;border-radius:8px;background:#faf8f3;font-size:0.9em&quot;&gt;
+&lt;span style=&quot;color:#a08d6a;text-transform:uppercase;letter-spacing:.07em;font-size:0.78em&quot;&gt;Aboulafia&apos;s Tserouf · Part 2 of 4&lt;/span&gt;&lt;br /&gt;
+← Previous: &lt;a href=&quot;/aboulafia/2026/07/06/a-13th-century-enumeration-algorithm-ignored-for-700-years.html&quot;&gt;An algorithm ignored for 700 years&lt;/a&gt; &amp;nbsp;·&amp;nbsp; Next: &lt;a href=&quot;/aboulafia/2026/07/06/too-big-to-draw-but-yet-drawable.html&quot;&gt;Too big to draw, but yet drawable&lt;/a&gt; →
+&lt;/div&gt;
+
+&lt;p&gt;&lt;em&gt;Second article in &lt;a href=&quot;/aboulafia/2026/07/06/a-13th-century-enumeration-algorithm-ignored-for-700-years.html&quot;&gt;the series&lt;/a&gt;. In the &lt;a href=&quot;/aboulafia/2026/07/06/a-13th-century-enumeration-algorithm-ignored-for-700-years.html&quot;&gt;first part&lt;/a&gt; we saw that Aboulafia’s Tserouf is a recursive algorithm for permutations, driven by one simple rule — send the first letter to the end, and repeat at every scale. Here is the part that still gives me chills — the same order was rediscovered in 1984, through a completely different door.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;bill-gatess-only-paper&quot;&gt;Bill Gates’s only paper&lt;/h2&gt;
+
+&lt;p&gt;Imagine a stack of pancakes of different sizes. The one move you are allowed is to slide a spatula somewhere into the stack and &lt;strong&gt;flip everything above it&lt;/strong&gt;. How many flips does it take to sort the stack, largest at the bottom?&lt;/p&gt;
+
+&lt;p&gt;This is the &lt;strong&gt;pancake problem&lt;/strong&gt;. It was first posed in 1975 by one &lt;em&gt;Harry Dweighter&lt;/em&gt; — say the name aloud: a &lt;em&gt;harried waiter&lt;/em&gt;, forever sorting his stack of pancakes — which was the pen name of the mathematician Jacob E. Goodman. Four years later it became the subject of the only scientific paper ever published by William H. Gates — yes, that Bill Gates — with Christos Papadimitriou: &lt;a href=&quot;https://doi.org/10.1016/0012-365X%2879%2990068-2&quot;&gt;&lt;em&gt;Bounds for Sorting by Prefix Reversal&lt;/em&gt;&lt;/a&gt;. They proved that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(5n+5)/3&lt;/code&gt; flips always suffice; the bound stood as the best known for three decades.&lt;/p&gt;
+
+&lt;p&gt;Flipping the top of the stack is a &lt;strong&gt;prefix reversal&lt;/strong&gt;: reverse the &lt;em&gt;front&lt;/em&gt; block of a sequence. Hold on to that move — and notice which end it acts on.&lt;/p&gt;
+
+&lt;h2 id=&quot;zaks-1984-a-sequence-of-suffix-lengths&quot;&gt;Zaks, 1984: a sequence of suffix lengths&lt;/h2&gt;
+
+&lt;p&gt;In 1984 the mathematician Shimon Zaks published &lt;a href=&quot;https://doi.org/10.1007/BF01937486&quot;&gt;&lt;em&gt;A new algorithm for generation of permutations&lt;/em&gt;&lt;/a&gt; — with no knowledge of any 13th-century Kabbalist. His idea: list all &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n!&lt;/code&gt; permutations so that &lt;strong&gt;each one is obtained from the previous by reversing a suffix&lt;/strong&gt; — flipping the last &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k&lt;/code&gt; letters — so that the whole order is described by nothing but the sequence of those lengths &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Here is the order his rule produces for three letters, each link labelled by the length &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k&lt;/code&gt; of the suffix it reverses:&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;/assets/Tserouf_abc_numbers.png&quot; alt=&quot;The order Zaks&apos;s rule produces for three letters, each link labelled by the suffix length reversed&quot; width=&quot;30%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The lengths form a clean, regular beat: &lt;strong&gt;2, 3, 2, 3, 2&lt;/strong&gt;. Reverse the last two letters, then all three, then the last two, then all three, then the last two. That short list of numbers &lt;em&gt;is&lt;/em&gt; Zaks’s whole ordering of three letters.&lt;/p&gt;
+
+&lt;p&gt;Now four:&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;/assets/Tserouf_abcd_numbers.png&quot; alt=&quot;The order Zaks&apos;s rule produces for four letters, each link labelled by the suffix length reversed&quot; width=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Look at what happened. Each of the four rows is &lt;strong&gt;the three-letter pattern, unchanged&lt;/strong&gt; — &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2, 3, 2, 3, 2&lt;/code&gt; — and the rows are stitched together by a single &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;4&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-recursive-formula&quot;&gt;The recursive formula&lt;/h2&gt;
+
+&lt;p&gt;That nesting is the whole algorithm. Zaks writes the sequence of suffix lengths as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sₙ&lt;/code&gt;, and defines it in one compact line:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;s₂ = 2
+sₙ = (sₙ₋₁ n)^(n−1) sₙ₋₁      for n &amp;gt; 2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In plain English: &lt;strong&gt;to build the recipe for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; letters, take the recipe for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n−1&lt;/code&gt; letters, tack the number &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; onto the end of it, and repeat that block &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n−1&lt;/code&gt; times — then write the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n−1&lt;/code&gt; recipe once more at the end.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The base case, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s₂ = 2&lt;/code&gt;, is simply “reverse the last two letters”.&lt;/p&gt;
+
+&lt;p&gt;Unfolded, the suffix lengths for three letters are:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;2 3 2 3 2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and for four letters:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;2 3 2 3 2 4
+2 3 2 3 2 4
+2 3 2 3 2 4
+2 3 2 3 2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Read &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s₄&lt;/code&gt; in blocks: each line is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s₃&lt;/code&gt; — the beat &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2 3 2 3 2&lt;/code&gt; — and the blocks are joined by a single &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;4&lt;/code&gt;. The recursion in one glance.&lt;/p&gt;
+
+&lt;p&gt;And here is &lt;em&gt;why&lt;/em&gt; it works. Every length in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sₙ₋₁&lt;/code&gt; is at most &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n−1&lt;/code&gt;, so those reversals &lt;strong&gt;never touch the first letter&lt;/strong&gt;: the head stays fixed while the tail runs through all of its arrangements. The only length equal to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; is the full reversal — the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;4&lt;/code&gt; between the blocks — which swings a fresh letter to the front. Do it until every letter has taken its turn leading, and you have all &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n!&lt;/code&gt; permutations, back where you began.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-coincidence--and-the-hidden-constraint&quot;&gt;The coincidence — and the hidden constraint&lt;/h2&gt;
+
+&lt;p&gt;Zaks reached this order in 1984 for a thoroughly modern reason — I will come to it — and with no idea that anyone had been here before. Yet the words his rule produces are, letter for letter, Aboulafia’s words in Aboulafia’s order. I did not believe it either, so I checked the two constructions against each other by computer: they give the &lt;strong&gt;identical ordering&lt;/strong&gt; — three letters, four, five, six, on and on.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Aboulafia’s Tserouf &lt;em&gt;is&lt;/em&gt; Zaks’s order.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;And the reason they coincide is the constraint we just saw: Zaks’s reversals never disturb the head, only the tail. That is, word for word, Aboulafia’s second rule — &lt;em&gt;hold the head&lt;/em&gt;. Suffix reversal is not a modern trick laid on top of the Tserouf; it is the Tserouf’s &lt;strong&gt;hidden constraint&lt;/strong&gt;, the very thing Aboulafia insisted on, seven centuries before Bill Gates gave it a name and Zaks found a recursive formula for the sequence of lengths that enumerates all the permutations.&lt;/p&gt;
+
+&lt;h2 id=&quot;i-called-zaks&quot;&gt;I called Zaks&lt;/h2&gt;
+
+&lt;p&gt;I picked up the phone and called &lt;strong&gt;Shimon Zaks&lt;/strong&gt; — today 75 — to thank him, and to ask the question that had been nagging at me: why had he cared about an &lt;em&gt;ordering&lt;/em&gt; of permutations in the first place?&lt;/p&gt;
+
+&lt;p&gt;His reason was purely practical. Say you have written a sorting algorithm that takes &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; inputs, and you want to be sure it really works. You cannot try all &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n!&lt;/code&gt; possible inputs — there are far too many — so you test it on &lt;em&gt;random&lt;/em&gt; permutations. An elegant way to achieve that is with two operations: turning a random number into a permutation (to produce a test case), and turning a permutation back into its number (to record it, reproduce it, reason about it). That back-and-forth is &lt;strong&gt;ranking&lt;/strong&gt; and &lt;strong&gt;unranking&lt;/strong&gt; — and Zaks gives an efficient formula for ranking and unranking in this paper.&lt;/p&gt;
+
+&lt;p&gt;I did not realize it during the call, but that same ranking and unranking is exactly what lets you &lt;em&gt;draw&lt;/em&gt; Aboulafia’s order — to jump straight to any of its &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n!&lt;/code&gt; positions without walking through all the rest. It is the key to the next article.&lt;/p&gt;
+
+&lt;h2 id=&quot;why-the-order-matters&quot;&gt;Why the &lt;em&gt;order&lt;/em&gt; matters&lt;/h2&gt;
+
+&lt;p&gt;You might think any systematic ordering of permutations is as good as any other. It is not. The specific order Aboulafia chose has mathematical properties that other systematic orderings of the same permutations simply do not have.&lt;/p&gt;
+
+&lt;p&gt;To see them, you have to &lt;strong&gt;draw&lt;/strong&gt; the order. When you do, it stops being a list and becomes an object of startling beauty. That is &lt;a href=&quot;/aboulafia/2026/07/06/too-big-to-draw-but-yet-drawable.html&quot;&gt;the next article&lt;/a&gt;.&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="aboulafia" /><category term="aboulafia" /><category term="math" /><category term="permutations" /><summary type="html">Aboulafia&apos;s Tserouf · Part 2 of 4 ← Previous: An algorithm ignored for 700 years &amp;nbsp;·&amp;nbsp; Next: Too big to draw, but yet drawable →</summary></entry><entry><title type="html">A 13th-Century Enumeration Algorithm, Ignored for 700 Years</title><link href="/aboulafia/2026/07/06/a-13th-century-enumeration-algorithm-ignored-for-700-years.html" rel="alternate" type="text/html" title="A 13th-Century Enumeration Algorithm, Ignored for 700 Years" /><published>2026-07-06T07:00:00+00:00</published><updated>2026-07-06T07:00:00+00:00</updated><id>/aboulafia/2026/07/06/a-13th-century-enumeration-algorithm-ignored-for-700-years</id><content type="html" xml:base="/aboulafia/2026/07/06/a-13th-century-enumeration-algorithm-ignored-for-700-years.html">&lt;div style=&quot;margin:0 0 2em;padding:.7em 1em;border:1px solid #e6e2d8;border-radius:8px;background:#faf8f3;font-size:0.9em&quot;&gt;
+&lt;span style=&quot;color:#a08d6a;text-transform:uppercase;letter-spacing:.07em;font-size:0.78em&quot;&gt;Aboulafia&apos;s Tserouf · Part 1 of 4&lt;/span&gt;&lt;br /&gt;
+Next: &lt;a href=&quot;/aboulafia/2026/07/06/an-elegant-formulation-inspired-by-bill-gates.html&quot;&gt;An elegant formulation, inspired by Bill Gates&lt;/a&gt; →
+&lt;/div&gt;
+
+&lt;p&gt;This is the first article in a series about a discovery I made while researching &lt;strong&gt;Tserouf&lt;/strong&gt; in the writings of the Kabbalist Abraham Aboulafia (1240 – after 1291). Tserouf is the Kabbalistic art of permuting the letters — and, in plain mathematical terms, it is the enumeration of all the &lt;strong&gt;permutations&lt;/strong&gt; of an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt;-letter word.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-context&quot;&gt;The context&lt;/h2&gt;
+
+&lt;p&gt;In &lt;em&gt;Or ha-Sekhel&lt;/em&gt; (“The Light of the Intellect”), Aboulafia prescribes a systematic method for enumerating all the possible arrangements of an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt;-letter word. The method is conceived inside a frame of spiritual practice — and yet it carries a mathematical structure of remarkable rigour.&lt;/p&gt;
+
+&lt;p&gt;For a three-letter word, Aboulafia gives the Tserouf — the ordering of all six permutations — explicitly:&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;/assets/tserouf_abc.png&quot; alt=&quot;The tserouf (permutations) of three letters, in Aboulafia&apos;s order&quot; width=&quot;26%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The words fall into three groups, by their first letter:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;first, the words starting with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt;;&lt;/li&gt;
+  &lt;li&gt;then, those starting with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;b&lt;/code&gt;;&lt;/li&gt;
+  &lt;li&gt;finally, those starting with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;c&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;the-two-rules-for-three-letters&quot;&gt;The two rules for three letters&lt;/h2&gt;
+
+&lt;p&gt;Aboulafia explicitly mentions two rules for the Tserouf of 3 letters:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Rule 1 — the mirror.&lt;/strong&gt; The whole sequence must &lt;em&gt;end on the reverse of where it began&lt;/em&gt;. Aboulafia says it plainly: “the last utterance is the reverse of the first.” The first word is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;abc&lt;/code&gt;; the last must be &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cba&lt;/code&gt;, its end-to-end reversal.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Rule 2 — hold the head.&lt;/strong&gt; Keep the leading letter for as long as possible before letting it go. You exhaust every word beginning with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt;, then every word beginning with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;b&lt;/code&gt;, then &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;c&lt;/code&gt;. The head does not change until it has to.&lt;/p&gt;
+
+&lt;p&gt;These two rules are almost enough to force the entire three-letter order. The &lt;em&gt;hold the head&lt;/em&gt; rule sets the three groups in the order &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;b&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;c&lt;/code&gt;. Within a group only the last two letters can swap, and the mirror rule pins down the first group — it must start with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;abc&lt;/code&gt; — and the last, which must end with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cba&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Almost — but one case nagged at me: why does &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bca&lt;/code&gt; come before &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bac&lt;/code&gt;, and not the reverse? Nothing in the two rules seems to force it.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;That one small question is the engine of this whole discovery.&lt;/strong&gt; Sometimes a simple question turns out to be precious. I could not let go of it for months — and, as it turns out, chasing it is what led to everything in this series.&lt;/p&gt;
+
+&lt;h2 id=&quot;from-n-to-n--1-turn-the-wheel&quot;&gt;From n to n + 1: turn the wheel&lt;/h2&gt;
+
+&lt;p&gt;How do you get from the order for three letters to the order for four? Aboulafia gives one more rule, and it is the heart of the whole thing:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Go back to the beginning, and send the first letter to the end of the word.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;That is, &lt;strong&gt;rotate the word by one notch&lt;/strong&gt;. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;abcd&lt;/code&gt; becomes &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bcda&lt;/code&gt; becomes &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cdab&lt;/code&gt; becomes &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dabc&lt;/code&gt; — four rotations, four heads, four groups. And inside each group, you apply the very same method to the letters that remain.&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;/assets/tserouf_abcd.png&quot; alt=&quot;The tserouf (permutations) of four letters, in Aboulafia&apos;s order&quot; width=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Each of the four rows is headed by one rotation of the word, and each row is a complete copy of the three-letter order applied to the letters left behind.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-uniform-rule&quot;&gt;The uniform rule&lt;/h2&gt;
+
+&lt;p&gt;Here is what reveals Aboulafia’s genius. The whole procedure — for three letters, four, ten, any number — is governed by &lt;strong&gt;one operation, applied again and again at every scale&lt;/strong&gt;: &lt;em&gt;send the first letter to the end.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;It is this single rotation that carries you from one group to the next at the top level. It is the same rotation that, applied to the letters left over, builds each group one level down. And again, one level below that. A single gesture walks the entire nested hierarchy of permutations. The method does not grow more complicated as the words get longer; it simply re-applies the same move to shorter and shorter sub-words.&lt;/p&gt;
+
+&lt;p&gt;This is what a computer scientist would call a &lt;strong&gt;recursive algorithm&lt;/strong&gt; — and a beautifully economical one. The rule is trivial to state, yet it generates all &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n!&lt;/code&gt; arrangements, each exactly once, and returns you to the start.&lt;/p&gt;
+
+&lt;p&gt;Aboulafia names the whole thing in the very first line of the chapter:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;em&gt;This rule is easy to understand; and though it has no end that we can grasp, it necessarily has an end.&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Three clauses, three moments: the rule is simple; what it unfolds outruns anything we can hold in mind; and yet the walk is finite — it closes, it &lt;em&gt;necessarily has an end.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;the-only-others-who-did-this&quot;&gt;The only others who did this&lt;/h2&gt;
+
+&lt;p&gt;What I did not know, at the time, was how much was hanging on it.&lt;/p&gt;
+
+&lt;p&gt;Until the 17th century, no one but Aboulafia had given an &lt;em&gt;ordering&lt;/em&gt; of the permutations at all. Every other tradition — every other Kabbalist — simply listed them in &lt;strong&gt;tables&lt;/strong&gt;. That tiny choice between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bca&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bac&lt;/code&gt; was the visible tip of the only systematic method in the world.&lt;/p&gt;
+
+&lt;p&gt;There is one striking historical parallel. The only other people to independently invent a rule-based way to run through all the permutations were the English &lt;strong&gt;change-ringers&lt;/strong&gt; in the 17th century.&lt;/p&gt;
+
+&lt;p&gt;The ringers found their order in the bell tower; Aboulafia found his in a spritual practice. Different worlds, same goal: a method to traverse the whole space of permutations, missing none and repeating none. And Aboulafia did it in the 13th century — three hundred years before the bell-ringers, and seven hundred before computer science.&lt;/p&gt;
+
+&lt;h2 id=&quot;where-this-goes&quot;&gt;Where this goes&lt;/h2&gt;
+
+&lt;p&gt;So Aboulafia gave a genuine recursive algorithm for permutations. That alone would be a fine historical note. But there is much more.&lt;/p&gt;
+
+&lt;p&gt;His exact ordering turns out to coincide with an algorithm published in 1984 by the mathematician Shimon Zaks — reached through an entirely different door, and built on a move that a young Bill Gates studied in his only scientific paper. That is &lt;a href=&quot;/aboulafia/2026/07/06/an-elegant-formulation-inspired-by-bill-gates.html&quot;&gt;the next article&lt;/a&gt;.&lt;/p&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="aboulafia" /><category term="aboulafia" /><category term="math" /><category term="permutations" /><category term="kabbalah" /><summary type="html">Aboulafia&apos;s Tserouf · Part 1 of 4 Next: An elegant formulation, inspired by Bill Gates →</summary></entry><entry><title type="html">Separate data schema from data representation</title><link href="/databook/2022/06/22/data-validation.html" rel="alternate" type="text/html" title="Separate data schema from data representation" /><published>2022-06-22T02:35:24+00:00</published><updated>2022-06-22T02:35:24+00:00</updated><id>/databook/2022/06/22/data-validation</id><content type="html" xml:base="/databook/2022/06/22/data-validation.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;With data separated from code and represented with generic and immutable data structures, now comes the question of how do we express the shape of the data? In DOP, the expected shape is expressed as a data schema that is kept separated from the data itself. The main benefit of Principle #4 is that it allows developers to decide which pieces of data should have a schema and which pieces of data should not.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7&quot;&gt; book &lt;/a&gt; about &lt;b&gt;Data-Oriented Programming&lt;/b&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/ajv/6.12.6/ajv.bundle.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js&quot; integrity=&quot;sha256-8E6QUcFg1KTnpEU8TFGhpTGHw5fJqB9vCms3OhAYLqw=&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+window.ajv = new Ajv();
+&lt;/script&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This article is an exploration of the fourth principle of Data-Oriented Programming. The other principles of DOP are explored here:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/databook/2022/06/22/separate-code-from-data.html&quot;&gt;Principle #1&lt;/a&gt;: Separating code (behavior) from data.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/databook/2022/06/22/generic-data-structures.html&quot;&gt;Principle #2&lt;/a&gt;: Representing data with generic data structures.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/databook/2022/06/22/immutable-data.html&quot;&gt;Principle #3&lt;/a&gt;: Treating data as immutable.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/databook/2022/06/22/data-validation.html&quot;&gt;Principle #4&lt;/a&gt;: Separating data schema from data representation.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+&lt;em&gt;Principle #4&lt;/em&gt;&amp;#8201;&amp;#8212;&amp;#8201;Separate data schema from data representation.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;illustration-of-principle-4&quot;&gt;Illustration of Principle #4&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Think about handling a request for the addition of an author to the system. To keep things simple, imagine that such a request contains only basic information about the author: their first name and last name and, optionally, the number of books they have written. As seen in Principle #2 (represent data with generic data structures), in DOP, request data is represented as a string map, where the map is expected to have three fields:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;firstName&lt;/code&gt;&amp;#8201;&amp;#8212;&amp;#8201;a string&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;lastName&lt;/code&gt;&amp;#8201;&amp;#8212;&amp;#8201;a string&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;books&lt;/code&gt;&amp;#8201;&amp;#8212;&amp;#8201;a number (optional)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In DOP, the expected shape of data is represented as data that is kept separate from the request data. For instance, JSON schema (&lt;a href=&quot;https://json-schema.org/&quot; class=&quot;bare&quot;&gt;https://json-schema.org/&lt;/a&gt;) can represent the data schema of the request with a map. The following listing provides an example.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;add-author-request-schema-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var addAuthorRequestSchema = {
+  &amp;quot;type&amp;quot;: &amp;quot;object&amp;quot;, // &lt;b class=&quot;conum&quot;&gt;(1)&lt;/b&gt;
+  &amp;quot;required&amp;quot;: [&amp;quot;firstName&amp;quot;, &amp;quot;lastName&amp;quot;], // &lt;b class=&quot;conum&quot;&gt;(2)&lt;/b&gt;
+  &amp;quot;properties&amp;quot;: {
+    &amp;quot;firstName&amp;quot;: {&amp;quot;type&amp;quot;: &amp;quot;string&amp;quot;}, // &lt;b class=&quot;conum&quot;&gt;(3)&lt;/b&gt;
+    &amp;quot;lastName&amp;quot;: {&amp;quot;type&amp;quot;: &amp;quot;string&amp;quot;}, // &lt;b class=&quot;conum&quot;&gt;(4)&lt;/b&gt;
+    &amp;quot;books&amp;quot;: {&amp;quot;type&amp;quot;: &amp;quot;integer&amp;quot;} // &lt;b class=&quot;conum&quot;&gt;(5)&lt;/b&gt;
+  }
+};&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Data is expected to be a map (in JSON, a map is called an object).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Only &lt;code&gt;firstName&lt;/code&gt; and &lt;code&gt;lastName&lt;/code&gt; fields are required.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;firstName&lt;/code&gt; must be a string.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;lastName&lt;/code&gt; must be a string.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;books&lt;/code&gt; must be a number (when it is provided).&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A data validation library is used to check whether a piece of data conforms to a data schema. For instance, we could use Ajv JSON schema validator (&lt;a href=&quot;https://ajv.js.org/&quot; class=&quot;bare&quot;&gt;https://ajv.js.org/&lt;/a&gt;) to validate data with the &lt;code&gt;validate&lt;/code&gt; function that returns &lt;code&gt;true&lt;/code&gt; when data is valid and &lt;code&gt;false&lt;/code&gt; when data is invalid. The following listing shows this approach.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;check-data-validity-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var validAuthorData = {
+  firstName: &amp;quot;Isaac&amp;quot;,
+  lastName: &amp;quot;Asimov&amp;quot;,
+  books: 500
+};
+
+ajv.validate(addAuthorRequestSchema, 
+  validAuthorData); //  &lt;b class=&quot;conum&quot;&gt;(1)&lt;/b&gt;
+// → true
+
+var invalidAuthorData = {
+  firstName: &amp;quot;Isaac&amp;quot;,
+  lastNam: &amp;quot;Asimov&amp;quot;,
+  books: &amp;quot;five hundred&amp;quot;
+};
+
+ajv.validate(addAuthorRequestSchema, 
+  invalidAuthorData); // &lt;b class=&quot;conum&quot;&gt;(2)&lt;/b&gt;
+// → false&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Data is valid.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Data has &lt;code&gt;lastNam&lt;/code&gt; instead of &lt;code&gt;lastName&lt;/code&gt;, and &lt;code&gt;books&lt;/code&gt; is a string instead of a number.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When data is invalid, the details about data validation failures are available in a human readable format. The next listing shows this approach.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;data-validation-errors-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var invalidAuthorData = {
+  firstName: &amp;quot;Isaac&amp;quot;,
+  lastNam: &amp;quot;Asimov&amp;quot;,
+  books: &amp;quot;five hundred&amp;quot;
+};
+
+var ajv = new Ajv({allErrors: true}); // &lt;b class=&quot;conum&quot;&gt;(1)&lt;/b&gt;
+ajv.validate(addAuthorRequestSchema, invalidAuthorData);
+ajv.errorsText(ajv.errors); // &amp;lt;2&amp;gt; 
+// → &amp;quot;data should have required property &amp;#39;lastName&amp;#39;,
+// →  data.books should be number&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;By default, Ajv stores only the first data validation error. Set &lt;code&gt;allErrors: true&lt;/code&gt; to store all errors.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Data validation errors are stored internally as an array. In order to get a human readable string, use the &lt;code&gt;errorsText&lt;/code&gt; function.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;benefits-of-principle-4&quot;&gt;Benefits of Principle #4&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Separation of data schema from data representation provides numerous benefits. The following sections describe these benefits in detail:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Freedom to choose what data should be validated&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Optional fields&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Advanced data validation conditions&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Automatic generation of data model visualization&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;benefit-1-freedom-to-choose-what-data-should-be-validated&quot;&gt;Benefit #1: Freedom to choose what data should be validated&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When data schema is separated from data representation, we can instantiate data without specifying its expected shape. Such freedom is useful in various situations. For example,&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Rapid prototyping or experimentation&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Code refactoring and data validation&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Consider rapid prototyping. In classic OOP, we need to instantiate every piece of data through a class. During the exploration phase of coding, when the final shape of our data is not yet known, being forced to update the class definition each time the data model changes slows us down. DOP enables a faster pace during the exploration phase by delaying the data schema definition to a later phase.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;One common refactoring pattern is split phase refactoring (&lt;a href=&quot;https://refactoring.com/catalog/splitPhase.html&quot; class=&quot;bare&quot;&gt;https://refactoring.com/catalog/splitPhase.html&lt;/a&gt;), where a single large function is split into multiple smaller functions with private scope. We call these functions, with data that has already been validated by the larger function. In DOP, it is not necessary to specify the shape of the arguments of the inner functions, relying on the data validation that has already occurred.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Consider how to display some information about an author, such as their full name and whether they are considered prolific. Using the code shown earlier to illustrate Principle #2 to calculate the full name and the prolificity level of the author, one might come up with a &lt;code&gt;displayAuthorInfo&lt;/code&gt; function as the following listing shows.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;author-info-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;class NameCalculation {
+  static fullName(data) {
+    return data.firstName + &amp;quot; &amp;quot; + data.lastName;
+  }
+}
+
+class AuthorRating {
+  static isProlific (data) {
+    return data.books &amp;gt; 100;
+  }
+}
+
+var authorSchema = {
+  &amp;quot;type&amp;quot;: &amp;quot;object&amp;quot;,
+  &amp;quot;required&amp;quot;: [&amp;quot;firstName&amp;quot;, &amp;quot;lastName&amp;quot;],
+  &amp;quot;properties&amp;quot;: {
+    &amp;quot;firstName&amp;quot;: {&amp;quot;type&amp;quot;: &amp;quot;string&amp;quot;},
+    &amp;quot;lastName&amp;quot;: {&amp;quot;type&amp;quot;: &amp;quot;string&amp;quot;},
+    &amp;quot;books&amp;quot;: {&amp;quot;type&amp;quot;: &amp;quot;integer&amp;quot;}
+  }
+};
+
+function displayAuthorInfo(authorData) {
+  if(!ajv.validate(authorSchema, authorData)) {
+    throw &amp;quot;displayAuthorInfo called with invalid data&amp;quot;;
+  };
+  console.log(&amp;quot;Author full name is: &amp;quot;,
+    NameCalculation.fullName(authorData));
+  if(authorData.books == null) {
+    console.log(&amp;quot;Author has not written any book&amp;quot;);
+  } else {
+    if (AuthorRating.isProlific(authorData)) {
+      console.log(&amp;quot;Author is prolific&amp;quot;);
+    } else {
+      console.log(&amp;quot;Author is not prolific&amp;quot;);
+    }
+  }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Notice that the first thing done inside the body of &lt;code&gt;displayAuthorInfo&lt;/code&gt; is to validate that the argument passed to the function. Now, apply the split phase refactoring pattern to this simple example and split the body of &lt;code&gt;displayAuthorInfo&lt;/code&gt; into two inner functions:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;displayFullName&lt;/code&gt; displays the author&amp;#8217;s full name.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;displayProlificity&lt;/code&gt; displays whether the author is prolific or not.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The next listing shows the resulting code.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;author-info-refactored-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;function displayFullName(authorData) {
+  console.log(&amp;quot;Author full name is: &amp;quot;, 
+    NameCalculation.fullName(authorData));
+}
+
+function displayProlificity(authorData) {
+  if(authorData.books == null) {
+    console.log(&amp;quot;Author has not written any book&amp;quot;);
+  } else {
+    if (AuthorRating.isProlific(authorData)) {
+      console.log(&amp;quot;Author is prolific&amp;quot;);
+    } else {
+      console.log(&amp;quot;Author is not prolific&amp;quot;);
+    }
+  }
+}
+
+function displayAuthorInfo(authorData) {
+  if(!ajv.validate(authorSchema, authorData)) {
+    throw &amp;quot;displayAuthorInfo called with invalid data&amp;quot;;
+  };
+  displayFullName(authorData);
+  displayProlificity(authorData);
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Having the data schema separated from data representation eliminates the need to specify a data schema for the arguments of the inner functions &lt;code&gt;displayFullName&lt;/code&gt; and &lt;code&gt;displayProlificity&lt;/code&gt;. It makes the refactoring process a bit smoother. In some cases, the inner functions are more complicated, and it makes sense to specify a data schema for their arguments. DOP gives us the freedom to choose!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;benefit-2-optional-fields&quot;&gt;Benefit #2: Optional fields&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In OOP, allowing a class member to be optional is not easy. For instance, in Java one needs a special construct like the &lt;code&gt;Optional&lt;/code&gt; class introduced in Java 8 (&lt;a href=&quot;http://mng.bz/4jWa&quot; class=&quot;bare&quot;&gt;http://mng.bz/4jWa&lt;/a&gt;). In DOP, it is natural to declare a field as optional in a map. In fact, in JSON Schema, by default, every field is optional.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In order to make a field not optional, its name must be included in the &lt;code&gt;required&lt;/code&gt; array as, for instance, in the author schema in the following listing, where only &lt;code&gt;firstName&lt;/code&gt; and &lt;code&gt;lastName&lt;/code&gt; are required, and &lt;code&gt;books&lt;/code&gt; is optional. Notice that when an optional field is defined in a map, its value is validated against the schema.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;author-schema-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var authorSchema = {
+  &amp;quot;type&amp;quot;: &amp;quot;object&amp;quot;,
+  &amp;quot;required&amp;quot;: [&amp;quot;firstName&amp;quot;, &amp;quot;lastName&amp;quot;], // &lt;b class=&quot;conum&quot;&gt;(1)&lt;/b&gt;
+  &amp;quot;properties&amp;quot;: {
+    &amp;quot;firstName&amp;quot;: {&amp;quot;type&amp;quot;: &amp;quot;string&amp;quot;},
+    &amp;quot;lastName&amp;quot;: {&amp;quot;type&amp;quot;: &amp;quot;string&amp;quot;},
+    &amp;quot;books&amp;quot;: {&amp;quot;type&amp;quot;: &amp;quot;number&amp;quot;} // &lt;b class=&quot;conum&quot;&gt;(2)&lt;/b&gt;
+  }
+};&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;books&lt;/code&gt; is not included in &lt;code&gt;required&lt;/code&gt; as it is an optional field.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;When present, &lt;code&gt;books&lt;/code&gt; must be a number.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Let&amp;#8217;s illustrate how the validation function deals with optional fields. A map without a &lt;code&gt;books&lt;/code&gt; field is considered to be valid:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;author-no-books-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var authorDataNoBooks = {
+  &amp;quot;firstName&amp;quot;: &amp;quot;Yehonathan&amp;quot;,
+  &amp;quot;lastName&amp;quot;: &amp;quot;Sharvit&amp;quot;
+};
+
+ajv.validate(authorSchema, authorDataNoBooks); // &lt;b class=&quot;conum&quot;&gt;(1)&lt;/b&gt;
+// → true &lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;The validation passes as &lt;code&gt;books&lt;/code&gt; is an optional field.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Alternatively, a map with a &lt;code&gt;books&lt;/code&gt; field, where the value is not a number, is considered to be invalid:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;author-invalid-books-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var authorDataInvalidBooks = {
+  &amp;quot;firstName&amp;quot;: &amp;quot;Albert&amp;quot;,
+  &amp;quot;lastName&amp;quot;: &amp;quot;Einstein&amp;quot;,
+  &amp;quot;books&amp;quot;: &amp;quot;Five&amp;quot;
+};
+
+ajv.validate(authorSchema, authorDataInvalidBooks); // &lt;b class=&quot;conum&quot;&gt;(1)&lt;/b&gt;
+// → false &lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;The validation fails as &lt;code&gt;books&lt;/code&gt; is not a number.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;benefit-3-advanced-data-validation-conditions&quot;&gt;Benefit #3: Advanced data validation conditions&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In DOP, data validation occurs at run time. It allows the definition of data validation conditions that go beyond the type of a field. For example, validating that a field is not only a string, but a string with a maximal number of characters or a number comprised in a range of numbers as well.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;JSON Schema supports many other advanced data validation conditions such as regular expression validation for string fields or number fields that should be a multiple of a given number. The author schema in the following listing expects &lt;code&gt;firstName&lt;/code&gt; and &lt;code&gt;lastName&lt;/code&gt; to be strings of less than 100 characters, and &lt;code&gt;books&lt;/code&gt; to be a number between 0 and 10,000.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;author-schema-complex-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var authorComplexSchema = {
+  &amp;quot;type&amp;quot;: &amp;quot;object&amp;quot;,
+  &amp;quot;required&amp;quot;: [&amp;quot;firstName&amp;quot;, &amp;quot;lastName&amp;quot;],
+  &amp;quot;properties&amp;quot;: {
+    &amp;quot;firstName&amp;quot;: {
+      &amp;quot;type&amp;quot;: &amp;quot;string&amp;quot;,
+      &amp;quot;maxLength&amp;quot;: 100
+    },
+    &amp;quot;lastName&amp;quot;: {
+      &amp;quot;type&amp;quot;: &amp;quot;string&amp;quot;,
+      &amp;quot;maxLength&amp;quot;: 100
+    },
+    &amp;quot;books&amp;quot;: {
+      &amp;quot;type&amp;quot;: &amp;quot;integer&amp;quot;,
+      &amp;quot;minimum&amp;quot;: 0,
+      &amp;quot;maximum&amp;quot;: 10000
+    }
+  }
+};&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;benefit-4-automatic-generation-of-data-model-visualization&quot;&gt;Benefit #4: Automatic generation of data model visualization&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;With the data schema defined as data, we can use several tools to generate data model visualizations. With tools like JSON Schema Viewer (&lt;a href=&quot;https://navneethg.github.io/jsonschemaviewer/&quot; class=&quot;bare&quot;&gt;https://navneethg.github.io/jsonschemaviewer/&lt;/a&gt;) and Malli (&lt;a href=&quot;https://github.com/metosin/malli&quot; class=&quot;bare&quot;&gt;https://github.com/metosin/malli&lt;/a&gt;), a UML diagram can be generated from a JSON schema.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For instance, the JSON schema in the following listing defines the shape of a &lt;code&gt;bookList&lt;/code&gt; field, which is an array of books where each book is a map, and in the following figure, it is visualized as a UML diagram. These tools generate the UML diagram from the JSON schema.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;author-schema-visualize&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;json&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;type&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;object&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;required&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;firstName&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;lastName&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;],&lt;/span&gt;
+  &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;properties&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;firstName&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;type&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;string&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;lastName&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;type&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;string&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;bookList&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;type&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;array&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;items&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;type&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;object&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;properties&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;title&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;type&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;string&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;},&lt;/span&gt;
+          &lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;publicationYear&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;tok-nt&quot;&gt;&amp;quot;type&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;integer&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;author-schema-uml&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/chapter00/author-schema.png&quot; alt=&quot;author schema&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;cost-for-principle-4&quot;&gt;Cost for Principle #4&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Applying Principle #4 comes with a price. The following sections look at these costs:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Weak connection between data and its schema&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Small performance hit&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;cost-1-weak-connection-between-data-and-its-schema&quot;&gt;Cost #1: Weak connection between data and its schema&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;By definition, when data schema and data representation are separated, the connection between data and its schema is weaker that when data is represented with classes. Moreover, the schema definition language (e.g., JSON Schema) is not part of the programming language. It is up to the developer to decide where data validation is necessary and where it is superfluous. As the idiom says, with great power comes great responsibility.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;cost-2-light-performance-hit&quot;&gt;Cost #2: Light performance hit&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;As mentioned earlier, there exist implementations of JSON schema validation in most programming languages. In DOP, data validation occurs at run time, and it takes some time to run the data validation. In OOP, data validation occurs usually at compile time.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This drawback is mitigated by the fact that, even in OOP, some parts of data validation occur at run time. For instance, the conversion of a request JSON payload into an object occurs at run time. Moreover, in DOP, it is quite common to have some data validation parts enabled only during development and to disable them when the system runs in production. As a consequence, this performance hit is not significant.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;summary-of-principle-4&quot;&gt;Summary of Principle #4&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In DOP, data is represented with immutable generic data structures. When additional information about the shape of the data is required, a data schema can be defined (e.g., using JSON Schema). Keeping the data schema separate from the data representation gives us the freedom to decide where data should be validated.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Moreover, data validation occurs at run time. As a consequence, data validation conditions that go beyond the static data types (e.g., the string length) can be expressed. However, with great power comes great responsibility, and it is up to the developer to remember to validate data.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DOP Principle #4: Separate between data schema and data representation&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To adhere to this principle, separate between data schema and data representation.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/chapter00/do-principle-4-schema.png&quot; alt=&quot;do principle 4 schema&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Benefits include&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Freedom to choose what data should be validated&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Optional fields&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Advanced data validation conditions&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Automatic generation of data model visualization&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The cost for implementing Principle #4 includes&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Weak connection between data and its schema&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A small performance hit&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7&quot;&gt; book &lt;/a&gt; about &lt;b&gt;Data-Oriented Programming&lt;/b&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><category term="dop" /><summary type="html">With data separated from code and represented with generic and immutable data structures, now comes the question of how do we express the shape of the data? In DOP, the expected shape is expressed as a data schema that is kept separated from the data itself. The main benefit of Principle #4 is that it allows developers to decide which pieces of data should have a schema and which pieces of data should not.</summary></entry><entry><title type="html">Data is immutable</title><link href="/databook/2022/06/22/immutable-data.html" rel="alternate" type="text/html" title="Data is immutable" /><published>2022-06-22T02:34:24+00:00</published><updated>2022-06-22T02:34:24+00:00</updated><id>/databook/2022/06/22/immutable-data</id><content type="html" xml:base="/databook/2022/06/22/immutable-data.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;With data separated from code and represented with generic data structures, how are changes to the data managed? DOP is very strict on this question. Mutation of data is not allowed! In DOP, changes to data are accomplished by creating new versions of the data. The &lt;em&gt;reference&lt;/em&gt; to a variable may be changed so that it refers to a new version of the data, but the &lt;em&gt;value&lt;/em&gt; of the data itself must never change.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7&quot;&gt; book &lt;/a&gt; about &lt;b&gt;Data-Oriented Programming&lt;/b&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/immutable/4.0.0/immutable.min.js&quot;&gt;&lt;/script&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This article is an exploration of the third principle of Data-Oriented Programming. The other principles of DOP are explored here:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/databook/2022/06/22/separate-code-from-data.html&quot;&gt;Principle #1&lt;/a&gt;: Separating code (behavior) from data.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/databook/2022/06/22/generic-data-structures.html&quot;&gt;Principle #2&lt;/a&gt;: Representing data with generic data structures.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/databook/2022/06/22/immutable-data.html&quot;&gt;Principle #3&lt;/a&gt;: Treating data as immutable.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/databook/2022/06/22/data-validation.html&quot;&gt;Principle #4&lt;/a&gt;: Separating data schema from data representation.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+&lt;em&gt;Principle #3&lt;/em&gt;&amp;#8201;&amp;#8212;&amp;#8201;Data is immutable.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;illustration-of-principle-3&quot;&gt;Illustration of Principle #3&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Think about the number 42. What happens to 42 when you add 1 to it? Does it become 43? No, 42 stays 42 forever! Now, put 42 inside an object: &lt;code&gt;{num: 42}&lt;/code&gt;. What happens to the object when you add 1 to 42? Does it become 43? It depends on the programming language.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;In Clojure, a programming language that embraces data immutability, the value of the &lt;code&gt;num&lt;/code&gt; field stays &lt;code&gt;42&lt;/code&gt; forever, no matter what.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;In many programming languages, the value of the &lt;code&gt;num&lt;/code&gt; field becomes &lt;code&gt;43&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For instance, in JavaScript, mutating the field of a map referred by two variables has an impact on both variables. The following listing demonstrates this.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;mutating-data-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var myData = {num: 42};
+var yourData = myData;
+
+yourData.num = yourData.num + 1;
+console.log(myData.num);
+// → 43&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now, &lt;code&gt;myData.num&lt;/code&gt; equals &lt;code&gt;43&lt;/code&gt;. According to DOP, however, data should never change! Instead of mutating data, a new version of it is created. A naive (and inefficient) way to create a new version of a data is to clone it before modifying it. For instance, in the following listing, there is a function that changes the value of a field inside an object by cloning the object via &lt;code&gt;Object.assign&lt;/code&gt;, provided natively by JavaScript. When &lt;code&gt;changeValue&lt;/code&gt; is called on &lt;code&gt;myData&lt;/code&gt;, &lt;code&gt;myData&lt;/code&gt; is not affected; &lt;code&gt;myData.num&lt;/code&gt; remains &lt;code&gt;42&lt;/code&gt;. This is the essence of data immutability!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;cloning-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;function changeValue(obj, k, v) {
+  var res = Object.assign({}, obj);
+  res[k] = v;
+  return res;
+}
+
+var myData = {num: 42};
+var yourData = changeValue(myData, &amp;quot;num&amp;quot;, myData.num + 1);
+console.log(myData.num);
+// → 42&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Embracing immutability in an efficient way, both in terms of computation and memory, requires a third-party library like Immutable.js (&lt;a href=&quot;https://immutable-js.com/&quot; class=&quot;bare&quot;&gt;https://immutable-js.com/&lt;/a&gt;), which provides an efficient implementation of persistent data structures (a.k.a. immutable data structures). In most programming languages, there exist libraries that provide an efficient implementation of persistent data structures.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;With &lt;code&gt;Immutable.js&lt;/code&gt;, JavaScript native maps and arrays are not used, but rather, immutable maps and immutable lists instantiated via &lt;code&gt;Immutable.Map&lt;/code&gt; and &lt;code&gt;Immutable.List&lt;/code&gt;. An element of a map is accessed using the &lt;code&gt;get&lt;/code&gt; method. A new version of the map is created when a field is modified with the &lt;code&gt;set&lt;/code&gt; method.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Here is how to create and manipulate immutable data efficiently with a third-party library. In the output, &lt;code&gt;yourData.get(&quot;num&quot;)&lt;/code&gt; is &lt;code&gt;43&lt;/code&gt;, but &lt;code&gt;myData.get(&quot;num&quot;)&lt;/code&gt; remains &lt;code&gt;42&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;immutable-js-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var myData = Immutable.Map({num: 42})
+var yourData = myData.set(&amp;quot;num&amp;quot;, 43);
+console.log(yourData.get(&amp;quot;num&amp;quot;));
+// → 43
+console.log(myData.get(&amp;quot;num&amp;quot;));
+// → 42&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+When data is immutable, instead of mutating data, a new version of it is created.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;benefits-of-principle-3&quot;&gt;Benefits of Principle #3&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When programs are constrained from mutating data, we derive benefit in numerous ways. The following sections detail these benefits:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Data access to all with confidence&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Predictable code behavior&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Fast equality checks&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Concurrency safety for free&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;benefit-1-data-access-to-all-with-confidence&quot;&gt;Benefit #1: Data access to all with confidence&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;According to Principle #1 (separate code from data), data access is transparent. Any function is allowed to access any piece of data. Without data immutability, we must be careful when passing data as an argument to a function. We can either make sure the function does not mutate the data or clone the data before it is passed to the function. When adhering to data immutability, none of this is required.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+When data is immutable, it can be passed to any function with confidence because data never changes.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;benefit-2-predictable-code-behavior&quot;&gt;Benefit #2: Predictable code behavior&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;As an illustration of what is meant by &lt;em&gt;predictable&lt;/em&gt;, here is an example of an &lt;em&gt;unpredictable&lt;/em&gt; piece of code that does not adhere to data immutability. Take a look at the piece of asynchronous JavaScript code in the following listing. When data is mutable, the behavior of asynchronous code is not predictable.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;async-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var myData = {num: 42};
+setTimeout(function (data){
+  console.log(data.num);
+}, 1000, myData);
+myData.num = 0;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The value of &lt;code&gt;data.num&lt;/code&gt; inside the timeout callback is not predictable. It depends on whether the data is modified by another piece of code during the 1,000 ms of the timeout. However, with immutable data, it is guaranteed that data never changes and that &lt;code&gt;data.num&lt;/code&gt; is always &lt;code&gt;42&lt;/code&gt; inside the callback.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+When data is immutable, the behavior of code that manipulates data is predictable.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;benefit-3-fast-equality-checks&quot;&gt;Benefit #3: Fast equality checks&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;With UI frameworks like React.js, there are frequent checks to see what portion of the UI data has been modified since the previous rendering cycle. Portions that did not change are not rendered again. In fact, in a typical frontend application, most of the UI data is left unchanged between subsequent rendering cycles.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In a React application that does not adhere to data immutability, it is necessary to check every (nested) part of the UI data. However, in a React application that follows data immutability, it is possible to optimize the comparison of the data for the case where data is not modified. Indeed, when the object address is the same, then it is certain that the data did not change.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Comparing object addresses is much faster than comparing all the fields. In Part 1 of my book, fast equality checks are used to reconcile between concurrent mutations in a highly scalable production system.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+Immutable data enables fast equality checks by comparing data by reference.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;benefit-4-free-concurrency-safety&quot;&gt;Benefit #4: Free concurrency safety&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In a multi-threaded environment, concurrency safety mechanisms (e.g., mutexes) are often used to prevent the data in thread &lt;code&gt;A&lt;/code&gt; from being modified while it is accessed in thread &lt;code&gt;B&lt;/code&gt;. In addition to the slight performance hit they cause, concurrency safety mechanisms impose a mental burden that makes code writing and reading much more difficult.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+Adherence to data immutability eliminates the need for a concurrency mechanism. The data you have in hand never changes!
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;cost-for-principle-3&quot;&gt;Cost for Principle #3&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;As with the previous principles, applying Principle #3 comes at a price. The following sections look at these costs:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Performance hit&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Required library for persistent data structures&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;cost-1-performance-hit&quot;&gt;Cost #1: Performance hit&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;As mentioned earlier, there exist implementations of persistent data structures in most programming languages. But even the most efficient implementation is a bit slower than the in-place mutation of the data. In most applications, the performance hit and the additional memory consumption involved in using immutable data structures is not significant. But this is something to keep in mind.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;cost-2-required-library-for-persistent-data-structures&quot;&gt;Cost #2: Required library for persistent data structures&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In a language like Clojure, the native data structures of the language are immutable. However, in most programming languages, adhering to data immutability requires the inclusion a third-party library that provides an implementation of persistent data structures.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The fact that the data structures are not native to the language means that it is difficult (if not impossible) to enforce the usage of immutable data across the board. Also, when integrating with third-party libraries (e.g., a chart library), persistent data structures must be converted into equivalent native data structures.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;summary-of-principle-3&quot;&gt;Summary of Principle #3&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;DOP considers data as a value that never changes. Adherence to this principle results in code that is predictable even in a multi-threaded environment, and equality checks are fast. However, a non-negligible mind shift is required, and in most programming languages, a third-party library is needed to provide an efficient implementation of persistent data structures.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DOP Principle #3: Data is immutable&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To adhere to this principle, data is represented with immutable structures.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/chapter00/do-principle-3-immutable-data.png&quot; alt=&quot;do principle 3 immutable data&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Benefits include&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Data access to all with confidence&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Predictable code behavior&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Fast equality checks&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Concurrency safety for free&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The cost for implementing Principle #3 includes&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;A performance hit&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Required library for persistent data structures&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7&quot;&gt; book &lt;/a&gt; about &lt;b&gt;Data-Oriented Programming&lt;/b&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><category term="dop" /><summary type="html">With data separated from code and represented with generic data structures, how are changes to the data managed? DOP is very strict on this question. Mutation of data is not allowed! In DOP, changes to data are accomplished by creating new versions of the data. The reference to a variable may be changed so that it refers to a new version of the data, but the value of the data itself must never change.</summary></entry><entry><title type="html">Represent data with generic data structures</title><link href="/databook/2022/06/22/generic-data-structures.html" rel="alternate" type="text/html" title="Represent data with generic data structures" /><published>2022-06-22T02:33:24+00:00</published><updated>2022-06-22T02:33:24+00:00</updated><id>/databook/2022/06/22/generic-data-structures</id><content type="html" xml:base="/databook/2022/06/22/generic-data-structures.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When adhering to &lt;a href=&quot;/databook/2022/06/22/separate-code-from-data.html&quot;&gt;Principle #1 of DOP&lt;/a&gt;, code is separated from data. DOP is not opinionated about the programming constructs to use for organizing the code, but it has a lot to say about how the data should be represented. This is the theme of Principle #2.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The most common generic data structures are maps (a.k.a. dictionaries) and arrays (or lists). But other generic data structures (e.g., sets, trees, and queues) can be used as well. Principle #2 does not deal with the mutability or the immutability of the data. That is the theme of Principle #3.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7&quot;&gt; book &lt;/a&gt; about &lt;b&gt;Data-Oriented Programming&lt;/b&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js&quot; integrity=&quot;sha256-8E6QUcFg1KTnpEU8TFGhpTGHw5fJqB9vCms3OhAYLqw=&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This article is an exploration of the second principle of Data-Oriented Programming. The other principles of DOP are explored here:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/databook/2022/06/22/separate-code-from-data.html&quot;&gt;Principle #1&lt;/a&gt;: Separating code (behavior) from data.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/databook/2022/06/22/generic-data-structures.html&quot;&gt;Principle #2&lt;/a&gt;: Representing data with generic data structures.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/databook/2022/06/22/immutable-data.html&quot;&gt;Principle #3&lt;/a&gt;: Treating data as immutable.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/databook/2022/06/22/data-validation.html&quot;&gt;Principle #4&lt;/a&gt;: Separating data schema from data representation.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+&lt;em&gt;Principle #2&lt;/em&gt;&amp;#8201;&amp;#8212;&amp;#8201;Represent application data with generic data structures.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;illustration-of-principle-2&quot;&gt;Illustration of Principle #2&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In DOP, data is represented with generic data structures (like maps and arrays) instead of instantiating data via specific classes. In fact, most of the data entities that appear in a typical application can be represented with maps and arrays (or lists). But there exist other generic data structures (e.g., sets, lists, queues, etc.) that might be required in some use cases. Let&amp;#8217;s look at the same simple example we used to illustrate &lt;a href=&quot;/databook/2022/06/22/separate-code-from-data.html&quot;&gt;Principle #1&lt;/a&gt; (data that represents an author).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;An author is a data entity with a &lt;code&gt;firstName&lt;/code&gt;, a &lt;code&gt;lastName&lt;/code&gt;, and the number of &lt;code&gt;books&lt;/code&gt; they have written. Principle #2 is broken when we use a specific class to represent an author as this listing reveals.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;break-2-oop-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;class AuthorData {
+  constructor(firstName, lastName, books) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.books = books;
+  }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Principle #2 is followed when using a map (a dictionary or an associative array) as a generic data structure that represents an author. The following listing illustrates how we can follow this principle in OOP.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;follow-2-oop-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;function createAuthorData(firstName, lastName, books) {
+  var data = new Map;
+  data.firstName = firstName;
+  data.lastName = lastName;
+  data.books = books;
+  return data;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In a language like JavaScript, we can also instantiate a map via a data literal, which is a bit more convenient. The following listing shows an example.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;follow-2-literal-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;function createAuthorData(firstName, lastName, books) {
+  return {
+    firstName: firstName,
+    lastName: lastName,
+    books: books
+  };
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;benefits-of-principle-2&quot;&gt;Benefits of Principle #2&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Using generic data structures to represent data has multiple benefits. We cover these benefits in greater detail in the following sections:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The ability to use generic functions that are not limited to our specific use case&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A flexible data model&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;using-functions-that-are-not-limited-to-a-specific-use-case&quot;&gt;Using functions that are not limited to a specific use case&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Using generic data structures to represent data makes it possible to manipulate data with a rich set of functions that are available on those data structures natively in our programming language. Additionally, third-party libraries also provide more of these functions. For instance, JavaScript natively provides some basic functions on maps and arrays, and third-party libraries like Lodash (&lt;a href=&quot;https://lodash.com/&quot; class=&quot;bare&quot;&gt;https://lodash.com/&lt;/a&gt;) extend the functionality with even more functions. There is a famous quote by Alan Perlis that summarizes this benefit:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It is better to have 100 functions operate on one data structure than to have 10 functions operate on 10 data structures.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When an author is represented as a map, the author can be serialized into JSON using &lt;code&gt;JSON.stringify()&lt;/code&gt;, which is part of JavaScript. The following listing provides an example.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var data = createAuthorData(&amp;quot;Isaac&amp;quot;, &amp;quot;Asimov&amp;quot;, 500);
+JSON.stringify(data);
+// → &amp;quot;{\&amp;quot;firstName\&amp;quot;:\&amp;quot;Isaac\&amp;quot;,\&amp;quot;lastName\&amp;quot;:\&amp;quot;Asimov\&amp;quot;,\&amp;quot;books\&amp;quot;:500}&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Serializing author data without the number of books can be accomplished via Lodash&amp;#8217;s &lt;code&gt;_.pick()&lt;/code&gt; function. The following listing uses &lt;code&gt;_.pick()&lt;/code&gt; to create an object with a subset of keys.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var data = createAuthorData(&amp;quot;Isaac&amp;quot;, &amp;quot;Asimov&amp;quot;, 500);
+var dataWithoutBooks = _.pick(data, [&amp;quot;firstName&amp;quot;, &amp;quot;lastName&amp;quot;]);
+JSON.stringify(dataWithoutBooks);
+// → &amp;quot;{\&amp;quot;firstName\&amp;quot;:\&amp;quot;Isaac\&amp;quot;,\&amp;quot;lastName\&amp;quot;:\&amp;quot;Asimov\&amp;quot;}&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+When adhering to Principle #2, a rich set of functionality is available for data manipulation.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;flexible-data-model&quot;&gt;Flexible data model&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When using generic data structures, the data model is flexible, and data is not forced into a specific shape. Data can be created with no predefined shape, and its shape can be modified at will.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In classic OOP, when &lt;em&gt;not&lt;/em&gt; adhering to Principle #2, each piece of data is instantiated via a class and must follow a rigid shape. When a slightly different data shape is needed, a new class must be defined. Take, for example, &lt;code&gt;AuthorData&lt;/code&gt;, a class that represents an author entity made of three fields: &lt;code&gt;firstName&lt;/code&gt;, &lt;code&gt;lastName&lt;/code&gt;, and &lt;code&gt;books&lt;/code&gt;. Suppose that you want to add a field called &lt;code&gt;fullName&lt;/code&gt; with the full name of the author. If we fail to adhere to Principle #2, a new class &lt;code&gt;AuthorDataWithFullName&lt;/code&gt; must be defined. However, when using generic data structures, fields can be added to (or removed from) a map &lt;em&gt;on the fly&lt;/em&gt; as the following listing shows.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;fly-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var data = createAuthorData(&amp;quot;Isaac&amp;quot;, &amp;quot;Asimov&amp;quot;, 500);
+data.fullName = &amp;quot;Isaac Asimov&amp;quot;;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+Working with a flexible data model is particularly useful in applications where the shape of the data tends to be dynamic (e.g., web apps and web services).
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Part 1 of my book explores in detail the benefits of a flexible data model in real-world applications. Next, let&amp;#8217;s explore the cost for adhering to Principle #2.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;cost-for-principle-2&quot;&gt;Cost for Principle #2&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;As with any programming principle, using this principle comes with its own set of trade-offs. The price paid for representing data with generic data structures is as follows:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;There is a slight performance hit.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;No data schema is required.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;No compile-time check that the data is valid is necessary.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;In some statically typed languages, type casting is needed.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;cost-1-performance-hit&quot;&gt;Cost #1: Performance hit&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When specific classes are used to instantiate data, retrieving the value of a class member is fast because the compiler knows how the data will look and can do many optimizations. With generic data structures, it is harder to optimize, so retrieving the value associated to a key in a map, for example, is a bit slower that retrieving the value of a class member. Similarly, setting the value of an arbitrary key in a map is a bit slower that setting the value of a class member. In most programming languages, this performance hit is not significant, but it is something to keep in mind.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+Retrieving and storing the value associated to an arbitrary key from a map is a bit slower than with a class member.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;cost-2-no-data-schema&quot;&gt;Cost #2: No data schema&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When data is instantiated from a class, the information about the data shape is in the class definition. Every piece of data has an associated data shape. The existence of data schema at a class level is useful for developers and for IDEs because&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Developers can easily discover the expected data shape.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;IDEs provide features like field name autocompletion.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When data is represented with generic data structures, the data schema is not part of the data representation. As a consequence, some pieces of data might have an associated data schema and other pieces of data do not (see Principle #4).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+When generic data structures are used to store data, the data shape is not part of the data representation.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;cost-3-no-compile-time-check-that-the-data-is-valid&quot;&gt;Cost #3: No compile-time check that the data is valid&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Look again at the &lt;code&gt;fullName&lt;/code&gt; function in the following listing, which was created to explore Principle #1. This function receives the data it manipulates as an argument.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;fullname-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;function fullName(data) {
+  return data.firstName + &amp;quot; &amp;quot; + data.lastName;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When data is passed to &lt;code&gt;fullName&lt;/code&gt; that does not conform to the shape &lt;code&gt;fullName&lt;/code&gt; expects, an error occurs at run time. With generic data structures, mistyping the field storing the first name (e.g., &lt;code&gt;fistName&lt;/code&gt; instead of &lt;code&gt;firstName&lt;/code&gt;) does not result in a compile-time error or an exception. Rather, &lt;code&gt;firstName&lt;/code&gt; is mysteriously omitted from the result. The following listing shows this unexpected behavior.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;weird-behavior-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;fullName({fistName: &amp;quot;Issac&amp;quot;, lastName: &amp;quot;Asimov&amp;quot;});
+// → &amp;quot;undefined Asimov&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When we instantiate data via classes with a rigid data shape, this type of error is caught at compile time. This drawback is mitigated by the application of Principle #4 that deals with data validation.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+When data is represented with generic data structures, data shape errors are caught only at run time.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;cost-4-the-need-for-explicit-type-casting&quot;&gt;Cost #4: The need for explicit type casting&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In some statically typed languages, explicit type casting is needed. This section takes a look at explicit type casting in Java and at dynamic fields in C#.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In a statically typed language like Java, author data can be represented as a map whose keys are of type &lt;code&gt;string&lt;/code&gt; and whose values are of types &lt;code&gt;Object&lt;/code&gt;. For example, in Java, author data is represented by a &lt;code&gt;Map&amp;lt;String, Object&amp;gt;&lt;/code&gt; as the following listing illustrates.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;author-data-java&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;tok-kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;asimov&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;tok-k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;HashMap&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;tok-n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;tok-n&quot;&gt;asimov&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;tok-na&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-s&quot;&gt;&amp;quot;firstName&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-s&quot;&gt;&amp;quot;Isaac&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;tok-n&quot;&gt;asimov&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;tok-na&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-s&quot;&gt;&amp;quot;lastName&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-s&quot;&gt;&amp;quot;Asimov&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;tok-n&quot;&gt;asimov&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;tok-na&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-s&quot;&gt;&amp;quot;books&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Because the information about the exact type of the field values is not available at compile time, when accessing a field, an explicit type cast is required. For instance, in order to check whether an author is prolific, the value of the &lt;code&gt;books&lt;/code&gt; field must be type cast to an integer as this listing shows.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;is-prolific-java&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;java&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;tok-kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;tok-nc&quot;&gt;AuthorRating&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;tok-kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;tok-kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;tok-nf&quot;&gt;isProlific&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-n&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;tok-n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;tok-k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;tok-n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;tok-na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-s&quot;&gt;&amp;quot;books&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tok-mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Some Java JSON serialization libraries like Gson (&lt;a href=&quot;https://github.com/google/gson&quot; class=&quot;bare&quot;&gt;https://github.com/google/gson&lt;/a&gt;) support serialization of maps of type &lt;code&gt;Map&amp;lt;String, Object&amp;gt;&lt;/code&gt;, without requiring the user to do any type casting. All the magic happens behind the scenes!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;C# supports a dynamic data type called &lt;code&gt;dynamic&lt;/code&gt; (see &lt;a href=&quot;http://mng.bz/voqJ&quot; class=&quot;bare&quot;&gt;http://mng.bz/voqJ&lt;/a&gt;), which allows type checking to occur at run time. Using this feature, author data is represented as a dictionary, where the keys are of type &lt;code&gt;string&lt;/code&gt;, and the values are of type &lt;code&gt;dynamic&lt;/code&gt;. The next listing provides this representation.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;author-data-cs&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;csharp&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;tok-kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;asimov&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;tok-k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;Dictionary&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;tok-kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-kt&quot;&gt;dynamic&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;&amp;gt;();&lt;/span&gt;
+&lt;span class=&quot;tok-n&quot;&gt;asimov&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;tok-s&quot;&gt;&amp;quot;name&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;tok-s&quot;&gt;&amp;quot;Isaac Asimov&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;tok-n&quot;&gt;asimov&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;tok-s&quot;&gt;&amp;quot;books&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;=&lt;/span&gt;  &lt;span class=&quot;tok-m&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The information about the exact type of the field values is resolved at run time. When accessing a field, no type cast is required. For instance, when checking whether an author is prolific, the &lt;code&gt;books&lt;/code&gt; field can be accessed as though it were declared as an integer as in this listing.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;is-prolific-cs&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;csharp&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;tok-k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;tok-nc&quot;&gt;AuthorRating&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;tok-k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;tok-k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;tok-kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;tok-nf&quot;&gt;isProlific&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-n&quot;&gt;Dictionary&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;tok-n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-kt&quot;&gt;dynamic&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;tok-k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;tok-n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;tok-s&quot;&gt;&amp;quot;books&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tok-m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;tok-p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;DOP uses generic data structures to represent data. This might cause a (small) performance hit and impose the need to manually document the shape of data because the compiler cannot validate it statically. Adherence to this principle enables the manipulation of data with a rich set of generic functions (provided by the language and by third-party libraries). Additionally, our data model is flexible. At this point, the data can be either mutable or immutable. The &lt;a href=&quot;/databook/2022/06/22/immutable-data.html&quot;&gt;next principle&lt;/a&gt; illustrates the value of immutability.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DOP Principle #2: Represent data with generic data structures&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To comply to this principle, we represent application data with generic data structures, mostly maps and arrays (or lists). The following figure provides a diagram as a visual representation of this principle.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/chapter00/do-principle-2-generic-data.png&quot; alt=&quot;do principle 2 generic data&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Benefits include&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Using generic functions that are not limited to our specific use case&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A flexible data model&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The cost for implementing this principle includes&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;There is a slight performance hit.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;No data schema is required.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;No compile time check that the data is valid is necessary.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;In some statically typed languages, explicit type casting is needed.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><category term="dop" /><summary type="html">When adhering to Principle #1 of DOP, code is separated from data. DOP is not opinionated about the programming constructs to use for organizing the code, but it has a lot to say about how the data should be represented. This is the theme of Principle #2.</summary></entry><entry><title type="html">Separate code from data</title><link href="/databook/2022/06/22/separate-code-from-data.html" rel="alternate" type="text/html" title="Separate code from data" /><published>2022-06-22T02:32:24+00:00</published><updated>2022-06-22T02:32:24+00:00</updated><id>/databook/2022/06/22/separate-code-from-data</id><content type="html" xml:base="/databook/2022/06/22/separate-code-from-data.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The first principle of Data-Oriented Programming (DOP) is a design principle that recommends a clear separation between code (behavior) and data. This may appear to be a FP principle, but in fact, one can adhere to it or break it either in FP or in OOP:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Adherence to this principle in OOP means aggregating the code as methods of a static class.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Breaking this principle in FP means hiding state in the lexical scope of a function.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Also, this principle does not relate to the way data is represented. Data representation is addressed by &lt;a href=&quot;/databook/2022/06/22/generic-data-structures.html&quot;&gt;Principle #2: Represent data with generic data structures&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7&quot;&gt; book &lt;/a&gt; about &lt;b&gt;Data-Oriented Programming&lt;/b&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This article is an exploration of the first principle of Data-Oriented Programming. The other principles of DOP are explored here:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/databook/2022/06/22/separate-code-from-data.html&quot;&gt;Principle #1&lt;/a&gt;: Separating code (behavior) from data.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/databook/2022/06/22/generic-data-structures.html&quot;&gt;Principle #2&lt;/a&gt;: Representing data with generic data structures.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/databook/2022/06/22/immutable-data.html&quot;&gt;Principle #3&lt;/a&gt;: Treating data as immutable.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/databook/2022/06/22/data-validation.html&quot;&gt;Principle #4&lt;/a&gt;: Separating data schema from data representation.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+&lt;em&gt;Principle #1&lt;/em&gt;&amp;#8201;&amp;#8212;&amp;#8201;Separate code from data in a way that the code resides in functions whose behavior does not depend on data that is encapsulated in the function&amp;#8217;s context.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;illustration-of-principle-1&quot;&gt;Illustration of Principle #1&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Our exploration of Principle #1 begins by illustrating how it can be applied to OOP and FP. The following sections illustrate how this principle can be adhered to or broken in a simple program that deals with:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;An author entity with a &lt;code&gt;firstName&lt;/code&gt;, a &lt;code&gt;lastName&lt;/code&gt;, and the number of &lt;code&gt;books&lt;/code&gt; they wrote.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A piece of code that calculates the full name of the author.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A piece of code that determines if an author is prolific, based on the number of books they wrote.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;breaking-principle-1-in-oop&quot;&gt;Breaking Principle #1 in OOP&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Breaking Principle #1 in OOP happens when we write code that combines data and code together in an object. The following listing demonstrates what this looks like.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;break-1-oop-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;class Author {
+  constructor(firstName, lastName, books) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.books = books;
+  }
+  fullName() {
+    return this.firstName + &amp;quot; &amp;quot; + this.lastName;
+  }
+  isProlific() {
+    return this.books &amp;gt; 100;
+  }
+}
+
+var obj = new Author(&amp;quot;Isaac&amp;quot;, &amp;quot;Asimov&amp;quot;, 500); // &lt;b class=&quot;conum&quot;&gt;(1)&lt;/b&gt;
+obj.fullName();
+// → &amp;quot;Isaac Asimov&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Isaac Asimov really wrote around 500 books!&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;breaking-principle-1-in-fp&quot;&gt;Breaking Principle #1 in FP&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Breaking this principle without classes in FP means hiding data in the lexical scope of a function. The next listing provides an example of this.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;break-1-fp-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;function createAuthorObject(firstName, lastName, books) {
+  return {
+    fullName: function() {
+      return firstName + &amp;quot; &amp;quot; + lastName;
+    },
+    isProlific: function () {
+      return books &amp;gt; 100;
+    }
+  };
+}
+
+var obj = createAuthorObject(&amp;quot;Isaac&amp;quot;, &amp;quot;Asimov&amp;quot;, 500); 
+obj.fullName();
+// → &amp;quot;Isaac Asimov&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;adhering-to-principle-1-in-oop&quot;&gt;Adhering to Principle #1 in OOP&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The following listing shows an example that adheres to Principle #1 in OOP. Compliance with this principle may be achieved even with classes by writing programs such that:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The code consists of static methods.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The data is encapsulated in data classes (classes that are merely containers of data).&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&quot;compliant-1-oop-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;class AuthorData {
+  constructor(firstName, lastName, books) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.books = books;
+  }
+}
+
+class NameCalculation {
+  static fullName(data) {
+    return data.firstName + &amp;quot; &amp;quot; + data.lastName;
+  }
+}
+
+class AuthorRating {
+  static isProlific (data) {
+    return data.books &amp;gt; 100;
+  }
+}
+
+var data = new AuthorData(&amp;quot;Isaac&amp;quot;, &amp;quot;Asimov&amp;quot;, 500); 
+NameCalculation.fullName(data);
+// → &amp;quot;Isaac Asimov&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;adhering-to-principle-1-in-fp&quot;&gt;Adhering to Principle #1 in FP&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Here is an example that adheres to Principle #1 in FP. Compliance with this principle means separating code from data.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;compliant-1-fp-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;function createAuthorData(firstName, lastName, books) {
+  return {
+    firstName: firstName,
+    lastName: lastName,
+    books: books
+  };
+}
+
+function fullName(data) {
+  return data.firstName + &amp;quot; &amp;quot; + data.lastName;
+}
+
+function isProlific (data) {
+  return data.books &amp;gt; 100;
+}
+
+var data = createAuthorData(&amp;quot;Isaac&amp;quot;, &amp;quot;Asimov&amp;quot;, 500); 
+fullName(data);
+// → &amp;quot;Isaac Asimov&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;benefits-of-principle-1&quot;&gt;Benefits of Principle #1&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Having illustrated how to follow or break Principle #1 both in OOP and FP, let&amp;#8217;s look at the benefits that Principle #1 brings to our programs. Careful separation of code from data benefits our programs in the following ways:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Code can be reused in different contexts.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Code can be tested in isolation.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Systems tend to be less complex.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;benefit-1-code-can-be-reused-in-different-contexts&quot;&gt;Benefit #1: Code can be reused in different contexts&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Imagine that besides the author entity, there is a user entity that has nothing to do with authors but has two of the same data fields as the author entity: &lt;code&gt;firstName&lt;/code&gt; and &lt;code&gt;lastName&lt;/code&gt;. The logic of calculating the full name is the same for authors and users&amp;#8201;&amp;#8212;&amp;#8201;retrieving the values of two fields with the same names. However, in traditional OOP as in the version with &lt;code&gt;createAuthorObject&lt;/code&gt; in listing below, the code of &lt;code&gt;fullName&lt;/code&gt; cannot be reused on a user in a &lt;em&gt;straightforward&lt;/em&gt; way because it is locked inside the &lt;code&gt;Author&lt;/code&gt; class.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;full-name-oo-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;class Author {
+  constructor(firstName, lastName, books) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.books = books;
+  }
+  fullName() {
+    return this.firstName + &amp;quot; &amp;quot; + this.lastName;
+  }
+  isProlific() {
+    return this.books &amp;gt; 100;
+  }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;One way to achieve code re-usability when code and data are mixed is to use OOP mechanisms like inheritance or composition to let the &lt;code&gt;User&lt;/code&gt; and &lt;code&gt;Author&lt;/code&gt; classes use the same &lt;code&gt;fullName&lt;/code&gt; method. These techniques are adequate for simple use cases, but in real-world systems, the abundance of classes (either base classes or composite classes) tends to increase complexity.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Here is a simple way to avoid inheritance. In this listing, we duplicate the code of &lt;code&gt;fullName&lt;/code&gt; inside a &lt;code&gt;createUserObject&lt;/code&gt; function.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;oo-duplicate-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;function createAuthorObject(firstName, lastName, books) {
+  var data = {firstName: firstName, lastName: lastName, books: books};
+
+  return {
+    fullName: function fullName() {
+      return data.firstName + &amp;quot; &amp;quot; + data.lastName;
+    }
+  };
+}
+
+function createUserObject(firstName, lastName, email) {
+  var data = {firstName: firstName, lastName: lastName, email: email};
+
+  return {
+    fullName: function fullName() {
+      return data.firstName + &amp;quot; &amp;quot; + data.lastName;
+    }
+  };
+}
+
+var obj = createUserObject(&amp;quot;John&amp;quot;, &amp;quot;Doe&amp;quot;, &amp;quot;john@doe.com&amp;quot;);
+obj.fullName();
+// → &amp;quot;John Doe&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In DOP, no modification to the code that deals with author entities is necessary in order to make it available to user entities, because:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The code that deals with full name calculation is separate from the code that deals with the creation of author data.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The function that calculates the full name works with any hash map that has a &lt;code&gt;firstName&lt;/code&gt; and a &lt;code&gt;lastName&lt;/code&gt; field.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It is possible to leverage the fact that data relevant to the full name calculation for a user and an author has the same shape. With no modifications, the &lt;code&gt;fullName&lt;/code&gt; function works properly both on author data and on user data as the following listing shows.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;same-code-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;function createAuthorData(firstName, lastName, books) {
+  return {firstName: firstName, lastName: lastName, books: books};
+}
+
+function fullName(data) {
+  return data.firstName + &amp;quot; &amp;quot; + data.lastName;
+}
+
+function createUserData(firstName, lastName, email) {
+  return {firstName: firstName, lastName: lastName, email: email};
+}
+
+var authorData = createAuthorData(&amp;quot;Isaac&amp;quot;, &amp;quot;Asimov&amp;quot;, 500);
+fullName(authorData);
+
+var userData = createUserData(&amp;quot;John&amp;quot;, &amp;quot;Doe&amp;quot;, &amp;quot;john@doe.com&amp;quot;);
+fullName(userData);
+// → &amp;quot;John Doe&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When Principle #1 is applied in OOP, code reuse is straightforward even when classes are used. In statically typed OOP languages like Java or C# we would have to create a common interface for &lt;code&gt;AuthorData&lt;/code&gt; and &lt;code&gt;UserData&lt;/code&gt;. In a dynamically typed language like JavaScript, however, that is not required. The code of &lt;code&gt;NameCalculation.fullName()&lt;/code&gt; works both with author data and user data as the next listing demonstrates.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;same-code-oop-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;class AuthorData {
+  constructor(firstName, lastName, books) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.books = books;
+  }
+}
+
+class NameCalculation {
+  static fullName(data) {
+    return data.firstName + &amp;quot; &amp;quot; + data.lastName;
+  }
+}
+
+class UserData {
+  constructor(firstName, lastName, email) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+  }
+}
+
+var userData = new UserData(&amp;quot;John&amp;quot;, &amp;quot;Doe&amp;quot;, &amp;quot;john@doe.com&amp;quot;);
+NameCalculation.fullName(userData);
+
+var authorData = new AuthorData(&amp;quot;Isaac&amp;quot;, &amp;quot;Asimov&amp;quot;, 500);
+NameCalculation.fullName(authorData);
+// → &amp;quot;John Doe&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+When code is separate from data, it is straightforward to reuse code in different contexts. This benefit is achievable both in FP and in OOP.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;benefit-2-code-can-be-tested-in-isolation&quot;&gt;Benefit #2: Code can be tested in isolation&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A similar benefit is the ability to test code in an isolated context. When code is not separate from data, it is necessary to instantiate an object to test its methods. For instance, in order to test the &lt;code&gt;fullName&lt;/code&gt; code that lives inside the &lt;code&gt;createAuthorObject&lt;/code&gt; function, we need to instantiate an author object as this listing shows.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;test-instantiate-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var author =  createAuthorObject(&amp;quot;Isaac&amp;quot;, &amp;quot;Asimov&amp;quot;, 500);
+author.fullName() === &amp;quot;Isaac Asimov&amp;quot;
+// → true&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In this simple scenario, it is not overly burdensome. We only load (unnecessarily) the code for &lt;code&gt;isProlific&lt;/code&gt;.
+Although in a real-world situation, instantiating an object might involve complex and tedious setup.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In the DOP version, where &lt;code&gt;createAuthorData&lt;/code&gt; and &lt;code&gt;fullName&lt;/code&gt; are separate, we can create the data to be passed to &lt;code&gt;fullName&lt;/code&gt; in isolation, testing &lt;code&gt;fullName&lt;/code&gt; in isolation as well. The following listing provides an example.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;test-isolate-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var author =  {
+  firstName: &amp;quot;Isaac&amp;quot;, 
+  lastName: &amp;quot;Asimov&amp;quot;
+};
+fullName(author) === &amp;quot;Isaac Asimov&amp;quot;
+// → true&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If classes are used, it is only necessary to instantiate a data object. We do not need to load the code for &lt;code&gt;isProlific&lt;/code&gt;, which lives in a separate class than &lt;code&gt;fullName&lt;/code&gt;, in order to test &lt;code&gt;fullName&lt;/code&gt;. The next listing lays out an example of this approach.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;test-isolate-oop-klipse-js&quot; class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;klipse-javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;var data =  new AuthorData(&amp;quot;Isaac&amp;quot;, &amp;quot;Asimov&amp;quot;);
+
+NameCalculation.fullName(data) === &amp;quot;Isaac Asimov&amp;quot;
+// → true&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+Writing tests is easier when code is separated from data.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;benefit-3-systems-tend-to-be-less-complex&quot;&gt;Benefit #3: Systems tend to be less complex&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The third benefit of applying Principle #1 to our programs is that systems tend to be less complex. This benefit is the deepest one but also the one that is most subtle to explain.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The type of complexity I refer to is the one that makes systems hard to understand as defined in the paper, &amp;#8220;Out of the Tar Pit&amp;#8221; by Ben Moseley and Peter Marks (&lt;a href=&quot;http://mng.bz/enzq&quot; class=&quot;bare&quot;&gt;http://mng.bz/enzq&lt;/a&gt;). It has nothing to do with the complexity of the resources consumed by a program. Similarly, references to &lt;em&gt;simplicity&lt;/em&gt; mean &lt;em&gt;not complex&lt;/em&gt; (in other words, easy to understand).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+Complex in the context of this article means &lt;em&gt;hard to understand&lt;/em&gt;.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Keep in mind that complexity and simplicity (like hard and easy) are not absolute but relative concepts. The complexity of two systems can be compared to determine whether system A is more complex (or simpler) than system B. When code and data are kept separate, the system tends to be easier to understand for two reasons:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;The scope of a data entity or a code entity is smaller than the scope of an entity that combines code and data.&lt;/em&gt; Each entity is therefore easier to understand.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;Entities of the system are split into disjoint groups: code and data.&lt;/em&gt; Entities therefore have fewer relations to other entities.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This insight is illustrated in a class diagram of our fictitious Library Management System, where code and data are mixed. It is not necessary to know the details of the classes of this system to see that the following diagram represents a complex system; this in the sense that it is hard-to-understand. The system is hard-to-understand because there are many dependencies between the entities that compose the system.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;lib-mgmt-class-diagram-overview-2&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/chapter00/complex-class-relation.png&quot; alt=&quot;complex class relation&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The most complex entity of the system is the &lt;code&gt;Librarian&lt;/code&gt; entity, which is connected via six relations to other entities. Some relations are data relations (association and composition), and some relations are code relations (inheritance and dependency). But in this design, the &lt;code&gt;Librarian&lt;/code&gt; entity mixes code and data, and therefore, it has to be involved in both data and code relations. If each entity of the system is split into a code entity and a data entity &lt;em&gt;without making any further modification to the system&lt;/em&gt;, the result is made of two disconnected parts:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The left part is made only of data entities and data relations: association and composition.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The right part is made only of code entities and code relations: dependency and inheritance.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&quot;lib-mgmt-simplified-class-diagram-2&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/chapter00/data-code-relation.png&quot; alt=&quot;data code relation&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The new system, where code and data are separate, is easier to understand than the original system, where code and data are mixed. Thus, the data part of the system and the code part of the system can each be understood on its own.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+A system made of disconnected parts is less complex than a system made of a single part.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;One could argue that the complexity of the original system, where code and data are mixed, is due to a bad design and that an experienced OOP developer would have designed a simpler system using smart design patterns. That is true, but in a sense, it is irrelevant. The point of Principle #1 is that a system made of entities that do not combine code and data tends to be simpler than a system made of entities that do combine code and data.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It has been said many times that &lt;em&gt;simplicity is hard&lt;/em&gt;. According to the first principle of DOP, simplicity is easier to achieve when separating code and data.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+Simplicity is easier to achieve when code is separated from data.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;cost-for-principle-1&quot;&gt;Cost for Principle #1&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This section looks at the cost involved when we implement Principle #1. The price we pay in order to benefit from the separation between code and data is threefold:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;There is no control on what code can access what data.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;There is no packaging.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Our systems are made from more entities.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;cost-1-there-is-no-control-on-what-code-can-access-what-data&quot;&gt;Cost #1: There is no control on what code can access what data&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When code and data are mixed, it is easy to understand what pieces of code can access what kinds of data. For example, in OOP, the data is encapsulated in an object, which guarantees that the data is accessible only by the object&amp;#8217;s methods. In DOP, data stands on its own. It is transparent if you like, and as a consequence, it can be accessed by any piece of code.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When refactoring the shape of some data, &lt;em&gt;every&lt;/em&gt; place in our code that accesses this kind of data must be known. Moreover, without the application of &lt;a href=&quot;/databook/2022/06/22/immutable-data.html&quot;&gt;Principle #3: Immutable data&lt;/a&gt;, accessing data by any piece of code is inherently unsafe. In that case, it would be hard to guarantee the validity of our data.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;cost-2-there-is-no-packaging&quot;&gt;Cost #2: There is no packaging&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;One of the benefits of mixing code and data is that when you have an object in hand, it is a package that contains both the code (via methods) and the data (via members). As a consequence, it is easy to discover how to manipulate the data: you look at the methods of the class.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;In DOP, the code that manipulates the data could be anywhere. For example, &lt;code&gt;createAuthorData&lt;/code&gt; might be in one file and &lt;code&gt;fullName&lt;/code&gt; in another file. This makes it difficult for developers to discover that the &lt;code&gt;fullName&lt;/code&gt; function is available. In some situations, it could lead to wasted time and unnecessary code duplication.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;cost-3-our-systems-are-made-from-more-entities&quot;&gt;Cost #3: Our systems are made from more entities&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Let&amp;#8217;s do simple arithmetic. Imagine a system made of &lt;em&gt;N&lt;/em&gt; classes that combine code and data. When you split the system into code entities and data entities, you get a system made of 2&lt;em&gt;N&lt;/em&gt; entities. This calculation is not accurate, however, because usually, when you separate code and data, the class hierarchy tends to get simpler as we need less class inheritance and composition. Therefore, the number of classes in the resulting system will probably be somewhere between &lt;em&gt;N&lt;/em&gt; and 2&lt;em&gt;N&lt;/em&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;On one hand, when adhering to Principle #1, the entities of the system are simpler. On the other hand, there are more entities. This cost is mitigated by &lt;a href=&quot;/databook/2022/06/22/generic-data-structures.html&quot;&gt;Principle #2&lt;/a&gt;, which guides us to represent our data with generic data structures.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+When adhering to Principle #1, systems are made of simpler entities, but there are more of them.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;summary-of-principle-1&quot;&gt;Summary of Principle #1&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;DOP requires the separation of code from data. In OOP languages, aggregate code in static methods and data in classes with no methods. In FP languages, avoid hiding data in the lexical scope of functions.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Separating code from data comes at a price. It reduces control over what pieces of code access our data and can cause our systems to be made of more entities. But it&amp;#8217;s worth paying the price because, when adhering to this principle, our code can be reused in different contexts in a straightforward way and tested in isolation. Moreover, a system made of separate entities for code and data tends to be easier to understand.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To follow this principle, we separate code from data in such a way that the code resides in functions whose behavior does not depend on data that is encapsulated in the function&amp;#8217;s context.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/chapter00/do-principle-1-separate.png&quot; alt=&quot;do principle 1 separate&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Benefits include&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Code can be reused in different contexts.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Code can be tested in isolation.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Systems tend to be less complex.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The cost for implementing Principle #1 includes&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;No control on what code accesses which data.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;No packaging.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;More entities.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><category term="dop" /><summary type="html">The first principle of Data-Oriented Programming (DOP) is a design principle that recommends a clear separation between code (behavior) and data. This may appear to be a FP principle, but in fact, one can adhere to it or break it either in FP or in OOP:</summary></entry><entry><title type="html">Principles of Data-Oriented Programming</title><link href="/dop/2022/06/22/principles-of-dop.html" rel="alternate" type="text/html" title="Principles of Data-Oriented Programming" /><published>2022-06-22T02:31:24+00:00</published><updated>2022-06-22T02:31:24+00:00</updated><id>/dop/2022/06/22/principles-of-dop</id><content type="html" xml:base="/dop/2022/06/22/principles-of-dop.html">&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7&quot;&gt; book &lt;/a&gt; about &lt;b&gt;Data-Oriented Programming&lt;/b&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now that my book is completed, I have a better understanding of the core principles of Data-Oriented Programming. This article is a rewrite of &lt;a href=&quot;/2020/09/29/do-principles.html&quot;&gt;my previous article&lt;/a&gt; about DOP Principles from September 2020.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Data-oriented programming (DOP) is a programming paradigm aimed at simplifying the design and implementation of software systems, where information is at the center in systems such as frontend or backend web applications and web services, for example. Instead of designing information systems around software constructs that combine code and data (e.g., objects instantiated from classes), DOP encourages the &lt;em&gt;separation&lt;/em&gt; of code from data. Moreover, DOP provides guidelines about how to represent and manipulate data.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+In DOP, data is treated as a first-class citizen.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The essence of DOP is that it treats data as a first-class citizen. It gives developers the ability to manipulate data inside a program with the same simplicity as they manipulate numbers or strings. Treating data as a first-class citizen is made possible by adhering to four core principles:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/databook/2022/06/22/separate-code-from-data.html&quot;&gt;Principle #1&lt;/a&gt;: Separating code (behavior) from data.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/databook/2022/06/22/generic-data-structures.html&quot;&gt;Principle #2&lt;/a&gt;: Representing data with generic data structures.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/databook/2022/06/22/immutable-data.html&quot;&gt;Principle #3&lt;/a&gt;: Treating data as immutable.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;/databook/2022/06/22/data-validation.html&quot;&gt;Principle #4&lt;/a&gt;: Separating data schema from data representation.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When these four principles are combined, they form a cohesive whole. Systems built using DOP are simpler and easier to understand, so the developer experience is significantly improved.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&quot;combined-together&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/chapter00/do-principles-mind-map.png&quot; alt=&quot;do principles mind map&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+In a data-oriented system, code is separated from data. Data is represented with generic data structures that are immutable and have a separate schema.
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Notice that DOP principles are language-agnostic. They can be adhered to (or broken) in&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Object-oriented programming (OOP) languages such as Java, C#, C++, etc.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Functional programming (FP) languages such as Clojure, OCaml, Haskell, etc.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Languages that support both OOP and FP such as JavaScript, Python, Ruby, Scala, etc.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This series of articles succinctly illustrates how those principles could be applied or broken in JavaScript. Mentioned briefly are the benefits of adherence to each principle, and the costs paid to enjoy those benefits. This article also illustrates the principles of DOP via simple code snippets. Throughout my book &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;amp;utm_medium=affiliate&amp;amp;utm_campaign=book_sharvit2_data_1_29_21&amp;amp;a_aid=viebel&amp;amp;a_bid=d5b546b7&quot;&gt;Data-Oriented Programming&lt;/a&gt;, the application of DOP principles to production information systems is explored in depth.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;principle-1-separate-code-from-data&quot;&gt;Principle #1: Separate code from data&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Principle #1 is a design principle that recommends a clear separation between code (behavior) and data. This may appear to be a FP principle, but in fact, one can adhere to it or break it either in FP or in OOP:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Adherence to this principle in OOP means aggregating the code as methods of a static class.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Breaking this principle in FP means hiding state in the lexical scope of a function.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Also, this principle does not relate to the way data is represented. Data representation is addressed by Principle #2.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This principle is explored further in &lt;a href=&quot;/databook/2022/06/22/separate-code-from-data.html&quot;&gt;Separate code from data&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;principle-2-represent-data-with-generic-data-structures&quot;&gt;Principle #2: Represent data with generic data structures&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When adhering to Principle #1, code is separated from data. DOP is not opinionated about the programming constructs to use for organizing the code, but it has a lot to say about how the data should be represented. This is the theme of Principle #2.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The most common generic data structures are maps (a.k.a. dictionaries) and arrays (or lists). But other generic data structures (e.g., sets, trees, and queues) can be used as well. Principle #2 does not deal with the mutability or the immutability of the data. That is the theme of Principle #3.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This principle is explored further in &lt;a href=&quot;/databook/2022/06/22/generic-data-structures.html&quot;&gt;Represent data with generic data structures&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;principle-3-data-is-immutable&quot;&gt;Principle #3: Data is immutable&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;With data separated from code and represented with generic data structures, how are changes to the data managed? DOP is very strict on this question. Mutation of data is not allowed! In DOP, changes to data are accomplished by creating new versions of the data. The &lt;em&gt;reference&lt;/em&gt; to a variable may be changed so that it refers to a new version of the data, but the &lt;em&gt;value&lt;/em&gt; of the data itself must never change.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This principle is explored further in &lt;a href=&quot;/databook/2022/06/22/immutable-data.html&quot;&gt;Data is immutable&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;principle-4-separate-data-schema-from-data-representation&quot;&gt;Principle #4: Separate data schema from data representation&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;With data separated from code and represented with generic and immutable data structures, now comes the question of how do we express the shape of the data? In DOP, the expected shape is expressed as a data schema that is kept separated from the data itself. The main benefit of Principle #4 is that it allows developers to decide which pieces of data should have a schema and which pieces of data should not.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This principle is explored further in &lt;a href=&quot;/databook/2022/06/22/data-validation.html&quot;&gt;Separate data schema from data representation&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;DOP simplifies the design and implementation of information systems by treating data as a first-class citizen. This is made possible by adhering to four language agnostic core principles:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Separating code from data.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Representing application data with generic data structures.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Treating data as immutable.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Separating data schema from data representation.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&quot;core-principles&quot; class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/uml/chapter00/do-principles-mind-map.png&quot; alt=&quot;do principles mind map&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;p&gt;
+    This article is an excerpt from my &lt;a href=&quot;https://www.manning.com/books/data-oriented-programming?utm_source=viebel&amp;utm_medium=affiliate&amp;utm_campaign=book_sharvit2_data_1_29_21&amp;a_aid=viebel&amp;a_bid=d5b546b7&quot;&gt; book &lt;/a&gt; about &lt;b&gt;Data-Oriented Programming&lt;/b&gt;.
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    More excerpts are available on my &lt;a href=&quot;/data-oriented-programming-book.html&quot;&gt;blog&lt;/a&gt;.
+  &lt;/p&gt;
+
+  &lt;br&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><category term="dop" /><summary type="html">This article is an excerpt from my book about Data-Oriented Programming. More excerpts are available on my blog.</summary></entry><entry><title type="html">Reading the present moment</title><link href="/databook/2022/01/17/reading-the-present-moment.html" rel="alternate" type="text/html" title="Reading the present moment" /><published>2022-01-16T23:45:32+00:00</published><updated>2022-01-16T23:45:32+00:00</updated><id>/databook/2022/01/17/reading-the-present-moment</id><content type="html" xml:base="/databook/2022/01/17/reading-the-present-moment.html">&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;em&gt;This is an experiment I am doing about introducing a bit of self-referential stuff in  Chapter 13 of &quot;Data-Oriented Programming.&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;em&gt;I was inspired by the &quot;Gödel, Escher, Bach&quot; masterpiece. Not sure yet, if it will make it into the official version of the book though. It depends on your feedback.&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;em&gt;Throughout the book, Joe&amp;#8201;&amp;#8212;&amp;#8201;a senior Clojure developer&amp;#8201;&amp;#8212;&amp;#8201;reveals the secrets of Data-Oriented Programming to Theo and Dave&amp;#8201;&amp;#8212;&amp;#8201;two fellow developers&amp;#8201;&amp;#8212;&amp;#8201;who get quite excited about this new paradigm.&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;em&gt;In Chapter 13, Dave tests a piece of code he wrote using as a example the book &quot;Data-Oriented Programming&quot; written by your servant.&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;pygments highlight&quot;&gt;&lt;code data-lang=&quot;javascript&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;tok-kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;tok-nx&quot;&gt;yehonathan&lt;/span&gt; &lt;span class=&quot;tok-o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;name&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;Yehonathan Sharvit&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;bookIsbns&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;tok-p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;9781617298578&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;tok-p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;tok-nx&quot;&gt;Author&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;myName&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;tok-nx&quot;&gt;yehonathan&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;tok-s2&quot;&gt;&amp;quot;html&amp;quot;&lt;/span&gt;&lt;span class=&quot;tok-p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;tok-c1&quot;&gt;// → &amp;quot;&amp;lt;i&amp;gt;Yehonathan Sharvit&amp;lt;/i&amp;gt;&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;em&gt;And that&amp;#8217;s how the self-referential fun begins&amp;#8230;&amp;#8203;&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;em&gt;Please read this article on a device with a wide screen, like a desktop or a tablet. I don&amp;#8217;t think it renders well on a mobile phone.&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When Theo comes to Dave&amp;#8217;s desk to review his implementation of the &quot;list of authors&quot; feature, he asks him about the author that appears in the test of &lt;code&gt;Author.myName&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: Who is Yehonathan Sharvit?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: I don&amp;#8217;t really know. The name appeared when I googled for &quot;Data-Oriented Programming&quot; yesterday. He wrote a book on the topic. I thought it would be cool to use its ISBN in my test.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: Does his book present DOP in a similar way to what Joe taught us?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: I don&amp;#8217;t know. I guess I&amp;#8217;ll discover when I receive the print book I ordered.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A few days later, Dave walks to Theo&amp;#8217;s cube holding a package. Dave opens the package and they take a look at the cover together.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: Wow, that&amp;#8217;s-- that&amp;#8217;s&amp;#8230;&amp;#8203; odd. The woman on the cover - she&amp;#8217;s so familiar. I could swear she&amp;#8217;s the girl my grandparents knew from this Greek island called Santorini. My grandparents were born there, speak often of their childhood friend and have a photo of her. But how could a girl from their little island wind up on the cover of this book?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: That&amp;#8217;s so cool!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dave opens the book with Theo looking over his shoulder. They scan the table of contents.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: It looks like this books covers all the same topics Joe taught us.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: This is great!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dave leafs through a few random sections. Hi attention is caught by a bit of dialog.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Theo, this is so strange!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: What?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: The characters in Sharvit&amp;#8217;s book have the same names as ours!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: Let me see&amp;#8230;&amp;#8203;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Theo turns to a page from the first chapter. He and Dave read this passage side by side.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sidebarblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;Data-Oriented Programming: Chapter 1&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: Hey Dave! How&amp;#8217;s it going?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Today? Not great. I&amp;#8217;m trying to fix a bug in my code! I can&amp;#8217;t understand why the state of my objects always changes. I&amp;#8217;ll figure it out though, I&amp;#8217;m sure. How&amp;#8217;s your day going?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: I just finished the design of a system for a new customer.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Cool! Would it be OK for me to see it? I&amp;#8217;m trying to improve my design skills.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: Sure! I have the diagram on my desk. We can take a look now if you like.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: I remember this situation. It was around a year ago just a few weeks after I had joined Albatross.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Theo&amp;#8217;s face turns pale.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: I don&amp;#8217;t feel well.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Theo gets up to splash cold water on his face. When he comes back, still pale, but in better control of his emotions, he tries to remember the situation described in the first chapter of the book.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: Was it when I showed you my design for Klafim prototype?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Exactly! I was quite impressed by your class hierachy diagrams.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: Oh no! Don&amp;#8217;t remind me of that time. The long hours of work on such a complex OOP system gave me nightmares.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: I remember it as a fun period. Every week I was learning a new technology: GraphQL, Elasticsearch, DataDog, Bigtable, Spring, Express&amp;#8230;&amp;#8203;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: Luckily, I met Joe a few days later.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Apropos Joe, you never told me  exactly how you met him.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: Well now you&amp;#8217;ll know everything. The meeting is told quite accurately at the beginning of Chapter 2.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dave reads a few lines in the beginning of Chapter 2.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sidebarblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;Data-Oriented Programming: Chapter 2&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The next morning, Theo asks on Hacker News and on Reddit for ways to reduce system complexity and build flexible systems. Some folks mention using different programming languages, others talk about advanced design patterns. Finally, Theo&amp;#8217;s attention gets captured by a comment from a user named Joe who mentions &quot;Data-Oriented programming&quot; and claims that its main goal is to reduce system complexity. Theo has never heard this term before. Out of curiosity he decides to contact Joe by email.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;What a coincidence! Joe lives in San Francisco too. Theo invites him to a meeting in his office.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Joe is a 40-year old developer. He&amp;#8217;d been a Java developer for nearly decade before adopting Clojure around 7 years ago.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;When Theo tells Joe about the Library Management System he designed and built, and about his struggles to adapt to changing requirements, Joe is not surprised.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: The book doesn&amp;#8217;t say if it was on Hacker News or on Reddit that Joe you exchanged with Joe.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: I remember it very well: It was on Reddit. In the &quot;r/clojure&quot; community.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;While they talk, Dave leafs through the pages of the book, when he comes across a curious passage from Chapter 15&amp;#8230;&amp;#8203;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sidebarblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;Data-Oriented Programming: Chapter 15&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: I get that. But what happens if the code of the function modifies the data that we are writing. Will we write the original data to the file, or the modified data?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: I&amp;#8217;ll let you think about that while I get a cup of coffee at the &lt;strong&gt;museum&lt;/strong&gt; coffee shop. Would you like one?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Yes, an espresso please.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: I have a weird sensation of &lt;em&gt;déjà lu&lt;/em&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Me too.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Do you know what &lt;em&gt;déjà lu&lt;/em&gt; means?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: No. But it sounds like it&amp;#8217;s related to déjà vu.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dave and Theo sit quietly, pondering the meaning of &quot;déjà lu&quot; and the bigger puzzle of this weird book.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: That&amp;#8217;s it! I think I got the hang of it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dave shows Theo the result from Google translate with the &quot;Detect language&quot; option activated.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: In French, &quot;déjà lu&quot; means &quot;already read&quot;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: Do you think that the author is French?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Probably. That would explain some odd turns of phrases I&amp;#8217;ve noticed here and there in the way the characters express themselves.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: But of course! At least we have found a point on which we are not identical to the characters in this book.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Anyway, A &lt;em&gt;déjà lu&lt;/em&gt; must be when you live a situation that you have already read in a book.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: But I don&amp;#8217;t think we&amp;#8217;ve ever been together at a museum!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Me neither. Could this book be telling not only the past but also the future?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: A future that we will already know when it will happen since we are now reading it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dave and Theo together:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&amp;#8201;&amp;#8212;&amp;#8201;A déjà lu!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: This book tells our past and our future. I wonder if it also tells our present.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: What chapter do you think we would be at the moment?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Let&amp;#8217;s see. At the end of Chapter 12, there&amp;#8217;s a beautiful drawing of the JSON schema cheatsheet we made together last week. It means, that we should now be in Chapter 13.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dave slowly turns the pages of the book, until he finds the line that tells the present moment.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sidebarblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;Data-Oriented Programming: Chapter 13&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: This book tells our past and our future. I wonder if it also tells our present.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: What chapter do you think we would be at the moment?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Let&amp;#8217;s see. At the end of Chapter 12, there&amp;#8217;s a beautiful drawing of the JSON schema cheatsheet we made together last week. It means, that we should now be in Chapter 13.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dave slowly turns the pages of the book, until he finds the line that tells the present moment.&lt;/p&gt;
+&lt;/div&gt;
+&lt;table class=&quot;tableblock frame-all grid-all stretch&quot;&gt;
+&lt;colgroup&gt;
+&lt;col style=&quot;width: 100%;&quot;&gt;
+&lt;/colgroup&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;div class=&quot;content&quot;&gt;&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;Data-Oriented Programming: Chapter 13&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: This book tells our past and our future. I wonder if it also tells our present.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: What chapter do you think we would be at the moment?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Let&amp;#8217;s see. At the end of Chapter 12, there&amp;#8217;s a beautiful drawing of the JSON schema cheatsheet we made together last week. It means, that we should now be in Chapter 13.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dave slowly turns the pages of the book, until he finds the line that tells the present moment.&lt;/p&gt;
+&lt;/div&gt;
+&lt;table class=&quot;tableblock frame-none grid-all stretch&quot;&gt;
+&lt;colgroup&gt;
+&lt;col style=&quot;width: 9.0909%;&quot;&gt;
+&lt;col style=&quot;width: 90.9091%;&quot;&gt;
+&lt;/colgroup&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;div class=&quot;content&quot;&gt;&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;Data-Oriented Programming: Chapter 13&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: This book tells our past and our future. I wonder if it also tells our present.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: What chapter do you think we would be at the moment?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Let&amp;#8217;s see. At the end of Chapter 12, there&amp;#8217;s a beautiful drawing of the JSON schema cheatsheet we made together last week. It means, that we should now be in Chapter 13.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dave slowly turns the pages of the book, until he finds the line that tells the present moment.&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;&lt;/div&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: Dave! This is freaking me out! I think we should close this book immediately and forget all about it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: I can&amp;#8217;t. I&amp;#8217;m too curious to discover my future.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: You&amp;#8217;ll have to do it without me. Joe told us many times we should never mess up with the state of a system.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: Wait! It&amp;#8217;s true that Joe taught us the merits of immutability. But that only concerns the past state of a system. He never said we didn&amp;#8217;t have the right to mutate our future!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;THEO&lt;/strong&gt;: You mean that reading beyond Chapter 13 won&amp;#8217;t necessarily lock us in a predefined scenario?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;DAVE&lt;/strong&gt;: I hope so!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Hoping to stay in control of their destiny, Theo and Dave start reading Chapter 14 of &quot;Data-Oriented Programming&quot;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;em&gt;Please share your thoughts about this self-referential stuff by replying to this &lt;a href=&quot;https://twitter.com/viebel/status/1482899756791836674&quot;&gt;tweet&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;em&gt;Did you enjoy this self-referential stuff in Chapter 13?&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;em&gt;Do you think it&amp;#8217;s a good idea to include this self-referential stuff in the book?&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;em&gt;How would you make it better?&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;</content><author><name>Yehonathan Sharvit</name></author><category term="d" /><category term="dop" /><summary type="html">This is an experiment I am doing about introducing a bit of self-referential stuff in Chapter 13 of &quot;Data-Oriented Programming.</summary></entry></feed>

@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>DO Principle #1: Separate code from data | Yehonathan Sharvit</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="DO Principle #1: Separate code from data" />
+<meta name="author" content="Yehonathan Sharvit" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Principles of Data Oriented Programming. Principle" />
+<meta property="og:description" content="Principles of Data Oriented Programming. Principle" />
+<meta property="og:site_name" content="Yehonathan Sharvit" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-10-02T07:31:24+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="DO Principle #1: Separate code from data" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@Yehonathan Sharvit" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yehonathan Sharvit"},"dateModified":"2020-10-02T07:31:24+00:00","datePublished":"2020-10-02T07:31:24+00:00","description":"Principles of Data Oriented Programming. Principle","headline":"DO Principle #1: Separate code from data","mainEntityOfPage":{"@type":"WebPage","@id":"/databook/2020/10/02/separate-code-data.html"},"url":"/databook/2020/10/02/separate-code-data.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+
+    <!-- Site Favicon -->
+    <link rel="shortcut icon" href="/assets/favicon2.png" type="image/png" />
+
+    <!-- Font Embed Code -->
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600,600i|Karla:400,400i,700,700i" rel="stylesheet">
+
+    <!-- CSS Styles -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+</head>
+
+
+
+<body class="layout-post">
+    <div id="page" class="site">
+        <header id="masthead" class="site-header">
+    <div class="site-header-wrap">
+        <div class="site-header-inside">
+
+            <div class="site-branding">
+                
+                <p class="profile">
+                    <a href="/">
+                        <img src="/assets/images/authorimage.jpg" alt="'s Picture"
+                            class="avatar" />
+                    </a>
+                </p>
+                <div class="site-identity">
+                    
+                    <h1 class="site-title">
+                        <a href="/">Yehonathan Sharvit</a>
+                    </h1>
+                    
+                    
+                    <p class="site-description">Developer. Author. Speaker.</p>
+                    
+                </div><!-- .site-identity -->
+                
+                <button id="menu-toggle" class="menu-toggle"><span class="screen-reader-text">Main Menu</span><span
+                        class="icon-menu" aria-hidden="true"></span></button>
+            </div><!-- .site-branding -->
+
+            <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+                <div class="site-nav-wrap">
+                    <div class="site-nav-inside">
+                    <ul class="menu">
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/">Blog</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/talks">Talks</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/about">About</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/contact">Contact</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/search">Search</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/testimonials">Testimonials</a></li>
+                        
+                    </ul>
+                    <p class="social-links">
+    <a class="github-button" href="https://github.com/viebel/klipse" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    
+    <a href="https://twitter.com/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+</p>
+
+                    <div class="book-header">
+  <div>
+    Discover my book!
+  </div>
+  <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
+    <img src="/assets/dop-book.png">
+  </a>
+  <div>
+    DISCOUNT CODE: sharvit39
+  </div>
+</div>
+
+                    </div><!-- .site-nav-inside -->
+                </div><!-- .site-nav-wrap -->
+            </nav><!-- .site-navigation -->
+
+        </div><!-- .site-header-inside -->
+    </div><!-- .site-header-wrap -->
+</header><!-- .site-header -->
+
+        <div id="content" class="site-content fadeInDown delay_075s">
+            <div class="inner-wide">
+                <main id="main" class="site-main">
+
+    <article class="post-full inner">
+
+        <header class="post-header">
+            <h1 class="post-title">DO Principle #1: Separate code from data</h1>
+            <span class="post-meta">
+              <time class="post-date" datetime="2020-10-02">
+                October 2, 2020
+              </time>
+            </span>
+            
+            <span class="post-tags">
+                <a href="/tags/index.html#dop"
+                    rel="tag">dop</a>
+                
+            </span>
+            
+        </header><!-- .post-header -->
+
+        <div class="post-content">
+            <div id="preamble">
+<div class="sectionbody">
+<div>
+  <p>
+    This article is an excerpt from my <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7"> book </a> about <b>Data-Oriented Programming</b>.
+  </p>
+
+  <p>
+    More excerpts are available on my <a href="/data-oriented-programming-book.html">blog</a>.
+  </p>
+
+  <br>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="the-principle-in-a-nutshell">The principle in a nutshell</h2>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+Principle #1: Separate code from data in a way that code resides in functions whose behavior does not depend on data that is somehow encapsulated in the function&#8217;s context.
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="remarks-on-principle-1">Remarks on Principle #1</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>In pure FP, functions behavior depend only on its arguments, but it is not a requirement for DO (global variables are allowed in DO).</p>
+</li>
+<li>
+<p>It is possible to break this principle in FP, by hiding state in the lexical scope of a function.</p>
+</li>
+<li>
+<p>It is possible to be compliant with this principle in OOP: The functions could be aggregated as methods of a static class for instance.</p>
+</li>
+<li>
+<p>This principle doesn&#8217;t relate to the way data is modeled. We could be compliant with this principle by creating a specific class for each kind of data.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="illustration-of-principle-1">Illustration of Principle #1</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let me illustrate how we can follow this principle or break it on a simplistic program that deals with:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>An author entity with a <code>firstName</code>, a <code>lastName</code> and a number of <code>books</code> he/she wrote</p>
+</li>
+<li>
+<p>A piece of code that calculates the full name of the author and a number of <code>books</code> he/she wrote</p>
+</li>
+<li>
+<p>A piece of code that determines if an author is prolific, based on the number of books he/she wrote</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>We break this principle when we combine data and code together in an object, like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>class Author {
+  constructor(firstName, lastName, books) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.books = books;
+  }
+  fullName() {
+      return this.firstName + &quot; &quot; + this.lastName;
+  }
+  isProlific() {
+    return this.books &gt; 100;
+  }
+}
+
+var obj = new Author(&quot;Isaac&quot;, &quot;Asimov&quot;, 500); // Isaac Asimov wrote 500 books!
+obj.fullName();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We break this principle <strong>even without classes</strong>, when we hide the data in the lexical scope of a function:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>function createAuthorObject(firstName, lastName, books) {
+ return {
+   fullName: function() {
+       return firstName + &quot; &quot; + lastName;
+      },
+    isProlific: function () {
+      return books &gt; 100;
+    }
+  };
+ }
+
+var obj = createAuthorObject(&quot;Isaac&quot;, &quot;Asimov&quot;, 500); // Isaac Asimov wrote 500 books!
+obj.fullName();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We are compliant with this principle when we separate the code and the data, like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>function createAuthorData(firstName, lastName, books) {
+   return {firstName: firstName, lastName: lastName, books: books};
+}
+
+function fullName(data) {
+   return data.firstName + &quot; &quot; + data.lastName;
+}
+
+function isProlific (data) {
+  return data.books &gt; 100;
+}
+
+var data = createAuthorData(&quot;Isaac&quot;, &quot;Asimov&quot;, 500); // Isaac Asimov wrote 500 books!
+fullName(data);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We are compliant with this principle <strong>even with classes</strong> when we write our code in static classes and store our data in classes with no functions, like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>class AuthorData {
+  constructor(firstName, lastName, books) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.books = books;
+  }
+}
+
+class NameCalculation {
+  static fullName(data) {
+    return data.firstName + &quot; &quot; + data.lastName;
+  }
+}
+
+class AuthorRating {
+  static isProlific (data) {
+    return data.books &gt; 100;
+  }
+}
+
+var data = new AuthorData(&quot;Isaac&quot;, &quot;Asimov&quot;, 500); // Isaac Asimov wrote 500 books!
+NameCalculation.fullName(data);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now that we have illustrated how one could follow or break Principle #1, both in OOP and FP,
+let&#8217;s explore what benefits Principle #1 brings to our programs.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="benefits-of-principle-1">Benefits of Principle #1</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When we are careful to separate code and data, our programs benefit from:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Code can be reused in different contexts</p>
+</li>
+<li>
+<p>Code can be tested in isolation</p>
+</li>
+<li>
+<p>Systems tend to be less complex</p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="benefit-1-code-can-be-reused-in-different-contexts">Benefit #1: Code can be reused in different contexts</h3>
+<div class="paragraph">
+<p>Imagine that we have in our program an entity that is similar to an author e.g. an artist that has the same <code>firstName</code> and <code>lastName</code> fields as an author.</p>
+</div>
+<div class="paragraph">
+<p>In the version with <code>createAuthorObject</code>, we cannot reuse the code of <code>fullName</code> on an artist in a straightforward way.</p>
+</div>
+<div class="paragraph">
+<p>One way to deal with that is to use OO mechanisms like inheritance or composition to let the <code>artist</code> and the <code>author</code> object use the same <code>fullName</code> method.
+In a simplistic use case like the author and the artist that&#8217;s fine but on real world systems, the usage of OO mechanisms tends to increase complexity.</p>
+</div>
+<div class="paragraph">
+<p>Another option is to rewrite the code of <code>fullName</code> inside a <code>createArtistObject</code> function:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>function createAuthorObject(firstName, lastName, books) {
+   var data = {firstName: firstName, lastName: lastName, books: books};
+
+ return {
+   fullName: function fullName() {
+       return data.firstName + &quot; &quot; + data.lastName;
+      }
+  };
+ }
+
+function createArtistObject(firstName, lastName, genre) {
+   var data = {firstName: firstName, lastName: lastName, genre: genre};
+
+ return {
+   fullName: function fullName() {
+       return data.firstName + &quot; &quot; + data.lastName;
+      }
+  };
+ }
+
+var obj = createArtistObject(&quot;Maurits&quot;, &quot;Escher&quot;, &quot;Painting&quot;);
+obj.fullName();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the DO version where <code>createAuthorData</code> and <code>fullName</code> are separate, we don&#8217;t need to make any modification to the existing code (the code that deals with author).
+We simply leverage the fact that
+the data that is relevant to the full name calculation for an artist and an author
+follows the same shape and we call <code>fullName</code> on an artist data.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>function createAuthorData(firstName, lastName, books) {
+  return {firstName: firstName, lastName: lastName, books: books};
+}
+
+function fullName(data) {
+  return data.firstName + &quot; &quot; + data.lastName;
+}
+
+function createArtistData(firstName, lastName, genre) {
+   return {firstName: firstName, lastName: lastName, genre: genre};
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>fullName</code> function works properly both on author data and on artist data:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var data = createAuthorData(&quot;Isaac&quot;, &quot;Asimov&quot;, 500);
+fullName(data);</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var data = createArtistData(&quot;Maurits&quot;, &quot;Escher&quot;, &quot;Painting&quot;);
+fullName(data);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When applied, this principle allows code to be reused in a straightforward way, <strong>even when we use classes</strong>.
+In statically typed OO languages (like Java or C#), we would have to create a common interface
+for <code>AuthorData</code> and <code>ArtistData</code>, but in a dynamically typed language like JavaScript, it is not required:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>class AuthorData {
+  constructor(firstName, lastName, books) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.books = books;
+  }
+}
+
+class NameCalculation {
+  static fullName() {
+    return data.firstName + &quot; &quot; + data.lastName;
+  }
+}
+
+class ArtistData {
+  constructor(firstName, lastName, books) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.books = books;
+  }
+}
+
+// required trick to make the classes accessible to other snippets
+window.AuthorData = AuthorData
+window.NameCalculation = NameCalculation
+window.ArtistData = ArtistData</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The code of <code>NameCalculation.fullName</code> works both of author data and artist data:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var data = new ArtistData(&quot;Maurits&quot;, &quot;Escher&quot;, &quot;Painting&quot;);
+NameCalculation.fullName(data);</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var data = new AuthorData(&quot;Isaac&quot;, &quot;Asimov&quot;, 500);
+NameCalculation.fullName(data);</code></pre>
+</div>
+</div>
+<div class="quoteblock">
+<blockquote>
+When we separate code and data, it is straightforward to reuse code in different contexts. This benefit is achievable both in FP and in OOP.
+</blockquote>
+</div>
+</div>
+<div class="sect2">
+<h3 id="benefit-2-code-can-be-tested-in-isolation">Benefit #2: Code can be tested in isolation</h3>
+<div class="paragraph">
+<p>Another benefit of separating code and data, which is similar to the previous one, is that we are free to test code in an isolated context.</p>
+</div>
+<div class="paragraph">
+<p>When we don&#8217;t separate code from data, we are forced to instantiate an object in order to test each of its methods.</p>
+</div>
+<div class="paragraph">
+<p>For instance, in order to test the <code>fullName</code> code that lives inside the <code>createAuthorObject</code> function, we are required to instantiate an author object:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var author =  createAuthorObject(&quot;Isaac&quot;, &quot;Asimov&quot;, 500);
+
+author.fullName() === &quot;Isaac Asimov&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this simplistic scenario, it is not a big pain (only loading unnecessarily the code for <code>isProlific</code>),
+but in a real world situation, instantiating an object might involve lots of unnecessary steps.</p>
+</div>
+<div class="paragraph">
+<p>In the DO version, where <code>createAuthorData</code> and <code>fullName</code> are separate, we are free to create the data to be passed to <code>fullName</code> as we want and test <code>fullName</code> in isolation:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>
+fullName({firstName: &quot;Isaac&quot;, lastName: &quot;Asimov&quot;}) === &quot;Isaac Asimov&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If we choose to use classes, we only need to instantiate a data object. The code for <code>isProlific</code> doesn&#8217;t have to be loaded in order to test <code>fullName</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="klipse-javascript"><span></span>var data =  new AuthorData(&quot;Isaac&quot;, &quot;Asimov&quot;);
+
+NameCalculation.fullName(data) === &quot;Isaac Asimov&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The second benefit of separating code and data is that it&#8217;s easier to write tests for our code.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="benefit-3-systems-tend-to-be-less-complex">Benefit #3: Systems tend to be less complex</h3>
+<div class="paragraph">
+<p>The third and last benefit of applying Principle #1 is that systems tend to be less complex.</p>
+</div>
+<div class="paragraph">
+<p>This benefit is the deepest one but also the one that is the hardest (for me) to explain.</p>
+</div>
+<div class="paragraph">
+<p>The type of complexity I refer to is the one which makes large systems hard to understand as it is defined in the beautiful paper <a href="https://github.com/papers-we-love/papers-we-love/blob/master/design/out-of-the-tar-pit.pdf">Out of the Tar Pit</a>.
+It has nothing to do with the complexity of the resources consumed by a program.</p>
+</div>
+<div class="paragraph">
+<p>Similarly, when we refer to simplicity, we mean "not complex", in other words easy to understand.</p>
+</div>
+<div class="paragraph">
+<p>Keep in mind that complexity and simplicity (like hard and easy) are not absolute but relative concepts.
+We can compare the complexity of two systems and argue that system A is more complex (or simpler) than system B.</p>
+</div>
+<div class="paragraph">
+<p>When code and data reside in separate entities, the system is easier to understand for two reasons:</p>
+</div>
+<div class="paragraph">
+<div class="title">Entities are split into disjoint groups: code and data. Therefore entities have less relations with other entitites.</div>
+<p>Let me illustrate this insight on a class diagram of a Library management system, where code and data are mixed.</p>
+</div>
+<div id="lib-mgmt-class-diagram-overview" class="imageblock">
+<div class="content">
+<img src="/uml/complex-class-relation.png" alt="complex class relation">
+</div>
+<div class="title">Figure 1. A class diagram overview for a Library management system</div>
+</div>
+<div class="paragraph">
+<p>It is not required to know the details of the classes to notice that this diagram represent a system that is complex in the sense that it is hard to understand.
+The system is hard to understand because there are many dependencies between the entities that compose the system.
+The most complex node of the system is the Librarian entity which is connected via 7 edges to other nodes.
+Part of the edges are data edges (association and composition) and part of the edges are code edges (inheritance and dependency).</p>
+</div>
+<div class="paragraph">
+<p>Now, if we split each class of this system in a code entity and a data entity <em>without making any other modification to the system</em> the diagram of the system is split into two disjoint parts.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The left part is made only of data entities and data edges: association and composition</p>
+</li>
+<li>
+<p>The right part is made only of code entities and code edges: dependency and inheritance</p>
+</li>
+</ul>
+</div>
+<div id="lib-mgmt-simplified-class-diagram" class="imageblock">
+<div class="content">
+<img src="/uml/data-code-relation.png" alt="data code relation">
+</div>
+<div class="title">Figure 2. A class diagram where every class is split into code and data entities</div>
+</div>
+<div class="paragraph">
+<p>The resulting system is definitely simpler. I am not sure if there is a formal metric of the complexity of a system that could make tangible what I mean by simpler, but my informal understanding is that:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+A system made of disjoint simple parts is less complex than a system made of a single complex part.
+</blockquote>
+</div>
+<div class="paragraph">
+<p>One could argue that the complexity of the system where code and data are mixed is due to a bad design and data an experienced OO developer would have designed a simpler system, leveraging smart design patterns.
+That&#8217;s true, but in a sense it&#8217;s irrelevant. The point I am trying to make here is that a system made of entities that do not combine code and data <em>tends</em> to be simpler that a system made of entities that combine code and data.</p>
+</div>
+<div class="paragraph">
+<p>It has been said many times that "Simplicity is hard".</p>
+</div>
+<div class="paragraph">
+<p>My claim is that simplicity is easier to achieve when we separate code and data.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="price-for-principle-1">Price for Principle #1</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are no free meals. Applying Principle #1 comes at a price.</p>
+</div>
+<div class="paragraph">
+<p>The price we have to pay in order to benefit from the separation between code and data is that:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>There is no control on what code access what data</p>
+</li>
+<li>
+<p>No packaging</p>
+</li>
+<li>
+<p>Our systems are made from more entities</p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="price-1-there-is-no-control-on-what-code-access-what-data">Price #1: There is no control on what code access what data</h3>
+<div class="paragraph">
+<p>When code and data are mixed, one can easily understand what are the pieces of code that access a piece of data.
+The reason is that the data is encapsulated in an object. It gives us the guaranty that the data is accessible only by the object&#8217;s methods.</p>
+</div>
+<div class="paragraph">
+<p>In DO, data stands on its own. It is transparent if you want. As a consequence, it can be accessed by any piece of code.</p>
+</div>
+<div class="paragraph">
+<p>When we want to refactor the shape of our data,
+we need to be very careful and make sure that we have found all the places in our code that access the data.</p>
+</div>
+<div class="paragraph">
+<p>Without the application of <a href="/databook/2020/10/02/immutable-data.html">Principle #3</a> that enforces data immutability,
+the fact that the data is accessible by any piece of code would be really unsafe as it would be very hard to guarantee the validity of our data.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="price-2-no-packaging">Price #2: No packaging</h3>
+<div class="paragraph">
+<p>One of the benefits of OOP is that when you have an object in hand,
+it&#8217;s a package that contains both the code (via methods) and the data (via members).
+As a consequence, as a developer it&#8217;s really easy to discover what are the various ways to manipulate the data: you look at the methods of the class.</p>
+</div>
+<div class="paragraph">
+<p>In DO, the code that manipulate the data could be everywhere. For example, <code>createAuthorData</code> could be in a file and <code>fullName</code> in another file. It makes it difficult for developers to discover that the <code>fullName</code> function is available. In some situations, it could lead to waste of time and unnecessary code duplication.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="price-3-our-systems-are-made-from-more-entities">Price #3: Our systems are made from more entities</h3>
+<div class="paragraph">
+<p>Let&#8217;s do simple arithmetic. Imagine a system made of N classes that combine code and data. When you split the separate code and data, you get a system made of 2N entities.</p>
+</div>
+<div class="paragraph">
+<p>That&#8217;s not accurate, because usually when you separate code and data, the class hierarchy tends to get simpler. Therefore the number of classes in the resulting system will probably be lower than 2N.</p>
+</div>
+<div class="paragraph">
+<p>On one hand, the entities are simpler.</p>
+</div>
+<div class="paragraph">
+<p>On the other hand, we have more entities.</p>
+</div>
+<div class="paragraph">
+<p>Depending on the situation, you might prefer one or the other.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="wrapping-up">Wrapping up</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>DO guides us to separate code from data.</p>
+</div>
+<div class="paragraph">
+<p>When we adhere to this principle, our code can be reused in different contexts and tested in isolation and our systems tend to be made of simpler parts.</p>
+</div>
+<div class="paragraph">
+<p>This separation reduces the control we have on what pieces of code access our data and could cause our systems to be made of more entities.</p>
+</div>
+<div class="paragraph">
+<p>Continue your exploration of <a href="/2020/09/29/do-principles.html">Data Oriented Programming principles</a> and move to <a href="/databook/2020/10/02/generic-data-structures.html">Principle #2: Model entities with generic data structures</a>.</p>
+</div>
+<div>
+  <p>
+    This article is an excerpt from my <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7"> book </a> about <b>Data-Oriented Programming</b>.
+  </p>
+
+  <p>
+    More excerpts are available on my <a href="/data-oriented-programming-book.html">blog</a>.
+  </p>
+
+  <br>
+</div>
+</div>
+</div>
+        </div>
+        <footer class="post-footer">
+            <div class="separator"></div>
+        </footer>
+    </article>
+
+    
+    <section class="newsletter-box inner">
+    <h2 class="newsletter-box-title">Subscribe to Yehonathan Sharvit newsletter</h2>
+    <p>Get the latest and greatest from Yehonathan Sharvit delivered straight to your inbox every week.</p>
+    <!-- Begin TinyLetter Signup Form -->
+    <div id="tinyletter_embed_signup">
+      <form class="validate gh-subscribe-form" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	      <label for="tlemail" class="screen-reader-text">Email Address</label>
+        <input type="email" value="" name="email" class="required email subscribe-email" placeholder="Your email address">
+	      <input type="hidden" value="1" name="embed"/>
+	      <input class="button" type="submit" value="Subscribe" />
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
+</section><!-- .widget -->
+
+    
+    <section class="read-next inner">
+        <h2 class="read-next-title">Read Next</h2>
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="October 2, 2020">October 2, 2020</time>
+                </div>
+                <h3 class="post-title"><a href="/databook/2020/10/02/immutable-data.html">DO Principle #3: Data is immutable</a>
+                </h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/dop/'>Dop</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="October 2, 2020">October 2, 2020</time>
+                </div>
+                <h3 class="post-title"><a href="/databook/2020/10/02/data-comparable-value.html">DO Principle #4: Data is comparable by value</a></h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/dop/'>Dop</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+    </section><!-- .read-next -->
+
+    <!-- Create a sorted array of tags -->
+     
+    <section class="tagcloud inner">
+        <h2 class="tagcloud-title">Tags</h2>
+        <div class="tag-links">
+            
+            <a href='/tags/#aboulafia'>aboulafia</a>
+            
+            <a href='/tags/#algo'>algo</a>
+            
+            <a href='/tags/#brainfuck'>brainfuck</a>
+            
+            <a href='/tags/#c%2B%2B'>c++</a>
+            
+            <a href='/tags/#caustics'>caustics</a>
+            
+            <a href='/tags/#clojure'>clojure</a>
+            
+            <a href='/tags/#clojurescript'>clojurescript</a>
+            
+            <a href='/tags/#compiler'>compiler</a>
+            
+            <a href='/tags/#dop'>dop</a>
+            
+            <a href='/tags/#generative'>generative</a>
+            
+            <a href='/tags/#golang'>golang</a>
+            
+            <a href='/tags/#graph'>graph</a>
+            
+            <a href='/tags/#html'>html</a>
+            
+            <a href='/tags/#java'>java</a>
+            
+            <a href='/tags/#javascript'>javascript</a>
+            
+            <a href='/tags/#kabbalah'>kabbalah</a>
+            
+            <a href='/tags/#kids'>kids</a>
+            
+            <a href='/tags/#klipse'>klipse</a>
+            
+            <a href='/tags/#lambda-calculus'>lambda-calculus</a>
+            
+            <a href='/tags/#lambdacalculus'>lambdacalculus</a>
+            
+            <a href='/tags/#lisp'>lisp</a>
+            
+            <a href='/tags/#lua'>lua</a>
+            
+            <a href='/tags/#math'>math</a>
+            
+            <a href='/tags/#maths'>maths</a>
+            
+            <a href='/tags/#oblivion'>oblivion</a>
+            
+            <a href='/tags/#ocaml'>ocaml</a>
+            
+            <a href='/tags/#permutations'>permutations</a>
+            
+            <a href='/tags/#php'>php</a>
+            
+            <a href='/tags/#prolog'>prolog</a>
+            
+            <a href='/tags/#python'>python</a>
+            
+            <a href='/tags/#react'>react</a>
+            
+            <a href='/tags/#reagent'>reagent</a>
+            
+            <a href='/tags/#reasonml'>reasonml</a>
+            
+            <a href='/tags/#ruby'>ruby</a>
+            
+            <a href='/tags/#scheme'>scheme</a>
+            
+            <a href='/tags/#sql'>sql</a>
+            
+            <a href='/tags/#symmetry'>symmetry</a>
+            
+            <a href='/tags/#theory'>theory</a>
+            
+            <a href='/tags/#visualization'>visualization</a>
+            
+        </div><!-- .tag-links -->
+    </section><!-- .tagcloud -->
+</main><!-- .site-main -->
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js, [data-lang=klipse-javascript]',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+        selector_golang: '.language-klipse-go',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+
+
+
+
+
+                
+
+                
+                <footer id="colophon" class="site-footer">
+    <p class="site-info inner">
+        <a href="#">Yehonathan Sharvit</a> &copy; 2026.
+    </p>
+    <a id="back-to-top" class="back-to-top" href="#page">
+        <span class="icon-arrow-up" aria-hidden="true"></span>
+        <span class="screen-reader-text">Back to top</span>
+    </a>
+</footer><!-- .site-footer -->
+
+            </div><!-- .inner-wide -->
+        </div><!-- .site-content -->
+    </div><!-- .site -->
+
+    
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75651930-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-75651930-1', { 'anonymize_ip': true });
+  </script>
+
+    <!-- Javascript Assets -->
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/plugins.js"></script>
+    <script src="/assets/js/custom.js"></script>
+
+</body>
+
+</html>

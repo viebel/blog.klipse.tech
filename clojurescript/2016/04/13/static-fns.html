@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Deep into clojurescript function call mechanisms: static vs. dynamic dispatch | Yehonathan Sharvit</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Deep into clojurescript function call mechanisms: static vs. dynamic dispatch" />
+<meta name="author" content="Yehonathan Sharvit" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Deep into clojurescript function call mechanisms: static vs. dynamic dispatch" />
+<meta property="og:description" content="Deep into clojurescript function call mechanisms: static vs. dynamic dispatch" />
+<meta property="og:site_name" content="Yehonathan Sharvit" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-04-13T23:19:23+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Deep into clojurescript function call mechanisms: static vs. dynamic dispatch" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@Yehonathan Sharvit" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yehonathan Sharvit"},"dateModified":"2016-04-13T23:19:23+00:00","datePublished":"2016-04-13T23:19:23+00:00","description":"Deep into clojurescript function call mechanisms: static vs. dynamic dispatch","headline":"Deep into clojurescript function call mechanisms: static vs. dynamic dispatch","mainEntityOfPage":{"@type":"WebPage","@id":"/clojurescript/2016/04/13/static-fns.html"},"url":"/clojurescript/2016/04/13/static-fns.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+
+    <!-- Site Favicon -->
+    <link rel="shortcut icon" href="/assets/favicon2.png" type="image/png" />
+
+    <!-- Font Embed Code -->
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600,600i|Karla:400,400i,700,700i" rel="stylesheet">
+
+    <!-- CSS Styles -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+</head>
+
+
+
+<body class="layout-post">
+    <div id="page" class="site">
+        <header id="masthead" class="site-header">
+    <div class="site-header-wrap">
+        <div class="site-header-inside">
+
+            <div class="site-branding">
+                
+                <p class="profile">
+                    <a href="/">
+                        <img src="/assets/images/authorimage.jpg" alt="'s Picture"
+                            class="avatar" />
+                    </a>
+                </p>
+                <div class="site-identity">
+                    
+                    <h1 class="site-title">
+                        <a href="/">Yehonathan Sharvit</a>
+                    </h1>
+                    
+                    
+                    <p class="site-description">Developer. Author. Speaker.</p>
+                    
+                </div><!-- .site-identity -->
+                
+                <button id="menu-toggle" class="menu-toggle"><span class="screen-reader-text">Main Menu</span><span
+                        class="icon-menu" aria-hidden="true"></span></button>
+            </div><!-- .site-branding -->
+
+            <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+                <div class="site-nav-wrap">
+                    <div class="site-nav-inside">
+                    <ul class="menu">
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/">Blog</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/talks">Talks</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/about">About</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/contact">Contact</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/search">Search</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/testimonials">Testimonials</a></li>
+                        
+                    </ul>
+                    <p class="social-links">
+    <a class="github-button" href="https://github.com/viebel/klipse" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    
+    <a href="https://twitter.com/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+</p>
+
+                    <div class="book-header">
+  <div>
+    Discover my book!
+  </div>
+  <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
+    <img src="/assets/dop-book.png">
+  </a>
+  <div>
+    DISCOUNT CODE: sharvit39
+  </div>
+</div>
+
+                    </div><!-- .site-nav-inside -->
+                </div><!-- .site-nav-wrap -->
+            </nav><!-- .site-navigation -->
+
+        </div><!-- .site-header-inside -->
+    </div><!-- .site-header-wrap -->
+</header><!-- .site-header -->
+
+        <div id="content" class="site-content fadeInDown delay_075s">
+            <div class="inner-wide">
+                <main id="main" class="site-main">
+
+    <article class="post-full inner">
+
+        <header class="post-header">
+            <h1 class="post-title">Deep into clojurescript function call mechanisms: static vs. dynamic dispatch</h1>
+            <span class="post-meta">
+              <time class="post-date" datetime="2016-04-13">
+                April 13, 2016
+              </time>
+            </span>
+            
+            <span class="post-tags">
+                <a href="/tags/index.html#clojurescript"
+                    rel="tag">clojurescript</a>
+                
+            </span>
+            
+        </header><!-- .post-header -->
+
+        <div class="post-content">
+            <pre class="hidden"><code class="language-klipse">
+ ;; this is a workaround: currently a page with only transpiled snippets dont work
+ (+ 1 2)
+</code></pre>
+
+<p>Function call is really the most fundamental piece of functional programming. This is the reason why we are writing so many articles on this topic:</p>
+
+<ul>
+  <li><a href="/clojure/2016/04/07/ifn.html">Extend IFn protocol like if you were part of clojurescprit core team</a></li>
+  <li><a href="/clojurescript/2016/04/09/clojurescript-protocols-secret.html">Clojurescript defprotocol’s secret</a></li>
+  <li><a href="/clojure/2016/04/11/extend-ifn.html">IFn’s magic beyond defprotocol secret</a></li>
+</ul>
+
+<p>In this article, we present the differences between static and dynamic dispatch in <code class="language-plaintext highlighter-rouge">clojurescript</code>.</p>
+
+<h3 id="the-power-of-call-in-javascript">The Power of <code class="language-plaintext highlighter-rouge">call</code> in Javascript</h3>
+
+<p>As we explained it <a href="/clojure/2016/04/11/extend-ifn.html">in this article</a>, javascript’s <code class="language-plaintext highlighter-rouge">call</code> mechanism is very powerful, as it allows any object to behave like a function.</p>
+
+<h3 id="performance-issues-with-call">Performance issues with <code class="language-plaintext highlighter-rouge">call</code></h3>
+
+<p>The problem is that <code class="language-plaintext highlighter-rouge">call</code> causes severe performance issues as reported in <a href="http://dev.clojure.org/jira/browse/CLJS-910" target="_blank">CLJS JIRA</a>  and in <a href="https://bugs.webkit.org/show_bug.cgi?id=139847" target="_blank">WebKit Bugzilla</a>.</p>
+
+<p>At its beginning, <a href="http://app.klipse.tech?blog=klipse&amp;static-fns=true&amp;js_only=1">KLIPSE</a>’s  performances were very poor on Safari and our blog was completely broken on iOS devices. We couldn’t use advanced compilation as it is not supported in self hosted <code class="language-plaintext highlighter-rouge">clojurescript</code>.</p>
+
+<h3 id="the-solution-static-fns">The solution: static-fns</h3>
+
+<p><a href="https://twitter.com/mfikes" target="_blank">Mike Fikes</a> informed us that <code class="language-plaintext highlighter-rouge">:static-fns</code> <a href="http://dev.clojure.org/jira/browse/CLJS-1381" target="_blank">solves performance issues for self-host on Safari</a>.</p>
+
+<p>Here is the description of <code class="language-plaintext highlighter-rouge">:static-fns</code> as it appear in <a href="https://github.com/clojure/clojurescript/wiki/Compiler-Options#static-fns" target="_blank">clojurescript wiki page</a>:</p>
+
+<blockquote>
+  <p>:static-fns employs static dispatch to specific function arities in emitted JavaScript, as opposed to making use of the call construct.</p>
+</blockquote>
+
+<blockquote>
+  <p>Defaults to false except under advanced optimizations.</p>
+</blockquote>
+
+<blockquote>
+  <p>Useful to have set to false at REPL development to facilitate function redefinition, and useful to set to true for release for performance.</p>
+</blockquote>
+
+<blockquote>
+  <p>This setting does not apply to the standard library, which is always compiled with :static-fns implicitly set to true.</p>
+</blockquote>
+
+<p>Since Apr 8 2016, KLIPSE is compiled with <code class="language-plaintext highlighter-rouge">:static-fns true</code> and our Safari readers are happy.</p>
+
+<p><img src="/assets/cheetah-speed.jpg" alt="Secret" /></p>
+
+<p>If you are curious about what could break the static dispatch mechanism, read <a href="http://blog.fikesfarm.com/posts/2016-04-14-static-free-clojurescript-repl.html" target="_blank">this article by Mike Fikes</a></p>
+
+<h3 id="examples">Examples</h3>
+
+<p>The good news for us - the KLIPSE fans - is that the <code class="language-plaintext highlighter-rouge">static-fns</code> option is available in self host. It’s available in KLIPSE via the <code class="language-plaintext highlighter-rouge">static-fns</code> url parameter. Here is the <a href="/clojure/2016/03/27/klipse-manual.html" target="_blank">full list of KLIPSE url parameters</a>.</p>
+
+<p>Now, let’s explore the effects of <code class="language-plaintext highlighter-rouge">static-fns</code> by playing with live code. 
+You might find it more convenient to open <a href="http://app.klipse.tech/?cljs_in=(defn%20foo%20%0A%20%20(%5B%5D%20%22foo%22)%0A%20%20(%5Bx%5D%20x)%0A%20%20(%5Bx%20y%5D%20y))%0A%0A(foo)%0A(foo%201)%0A(foo%201%202)%0A(foo%201%202%203)%0A%20%20&amp;js_only=1&amp;blog=klipse&amp;static-fns=false" target="_blank">KLIPSE with static-fns=false</a> or <a href="http://app.klipse.tech/?cljs_in=(defn%20foo%20%0A%20%20(%5B%5D%20%22foo%22)%0A%20%20(%5Bx%5D%20x)%0A%20%20(%5Bx%20y%5D%20y))%0A%0A(foo)%0A(foo%201)%0A(foo%201%202)%0A(foo%201%202%203)%0A%20%20&amp;js_only=1&amp;blog=klipse&amp;static-fns=true" target="_blank">KLIPSE with static-fns=true</a> in another window.</p>
+
+<p>Here is a kind of hello world program compiled without static dispatch.</p>
+
+<p>First let’s look how a multi-arity function is transpiled:</p>
+
+<pre><code class="language-klipse-js">(defn foo 
+  ([] "foo")
+    ([x] x)
+      ([x y] y))
+</code></pre>
+
+<p>And now, for the function calls:</p>
+
+<pre><code class="language-klipse-js">(foo)
+(foo 1)
+(foo 1 2)
+(foo 1 2 3)
+</code></pre>
+
+<p>Without static dispatch, the compiler emits the same code for all the calls to <code class="language-plaintext highlighter-rouge">foo</code> no matter what is the arity: <code class="language-plaintext highlighter-rouge">cljs.user.foo.call(null,...)</code>. The proper function is calculated at run time. Actually, this is exactly what <code class="language-plaintext highlighter-rouge">cljs.user.foo</code> does: it dispatches to the proper arity function!</p>
+
+<p>Now, let’s see what happens with static dispatch:</p>
+
+<pre>
+<div class="language-klipse-js" data-static-fns="true">
+(foo)
+(foo 1)
+(foo 1 2)
+(foo 1 2 3)
+</div>
+</pre>
+
+<p>With static dispatch, the compiler emits code that calls the proper arity for <code class="language-plaintext highlighter-rouge">foo</code>:</p>
+
+<ul>
+  <li>0-arity =&gt; <code class="language-plaintext highlighter-rouge">cljs.user.foo.cljs$core$IFn$_invoke$arity$0</code></li>
+  <li>1-arity =&gt; <code class="language-plaintext highlighter-rouge">cljs.user.foo.cljs$core$IFn$_invoke$arity$1</code></li>
+  <li>2-arity =&gt; <code class="language-plaintext highlighter-rouge">cljs.user.foo.cljs$core$IFn$_invoke$arity$2</code></li>
+</ul>
+
+<p>And for 3-arity, it falls back to <code class="language-plaintext highlighter-rouge">cljs.user.foo((1),(2),(3))</code> as <code class="language-plaintext highlighter-rouge">foo</code> doesn’t implement 3-arity.</p>
+
+<h3 id="behind-the-scenes-static-dispatch">Behind the scenes: static dispatch</h3>
+
+<p>Static dispatch is done by the <code class="language-plaintext highlighter-rouge">clojurescript</code> compiler inside the function <a href="https://github.com/clojure/clojurescript/blob/master/src/main/clojure/cljs/compiler.cljc#L919-L1013" target="_blank">cljs.compiler.emit</a>.</p>
+
+<p>Here is the part that does the static dispatch for the case where the arity is completly known at compile time: the compiler checks whether there is an implementation for the arity invoked in the expression:</p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">;; direct dispatch to specific arity case</span><span class="w">
+ </span><span class="no">:else</span><span class="w">
+ </span><span class="p">(</span><span class="k">let</span><span class="w"> </span><span class="p">[</span><span class="n">arities</span><span class="w"> </span><span class="p">(</span><span class="nb">map</span><span class="w"> </span><span class="nb">count</span><span class="w"> </span><span class="n">mps</span><span class="p">)]</span><span class="w">
+   </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">some</span><span class="w"> </span><span class="o">#</span><span class="p">{</span><span class="n">arity</span><span class="p">}</span><span class="w"> </span><span class="n">arities</span><span class="p">)</span><span class="w">
+     </span><span class="p">[(</span><span class="nf">update-in</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="p">[</span><span class="no">:info</span><span class="p">]</span><span class="w">
+        </span><span class="p">(</span><span class="k">fn</span><span class="w"> </span><span class="p">[</span><span class="n">info</span><span class="p">]</span><span class="w">
+          </span><span class="p">(</span><span class="nb">-&gt;</span><span class="w"> </span><span class="n">info</span><span class="w">
+            </span><span class="p">(</span><span class="nb">assoc</span><span class="w"> </span><span class="no">:name</span><span class="w"> </span><span class="p">(</span><span class="nb">symbol</span><span class="w"> </span><span class="p">(</span><span class="nb">str</span><span class="w"> </span><span class="p">(</span><span class="nf">munge</span><span class="w"> </span><span class="n">info</span><span class="p">)</span><span class="w"> </span><span class="s">".cljs$core$IFn$_invoke$arity$"</span><span class="w"> </span><span class="n">arity</span><span class="p">)))</span><span class="w">
+            </span><span class="c1">;; bypass local fn-self-name munging, we're emitting direct</span><span class="w">
+            </span><span class="c1">;; shadowing already applied</span><span class="w">
+            </span><span class="p">(</span><span class="nf">update-in</span><span class="w"> </span><span class="p">[</span><span class="no">:info</span><span class="p">]</span><span class="w">
+              </span><span class="o">#</span><span class="p">(</span><span class="nb">-&gt;</span><span class="w"> </span><span class="n">%</span><span class="w"> </span><span class="p">(</span><span class="nb">dissoc</span><span class="w"> </span><span class="no">:shadow</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nb">dissoc</span><span class="w"> </span><span class="no">:fn-self-name</span><span class="p">))))))</span><span class="w"> </span><span class="n">nil</span><span class="p">]</span><span class="w">
+     </span><span class="p">[</span><span class="n">f</span><span class="w"> </span><span class="n">nil</span><span class="p">]))))</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="what-else">What else?</h3>
+
+<p>I really encourage you to play with <code class="language-plaintext highlighter-rouge">static-fns=true</code> in <a href="http://app.klipse.tech?blog=klipse&amp;static-fns=true&amp;js_only=1" target="_blank">KLIPSE</a> and to try to find other cases that might break the compiler static dispatch.</p>
+
+<p>In another post, we will explain how static dispatch mechanism works for <code class="language-plaintext highlighter-rouge">IFn</code> protocol extension.</p>
+
+<p>Meanwhile, please share your thoughts in the comments below…</p>
+
+<p>Clojurescript rocks!</p>
+
+
+        </div>
+        <footer class="post-footer">
+            <div class="separator"></div>
+        </footer>
+    </article>
+
+    
+    <section class="newsletter-box inner">
+    <h2 class="newsletter-box-title">Subscribe to Yehonathan Sharvit newsletter</h2>
+    <p>Get the latest and greatest from Yehonathan Sharvit delivered straight to your inbox every week.</p>
+    <!-- Begin TinyLetter Signup Form -->
+    <div id="tinyletter_embed_signup">
+      <form class="validate gh-subscribe-form" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	      <label for="tlemail" class="screen-reader-text">Email Address</label>
+        <input type="email" value="" name="email" class="required email subscribe-email" placeholder="Your email address">
+	      <input type="hidden" value="1" name="embed"/>
+	      <input class="button" type="submit" value="Subscribe" />
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
+</section><!-- .widget -->
+
+    
+    <section class="read-next inner">
+        <h2 class="read-next-title">Read Next</h2>
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="April 11, 2016">April 11, 2016</time>
+                </div>
+                <h3 class="post-title"><a href="/clojure/2016/04/11/extend-ifn.html">IFn's magic beyond defprotocol secret</a>
+                </h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/clojure/'>Clojure</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="April 19, 2016">April 19, 2016</time>
+                </div>
+                <h3 class="post-title"><a href="/clojurescript/2016/04/19/fibonacci.html">3 ways to generate Lazy Fibonacci sequences in Clojure</a></h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/clojure/'>Clojure</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+    </section><!-- .read-next -->
+
+    <!-- Create a sorted array of tags -->
+     
+    <section class="tagcloud inner">
+        <h2 class="tagcloud-title">Tags</h2>
+        <div class="tag-links">
+            
+            <a href='/tags/#aboulafia'>aboulafia</a>
+            
+            <a href='/tags/#algo'>algo</a>
+            
+            <a href='/tags/#brainfuck'>brainfuck</a>
+            
+            <a href='/tags/#c%2B%2B'>c++</a>
+            
+            <a href='/tags/#caustics'>caustics</a>
+            
+            <a href='/tags/#clojure'>clojure</a>
+            
+            <a href='/tags/#clojurescript'>clojurescript</a>
+            
+            <a href='/tags/#compiler'>compiler</a>
+            
+            <a href='/tags/#dop'>dop</a>
+            
+            <a href='/tags/#generative'>generative</a>
+            
+            <a href='/tags/#golang'>golang</a>
+            
+            <a href='/tags/#graph'>graph</a>
+            
+            <a href='/tags/#html'>html</a>
+            
+            <a href='/tags/#java'>java</a>
+            
+            <a href='/tags/#javascript'>javascript</a>
+            
+            <a href='/tags/#kabbalah'>kabbalah</a>
+            
+            <a href='/tags/#kids'>kids</a>
+            
+            <a href='/tags/#klipse'>klipse</a>
+            
+            <a href='/tags/#lambda-calculus'>lambda-calculus</a>
+            
+            <a href='/tags/#lambdacalculus'>lambdacalculus</a>
+            
+            <a href='/tags/#lisp'>lisp</a>
+            
+            <a href='/tags/#lua'>lua</a>
+            
+            <a href='/tags/#math'>math</a>
+            
+            <a href='/tags/#maths'>maths</a>
+            
+            <a href='/tags/#oblivion'>oblivion</a>
+            
+            <a href='/tags/#ocaml'>ocaml</a>
+            
+            <a href='/tags/#permutations'>permutations</a>
+            
+            <a href='/tags/#php'>php</a>
+            
+            <a href='/tags/#prolog'>prolog</a>
+            
+            <a href='/tags/#python'>python</a>
+            
+            <a href='/tags/#react'>react</a>
+            
+            <a href='/tags/#reagent'>reagent</a>
+            
+            <a href='/tags/#reasonml'>reasonml</a>
+            
+            <a href='/tags/#ruby'>ruby</a>
+            
+            <a href='/tags/#scheme'>scheme</a>
+            
+            <a href='/tags/#sql'>sql</a>
+            
+            <a href='/tags/#symmetry'>symmetry</a>
+            
+            <a href='/tags/#theory'>theory</a>
+            
+            <a href='/tags/#visualization'>visualization</a>
+            
+        </div><!-- .tag-links -->
+    </section><!-- .tagcloud -->
+</main><!-- .site-main -->
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js, [data-lang=klipse-javascript]',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+        selector_golang: '.language-klipse-go',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+
+
+
+
+
+                
+
+                
+                <footer id="colophon" class="site-footer">
+    <p class="site-info inner">
+        <a href="#">Yehonathan Sharvit</a> &copy; 2026.
+    </p>
+    <a id="back-to-top" class="back-to-top" href="#page">
+        <span class="icon-arrow-up" aria-hidden="true"></span>
+        <span class="screen-reader-text">Back to top</span>
+    </a>
+</footer><!-- .site-footer -->
+
+            </div><!-- .inner-wide -->
+        </div><!-- .site-content -->
+    </div><!-- .site -->
+
+    
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75651930-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-75651930-1', { 'anonymize_ip': true });
+  </script>
+
+    <!-- Javascript Assets -->
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/plugins.js"></script>
+    <script src="/assets/js/custom.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Functional programming: Monads made clear - in javascript | Yehonathan Sharvit</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Functional programming: Monads made clear - in javascript" />
+<meta name="author" content="Yehonathan Sharvit" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Introduction to monads in javascript. Functional javascript. Haskell." />
+<meta property="og:description" content="Introduction to monads in javascript. Functional javascript. Haskell." />
+<meta property="og:site_name" content="Yehonathan Sharvit" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-08-31T12:22:36+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Functional programming: Monads made clear - in javascript" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@Yehonathan Sharvit" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yehonathan Sharvit"},"dateModified":"2016-08-31T12:22:36+00:00","datePublished":"2016-08-31T12:22:36+00:00","description":"Introduction to monads in javascript. Functional javascript. Haskell.","headline":"Functional programming: Monads made clear - in javascript","mainEntityOfPage":{"@type":"WebPage","@id":"/javascript/2016/08/31/monads-javascript.html"},"url":"/javascript/2016/08/31/monads-javascript.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+
+    <!-- Site Favicon -->
+    <link rel="shortcut icon" href="/assets/favicon2.png" type="image/png" />
+
+    <!-- Font Embed Code -->
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600,600i|Karla:400,400i,700,700i" rel="stylesheet">
+
+    <!-- CSS Styles -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+</head>
+
+
+
+<body class="layout-post">
+    <div id="page" class="site">
+        <header id="masthead" class="site-header">
+    <div class="site-header-wrap">
+        <div class="site-header-inside">
+
+            <div class="site-branding">
+                
+                <p class="profile">
+                    <a href="/">
+                        <img src="/assets/images/authorimage.jpg" alt="'s Picture"
+                            class="avatar" />
+                    </a>
+                </p>
+                <div class="site-identity">
+                    
+                    <h1 class="site-title">
+                        <a href="/">Yehonathan Sharvit</a>
+                    </h1>
+                    
+                    
+                    <p class="site-description">Developer. Author. Speaker.</p>
+                    
+                </div><!-- .site-identity -->
+                
+                <button id="menu-toggle" class="menu-toggle"><span class="screen-reader-text">Main Menu</span><span
+                        class="icon-menu" aria-hidden="true"></span></button>
+            </div><!-- .site-branding -->
+
+            <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+                <div class="site-nav-wrap">
+                    <div class="site-nav-inside">
+                    <ul class="menu">
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/">Blog</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/talks">Talks</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/about">About</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/contact">Contact</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/search">Search</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/testimonials">Testimonials</a></li>
+                        
+                    </ul>
+                    <p class="social-links">
+    <a class="github-button" href="https://github.com/viebel/klipse" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    
+    <a href="https://twitter.com/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+</p>
+
+                    <div class="book-header">
+  <div>
+    Discover my book!
+  </div>
+  <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
+    <img src="/assets/dop-book.png">
+  </a>
+  <div>
+    DISCOUNT CODE: sharvit39
+  </div>
+</div>
+
+                    </div><!-- .site-nav-inside -->
+                </div><!-- .site-nav-wrap -->
+            </nav><!-- .site-navigation -->
+
+        </div><!-- .site-header-inside -->
+    </div><!-- .site-header-wrap -->
+</header><!-- .site-header -->
+
+        <div id="content" class="site-content fadeInDown delay_075s">
+            <div class="inner-wide">
+                <main id="main" class="site-main">
+
+    <article class="post-full inner">
+
+        <header class="post-header">
+            <h1 class="post-title">Functional programming: Monads made clear - in javascript</h1>
+            <span class="post-meta">
+              <time class="post-date" datetime="2016-08-31">
+                August 31, 2016
+              </time>
+            </span>
+            
+            <span class="post-tags">
+                <a href="/tags/index.html#javascript"
+                    rel="tag">javascript</a>
+                
+            </span>
+            
+        </header><!-- .post-header -->
+
+        <div class="post-content">
+            <h1 id="background">Background</h1>
+
+<p><a href="https://en.wikipedia.org/wiki/Monad_(functional_programming)">Monad</a> is an advanced concept of functional programming.</p>
+
+<p>Monads are prevalent in <code class="language-plaintext highlighter-rouge">Haskell</code> because it only allows <a href="https://en.wikipedia.org/wiki/Pure_function">pure functions</a>, that is functions that do not have <a href="https://en.wikipedia.org/wiki/Side_effect_(computer_science)">side effects</a>.</p>
+
+<p>Pure functions accept input as arguments and emit output as return values, and that’s it.</p>
+
+<p>In usual languages like <code class="language-plaintext highlighter-rouge">Ruby</code>, <code class="language-plaintext highlighter-rouge">JavaScript</code> or even <code class="language-plaintext highlighter-rouge">Clojure</code>, we do not have this constraint, but it often turns out to be a useful discipline to enforce yourself.</p>
+
+<p>The typical monad introduction will tell you that monads are all about sneaking side effects into this model so you can do I/O.</p>
+
+<p>But that’s just one application. Monads are really about composing functions, as we’ll see.</p>
+
+<p>This article is not easy, but if you make the effor and go through it until the end, you’ll feel like you have climbed a mountain…</p>
+
+<p><img src="/assets/mountain_top.jpg" alt="Mountain" /></p>
+
+<p>Our hope is that the the interactive code snippets of this blog post will help you to climb the mountain.</p>
+
+<p>All the code snippets of this page are <strong>live</strong> and <strong>interactive</strong> powered by the <a href="https://github.com/viebel/klipse">KLIPSE plugin</a>:</p>
+
+<ol>
+  <li><strong>Live</strong>: The code is executed in your browser</li>
+  <li><strong>Interactive</strong>: You can modify the code and it is evaluated as you type</li>
+</ol>
+
+<p>It will work only if your browser supports <code class="language-plaintext highlighter-rouge">EcmaScript6</code> <a href="https://kangax.github.io/compat-table/es6/">arrow functions</a>.</p>
+
+<h1 id="logging-function-calls">Logging function calls</h1>
+
+<p>Let’s imagine you have a function for finding the <code class="language-plaintext highlighter-rouge">sine</code> of a number, which in <code class="language-plaintext highlighter-rouge">JavaScript</code> would be a simple wrapper around the Math library:</p>
+
+<pre><code class="language-klipse-eval-js">var sine = (x) =&gt; Math.sin(x);
+sine(0.123)
+</code></pre>
+
+<p>And you have another function for taking the <code class="language-plaintext highlighter-rouge">cube</code> of a number:</p>
+
+<pre><code class="language-klipse-eval-js">cube = (x) =&gt; x * x * x;
+cube(0.987)
+</code></pre>
+
+<p>These functions take one number as input and return one number as output, making them composable: you can use the output of one as the input to the next:</p>
+
+<pre><code class="language-klipse-eval-js">sineCubed = (x) =&gt; cube(sine(x));
+sineCubed(1.22);
+</code></pre>
+
+<p>Let’s create a function to encapsulate function composition. This takes two functions <code class="language-plaintext highlighter-rouge">f</code> and <code class="language-plaintext highlighter-rouge">g</code> and returns another function that computes <code class="language-plaintext highlighter-rouge">f(g(x))</code>.</p>
+
+<pre><code class="language-klipse-eval-js">compose = (f, g) =&gt; (x) =&gt; f(g(x)); 
+var sineOfCube = compose(cube, sine);
+
+var x = 1.22;
+sineOfCube(x) === sineCubed(x);
+</code></pre>
+
+<p>Now, we decide that we need to debug these functions, and we want to log the fact that they have been called. We might do this like so:</p>
+
+<pre><code class="language-klipse-eval-js">var cube = (x) =&gt; {
+  console.log('cube was called.');
+  return x * x * x;
+};
+</code></pre>
+
+<h1 id="pure-functions---no-side-effects">Pure functions - no side effects</h1>
+
+<p>But we’re not allowed to do this in a system that only allows pure functions: <code class="language-plaintext highlighter-rouge">console.log()</code> is neither an argument nor a return value of the function, it is a side effect.</p>
+
+<p>If we want to capture this logging information, it must form part of the return value. Let’s modify our functions to return a pair of values: the result, and some debugging information:</p>
+
+<pre><code class="language-klipse-eval-js">var sine = (x) =&gt; [Math.sin(x), 'sine was called.'];
+sine(0.3218)
+</code></pre>
+
+<pre><code class="language-klipse-eval-js">var cube = (x) =&gt;  [x * x * x, 'cube was called.'];
+cube(3)
+</code></pre>
+
+<p>But we now find, to our horror, that these functions don’t compose:</p>
+
+<pre><code class="language-klipse-eval-js">compose(sine, cube)(3)
+</code></pre>
+
+<p>This is broken in two ways:</p>
+
+<ol>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">sine</code> is trying to calculate the sine of an array, which results in <code class="language-plaintext highlighter-rouge">null</code></p>
+  </li>
+  <li>
+    <p>we’re losing the debugging information from the call to <code class="language-plaintext highlighter-rouge">cube</code></p>
+  </li>
+</ol>
+
+<p>We’d expect the composition of these functions to return the <code class="language-plaintext highlighter-rouge">sine</code> of the <code class="language-plaintext highlighter-rouge">cube</code> of <code class="language-plaintext highlighter-rouge">x</code>, and a string stating that both <code class="language-plaintext highlighter-rouge">cube</code> and <code class="language-plaintext highlighter-rouge">sine</code> were called:</p>
+
+<p>A simple composition won’t work here because the return type of <code class="language-plaintext highlighter-rouge">cube</code> (an <code class="language-plaintext highlighter-rouge">array</code>) is not the same as the argument type to <code class="language-plaintext highlighter-rouge">sine</code> (a <code class="language-plaintext highlighter-rouge">number</code>).</p>
+
+<p>A little more glue is required. We could write a function to compose these ‘debuggable’ functions: it would break up the return values of each function and stitch them back together in a meaningful way:</p>
+
+<pre><code class="language-klipse-eval-js">var composeDebuggable = (f, g) =&gt; (x) =&gt; {
+        const [y,s] = g(x),
+               [z,t ] = f(y);
+                   return [z, s + t];
+};
+composeDebuggable(sine, cube)(3)
+</code></pre>
+
+<p>We’ve composed two functions that take a number and return a <code class="language-plaintext highlighter-rouge">(number, string)</code> pair, and created another function with the same signature, meaning it can be composed further with other debuggable functions.</p>
+
+<h1 id="haskell-to-the-rescue">Haskell to the rescue</h1>
+
+<p>To simplify things, let’s borrow some <code class="language-plaintext highlighter-rouge">Haskell</code> notation. The following type signature says that the function <code class="language-plaintext highlighter-rouge">cube</code> accepts a <code class="language-plaintext highlighter-rouge">number</code> and returns a tuple containing a <code class="language-plaintext highlighter-rouge">number</code> and a <code class="language-plaintext highlighter-rouge">string</code>:</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cube</span> <span class="o">::</span> <span class="kt">Number</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Number</span><span class="p">,</span><span class="kt">String</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>This is the signature that all our debuggable functions and their compositions have. Our original functions had the simpler signature <code class="language-plaintext highlighter-rouge">Number -&gt; Number</code>.</p>
+
+<p>The symmetry of the argument and return types is what makes these functions composable. Rather than writing customized composition logic for our debuggable functions, what if we could simply convert them such that their signature was:</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cube</span> <span class="o">::</span> <span class="p">(</span><span class="kt">Number</span><span class="p">,</span><span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Number</span><span class="p">,</span><span class="kt">String</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>We could then use our original compose function for glueing them together. We could do this conversion by hand, and rewrite the source for cube and sine to accept <code class="language-plaintext highlighter-rouge">(Number,String)</code> instead of just <code class="language-plaintext highlighter-rouge">Number</code> but this doesn’t scale, and you end up writing the same boilerplate in all your functions.</p>
+
+<h1 id="the-writer-monad">The Writer monad</h1>
+
+<p>Far better to let each function just do its job, and provide one tool to coerce the functions into the desired format. We’ll call this tool <code class="language-plaintext highlighter-rouge">bind</code>, and its job is to take a <code class="language-plaintext highlighter-rouge">Number -&gt; (Number,String)</code> function and return a <code class="language-plaintext highlighter-rouge">(Number,String) -&gt; (Number,String)</code> function.</p>
+
+<p>Let’s write <code class="language-plaintext highlighter-rouge">bind</code> in <code class="language-plaintext highlighter-rouge">javascript</code>:</p>
+
+<pre><code class="language-klipse-eval-js">var bind = (f) =&gt; function(tuple) {
+      const [x, s] = tuple,
+              [y, t] = f(x);
+                return [y, s + t];
+};
+</code></pre>
+
+<p>We can use this to convert our functions to have composable signatures, and then compose the results.</p>
+
+<pre><code class="language-klipse-eval-js">var f = compose(bind(sine), bind(cube));
+f([3, ''])
+</code></pre>
+
+<p>But now all the functions we’re working with take <code class="language-plaintext highlighter-rouge">(Number,String)</code> as their argument, and we’d much rather just pass a <code class="language-plaintext highlighter-rouge">Number</code>.</p>
+
+<p>As well as converting functions, we need a way of converting values to acceptable types, that is we need the following function:</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">unit</span> <span class="o">::</span> <span class="kt">Number</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Number</span><span class="p">,</span><span class="kt">String</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The role of <code class="language-plaintext highlighter-rouge">unit</code> is to take a value and wrap it in a basic container that the functions we’re working with can consume. For our debuggable functions, this just means pairing the number with a blank string:</p>
+
+<pre><code class="language-klipse-eval-js">var unit = (x) =&gt; [x, ''];
+
+var f = compose(bind(sine), bind(cube));
+f(unit(3)) 
+</code></pre>
+
+<p>Or, we can also compose <code class="language-plaintext highlighter-rouge">f</code> and <code class="language-plaintext highlighter-rouge">unit</code>, like this:</p>
+
+<pre><code class="language-klipse-eval-js">compose(f, unit)(3) 
+</code></pre>
+
+<p>This <code class="language-plaintext highlighter-rouge">unit</code> function also lets us convert any function into a debuggable one, by converting its return value into an acceptable input for debuggable functions. For instance:</p>
+
+<pre><code class="language-klipse-eval-js">// round :: Number -&gt; Number
+var round = function(x) { return Math.round(x) };
+
+// roundDebug :: Number -&gt; (Number,String)
+var roundDebug = function(x) { return unit(round(x)) };
+roundDebug(1.23)
+</code></pre>
+
+<p>Again, this type of conversion, from a ‘plain’ function to a debuggable one, can be abstracted into a function we’ll call <code class="language-plaintext highlighter-rouge">lift</code>.</p>
+
+<div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lift</span> <span class="o">::</span> <span class="p">(</span><span class="kt">Number</span> <span class="o">-&gt;</span> <span class="kt">Number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Number</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">Number</span><span class="p">,</span><span class="kt">String</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>The type signature says that <code class="language-plaintext highlighter-rouge">lift</code> takes a function with signature <code class="language-plaintext highlighter-rouge">Number -&gt; Number</code> and returns a function with signature <code class="language-plaintext highlighter-rouge">Number -&gt; (Number,String)</code>.</p>
+
+<p>And now, the code for <code class="language-plaintext highlighter-rouge">lift</code>:</p>
+
+<pre><code class="language-klipse-eval-js">var lift = (f) =&gt; compose(unit, f);
+</code></pre>
+
+<p>Let’s try this out with our existing functions and see if it works:</p>
+
+<pre><code class="language-klipse-eval-js">var roundDebug = lift(Math.round);
+
+var f = compose(bind(roundDebug), bind(sine));
+f(unit(27)) // -&gt; [1, 'sine was called.']
+</code></pre>
+
+<h1 id="summary">Summary</h1>
+
+<p>We’ve discovered three important abstractions for glueing debuggable functions together:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">lift</code> - which converts a ‘simple’ function into a debuggable function</li>
+  <li><code class="language-plaintext highlighter-rouge">bind</code> - which converts a debuggable function into a composable form</li>
+  <li><code class="language-plaintext highlighter-rouge">unit</code> -  which converts a simple value into the format required for debugging, by placing it in a container</li>
+</ol>
+
+<p>These abstractions (well, really just <code class="language-plaintext highlighter-rouge">bind</code> and <code class="language-plaintext highlighter-rouge">unit</code>), define a monad. In the <code class="language-plaintext highlighter-rouge">Haskell</code> standard library it’s called the <code class="language-plaintext highlighter-rouge">Writer</code> monad.</p>
+
+<p>PS: This article is a rewrite of <a href="https://blog.jcoglan.com/2011/03/05/translation-from-haskell-to-javascript-of-selected-portions-of-the-best-introduction-to-monads-ive-ever-read/">Translation from Haskell to JavaScript of selected portions of the best introduction to monads I’ve ever read</a> with interactive code snippets instead of static ones.</p>
+
+<p>PPS: If you are a technical blogger, feel free to write interactive code snippets with <a href="https://github.com/viebel/klipse">the KLIPSE plugin</a>…</p>
+
+        </div>
+        <footer class="post-footer">
+            <div class="separator"></div>
+        </footer>
+    </article>
+
+    
+    <section class="newsletter-box inner">
+    <h2 class="newsletter-box-title">Subscribe to Yehonathan Sharvit newsletter</h2>
+    <p>Get the latest and greatest from Yehonathan Sharvit delivered straight to your inbox every week.</p>
+    <!-- Begin TinyLetter Signup Form -->
+    <div id="tinyletter_embed_signup">
+      <form class="validate gh-subscribe-form" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	      <label for="tlemail" class="screen-reader-text">Email Address</label>
+        <input type="email" value="" name="email" class="required email subscribe-email" placeholder="Your email address">
+	      <input type="hidden" value="1" name="embed"/>
+	      <input class="button" type="submit" value="Subscribe" />
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
+</section><!-- .widget -->
+
+    
+    <section class="read-next inner">
+        <h2 class="read-next-title">Read Next</h2>
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="August 14, 2016">August 14, 2016</time>
+                </div>
+                <h3 class="post-title"><a href="/lambda/2016/08/14/y-combinator-app-ruby.html">Y combinator real life application: recursive memoization in ruby</a>
+                </h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/ruby/'>Ruby</a>
+                    
+                    
+                    
+                    <a href='/tag/lambdacalculus/'>Lambdacalculus</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="September 9, 2016">September 9, 2016</time>
+                </div>
+                <h3 class="post-title"><a href="/klipse/2016/09/09/klipse-languages.html">Code playground in ruby, clojure, javascript, python, PHP and more</a></h3>
+                <p class="post-tags">
+                    
+                </p>
+            </header>
+        </article>
+        
+    </section><!-- .read-next -->
+
+    <!-- Create a sorted array of tags -->
+     
+    <section class="tagcloud inner">
+        <h2 class="tagcloud-title">Tags</h2>
+        <div class="tag-links">
+            
+            <a href='/tags/#aboulafia'>aboulafia</a>
+            
+            <a href='/tags/#algo'>algo</a>
+            
+            <a href='/tags/#brainfuck'>brainfuck</a>
+            
+            <a href='/tags/#c%2B%2B'>c++</a>
+            
+            <a href='/tags/#caustics'>caustics</a>
+            
+            <a href='/tags/#clojure'>clojure</a>
+            
+            <a href='/tags/#clojurescript'>clojurescript</a>
+            
+            <a href='/tags/#compiler'>compiler</a>
+            
+            <a href='/tags/#dop'>dop</a>
+            
+            <a href='/tags/#generative'>generative</a>
+            
+            <a href='/tags/#golang'>golang</a>
+            
+            <a href='/tags/#graph'>graph</a>
+            
+            <a href='/tags/#html'>html</a>
+            
+            <a href='/tags/#java'>java</a>
+            
+            <a href='/tags/#javascript'>javascript</a>
+            
+            <a href='/tags/#kabbalah'>kabbalah</a>
+            
+            <a href='/tags/#kids'>kids</a>
+            
+            <a href='/tags/#klipse'>klipse</a>
+            
+            <a href='/tags/#lambda-calculus'>lambda-calculus</a>
+            
+            <a href='/tags/#lambdacalculus'>lambdacalculus</a>
+            
+            <a href='/tags/#lisp'>lisp</a>
+            
+            <a href='/tags/#lua'>lua</a>
+            
+            <a href='/tags/#math'>math</a>
+            
+            <a href='/tags/#maths'>maths</a>
+            
+            <a href='/tags/#oblivion'>oblivion</a>
+            
+            <a href='/tags/#ocaml'>ocaml</a>
+            
+            <a href='/tags/#permutations'>permutations</a>
+            
+            <a href='/tags/#php'>php</a>
+            
+            <a href='/tags/#prolog'>prolog</a>
+            
+            <a href='/tags/#python'>python</a>
+            
+            <a href='/tags/#react'>react</a>
+            
+            <a href='/tags/#reagent'>reagent</a>
+            
+            <a href='/tags/#reasonml'>reasonml</a>
+            
+            <a href='/tags/#ruby'>ruby</a>
+            
+            <a href='/tags/#scheme'>scheme</a>
+            
+            <a href='/tags/#sql'>sql</a>
+            
+            <a href='/tags/#symmetry'>symmetry</a>
+            
+            <a href='/tags/#theory'>theory</a>
+            
+            <a href='/tags/#visualization'>visualization</a>
+            
+        </div><!-- .tag-links -->
+    </section><!-- .tagcloud -->
+</main><!-- .site-main -->
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js, [data-lang=klipse-javascript]',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+        selector_golang: '.language-klipse-go',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+
+
+
+
+
+                
+
+                
+                <footer id="colophon" class="site-footer">
+    <p class="site-info inner">
+        <a href="#">Yehonathan Sharvit</a> &copy; 2026.
+    </p>
+    <a id="back-to-top" class="back-to-top" href="#page">
+        <span class="icon-arrow-up" aria-hidden="true"></span>
+        <span class="screen-reader-text">Back to top</span>
+    </a>
+</footer><!-- .site-footer -->
+
+            </div><!-- .inner-wide -->
+        </div><!-- .site-content -->
+    </div><!-- .site -->
+
+    
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75651930-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-75651930-1', { 'anonymize_ip': true });
+  </script>
+
+    <!-- Javascript Assets -->
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/plugins.js"></script>
+    <script src="/assets/js/custom.js"></script>
+
+</body>
+
+</html>

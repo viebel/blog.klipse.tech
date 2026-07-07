@@ -1,0 +1,9 @@
+@startmindmap
+!include SkinParam.iuml
+!theme bluegray
+
+* DATA
+** <s>SPECIFIC</s><&thumb-down>
+** GENERIC<&thumb-up>
+
+@endmindmap

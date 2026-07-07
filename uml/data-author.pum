@@ -1,0 +1,12 @@
+@startuml
+AuthorCode ..> AuthorData
+
+object AuthorData {
+  firstName: String
+  lastName: String
+}
+
+object AuthorCode {
+  String fullName(authorData: AuthorData)
+}
+@enduml

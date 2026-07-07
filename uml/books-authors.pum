@@ -1,0 +1,9 @@
+@startuml
+Gerald_Jay_Sussman ... SICP
+Hal_Habelson ... SICP
+Hal_Habelson ... Turtle_Geometry
+Andrea_diSessa ... Turtle_Geometry
+Gerald_Jay_Sussman ... Functional_Differential_Geometry
+Jack_Wisdom ... Functional_Differential_Geometry
+Will_Farr ... Functional_Differential_Geometry
+@enduml

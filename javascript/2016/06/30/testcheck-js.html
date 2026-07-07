@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Generative property testing with Javascript: live tutorial | Yehonathan Sharvit</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Generative property testing with Javascript: live tutorial" />
+<meta name="author" content="Yehonathan Sharvit" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Generative property testing with Javascript: live tutorial" />
+<meta property="og:description" content="Generative property testing with Javascript: live tutorial" />
+<meta property="og:site_name" content="Yehonathan Sharvit" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-06-30T17:22:14+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Generative property testing with Javascript: live tutorial" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@Yehonathan Sharvit" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yehonathan Sharvit"},"dateModified":"2016-06-30T17:22:14+00:00","datePublished":"2016-06-30T17:22:14+00:00","description":"Generative property testing with Javascript: live tutorial","headline":"Generative property testing with Javascript: live tutorial","mainEntityOfPage":{"@type":"WebPage","@id":"/javascript/2016/06/30/testcheck-js.html"},"url":"/javascript/2016/06/30/testcheck-js.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+
+    <!-- Site Favicon -->
+    <link rel="shortcut icon" href="/assets/favicon2.png" type="image/png" />
+
+    <!-- Font Embed Code -->
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600,600i|Karla:400,400i,700,700i" rel="stylesheet">
+
+    <!-- CSS Styles -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+</head>
+
+
+
+<body class="layout-post">
+    <div id="page" class="site">
+        <header id="masthead" class="site-header">
+    <div class="site-header-wrap">
+        <div class="site-header-inside">
+
+            <div class="site-branding">
+                
+                <p class="profile">
+                    <a href="/">
+                        <img src="/assets/images/authorimage.jpg" alt="'s Picture"
+                            class="avatar" />
+                    </a>
+                </p>
+                <div class="site-identity">
+                    
+                    <h1 class="site-title">
+                        <a href="/">Yehonathan Sharvit</a>
+                    </h1>
+                    
+                    
+                    <p class="site-description">Developer. Author. Speaker.</p>
+                    
+                </div><!-- .site-identity -->
+                
+                <button id="menu-toggle" class="menu-toggle"><span class="screen-reader-text">Main Menu</span><span
+                        class="icon-menu" aria-hidden="true"></span></button>
+            </div><!-- .site-branding -->
+
+            <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+                <div class="site-nav-wrap">
+                    <div class="site-nav-inside">
+                    <ul class="menu">
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/">Blog</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/talks">Talks</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/about">About</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/contact">Contact</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/search">Search</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/testimonials">Testimonials</a></li>
+                        
+                    </ul>
+                    <p class="social-links">
+    <a class="github-button" href="https://github.com/viebel/klipse" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    
+    <a href="https://twitter.com/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+</p>
+
+                    <div class="book-header">
+  <div>
+    Discover my book!
+  </div>
+  <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
+    <img src="/assets/dop-book.png">
+  </a>
+  <div>
+    DISCOUNT CODE: sharvit39
+  </div>
+</div>
+
+                    </div><!-- .site-nav-inside -->
+                </div><!-- .site-nav-wrap -->
+            </nav><!-- .site-navigation -->
+
+        </div><!-- .site-header-inside -->
+    </div><!-- .site-header-wrap -->
+</header><!-- .site-header -->
+
+        <div id="content" class="site-content fadeInDown delay_075s">
+            <div class="inner-wide">
+                <main id="main" class="site-main">
+
+    <article class="post-full inner">
+
+        <header class="post-header">
+            <h1 class="post-title">Generative property testing with Javascript: live tutorial</h1>
+            <span class="post-meta">
+              <time class="post-date" datetime="2016-06-30">
+                June 30, 2016
+              </time>
+            </span>
+            
+            <span class="post-tags">
+                <a href="/tags/index.html#javascript"
+                    rel="tag">javascript</a>
+                
+            </span>
+            
+        </header><!-- .post-header -->
+
+        <div class="post-content">
+            <p><a href="https://github.com/leebyron/testcheck-js">testcheck-js</a> is a library for generative testing of program properties.</p>
+
+<p>This article is a <strong>klipsified</strong> version of the <code class="language-plaintext highlighter-rouge">README</code> of <a href="https://github.com/leebyron/testcheck-js">testcheck-js</a>.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">javascript</code> code snippets of the original <code class="language-plaintext highlighter-rouge">README</code> have been transformed into interactive code snippets by <a href="https://github.com/viebel/klipse/blob/master/README.md">the klipse plugin</a>:</p>
+
+<ol>
+  <li>
+    <p>The code snippets are evaluated in your browser, while you are reading.</p>
+  </li>
+  <li>
+    <p>The code is re-evaluated as you type…</p>
+  </li>
+</ol>
+
+<h1 id="testcheck">TestCheck</h1>
+
+<p>Generative property testing for JavaScript.</p>
+
+<p><a href="https://github.com/leebyron/testcheck-js">testcheck-js</a> is a library for generative testing of program properties, ala <code class="language-plaintext highlighter-rouge">QuickCheck</code>.</p>
+
+<p>By providing a specification of the JavaScript program in the form of properties, the properties can be tested to remain true for a large number of
+randomly generated cases. In the case of a test failure, the smallest possible
+test case is found.</p>
+
+<h3 id="use-jasmine-or-mocha">Use Jasmine or Mocha?</h3>
+
+<p><code class="language-plaintext highlighter-rouge">testcheck-js</code> is a testing utility and not a full test running solution.</p>
+
+<p>If you
+use <a href="http://jasmine.github.io/">Jasmine</a> then check out
+<a href="https://github.com/leebyron/jasmine-check/"><code class="language-plaintext highlighter-rouge">jasmine-check</code></a>, a testcheck
+Jasmine plugin.</p>
+
+<p>If you
+use <a href="http://visionmedia.github.io/mocha/">Mocha</a> then check out
+<a href="https://github.com/leebyron/mocha-check/"><code class="language-plaintext highlighter-rouge">mocha-check</code></a>, a testcheck
+Mocha plugin.</p>
+
+<h3 id="atop-the-shoulders-of-giants">Atop the shoulders of giants</h3>
+
+<p><code class="language-plaintext highlighter-rouge">testcheck-js</code> is based on Clojure’s <a href="https://github.com/clojure/test.check">test.check</a>
+which is inspired by Haskell’s <a href="https://hackage.haskell.org/package/QuickCheck">QuickCheck</a>.
+It’s made possible by <a href="https://github.com/cemerick/double-check/">double-check</a>,
+the ClojureScript port of test.check. Many gracious thanks goes to all of the
+brilliance and hard work enabling this project to exist.</p>
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>Install <code class="language-plaintext highlighter-rouge">testcheck</code> using npm</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install </span>testcheck
+</code></pre></div></div>
+
+<p>Then require it into your testing environment.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">testcheck</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">testcheck</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>If you write your tests in Typescript, include the testcheck type definitions.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">///&lt;reference path='node_modules/testcheck/dist/testcheck.d.ts'/&gt;</span>
+<span class="k">import</span> <span class="nx">testcheck</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">testcheck</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Let’s load <code class="language-plaintext highlighter-rouge">tescheck-js</code> from https://wzrd.in/</p>
+<pre>
+<code class="language-klipse-eval-js" data-external-libs="https://wzrd.in/standalone/testcheck@1.0.0-rc.0">
+gen = testcheck.gen
+Object.keys(gen).length
+</code></pre>
+
+<p>Here is how you write a test:</p>
+
+<pre><code class="language-klipse-eval-js">
+testcheck.check(
+  testcheck.property(
+      [gen.int],
+          x =&gt; x - x === 0
+            )
+  );
+</code></pre>
+
+<h2 id="api">API</h2>
+
+<p>All API documentation is contained within the type definition file, <a href="./type-definitions/testcheck.d.ts">testcheck.d.ts</a>.</p>
+
+<h2 id="defining-properties">Defining properties</h2>
+
+<p>A property is simply a function which is expected to always return true, we
+might also call these properties “assumptions” or “expectations”.</p>
+
+<p>For example, say we wanted to test the assumption that any number subtracted
+from itself will be <code class="language-plaintext highlighter-rouge">0</code>, we could define this property as:</p>
+
+<pre><code class="language-klipse-eval-js">(function(x) {
+        return x - x === 0;
+})
+</code></pre>
+
+<p>Or as another example, let’s determine that sorting an array is stable and
+<a href="http://en.wikipedia.org/wiki/Idempotence">idempotent</a>, which is to say that
+sorting a sorted array shouldn’t do anything. We could write:</p>
+
+<pre><code class="language-klipse-eval-js">(function (arr) {
+      var arrCopy = arr.slice();
+        return deepEqual(arrCopy.sort(), arr.sort().sort());
+})
+</code></pre>
+
+<p>That’s really it! The only thing special about this property function is that it
+is <a href="http://en.wikipedia.org/wiki/Pure_function">pure</a>, e.g. it relies only on
+the provided arguments to determine its return value (no other reading
+or writing!).</p>
+
+<p>If you can start to describe your program in terms of its properties, then
+<code class="language-plaintext highlighter-rouge">testcheck</code> can test them for you.</p>
+
+<h2 id="generating-test-cases">Generating test cases</h2>
+
+<p>Once we’ve defined some properties, we generate test cases for each properties
+by describing the types of values for each argument.</p>
+
+<p>For testing our first property, we need numbers:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">gen</span><span class="p">.</span><span class="nx">int</span>
+</code></pre></div></div>
+
+<p>For the second, we need arrays of numbers</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">gen</span><span class="p">.</span><span class="nx">array</span><span class="p">(</span><span class="nx">gen</span><span class="p">.</span><span class="nx">int</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>There are a wide variety of value generators, we’ve only scratched the surface.
+We can generate random JSON with <code class="language-plaintext highlighter-rouge">gen.JSON</code>, pick amongst a set of values with
+<code class="language-plaintext highlighter-rouge">gen.returnOneOf</code>, nested arrays with ints <code class="language-plaintext highlighter-rouge">gen.nested(gen.array, gen.int)</code> and
+much more. You can even define your own generators with <code class="language-plaintext highlighter-rouge">gen.map</code>, <code class="language-plaintext highlighter-rouge">gen.bind</code>
+and <code class="language-plaintext highlighter-rouge">gen.sized</code>.</p>
+
+<h2 id="checking-the-properties">Checking the properties</h2>
+
+<p>Finally, we check our properties using our test case generator (in this case,
+up to 1000 different tests before concluding).</p>
+
+<pre><code class="language-klipse-eval-js">testcheck.check(
+  testcheck.property(
+      [gen.int],    // the arguments generator
+          function (x) {  // the property function to test
+                return x - x === 0;
+                    }
+                      ),
+                        { times: 1000 }
+                        );
+</code></pre>
+
+<p><code class="language-plaintext highlighter-rouge">check</code> runs through random cases looking for failure, and when it doesn’t find
+any failures, it returns a truthy status.</p>
+
+<h2 id="smallest-failing-test">Smallest failing test</h2>
+
+<p>Let’s try another property: the sum of two integers is the same or larger than
+either of the integers alone.</p>
+
+<pre><code class="language-klipse-eval-js">testcheck.check(testcheck.property(
+  [gen.int, gen.int],
+    function (a, b) {
+            return a + b &gt;= a &amp;&amp; a + b &gt;= b;
+              }
+              ));
+</code></pre>
+
+<p><code class="language-plaintext highlighter-rouge">check</code> runs through random cases again. This time it found a failing case, so
+it returns it.</p>
+
+<p>Something is wrong. Either:</p>
+
+<ol>
+  <li>Our assumption is wrong (e.g. bug in our software).</li>
+  <li>The test code is wrong.</li>
+  <li>The generated test data is too broad.</li>
+</ol>
+
+<p>In this case, our problem is that our generated data is too broad for our assumption. What’s going on?</p>
+
+<p>We can see that the <code class="language-plaintext highlighter-rouge">fail</code> case (e.g. <code class="language-plaintext highlighter-rouge">2, -1</code>) would in fact not be correct, but it might not be immediately clear why. This is where test case shrinking comes in handy. The <code class="language-plaintext highlighter-rouge">shrunk</code> key provides information about the shrinking process and
+most importantly, the <code class="language-plaintext highlighter-rouge">smallest</code> values that still fail: <code class="language-plaintext highlighter-rouge">0, -1</code>.</p>
+
+<p>We forgot about an edge case! If one of the integers is negative, then the sum will not be larger. This shrunken test case illustrated this much better than
+the original failing test did. Now we know that we can either improve our
+property or make the test data more specific:</p>
+
+<pre><code class="language-klipse-eval-js">testcheck.check(testcheck.property(
+[gen.posInt, gen.posInt],
+function (a, b) {
+        return a + b &gt;= a &amp;&amp; a + b &gt;= b;
+          }
+          ));
+</code></pre>
+
+<p>With our correction, our property passes all tests.</p>
+
+<h2 id="thinking-in-random-distributions">Thinking in random distributions</h2>
+
+<p>It’s important to remember that your test is only as good as the data being
+provided. While <code class="language-plaintext highlighter-rouge">testcheck</code> provides tools to generate random data, thinking
+about what that data looks like may help you write better tests. Also, because
+the data generated is random, a test may pass which simply failed to uncover
+a corner case.</p>
+
+<blockquote>
+  <p>“Testing shows the presence, not the absence of bugs”</p>
+
+  <p>— Dijkstra, 1969</p>
+</blockquote>
+
+<h3 id="sampling-test-data">Sampling Test Data</h3>
+
+<p>Visualizing the data <code class="language-plaintext highlighter-rouge">check</code> generates may help diagnose the quality of a test.
+Use <code class="language-plaintext highlighter-rouge">sample</code> to get a look at what a generator produces:</p>
+
+<pre><code class="language-klipse-eval-js">testcheck.sample(gen.int)
+</code></pre>
+
+<h3 id="the-size-of-test-data">The Size of Test Data</h3>
+
+<p>Test data generators have an implicit <code class="language-plaintext highlighter-rouge">size</code> property, which could be used to
+determine the maximum value for a generated integer or the max length of a
+generated array. <code class="language-plaintext highlighter-rouge">testcheck</code> begins by generating small test cases and gradually
+increases the size.</p>
+
+<p>So if you wish to test very large numbers or extremely long arrays, running
+<code class="language-plaintext highlighter-rouge">check</code> the default 100 times with maxSize of 200, you may not get what
+you expect.</p>
+
+<h3 id="data-relationships">Data relationships</h3>
+
+<p>Let’s test an assumption that should clearly be wrong: a string <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split">split</a>
+by another string always returns an array of length 1.</p>
+
+<pre><code class="language-klipse-eval-js">testcheck.check(testcheck.property(
+[gen.notEmpty(gen.string), gen.notEmpty(gen.string)],
+function (str, separator) {
+return str.split(separator).length === 1;
+}
+));
+</code></pre>
+
+<p>Unless you got lucky, you probably saw this check pass. This is because we’re
+testing for a relationship between these strings. If <code class="language-plaintext highlighter-rouge">separator</code> is not found
+in <code class="language-plaintext highlighter-rouge">str</code>, then this test passes. The second random string is very unlikely to
+be found within the first random string.</p>
+
+<p>We could change the test to be aware of this relationship such that the
+<code class="language-plaintext highlighter-rouge">separator</code> is always contained within the <code class="language-plaintext highlighter-rouge">str</code>.</p>
+
+<pre><code class="language-klipse-eval-js">testcheck.check(testcheck.property(
+[gen.notEmpty(gen.string), gen.posInt, gen.strictPosInt],
+function (str, start, length) {
+var separator = str.substr(start % str.length, length);
+return str.split(separator).length === 1;
+}
+));
+</code></pre>
+
+<p>Now <code class="language-plaintext highlighter-rouge">separator</code> is a random substring of <code class="language-plaintext highlighter-rouge">str</code> and the test fails with the
+smallest failing arguments: <code class="language-plaintext highlighter-rouge">'0', 0, 1</code>.</p>
+
+<h2 id="contribution">Contribution</h2>
+
+<p>Use <a href="https://github.com/leebyron/testcheck-js/issues">Github issues</a> for requests.</p>
+
+<p>Pull requests actively welcomed. Learn how to <a href="./CONTRIBUTING.md">contribute</a>.</p>
+
+        </div>
+        <footer class="post-footer">
+            <div class="separator"></div>
+        </footer>
+    </article>
+
+    
+    <section class="newsletter-box inner">
+    <h2 class="newsletter-box-title">Subscribe to Yehonathan Sharvit newsletter</h2>
+    <p>Get the latest and greatest from Yehonathan Sharvit delivered straight to your inbox every week.</p>
+    <!-- Begin TinyLetter Signup Form -->
+    <div id="tinyletter_embed_signup">
+      <form class="validate gh-subscribe-form" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	      <label for="tlemail" class="screen-reader-text">Email Address</label>
+        <input type="email" value="" name="email" class="required email subscribe-email" placeholder="Your email address">
+	      <input type="hidden" value="1" name="embed"/>
+	      <input class="button" type="submit" value="Subscribe" />
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
+</section><!-- .widget -->
+
+    
+    <section class="read-next inner">
+        <h2 class="read-next-title">Read Next</h2>
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="June 28, 2016">June 28, 2016</time>
+                </div>
+                <h3 class="post-title"><a href="/all/2016/06/28/multi-language-demo.html">Multi language live snippets with the klipse plugin by @viebel</a>
+                </h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/klipse/'>Klipse</a>
+                    
+                    
+                    
+                    <a href='/tag/ruby/'>Ruby</a>
+                    
+                    
+                    
+                    <a href='/tag/php/'>Php</a>
+                    
+                    
+                    
+                    <a href='/tag/javascript/'>Javascript</a>
+                    
+                    
+                    
+                    <a href='/tag/clojure/'>Clojure</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="July 24, 2016">July 24, 2016</time>
+                </div>
+                <h3 class="post-title"><a href="/lambda/2016/07/24/lambda-calculus-1.html">Numbers and Arithmetics with functions only: lambda calculus live tutorial</a></h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/lambda-calculus/'>Lambda-calculus</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+    </section><!-- .read-next -->
+
+    <!-- Create a sorted array of tags -->
+     
+    <section class="tagcloud inner">
+        <h2 class="tagcloud-title">Tags</h2>
+        <div class="tag-links">
+            
+            <a href='/tags/#aboulafia'>aboulafia</a>
+            
+            <a href='/tags/#algo'>algo</a>
+            
+            <a href='/tags/#brainfuck'>brainfuck</a>
+            
+            <a href='/tags/#c%2B%2B'>c++</a>
+            
+            <a href='/tags/#caustics'>caustics</a>
+            
+            <a href='/tags/#clojure'>clojure</a>
+            
+            <a href='/tags/#clojurescript'>clojurescript</a>
+            
+            <a href='/tags/#compiler'>compiler</a>
+            
+            <a href='/tags/#dop'>dop</a>
+            
+            <a href='/tags/#generative'>generative</a>
+            
+            <a href='/tags/#golang'>golang</a>
+            
+            <a href='/tags/#graph'>graph</a>
+            
+            <a href='/tags/#html'>html</a>
+            
+            <a href='/tags/#java'>java</a>
+            
+            <a href='/tags/#javascript'>javascript</a>
+            
+            <a href='/tags/#kabbalah'>kabbalah</a>
+            
+            <a href='/tags/#kids'>kids</a>
+            
+            <a href='/tags/#klipse'>klipse</a>
+            
+            <a href='/tags/#lambda-calculus'>lambda-calculus</a>
+            
+            <a href='/tags/#lambdacalculus'>lambdacalculus</a>
+            
+            <a href='/tags/#lisp'>lisp</a>
+            
+            <a href='/tags/#lua'>lua</a>
+            
+            <a href='/tags/#math'>math</a>
+            
+            <a href='/tags/#maths'>maths</a>
+            
+            <a href='/tags/#oblivion'>oblivion</a>
+            
+            <a href='/tags/#ocaml'>ocaml</a>
+            
+            <a href='/tags/#permutations'>permutations</a>
+            
+            <a href='/tags/#php'>php</a>
+            
+            <a href='/tags/#prolog'>prolog</a>
+            
+            <a href='/tags/#python'>python</a>
+            
+            <a href='/tags/#react'>react</a>
+            
+            <a href='/tags/#reagent'>reagent</a>
+            
+            <a href='/tags/#reasonml'>reasonml</a>
+            
+            <a href='/tags/#ruby'>ruby</a>
+            
+            <a href='/tags/#scheme'>scheme</a>
+            
+            <a href='/tags/#sql'>sql</a>
+            
+            <a href='/tags/#symmetry'>symmetry</a>
+            
+            <a href='/tags/#theory'>theory</a>
+            
+            <a href='/tags/#visualization'>visualization</a>
+            
+        </div><!-- .tag-links -->
+    </section><!-- .tagcloud -->
+</main><!-- .site-main -->
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js, [data-lang=klipse-javascript]',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+        selector_golang: '.language-klipse-go',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js?the_version=7.11.2"></script>
+
+
+
+
+
+                
+
+                
+                <footer id="colophon" class="site-footer">
+    <p class="site-info inner">
+        <a href="#">Yehonathan Sharvit</a> &copy; 2026.
+    </p>
+    <a id="back-to-top" class="back-to-top" href="#page">
+        <span class="icon-arrow-up" aria-hidden="true"></span>
+        <span class="screen-reader-text">Back to top</span>
+    </a>
+</footer><!-- .site-footer -->
+
+            </div><!-- .inner-wide -->
+        </div><!-- .site-content -->
+    </div><!-- .site -->
+
+    
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75651930-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-75651930-1', { 'anonymize_ip': true });
+  </script>
+
+    <!-- Javascript Assets -->
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/plugins.js"></script>
+    <script src="/assets/js/custom.js"></script>
+
+</body>
+
+</html>

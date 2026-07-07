@@ -1,0 +1,9 @@
+@startmindmap
+!include SkinParam.iuml
+!theme bluegray
+
+* DATA
+** REPRESENTATION
+** SCHEMA
+
+@endmindmap

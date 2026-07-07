@@ -1,0 +1,10 @@
+**Data-Oriented Programming: Chapter 13**
+
+*DAVE*: This book tells our past and our future. I wonder if it also tells our present.
+
+*THEO*: What chapter do you think we would be at the moment?
+
+*DAVE*: Let's see. At the end of Chapter 12, there's a beautiful drawing of the JSON schema cheatsheet we made together last week. It means, that we should now be in Chapter 13.
+
+Dave slowly turns the pages of the book, until he finds the line that tells the present moment.
+
