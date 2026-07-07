@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ "master" ]
 
+permissions:
+  contents: write
+
 jobs:
   build:
 
@@ -19,4 +22,20 @@ jobs:
         ruby-version: '3.3.11'
         bundler-cache: true
     - name: Build the site
-      run: bundle exec jekyll build --future
+      run: bundle exec jekyll build
+
+    - name: Deploy to gh-pages
+      if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+      run: |
+        cd _site
+        touch .nojekyll
+        echo "blog.klipse.tech" > CNAME
+        git init -q
+        git checkout -q -b gh-pages
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add -A
+        git commit -q -m "Deploy ${GITHUB_SHA}"
+        git push -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
