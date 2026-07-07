@@ -7,8 +7,13 @@ categories: aboulafia
 thumbnail: assets/aboulafia-hero.png
 guid: FD0887F7-F3AE-47FB-AFF4-D39F58BB5951
 author: Yehonathan Sharvit
-tags: [aboulafia, math, permutations, pancake, zaks]
+tags: [aboulafia, math, permutations]
 ---
+
+<div style="margin:0 0 2em;padding:.7em 1em;border:1px solid #e6e2d8;border-radius:8px;background:#faf8f3;font-size:0.9em">
+<span style="color:#a08d6a;text-transform:uppercase;letter-spacing:.07em;font-size:0.78em">Aboulafia's Tserouf · Part 2 of 4</span><br>
+← Previous: <a href="{% post_url 2026-07-06-a-13th-century-enumeration-algorithm-ignored-for-700-years %}">An algorithm ignored for 700 years</a> &nbsp;·&nbsp; Next: <a href="{% post_url 2026-07-06-too-big-to-draw-but-yet-drawable %}">Too big to draw, but yet drawable</a> →
+</div>
 
 *Second article in [the series]({% post_url 2026-07-06-a-13th-century-enumeration-algorithm-ignored-for-700-years %}). In the [first part]({% post_url 2026-07-06-a-13th-century-enumeration-algorithm-ignored-for-700-years %}) we saw that Aboulafia's Tserouf is a recursive algorithm for permutations, driven by one simple rule — send the first letter to the end, and repeat at every scale. Here is the part that still gives me chills — the same order was rediscovered in 1984, through a completely different door.*
 

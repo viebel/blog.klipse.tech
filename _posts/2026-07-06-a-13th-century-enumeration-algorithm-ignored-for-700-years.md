@@ -7,15 +7,20 @@ categories: aboulafia
 thumbnail: assets/tserouf_abc.png
 guid: 5F24E14A-03A9-45D8-9CD8-357083136A3B
 author: Yehonathan Sharvit
-tags: [aboulafia, math, permutations, kabbalah, history]
+tags: [aboulafia, math, permutations, kabbalah]
 ---
+
+<div style="margin:0 0 2em;padding:.7em 1em;border:1px solid #e6e2d8;border-radius:8px;background:#faf8f3;font-size:0.9em">
+<span style="color:#a08d6a;text-transform:uppercase;letter-spacing:.07em;font-size:0.78em">Aboulafia's Tserouf · Part 1 of 4</span><br>
+Next: <a href="{% post_url 2026-07-06-an-elegant-formulation-inspired-by-bill-gates %}">An elegant formulation, inspired by Bill Gates</a> →
+</div>
 
 This is the first article in a series about a discovery I made while researching **Tserouf** in the writings of the Kabbalist Abraham Aboulafia (1240 – after 1291). Tserouf is the Kabbalistic art of permuting the letters — and, in plain mathematical terms, it is the enumeration of all the **permutations** of an `n`-letter word.
 
 
 ## The context
 
-In *Or ha-Sekhel* ("The Light of the Intellect"), chapter 23, *The Tserouf*, Aboulafia prescribes a systematic method for enumerating all the possible arrangements of an `n`-letter word. The method is conceived inside a frame of spiritual practice — and yet it carries a mathematical structure of remarkable rigour.
+In *Or ha-Sekhel* ("The Light of the Intellect"), Aboulafia prescribes a systematic method for enumerating all the possible arrangements of an `n`-letter word. The method is conceived inside a frame of spiritual practice — and yet it carries a mathematical structure of remarkable rigour.
 
 For a three-letter word, Aboulafia gives the Tserouf — the ordering of all six permutations — explicitly:
 
@@ -82,4 +87,4 @@ The ringers found their order in the bell tower; Aboulafia found his in a spritu
 
 So Aboulafia gave a genuine recursive algorithm for permutations. That alone would be a fine historical note. But there is much more.
 
-His exact ordering turns out to coincide with an algorithm published in 1984 by the mathematician Shimon Zaks — reached through an entirely different door, and built on a move that a young Bill Gates studied in his only scientific paper. That is [the next article]({% post_url 2026-07-06-an-elegant-formulation-inspired-by-bill-gates %}). And when you *draw* Aboulafia's order, something happens that no one expects — [that is where the series is heading]({% post_url 2026-07-06-too-big-to-draw-but-yet-drawable %}).
+His exact ordering turns out to coincide with an algorithm published in 1984 by the mathematician Shimon Zaks — reached through an entirely different door, and built on a move that a young Bill Gates studied in his only scientific paper. That is [the next article]({% post_url 2026-07-06-an-elegant-formulation-inspired-by-bill-gates %}).

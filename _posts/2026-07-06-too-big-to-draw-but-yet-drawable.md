@@ -10,6 +10,11 @@ author: Yehonathan Sharvit
 tags: [aboulafia, math, caustics, generative, visualization]
 ---
 
+<div style="margin:0 0 2em;padding:.7em 1em;border:1px solid #e6e2d8;border-radius:8px;background:#faf8f3;font-size:0.9em">
+<span style="color:#a08d6a;text-transform:uppercase;letter-spacing:.07em;font-size:0.78em">Aboulafia's Tserouf · Part 3 of 4</span><br>
+← Previous: <a href="{% post_url 2026-07-06-an-elegant-formulation-inspired-by-bill-gates %}">An elegant formulation, inspired by Bill Gates</a> &nbsp;·&nbsp; Next: <a href="{% post_url 2026-07-06-a-wheel-the-same-forwards-and-backwards %}">A wheel, the same forwards and backwards</a> →
+</div>
+
 *Third article in [the series]({% post_url 2026-07-06-a-13th-century-enumeration-algorithm-ignored-for-700-years %}). We have seen that [Aboulafia's tserouf]({% post_url 2026-07-06-an-elegant-formulation-inspired-by-bill-gates %}) is a precise ordering of all the permutations of a word. Now let us draw it.*
 
 ## How to draw a permutation space

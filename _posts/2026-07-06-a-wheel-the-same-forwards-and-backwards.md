@@ -7,8 +7,13 @@ categories: aboulafia
 thumbnail: assets/tserouf_22_z1_plum.png
 guid: CF2BF51A-F44D-45A6-9009-4B4CCB904DB8
 author: Yehonathan Sharvit
-tags: [aboulafia, math, symmetry, dihedral, mandala]
+tags: [aboulafia, math, symmetry]
 ---
+
+<div style="margin:0 0 2em;padding:.7em 1em;border:1px solid #e6e2d8;border-radius:8px;background:#faf8f3;font-size:0.9em">
+<span style="color:#a08d6a;text-transform:uppercase;letter-spacing:.07em;font-size:0.78em">Aboulafia's Tserouf · Part 4 of 4</span><br>
+← Previous: <a href="{% post_url 2026-07-06-too-big-to-draw-but-yet-drawable %}">Too big to draw, but yet drawable</a>
+</div>
 
 *Final article in [the series]({% post_url 2026-07-06-a-13th-century-enumeration-algorithm-ignored-for-700-years %}). We [drew Aboulafia's order]({% post_url 2026-07-06-too-big-to-draw-but-yet-drawable %}) and watched a striking symmetry appear. That symmetry has a precise name.*
 
