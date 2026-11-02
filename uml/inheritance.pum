@@ -1,0 +1,19 @@
+@startuml
+
+Member       --> User
+
+class User {
+  - id : String
+  - email : String
+  - password : String
+  + Bool login()
+}
+
+class Member {
+  + Bool isBlocked()
+  + Bool block()
+  + Bool returnBook(bookLending: BookLending)
+  + BookLending checkout(bookItem: BookItem)
+}
+
+@enduml

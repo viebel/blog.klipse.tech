@@ -1,0 +1,9 @@
+@startmindmap
+!include SkinParam.iuml
+!theme bluegray
+
+* DATA
+** <s>MUTABLE</s><&thumb-down>
+** IMMUTABLE<&thumb-up>
+
+@endmindmap

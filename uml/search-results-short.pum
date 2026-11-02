@@ -1,0 +1,20 @@
+@startuml
+
+SearchResults -l-o "*" Book : results
+
+object Book {
+  title: String
+  available: Boolean
+  isbn: String
+}
+
+object SearchResults {
+  books: number
+}
+
+object SearchResultsData {
+  books: number
+  results: [Book]
+}
+
+@enduml

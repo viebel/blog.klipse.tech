@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Welcome Clojure 10 | Yehonathan Sharvit</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Welcome Clojure 10" />
+<meta name="author" content="Yehonathan Sharvit" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Demo of Clojure 1.10 features. Tutorial. Data and People." />
+<meta property="og:description" content="Demo of Clojure 1.10 features. Tutorial. Data and People." />
+<meta property="og:site_name" content="Yehonathan Sharvit" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-12-18T19:11:24+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Welcome Clojure 10" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@Yehonathan Sharvit" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yehonathan Sharvit"},"dateModified":"2018-12-18T19:11:24+00:00","datePublished":"2018-12-18T19:11:24+00:00","description":"Demo of Clojure 1.10 features. Tutorial. Data and People.","headline":"Welcome Clojure 10","mainEntityOfPage":{"@type":"WebPage","@id":"/clojure/2018/12/18/welcome-clojure-10.html"},"url":"/clojure/2018/12/18/welcome-clojure-10.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+
+    <!-- Site Favicon -->
+    <link rel="shortcut icon" href="/assets/favicon2.png" type="image/png" />
+
+    <!-- Font Embed Code -->
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600,600i|Karla:400,400i,700,700i" rel="stylesheet">
+
+    <!-- CSS Styles -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+</head>
+
+
+
+<body class="layout-post">
+    <div id="page" class="site">
+        <header id="masthead" class="site-header">
+    <div class="site-header-wrap">
+        <div class="site-header-inside">
+
+            <div class="site-branding">
+                
+                <p class="profile">
+                    <a href="/">
+                        <img src="/assets/images/authorimage.jpg" alt="'s Picture"
+                            class="avatar" />
+                    </a>
+                </p>
+                <div class="site-identity">
+                    
+                    <h1 class="site-title">
+                        <a href="/">Yehonathan Sharvit</a>
+                    </h1>
+                    
+                    
+                    <p class="site-description">Developer. Author. Speaker.</p>
+                    
+                </div><!-- .site-identity -->
+                
+                <button id="menu-toggle" class="menu-toggle"><span class="screen-reader-text">Main Menu</span><span
+                        class="icon-menu" aria-hidden="true"></span></button>
+            </div><!-- .site-branding -->
+
+            <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+                <div class="site-nav-wrap">
+                    <div class="site-nav-inside">
+                    <ul class="menu">
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/">Blog</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/talks">Talks</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/about">About</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/contact">Contact</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/search">Search</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/testimonials">Testimonials</a></li>
+                        
+                    </ul>
+                    <p class="social-links">
+    <a class="github-button" href="https://github.com/viebel/klipse" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    
+    <a href="https://twitter.com/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+</p>
+
+                    <div class="book-header">
+  <div>
+    Discover my book!
+  </div>
+  <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
+    <img src="/assets/dop-book.png">
+  </a>
+  <div>
+    DISCOUNT CODE: sharvit39
+  </div>
+</div>
+
+                    </div><!-- .site-nav-inside -->
+                </div><!-- .site-nav-wrap -->
+            </nav><!-- .site-navigation -->
+
+        </div><!-- .site-header-inside -->
+    </div><!-- .site-header-wrap -->
+</header><!-- .site-header -->
+
+        <div id="content" class="site-content fadeInDown delay_075s">
+            <div class="inner-wide">
+                <main id="main" class="site-main">
+
+    <article class="post-full inner">
+
+        <header class="post-header">
+            <h1 class="post-title">Welcome Clojure 10</h1>
+            <span class="post-meta">
+              <time class="post-date" datetime="2018-12-18">
+                December 18, 2018
+              </time>
+            </span>
+            
+            <span class="post-tags">
+                <a href="/tags/index.html#clojure"
+                    rel="tag">clojure</a>
+                
+            </span>
+            
+        </header><!-- .post-header -->
+
+        <div class="post-content">
+            <h1 id="clojure-110-features">Clojure 1.10 features</h1>
+
+<p>Clojure 1.10 is out. If you look at the <a href="https://github.com/clojure/clojure/blob/master/changes.md#changes-to-clojure-in-version-110">official change log in github</a>, you will see the main features of Clojure 1.10:</p>
+
+<ol>
+  <li>Java compatibility improvement</li>
+  <li>A new stream based REPL named <code class="language-plaintext highlighter-rouge">prepl</code></li>
+  <li>Better Error messages</li>
+  <li>Two new protocols: <code class="language-plaintext highlighter-rouge">Datafiable</code> and <code class="language-plaintext highlighter-rouge">Navigable</code></li>
+  <li>Protocol Extension by Metadata</li>
+  <li>A new System named <code class="language-plaintext highlighter-rouge">tap</code></li>
+  <li>Read string - capture mode</li>
+</ol>
+
+<p>To me, the main theme of Clojure 1.10 is: <strong>Data and People</strong>.</p>
+
+<p><img src="/assets/data-and-people.jpg" alt="Data and People" /></p>
+
+<p>In this blog post, we are going to explore features 3 to 7 and illustrate each feature with live code snippets that run directly in your browser. The code snippets are in Clojurescript. The corresponding Clojure code might be slighlty different.</p>
+
+<p>Having a live demo of Clojure 1.10 features in the browser, the same week that Clojure 1.10 is released has made possible by the great work of <a href="https://twitter.com/swannodette">David Nolen</a> and <a href="https://twitter.com/mfikes">Mike Fikes</a> who ported Clojure 1.10 features to Clojurescript so quickly.</p>
+
+<p>I am personally thankful for Mike that helped me integrating those features into <a href="https://github.com/viebel/klipse">Klipse</a>. Klipse is a tool that leverages self-hosted Clojurescript to integrate interactive code snippets in a web page.</p>
+
+<h1 id="better-error-messages">Better Error messages</h1>
+
+<p>Error messages now contain the phase where the error occurs. There are 5 phases:</p>
+
+<ol>
+  <li>reading the source code</li>
+  <li>macro exansion</li>
+  <li>compilation</li>
+  <li>execution</li>
+  <li>result printing</li>
+</ol>
+
+<p>The way errors are displayed in the REPL is:</p>
+
+<ol>
+  <li>The first line details the phase where the error occured</li>
+  <li>The subsequent lines provide details about the error</li>
+</ol>
+
+<p>The errors get more detailed when we require the <code class="language-plaintext highlighter-rouge">clojure.core.specs.alpha</code> namespace, that contains <code class="language-plaintext highlighter-rouge">clojure.spec</code> definitions for basic parts of the language:</p>
+
+<pre><code class="language-klipse">(require 'clojure.core.specs.alpha)
+</code></pre>
+
+<p>The most valuable improvement is when an error occur inside a macro. Now, when you make a syntax error inside <code class="language-plaintext highlighter-rouge">defn</code>, you get a detailed explanation given by <code class="language-plaintext highlighter-rouge">clojure.spec</code> about what parts of the form are incorrect.</p>
+
+<pre><code class="language-klipse">(defn foo "" 1)
+</code></pre>
+
+<p>And if you provide a map with an odd number of forms, you get a very clear explanation:</p>
+
+<pre><code class="language-klipse">(def my-map {:foo 12 :bar})
+</code></pre>
+
+<p>Better error messages is really a great human contribution by the Clojure team.</p>
+
+<h1 id="two-new-protocols-datafiable-and-navigable">Two new protocols: <code class="language-plaintext highlighter-rouge">Datafiable</code> and <code class="language-plaintext highlighter-rouge">Navigable</code></h1>
+
+<p>Clojure’s narrative has always been around data. Data immutability, Code as data etc… Some people say that Clojure is a Data-drive languages. Clojure 1.10 takes the data story one step further. Now, every piece of Clojure can be seen as data: it can be <em>datified</em> and <em>navigated</em>. Out of the box, Clojure provides datification of atoms, vars, namespaces and more…</p>
+
+<p>Remark: <code class="language-plaintext highlighter-rouge">Datafiable</code> and <code class="language-plaintext highlighter-rouge">Navigable</code> have their most natural application in the context of building tools for data exploration. You will probably not need it in your web service. But it’s part of Clojure now, so I think it’s interesting to discover their “mechanics”.</p>
+
+<p>To datafy a value, we call the <code class="language-plaintext highlighter-rouge">datafy</code> function from the <code class="language-plaintext highlighter-rouge">clojure.datafy</code> namespace:</p>
+
+<pre><code class="language-klipse">(require '[clojure.datafy :refer [datafy]])
+</code></pre>
+
+<p>Simple values are datafied <em>as is</em>:</p>
+
+<pre><code class="language-klipse">(datafy 42)
+</code></pre>
+
+<p>Atoms are datafied with wrapping square brackets:</p>
+
+<pre><code class="language-klipse">(datafy (atom 42))
+</code></pre>
+
+<p>In order to datafy an object, all we need to do is to extend the <code class="language-plaintext highlighter-rouge">clojure.core.protocols/Datafiable</code> protocol that is made of a single function named <code class="language-plaintext highlighter-rouge">datafy</code>.</p>
+
+<p>Let’s illustrate that by creating custom Record with the name of the record  included in its datafication.</p>
+
+<pre><code class="language-klipse">(require '[clojure.core.protocols :as p])
+
+(defrecord MyRecord [a b]
+  p/Datafiable
+  (datafy [x] {:type 'MyRecord
+               :a (:a x)
+               :b (:b x)}))
+			   
+(datafy (MyRecord. 1 2))
+</code></pre>
+
+<p>And because in Clojure protocols and records are open, we can even datafy an existing object with <code class="language-plaintext highlighter-rouge">extend-type</code>.</p>
+
+<p>For instance, we can datafy lazy sequences as truncated lists with the first 10 items:</p>
+
+<pre><code class="language-klipse">(extend-type LazySeq
+  p/Datafiable
+  (datafy [x] (take 10 x)))
+
+(datafy (map inc (range 100)))
+</code></pre>
+
+<p>The examples shown in this section are for illustrative purpose only. It is not advised to modify the behaviour of a Clojure core component like <code class="language-plaintext highlighter-rouge">LazySeq</code>.</p>
+
+<p>You can check <a href="https://www.youtube.com/watch?v=c52QhiXsmyI">this talk about the REBL</a> to discover a really cool application of <code class="language-plaintext highlighter-rouge">Datafiable</code> <code class="language-plaintext highlighter-rouge">Navigable</code>.</p>
+
+<h1 id="protocol-extension-by-metadata">Protocol Extension by Metadata</h1>
+
+<p>What about datification of a specific map?</p>
+
+<p>No problem, Clojure 1.10 supports protocol extension by metadata. When a protocol is marked with <code class="language-plaintext highlighter-rouge">:extend-via-metadata true</code>, we can extend it via metadata.</p>
+
+<pre><code class="language-klipse">(defprotocol Component
+  :extend-via-metadata true
+  (start [component]))
+</code></pre>
+
+<p>Now, any object can extend <code class="language-plaintext highlighter-rouge">Component</code> by specifying a value for <code class="language-plaintext highlighter-rouge">start</code> in its metadata, just like this:</p>
+
+<pre><code class="language-klipse">(def component (with-meta {:name "db"} {`start (constantly "started")}))
+(start component)
+</code></pre>
+
+<p>It is no surprise that the <code class="language-plaintext highlighter-rouge">Datafiable</code> protocol, exposed in the previous section, is marked with <code class="language-plaintext highlighter-rouge">:extend-via-metadata true</code>. As a consequence, a map can be datafied on the fly. All we have to do is specify an implementation for <code class="language-plaintext highlighter-rouge">clojure.core.protocols/datafy</code> in the metadata:</p>
+
+<pre><code class="language-klipse">(def john-doe (with-meta 
+                {:name "John Doe"
+                 :language "us"} 
+                {`clojure.core.protocols/datafy (fn [x] (assoc x :type 'Person))}))
+
+(datafy john-doe)
+</code></pre>
+
+<p>Here is the official documentation for <a href="https://clojure.org/reference/protocols#_extend_via_metadata">Protocol Extension by Metadata</a>.</p>
+
+<h1 id="a-new-system-tap">A new system: tap</h1>
+
+<p><code class="language-plaintext highlighter-rouge">tap</code> is a shared, globally accessible system for distributing a series of informational or diagnostic values to a set of (presumably effectful) handler functions.</p>
+
+<p>In a nutshell, with <code class="language-plaintext highlighter-rouge">tap</code>, we can distribute a series of values to a set of handlers. 
+We register handlers with <code class="language-plaintext highlighter-rouge">add-tap</code>:</p>
+
+<pre><code class="language-klipse">(def my-atom (atom nil))
+(add-tap #(reset! my-atom %))
+(def your-atom (atom nil))
+(add-tap #(reset! your-atom %))
+</code></pre>
+
+<p>And we send values with <code class="language-plaintext highlighter-rouge">tap&gt;</code>:</p>
+
+<pre><code class="language-klipse">(tap&gt; "Hello World")
+</code></pre>
+
+<p>Our handlers have been called, therefore both <code class="language-plaintext highlighter-rouge">my-atom</code> and <code class="language-plaintext highlighter-rouge">your-atom</code> contains the value that we sent:</p>
+
+<pre><code class="language-klipse" data-loop-msec="100">
+[@my-atom @your-atom]
+</code></pre>
+
+<p><code class="language-plaintext highlighter-rouge">tap</code> can be used as a better debug <code class="language-plaintext highlighter-rouge">prn</code>, or for facilities like logging etc…</p>
+
+<h1 id="read-string---capture-mode">Read String - capture mode</h1>
+
+<p>As a LISP dialect, Clojure allows us to convert a string that contains an expression to the corresponding data, with <code class="language-plaintext highlighter-rouge">read-string</code> function. Clojure 1.10 introduces <code class="language-plaintext highlighter-rouge">read+string</code> (with a <code class="language-plaintext highlighter-rouge">+</code> instead of <code class="language-plaintext highlighter-rouge">-</code>) that returns both the data and the original string.</p>
+
+<pre><code class="language-klipse">(require '[clojure.tools.reader :refer [read+string]])
+(require '[cljs.tools.reader.reader-types :refer [source-logging-push-back-reader]])
+(read+string (source-logging-push-back-reader "(def a    1)"))
+</code></pre>
+
+<p>There are two differences in Clojure vs Clojurescript regarding <code class="language-plaintext highlighter-rouge">read+string</code>:</p>
+
+<ol>
+  <li>In Clojure, it requires a <code class="language-plaintext highlighter-rouge">LineNumberingPushbackReader</code> instead of <code class="language-plaintext highlighter-rouge">source-logging-push-back-reader</code></li>
+  <li>In Clojure, it is part of <code class="language-plaintext highlighter-rouge">clojure.core</code></li>
+</ol>
+
+<h1 id="play-on-your-own-repl">Play on your own REPL</h1>
+
+<p>I hope that you enjoyed the discovery of Clojure 1.10 features in your browser. Now, it’s time to try on your own machine. Thanks to the awesome <a href="/clojure/2018/09/16/hello-clojure.html">Clojure CLI</a>, that’s super easy with this single command line:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span>clj <span class="nt">-Sdeps</span> <span class="s2">"{:deps {org.clojure/clojure {:mvn/version </span><span class="se">\"</span><span class="s2">1.10.0</span><span class="se">\"</span><span class="s2">}}}"</span>
+Clojure 1.10.0
+<span class="nv">user</span><span class="o">=&gt;</span>
+</code></pre></div></div>
+
+<p>Go for it!</p>
+
+
+        </div>
+        <footer class="post-footer">
+            <div class="separator"></div>
+        </footer>
+    </article>
+
+    
+    <section class="newsletter-box inner">
+    <h2 class="newsletter-box-title">Subscribe to Yehonathan Sharvit newsletter</h2>
+    <p>Get the latest and greatest from Yehonathan Sharvit delivered straight to your inbox every week.</p>
+    <!-- Begin TinyLetter Signup Form -->
+    <div id="tinyletter_embed_signup">
+      <form class="validate gh-subscribe-form" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	      <label for="tlemail" class="screen-reader-text">Email Address</label>
+        <input type="email" value="" name="email" class="required email subscribe-email" placeholder="Your email address">
+	      <input type="hidden" value="1" name="embed"/>
+	      <input class="button" type="submit" value="Subscribe" />
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
+</section><!-- .widget -->
+
+    
+    <section class="read-next inner">
+        <h2 class="read-next-title">Read Next</h2>
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="December 9, 2018">December 9, 2018</time>
+                </div>
+                <h3 class="post-title"><a href="/clojure/2018/12/09/easy-clojure.html">Easy Clojure, Easy REPL</a>
+                </h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/clojure/'>Clojure</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="December 25, 2018">December 25, 2018</time>
+                </div>
+                <h3 class="post-title"><a href="/clojure/2018/12/25/dynamic-scope-clojure.html">Lazy sequences are not compatible with dynamic scope</a></h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/clojure/'>Clojure</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+    </section><!-- .read-next -->
+
+    <!-- Create a sorted array of tags -->
+     
+    <section class="tagcloud inner">
+        <h2 class="tagcloud-title">Tags</h2>
+        <div class="tag-links">
+            
+            <a href='/tags/#aboulafia'>aboulafia</a>
+            
+            <a href='/tags/#algo'>algo</a>
+            
+            <a href='/tags/#brainfuck'>brainfuck</a>
+            
+            <a href='/tags/#c%2B%2B'>c++</a>
+            
+            <a href='/tags/#caustics'>caustics</a>
+            
+            <a href='/tags/#clojure'>clojure</a>
+            
+            <a href='/tags/#clojurescript'>clojurescript</a>
+            
+            <a href='/tags/#compiler'>compiler</a>
+            
+            <a href='/tags/#dop'>dop</a>
+            
+            <a href='/tags/#generative'>generative</a>
+            
+            <a href='/tags/#golang'>golang</a>
+            
+            <a href='/tags/#graph'>graph</a>
+            
+            <a href='/tags/#html'>html</a>
+            
+            <a href='/tags/#java'>java</a>
+            
+            <a href='/tags/#javascript'>javascript</a>
+            
+            <a href='/tags/#kabbalah'>kabbalah</a>
+            
+            <a href='/tags/#kids'>kids</a>
+            
+            <a href='/tags/#klipse'>klipse</a>
+            
+            <a href='/tags/#lambda-calculus'>lambda-calculus</a>
+            
+            <a href='/tags/#lambdacalculus'>lambdacalculus</a>
+            
+            <a href='/tags/#lisp'>lisp</a>
+            
+            <a href='/tags/#lua'>lua</a>
+            
+            <a href='/tags/#math'>math</a>
+            
+            <a href='/tags/#maths'>maths</a>
+            
+            <a href='/tags/#oblivion'>oblivion</a>
+            
+            <a href='/tags/#ocaml'>ocaml</a>
+            
+            <a href='/tags/#permutations'>permutations</a>
+            
+            <a href='/tags/#php'>php</a>
+            
+            <a href='/tags/#prolog'>prolog</a>
+            
+            <a href='/tags/#python'>python</a>
+            
+            <a href='/tags/#react'>react</a>
+            
+            <a href='/tags/#reagent'>reagent</a>
+            
+            <a href='/tags/#reasonml'>reasonml</a>
+            
+            <a href='/tags/#ruby'>ruby</a>
+            
+            <a href='/tags/#scheme'>scheme</a>
+            
+            <a href='/tags/#sql'>sql</a>
+            
+            <a href='/tags/#symmetry'>symmetry</a>
+            
+            <a href='/tags/#theory'>theory</a>
+            
+            <a href='/tags/#visualization'>visualization</a>
+            
+        </div><!-- .tag-links -->
+    </section><!-- .tagcloud -->
+</main><!-- .site-main -->
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js, [data-lang=klipse-javascript]',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+        selector_golang: '.language-klipse-go',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+
+
+
+
+
+                
+
+                
+                <footer id="colophon" class="site-footer">
+    <p class="site-info inner">
+        <a href="#">Yehonathan Sharvit</a> &copy; 2026.
+    </p>
+    <a id="back-to-top" class="back-to-top" href="#page">
+        <span class="icon-arrow-up" aria-hidden="true"></span>
+        <span class="screen-reader-text">Back to top</span>
+    </a>
+</footer><!-- .site-footer -->
+
+            </div><!-- .inner-wide -->
+        </div><!-- .site-content -->
+    </div><!-- .site -->
+
+    
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75651930-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-75651930-1', { 'anonymize_ip': true });
+  </script>
+
+    <!-- Javascript Assets -->
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/plugins.js"></script>
+    <script src="/assets/js/custom.js"></script>
+
+</body>
+
+</html>

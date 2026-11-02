@@ -1,0 +1,30 @@
+* Migrate to Royce theme
+** TODO Beautufiy Book ad in footer
+** TODO Menu
+*** DONE Talks
+    CLOSED: [2021-02-11 Thu 21:14]
+*** TODO About me
+**** TODO Improve the text
+*** TODO Books
+** TODO SEO?
+** DONE Tags
+   CLOSED: [2021-02-12 Fri 07:32]
+** DONE Kramdown 
+   CLOSED: [2021-02-12 Fri 07:32]
+** DONE keep old urls to articles 
+   CLOSED: [2021-02-11 Thu 10:59]
+** DONE Klipse snippets style
+   CLOSED: [2021-02-11 Thu 10:00]
+*** DONE Remove margin
+    CLOSED: [2021-02-11 Thu 09:51]
+*** DONE SQL tables
+    CLOSED: [2021-02-11 Thu 10:00]
+** DONE Newsletter subscription
+   CLOSED: [2021-02-11 Thu 10:23]
+** DONE Book ad
+   CLOSED: [2021-02-11 Thu 09:39]
+** DONE Featured articles
+   CLOSED: [2021-02-11 Thu 09:39]
+** DONE Klipse stars
+   CLOSED: [2021-02-11 Thu 10:44]
+* Add a twitter feed

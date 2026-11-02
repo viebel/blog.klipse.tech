@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Hello Clojure | Yehonathan Sharvit</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Hello Clojure" />
+<meta name="author" content="Yehonathan Sharvit" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Run Clojure code snippets from command line. Hello World in Clojure." />
+<meta property="og:description" content="Run Clojure code snippets from command line. Hello World in Clojure." />
+<meta property="og:site_name" content="Yehonathan Sharvit" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-09-16T03:21:34+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Hello Clojure" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@Yehonathan Sharvit" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yehonathan Sharvit"},"dateModified":"2018-09-16T03:21:34+00:00","datePublished":"2018-09-16T03:21:34+00:00","description":"Run Clojure code snippets from command line. Hello World in Clojure.","headline":"Hello Clojure","mainEntityOfPage":{"@type":"WebPage","@id":"/clojure/2018/09/16/hello-clojure.html"},"url":"/clojure/2018/09/16/hello-clojure.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+
+    <!-- Site Favicon -->
+    <link rel="shortcut icon" href="/assets/favicon2.png" type="image/png" />
+
+    <!-- Font Embed Code -->
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600,600i|Karla:400,400i,700,700i" rel="stylesheet">
+
+    <!-- CSS Styles -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+</head>
+
+
+
+<body class="layout-post">
+    <div id="page" class="site">
+        <header id="masthead" class="site-header">
+    <div class="site-header-wrap">
+        <div class="site-header-inside">
+
+            <div class="site-branding">
+                
+                <p class="profile">
+                    <a href="/">
+                        <img src="/assets/images/authorimage.jpg" alt="'s Picture"
+                            class="avatar" />
+                    </a>
+                </p>
+                <div class="site-identity">
+                    
+                    <h1 class="site-title">
+                        <a href="/">Yehonathan Sharvit</a>
+                    </h1>
+                    
+                    
+                    <p class="site-description">Developer. Author. Speaker.</p>
+                    
+                </div><!-- .site-identity -->
+                
+                <button id="menu-toggle" class="menu-toggle"><span class="screen-reader-text">Main Menu</span><span
+                        class="icon-menu" aria-hidden="true"></span></button>
+            </div><!-- .site-branding -->
+
+            <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+                <div class="site-nav-wrap">
+                    <div class="site-nav-inside">
+                    <ul class="menu">
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/">Blog</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/talks">Talks</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/about">About</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/contact">Contact</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/search">Search</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/testimonials">Testimonials</a></li>
+                        
+                    </ul>
+                    <p class="social-links">
+    <a class="github-button" href="https://github.com/viebel/klipse" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    
+    <a href="https://twitter.com/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+</p>
+
+                    <div class="book-header">
+  <div>
+    Discover my book!
+  </div>
+  <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
+    <img src="/assets/dop-book.png">
+  </a>
+  <div>
+    DISCOUNT CODE: sharvit39
+  </div>
+</div>
+
+                    </div><!-- .site-nav-inside -->
+                </div><!-- .site-nav-wrap -->
+            </nav><!-- .site-navigation -->
+
+        </div><!-- .site-header-inside -->
+    </div><!-- .site-header-wrap -->
+</header><!-- .site-header -->
+
+        <div id="content" class="site-content fadeInDown delay_075s">
+            <div class="inner-wide">
+                <main id="main" class="site-main">
+
+    <article class="post-full inner">
+
+        <header class="post-header">
+            <h1 class="post-title">Hello Clojure</h1>
+            <span class="post-meta">
+              <time class="post-date" datetime="2018-09-16">
+                September 16, 2018
+              </time>
+            </span>
+            
+            <span class="post-tags">
+                <a href="/tags/index.html#clojure"
+                    rel="tag">clojure</a>
+                
+            </span>
+            
+        </header><!-- .post-header -->
+
+        <div class="post-content">
+            <h1 id="introduction">Introduction</h1>
+
+<p>For many years, Clojure was known as a language that is not beginner friendly. For sure, the unusual order of the parenthesis contributed to this reputation, but also the complexity of the required tools in order to achieve a simple task like running a “Hello World” program.</p>
+
+<p>Rich Hickey (the inventor of Clojure) often says that good Programming Languages are like Musical instruments: they are designed for professionals. You need to learn (and sometimes suffer during the learning period) in order to become a professional. This might hurt at the beginning. And even for professionals, it require some effort to perform at their best. Look at the fact of John Coltrane when he plays the saxophone!</p>
+
+<p><img src="/assets/coltrane.png" alt="Coltrane" /></p>
+
+<p>Anyway, the order of the parenthesis is not going to change: Clojure is and will always be a LISP dialect.</p>
+
+<p>But since the release of Clojure 1.9.0 in December 2017, Clojure features command-line tools that make it very easy (and not only simple) to run Clojure programs.</p>
+
+<h1 id="cli-tool-installation">CLI tool installation</h1>
+
+<p>On Mac and Linux, it is very straightforward to install the Clojure CLI (Command Line Interface) tools; on Windows, you need to first install WSL on Windows and then follow the same instructions as for Linux.</p>
+
+<p>On Mac</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew <span class="nb">install </span>clojure
+</code></pre></div></div>
+
+<p>On Linux:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-O</span> https://download.clojure.org/install/linux-install-1.9.0.394.sh
+<span class="nb">chmod</span> +x linux-install-1.9.0.394.sh
+<span class="nb">sudo</span> ./linux-install-1.9.0.394.sh
+</code></pre></div></div>
+
+<p>See <a href="https://clojure.org/guides/getting_started">Getting Started</a> for more detailed instructions.</p>
+
+<p>If you are not familiar at all with the Clojure syntax, you will not be able to enjoy this article before having being told that in Clojure, the function symbol appears inside the parenthesis and the function arguments are separated by whitespaces.</p>
+
+<h1 id="evaluating-clojure-expressions">Evaluating Clojure expressions</h1>
+
+<p>Once the CLI tool is installed, a program named <code class="language-plaintext highlighter-rouge">clj</code> is available for you. And now, it is a real pleasure to evaluate small Clojure code snippets with the <code class="language-plaintext highlighter-rouge">-e</code> flag.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> clj <span class="nt">-e</span> <span class="s1">'(+ 1 2)'</span>
+3
+</code></pre></div></div>
+
+<p>It is a good idea to use single quotes instead of double quotes so that you don’t need to escape strings quotes when concatanating strings (Clojure supports only strings with double quotes):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> clj <span class="nt">-e</span> <span class="s1">'(str "1 + 2 is: " (+ 1 2))'</span>
+<span class="s2">"1 + 2 is: 3"</span>
+</code></pre></div></div>
+
+<p>When your code snippet contains several expressions, the CLI prints the value of all the expressions one after line:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> clj <span class="nt">-e</span> <span class="s1">'(+ 1 2)(+ 2 3)'</span>
+3
+5
+</code></pre></div></div>
+
+<h1 id="running-a-clojure-file">Running a Clojure file</h1>
+
+<p>Sometimes, you don’t want to evaluate a series of expressions but you want to run a program for its side effects like printing a cool message in the console. What message? “Hello world” for instance!</p>
+
+<p>For that noble purpose, you write your Clojure code in a file (usually with a <code class="language-plaintext highlighter-rouge">.clj suffix) and you pass to the CLI the path of the Clojure file. You can create the file with any text editor or even directly from the shell with </code>echo`</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> <span class="nb">echo</span> <span class="s1">'(def my-name "world") (println "hello" my-name)'</span> <span class="o">&gt;</span> /tmp/hello.clj
+</code></pre></div></div>
+
+<p>Let’s inspect the content of the file with the <code class="language-plaintext highlighter-rouge">cat</code> command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> <span class="nb">cat</span> /tmp/hello.clj
+<span class="o">(</span>def my-name <span class="s2">"world"</span><span class="o">)</span> <span class="o">(</span>println <span class="s2">"hello"</span> my-name<span class="o">)</span>
+</code></pre></div></div>
+
+<p>And then, you can execute the content of your Clojure by passing the filename as an argument to <code class="language-plaintext highlighter-rouge">clj</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> clj /tmp/hello.clj
+hello world
+</code></pre></div></div>
+
+<p>That is fantastic: We were able to print “hello world” by executing a Clojure file directly from the command line!</p>
+
+<p>A note that Clojure beginners should skip:</p>
+
+<p>— start of the note —</p>
+
+<p>If you run the exact same code with the <code class="language-plaintext highlighter-rouge">-e</code> flag as exposed in the previous section, the CLI will display the evaluation of both expressions:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">(def my-name "world")</code> evaluates to <code class="language-plaintext highlighter-rouge">#'user/my-name</code> - this is the fully qualified name of the variable created by <code class="language-plaintext highlighter-rouge">def</code></li>
+  <li><code class="language-plaintext highlighter-rouge">(println "hello" my-name)</code> evaluates to <code class="language-plaintext highlighter-rouge">hello world</code></li>
+</ol>
+
+<p>Try it by yourself:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> clj <span class="nt">-e</span> <span class="s1">'(def my-name "world") (println "hello" my-name)'</span>
+<span class="c">#'user/my-name</span>
+hello world
+</code></pre></div></div>
+
+<p>— end of the note —</p>
+
+<h1 id="the-repl">The REPL</h1>
+
+<p>But the best of all is obviously the REPL, the famous Read Eval Print Loop, one of the heroes of the LISP tradition. The REPL is an interactive development environment that allows you to evaluate successive Clojure expressions interactively.</p>
+
+<p>You launch a Clojure REPL, simply by typing <code class="language-plaintext highlighter-rouge">clj</code> with no arguments:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> clj
+Clojure 1.9.0
+<span class="nv">user</span><span class="o">=&gt;</span> <span class="o">(</span>+ 1 2<span class="o">)</span>
+3
+<span class="nv">user</span><span class="o">=&gt;</span> <span class="o">(</span>+ 4 5<span class="o">)</span>
+9
+<span class="nv">user</span><span class="o">=&gt;</span>
+</code></pre></div></div>
+
+<p>Now it is your turn to perform and create the Clojure code of your dreams!</p>
+
+<p>This is only the tip of the iceberg, you can do much more powerful tricks with Clojure CLI like running a full Clojure Program with many namespaces or manipulating aliases to setup the perfect Java Classpath. Unfortunately, it is far beyond the scope of this article. If you want to learn more about it, feel free to read the <a href="https://clojure.org/guides/deps_and_cli">Clojure CLI official guide</a>.</p>
+
+        </div>
+        <footer class="post-footer">
+            <div class="separator"></div>
+        </footer>
+    </article>
+
+    
+    <section class="newsletter-box inner">
+    <h2 class="newsletter-box-title">Subscribe to Yehonathan Sharvit newsletter</h2>
+    <p>Get the latest and greatest from Yehonathan Sharvit delivered straight to your inbox every week.</p>
+    <!-- Begin TinyLetter Signup Form -->
+    <div id="tinyletter_embed_signup">
+      <form class="validate gh-subscribe-form" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	      <label for="tlemail" class="screen-reader-text">Email Address</label>
+        <input type="email" value="" name="email" class="required email subscribe-email" placeholder="Your email address">
+	      <input type="hidden" value="1" name="embed"/>
+	      <input class="button" type="submit" value="Subscribe" />
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
+</section><!-- .widget -->
+
+    
+    <section class="read-next inner">
+        <h2 class="read-next-title">Read Next</h2>
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="May 7, 2018">May 7, 2018</time>
+                </div>
+                <h3 class="post-title"><a href="/lisp/2018/05/07/blog-common-lisp.html">A new way of blogging about Common Lisp</a>
+                </h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/klipse/'>Klipse</a>
+                    
+                    
+                    
+                    <a href='/tag/lisp/'>Lisp</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="December 9, 2018">December 9, 2018</time>
+                </div>
+                <h3 class="post-title"><a href="/clojure/2018/12/09/easy-clojure.html">Easy Clojure, Easy REPL</a></h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/clojure/'>Clojure</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+    </section><!-- .read-next -->
+
+    <!-- Create a sorted array of tags -->
+     
+    <section class="tagcloud inner">
+        <h2 class="tagcloud-title">Tags</h2>
+        <div class="tag-links">
+            
+            <a href='/tags/#aboulafia'>aboulafia</a>
+            
+            <a href='/tags/#algo'>algo</a>
+            
+            <a href='/tags/#brainfuck'>brainfuck</a>
+            
+            <a href='/tags/#c%2B%2B'>c++</a>
+            
+            <a href='/tags/#caustics'>caustics</a>
+            
+            <a href='/tags/#clojure'>clojure</a>
+            
+            <a href='/tags/#clojurescript'>clojurescript</a>
+            
+            <a href='/tags/#compiler'>compiler</a>
+            
+            <a href='/tags/#dop'>dop</a>
+            
+            <a href='/tags/#generative'>generative</a>
+            
+            <a href='/tags/#golang'>golang</a>
+            
+            <a href='/tags/#graph'>graph</a>
+            
+            <a href='/tags/#html'>html</a>
+            
+            <a href='/tags/#java'>java</a>
+            
+            <a href='/tags/#javascript'>javascript</a>
+            
+            <a href='/tags/#kabbalah'>kabbalah</a>
+            
+            <a href='/tags/#kids'>kids</a>
+            
+            <a href='/tags/#klipse'>klipse</a>
+            
+            <a href='/tags/#lambda-calculus'>lambda-calculus</a>
+            
+            <a href='/tags/#lambdacalculus'>lambdacalculus</a>
+            
+            <a href='/tags/#lisp'>lisp</a>
+            
+            <a href='/tags/#lua'>lua</a>
+            
+            <a href='/tags/#math'>math</a>
+            
+            <a href='/tags/#maths'>maths</a>
+            
+            <a href='/tags/#oblivion'>oblivion</a>
+            
+            <a href='/tags/#ocaml'>ocaml</a>
+            
+            <a href='/tags/#permutations'>permutations</a>
+            
+            <a href='/tags/#php'>php</a>
+            
+            <a href='/tags/#prolog'>prolog</a>
+            
+            <a href='/tags/#python'>python</a>
+            
+            <a href='/tags/#react'>react</a>
+            
+            <a href='/tags/#reagent'>reagent</a>
+            
+            <a href='/tags/#reasonml'>reasonml</a>
+            
+            <a href='/tags/#ruby'>ruby</a>
+            
+            <a href='/tags/#scheme'>scheme</a>
+            
+            <a href='/tags/#sql'>sql</a>
+            
+            <a href='/tags/#symmetry'>symmetry</a>
+            
+            <a href='/tags/#theory'>theory</a>
+            
+            <a href='/tags/#visualization'>visualization</a>
+            
+        </div><!-- .tag-links -->
+    </section><!-- .tagcloud -->
+</main><!-- .site-main -->
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js, [data-lang=klipse-javascript]',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+        selector_golang: '.language-klipse-go',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+
+
+
+
+
+                
+
+                
+                <footer id="colophon" class="site-footer">
+    <p class="site-info inner">
+        <a href="#">Yehonathan Sharvit</a> &copy; 2026.
+    </p>
+    <a id="back-to-top" class="back-to-top" href="#page">
+        <span class="icon-arrow-up" aria-hidden="true"></span>
+        <span class="screen-reader-text">Back to top</span>
+    </a>
+</footer><!-- .site-footer -->
+
+            </div><!-- .inner-wide -->
+        </div><!-- .site-content -->
+    </div><!-- .site -->
+
+    
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75651930-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-75651930-1', { 'anonymize_ip': true });
+  </script>
+
+    <!-- Javascript Assets -->
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/plugins.js"></script>
+    <script src="/assets/js/custom.js"></script>
+
+</body>
+
+</html>

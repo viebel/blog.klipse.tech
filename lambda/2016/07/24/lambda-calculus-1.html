@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Numbers and Arithmetics with functions only: lambda calculus live tutorial | Yehonathan Sharvit</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Numbers and Arithmetics with functions only: lambda calculus live tutorial" />
+<meta name="author" content="Yehonathan Sharvit" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Numbers and Arithmetics with functions only. Lambda-Calculus introduction in Clojure. Live tutorial." />
+<meta property="og:description" content="Numbers and Arithmetics with functions only. Lambda-Calculus introduction in Clojure. Live tutorial." />
+<meta property="og:site_name" content="Yehonathan Sharvit" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-07-24T08:22:34+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Numbers and Arithmetics with functions only: lambda calculus live tutorial" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@Yehonathan Sharvit" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yehonathan Sharvit"},"dateModified":"2016-07-24T08:22:34+00:00","datePublished":"2016-07-24T08:22:34+00:00","description":"Numbers and Arithmetics with functions only. Lambda-Calculus introduction in Clojure. Live tutorial.","headline":"Numbers and Arithmetics with functions only: lambda calculus live tutorial","mainEntityOfPage":{"@type":"WebPage","@id":"/lambda/2016/07/24/lambda-calculus-1.html"},"url":"/lambda/2016/07/24/lambda-calculus-1.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+
+    <!-- Site Favicon -->
+    <link rel="shortcut icon" href="/assets/favicon2.png" type="image/png" />
+
+    <!-- Font Embed Code -->
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600,600i|Karla:400,400i,700,700i" rel="stylesheet">
+
+    <!-- CSS Styles -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+</head>
+
+
+
+<body class="layout-post">
+    <div id="page" class="site">
+        <header id="masthead" class="site-header">
+    <div class="site-header-wrap">
+        <div class="site-header-inside">
+
+            <div class="site-branding">
+                
+                <p class="profile">
+                    <a href="/">
+                        <img src="/assets/images/authorimage.jpg" alt="'s Picture"
+                            class="avatar" />
+                    </a>
+                </p>
+                <div class="site-identity">
+                    
+                    <h1 class="site-title">
+                        <a href="/">Yehonathan Sharvit</a>
+                    </h1>
+                    
+                    
+                    <p class="site-description">Developer. Author. Speaker.</p>
+                    
+                </div><!-- .site-identity -->
+                
+                <button id="menu-toggle" class="menu-toggle"><span class="screen-reader-text">Main Menu</span><span
+                        class="icon-menu" aria-hidden="true"></span></button>
+            </div><!-- .site-branding -->
+
+            <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+                <div class="site-nav-wrap">
+                    <div class="site-nav-inside">
+                    <ul class="menu">
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/">Blog</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/talks">Talks</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/about">About</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/contact">Contact</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/search">Search</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/testimonials">Testimonials</a></li>
+                        
+                    </ul>
+                    <p class="social-links">
+    <a class="github-button" href="https://github.com/viebel/klipse" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    
+    <a href="https://twitter.com/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+</p>
+
+                    <div class="book-header">
+  <div>
+    Discover my book!
+  </div>
+  <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
+    <img src="/assets/dop-book.png">
+  </a>
+  <div>
+    DISCOUNT CODE: sharvit39
+  </div>
+</div>
+
+                    </div><!-- .site-nav-inside -->
+                </div><!-- .site-nav-wrap -->
+            </nav><!-- .site-navigation -->
+
+        </div><!-- .site-header-inside -->
+    </div><!-- .site-header-wrap -->
+</header><!-- .site-header -->
+
+        <div id="content" class="site-content fadeInDown delay_075s">
+            <div class="inner-wide">
+                <main id="main" class="site-main">
+
+    <article class="post-full inner">
+
+        <header class="post-header">
+            <h1 class="post-title">Numbers and Arithmetics with functions only: lambda calculus live tutorial</h1>
+            <span class="post-meta">
+              <time class="post-date" datetime="2016-07-24">
+                July 24, 2016
+              </time>
+            </span>
+            
+            <span class="post-tags">
+                <a href="/tags/index.html#lambda-calculus"
+                    rel="tag">lambda-calculus</a>
+                
+            </span>
+            
+        </header><!-- .post-header -->
+
+        <div class="post-content">
+            <p>The mathematical theory behind <code class="language-plaintext highlighter-rouge">LISP</code> is the <a href="https://en.wikipedia.org/wiki/Lambda_calculus">λ-calculus</a> (pronounced lambda-calculus).</p>
+
+<p>The amazing thing about <code class="language-plaintext highlighter-rouge">λ-calculus</code> is that it is possible to represent numbers and the arithmetic operations (<code class="language-plaintext highlighter-rouge">successor</code>, <code class="language-plaintext highlighter-rouge">addition</code> and <code class="language-plaintext highlighter-rouge">multiplication</code>) as functions.</p>
+
+<p>Once you have arithmetics, you have almost all the mathematics and the computer science.</p>
+
+<p>In this article, we are going to show this representation using <code class="language-plaintext highlighter-rouge">clojure</code>.</p>
+
+<p>By the way, this is the signification of the <code class="language-plaintext highlighter-rouge">λ</code> sign in the clojure logo:</p>
+
+<p><img src="/assets/clojure_logo.jpg" alt="Clojure" height="300px" width="300px" /></p>
+
+<h1 id="numbers-representation-in-λ-calculus">Numbers representation in λ-calculus</h1>
+
+<p>Like everything in <code class="language-plaintext highlighter-rouge">λ-calculus</code>, numbers are functions.</p>
+
+<p>A number <code class="language-plaintext highlighter-rouge">n</code> is a function that receives as argument a <code class="language-plaintext highlighter-rouge">1-arity</code> function <code class="language-plaintext highlighter-rouge">f</code> and returns a function that applies <code class="language-plaintext highlighter-rouge">f</code> <code class="language-plaintext highlighter-rouge">n</code> times.</p>
+
+<p>Let’s define the first natural numbers, manually:</p>
+
+<pre><code class="language-klipse">(defn zero [f]
+  (fn [x] x))
+
+(defn one [f]
+  (fn [x]
+    (f x)))
+
+(defn two [f]
+  (fn [x]
+    (f (f x))))
+
+(defn three [f]
+  (fn [x]
+    (f (f (f x)))))
+</code></pre>
+
+<h1 id="numbers-in-action">Numbers in action</h1>
+
+<p>In order to see the numbers in action, we need to execute them on a function and to execute the resulting function on a value.</p>
+
+<p>All the code snippets on this article are live and interactive: feel free to modify the code and it will evaluate instantaneously!</p>
+
+<p>The code snippets are powered by the <a href="https://github.com/viebel/klipse">Klipse plugin</a>.</p>
+
+<p>We could take the increment function <code class="language-plaintext highlighter-rouge">inc</code>, and execute the result on <code class="language-plaintext highlighter-rouge">42</code>:</p>
+
+<pre><code class="language-klipse">((zero inc) 42)
+</code></pre>
+
+<pre><code class="language-klipse">((one inc) 42)
+</code></pre>
+
+<pre><code class="language-klipse">((two inc) 42)
+</code></pre>
+
+<pre><code class="language-klipse">((three inc) 42)
+</code></pre>
+
+<p>But, in order to make it more visual, we are going to define a custom function:</p>
+
+<pre><code class="language-klipse">(defn visual [x]
+  (list 'f x))
+</code></pre>
+
+<p>Let’s see what happens when we pass it to a lambda number:</p>
+
+<pre><code class="language-klipse">((two visual) 'x)
+</code></pre>
+
+<p>Nice! Now, we see visually the definition of the number <code class="language-plaintext highlighter-rouge">two</code>: Application of a function twice.</p>
+
+<p>In order to make things more convenient, let’s define a helper function <code class="language-plaintext highlighter-rouge">view</code>:</p>
+
+<pre><code class="language-klipse">(defn view [f]
+  ((f visual) 'x))
+</code></pre>
+
+<p>And let’s view the lambda numbers we have defined so far:</p>
+
+<pre><code class="language-klipse">(map view [zero one two three])
+</code></pre>
+
+<h1 id="generating-any-lambda-number">Generating any lambda number</h1>
+
+<p>Let’s write a function that receives a regular number <code class="language-plaintext highlighter-rouge">n</code> and returns the corresponding <code class="language-plaintext highlighter-rouge">lambda-number</code>, using <code class="language-plaintext highlighter-rouge">clojure</code> functions <code class="language-plaintext highlighter-rouge">comp</code>, <code class="language-plaintext highlighter-rouge">repeat</code> and <code class="language-plaintext highlighter-rouge">apply</code>:</p>
+
+<pre><code class="language-klipse">(defn lambda-num [n]
+  (fn [f]
+      (fn [x]
+            ((apply comp (repeat n f)) x))))
+</code></pre>
+
+<p>Let’s view the lambda-number <code class="language-plaintext highlighter-rouge">6</code>:</p>
+
+<pre><code class="language-klipse">(view (lambda-num 6))
+</code></pre>
+
+<p>And we can easily view a range of lambda-numbers:</p>
+
+<pre><code class="language-klipse">(map view (map lambda-num (range 5)))
+</code></pre>
+
+<h1 id="equality">Equality</h1>
+
+<p>Two <code class="language-plaintext highlighter-rouge">lambda-numbers</code> are equal if they are the same functions from a mathematical perspective.</p>
+
+<p>It is disappointing that a <code class="language-plaintext highlighter-rouge">lambda-number</code> is not equal to itself:</p>
+
+<pre><code class="language-klipse">(= (lambda-num 6) (lambda-num 6))
+</code></pre>
+
+<p>The reason, is that from a <code class="language-plaintext highlighter-rouge">clojure</code> perspective they are two different functions with the same code.</p>
+
+<p>We will use the function <code class="language-plaintext highlighter-rouge">view</code> for equality test:</p>
+
+<pre><code class="language-klipse">(defn eq? [m n]
+  (= (view m) (view n)))
+</code></pre>
+
+<p>It works as expected:</p>
+
+<pre><code class="language-klipse">(eq? (lambda-num 6) (lambda-num 6))
+</code></pre>
+
+<pre><code class="language-klipse">(eq? (lambda-num 4) (lambda-num 6))
+</code></pre>
+
+<h1 id="type-definition-for-lambda">Type definition for lambda</h1>
+
+<p>Let’s define a <code class="language-plaintext highlighter-rouge">clojure</code> type to customize the viewability and equality of lambda numbers. Our type will have the following properties:</p>
+
+<ol>
+  <li>It is callable as a function</li>
+  <li>It is viewable with <code class="language-plaintext highlighter-rouge">view</code></li>
+  <li>It redefines equality with <code class="language-plaintext highlighter-rouge">view</code></li>
+</ol>
+
+<p>For that purpose, we need to implement three <code class="language-plaintext highlighter-rouge">clojure</code> protocols:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">IFn</code></li>
+  <li><code class="language-plaintext highlighter-rouge">IPrintWithWriter</code></li>
+  <li><code class="language-plaintext highlighter-rouge">IEquiv</code></li>
+</ol>
+
+<p>Let’s define a type named <code class="language-plaintext highlighter-rouge">Lambda</code>:</p>
+
+<p>(If you are not familiar with the details of <code class="language-plaintext highlighter-rouge">clojure</code> protocols, you can skip the following code snippet.)</p>
+
+<pre><code class="language-klipse">(deftype Lambda [f]
+  Object
+  (toString [_] (str (view f)))
+
+  IPrintWithWriter
+  (-pr-writer [this writer _] (-write writer (str (view f))))
+
+  IEquiv
+  (-equiv [this other]
+          (= (view this) (view other)))
+
+  IFn
+  (-invoke [this g]
+           (f g)))
+</code></pre>
+
+<p>And a function that converts a regular number to a typed lambda number:</p>
+
+<pre><code class="language-klipse">(defn lambda-typed-num [n]
+  (Lambda. (lambda-num n)))
+</code></pre>
+
+<p>Now, lambda numbers are viewable:</p>
+
+<pre><code class="language-klipse">(map lambda-typed-num (range 5))
+</code></pre>
+
+<p>And comparable:</p>
+
+<pre><code class="language-klipse">(= (lambda-typed-num 6) (lambda-typed-num 6))
+</code></pre>
+
+<pre><code class="language-klipse">(= (lambda-typed-num 4) (lambda-typed-num 6))
+</code></pre>
+
+<p>Now that we have defined lambda numbers and that they are viewable and comparable, we can introduce the basic arithmetic operations: successor, addition and multiplication.</p>
+
+<h1 id="the-successor-operation">The successor operation</h1>
+
+<p>Here is how one implements the <code class="language-plaintext highlighter-rouge">successor</code> function in <code class="language-plaintext highlighter-rouge">λ-calculus</code>. Successor is a function that receives a number <code class="language-plaintext highlighter-rouge">n</code> and returns <code class="language-plaintext highlighter-rouge">n+1</code>.</p>
+
+<pre><code class="language-klipse">(defn successor [m]
+ (fn [f]
+  (fn [x]
+   (f ((m f) x)))))
+</code></pre>
+
+<p>The code basically means: apply the function <code class="language-plaintext highlighter-rouge">f</code> <code class="language-plaintext highlighter-rouge">m</code> times and then another time.</p>
+
+<p>Now, lets’ wrap it with our <code class="language-plaintext highlighter-rouge">Lambda</code> type</p>
+
+<pre><code class="language-klipse">(defn succ [m]
+  (Lambda. (successor m)))
+</code></pre>
+
+<p>Let’s check it works fine:</p>
+
+<pre><code class="language-klipse">(succ (lambda-typed-num 1))
+</code></pre>
+
+<pre><code class="language-klipse">(= (succ (lambda-typed-num 8)) (lambda-typed-num 9))
+</code></pre>
+
+<h2 id="the-addition-operation">The addition operation</h2>
+
+<p>Here is how one implements the <code class="language-plaintext highlighter-rouge">addition</code> function in <code class="language-plaintext highlighter-rouge">λ-calculus</code>. Addition is a function that receives two numbers and returns the result of their addition:</p>
+
+<pre><code class="language-klipse">(defn add [m n]
+ (Lambda.
+  (fn [f]
+   (fn [x]
+    ((n f) ((m f) x))))))
+</code></pre>
+
+<p>The code basically means: apply the function <code class="language-plaintext highlighter-rouge">f</code> <code class="language-plaintext highlighter-rouge">m</code> times and then <code class="language-plaintext highlighter-rouge">n</code> times.</p>
+
+<p>Let’s check it works fine:</p>
+
+<pre><code class="language-klipse">(add (lambda-typed-num 3) (lambda-typed-num 2))
+</code></pre>
+
+<p>Make sure that <code class="language-plaintext highlighter-rouge">3+2</code> equals 5:</p>
+
+<pre><code class="language-klipse">(= (add (lambda-typed-num 3) (lambda-typed-num 2))
+   (lambda-typed-num 5))
+</code></pre>
+
+<h1 id="the-multiplication-operation">The multiplication operation</h1>
+
+<p>Here is how one implements the <code class="language-plaintext highlighter-rouge">multiplication</code> function in <code class="language-plaintext highlighter-rouge">λ-calculus</code>. Multiplication is a function that receives two numbers and returns the result of their multiplication:</p>
+
+<pre><code class="language-klipse">(defn mult [m n]
+  (Lambda.
+      (fn [f]
+            (m (n f)))))
+</code></pre>
+
+<p>The code basically means: compose the function <code class="language-plaintext highlighter-rouge">f</code> <code class="language-plaintext highlighter-rouge">n</code> times and then <code class="language-plaintext highlighter-rouge">m</code> times.</p>
+
+<p>Let’s check it works fine:</p>
+
+<pre><code class="language-klipse">(mult (lambda-typed-num 3) (lambda-typed-num 2))
+</code></pre>
+
+<p>Make sure that <code class="language-plaintext highlighter-rouge">3*2</code> equals 6:</p>
+
+<pre><code class="language-klipse">(= (mult (lambda-typed-num 3) (lambda-typed-num 2))
+   (lambda-typed-num 6))
+</code></pre>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>It is really amazing to see concretely how powerful is the <code class="language-plaintext highlighter-rouge">λ-calculus</code>. With a very limited set of characters and concepts we can build the arithmetics.</p>
+
+<p>In the <a href="/lambda/2016/07/24/lambda-calculus-2.html">next article</a>, we are going to show how to define the booleans and their basic operations.</p>
+
+<p>Let us know what you think about this lambda-calculus tutorial in the comments below….</p>
+
+        </div>
+        <footer class="post-footer">
+            <div class="separator"></div>
+        </footer>
+    </article>
+
+    
+    <section class="newsletter-box inner">
+    <h2 class="newsletter-box-title">Subscribe to Yehonathan Sharvit newsletter</h2>
+    <p>Get the latest and greatest from Yehonathan Sharvit delivered straight to your inbox every week.</p>
+    <!-- Begin TinyLetter Signup Form -->
+    <div id="tinyletter_embed_signup">
+      <form class="validate gh-subscribe-form" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	      <label for="tlemail" class="screen-reader-text">Email Address</label>
+        <input type="email" value="" name="email" class="required email subscribe-email" placeholder="Your email address">
+	      <input type="hidden" value="1" name="embed"/>
+	      <input class="button" type="submit" value="Subscribe" />
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
+</section><!-- .widget -->
+
+    
+    <section class="read-next inner">
+        <h2 class="read-next-title">Read Next</h2>
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="June 30, 2016">June 30, 2016</time>
+                </div>
+                <h3 class="post-title"><a href="/javascript/2016/06/30/testcheck-js.html">Generative property testing with Javascript: live tutorial</a>
+                </h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/javascript/'>Javascript</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="July 24, 2016">July 24, 2016</time>
+                </div>
+                <h3 class="post-title"><a href="/lambda/2016/07/24/lambda-calculus-2.html">Lambda Calculus Live Tutorial with Klipse: Boolean Algebra</a></h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/lambda-calculus/'>Lambda-calculus</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+    </section><!-- .read-next -->
+
+    <!-- Create a sorted array of tags -->
+     
+    <section class="tagcloud inner">
+        <h2 class="tagcloud-title">Tags</h2>
+        <div class="tag-links">
+            
+            <a href='/tags/#aboulafia'>aboulafia</a>
+            
+            <a href='/tags/#algo'>algo</a>
+            
+            <a href='/tags/#brainfuck'>brainfuck</a>
+            
+            <a href='/tags/#c%2B%2B'>c++</a>
+            
+            <a href='/tags/#caustics'>caustics</a>
+            
+            <a href='/tags/#clojure'>clojure</a>
+            
+            <a href='/tags/#clojurescript'>clojurescript</a>
+            
+            <a href='/tags/#compiler'>compiler</a>
+            
+            <a href='/tags/#dop'>dop</a>
+            
+            <a href='/tags/#generative'>generative</a>
+            
+            <a href='/tags/#golang'>golang</a>
+            
+            <a href='/tags/#graph'>graph</a>
+            
+            <a href='/tags/#html'>html</a>
+            
+            <a href='/tags/#java'>java</a>
+            
+            <a href='/tags/#javascript'>javascript</a>
+            
+            <a href='/tags/#kabbalah'>kabbalah</a>
+            
+            <a href='/tags/#kids'>kids</a>
+            
+            <a href='/tags/#klipse'>klipse</a>
+            
+            <a href='/tags/#lambda-calculus'>lambda-calculus</a>
+            
+            <a href='/tags/#lambdacalculus'>lambdacalculus</a>
+            
+            <a href='/tags/#lisp'>lisp</a>
+            
+            <a href='/tags/#lua'>lua</a>
+            
+            <a href='/tags/#math'>math</a>
+            
+            <a href='/tags/#maths'>maths</a>
+            
+            <a href='/tags/#oblivion'>oblivion</a>
+            
+            <a href='/tags/#ocaml'>ocaml</a>
+            
+            <a href='/tags/#permutations'>permutations</a>
+            
+            <a href='/tags/#php'>php</a>
+            
+            <a href='/tags/#prolog'>prolog</a>
+            
+            <a href='/tags/#python'>python</a>
+            
+            <a href='/tags/#react'>react</a>
+            
+            <a href='/tags/#reagent'>reagent</a>
+            
+            <a href='/tags/#reasonml'>reasonml</a>
+            
+            <a href='/tags/#ruby'>ruby</a>
+            
+            <a href='/tags/#scheme'>scheme</a>
+            
+            <a href='/tags/#sql'>sql</a>
+            
+            <a href='/tags/#symmetry'>symmetry</a>
+            
+            <a href='/tags/#theory'>theory</a>
+            
+            <a href='/tags/#visualization'>visualization</a>
+            
+        </div><!-- .tag-links -->
+    </section><!-- .tagcloud -->
+</main><!-- .site-main -->
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js, [data-lang=klipse-javascript]',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+        selector_golang: '.language-klipse-go',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+
+
+
+
+
+                
+
+                
+                <footer id="colophon" class="site-footer">
+    <p class="site-info inner">
+        <a href="#">Yehonathan Sharvit</a> &copy; 2026.
+    </p>
+    <a id="back-to-top" class="back-to-top" href="#page">
+        <span class="icon-arrow-up" aria-hidden="true"></span>
+        <span class="screen-reader-text">Back to top</span>
+    </a>
+</footer><!-- .site-footer -->
+
+            </div><!-- .inner-wide -->
+        </div><!-- .site-content -->
+    </div><!-- .site -->
+
+    
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75651930-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-75651930-1', { 'anonymize_ip': true });
+  </script>
+
+    <!-- Javascript Assets -->
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/plugins.js"></script>
+    <script src="/assets/js/custom.js"></script>
+
+</body>
+
+</html>

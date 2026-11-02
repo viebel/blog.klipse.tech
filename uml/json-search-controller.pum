@@ -1,0 +1,34 @@
+@startuml
+Catalog      *-- "*" Book
+SearchController ..> Catalog
+SearchController ..> SearchResult
+SearchController ..> SearchQuery
+SearchResult   o-- "*" Book
+
+
+
+class SearchController {
+  + String handle(searchQuery: String)
+}
+
+class Catalog {
+  + List<Book> search(searchCriteria, queryStr)
+}
+
+class SearchQuery {
+  + searchCriteria: String
+  + query: String
+  + SearchQuery(jsonString: String)
+}
+
+class Book {
+  - id : String
+  - title : String
+}
+
+
+class SearchResult {
+  + SearchResult(books: List<Book>)
+  + String toJSON()
+}
+@enduml

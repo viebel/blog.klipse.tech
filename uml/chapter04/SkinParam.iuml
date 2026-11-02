@@ -1,0 +1,65 @@
+<style>
+wbsDiagram {
+  arrow {
+    LineColor Blue
+    LineThickness 3
+  }
+
+  node {
+    LineColor Blue
+    BackgroundColor White
+  }
+
+  element {
+    FontSize 24
+  }
+  .changed {
+    BackgroundColor LightPink
+  }
+
+  .noborder {
+    LineStyle 7
+  }
+
+  .changed_noborder {
+    BackgroundColor LightPink
+    LineStyle 7
+  }
+}
+
+activityDiagram {
+  node {
+    LineColor Blue
+    BackgroundColor White
+  }
+}
+
+classDiagram {
+  arrow {
+    LineColor green
+  }
+}
+
+mindmapDiagram {
+  node {
+    LineColor blue
+    FontSize  24
+  }
+  arrow {
+    LineColor blue
+    LineThickness 3
+  }
+  .orange {
+    BackgroundColor orange
+  }
+  .red {
+    BackgroundColor red
+  }
+
+  .green {
+    BackgroundColor lightgreen
+  }
+
+}
+</style>
+

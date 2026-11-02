@@ -1,0 +1,42 @@
+@startuml
+
+!include SkinParamClass.iuml
+
+LibraryData *-- UserManagementData
+LibraryData *-- CatalogData
+
+CatalogData *-- "*" BookData
+BookData "*" o--o "*" AuthorData
+BookData *-- "*" BookItemData
+
+UserManagementData "*" *-- MemberData
+UserManagementData "*" *-- LibrarianData
+
+class LibraryData {
+
+}
+class UserManagementData {
+
+}
+class CatalogData {
+
+}
+
+class MemberData {
+
+}
+
+class LibrarianData {
+
+}
+
+class BookData {
+
+}
+
+
+class AuthorData {
+
+}
+
+@enduml

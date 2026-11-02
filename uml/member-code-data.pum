@@ -1,0 +1,24 @@
+@startuml
+
+Library      *-- Catalog
+Library      *-r- "*" Librarian
+Library      *-r- "*" MemberData
+
+Catalog      ..> Librarian
+Catalog      *-- "*" Book
+
+Book         *-- "*" BookItem
+Book         "*" o--o "*" Author
+
+BookItem     *-- BookLending
+
+MemberCode       --> User
+MemberData       *-- "*" BookLendingData
+MemberCode       ..> BookItem
+
+Librarian    --> User
+Librarian    ..> BookLending
+Librarian    ..> BookItem
+Librarian    ..> MemberCode
+
+@enduml

@@ -1,0 +1,70 @@
+
+Endpoints ..> Catalog
+Endpoints ..> Library
+Endpoints ..> UserManager
+
+object Endpoints {
+  + bool addBookItem({userId, bookItemInfo})
+  + BookLending checkoutBookItem({userId, bookItemId})
+  + bool returnBook({userId, bookLendin}gId)
+  + List<BookItem> search({searchQuery})
+  + List<BookLending> getBookLendings({userId, searchCriteria, id})
+  + string login({email, password})
+  + bool blockMember({userId, memberId})
+  + bool unBlockMember({userId, memberId})
+  + List<Member> getMember({userId})
+  + LibraryInfo libraryInfo({})
+
+}
+
+@startuml
+
+CatalogModule ..> BookModule
+CatalogModule ..> BookItemModule
+CatalogModule ..> BookLendingModule
+UserManagerModule ..> MemberModule
+
+object CatalogModule {
+  + List<BookItem> search(catalog, searchQuery)
+  + List<Book> getBooks(catalog)
+  + BookLending checkoutBookItem(catalog, memberId, bookItemId)
+  + bool returnBook(catalog, bookLendingId)
+  + BookItem addBookItem(catalog, bookItemInfo)
+  + BookItem getBookItem(catalog, bookLandingId)
+  + List<Book> getAuthorBooks(catalog, authorId)
+  + List<Author> getBookAuthors(catalog, bookId)
+  + List<BookLending> getBookLendings({catalog, searchCriteria, memberId, bookId})
+}
+
+object BookModule {
+  + List <BookItem> getBookItems(book)
+}
+
+object BookItemModule {
+  + BookLending getBookLending(bookItem)
+  + Book getBook(bookItem)
+}
+
+object BookLendingModule {
+  + Bool isLate(bookLending)
+  + BookItem getBookItem(bookLending)
+}
+
+object UserManagerModule {
+  + bool login(userMgr, userId, password)
+  + bool isAllowedTo(userMgr, userId, actionId)
+  + bool block(userMgr, userId, memberId)
+  + bool unBlock(userMgr, userId, memberId)
+  + List<Member> getMembers(userMgr)
+  + List <BookLending> getMemberBookLendings(userMgs, memberId)
+}
+
+object MemberModule {
+  + List <BookLending> getBookLendings(member)
+}
+
+object LibraryModule {
+  + Catalog getCatalog(library)
+  + UserManager getUserManager(library)
+}
+@enduml

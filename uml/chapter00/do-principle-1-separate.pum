@@ -1,0 +1,10 @@
+@startmindmap
+!include SkinParam.iuml
+!theme bluegray
+* SYSTEM
+** CODE
+*** FP<&thumb-up>
+*** OOP<&thumb-up>
+** DATA
+
+@endmindmap

@@ -1,0 +1,15 @@
+@startuml
+
+Book         "*" o--o "*" Author
+
+class Book {
+  - id : String
+  - title : String
+}
+
+class Author {
+  - id : String
+  - fullName: String
+}
+
+@enduml

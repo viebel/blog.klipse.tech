@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Data-Oriented Programming: A link in the chain of programming paradigms | Yehonathan Sharvit</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Data-Oriented Programming: A link in the chain of programming paradigms" />
+<meta name="author" content="Yehonathan Sharvit" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Data-Oriented programming influences and how it compares with best practices from other programming paradigms." />
+<meta property="og:description" content="Data-Oriented programming influences and how it compares with best practices from other programming paradigms." />
+<meta property="og:site_name" content="Yehonathan Sharvit" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-12-10T04:45:32+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Data-Oriented Programming: A link in the chain of programming paradigms" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@Yehonathan Sharvit" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yehonathan Sharvit"},"dateModified":"2021-12-10T04:45:32+00:00","datePublished":"2021-12-10T04:45:32+00:00","description":"Data-Oriented programming influences and how it compares with best practices from other programming paradigms.","headline":"Data-Oriented Programming: A link in the chain of programming paradigms","mainEntityOfPage":{"@type":"WebPage","@id":"/databook/2021/12/10/dop-link.html"},"url":"/databook/2021/12/10/dop-link.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+
+    <!-- Site Favicon -->
+    <link rel="shortcut icon" href="/assets/favicon2.png" type="image/png" />
+
+    <!-- Font Embed Code -->
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600,600i|Karla:400,400i,700,700i" rel="stylesheet">
+
+    <!-- CSS Styles -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+</head>
+
+
+
+<body class="layout-post">
+    <div id="page" class="site">
+        <header id="masthead" class="site-header">
+    <div class="site-header-wrap">
+        <div class="site-header-inside">
+
+            <div class="site-branding">
+                
+                <p class="profile">
+                    <a href="/">
+                        <img src="/assets/images/authorimage.jpg" alt="'s Picture"
+                            class="avatar" />
+                    </a>
+                </p>
+                <div class="site-identity">
+                    
+                    <h1 class="site-title">
+                        <a href="/">Yehonathan Sharvit</a>
+                    </h1>
+                    
+                    
+                    <p class="site-description">Developer. Author. Speaker.</p>
+                    
+                </div><!-- .site-identity -->
+                
+                <button id="menu-toggle" class="menu-toggle"><span class="screen-reader-text">Main Menu</span><span
+                        class="icon-menu" aria-hidden="true"></span></button>
+            </div><!-- .site-branding -->
+
+            <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+                <div class="site-nav-wrap">
+                    <div class="site-nav-inside">
+                    <ul class="menu">
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/">Blog</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/talks">Talks</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/about">About</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/contact">Contact</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/search">Search</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/testimonials">Testimonials</a></li>
+                        
+                    </ul>
+                    <p class="social-links">
+    <a class="github-button" href="https://github.com/viebel/klipse" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    
+    <a href="https://twitter.com/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+</p>
+
+                    <div class="book-header">
+  <div>
+    Discover my book!
+  </div>
+  <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
+    <img src="/assets/dop-book.png">
+  </a>
+  <div>
+    DISCOUNT CODE: sharvit39
+  </div>
+</div>
+
+                    </div><!-- .site-nav-inside -->
+                </div><!-- .site-nav-wrap -->
+            </nav><!-- .site-navigation -->
+
+        </div><!-- .site-header-inside -->
+    </div><!-- .site-header-wrap -->
+</header><!-- .site-header -->
+
+        <div id="content" class="site-content fadeInDown delay_075s">
+            <div class="inner-wide">
+                <main id="main" class="site-main">
+
+    <article class="post-full inner">
+
+        <header class="post-header">
+            <h1 class="post-title">Data-Oriented Programming: A link in the chain of programming paradigms</h1>
+            <span class="post-meta">
+              <time class="post-date" datetime="2021-12-10">
+                December 10, 2021
+              </time>
+            </span>
+            
+            <span class="post-tags">
+                <a href="/tags/index.html#dop"
+                    rel="tag">dop</a>
+                
+            </span>
+            
+        </header><!-- .post-header -->
+
+        <div class="post-content">
+            <div id="preamble">
+<div class="sectionbody">
+<div>
+  <p>
+    This article is an excerpt from my <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7"> book </a> about <b>Data-Oriented Programming</b>.
+  </p>
+
+  <p>
+    More excerpts are available on my <a href="/data-oriented-programming-book.html">blog</a>.
+  </p>
+
+  <br>
+</div>
+<div class="paragraph">
+<p>Data-Oriented Programming is not an invention. It has its <strong>origins</strong> in the 1950s and the invention of LISP and is based on a set of <strong>best practices</strong> that can be found in both Functional Programming and Object-Oriented Programming. However, this paradigm has only been applicable in production systems at scale since the 2010s and the implementation of <strong>efficient</strong> persistent data structures.</p>
+</div>
+<div class="paragraph">
+<p>This article traces the major <strong>ideas</strong> and <strong>discoveries</strong> which, over the years, have allowed the emergence of DOP.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="timeline">Timeline</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="/uml/dop-timeline.png" alt="dop timeline">
+</div>
+</div>
+<div class="sect3">
+<h4 id="1958-lisp">1958: LISP</h4>
+<div class="paragraph">
+<p>In LISP, John McCarthy has the ingenious idea to represent <strong>data</strong> as <strong>generic immutable lists</strong> and to invent a language that makes it very <strong>natural</strong> to create lists and to access any part of a list. That&#8217;s the reason why LISP stands for LISt Processing.</p>
+</div>
+<div class="paragraph">
+<p>In as sense, LISP lists are the ancestors of JavaScript object literals. The idea that it makes sense to represent data with generic data structures (DOP Principle #2) definitely comes from LISP.</p>
+</div>
+<div class="paragraph">
+<p>The main limitation of LISP lists is that when we update a list, we need to create a new version of it by cloning it and it has a negative impact on <strong>performances</strong> both in terms of CPU and memory.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="1981-values-and-objects">1981: Values and Objects</h4>
+<div class="paragraph">
+<p>In a beautiful, short and easy-to-read paper named <a href="https://www.researchgate.net/publication/220177801_Values_and_Objects_in_Programming_Languages">Values and Objects in Programming Languages</a>, Bruce MacLennan clarifies the distinction between <strong>values</strong> and <strong>objects</strong>. In a nutshell:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Values are <strong>timeless</strong> abstractions for which the concepts of <strong>updating</strong>, <strong>sharing</strong> and <strong>instantiation</strong> have no meaning. For instance, numbers are values.</p>
+</li>
+<li>
+<p>Objects exist in <strong>time</strong> and hence can be <strong>created</strong>, <strong>destroyed</strong>, <strong>copied</strong>, <strong>shared</strong> and <strong>updated</strong>. For instance, an employee in a human resource software system is an object.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The meaning of the term <em>object</em> in this paper is not exactly the same as in the context of Object-Oriented Programming.</p>
+</div>
+<div class="paragraph">
+<p>The author explains why it&#8217;s much simpler to write code that deals with values than code that deals with objects.</p>
+</div>
+<div class="paragraph">
+<p>This paper has been a source of inspiration for Data-Oriented Programming as it encourages us to implement our systems in such a way that most of our code deals with values.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="2000-ideal-hash-trees">2000: Ideal Hash Trees</h4>
+<div class="paragraph">
+<p>Phil Bagwell invented a data structure called Hash Array Mapped Trie (HAMT). In his paper <a href="https://lampwww.epfl.ch/papers/idealhashtrees.pdf">Ideal Hash trees</a>, he used HAMT to implement hash maps with nearly ideal characteristics both in terms of <strong>computation</strong> and <strong>memory</strong> usage.</p>
+</div>
+<div class="paragraph">
+<p>HAMT and Ideal hash trees are the foundation of <strong>efficient persistent data structures</strong>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="2006-out-of-the-tar-pit">2006: Out of the Tar Pit</h4>
+<div class="paragraph">
+<p>In <a href="https://www.semanticscholar.org/paper/Out-of-the-Tar-Pit-Moseley-Marks/41dc590506528e9f9d7650c235b718014836a39d">Out of the Tar Pit</a>, Ben Moseley and Peter Marks claim that <strong>complexity</strong> is the single major difficulty in the development of large-scale software systems. In the context of their paper, complexity means what make a system <strong>hard to understand</strong>.</p>
+</div>
+<div class="paragraph">
+<p>The main insight of the authors is that most of the complexity of software systems in not essential but <strong>accidental</strong>: the complexity doesn&#8217;t come from the problem we have to solve but from the software constructs we use to solve the problem. They suggest various ways to <strong>reduce complexity</strong> of software systems.</p>
+</div>
+<div class="paragraph">
+<p>In a sense, Data-Oriented Programming is a way to get us out of the tar pit.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="2007-clojure">2007: Clojure</h4>
+<div class="paragraph">
+<p>Rich Hickey, an <strong>Object-Oriented</strong> Programming expert, invented <strong>Clojure</strong> to make it easier to develop information systems at scale. Rich Hickey likes to summarize Clojure core value with the phrase: <strong>"Just use maps!"</strong>. By maps, he means <strong>immutable</strong> maps to be manipulated <strong>efficiently</strong> by <strong>generic</strong> functions. Those maps were implemented using the data structures presented by Phil Bagwell in "Ideal Hash Trees".</p>
+</div>
+<div class="paragraph">
+<p>Clojure has been the main source of inspiration for Data-Oriented Programming. In a sense, Data-Oriented Programming is a formalization of the underlying principles of Clojure and how to apply them in other programming languages.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="2009-immutability-for-all">2009: Immutability for all</h4>
+<div class="paragraph">
+<p>Clojure&#8217;s <strong>efficient</strong> implementation of <strong>persistent data structures</strong> has been attractive for developers from other programming languages. In 2009, there were ported to Scala. Over the years, they have been <strong>ported</strong> to other <strong>programming languages</strong> either by organizations (like Facebook for Immutable.js) or by individual contributors (like Glen Peterson for Paguro in Java).</p>
+</div>
+<div class="paragraph">
+<p>Nowadays, DOP is applicable in virtually any programming language!</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dop-principles-as-best-practices">DOP principles as best practices</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="/2020/09/29/do-principles.html">principles of Data-Oriented programming are not new</a>. They come from <strong>best practices</strong> that are well-known among software developers from various programming languages. The <em>innovation</em> of Data-Oriented programming is the combination of those principles into a cohesive whole.</p>
+</div>
+<div class="paragraph">
+<p>In this section, we put each one of the 4 DOP principles into its broader scope.</p>
+</div>
+<div class="sect3">
+<h4 id="principle-1-separate-code-from-data">Principle #1: Separate code from data</h4>
+<div class="paragraph">
+<p>Separating code from data used to be the main point of <strong>tension</strong> between <strong>Object-Oriented</strong> Programming (OOP) and <strong>Functional</strong> Programming (FP). Traditionally, in OOP we <strong>encapsulate</strong> data together with code in <strong>stateful</strong> objects, while in FP we write <strong>stateless</strong> functions that receive data they manipulate as an <strong>explicit</strong> argument.</p>
+</div>
+<div class="paragraph">
+<p>This tension has been reduced over the years as it is possible in FP to write stateful functions with data encapsulated in their <a href="https://en.wikipedia.org/wiki/Scope_computer_science">lexical scope</a>. Moreover, OOP languages like Java and C# have added support for <strong>anonymous functions</strong> (lambdas).</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="principle-2-represent-data-with-generic-data-structures">Principle #2: Represent data with generic data structures</h4>
+<div class="paragraph">
+<p>One of the main innovation of <strong>JavaScript</strong> when it was released in December 1995 was the <strong>easiness</strong> to create and manipulate hash maps via <strong>object literals</strong>. The increasing <strong>popularity</strong> of JavaScript over the years as a language used everywhere (frontend, backend, desktop) has influenced the developer community to represent data with hash maps when possible. It feels more natural in <strong>dynamically-typed</strong> programming languages, it is applicable also in <strong>statically-typed</strong> programming languages.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="principle-3-data-is-immutable">Principle #3: Data is immutable</h4>
+<div class="paragraph">
+<p>Data immutability is considered as a best practice as it makes the behaviour of our program more <strong>predictable</strong>. For instance, in <a href="https://www.oreilly.com/library/view/effective-java/9780134686097">Effective Java</a>, Joshua Block mentions "Minimize mutability" as one of Java best practices.</p>
+</div>
+<div class="paragraph">
+<p>There is a famous quote from Alan Kay - who is considered by many as the inventor of Object-Oriented Programming - about the value of immutability:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>The last thing you wanted any programmer to do is mess with internal state even if presented figuratively. Instead, the objects should be presented as site of higher level behaviors more appropriate for use as dynamic components. (&#8230;&#8203;) It is unfortunate that much of what is called "object-oriented programming" today is simply old style programming with fancier constructs. Many programs are loaded with "assignment-style" operations now done by more expensive attached procedures.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>Unfortunately, until 2007 and the implementation of efficient persistent data structures in Clojure, immutability was not applicable for production applications at scale.</p>
+</div>
+<div class="paragraph">
+<p>Nowadays, efficient persistent data structures are available in most programming languages.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Language</th>
+<th class="tableblock halign-left valign-top">Library</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/GlenKPeterson/Paguro">Paguro</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C#</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://docs.microsoft.com/en-us/archive/msdn-magazine/2017/march/net-framework-immutable-collections">Provided by the language</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JavaScript</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://immutable-js.com/">Immutable.js</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Python</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/tobgu/pyrsistent">Pyrsistent</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ruby</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/hamstergem/hamster">Hamster</a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>In addition to that, many languages provide support for <strong>read-only</strong> objects natively. Java added  <a href="https://docs.oracle.com/en/java/javase/14/docs/api/java.base/java/lang/Record.html">record classes</a> in Java 14. C# introduced a <code>record</code> type in C# 9. There is a (<a href="https://github.com/tc39/proposal-record-tuple)">ECMAScript proposal) for supporting immutable records and tuples in JavaScript . Python 3.7 introduced https://docs.python.org/3/library/dataclasses.html[Immutable data classes</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="principle-4-separate-data-schema-from-data-representation">Principle #4: Separate data schema from data representation</h4>
+<div class="paragraph">
+<p>One of the more virulent <strong>critics</strong> against dynamically-typed programming languages used to be related to the lack of data validation. The answer that dynamically-typed languages used to give to this critics was that you trade data <strong>safety</strong> for data <strong>flexibility</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Since the development of <strong>data schema</strong> languages like <a href="https://json-schema.org/">JSON schema</a>, it is natural to validate data even when data is represented as hash maps.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="wrapping-up">Wrapping up</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this article, we have explored the <strong>ideas</strong> that inspired Data-Oriented Programming and the <strong>discoveries</strong> that made it applicable in production systems at <strong>scale</strong> in most programming languages.</p>
+</div>
+</div>
+</div>
+        </div>
+        <footer class="post-footer">
+            <div class="separator"></div>
+        </footer>
+    </article>
+
+    
+    <section class="newsletter-box inner">
+    <h2 class="newsletter-box-title">Subscribe to Yehonathan Sharvit newsletter</h2>
+    <p>Get the latest and greatest from Yehonathan Sharvit delivered straight to your inbox every week.</p>
+    <!-- Begin TinyLetter Signup Form -->
+    <div id="tinyletter_embed_signup">
+      <form class="validate gh-subscribe-form" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	      <label for="tlemail" class="screen-reader-text">Email Address</label>
+        <input type="email" value="" name="email" class="required email subscribe-email" placeholder="Your email address">
+	      <input type="hidden" value="1" name="embed"/>
+	      <input class="button" type="submit" value="Subscribe" />
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
+</section><!-- .widget -->
+
+    
+    <section class="read-next inner">
+        <h2 class="read-next-title">Read Next</h2>
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="October 3, 2021">October 3, 2021</time>
+                </div>
+                <h3 class="post-title"><a href="/javascript/2021/10/03/multimethod.html">Polymorphism without objects via multimethods</a>
+                </h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/javascript/'>Javascript</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="December 19, 2021">December 19, 2021</time>
+                </div>
+                <h3 class="post-title"><a href="/book/2021/12/19/100-things-I-learned-with-data-oriented-programming.html">A hundred things I learned writing my first technical book "Data-Oriented Programming"</a></h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/dop/'>Dop</a>
+                    
+                    
+                    
+                    <a href='/tag/theory/'>Theory</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+    </section><!-- .read-next -->
+
+    <!-- Create a sorted array of tags -->
+     
+    <section class="tagcloud inner">
+        <h2 class="tagcloud-title">Tags</h2>
+        <div class="tag-links">
+            
+            <a href='/tags/#aboulafia'>aboulafia</a>
+            
+            <a href='/tags/#algo'>algo</a>
+            
+            <a href='/tags/#brainfuck'>brainfuck</a>
+            
+            <a href='/tags/#c%2B%2B'>c++</a>
+            
+            <a href='/tags/#caustics'>caustics</a>
+            
+            <a href='/tags/#clojure'>clojure</a>
+            
+            <a href='/tags/#clojurescript'>clojurescript</a>
+            
+            <a href='/tags/#compiler'>compiler</a>
+            
+            <a href='/tags/#dop'>dop</a>
+            
+            <a href='/tags/#generative'>generative</a>
+            
+            <a href='/tags/#golang'>golang</a>
+            
+            <a href='/tags/#graph'>graph</a>
+            
+            <a href='/tags/#html'>html</a>
+            
+            <a href='/tags/#java'>java</a>
+            
+            <a href='/tags/#javascript'>javascript</a>
+            
+            <a href='/tags/#kabbalah'>kabbalah</a>
+            
+            <a href='/tags/#kids'>kids</a>
+            
+            <a href='/tags/#klipse'>klipse</a>
+            
+            <a href='/tags/#lambda-calculus'>lambda-calculus</a>
+            
+            <a href='/tags/#lambdacalculus'>lambdacalculus</a>
+            
+            <a href='/tags/#lisp'>lisp</a>
+            
+            <a href='/tags/#lua'>lua</a>
+            
+            <a href='/tags/#math'>math</a>
+            
+            <a href='/tags/#maths'>maths</a>
+            
+            <a href='/tags/#oblivion'>oblivion</a>
+            
+            <a href='/tags/#ocaml'>ocaml</a>
+            
+            <a href='/tags/#permutations'>permutations</a>
+            
+            <a href='/tags/#php'>php</a>
+            
+            <a href='/tags/#prolog'>prolog</a>
+            
+            <a href='/tags/#python'>python</a>
+            
+            <a href='/tags/#react'>react</a>
+            
+            <a href='/tags/#reagent'>reagent</a>
+            
+            <a href='/tags/#reasonml'>reasonml</a>
+            
+            <a href='/tags/#ruby'>ruby</a>
+            
+            <a href='/tags/#scheme'>scheme</a>
+            
+            <a href='/tags/#sql'>sql</a>
+            
+            <a href='/tags/#symmetry'>symmetry</a>
+            
+            <a href='/tags/#theory'>theory</a>
+            
+            <a href='/tags/#visualization'>visualization</a>
+            
+        </div><!-- .tag-links -->
+    </section><!-- .tagcloud -->
+</main><!-- .site-main -->
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js, [data-lang=klipse-javascript]',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+        selector_golang: '.language-klipse-go',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+
+
+
+
+
+                
+
+                
+                <footer id="colophon" class="site-footer">
+    <p class="site-info inner">
+        <a href="#">Yehonathan Sharvit</a> &copy; 2026.
+    </p>
+    <a id="back-to-top" class="back-to-top" href="#page">
+        <span class="icon-arrow-up" aria-hidden="true"></span>
+        <span class="screen-reader-text">Back to top</span>
+    </a>
+</footer><!-- .site-footer -->
+
+            </div><!-- .inner-wide -->
+        </div><!-- .site-content -->
+    </div><!-- .site -->
+
+    
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75651930-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-75651930-1', { 'anonymize_ip': true });
+  </script>
+
+    <!-- Javascript Assets -->
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/plugins.js"></script>
+    <script src="/assets/js/custom.js"></script>
+
+</body>
+
+</html>

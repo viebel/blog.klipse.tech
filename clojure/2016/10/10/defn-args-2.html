@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Custom defn macro - part 2: playing with parse trees | Yehonathan Sharvit</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="Custom defn macro - part 2: playing with parse trees" />
+<meta name="author" content="Yehonathan Sharvit" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Custom defn macro - part 2: playing with parse trees. clojure.spec live tutorial. ast. abstract syntax trees. grammars" />
+<meta property="og:description" content="Custom defn macro - part 2: playing with parse trees. clojure.spec live tutorial. ast. abstract syntax trees. grammars" />
+<meta property="og:site_name" content="Yehonathan Sharvit" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-10-10T14:04:15+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Custom defn macro - part 2: playing with parse trees" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@Yehonathan Sharvit" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yehonathan Sharvit"},"dateModified":"2016-10-10T14:04:15+00:00","datePublished":"2016-10-10T14:04:15+00:00","description":"Custom defn macro - part 2: playing with parse trees. clojure.spec live tutorial. ast. abstract syntax trees. grammars","headline":"Custom defn macro - part 2: playing with parse trees","mainEntityOfPage":{"@type":"WebPage","@id":"/clojure/2016/10/10/defn-args-2.html"},"url":"/clojure/2016/10/10/defn-args-2.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+
+    <!-- Site Favicon -->
+    <link rel="shortcut icon" href="/assets/favicon2.png" type="image/png" />
+
+    <!-- Font Embed Code -->
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600,600i|Karla:400,400i,700,700i" rel="stylesheet">
+
+    <!-- CSS Styles -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+</head>
+
+
+
+<body class="layout-post">
+    <div id="page" class="site">
+        <header id="masthead" class="site-header">
+    <div class="site-header-wrap">
+        <div class="site-header-inside">
+
+            <div class="site-branding">
+                
+                <p class="profile">
+                    <a href="/">
+                        <img src="/assets/images/authorimage.jpg" alt="'s Picture"
+                            class="avatar" />
+                    </a>
+                </p>
+                <div class="site-identity">
+                    
+                    <h1 class="site-title">
+                        <a href="/">Yehonathan Sharvit</a>
+                    </h1>
+                    
+                    
+                    <p class="site-description">Developer. Author. Speaker.</p>
+                    
+                </div><!-- .site-identity -->
+                
+                <button id="menu-toggle" class="menu-toggle"><span class="screen-reader-text">Main Menu</span><span
+                        class="icon-menu" aria-hidden="true"></span></button>
+            </div><!-- .site-branding -->
+
+            <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+                <div class="site-nav-wrap">
+                    <div class="site-nav-inside">
+                    <ul class="menu">
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/">Blog</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/talks">Talks</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/about">About</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/contact">Contact</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/search">Search</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/testimonials">Testimonials</a></li>
+                        
+                    </ul>
+                    <p class="social-links">
+    <a class="github-button" href="https://github.com/viebel/klipse" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    
+    <a href="https://twitter.com/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+</p>
+
+                    <div class="book-header">
+  <div>
+    Discover my book!
+  </div>
+  <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
+    <img src="/assets/dop-book.png">
+  </a>
+  <div>
+    DISCOUNT CODE: sharvit39
+  </div>
+</div>
+
+                    </div><!-- .site-nav-inside -->
+                </div><!-- .site-nav-wrap -->
+            </nav><!-- .site-navigation -->
+
+        </div><!-- .site-header-inside -->
+    </div><!-- .site-header-wrap -->
+</header><!-- .site-header -->
+
+        <div id="content" class="site-content fadeInDown delay_075s">
+            <div class="inner-wide">
+                <main id="main" class="site-main">
+
+    <article class="post-full inner">
+
+        <header class="post-header">
+            <h1 class="post-title">Custom defn macro - part 2: playing with parse trees</h1>
+            <span class="post-meta">
+              <time class="post-date" datetime="2016-10-10">
+                October 10, 2016
+              </time>
+            </span>
+            
+            <span class="post-tags">
+                <a href="/tags/index.html#clojure"
+                    rel="tag">clojure</a>
+                
+            </span>
+            
+        </header><!-- .post-header -->
+
+        <div class="post-content">
+            <h1 id="custom-defn">Custom defn</h1>
+
+<p>With <code class="language-plaintext highlighter-rouge">clojure.spec</code>, we can parse functions and macros arguments into kind of an Abstract Syntax Tree (AST).</p>
+
+<p>In this two-part series, we are going to show how one can write his custom <code class="language-plaintext highlighter-rouge">defn</code>-like macro, using the specs for <code class="language-plaintext highlighter-rouge">defn</code>.</p>
+
+<p>In the <a href="/clojure/2016/10/10/defn-args.html">first part</a>, we showed how one can parse the arguments of the <code class="language-plaintext highlighter-rouge">defn</code> macro, modifies the parse tree and converts it back to the format <code class="language-plaintext highlighter-rouge">defn</code> expects.</p>
+
+<p>Now, we are going to leverage this idea in order to write a couple of custom <code class="language-plaintext highlighter-rouge">defn</code> like macros:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">defndoc</code>: automatic enrichment of docstring</li>
+  <li><code class="language-plaintext highlighter-rouge">defnlog</code>: automatic logging of function calls</li>
+  <li><code class="language-plaintext highlighter-rouge">defntry</code>: automatic catching of exceptions</li>
+</ul>
+
+<p><img src="/assets/trees.jpg" alt="Trees" /></p>
+
+<p>The following pieces of code are inspired form Mark Engleberg <a href="https://github.com/Engelberg/better-cond">better-cond repo</a>.</p>
+
+<h1 id="requirements">Requirements</h1>
+
+<p>First, we have to require <code class="language-plaintext highlighter-rouge">clojure.spec</code>.</p>
+
+<p>I apologise for the fact that it takes a bit of time and might cause page scroll freeze: this is because KLIPSE loads and evaluates code from github while you are reading this article…</p>
+
+<pre><code class="language-klipse">(ns my.m$macros
+  (:require [clojure.spec.alpha :as s]))
+</code></pre>
+
+<p>As we explained in <a href="/clojure/2016/10/10/defn-args.html">the first part</a>, we have to redefine <code class="language-plaintext highlighter-rouge">::defn-args</code> - the spec for <code class="language-plaintext highlighter-rouge">defn</code> arguments.</p>
+
+<p>Feel free to skip the following code snippet - and come back to it later. The most important part is the last stament where <code class="language-plaintext highlighter-rouge">::defn-args</code> is defined.</p>
+
+<pre>
+<code class="language-klipse" data-gist-id="viebel/ab64ed95820af42b366889a872dc28ac"></code></pre>
+
+<h1 id="automatic-enrichment-of-docstring">Automatic enrichment of docstring</h1>
+
+<p>Let’s say, we want to write a <code class="language-plaintext highlighter-rouge">defn</code> like macro with a twist: the docstring will automatically contain the name of the function that is currently defined. Without <code class="language-plaintext highlighter-rouge">clojure.spec</code>, you will have to extract manually the optional docstring and reinject it into <code class="language-plaintext highlighter-rouge">defn</code>. With <code class="language-plaintext highlighter-rouge">clojure.spec</code>, we can do much better by:</p>
+
+<ol>
+  <li>Conforming the args into a tree</li>
+  <li>Modifying the docstring part of the tree</li>
+  <li>Unforming back</li>
+</ol>
+
+<p>Here is the code in action:</p>
+
+<pre><code class="language-klipse">(defmacro defndoc [&amp; args]
+  (let [conf (s/conform ::defn-args args)
+        name (:name conf)
+        new-conf (update conf :docstring #(str name " is a cool function. " %))
+        new-args (s/unform ::defn-args new-conf)]
+    (cons `defn new-args)))
+</code></pre>
+
+<p>When no docstring is provided, a docstring is created:</p>
+
+<pre><code class="language-klipse">(my.m/defndoc foo [a b] (+ a b))
+(:doc (meta #'foo))
+</code></pre>
+
+<p>When a docstring is provided, a enriched docstring is created:</p>
+
+<pre><code class="language-klipse">(my.m/defndoc foo "sum of a and b." [a b] (+ a b))
+(:doc (meta #'foo))
+</code></pre>
+
+<p>This one was pretty easy, because we only had to deal with the docstring. The next one is more challenging - as we are going to deal with the body of the function…</p>
+
+<h1 id="automatic-logging-of-function-calls">Automatic logging of function calls</h1>
+
+<p><code class="language-plaintext highlighter-rouge">defnlog</code> is going to be a macro that defines a function that print a log each time it is called.</p>
+
+<p>In other words, we are going to write a macro that modifies the body of a function. It’s pretty easy, clojure being a homoiconic language: Code is data and it can be manipulated as a regular list.</p>
+
+<p>Our first piece is going to be a function <code class="language-plaintext highlighter-rouge">prepend-log</code> that receives a body and a function name and prepend to it a call to <code class="language-plaintext highlighter-rouge">(print func-name "has been called)</code>:</p>
+
+<pre><code class="language-klipse">(defn prepend-log [name body]
+  (cons `(println ~name "has been called.") body))
+</code></pre>
+
+<p>Our second piece is a function <code class="language-plaintext highlighter-rouge">update-conf</code> that updates the body of a conformed <code class="language-plaintext highlighter-rouge">::defn-args</code>. This is a bit tricky because the shape of the confomed object is different if the function is a single-arity or a multi-arity function.</p>
+
+<p>Let’s take a look at the shape of a <code class="language-plaintext highlighter-rouge">::defn-args</code> for a single arity function:</p>
+
+<pre><code class="language-klipse">(s/conform ::defn-args '(foo [a b] (* a b)))
+</code></pre>
+
+<p>The body path is: <code class="language-plaintext highlighter-rouge">[:bs 1 :body]</code>.</p>
+
+<p>And now for a multi-arity function:</p>
+
+<pre><code class="language-klipse">(s/conform ::defn-args '(bar 
+                          ([] (* 10 12))
+                          ([a b] (* a b))))
+</code></pre>
+
+<p>The bodies path is: <code class="language-plaintext highlighter-rouge">[:bs 1 :bodies]</code>.</p>
+
+<p>Note that in both cases, the arity type is located at <code class="language-plaintext highlighter-rouge">[:bs 0]</code>.</p>
+
+<p>Let’s write <code class="language-plaintext highlighter-rouge">update-conf</code>:</p>
+
+<ul>
+  <li>In single-arity, we update the body</li>
+  <li>In multi-arity, we updtate all the bodies</li>
+</ul>
+
+<p>Note how we destructure the <code class="language-plaintext highlighter-rouge">conf</code> in order to get the arity.</p>
+
+<pre><code class="language-klipse">(defn update-conf [{[arity] :bs :as conf} body-update-fn]
+  (case arity
+    :arity-1 (update-in conf [:bs 1 :body] body-update-fn)
+    :arity-n (update-in conf [:bs 1 :bodies] (fn [bodies]
+                                               (map (fn [body] (update body :body body-update-fn)) bodies)))))
+</code></pre>
+
+<p>All the pieces are ready to write our <code class="language-plaintext highlighter-rouge">defnlog</code> macro:</p>
+
+<pre><code class="language-klipse">(defmacro defnlog [&amp; args]
+  (let [{:keys [name] :as conf} (s/conform ::defn-args args)
+        new-conf (update-conf conf (partial prepend-log  (str name)))
+        new-args (s/unform ::defn-args new-conf)]
+    (cons `defn new-args)))
+</code></pre>
+
+<p>Let’s see <code class="language-plaintext highlighter-rouge">defnlog</code> in action.</p>
+
+<p>First, we define a simple function <code class="language-plaintext highlighter-rouge">foo</code>:</p>
+
+<pre><code class="language-klipse">(my.m/defnlog foo "aa" [a b] (+ a b))
+</code></pre>
+
+<p>And when we call it, a log is printed:</p>
+
+<pre><code class="language-klipse">(with-out-str (foo [55 200]))
+</code></pre>
+
+<p>It works fine with destructuring:</p>
+
+<pre><code class="language-klipse">(my.m/defnlog baz "aa" [{:keys [a b]}] (+ a b (first c)))
+(baz {:a 55 :b 200})
+</code></pre>
+
+<pre><code class="language-klipse">(with-out-str 
+(baz {:a 55 :b 200}))
+</code></pre>
+
+<p>And also with multi-arity functions:</p>
+
+<pre><code class="language-klipse">(my.m/defnlog bar 
+  ([] (* 10 12))
+  ([a b] (* a b)))
+
+(with-out-str
+ (bar))
+</code></pre>
+
+<pre><code class="language-klipse">(with-out-str
+(bar 12 3))
+</code></pre>
+
+<h1 id="automatic-trycatch">Automatic try/catch</h1>
+
+<p>We can use exactly the same technique to create a <code class="language-plaintext highlighter-rouge">defntry</code> macro that wraps the body into a <code class="language-plaintext highlighter-rouge">try/catch</code> block - and throws an exception with the name of the function. (It is especially useful in <code class="language-plaintext highlighter-rouge">clojurescript</code> with advanced compilation where function names are not available any more at run time!)</p>
+
+<p>First, let’s write a <code class="language-plaintext highlighter-rouge">wrap-try</code> function that wraps a body into a <code class="language-plaintext highlighter-rouge">try/catch</code> block:</p>
+
+<pre><code class="language-klipse">(defn wrap-try [name body]
+  `((try ~@body
+     (catch :default ~'e
+       (throw (str "Exception caught in function " ~name ": " ~'e))))))
+</code></pre>
+
+<p>And now, the code of the <code class="language-plaintext highlighter-rouge">defntry</code> macro:</p>
+
+<pre><code class="language-klipse">(defmacro defntry [&amp; args]
+  (let [{:keys [name] :as conf} (s/conform ::defn-args args)
+        new-conf (update-conf conf (partial wrap-try  (str name)))
+        new-args (s/unform ::defn-args new-conf)]
+    (cons `defn new-args)))
+</code></pre>
+
+<p>Let’s see it in action - with a <code class="language-plaintext highlighter-rouge">kool</code> function that receives a function and calls it.</p>
+
+<pre><code class="language-klipse">(my.m/defntry kool "aa" [a] (a))
+</code></pre>
+
+<pre><code class="language-klipse">(kool #(inc 2))
+</code></pre>
+
+<p>Now, if we pass something that is not a function, we will get a nice exception with the name of the <code class="language-plaintext highlighter-rouge">kool</code> function:</p>
+
+<pre><code class="language-klipse">(kool 2)
+</code></pre>
+
+<p>So beautiful…</p>
+
+<p>And so simple…</p>
+
+<p>Clojure.spec rocks!</p>
+
+        </div>
+        <footer class="post-footer">
+            <div class="separator"></div>
+        </footer>
+    </article>
+
+    
+    <section class="newsletter-box inner">
+    <h2 class="newsletter-box-title">Subscribe to Yehonathan Sharvit newsletter</h2>
+    <p>Get the latest and greatest from Yehonathan Sharvit delivered straight to your inbox every week.</p>
+    <!-- Begin TinyLetter Signup Form -->
+    <div id="tinyletter_embed_signup">
+      <form class="validate gh-subscribe-form" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	      <label for="tlemail" class="screen-reader-text">Email Address</label>
+        <input type="email" value="" name="email" class="required email subscribe-email" placeholder="Your email address">
+	      <input type="hidden" value="1" name="embed"/>
+	      <input class="button" type="submit" value="Subscribe" />
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
+</section><!-- .widget -->
+
+    
+    <section class="read-next inner">
+        <h2 class="read-next-title">Read Next</h2>
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="October 10, 2016">October 10, 2016</time>
+                </div>
+                <h3 class="post-title"><a href="/clojure/2016/10/10/defn-args.html">Custom defn macro with clojure.spec - part 1: conform/unform</a>
+                </h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/clojure/'>Clojure</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="October 16, 2016">October 16, 2016</time>
+                </div>
+                <h3 class="post-title"><a href="/klipse/2016/10/16/klipse-is-fast.html">bootrapped (self-host) namespace loading strategy in KLIPSE - insights into the cljs compiler</a></h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/clojurescript/'>Clojurescript</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+    </section><!-- .read-next -->
+
+    <!-- Create a sorted array of tags -->
+     
+    <section class="tagcloud inner">
+        <h2 class="tagcloud-title">Tags</h2>
+        <div class="tag-links">
+            
+            <a href='/tags/#aboulafia'>aboulafia</a>
+            
+            <a href='/tags/#algo'>algo</a>
+            
+            <a href='/tags/#brainfuck'>brainfuck</a>
+            
+            <a href='/tags/#c%2B%2B'>c++</a>
+            
+            <a href='/tags/#caustics'>caustics</a>
+            
+            <a href='/tags/#clojure'>clojure</a>
+            
+            <a href='/tags/#clojurescript'>clojurescript</a>
+            
+            <a href='/tags/#compiler'>compiler</a>
+            
+            <a href='/tags/#dop'>dop</a>
+            
+            <a href='/tags/#generative'>generative</a>
+            
+            <a href='/tags/#golang'>golang</a>
+            
+            <a href='/tags/#graph'>graph</a>
+            
+            <a href='/tags/#html'>html</a>
+            
+            <a href='/tags/#java'>java</a>
+            
+            <a href='/tags/#javascript'>javascript</a>
+            
+            <a href='/tags/#kabbalah'>kabbalah</a>
+            
+            <a href='/tags/#kids'>kids</a>
+            
+            <a href='/tags/#klipse'>klipse</a>
+            
+            <a href='/tags/#lambda-calculus'>lambda-calculus</a>
+            
+            <a href='/tags/#lambdacalculus'>lambdacalculus</a>
+            
+            <a href='/tags/#lisp'>lisp</a>
+            
+            <a href='/tags/#lua'>lua</a>
+            
+            <a href='/tags/#math'>math</a>
+            
+            <a href='/tags/#maths'>maths</a>
+            
+            <a href='/tags/#oblivion'>oblivion</a>
+            
+            <a href='/tags/#ocaml'>ocaml</a>
+            
+            <a href='/tags/#permutations'>permutations</a>
+            
+            <a href='/tags/#php'>php</a>
+            
+            <a href='/tags/#prolog'>prolog</a>
+            
+            <a href='/tags/#python'>python</a>
+            
+            <a href='/tags/#react'>react</a>
+            
+            <a href='/tags/#reagent'>reagent</a>
+            
+            <a href='/tags/#reasonml'>reasonml</a>
+            
+            <a href='/tags/#ruby'>ruby</a>
+            
+            <a href='/tags/#scheme'>scheme</a>
+            
+            <a href='/tags/#sql'>sql</a>
+            
+            <a href='/tags/#symmetry'>symmetry</a>
+            
+            <a href='/tags/#theory'>theory</a>
+            
+            <a href='/tags/#visualization'>visualization</a>
+            
+        </div><!-- .tag-links -->
+    </section><!-- .tagcloud -->
+</main><!-- .site-main -->
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js, [data-lang=klipse-javascript]',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+        selector_golang: '.language-klipse-go',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+
+
+
+
+
+                
+
+                
+                <footer id="colophon" class="site-footer">
+    <p class="site-info inner">
+        <a href="#">Yehonathan Sharvit</a> &copy; 2026.
+    </p>
+    <a id="back-to-top" class="back-to-top" href="#page">
+        <span class="icon-arrow-up" aria-hidden="true"></span>
+        <span class="screen-reader-text">Back to top</span>
+    </a>
+</footer><!-- .site-footer -->
+
+            </div><!-- .inner-wide -->
+        </div><!-- .site-content -->
+    </div><!-- .site -->
+
+    
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75651930-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-75651930-1', { 'anonymize_ip': true });
+  </script>
+
+    <!-- Javascript Assets -->
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/plugins.js"></script>
+    <script src="/assets/js/custom.js"></script>
+
+</body>
+
+</html>

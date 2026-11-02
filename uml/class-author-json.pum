@@ -1,0 +1,15 @@
+@startuml
+
+AuthorJSONWrapper o-- Author
+
+class Author {
+  firstName: String
+  lastName: String
+  String fullName()
+}
+
+class AuthorJSONWrapper {
+  author: Author
+  String toJSON()
+}
+@enduml

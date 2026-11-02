@@ -1,0 +1,57 @@
+@startuml
+
+Library      *-- Catalog
+Library      *-r- "*" Librarian
+Library      *-r- "*" Member
+
+Catalog      *-- "*" Book
+
+Book         *-- "*" BookItem
+Book         "*" o--o "*" Author
+
+BookItem     *-- BookLending
+
+Member       *-- "*" BookLending
+
+object Member {
+  id : String
+  email : String
+  password : String
+}
+
+object Librarian {
+  id : String
+  email : String
+  password : String
+}
+
+object Book {
+  id : String
+  title : String
+}
+
+object Author {
+  id : String
+  fullName: String
+}
+
+object BookItem {
+  id : String
+  rackId: String
+}
+
+object BookLending {
+  id : String
+  lendingDate : date
+  dueDate : date
+}
+
+object Catalog {
+}
+
+object Library {
+  name : String
+  address : String
+}
+
+@enduml

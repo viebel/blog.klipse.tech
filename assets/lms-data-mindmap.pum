@@ -1,0 +1,13 @@
+@startmindmap
+!include SkinParam.iuml
+* Library data
+** Catalog
+*** Books
+*** Authors
+*** Book Items
+** User management
+*** Users
+*** Members
+*** Librarians
+
+@endmindmap

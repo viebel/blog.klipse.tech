@@ -1,0 +1,132 @@
+
+Endpoints    o-- Library
+Endpoints    ..> Member
+Endpoints    ..> Librarian
+Endpoints    ..> BookItem
+Endpoints    ..> Catalog
+Endpoints    ..> BookLending
+Endpoints    ..> BookItemInfo
+Endpoints    ..> LibraryInfo
+class Endpoints {
+  - library : Library
+  + Bool addBookItem(userId: String, bookItemInfo: BookItemInfo)
+  + BookLending checkoutBookItem(userId: String, bookItemId: String)
+  + Bool returnBook(userId: String, bookLendingId: String)
+  + List<Book> search(searchCriteria: String, query: String)
+  + List<BookLending> getBookLendingsOfMember(userId: String, memberId: String)
+  + List<BookItem> getBookItemsOfBook(userId: String, bookId: String)
+  + List<BookLending> getBookLendingsOfBook(userId: String, bookId: String)
+  + String login(email: String, password: String)
+  + Bool blockMember(userId: String, memberId: String)
+  + Bool unBlockMember(userId: String, memberId: String)
+  + List<Member> getMember(userId: String)
+  + LibraryInfo libraryInfo()
+}
+class BookItemInfo {
+  - bookId : String
+  - rackId : String
+  - barCode : String
+}
+
+class LibraryInfo {
+  + name : String
+  + address : String
+}
+' Consider: do we need this class?
+class EndpointsJSON {
+  + JSON addBookItem(requestJSON: JSON)
+  + JSON checkoutBookItem(requestJSON: JSON)
+  + JSON returnBook(requestJSON: JSON)
+  + JSON returnBookLending(requestJSON: JSON)
+  + JSON search(requestJSON: JSON)
+  + JSON getBookLendingsOfUser(requestJSON: JSON)
+  + JSON getBookLendingsOfBook(requestJSON: JSON)
+  + JSON login(requestJSON: JSON)
+  + JSON blockMember(requestJSON: JSON)
+  + JSON unBlockMember(requestJSON: JSON)
+  + JSON getMember(requestJSON: JSON)
+  + JSON libraryInfo(requestJSON: JSON)
+}
+@startuml
+
+Library      *-- Catalog
+Library      *-r- "*" Librarian
+Library      *-r- "*" Member
+
+Catalog      ..> Librarian
+Catalog      *-- "*" Book
+
+Book         *-- "*" BookItem
+Book         "*" o--o "*" Author
+
+BookItem     *-- BookLending
+
+Member       --> User
+Member       *-- "*" BookLending
+Member       ..> BookItem
+
+Librarian    --> User
+Librarian    ..> BookLending
+Librarian    ..> BookItem
+Librarian    ..> Member
+
+
+
+class User {
+  - id : String
+  - email : String
+  - password : String
+  + Bool login()
+}
+
+class Member {
+  + Bool isBlocked()
+  + Bool block()
+  + Bool returnBook(bookLending: BookLending)
+  + BookLending checkout(bookItem: BookItem)
+}
+
+class Librarian {
+  + Bool blockMember(member: Member)
+  + Bool UnblockMember(member: Member)
+  + BookItem addBookItem(bookItem: BookItem)
+  + List<BookLending> getBookLendingsOfMember(member: Member)
+}
+
+class Book {
+  - id : String
+  - title : String
+}
+
+class Author {
+  - id : String
+  - fullName: String
+}
+
+class BookItem {
+  - id : String
+  - rackId: String
+  + BookLending checkout(member: Member)
+}
+
+class BookLending {
+  - id : String
+  - lendingDate : date
+  - dueDate : date
+  + Bool isLate()
+  + Bool returnBook()
+}
+
+class Catalog {
+  + List<Book> search(searchCriteria, queryStr)
+  + BookItem addBookItem(librarian: Librarian, bookItem: BookItem)
+}
+
+
+class Library {
+  - name : String
+  - address : String
+}
+
+
+@enduml

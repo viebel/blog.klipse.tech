@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>re-frame interactive demo | Yehonathan Sharvit</title>
+<meta name="generator" content="Jekyll v3.9.3" />
+<meta property="og:title" content="re-frame interactive demo" />
+<meta name="author" content="Yehonathan Sharvit" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="re-frame interactive demo with Klipse. A pattern for writing SPAs in ClojureScript, using Reagent." />
+<meta property="og:description" content="re-frame interactive demo with Klipse. A pattern for writing SPAs in ClojureScript, using Reagent." />
+<meta property="og:site_name" content="Yehonathan Sharvit" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-02-17T12:33:24+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="re-frame interactive demo" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@Yehonathan Sharvit" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Yehonathan Sharvit"},"dateModified":"2019-02-17T12:33:24+00:00","datePublished":"2019-02-17T12:33:24+00:00","description":"re-frame interactive demo with Klipse. A pattern for writing SPAs in ClojureScript, using Reagent.","headline":"re-frame interactive demo","mainEntityOfPage":{"@type":"WebPage","@id":"/clojure/2019/02/17/reframe-tutorial.html"},"url":"/clojure/2019/02/17/reframe-tutorial.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+
+    <!-- Site Favicon -->
+    <link rel="shortcut icon" href="/assets/favicon2.png" type="image/png" />
+
+    <!-- Font Embed Code -->
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600,600i|Karla:400,400i,700,700i" rel="stylesheet">
+
+    <!-- CSS Styles -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+</head>
+
+
+
+<body class="layout-post">
+    <div id="page" class="site">
+        <header id="masthead" class="site-header">
+    <div class="site-header-wrap">
+        <div class="site-header-inside">
+
+            <div class="site-branding">
+                
+                <p class="profile">
+                    <a href="/">
+                        <img src="/assets/images/authorimage.jpg" alt="'s Picture"
+                            class="avatar" />
+                    </a>
+                </p>
+                <div class="site-identity">
+                    
+                    <h1 class="site-title">
+                        <a href="/">Yehonathan Sharvit</a>
+                    </h1>
+                    
+                    
+                    <p class="site-description">Developer. Author. Speaker.</p>
+                    
+                </div><!-- .site-identity -->
+                
+                <button id="menu-toggle" class="menu-toggle"><span class="screen-reader-text">Main Menu</span><span
+                        class="icon-menu" aria-hidden="true"></span></button>
+            </div><!-- .site-branding -->
+
+            <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+                <div class="site-nav-wrap">
+                    <div class="site-nav-inside">
+                    <ul class="menu">
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/">Blog</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/talks">Talks</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/about">About</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/contact">Contact</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/search">Search</a></li>
+                        
+                        
+                        
+                        <li class="menu-item "><a href="/testimonials">Testimonials</a></li>
+                        
+                    </ul>
+                    <p class="social-links">
+    <a class="github-button" href="https://github.com/viebel/klipse" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-show-count="true" aria-label="Star viebel/klipse on GitHub"></a>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    
+    <a href="https://twitter.com/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <a href="https://www.linkedin.com/in/viebel" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+<!--
+Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+    </a>
+    
+    
+    
+</p>
+
+                    <div class="book-header">
+  <div>
+    Discover my book!
+  </div>
+  <a href="https://www.manning.com/books/data-oriented-programming?utm_source=viebel&utm_medium=affiliate&utm_campaign=book_sharvit2_data_1_29_21&a_aid=viebel&a_bid=d5b546b7" style="text-decoration: none;">
+    <img src="/assets/dop-book.png">
+  </a>
+  <div>
+    DISCOUNT CODE: sharvit39
+  </div>
+</div>
+
+                    </div><!-- .site-nav-inside -->
+                </div><!-- .site-nav-wrap -->
+            </nav><!-- .site-navigation -->
+
+        </div><!-- .site-header-inside -->
+    </div><!-- .site-header-wrap -->
+</header><!-- .site-header -->
+
+        <div id="content" class="site-content fadeInDown delay_075s">
+            <div class="inner-wide">
+                <main id="main" class="site-main">
+
+    <article class="post-full inner">
+
+        <header class="post-header">
+            <h1 class="post-title">re-frame interactive demo</h1>
+            <span class="post-meta">
+              <time class="post-date" datetime="2019-02-17">
+                February 17, 2019
+              </time>
+            </span>
+            
+            <span class="post-tags">
+                <a href="/tags/index.html#clojurescript"
+                    rel="tag">clojurescript</a>
+                
+            </span>
+            
+        </header><!-- .post-header -->
+
+        <div class="post-content">
+            <h2 id="what-is-re-frame">What is re-frame?</h2>
+
+<p>re-frame is a functional framework for writing SPAs in ClojureScript, using Reagent.</p>
+
+<p>Being a functional framework, it is about two things:</p>
+
+<ol>
+  <li>data</li>
+  <li>the functions which transform that data.</li>
+</ol>
+
+<p>And, because it is a reactive framework, the “data coordinates the functions” (and not the other way around).</p>
+
+<p>re-frame is often described as  a 6-domino cascade:</p>
+
+<p>One domino triggers the next, which triggers the next, et cetera, boom, boom, boom, until we are back at the beginning of the loop, and the dominoes spring to attention again, ready for the next iteration of the same cascade.</p>
+
+<p>The six dominoes are:</p>
+
+<ol>
+  <li>Event dispatch</li>
+  <li>Event handling</li>
+  <li>Effect handling</li>
+  <li>Query</li>
+  <li>View</li>
+  <li>DOM</li>
+</ol>
+
+<p><img src="/assets/Dominoes.jpg" alt="domino" /></p>
+
+<p>The purpose of this tutorial is to explain how to write the code of a re-frame app that corresponds to those 6 dominoes.</p>
+
+<h2 id="credits">Credits</h2>
+
+<p>This article is an interactive rewrite of the <a href="https://github.com/Day8/re-frame/blob/master/docs/CodeWalkthrough.md">code walkthrough from re-frame repo</a>. It is published with the blessing of <a href="https://twitter.com/wazound">Mike Thompson</a>. Some of the details have been omitted in order to keep the article as easy to read as possible. Be sure to read also the original article to fill out all the details.</p>
+
+<p>The interactive snippets are powered by <a href="https://github.com/viebel/klipse">Klipse</a>.</p>
+
+<p>There are two kinds of Klipse snippets in this article:</p>
+
+<ol>
+  <li>regular Clojure snippets for which Klipse displays below the snippet the evaluation of the last expression of the snippet.</li>
+  <li>reagent snippets for which Klipse renders the reagent component just below the snippet as explained <a href="http://blog.klipse.tech/reagent/2016/12/31/reagent-in-klipse.html">here</a>.</li>
+</ol>
+
+<p>If you really want to become a re-frame master, take a <a href="https://www.learnreframe.com/?ref=pjksj" target="_blank">video course on re-frame</a>.</p>
+
+<h2 id="usage">Usage</h2>
+
+<p>In order to use re-frame, you have to require both <code class="language-plaintext highlighter-rouge">re-frame</code> and <code class="language-plaintext highlighter-rouge">reagent</code>:</p>
+
+<pre><code class="language-klipse">(ns simple.core
+  (:require [reagent.core :as reagent]
+            [re-frame.db :as db]
+            [re-frame.core :as rf]))
+</code></pre>
+
+<h2 id="begin-with-the-end-in-mind">Begin with the end in mind</h2>
+
+<p>The app we are going to build contains around 70 lines of code.</p>
+
+<p>This app:</p>
+
+<ol>
+  <li>displays the current time in a nice big, colourful font</li>
+  <li>provides a single text input field, into which you can type a hex colour code, like <code class="language-plaintext highlighter-rouge">#CCC</code> or <code class="language-plaintext highlighter-rouge">red</code>, used for the time display</li>
+</ol>
+
+<p>When it is running, here’s what it looks like:</p>
+
+<div id="app" class="my-container">
+</div>
+
+<h2 id="app-database">App database</h2>
+
+<p>In re-frame, there is this notion of a single app database (sometimes called store or app state) that holds all the data of our application. We call it the <code class="language-plaintext highlighter-rouge">app-db</code>. In our case, the <code class="language-plaintext highlighter-rouge">app-db</code> will contain a two-key map like this:</p>
+
+<pre><code class="language-klipse">{:time       (js/Date.)  ;; current time for display
+ :time-color "#f88"}     ;; the colour in which the time should be shown
+</code></pre>
+
+<h2 id="events-domino-1">Events (domino 1)</h2>
+
+<p>Events are data. re-frame uses a vector format for events. For example:</p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="no">:time-color-change</span><span class="w"> </span><span class="s">"red"</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The first element in the vector, <code class="language-plaintext highlighter-rouge">:time-color-change</code>, is a keyword which identifies the kind of event. The further elements are optional, and can provide additional data associated with the event. The additional value above, <code class="language-plaintext highlighter-rouge">"red"</code>, is presumably the color of the time display.</p>
+
+<blockquote>
+  <p>Rule: events are pure data. No sneaky tricks like putting callback functions on the wire. You know who you are.</p>
+</blockquote>
+
+<h1 id="dispatch">dispatch</h1>
+
+<p>To send an event, call <code class="language-plaintext highlighter-rouge">rf/dispatch</code> with the event vector as argument:</p>
+
+<pre><code class="language-klipse">"magenta"
+#_(rf/dispatch [:time-color-change "magenta"])
+</code></pre>
+
+<p>Feel free to uncomment the code snippet just above and see how the color of the time display is updated at the top of the page.</p>
+
+<h1 id="after-dispatch">After dispatch</h1>
+
+<p><code class="language-plaintext highlighter-rouge">dispatch</code> puts an event into a queue for processing.</p>
+
+<p>So, an event is not processed synchronously, like a function call. The processing happens later - asynchronously. Very soon, but not now.</p>
+
+<p>The consumer of the queue is a router which looks after the event’s processing.</p>
+
+<p>The router:</p>
+
+<ol>
+  <li>inspects the 1st element of an event vector</li>
+  <li>looks for the event handler (function) which is registered for this kind of event</li>
+  <li>calls that event handler with the necessary arguments</li>
+</ol>
+
+<p>As a re-frame app developer, your job, then, is to write and register an event handler (function) for each kind of event.</p>
+
+<h2 id="event-handlers-domino-2">Event Handlers (domino 2)</h2>
+
+<p>Collectively, event handlers provide the control logic in a re-frame application.</p>
+
+<p>In this application, 3 kinds of event are dispatched: <code class="language-plaintext highlighter-rouge">:initialize</code>, <code class="language-plaintext highlighter-rouge">:time-color-change</code> and <code class="language-plaintext highlighter-rouge">:timer</code>.</p>
+
+<p>3 events means we’ll be registering 3 event handlers.</p>
+
+<p>Event handler functions take two arguments <code class="language-plaintext highlighter-rouge">coeffects</code> and <code class="language-plaintext highlighter-rouge">event</code>, and they return effects.</p>
+
+<p>Conceptually, you can think of coeffects as being “the current state of the world”. And you can think of event handlers as computing and returning changes (effects) based on “the current state of the world” and the arriving event.</p>
+
+<p>Event handlers can be registered via either <code class="language-plaintext highlighter-rouge">reg-event-fx</code> or <code class="language-plaintext highlighter-rouge">reg-event-db</code> (<code class="language-plaintext highlighter-rouge">-fx</code> vs <code class="language-plaintext highlighter-rouge">-db</code>). Because of its simplicity, we’ll be using the latter here: <code class="language-plaintext highlighter-rouge">reg-event-db</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">reg-event-db</code> allows you to write simpler handlers for the common case where you want them to take only one coeffect - the current app state - and return one effect - the updated app state.</p>
+
+<p>Here is the syntax of <code class="language-plaintext highlighter-rouge">reg-event-db</code>:</p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nf">rf/reg-event-db</span><span class="w">
+  </span><span class="no">:the-event-id</span><span class="w">
+  </span><span class="n">the-event-handler-fn</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The handler function you provide should expect two arguments:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">db</code>, the current application state (the value contained in app-db)</li>
+  <li><code class="language-plaintext highlighter-rouge">v</code>, the event vector (what was given to dispatch)</li>
+</ol>
+
+<p>So, your function will have a signature like this: <code class="language-plaintext highlighter-rouge">(fn [db v] ...)</code>.</p>
+
+<p>Each event handler must compute and return the new state of the application, which means it returns a modified version of <code class="language-plaintext highlighter-rouge">db</code> (or an unmodified one, if there are to be no changes to the state).</p>
+
+<h3 id="initialize">:initialize</h3>
+
+<p>On startup, application state must be initialized. We want to put a sensible value into app-db, which starts out containing <code class="language-plaintext highlighter-rouge">{}</code>.</p>
+
+<p>So a <code class="language-plaintext highlighter-rouge">(dispatch [:initialize])</code> will happen early in the app’s life (more on this below), and we need to write an event handler for it.</p>
+
+<p>Now this event handler is slightly unusual because not only does it not care about any event information passed in via the event vector, but it doesn’t even care about the existing value in <code class="language-plaintext highlighter-rouge">db</code> - it just wants to plonk a completely new value:</p>
+
+<pre><code class="language-klipse">(rf/reg-event-db     ;; sets up initial application state
+ :initialize
+ (fn [_ _]           ;; the two parameters are not important here, so use _
+   {:time (js/Date.) ;; What it returns becomes the new application state
+    :time-color "orange"})) 
+nil
+</code></pre>
+
+<p>This particular handler <code class="language-plaintext highlighter-rouge">fn</code> ignores the two parameters (usually called <code class="language-plaintext highlighter-rouge">db</code> and <code class="language-plaintext highlighter-rouge">v</code>) and simply returns a map literal, which becomes the application state.</p>
+
+<p>Let’s initialize our app now, by dispatching an <code class="language-plaintext highlighter-rouge">[:initialize]</code> event that will be handled by the event handler we just wrote:</p>
+
+<pre><code class="language-klipse">(rf/dispatch-sync [:initialize]) 
+</code></pre>
+
+<h3 id="timer">:timer</h3>
+
+<p>Now, we set up a timer function to <code class="language-plaintext highlighter-rouge">(dispatch [:timer now])</code> every second:</p>
+
+<p>(We use <code class="language-plaintext highlighter-rouge">defonce</code> in order to ensure that no  more than a single timer is created.)</p>
+
+<pre><code class="language-klipse">(defn dispatch-timer-event
+  []
+  (let [now (js/Date.)]
+    (rf/dispatch [:timer now])))  ;; &lt;-- dispatch used
+
+;; call the dispatching function every second
+(defonce do-timer (js/setInterval dispatch-timer-event 1000))
+</code></pre>
+
+<p>And here’s how we handle it:</p>
+
+<pre><code class="language-klipse">(rf/reg-event-db                 ;; usage:  (rf/dispatch [:timer a-js-Date])
+  :timer
+  (fn [db [_ new-time]]          ;; &lt;-- de-structure the event vector
+    (assoc db :time new-time)))  ;; compute and return the new application state
+nil
+</code></pre>
+
+<h3 id="time-color-change">:time-color-change</h3>
+
+<p>When the user enters a new colour value a <code class="language-plaintext highlighter-rouge">:time-color-change</code> event is going to be dispatched via the view.</p>
+
+<p>Here is how we handle a <code class="language-plaintext highlighter-rouge">:time-color-change</code> event:</p>
+
+<pre><code class="language-klipse">(rf/reg-event-db
+  :time-color-change            ;; usage:  (rf/dispatch [:time-color-change 34562])
+  (fn [db [_ new-color-value]]
+    (assoc db :time-color new-color-value)))   ;; compute and return the new application state
+nil
+</code></pre>
+
+<h2 id="effect-handlers-domino-3">Effect Handlers (domino 3)</h2>
+
+<p>Domino 3 realises/puts into action the effects returned by event handlers.</p>
+
+<p>In this “simple” application, our event handlers are implicitly returning only one effect: “update application state”.</p>
+
+<p>This particular effect is accomplished by a re-frame-supplied effect handler. So, there’s nothing for us to do for this domino. We are using a standard re-frame effect handler.</p>
+
+<p>And this is not unusual. You’ll seldom have to write effect handlers…</p>
+
+<h2 id="subscription-handlers-domino-4">Subscription Handlers (domino 4)</h2>
+
+<p>Subscription handlers, or query functions, take application state as an argument and run a query over it, returning something called a “materialised view” of that application state.</p>
+
+<p>When the application state changes, subscription functions are re-run by re-frame, to compute new values (new materialised views).</p>
+
+<p>Ultimately, the data returned by query functions is used in the view functions (Domino 5).</p>
+
+<h3 id="reg-sub">reg-sub</h3>
+
+<p><code class="language-plaintext highlighter-rouge">reg-sub</code> associates a query id with a function that computes that query, like this:</p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nf">rf/reg-sub</span><span class="w">
+  </span><span class="no">:some-query-id</span><span class="w">  </span><span class="c1">;; query id (used later in subscribe)</span><span class="w">
+  </span><span class="n">a-query-fn</span><span class="p">)</span><span class="w">     </span><span class="c1">;; the function which will compute the query</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Then later, a view function (domino 5) subscribes to a query like this: <code class="language-plaintext highlighter-rouge">(subscribe [:some-query-id])</code>, and a-query-fn will be used to perform the query over the application state.</p>
+
+<p>Each time application state changes, a-query-fn will be called again to compute a new materialised view (a new computation over app state) and that new value will be given to all view functions which are subscribed to <code class="language-plaintext highlighter-rouge">:some-query-id</code>. These view functions will then be called to compute the new DOM state (because the views depend on query results which have changed).</p>
+
+<p>Along this reactive chain of dependencies, re-frame will ensure the necessary calls are made, at the right time.</p>
+
+<p>Remember that our application state is a simple Clojure map. In fact, re-frame allows us to access the app state:</p>
+
+<p>(By the way, the following code snippet is evaluated in a loop every second…)</p>
+
+<pre><code class="language-klipse" data-loop-msec="1000">
+@db/app-db
+</code></pre>
+
+<p>Returning the <code class="language-plaintext highlighter-rouge">:time-color</code> of our app state is a simple as this:</p>
+
+<pre><code class="language-klipse" data-loop-msec="1000">
+(:time-color @db/app-db)
+</code></pre>
+
+<p>Here’s the code for defining our 2 subscription handlers:</p>
+
+<pre><code class="language-klipse">(rf/reg-sub
+  :time
+  (fn [db _]     ;; db is current app state. 2nd unused param is query vector
+    (:time db))) ;; return a query computation over the application state
+
+(rf/reg-sub
+  :time-color
+  (fn [db _]
+    (:time-color db)))
+</code></pre>
+
+<p>Notice that we don’t have to <code class="language-plaintext highlighter-rouge">deref</code> the app db atom as <code class="language-plaintext highlighter-rouge">re-frame</code> passes to the subscription handlers the content of the atom.</p>
+
+<h2 id="view-functions-domino-5">View Functions (domino 5)</h2>
+
+<p>View functions turn data into DOM. They are “State in, Hiccup out” and they are Reagent components.</p>
+
+<p>An SPA will have lots of view functions, and collectively, they render the app’s entire UI.</p>
+
+<h3 id="hiccup">Hiccup</h3>
+
+<p>Hiccup is a data format for representing HTML.</p>
+
+<p>Here’s a trivial view function which returns hiccup-formatted data:</p>
+
+<pre><code class="language-klipse">(defn greet
+  []
+  [:div "Hello viewers"])  ;; means &lt;div&gt;Hello viewers&lt;/div&gt;
+</code></pre>
+
+<p>And if we call it:</p>
+
+<pre><code class="language-klipse">(greet)
+</code></pre>
+
+<pre><code class="language-klipse">(first (greet))
+</code></pre>
+
+<p>Yep, that’s a vector with two elements: a keyword and a string.</p>
+
+<p>But when we render it with reagent, it becomes a DOM element</p>
+
+<pre><code class="language-reagent">[greet]
+</code></pre>
+
+<p>Now, greet is pretty simple because it only has the “Hiccup Out” part. There’s no “Data In”.</p>
+
+<h2 id="subscribing">Subscribing</h2>
+
+<p>To render the DOM representation of some part of the app state, view functions must query for that part of <code class="language-plaintext highlighter-rouge">app-db</code>, and that means using <code class="language-plaintext highlighter-rouge">subscribe</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">subscribe</code> is always called like this:</p>
+
+<div class="language-clojure highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nf">rf/subscribe</span><span class="w">  </span><span class="p">[</span><span class="n">query-id</span><span class="w"> </span><span class="nb">some</span><span class="w"> </span><span class="n">optional</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="n">parameters</span><span class="p">])</span><span class="w">
+</span></code></pre></div></div>
+
+<p>There’s only one (global) <code class="language-plaintext highlighter-rouge">subscribe</code> function and it takes one argument, assumed to be a vector.</p>
+
+<p>The first element in the vector (shown above as query-id) identifies the query, and the other elements are optional query parameters. With a traditional database a query might be:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span> <span class="k">from</span> <span class="n">customers</span> <span class="k">WHERE</span> <span class="n">name</span><span class="o">=</span><span class="nv">"blah"</span>
+</code></pre></div></div>
+
+<p>In re-frame, that would be done as follows: <code class="language-plaintext highlighter-rouge">(subscribe [:customer-query "blah"])</code>, which would return a ratom holding the customer state (a value which might change over time!).</p>
+
+<blockquote>
+  <p>Because subscriptions return a ratom, they must always be dereferenced to obtain the value. This is a recurring trap for newbies.</p>
+</blockquote>
+
+<h2 id="the-view-functions">The View Functions</h2>
+
+<p>This view function renders the clock:</p>
+
+<pre><code class="language-klipse">(defn clock
+  []
+  [:div.example-clock
+   {:style {:color @(rf/subscribe [:time-color])}}
+   (-&gt; @(rf/subscribe [:time])
+       .toTimeString
+       (clojure.string/split " ")
+       first)])
+</code></pre>
+
+<p>As you can see, it uses <code class="language-plaintext highlighter-rouge">subscribe</code> twice to obtain two pieces of data from <code class="language-plaintext highlighter-rouge">app-db</code>. If either change, re-frame will re-run this view function.</p>
+
+<p>We can render the <code class="language-plaintext highlighter-rouge">clock</code> as any other reagent component:</p>
+
+<pre><code class="language-reagent">[clock]
+</code></pre>
+
+<p>The cool thing is that when we change the a value in our app state, the <code class="language-plaintext highlighter-rouge">clock</code> changes immediately:</p>
+
+<p>Uncomment the following <code class="language-plaintext highlighter-rouge">swap!</code> expression and see how the clock changes its color:</p>
+
+<pre><code class="language-klipse">"blue"
+#_(swap! db/app-db assoc :time-color "blue")
+</code></pre>
+
+<p>And this view function renders the input field:</p>
+
+<pre><code class="language-klipse">(defn color-input
+  []
+  [:div.color-input
+   "Time color: "
+   [:input {:type "text"
+            :value @(rf/subscribe [:time-color])        ;; subscribe
+            :on-change #(rf/dispatch [:time-color-change (-&gt; % .-target .-value)])}]])  ;; &lt;---
+</code></pre>
+
+<p>Notice how it does BOTH a <code class="language-plaintext highlighter-rouge">subscribe</code> to obtain the current value <strong>AND</strong> a <code class="language-plaintext highlighter-rouge">dispatch</code> to say when it has changed.</p>
+
+<p>It is very common for view functions to run event-dispatching functions. The user’s interaction with the UI is usually the largest source of events.</p>
+
+<p>We can render the <code class="language-plaintext highlighter-rouge">color-input</code> as any other reagent component:</p>
+
+<pre><code class="language-reagent">[color-input]
+</code></pre>
+
+<p>And then a view function to bring the others together, which contains no subscriptions or dispatching of its own:</p>
+
+<pre><code class="language-klipse">(defn ui
+  []
+  [:div.clock
+   [:h1.clock "Hello world, it is now"]
+   [clock]
+   [color-input]])
+</code></pre>
+
+<h2 id="kick-starting-the-app">Kick Starting The App</h2>
+
+<p>Below, <code class="language-plaintext highlighter-rouge">run</code> is called to kick off the application once the HTML page has loaded.</p>
+
+<p>It has two tasks:</p>
+
+<ol>
+  <li>Load the initial application state</li>
+  <li>Load the GUI by “mounting” the root-level function in the hierarchy of view functions – in our case, <code class="language-plaintext highlighter-rouge">ui</code> – onto an existing DOM element.</li>
+</ol>
+
+<pre><code class="language-klipse">(defn run
+  []
+  (rf/dispatch-sync [:initialize])  ;; puts a value into application state
+  (reagent.dom/render [ui]   ;; mount the application's ui into '&lt;div id="app" /&gt;'
+                  (js/document.getElementById "app")))
+</code></pre>
+
+<p>After <code class="language-plaintext highlighter-rouge">run</code> is called, the app passively waits for events. Nothing happens without an event.</p>
+
+<pre><code class="language-klipse">(run)
+</code></pre>
+
+<p>The <code class="language-plaintext highlighter-rouge">run</code> function renders the app in the DOM element whose id is <code class="language-plaintext highlighter-rouge">app</code>: this DOM element is located at the top of the page. This is the element we used to show how the app looks like at the begining of the article.</p>
+
+<p>Because I know you are too lazy to scroll up till the begining of the article, I decided to render the whole app as a reagent element, just here:</p>
+
+<pre><code class="language-reagent">[ui]
+</code></pre>
+
+<p>When it comes to establishing initial application state, you’ll notice the use of <code class="language-plaintext highlighter-rouge">dispatch-sync</code>, rather than <code class="language-plaintext highlighter-rouge">dispatch</code>. This is a simplifying cheat which ensures that a correct structure exists in <code class="language-plaintext highlighter-rouge">app-db</code> before any subscriptions or event handlers run.</p>
+
+<p>I hope you enjoyed this interactive tutorial and got a better understanding about how to write a re-frame application.</p>
+
+<p>But if you really want to become a re-frame master, take a <a href="https://www.learnreframe.com/?ref=pjksj" target="_blank">video course on re-frame</a>.</p>
+
+<p>If you liked this article, you might also like my book…</p>
+
+<style>
+.my-container {
+border: solid 1px blue;
+padding: 20px;
+}
+
+div.clock, h1.clock, input {
+    font-family: HelveticaNeue, Helvetica;
+    color: #777;
+}
+
+.example-clock {
+    font-size: 90px;
+    line-height: 1.2em;
+    font-family: HelveticaNeue-UltraLight, Helvetica;
+}
+
+@media (max-width: 768px) {
+    .example-clock {
+        font-size: 64px;
+    }
+}
+
+.color-input, .color-input input {
+    font-size: 18px;
+    line-height: 1.5em;
+}
+</style>
+
+
+        </div>
+        <footer class="post-footer">
+            <div class="separator"></div>
+        </footer>
+    </article>
+
+    
+    <section class="newsletter-box inner">
+    <h2 class="newsletter-box-title">Subscribe to Yehonathan Sharvit newsletter</h2>
+    <p>Get the latest and greatest from Yehonathan Sharvit delivered straight to your inbox every week.</p>
+    <!-- Begin TinyLetter Signup Form -->
+    <div id="tinyletter_embed_signup">
+      <form class="validate gh-subscribe-form" action="https://tinyletter.com/klipse" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/klipse', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+	      <label for="tlemail" class="screen-reader-text">Email Address</label>
+        <input type="email" value="" name="email" class="required email subscribe-email" placeholder="Your email address">
+	      <input type="hidden" value="1" name="embed"/>
+	      <input class="button" type="submit" value="Subscribe" />
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
+</section><!-- .widget -->
+
+    
+    <section class="read-next inner">
+        <h2 class="read-next-title">Read Next</h2>
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="February 4, 2019">February 4, 2019</time>
+                </div>
+                <h3 class="post-title"><a href="/clojure/2019/02/04/clojuscript-1.10.516.html">Welcome Clojurescript 1.10.516</a>
+                </h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/clojurescript/'>Clojurescript</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+        
+        <article class="post">
+            <header class="post-header">
+                <div class="post-meta">
+                    <time class="published" datetime="March 8, 2019">March 8, 2019</time>
+                </div>
+                <h3 class="post-title"><a href="/clojure/2019/03/08/spec-custom-defn.html">Custom defn macros with clojure.spec</a></h3>
+                <p class="post-tags">
+                    
+                    
+                    
+                    <a href='/tag/clojure/'>Clojure</a>
+                    
+                    
+                    
+                </p>
+            </header>
+        </article>
+        
+    </section><!-- .read-next -->
+
+    <!-- Create a sorted array of tags -->
+     
+    <section class="tagcloud inner">
+        <h2 class="tagcloud-title">Tags</h2>
+        <div class="tag-links">
+            
+            <a href='/tags/#aboulafia'>aboulafia</a>
+            
+            <a href='/tags/#algo'>algo</a>
+            
+            <a href='/tags/#brainfuck'>brainfuck</a>
+            
+            <a href='/tags/#c%2B%2B'>c++</a>
+            
+            <a href='/tags/#caustics'>caustics</a>
+            
+            <a href='/tags/#clojure'>clojure</a>
+            
+            <a href='/tags/#clojurescript'>clojurescript</a>
+            
+            <a href='/tags/#compiler'>compiler</a>
+            
+            <a href='/tags/#dop'>dop</a>
+            
+            <a href='/tags/#generative'>generative</a>
+            
+            <a href='/tags/#golang'>golang</a>
+            
+            <a href='/tags/#graph'>graph</a>
+            
+            <a href='/tags/#html'>html</a>
+            
+            <a href='/tags/#java'>java</a>
+            
+            <a href='/tags/#javascript'>javascript</a>
+            
+            <a href='/tags/#kabbalah'>kabbalah</a>
+            
+            <a href='/tags/#kids'>kids</a>
+            
+            <a href='/tags/#klipse'>klipse</a>
+            
+            <a href='/tags/#lambda-calculus'>lambda-calculus</a>
+            
+            <a href='/tags/#lambdacalculus'>lambdacalculus</a>
+            
+            <a href='/tags/#lisp'>lisp</a>
+            
+            <a href='/tags/#lua'>lua</a>
+            
+            <a href='/tags/#math'>math</a>
+            
+            <a href='/tags/#maths'>maths</a>
+            
+            <a href='/tags/#oblivion'>oblivion</a>
+            
+            <a href='/tags/#ocaml'>ocaml</a>
+            
+            <a href='/tags/#permutations'>permutations</a>
+            
+            <a href='/tags/#php'>php</a>
+            
+            <a href='/tags/#prolog'>prolog</a>
+            
+            <a href='/tags/#python'>python</a>
+            
+            <a href='/tags/#react'>react</a>
+            
+            <a href='/tags/#reagent'>reagent</a>
+            
+            <a href='/tags/#reasonml'>reasonml</a>
+            
+            <a href='/tags/#ruby'>ruby</a>
+            
+            <a href='/tags/#scheme'>scheme</a>
+            
+            <a href='/tags/#sql'>sql</a>
+            
+            <a href='/tags/#symmetry'>symmetry</a>
+            
+            <a href='/tags/#theory'>theory</a>
+            
+            <a href='/tags/#visualization'>visualization</a>
+            
+        </div><!-- .tag-links -->
+    </section><!-- .tagcloud -->
+</main><!-- .site-main -->
+
+
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css">
+<link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/prolog.css">
+
+<script>
+    window.klipse_settings = {
+        codemirror_options_in: {
+            lineWrapping: true,
+            autoCloseBrackets: true
+        },
+        codemirror_options_out: {
+            lineWrapping: true
+        },
+        beautify_strings: true,
+
+        selector: '.language-klipse, .language-eval-clj',
+        selector_eval_js: '.language-klipse-eval-js, .language-eval-js, [data-lang=klipse-javascript]',
+        selector_jsx: '.language-klipse-jsx',
+        selector_prolog_rules: '.language-prolog-rules',
+        selector_prolog_query: '.language-prolog-query',
+        selector_render_jsx: '.language-render-jsx',
+        selector_es2017: '.language-es2017',
+        selector_brainfuck: '.language-brainfuck',
+        selector_transpile_jsx: '.language-transpile-jsx',
+        selector_eval_php: '.language-klipse-eval-php',
+        selector_eval_markdown: '.language-klipse-markdown',
+        selector_eval_lambdaway: '.language-klipse-lambdaway',
+        selector_eval_python_client: '.language-klipse-python, .language-eval-python',
+        selector_eval_html: '.language-klipse-html',
+        selector_sql: '.language-klipse-sql',
+        selector_eval_ruby: '.language-klipse-eval-ruby, .language-eval-ruby',
+        selector_eval_scheme: '.language-klipse-scheme, .language-eval-scheme',
+        selector_eval_clisp: '.language-klipse-clisp',    
+        selector_eval_cpp: '.language-klipse-cpp',
+        selector_google_charts: '.language-google-chart',
+        selector_plot: '.language-plot',
+        selector_oblivion: '.language-oblivion',
+        selector_lua: '.language-klipse-lua',
+        selector_js: '.language-klipse-js',
+        selector_eval_ocaml: '.language-klipse-ocaml',
+        selector_transpile_ocaml: '.language-transpile-ocaml',
+        selector_transpile_reason_3: '.language-transpile-reason',
+        selector_transpile_reason_3_to_ocaml: '.language-transpile-reason-to-ocaml',
+        selector_eval_reason_3: '.language-klipse-reason',
+        selector_eval_reason_3_with_types: '.language-klipse-reason-types',
+        selector_eval_ocaml_with_types: '.language-klipse-ocaml-types',
+        selector_ocaml_to_reason: '.language-ocaml-to-reason',
+        selector_reagent: '.language-reagent',
+        selector_golang: '.language-klipse-go',
+    };
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+</script>
+
+
+
+<script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js?v=8.0.1"></script>
+
+
+
+
+
+                
+
+                
+                <footer id="colophon" class="site-footer">
+    <p class="site-info inner">
+        <a href="#">Yehonathan Sharvit</a> &copy; 2026.
+    </p>
+    <a id="back-to-top" class="back-to-top" href="#page">
+        <span class="icon-arrow-up" aria-hidden="true"></span>
+        <span class="screen-reader-text">Back to top</span>
+    </a>
+</footer><!-- .site-footer -->
+
+            </div><!-- .inner-wide -->
+        </div><!-- .site-content -->
+    </div><!-- .site -->
+
+    
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75651930-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-75651930-1', { 'anonymize_ip': true });
+  </script>
+
+    <!-- Javascript Assets -->
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/plugins.js"></script>
+    <script src="/assets/js/custom.js"></script>
+
+</body>
+
+</html>
