@@ -31,13 +31,13 @@ In 1984 the mathematician Shimon Zaks published [*A new algorithm for generation
 
 Here is the order his rule produces for three letters, each link labelled by the length `k` of the suffix it reverses:
 
-<p align="center"><img src="/assets/Tserouf_abc_numbers.png" alt="The order Zaks's rule produces for three letters, each link labelled by the suffix length reversed" width="30%"></p>
+<p align="center"><img src="/assets/tserouf_abc_numbers.png" alt="The order Zaks's rule produces for three letters, each link labelled by the suffix length reversed" width="30%"></p>
 
 The lengths form a clean, regular beat: **2, 3, 2, 3, 2**. Reverse the last two letters, then all three, then the last two, then all three, then the last two. That short list of numbers *is* Zaks's whole ordering of three letters.
 
 Now four:
 
-<p align="center"><img src="/assets/Tserouf_abcd_numbers.png" alt="The order Zaks's rule produces for four letters, each link labelled by the suffix length reversed" width="100%"></p>
+<p align="center"><img src="/assets/tserouf_abcd_numbers.png" alt="The order Zaks's rule produces for four letters, each link labelled by the suffix length reversed" width="100%"></p>
 
 Look at what happened. Each of the four rows is **the three-letter pattern, unchanged** — `2, 3, 2, 3, 2` — and the rows are stitched together by a single `4`.
 
